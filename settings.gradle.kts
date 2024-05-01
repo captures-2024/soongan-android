@@ -21,3 +21,9 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "soongan"
+include(":app")
+
+include(
+    ":core:analytics",
+    ":core:designSystem",
+)
