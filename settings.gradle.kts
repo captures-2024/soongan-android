@@ -26,4 +26,7 @@ include(":app")
 include(
     ":core:analytics",
     ":core:designSystem",
+    ":core:data",
+    ":core:domain",
+    ":core:model"
 )

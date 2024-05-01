@@ -24,6 +24,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.captures2024.soongan.R
+import com.captures2024.soongan.core.data.util.NetworkMonitor
 import com.captures2024.soongan.core.designsystem.component.SoonGanBackground
 import com.captures2024.soongan.navigation.SoonGanNavHost
 

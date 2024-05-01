@@ -19,6 +19,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.captures2024.soongan.core.analytics.AnalyticsHelper
 import com.captures2024.soongan.core.analytics.LocalAnalyticsHelper
+import com.captures2024.soongan.core.data.util.NetworkMonitor
 import com.captures2024.soongan.core.designsystem.theme.SoonGanTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect

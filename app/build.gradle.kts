@@ -51,6 +51,9 @@ dependencies {
     //region core module
     implementation(project(":core:analytics"))
     implementation(project(":core:designSystem"))
+    implementation(project(":core:data"))
+    implementation(project(":core:domain"))
+    implementation(project(":core:model"))
     //endregion
 
     //region feature module
