@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         google {
             content {
@@ -21,4 +22,11 @@ dependencyResolutionManagement {
 
 rootProject.name = "soongan"
 include(":app")
- 
+
+include(
+    ":core:analytics",
+    ":core:designSystem",
+    ":core:data",
+    ":core:domain",
+    ":core:model"
+)

@@ -1,69 +1,64 @@
 plugins {
-    alias(libs.plugins.androidApplication)
-    alias(libs.plugins.jetbrainsKotlinAndroid)
+    captures("application")
+    captures("compose")
+    captures("test")
 }
 
 android {
-    namespace = "com.example.soongan"
-    compileSdk = 34
+    namespace = "com.captures2024.soongan"
 
     defaultConfig {
-        applicationId = "com.example.soongan"
-        minSdk = 26
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
+        applicationId = "com.captures2024.soongan"
+        versionCode = libs.versions.versionCode.get().toInt()
+        versionName = libs.versions.appVersion.get()
     }
 
+//    signingConfigs {
+//        getByName("debug") {
+//            keyAlias = "android_debug_key"
+//            keyPassword = "android"
+//            storeFile = File("${project.rootDir.absolutePath}/keystore/debug.keystore")
+//            storePassword = "android"
+//        }
+//        create("release") {
+//            keyAlias = properties.getProperty("keyAlias")
+//            keyPassword = properties.getProperty("keyPassword")
+//            storeFile = File("${project.rootDir.absolutePath}/keystore/release.keystore.jks")
+//            storePassword = properties.getProperty("storePassword")
+//        }
+//    }
+
     buildTypes {
+        debug {
+            isDebuggable = true
+//            signingConfig = signingConfigs.getByName("debug")
+        }
         release {
+//            isMinifyEnabled = true
+//            isShrinkResources = true
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
-    }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+//            signingConfig = signingConfigs.getByName("release")
         }
     }
 }
 
 dependencies {
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.ui)
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
+    //region core module
+    implementation(project(":core:analytics"))
+    implementation(project(":core:designSystem"))
+    implementation(project(":core:data"))
+    implementation(project(":core:domain"))
+    implementation(project(":core:model"))
+    //endregion
+
+    //region feature module
+
+    //endregion
+
+    implementation(libs.splash.screen)
 }
