@@ -1,7 +1,12 @@
 package com.captures2024.soongan.navigation
 
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.compose.NavHost
+import com.captures2024.soongan.feature.signIn.navigation.SIGN_IN_NAVIGATION_ROUTE
+import com.captures2024.soongan.feature.signIn.navigation.signIn
 import com.captures2024.soongan.ui.SoonGanAppState
 
 @Composable
@@ -12,16 +17,19 @@ fun SoonGanNavHost(
 ) {
     val navController = appState.navController
 
-//    NavHost(
-//        modifier = modifier,
-//        navController = navController,
-//        startDestination = ,
-//        enterTransition = { EnterTransition.None },
-//        exitTransition = { ExitTransition.None },
-//        popEnterTransition = { EnterTransition.None },
-//        popExitTransition = { ExitTransition.None }
-//    ) {
-//
-//    }
+    NavHost(
+        modifier = modifier,
+        navController = navController,
+        startDestination = SIGN_IN_NAVIGATION_ROUTE,
+        enterTransition = { EnterTransition.None },
+        exitTransition = { ExitTransition.None },
+        popEnterTransition = { EnterTransition.None },
+        popExitTransition = { ExitTransition.None }
+    ) {
+        signIn(
+            navigateToSignUp = {},
+            navigateToMain = {}
+        )
+    }
 
 }

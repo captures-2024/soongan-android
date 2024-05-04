@@ -1,0 +1,8 @@
+<resources>
+    <string name="terms_text_first">계속하시면&#160;</string>
+    <string name="terms_text_second">&#160;및&#160;</string>
+    <string name="terms_text_third">&#160;에 동의하시게 됩니다.</string>
+    <string name="terms_of_use">이용약관</string>
+    <string name="privacy_policy">개인보호 정책</string>
+    <string name="gesture_looking">둘러보기</string>
+</resources>
