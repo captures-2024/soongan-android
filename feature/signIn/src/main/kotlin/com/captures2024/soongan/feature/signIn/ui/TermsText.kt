@@ -1,6 +1,5 @@
 package com.captures2024.soongan.feature.signIn.ui
 
-import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.runtime.Composable
@@ -16,7 +15,10 @@ import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.signIn.R
 
 @Composable
-internal fun TermsText() {
+internal fun TermsText(
+    onClickTermsOfUse: () -> Unit,
+    onClickPrivacyPolicy: () -> Unit
+) {
     val text = buildAnnotatedString {
         withStyle(
             style = NonScaleSpanStyle(
@@ -75,16 +77,14 @@ internal fun TermsText() {
                     start = offset,
                     end = offset
                 ).firstOrNull()?.let {
-                    // on click operation here
-                    Log.d("TermsText", "onclick termsOfUse")
+                    onClickTermsOfUse()
                 }
                 text.getStringAnnotations(
                     tag = "privacyPolicy",
                     start = offset,
                     end = offset
                 ).firstOrNull()?.let {
-                    // on click operation here
-                    Log.d("TermsText", "onclick privacyPolicy")
+                    onClickPrivacyPolicy()
                 }
             }
         )
@@ -94,5 +94,8 @@ internal fun TermsText() {
 @DevicePreviews
 @Composable
 private fun TermsTextPreview() {
-    TermsText()
+    TermsText(
+        onClickTermsOfUse = {},
+        onClickPrivacyPolicy = {}
+    )
 }
