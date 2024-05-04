@@ -4,6 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
+import com.captures2024.soongan.feature.signIn.route.PrivacyPolicyRoute
 import com.captures2024.soongan.feature.signIn.route.SignInRoute
 import com.captures2024.soongan.feature.signIn.route.TermsOfUseRoute
 
@@ -39,6 +40,6 @@ fun NavGraphBuilder.signIn(
         TermsOfUseRoute(navigateToBack = navigateToBack)
     }
     composable(route = PRIVACY_POLICY_NAVIGATION_ROUTE) {
-
+        PrivacyPolicyRoute(navigateToBack = navigateToBack)
     }
 }
