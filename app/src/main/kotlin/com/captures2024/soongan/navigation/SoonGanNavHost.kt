@@ -6,6 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import com.captures2024.soongan.feature.signIn.navigation.SIGN_IN_NAVIGATION_ROUTE
+import com.captures2024.soongan.feature.signIn.navigation.navigateToPrivacyPolicy
+import com.captures2024.soongan.feature.signIn.navigation.navigateToTermsOfUse
 import com.captures2024.soongan.feature.signIn.navigation.signIn
 import com.captures2024.soongan.ui.SoonGanAppState
 
@@ -27,8 +29,11 @@ fun SoonGanNavHost(
         popExitTransition = { ExitTransition.None }
     ) {
         signIn(
+            navigateToBack = navController::popBackStack,
             navigateToSignUp = {},
-            navigateToMain = {}
+            navigateToMain = {},
+            navigateToTermsOfUse = navController::navigateToTermsOfUse,
+            navigateToPrivacyPolicy = navController::navigateToPrivacyPolicy
         )
     }
 

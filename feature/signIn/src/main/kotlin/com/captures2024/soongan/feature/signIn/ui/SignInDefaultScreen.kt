@@ -15,6 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavOptions
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.signIn.R
@@ -24,16 +25,23 @@ internal fun SignInDefaultScreen(
     modifier: Modifier = Modifier,
     onClickGoogleSignIn: () -> Unit,
     onClickKakaoSignIn: () -> Unit,
-    onClickTermsOfUse: () -> Unit,
-    onClickPrivacyPolicy: () -> Unit
+    navigateToTermsOfUse: (NavOptions) -> Unit,
+    navigateToPrivacyPolicy: (NavOptions) -> Unit,
 ) {
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(horizontal = 16.dp),
+            .padding(all = 16.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        NonScaleText(
+            text = "SoonGan",
+            color = Color.White,
+            fontSize = 60.sp,
+            fontWeight = FontWeight(500)
+        )
+        Spacer(modifier = Modifier.height(32.dp))
         SocialSignInButton(text = "Social Sign In") {
             /* TODO */
         }
@@ -49,8 +57,14 @@ internal fun SignInDefaultScreen(
         )
         Spacer(modifier = Modifier.height(16.dp))
         TermsText(
-            onClickTermsOfUse = onClickTermsOfUse,
-            onClickPrivacyPolicy = onClickPrivacyPolicy
+            onClickTermsOfUse = {
+                val options = NavOptions.Builder().build()
+                navigateToTermsOfUse(options)
+            },
+            onClickPrivacyPolicy = {
+                val options = NavOptions.Builder().build()
+                navigateToPrivacyPolicy(options)
+            }
         )
         Spacer(modifier = Modifier.height(24.dp))
         NonScaleText(
@@ -72,7 +86,7 @@ private fun SignInDefaultScreenPreview() {
     SignInDefaultScreen(
         onClickGoogleSignIn = {},
         onClickKakaoSignIn = {},
-        onClickTermsOfUse = {},
-        onClickPrivacyPolicy = {},
+        navigateToTermsOfUse = {},
+        navigateToPrivacyPolicy = {}
     )
 }

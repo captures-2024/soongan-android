@@ -36,26 +36,6 @@ constructor(
         _uiState.value = SignInState.Loading
     }
 
-    fun onClickTermsOfUse() {
-        val currentState = _uiState.value
-
-        if (currentState !is SignInState.Init) {
-            return
-        }
-
-        _uiState.value = SignInState.TermsOfUse
-    }
-
-    fun onClickPrivacyPolicy() {
-        val currentState = _uiState.value
-
-        if (currentState !is SignInState.Init) {
-            return
-        }
-
-        _uiState.value = SignInState.PrivacyPolicy
-    }
-
     companion object {
         private const val TAG = "SignInVM"
     }
@@ -68,8 +48,6 @@ constructor(
  * @property SuccessSignIn 로그인이 성공한 상태
  * @property Home 홈으로 이동 시키는 경우의 상태
  * @property SignUp 회원가입으로 이동 시키는 경우의 상태
- * @property TermsOfUse 이용 약관으로 이동 시키는 경우의 상태
- * @property PrivacyPolicy 개인정보 보호정책으로 이동 시키는 경우의 상태
  **/
 sealed interface SignInState {
     data object Init : SignInState
@@ -81,8 +59,4 @@ sealed interface SignInState {
     data object Home : SignInState
 
     data object SignUp : SignInState
-
-    data object TermsOfUse : SignInState
-
-    data object PrivacyPolicy : SignInState
 }
