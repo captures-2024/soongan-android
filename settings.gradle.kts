@@ -30,3 +30,7 @@ include(
     ":core:domain",
     ":core:model"
 )
+
+include(
+    ":feature:signIn",
+)

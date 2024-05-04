@@ -57,7 +57,7 @@ dependencies {
     //endregion
 
     //region feature module
-
+    implementation(project(":feature:signIn"))
     //endregion
 
     implementation(libs.splash.screen)
