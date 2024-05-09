@@ -1,4 +1,4 @@
-package com.captures2024.soongan.ui
+package com.captures2024.soongan.feature.intro.ui
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,10 +23,10 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.captures2024.soongan.R
-import com.captures2024.soongan.core.data.util.NetworkMonitor
+import com.captures2024.soongan.core.analytics.NetworkMonitor
+import com.captures2024.soongan.core.design.R
 import com.captures2024.soongan.core.designsystem.component.SoonGanBackground
-import com.captures2024.soongan.navigation.SoonGanNavHost
+import com.captures2024.soongan.feature.intro.navigation.SoonGanNavHost
 
 @Composable
 fun SoonGanApp(

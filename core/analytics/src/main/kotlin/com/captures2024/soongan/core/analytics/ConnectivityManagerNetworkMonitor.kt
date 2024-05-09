@@ -1,4 +1,4 @@
-package com.captures2024.soongan.core.data.util
+package com.captures2024.soongan.core.analytics
 
 import android.content.Context
 import android.net.ConnectivityManager
@@ -28,6 +28,15 @@ internal class ConnectivityManagerNetworkMonitor @Inject constructor(
          * The callback's methods are invoked on changes to *any* network matching the [NetworkRequest],
          * not just the active network. So we can simply track the presence (or absence) of such [Network].
          */
+
+        /**
+         * The callback's methods are invoked on changes to *any* network matching the [NetworkRequest],
+         * not just the active network. So we can simply track the presence (or absence) of such [Network].
+         */
+        /**
+         * The callback's methods are invoked on changes to *any* network matching the [NetworkRequest],
+         * not just the active network. So we can simply track the presence (or absence) of such [Network].
+         */
         /**
          * The callback's methods are invoked on changes to *any* network matching the [NetworkRequest],
          * not just the active network. So we can simply track the presence (or absence) of such [Network].
@@ -51,6 +60,14 @@ internal class ConnectivityManagerNetworkMonitor @Inject constructor(
             .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
             .build()
         connectivityManager.registerNetworkCallback(request, callback)
+
+        /**
+         * Sends the latest connectivity status to the underlying channel.
+         */
+
+        /**
+         * Sends the latest connectivity status to the underlying channel.
+         */
 
         /**
          * Sends the latest connectivity status to the underlying channel.

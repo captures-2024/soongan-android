@@ -1,5 +1,6 @@
-package com.captures2024.soongan.ui
+package com.captures2024.soongan.feature.intro
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
@@ -12,66 +13,42 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import com.captures2024.soongan.core.analytics.AnalyticsHelper
 import com.captures2024.soongan.core.analytics.LocalAnalyticsHelper
-import com.captures2024.soongan.core.data.util.NetworkMonitor
+import com.captures2024.soongan.core.analytics.NetworkMonitor
 import com.captures2024.soongan.core.designsystem.theme.SoonGanTheme
+import com.captures2024.soongan.feature.intro.ui.SoonGanApp
+import com.captures2024.soongan.feature.intro.viewmodel.IntroActivityUiState
+import com.captures2024.soongan.feature.intro.viewmodel.IntroActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+class IntroActivity : ComponentActivity() {
+
     @Inject
     lateinit var analyticsHelper: AnalyticsHelper
 
     @Inject
     lateinit var networkMonitor: NetworkMonitor
 
-    private val viewModel: MainActivityViewModel by viewModels()
+    private val viewModel: IntroActivityViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val splashScreen = installSplashScreen()
+        installSplashScreen()
         super.onCreate(savedInstanceState)
 
-        var uiState: MainActivityUiState by mutableStateOf(MainActivityUiState.Loading)
-
-        // Update the uiState
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiState
-                    .onEach { uiState = it }
-                    .collect()
-            }
-        }
-
-        splashScreen.setKeepOnScreenCondition {
-            when (uiState) {
-                MainActivityUiState.Loading -> true
-                MainActivityUiState.Success -> false
-            }
-        }
+        val uiState: IntroActivityUiState by mutableStateOf(IntroActivityUiState.Loading)
 
         setContent {
             val darkTheme = shouldUseDarkTheme(uiState)
 
-            // Update the edge to edge configuration to match the theme
-            // This is the same parameters as the default enableEdgeToEdge call, but we manually
-            // resolve whether or not to show dark theme using uiState, since it can be different
-            // than the configuration's dark theme value based on the user preference.
             DisposableEffect(darkTheme) {
                 enableEdgeToEdge(
                     statusBarStyle = SystemBarStyle.auto(
-                        android.graphics.Color.TRANSPARENT,
-                        android.graphics.Color.TRANSPARENT,
+                        Color.TRANSPARENT,
+                        Color.TRANSPARENT,
                     ) { darkTheme },
                     navigationBarStyle = SystemBarStyle.auto(
                         lightScrim,
@@ -84,13 +61,14 @@ class MainActivity : ComponentActivity() {
             CompositionLocalProvider(LocalAnalyticsHelper provides analyticsHelper) {
                 SoonGanTheme(
                     darkTheme = darkTheme,
-                    androidTheme = shouldUseAndroidTheme(uiState),
+                    androidTheme = shouldUseAndroidThmee(uiState),
                     disableDynamicTheming = shouldDisableDynamicTheming(uiState),
                 ) {
                     SoonGanApp(networkMonitor = networkMonitor)
                 }
             }
         }
+
     }
 
 }
@@ -99,11 +77,11 @@ class MainActivity : ComponentActivity() {
  * Returns `true` if the Android theme should be used, as a function of the [uiState].
  */
 @Composable
-private fun shouldUseAndroidTheme(
-    uiState: MainActivityUiState,
+private fun shouldUseAndroidThmee(
+    uiState: IntroActivityUiState,
 ): Boolean = when (uiState) {
-    MainActivityUiState.Loading -> false
-    MainActivityUiState.Success -> false
+    IntroActivityUiState.Loading -> false
+    IntroActivityUiState.Success -> false
 }
 
 /**
@@ -111,10 +89,10 @@ private fun shouldUseAndroidTheme(
  */
 @Composable
 private fun shouldDisableDynamicTheming(
-    uiState: MainActivityUiState,
+    uiState: IntroActivityUiState,
 ): Boolean = when (uiState) {
-    MainActivityUiState.Loading -> false
-    MainActivityUiState.Success -> false
+    IntroActivityUiState.Loading -> false
+    IntroActivityUiState.Success -> false
 }
 
 
@@ -124,20 +102,20 @@ private fun shouldDisableDynamicTheming(
  */
 @Composable
 private fun shouldUseDarkTheme(
-    uiState: MainActivityUiState,
+    uiState: IntroActivityUiState,
 ): Boolean = when (uiState) {
-    MainActivityUiState.Loading -> isSystemInDarkTheme()
-    MainActivityUiState.Success -> isSystemInDarkTheme()
+    IntroActivityUiState.Loading -> isSystemInDarkTheme()
+    IntroActivityUiState.Success -> isSystemInDarkTheme()
 }
 
 /**
  * The default light scrim, as defined by androidx and the platform:
  * https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:activity/activity/src/main/java/androidx/activity/EdgeToEdge.kt;l=35-38;drc=27e7d52e8604a080133e8b842db10c89b4482598
  */
-private val lightScrim = android.graphics.Color.argb(0xe6, 0xFF, 0xFF, 0xFF)
+private val lightScrim = Color.argb(0xe6, 0xFF, 0xFF, 0xFF)
 
 /**
  * The default dark scrim, as defined by androidx and the platform:
  * https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:activity/activity/src/main/java/androidx/activity/EdgeToEdge.kt;l=40-44;drc=27e7d52e8604a080133e8b842db10c89b4482598
  */
-private val darkScrim = android.graphics.Color.argb(0x80, 0x1b, 0x1b, 0x1b)
+private val darkScrim = Color.argb(0x80, 0x1b, 0x1b, 0x1b)

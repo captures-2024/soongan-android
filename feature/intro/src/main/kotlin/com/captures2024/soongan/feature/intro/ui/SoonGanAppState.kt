@@ -1,4 +1,4 @@
-package com.captures2024.soongan.ui
+package com.captures2024.soongan.feature.intro.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
@@ -6,7 +6,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.captures2024.soongan.core.data.util.NetworkMonitor
+import com.captures2024.soongan.core.analytics.NetworkMonitor
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map

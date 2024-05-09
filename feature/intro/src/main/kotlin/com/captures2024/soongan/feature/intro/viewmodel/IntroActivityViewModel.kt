@@ -1,4 +1,4 @@
-package com.captures2024.soongan.ui
+package com.captures2024.soongan.feature.intro.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,17 +11,17 @@ import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
-class MainActivityViewModel
+class IntroActivityViewModel
 @Inject
 constructor(
 
 ) : ViewModel() {
-    val uiState: StateFlow<MainActivityUiState> = flow<MainActivityUiState> {
+    val uiState: StateFlow<IntroActivityUiState> = flow<IntroActivityUiState> {
         delay(1000)
-        emit(MainActivityUiState.Success)
+        emit(IntroActivityUiState.Success)
     }.stateIn(
         scope = viewModelScope,
-        initialValue = MainActivityUiState.Loading,
+        initialValue = IntroActivityUiState.Loading,
         started = SharingStarted.WhileSubscribed(5_000),
     )
 

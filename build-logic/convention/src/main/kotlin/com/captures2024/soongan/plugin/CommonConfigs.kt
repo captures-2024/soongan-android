@@ -15,19 +15,30 @@ internal fun Project.configureAndroidCommonPlugin() {
 
     apply<AndroidKotlinPlugin>()
     apply<KotlinSerializationPlugin>()
+    apply<KotlinCoroutinesPlugin>()
     with(plugins) {
         apply("kotlin-parcelize")
+        apply("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
     }
     apply<AndroidHiltPlugin>()
 
     extensions.getByType<BaseExtension>().apply {
-//        defaultConfig {
-//            val kakaoApiKey = properties["kakaoApiKey"] as? String ?: ""
-//
-//            manifestPlaceholders["kakaoApiKey"] = properties["kakaoApiKey"] as String
-//
-//            buildConfigField("String", "KAKAO_API_KEY", "\"${kakaoApiKey}\"")
-//        }
+        defaultConfig {
+            val googleApiKey = properties["googleApiKey"] as? String ?: ""
+            val googleWebClientId = properties["googleWebClientId"] as? String ?: ""
+            val kakaoApiKey = properties["kakaoApiKey"] as? String ?: ""
+            val capturesBaseUrl = properties["capturesBaseUrl"] as? String ?: ""
+
+            manifestPlaceholders["googleApiKey"] = properties["googleApiKey"] as String
+            manifestPlaceholders["googleWebClientId"] = properties["googleWebClientId"] as String
+            manifestPlaceholders["kakaoApiKey"] = properties["kakaoApiKey"] as String
+            manifestPlaceholders["capturesBaseUrl"] = properties["capturesBaseUrl"] as String
+
+            buildConfigField("String", "GOOGLE_API_KEY", "\"${googleApiKey}\"")
+            buildConfigField("String", "GOOGLE_WEB_CLIENT_ID", "\"${googleWebClientId}\"")
+            buildConfigField("String", "KAKAO_API_KEY", "\"${kakaoApiKey}\"")
+            buildConfigField("String", "CAPTURES_BASE_URL", "\"${capturesBaseUrl}\"")
+        }
         buildFeatures.apply {
             viewBinding = true
             buildConfig = true
@@ -41,5 +52,6 @@ internal fun Project.configureAndroidCommonPlugin() {
         "implementation"(libs.findBundle("lifecycle").get())
         "implementation"(libs.findLibrary("material").get())
         "implementation"(libs.findLibrary("fragment.ktx").get())
+        "implementation"(libs.findLibrary("splash-screen").get())
     }
 }
