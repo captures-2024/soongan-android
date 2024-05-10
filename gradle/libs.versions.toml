@@ -142,6 +142,7 @@ hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-com
 google-services = { module = "com.google.gms:google-services", version.ref = "google-services" }
 crashlytics-plugin = { module = "com.google.firebase:firebase-crashlytics-gradle", version.ref = "crashlytics" }
 firebase = { module = "com.google.firebase:firebase-bom", version.ref = "firebase" }
+firebase-auth = { module = "com.google.firebase:firebase-auth-ktx" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics-ktx" }
 firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics-ktx" }
 firebase-messaging = { module = "com.google.firebase:firebase-messaging-ktx" }

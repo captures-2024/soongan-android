@@ -3,6 +3,7 @@ plugins {
     captures("compose")
     captures("test")
     captures("google-auth")
+    captures("firebase")
 }
 
 android {

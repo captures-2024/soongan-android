@@ -8,7 +8,7 @@ import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 
-class AndroidTestPlugin: Plugin<Project> {
+class AndroidTestPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         apply<JUnit5Plugin>()
         val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")

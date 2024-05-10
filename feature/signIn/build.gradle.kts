@@ -1,6 +1,7 @@
 plugins {
     captures("library")
     captures("compose")
+    captures("firebase")
 }
 
 android {
@@ -9,4 +10,6 @@ android {
 
 dependencies {
     implementation(project(":core:designSystem"))
+
+    implementation(libs.firebase.auth)
 }

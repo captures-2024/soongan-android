@@ -58,6 +58,10 @@ gradlePlugin {
             id = "com.captures2024.soongan.google-auth"
             implementationClass = "com.captures2024.soongan.plugin.GoogleAuthPlugin"
         }
+        create("firebase") {
+            id = "com.captures2024.soongan.firebase"
+            implementationClass = "com.captures2024.soongan.plugin.FirebasePlugin"
+        }
     }
 }
 
