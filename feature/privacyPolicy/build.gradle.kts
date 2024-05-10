@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.captures2024.soongan.feature.privacyPolicy"
+    namespace = "com.captures2024.soongan.feature.privacypolicy"
 }
 
 dependencies {
