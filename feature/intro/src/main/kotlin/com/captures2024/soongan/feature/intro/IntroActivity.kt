@@ -2,6 +2,7 @@ package com.captures2024.soongan.feature.intro
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
@@ -18,14 +19,18 @@ import com.captures2024.soongan.core.analytics.AnalyticsHelper
 import com.captures2024.soongan.core.analytics.LocalAnalyticsHelper
 import com.captures2024.soongan.core.analytics.NetworkMonitor
 import com.captures2024.soongan.core.designsystem.theme.SoonGanTheme
-import com.captures2024.soongan.feature.intro.ui.SoonGanApp
+import com.captures2024.soongan.feature.intro.ui.IntroRoute
 import com.captures2024.soongan.feature.intro.viewmodel.IntroActivityUiState
 import com.captures2024.soongan.feature.intro.viewmodel.IntroActivityViewModel
+import com.captures2024.soongan.feature.navigator.SignNavigator
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class IntroActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var signNavigator: SignNavigator
 
     @Inject
     lateinit var analyticsHelper: AnalyticsHelper
@@ -42,7 +47,7 @@ class IntroActivity : ComponentActivity() {
         val uiState: IntroActivityUiState by mutableStateOf(IntroActivityUiState.Loading)
 
         setContent {
-            val darkTheme = shouldUseDarkTheme(uiState)
+            val darkTheme = ShouldUseDarkTheme(uiState)
 
             DisposableEffect(darkTheme) {
                 enableEdgeToEdge(
@@ -61,10 +66,21 @@ class IntroActivity : ComponentActivity() {
             CompositionLocalProvider(LocalAnalyticsHelper provides analyticsHelper) {
                 SoonGanTheme(
                     darkTheme = darkTheme,
-                    androidTheme = shouldUseAndroidThmee(uiState),
-                    disableDynamicTheming = shouldDisableDynamicTheming(uiState),
+                    androidTheme = ShouldUseAndroidTheme(uiState),
+                    disableDynamicTheming = ShouldDisableDynamicTheming(uiState),
                 ) {
-                    SoonGanApp(networkMonitor = networkMonitor)
+                    IntroRoute(
+                        networkMonitor = networkMonitor,
+                        navigateToSign = {
+                            signNavigator.navigateFrom(
+                                activity = this,
+                                withFinish = true,
+                            )
+                        },
+                        navigateToMain = {
+
+                        }
+                    )
                 }
             }
         }
@@ -77,7 +93,7 @@ class IntroActivity : ComponentActivity() {
  * Returns `true` if the Android theme should be used, as a function of the [uiState].
  */
 @Composable
-private fun shouldUseAndroidThmee(
+private fun ShouldUseAndroidTheme(
     uiState: IntroActivityUiState,
 ): Boolean = when (uiState) {
     IntroActivityUiState.Loading -> false
@@ -88,7 +104,7 @@ private fun shouldUseAndroidThmee(
  * Returns `true` if the dynamic color is disabled, as a function of the [uiState].
  */
 @Composable
-private fun shouldDisableDynamicTheming(
+private fun ShouldDisableDynamicTheming(
     uiState: IntroActivityUiState,
 ): Boolean = when (uiState) {
     IntroActivityUiState.Loading -> false
@@ -101,7 +117,7 @@ private fun shouldDisableDynamicTheming(
  * current system context.
  */
 @Composable
-private fun shouldUseDarkTheme(
+private fun ShouldUseDarkTheme(
     uiState: IntroActivityUiState,
 ): Boolean = when (uiState) {
     IntroActivityUiState.Loading -> isSystemInDarkTheme()

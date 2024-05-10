@@ -53,6 +53,7 @@ dependencies {
     //region core module
     implementation(project(":core:analytics"))
     implementation(project(":core:auth"))
+    implementation(project(":core:common"))
     implementation(project(":core:designSystem"))
     implementation(project(":core:data"))
     implementation(project(":core:domain"))
@@ -62,6 +63,7 @@ dependencies {
     //region feature module
     implementation(project(":feature:intro"))
     implementation(project(":feature:main"))
+    implementation(project(":feature:sign"))
     implementation(project(":feature:signIn"))
     //endregion
 }

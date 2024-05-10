@@ -26,6 +26,7 @@ include(":app")
 include(
     ":core:analytics",
     ":core:auth",
+    ":core:common",
     ":core:designSystem",
     ":core:data",
     ":core:domain",
@@ -36,5 +37,6 @@ include(
     ":feature:intro",
     ":feature:main",
     ":feature:navigator",
+    ":feature:sign",
     ":feature:signIn",
 )

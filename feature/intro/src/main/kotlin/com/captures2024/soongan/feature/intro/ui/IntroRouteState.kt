@@ -13,16 +13,16 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
 @Composable
-fun rememberSoonGanAppState(
+fun rememberIntroRouteState(
     networkMonitor: NetworkMonitor,
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
     navController: NavHostController = rememberNavController(),
-): SoonGanAppState = remember(
+): IntroRouteState = remember(
     networkMonitor,
     coroutineScope,
     navController,
 ) {
-    SoonGanAppState(
+    IntroRouteState(
         navController = navController,
         coroutineScope = coroutineScope,
         networkMonitor = networkMonitor,
@@ -31,7 +31,7 @@ fun rememberSoonGanAppState(
 
 
 @Stable
-class SoonGanAppState(
+class IntroRouteState(
     val navController: NavHostController,
     val coroutineScope: CoroutineScope,
     networkMonitor: NetworkMonitor,
