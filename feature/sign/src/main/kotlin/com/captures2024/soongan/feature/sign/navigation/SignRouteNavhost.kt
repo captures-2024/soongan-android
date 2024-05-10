@@ -8,8 +8,9 @@ import androidx.navigation.compose.NavHost
 import com.captures2024.soongan.feature.sign.ui.SignRouteState
 import com.captures2024.soongan.feature.signIn.navigation.SIGN_IN_NAVIGATION_ROUTE
 import com.captures2024.soongan.feature.signIn.navigation.navigateToPrivacyPolicy
-import com.captures2024.soongan.feature.signIn.navigation.navigateToTermsOfUse
 import com.captures2024.soongan.feature.signIn.navigation.signIn
+import com.captures2024.soongan.feature.termsofuse.navigation.navigateToTermsOfUse
+import com.captures2024.soongan.feature.termsofuse.navigation.termsOfUse
 
 @Composable
 internal fun SignRouteNavHost(
@@ -35,5 +36,6 @@ internal fun SignRouteNavHost(
             navigateToTermsOfUse = navController::navigateToTermsOfUse,
             navigateToPrivacyPolicy = navController::navigateToPrivacyPolicy
         )
+        termsOfUse (navigateToBack = navController::popBackStack)
     }
 }

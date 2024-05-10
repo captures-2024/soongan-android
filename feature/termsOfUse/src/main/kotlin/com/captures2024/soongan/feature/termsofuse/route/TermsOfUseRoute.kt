@@ -1,9 +1,9 @@
-package com.captures2024.soongan.feature.signIn.route
+package com.captures2024.soongan.feature.termsofuse.route
 
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.captures2024.soongan.feature.signIn.TermsOfUseViewModel
-import com.captures2024.soongan.feature.signIn.ui.TermsOfUseScreen
+import com.captures2024.soongan.feature.termsofuse.ui.TermsOfUseScreen
+import com.captures2024.soongan.feature.termsofuse.viewmodel.TermsOfUseViewModel
 
 @Composable
 internal fun TermsOfUseRoute(

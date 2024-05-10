@@ -12,6 +12,8 @@ dependencies {
     implementation(project(":core:common"))
     implementation(project(":core:designSystem"))
 
+    implementation(project(":feature:privacyPolicy"))
     implementation(project(":feature:signIn"))
+    implementation(project(":feature:termsOfUse"))
     implementation(project(":feature:navigator"))
 }

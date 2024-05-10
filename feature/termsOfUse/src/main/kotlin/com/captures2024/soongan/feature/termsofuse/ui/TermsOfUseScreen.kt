@@ -1,4 +1,4 @@
-package com.captures2024.soongan.feature.signIn.ui
+package com.captures2024.soongan.feature.termsofuse.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

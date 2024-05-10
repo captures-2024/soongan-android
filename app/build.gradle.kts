@@ -63,7 +63,9 @@ dependencies {
     //region feature module
     implementation(project(":feature:intro"))
     implementation(project(":feature:main"))
+    implementation(project(":feature:privacyPolicy"))
     implementation(project(":feature:sign"))
     implementation(project(":feature:signIn"))
+    implementation(project(":feature:termsOfUse"))
     //endregion
 }

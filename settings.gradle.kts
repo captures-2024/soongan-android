@@ -37,6 +37,8 @@ include(
     ":feature:intro",
     ":feature:main",
     ":feature:navigator",
+    ":feature:privacyPolicy",
     ":feature:sign",
     ":feature:signIn",
+    ":feature:termsOfUse",
 )
