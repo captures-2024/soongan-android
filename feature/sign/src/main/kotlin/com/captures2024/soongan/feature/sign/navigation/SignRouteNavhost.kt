@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import com.captures2024.soongan.feature.privacypolicy.navigation.navigateToPrivacyPolicy
 import com.captures2024.soongan.feature.privacypolicy.navigation.privacyPolicy
 import com.captures2024.soongan.feature.sign.ui.SignRouteState
+import com.captures2024.soongan.feature.signIn.SignInViewModel
 import com.captures2024.soongan.feature.signIn.navigation.SIGN_IN_NAVIGATION_ROUTE
 import com.captures2024.soongan.feature.signIn.navigation.signIn
 import com.captures2024.soongan.feature.termsofuse.navigation.navigateToTermsOfUse
@@ -17,6 +18,8 @@ import com.captures2024.soongan.feature.termsofuse.navigation.termsOfUse
 internal fun SignRouteNavHost(
     modifier: Modifier = Modifier,
     routeState: SignRouteState,
+    googleSignIn: () -> Unit,
+    signInViewModel: SignInViewModel,
     onShowSnackBar: suspend (String) -> Boolean,
 ) {
     val navController = routeState.navController
@@ -31,6 +34,8 @@ internal fun SignRouteNavHost(
         popExitTransition = { ExitTransition.None }
     ) {
         signIn(
+            googleSignIn = googleSignIn,
+            signInViewModel = signInViewModel,
             navigateToSignUp = {},
             navigateToMain = {},
             navigateToTermsOfUse = navController::navigateToTermsOfUse,

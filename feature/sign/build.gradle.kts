@@ -1,6 +1,8 @@
 plugins {
     captures("library")
     captures("compose")
+    captures("google-auth")
+    captures("firebase")
 }
 
 android {
@@ -9,11 +11,15 @@ android {
 
 dependencies {
     implementation(project(":core:analytics"))
+    implementation(project(":core:auth"))
     implementation(project(":core:common"))
     implementation(project(":core:designSystem"))
+    implementation(project(":core:model"))
 
     implementation(project(":feature:privacyPolicy"))
     implementation(project(":feature:signIn"))
     implementation(project(":feature:termsOfUse"))
     implementation(project(":feature:navigator"))
+
+    implementation(libs.firebase.auth)
 }

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.IntentSender
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.SignInClient
+import com.google.firebase.auth.GoogleAuthProvider
 import kotlin.coroutines.cancellation.CancellationException
 import kotlinx.coroutines.tasks.await
 
@@ -17,17 +18,17 @@ class GoogleAuthUiClient(
             oneTapClient.beginSignIn(signInRequest).await()
         } catch(e: Exception) {
             e.printStackTrace()
-            if(e is CancellationException) throw e
+            if (e is CancellationException) throw e
             null
         }
         return result?.pendingIntent?.intentSender
     }
 
-    suspend fun signInWithIntent(intent: Intent) {
-//    : SignInResult? {
+    suspend fun signInWithIntent(intent: Intent) : com.captures2024.soongan.core.model.SignInResult {
         val credential = oneTapClient.getSignInCredentialFromIntent(intent)
         val googleIdToken = credential.googleIdToken
-//        val googleCredentials = GoogleAuthProvider.getCredential(googleIdToken, null)
+        val googleCredentials = GoogleAuthProvider.getCredential(googleIdToken, null)
+        println(googleCredentials.provider)
 //        return try {
 //            val user = auth.signInWithCredential(googleCredentials).await().user
 //            SignInResult(
@@ -40,7 +41,7 @@ class GoogleAuthUiClient(
 //                },
 //                errorMessage = null
 //            )
-//        } catch(e: Exception) {
+//        } catch (e: Exception) {
 //            e.printStackTrace()
 //            if(e is CancellationException) throw e
 //            SignInResult(
@@ -48,6 +49,10 @@ class GoogleAuthUiClient(
 //                errorMessage = e.message
 //            )
 //        }
+        return com.captures2024.soongan.core.model.SignInResult(
+            data = null,
+            errorMessage = ""
+        )
     }
 
     suspend fun signOut() {

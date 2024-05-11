@@ -18,12 +18,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.captures2024.soongan.feature.sign.navigation.SignRouteNavHost
+import com.captures2024.soongan.feature.signIn.SignInViewModel
+import kotlin.math.sin
 
 @Composable
 internal fun SignScreen(
     routeState: SignRouteState,
     hostState: SnackbarHostState,
     height: Int,
+    googleSignIn: () -> Unit,
+    signInViewModel: SignInViewModel,
 ) = Scaffold(
     snackbarHost = {
         SnackbarHost(
@@ -49,6 +53,8 @@ internal fun SignScreen(
     SignRouteNavHost(
         modifier = Modifier.padding(padding),
         routeState = routeState,
+        googleSignIn = googleSignIn,
+        signInViewModel = signInViewModel
     ) { message ->
         hostState.showSnackbar(
             message = message,

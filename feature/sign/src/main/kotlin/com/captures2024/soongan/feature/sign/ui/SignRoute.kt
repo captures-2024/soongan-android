@@ -12,10 +12,13 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.captures2024.soongan.core.analytics.NetworkMonitor
 import com.captures2024.soongan.core.design.R
 import com.captures2024.soongan.core.designsystem.component.SoonGanBackground
+import com.captures2024.soongan.feature.signIn.SignInViewModel
 
 @Composable
 internal fun SignRoute(
     networkMonitor: NetworkMonitor,
+    googleSignIn: () -> Unit,
+    signInViewModel: SignInViewModel,
     routeState: SignRouteState = rememberSignRouteState(networkMonitor = networkMonitor),
 ) {
     val height = LocalConfiguration.current.screenHeightDp
@@ -40,6 +43,8 @@ internal fun SignRoute(
             routeState = routeState,
             hostState = snackBarHostState,
             height = height,
+            googleSignIn = googleSignIn,
+            signInViewModel = signInViewModel
         )
     }
 }
