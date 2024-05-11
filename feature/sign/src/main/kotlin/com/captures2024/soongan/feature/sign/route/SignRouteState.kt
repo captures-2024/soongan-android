@@ -1,4 +1,4 @@
-package com.captures2024.soongan.feature.intro.ui
+package com.captures2024.soongan.feature.sign.route
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
@@ -13,16 +13,16 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
 @Composable
-fun rememberIntroRouteState(
+internal fun rememberSignRouteState(
     networkMonitor: NetworkMonitor,
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
     navController: NavHostController = rememberNavController(),
-): IntroRouteState = remember(
+): SignRouteState = remember(
     networkMonitor,
     coroutineScope,
     navController,
 ) {
-    IntroRouteState(
+    SignRouteState(
         navController = navController,
         coroutineScope = coroutineScope,
         networkMonitor = networkMonitor,
@@ -31,7 +31,7 @@ fun rememberIntroRouteState(
 
 
 @Stable
-class IntroRouteState(
+internal class SignRouteState(
     val navController: NavHostController,
     val coroutineScope: CoroutineScope,
     networkMonitor: NetworkMonitor,
@@ -43,5 +43,4 @@ class IntroRouteState(
             started = SharingStarted.WhileSubscribed(5_000),
             initialValue = false,
         )
-
 }

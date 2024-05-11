@@ -3,6 +3,12 @@ package com.captures2024.soongan.feature.signIn
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.captures2024.soongan.core.model.SignInResult
+import com.captures2024.soongan.feature.signIn.SignInState.ErrorSignIn
+import com.captures2024.soongan.feature.signIn.SignInState.Home
+import com.captures2024.soongan.feature.signIn.SignInState.Init
+import com.captures2024.soongan.feature.signIn.SignInState.Loading
+import com.captures2024.soongan.feature.signIn.SignInState.SignUp
+import com.captures2024.soongan.feature.signIn.SignInState.SuccessSignIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,7 +20,7 @@ class SignInViewModel
 constructor(
 
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow<SignInState>(SignInState.Init)
+    private val _uiState = MutableStateFlow<SignInState>(Init)
     val uiState: StateFlow<SignInState>
         get() = _uiState
 
@@ -27,7 +33,7 @@ constructor(
             return
         }
 
-        _uiState.value = SignInState.Loading
+        _uiState.value = Loading
 
         active()
     }
@@ -36,10 +42,10 @@ constructor(
         when (signInResult.data) {
             null -> {
                 Log.d(TAG, "errorMessage = ${signInResult.errorMessage}")
-                _uiState.emit(SignInState.ErrorSignIn)
+                _uiState.emit(ErrorSignIn)
             }
             else -> {
-
+                // TODO Success Logic
             }
         }
     }
@@ -51,11 +57,23 @@ constructor(
             return
         }
 
-        _uiState.value = SignInState.Loading
+        _uiState.value = Loading
+
+        // TODO Kakao Sign In
     }
 
+    /**
+     * 현재 상태가 로그인을 기능을 작동시킬 수 있는 상태인지 판정
+     *
+     * 만약 loading, 또는 다른 화면으로 이동 중인 경우 작동 실패
+     *
+     * @return if 로그인 작동이 불가능한 경우 true else false
+     *
+     * @param currentState SignInState 타입의 상태
+     * @see SignInState
+     **/
     private fun isNotPossibleOperationState(currentState: SignInState): Boolean = when (currentState) {
-        is SignInState.Init, SignInState.ErrorSignIn -> false
+        is Init, ErrorSignIn -> false
         else -> true
     }
 

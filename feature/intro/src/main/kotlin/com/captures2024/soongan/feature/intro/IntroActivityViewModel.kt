@@ -1,4 +1,4 @@
-package com.captures2024.soongan.feature.intro.viewmodel
+package com.captures2024.soongan.feature.intro
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -25,4 +25,17 @@ constructor(
         started = SharingStarted.WhileSubscribed(5_000),
     )
 
+}
+
+/**
+ * State 설명
+ *
+ * Intro Activity의 각종 UI theme을 설정하는 ViewModel
+ *
+ * @property Loading
+ * @property Success
+ **/
+sealed interface IntroActivityUiState {
+    data object Loading : IntroActivityUiState
+    data object Success : IntroActivityUiState
 }

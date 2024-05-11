@@ -20,7 +20,7 @@ import com.captures2024.soongan.core.analytics.NetworkMonitor
 import com.captures2024.soongan.core.auth.GoogleAuthUiClient
 import com.captures2024.soongan.core.designsystem.theme.SoonGanTheme
 import com.captures2024.soongan.core.model.SignInResult
-import com.captures2024.soongan.feature.sign.ui.SignRoute
+import com.captures2024.soongan.feature.sign.route.SignRoute
 import com.captures2024.soongan.feature.signIn.SignInViewModel
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.Identity

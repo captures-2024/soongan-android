@@ -1,4 +1,4 @@
-package com.captures2024.soongan.feature.sign.ui
+package com.captures2024.soongan.feature.sign.route
 
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
@@ -12,6 +12,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.captures2024.soongan.core.analytics.NetworkMonitor
 import com.captures2024.soongan.core.design.R
 import com.captures2024.soongan.core.designsystem.component.SoonGanBackground
+import com.captures2024.soongan.feature.sign.ui.SignScreen
 import com.captures2024.soongan.feature.signIn.SignInViewModel
 
 @Composable

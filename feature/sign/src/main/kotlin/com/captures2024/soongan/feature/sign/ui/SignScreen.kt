@@ -18,8 +18,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.captures2024.soongan.feature.sign.navigation.SignRouteNavHost
+import com.captures2024.soongan.feature.sign.route.SignRouteState
 import com.captures2024.soongan.feature.signIn.SignInViewModel
-import kotlin.math.sin
 
 @Composable
 internal fun SignScreen(

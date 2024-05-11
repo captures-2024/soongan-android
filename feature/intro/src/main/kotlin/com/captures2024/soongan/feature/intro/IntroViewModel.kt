@@ -1,7 +1,9 @@
-package com.captures2024.soongan.feature.intro.viewmodel
+package com.captures2024.soongan.feature.intro
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.captures2024.soongan.feature.intro.IntroActivityUiState.Loading
+import com.captures2024.soongan.feature.intro.IntroActivityUiState.Success
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
@@ -28,4 +30,20 @@ constructor(
     companion object {
         private const val TAG = "IntroVM"
     }
+}
+
+
+/**
+ * State 설명
+ *
+ * 차후 JWT가 추가되었을 때 Token의 만료 여부로 sign, main으로 진입 시점을 저장
+ *
+ * @property Loading
+ * @property Sign
+ * @property Main
+ **/
+sealed interface IntroState {
+    data object Loading : IntroState
+    data object Sign : IntroState
+    data object Main : IntroState
 }

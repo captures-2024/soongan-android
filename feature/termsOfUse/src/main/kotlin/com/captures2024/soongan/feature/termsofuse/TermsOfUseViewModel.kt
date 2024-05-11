@@ -1,4 +1,4 @@
-package com.captures2024.soongan.feature.termsofuse.viewmodel
+package com.captures2024.soongan.feature.termsofuse
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import com.captures2024.soongan.feature.privacypolicy.navigation.navigateToPrivacyPolicy
 import com.captures2024.soongan.feature.privacypolicy.navigation.privacyPolicy
-import com.captures2024.soongan.feature.sign.ui.SignRouteState
+import com.captures2024.soongan.feature.sign.route.SignRouteState
 import com.captures2024.soongan.feature.signIn.SignInViewModel
 import com.captures2024.soongan.feature.signIn.navigation.SIGN_IN_NAVIGATION_ROUTE
 import com.captures2024.soongan.feature.signIn.navigation.signIn

@@ -1,12 +1,13 @@
-package com.captures2024.soongan.feature.intro.ui
+package com.captures2024.soongan.feature.intro.route
 
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.captures2024.soongan.core.analytics.NetworkMonitor
 import com.captures2024.soongan.core.designsystem.component.SoonGanBackground
-import com.captures2024.soongan.feature.intro.viewmodel.IntroState
-import com.captures2024.soongan.feature.intro.viewmodel.IntroViewModel
+import com.captures2024.soongan.feature.intro.IntroState
+import com.captures2024.soongan.feature.intro.IntroViewModel
+import com.captures2024.soongan.feature.intro.ui.IntroScreen
 
 @Composable
 internal fun IntroRoute(
