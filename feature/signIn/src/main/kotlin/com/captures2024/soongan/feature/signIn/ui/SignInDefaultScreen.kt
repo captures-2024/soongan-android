@@ -23,10 +23,10 @@ import com.captures2024.soongan.feature.signIn.R
 @Composable
 internal fun SignInDefaultScreen(
     modifier: Modifier = Modifier,
-    onClickGoogleSignIn: () -> Unit,
-    onClickKakaoSignIn: () -> Unit,
-    navigateToTermsOfUse: (NavOptions) -> Unit,
-    navigateToPrivacyPolicy: (NavOptions) -> Unit,
+    onClickGoogleSignIn: () -> Unit = {},
+    onClickKakaoSignIn: () -> Unit = {},
+    navigateToTermsOfUse: (NavOptions) -> Unit = {},
+    navigateToPrivacyPolicy: (NavOptions) -> Unit = {},
 ) {
     Column(
         modifier = modifier
@@ -47,12 +47,12 @@ internal fun SignInDefaultScreen(
         }
         Spacer(modifier = Modifier.height(16.dp))
         SocialSignInButton(
-            text = "Social Sign In",
+            text = "Google Sign In",
             onClick = onClickGoogleSignIn
         )
         Spacer(modifier = Modifier.height(16.dp))
         SocialSignInButton(
-            text = "Social Sign In",
+            text = "Kakao Sign In",
             onClick = onClickKakaoSignIn
         )
         Spacer(modifier = Modifier.height(16.dp))

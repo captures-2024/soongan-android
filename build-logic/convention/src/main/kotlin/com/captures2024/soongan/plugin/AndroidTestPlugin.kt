@@ -35,6 +35,8 @@ class AndroidTestPlugin : Plugin<Project> {
             "debugImplementation"(libs.findLibrary("truth").get())
             "testImplementation"(libs.findLibrary("robolectric").get())
             "androidTestImplementation"(libs.findBundle("androidx.android.test").get())
+            "androidTestImplementation"(libs.findLibrary("ui.test.junit4").get())
+            "debugImplementation"(libs.findLibrary("ui.test.manifest").get())
         }
     }
 }

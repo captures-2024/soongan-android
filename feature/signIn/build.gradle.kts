@@ -2,6 +2,7 @@ plugins {
     captures("library")
     captures("compose")
     captures("firebase")
+    captures("test")
 }
 
 android {
