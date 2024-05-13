@@ -1,5 +1,6 @@
 package com.captures2024.soongan.feature.signIn.ui
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,13 +11,20 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavOptions
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
+import com.captures2024.soongan.core.designsystem.icon.MyIconPack
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.LogoApple
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.LogoGoogle
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.LogoKakao
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.signIn.R
 
@@ -31,28 +39,38 @@ internal fun SignInDefaultScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
+            .background(color = Color.Black)
+            .paint(
+                painter = painterResource(id = com.captures2024.soongan.core.design.R.drawable.image_background),
+                contentScale = ContentScale.FillBounds,
+            )
             .padding(all = 16.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         NonScaleText(
-            text = "SoonGan",
-            color = Color.White,
+            text = stringResource(id = R.string.logo_text),
+            color = Color(0xFFF5F5F5),
             fontSize = 60.sp,
-            fontWeight = FontWeight(500)
+            fontWeight = FontWeight.Medium
         )
         Spacer(modifier = Modifier.height(32.dp))
-        SocialSignInButton(text = "Social Sign In") {
+        SocialSignInButton(
+            text = stringResource(id = R.string.sign_in_text_apple),
+            icon = MyIconPack.LogoApple
+        ) {
             /* TODO */
         }
         Spacer(modifier = Modifier.height(16.dp))
         SocialSignInButton(
-            text = "Google Sign In",
+            text = stringResource(id = R.string.sign_in_text_google),
+            icon = MyIconPack.LogoGoogle,
             onClick = onClickGoogleSignIn
         )
         Spacer(modifier = Modifier.height(16.dp))
         SocialSignInButton(
-            text = "Kakao Sign In",
+            text = stringResource(id = R.string.sign_in_text_kakao),
+            icon = MyIconPack.LogoKakao,
             onClick = onClickKakaoSignIn
         )
         Spacer(modifier = Modifier.height(16.dp))
@@ -73,9 +91,9 @@ internal fun SignInDefaultScreen(
                 .clickable {
                     // TODO onClick looking
                 },
-            color = Color.White,
+            color = Color(0xFFF5F5F5),
             fontSize = 14.sp,
-            fontWeight = FontWeight(500)
+            fontWeight = FontWeight.SemiBold
         )
     }
 }

@@ -1,5 +1,6 @@
 package com.captures2024.soongan.feature.signIn.route
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.navigation.NavOptions
@@ -16,6 +17,8 @@ internal fun SignInRoute(
     signInViewModel: SignInViewModel
 ) {
     val uiState = signInViewModel.uiState.collectAsState()
+
+    Log.d("SignInRoute", "State change SignInRoute ${uiState.value}")
 
     when (uiState.value) {
         is SignInState.Loading -> SignInLoadingScreen()

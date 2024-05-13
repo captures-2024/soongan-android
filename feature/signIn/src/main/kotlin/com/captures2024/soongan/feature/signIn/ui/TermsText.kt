@@ -7,6 +7,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.sp
@@ -22,7 +23,8 @@ internal fun TermsText(
     val text = buildAnnotatedString {
         withStyle(
             style = NonScaleSpanStyle(
-                fontSize = 11.sp,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Medium,
                 color = Color.White
             )
         ) {
@@ -31,9 +33,10 @@ internal fun TermsText(
         pushStringAnnotation(tag = "termsOfUse", annotation = "termsOfUse")
         withStyle(
             style = NonScaleSpanStyle(
-                fontSize = 11.sp,
-                color = Color.White,
-                textDecoration = TextDecoration.Underline
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Medium,
+                textDecoration = TextDecoration.Underline,
+                color = Color.White
             )
         ) {
             append(stringResource(id = R.string.terms_of_use))
@@ -41,7 +44,8 @@ internal fun TermsText(
         pop()
         withStyle(
             style = NonScaleSpanStyle(
-                fontSize = 11.sp,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Medium,
                 color = Color.White
             )
         ) {
@@ -50,8 +54,9 @@ internal fun TermsText(
         pushStringAnnotation(tag = "privacyPolicy", annotation = "privacyPolicy")
         withStyle(
             style = NonScaleSpanStyle(
-                fontSize = 11.sp,
+                fontSize = 12.sp,
                 color = Color.White,
+                fontWeight = FontWeight.Medium,
                 textDecoration = TextDecoration.Underline
             )
         ) {
@@ -60,7 +65,8 @@ internal fun TermsText(
         pop()
         withStyle(
             style = NonScaleSpanStyle(
-                fontSize = 11.sp,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Medium,
                 color = Color.White
             )
         ) {

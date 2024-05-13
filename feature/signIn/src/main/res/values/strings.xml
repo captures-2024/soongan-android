@@ -1,4 +1,12 @@
 <resources>
+
+    <!-- SignInDefaultScreen -->
+    <string name="logo_text">SoonGan</string>
+    <string name="sign_in_text_apple">Apple로 로그인</string>
+    <string name="sign_in_text_google">Google로 로그인</string>
+    <string name="sign_in_text_kakao">Kakao로 로그인</string>
+
+    <!-- TermsText -->
     <string name="terms_text_first">계속하시면&#160;</string>
     <string name="terms_text_second">&#160;및&#160;</string>
     <string name="terms_text_third">&#160;에 동의하시게 됩니다.</string>
