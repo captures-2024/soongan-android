@@ -18,7 +18,9 @@ import com.captures2024.soongan.feature.signIn.SignInViewModel
 @Composable
 internal fun SignRoute(
     networkMonitor: NetworkMonitor,
+    appleSignIn: () -> Unit,
     googleSignIn: () -> Unit,
+    kakaoSignIn: () -> Unit,
     signInViewModel: SignInViewModel,
     routeState: SignRouteState = rememberSignRouteState(networkMonitor = networkMonitor),
 ) {
@@ -44,7 +46,9 @@ internal fun SignRoute(
             routeState = routeState,
             hostState = snackBarHostState,
             height = height,
+            appleSignIn = appleSignIn,
             googleSignIn = googleSignIn,
+            kakaoSignIn = kakaoSignIn,
             signInViewModel = signInViewModel
         )
     }

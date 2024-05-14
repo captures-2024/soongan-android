@@ -11,7 +11,9 @@ import com.captures2024.soongan.feature.signIn.ui.SignInLoadingScreen
 
 @Composable
 internal fun SignInRoute(
+    appleSignIn: () -> Unit,
     googleSignIn: () -> Unit,
+    kakaoSignIn: () -> Unit,
     navigateToTermsOfUse: (NavOptions) -> Unit,
     navigateToPrivacyPolicy: (NavOptions) -> Unit,
     signInViewModel: SignInViewModel
@@ -23,8 +25,9 @@ internal fun SignInRoute(
     when (uiState.value) {
         is SignInState.Loading -> SignInLoadingScreen()
         else -> SignInDefaultScreen(
+            onClickAppleSignIn = appleSignIn,
             onClickGoogleSignIn = googleSignIn,
-            onClickKakaoSignIn = signInViewModel::onClickKakaoSignIn,
+            onClickKakaoSignIn =  kakaoSignIn,
             navigateToTermsOfUse = navigateToTermsOfUse,
             navigateToPrivacyPolicy = navigateToPrivacyPolicy
         )

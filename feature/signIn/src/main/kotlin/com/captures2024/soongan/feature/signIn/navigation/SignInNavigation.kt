@@ -14,7 +14,9 @@ fun NavController.navigateToSignIn(navOptions: NavOptions? = null) {
 }
 
 fun NavGraphBuilder.signIn(
+    appleSignIn: () -> Unit,
     googleSignIn: () -> Unit,
+    kakaoSignIn: () -> Unit,
     signInViewModel: SignInViewModel,
     navigateToSignUp: (NavOptions) -> Unit,
     navigateToMain: (NavOptions) -> Unit,
@@ -23,7 +25,9 @@ fun NavGraphBuilder.signIn(
 ) {
     composable(route = SIGN_IN_NAVIGATION_ROUTE) {
         SignInRoute(
+            appleSignIn = appleSignIn,
             googleSignIn = googleSignIn,
+            kakaoSignIn = kakaoSignIn,
             navigateToTermsOfUse = navigateToTermsOfUse,
             navigateToPrivacyPolicy = navigateToPrivacyPolicy,
             signInViewModel = signInViewModel

@@ -24,8 +24,8 @@ constructor(
     val uiState: StateFlow<SignInState>
         get() = _uiState
 
-    fun onClickGoogleSignIn(
-        active: () -> Unit
+    fun onClickSignIn(
+        activeSocialSignIn: () -> Unit
     ) {
         val currentState = _uiState.value
 
@@ -35,7 +35,19 @@ constructor(
 
         _uiState.value = Loading
 
-        active()
+        activeSocialSignIn()
+    }
+
+    suspend fun finishAppleSignIn(signInResult: SignInResult) {
+        when (signInResult.data) {
+            null -> {
+                Log.d(TAG, "errorMessage = ${signInResult.errorMessage}")
+                _uiState.emit(ErrorSignIn)
+            }
+            else -> {
+                // TODO Success Logic
+            }
+        }
     }
 
     suspend fun finishGoogleSignIn(signInResult: SignInResult) {
@@ -50,16 +62,16 @@ constructor(
         }
     }
 
-    fun onClickKakaoSignIn() {
-        val currentState = _uiState.value
-
-        if (isNotPossibleOperationState(currentState)) {
-            return
+    suspend fun finishKakaoSignIn(signInResult: SignInResult) {
+        when (signInResult.data) {
+            null -> {
+                Log.d(TAG, "errorMessage = ${signInResult.errorMessage}")
+                _uiState.emit(ErrorSignIn)
+            }
+            else -> {
+                // TODO Success Logic
+            }
         }
-
-        _uiState.value = Loading
-
-        // TODO Kakao Sign In
     }
 
     /**

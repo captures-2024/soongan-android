@@ -94,8 +94,14 @@ class SignActivity : ComponentActivity() {
                 ) {
                     SignRoute(
                         networkMonitor = networkMonitor,
+                        appleSignIn = {
+                            signInViewModel.onClickSignIn {
+                                // TODO active AppleSignIn
+                                // TODO finish AppleSignIn
+                            }
+                        },
                         googleSignIn = {
-                            signInViewModel.onClickGoogleSignIn {
+                            signInViewModel.onClickSignIn {
                                 lifecycleScope.launch {
                                     val signInIntentSender = googleAuthUiClient.signIn()
 
@@ -106,6 +112,12 @@ class SignActivity : ComponentActivity() {
 
                                     launcher.launch(IntentSenderRequest.Builder(signInIntentSender).build())
                                 }
+                            }
+                        },
+                        kakaoSignIn = {
+                            signInViewModel.onClickSignIn {
+                                // TODO active KakaoSignIn
+                                // TODO finish KakaoSignIn
                             }
                         },
                         signInViewModel = signInViewModel

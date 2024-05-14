@@ -31,6 +31,7 @@ import com.captures2024.soongan.feature.signIn.R
 @Composable
 internal fun SignInDefaultScreen(
     modifier: Modifier = Modifier,
+    onClickAppleSignIn: () -> Unit = {},
     onClickGoogleSignIn: () -> Unit = {},
     onClickKakaoSignIn: () -> Unit = {},
     navigateToTermsOfUse: (NavOptions) -> Unit = {},
@@ -57,10 +58,9 @@ internal fun SignInDefaultScreen(
         Spacer(modifier = Modifier.height(32.dp))
         SocialSignInButton(
             text = stringResource(id = R.string.sign_in_text_apple),
-            icon = MyIconPack.LogoApple
-        ) {
-            /* TODO */
-        }
+            icon = MyIconPack.LogoApple,
+            onClick = onClickAppleSignIn
+        )
         Spacer(modifier = Modifier.height(16.dp))
         SocialSignInButton(
             text = stringResource(id = R.string.sign_in_text_google),
