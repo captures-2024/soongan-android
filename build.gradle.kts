@@ -26,12 +26,17 @@ plugins {
     alias(libs.plugins.kotlinx.serialization) apply false
     alias(libs.plugins.junit5) apply false
     alias(libs.plugins.google.services) apply false
+    alias(libs.plugins.secret) apply false
     alias(libs.plugins.app.distribution) apply false
     alias(libs.plugins.crashlytics) apply false
 }
 
 tasks.register("clean", Delete::class) {
     delete(rootProject.layout.buildDirectory)
+}
+
+apply {
+    from("gradle/dependencyGraph.gradle")
 }
 
 true // Needed to make the Suppress annotation work for the plugins block

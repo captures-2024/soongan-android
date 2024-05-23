@@ -25,8 +25,20 @@ include(":app")
 
 include(
     ":core:analytics",
+    ":core:auth",
+    ":core:common",
     ":core:designSystem",
     ":core:data",
     ":core:domain",
     ":core:model"
+)
+
+include(
+    ":feature:intro",
+    ":feature:main",
+    ":feature:navigator",
+    ":feature:privacyPolicy",
+    ":feature:sign",
+    ":feature:signIn",
+    ":feature:termsOfUse",
 )

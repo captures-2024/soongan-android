@@ -1,8 +1,6 @@
 package com.captures2024.soongan.core.analytics
 
 import androidx.compose.runtime.staticCompositionLocalOf
-import com.captures2024.soongan.core.analytics.AnalyticsHelper
-import com.captures2024.soongan.core.analytics.NoOpAnalyticsHelper
 
 /**
  * Global key used to obtain access to the AnalyticsHelper through a CompositionLocal.

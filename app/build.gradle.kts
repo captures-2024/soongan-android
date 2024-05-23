@@ -2,6 +2,8 @@ plugins {
     captures("application")
     captures("compose")
     captures("test")
+    captures("google-auth")
+    captures("firebase")
 }
 
 android {
@@ -50,6 +52,8 @@ dependencies {
 
     //region core module
     implementation(project(":core:analytics"))
+    implementation(project(":core:auth"))
+    implementation(project(":core:common"))
     implementation(project(":core:designSystem"))
     implementation(project(":core:data"))
     implementation(project(":core:domain"))
@@ -57,8 +61,11 @@ dependencies {
     //endregion
 
     //region feature module
-
+    implementation(project(":feature:intro"))
+    implementation(project(":feature:main"))
+    implementation(project(":feature:privacyPolicy"))
+    implementation(project(":feature:sign"))
+    implementation(project(":feature:signIn"))
+    implementation(project(":feature:termsOfUse"))
     //endregion
-
-    implementation(libs.splash.screen)
 }
