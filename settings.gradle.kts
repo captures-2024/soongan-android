@@ -29,6 +29,7 @@ include(
     ":core:common",
     ":core:designSystem",
     ":core:data",
+    ":core:datastore",
     ":core:domain",
     ":core:model"
 )

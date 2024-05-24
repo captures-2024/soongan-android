@@ -56,6 +56,7 @@ dependencies {
     implementation(project(":core:common"))
     implementation(project(":core:designSystem"))
     implementation(project(":core:data"))
+    implementation(project(":core:datastore"))
     implementation(project(":core:domain"))
     implementation(project(":core:model"))
     //endregion
