@@ -67,6 +67,7 @@ class IntroActivity : ComponentActivity() {
                     disableDynamicTheming = ShouldDisableDynamicTheming(uiState),
                 ) {
                     IntroRoute(
+                        uiState = uiState,
                         networkMonitor = networkMonitor,
                         navigateToSign = {
                             signNavigator.navigateFrom(

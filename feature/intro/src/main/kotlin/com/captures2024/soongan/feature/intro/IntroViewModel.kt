@@ -2,6 +2,9 @@ package com.captures2024.soongan.feature.intro
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.captures2024.soongan.core.domain.usecase.token.GetAccessTokenUseCase
+import com.captures2024.soongan.core.domain.usecase.token.GetAllTokenUseCase
+import com.captures2024.soongan.core.domain.usecase.token.GetRefreshTokenUseCase
 import com.captures2024.soongan.feature.intro.IntroActivityUiState.Loading
 import com.captures2024.soongan.feature.intro.IntroActivityUiState.Success
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,11 +19,15 @@ import javax.inject.Inject
 class IntroViewModel
 @Inject
 constructor(
-
+    private val getAllTokenUseCase: GetAllTokenUseCase
 ) : ViewModel() {
-    val introState: StateFlow<IntroState> = flow<IntroState> {
-        delay(100)
-        emit(IntroState.Sign)
+    val introState: StateFlow<IntroState> = flow {
+        getAllTokenUseCase().getOrNull()?.let { (accessToken, refreshToken) ->
+            when {
+                accessToken.isNotEmpty() && refreshToken.isNotEmpty() -> emit(IntroState.Main)
+                else -> emit(IntroState.Sign)
+            }
+        } ?: emit(IntroState.Sign)
     }.stateIn(
         scope = viewModelScope,
         initialValue = IntroState.Loading,

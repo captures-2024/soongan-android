@@ -20,8 +20,8 @@ internal object DataStoreModule {
 
     @Singleton
     @Provides
-    internal fun provideTokenDataStore(
+    fun provideTokenDataStore(
         @ApplicationContext context: Context
-    ) = context.tokenDataStore
+    ): DataStore<Preferences> = context.tokenDataStore
 
 }
