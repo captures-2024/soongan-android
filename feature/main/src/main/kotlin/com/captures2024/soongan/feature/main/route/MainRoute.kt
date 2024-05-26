@@ -12,9 +12,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.captures2024.soongan.core.analytics.NetworkMonitor
 import com.captures2024.soongan.core.design.R
 import com.captures2024.soongan.core.designsystem.component.SoonGanBackground
+import com.captures2024.soongan.feature.main.ui.MainScreen
 
 @Composable
 internal fun MainRoute(
+    isGuestMode: Boolean,
     networkMonitor: NetworkMonitor,
     routeState: MainRouteState = rememberMainRouteState(networkMonitor = networkMonitor),
 ) {
@@ -36,6 +38,11 @@ internal fun MainRoute(
             }
         }
 
-
+        MainScreen(
+            routeState = routeState,
+            isGuestMode = isGuestMode,
+            hostState = snackBarHostState,
+            height = height
+        )
     }
 }

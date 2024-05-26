@@ -36,10 +36,11 @@ class MainActivity : ComponentActivity()  {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        viewModel.setUpGuestMode(this.intent.getBooleanExtra("isGuestMode", false))
+
         setContent {
             val uiState: MainActivityUiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-            Log.d(TAG, "CurrnetState = $uiState")
             val darkTheme = ShouldUseDarkTheme(uiState)
 
             DisposableEffect(darkTheme) {
@@ -62,10 +63,11 @@ class MainActivity : ComponentActivity()  {
                     androidTheme = ShouldUseAndroidTheme(uiState),
                     disableDynamicTheming = ShouldDisableDynamicTheming(uiState),
                 ) {
-                    Log.d(TAG, "isGuestMode = ${this.intent.getBooleanExtra("isGuestMode", false)}")
-
-                    when (uiState) {
-                        is MainActivityUiState.Success -> MainRoute(networkMonitor = networkMonitor)
+                    when (val state = uiState) {
+                        is MainActivityUiState.Success -> MainRoute(
+                            isGuestMode = state.isGuestMode,
+                            networkMonitor = networkMonitor
+                        )
                         else -> Unit
                     }
                 }
@@ -86,8 +88,8 @@ class MainActivity : ComponentActivity()  {
 private fun ShouldUseAndroidTheme(
     uiState: MainActivityUiState,
 ): Boolean = when (uiState) {
-    MainActivityUiState.Loading -> false
-    MainActivityUiState.Success -> false
+    is MainActivityUiState.Loading -> false
+    is MainActivityUiState.Success -> false
 }
 
 /**
@@ -97,8 +99,8 @@ private fun ShouldUseAndroidTheme(
 private fun ShouldDisableDynamicTheming(
     uiState: MainActivityUiState,
 ): Boolean = when (uiState) {
-    MainActivityUiState.Loading -> false
-    MainActivityUiState.Success -> false
+    is MainActivityUiState.Loading -> false
+    is MainActivityUiState.Success -> false
 }
 
 
@@ -110,8 +112,8 @@ private fun ShouldDisableDynamicTheming(
 private fun ShouldUseDarkTheme(
     uiState: MainActivityUiState,
 ): Boolean = when (uiState) {
-    MainActivityUiState.Loading -> isSystemInDarkTheme()
-    MainActivityUiState.Success -> isSystemInDarkTheme()
+    is MainActivityUiState.Loading -> isSystemInDarkTheme()
+    is MainActivityUiState.Success -> isSystemInDarkTheme()
 }
 
 /**

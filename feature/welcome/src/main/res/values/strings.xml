@@ -1,0 +1,7 @@
+<resources>
+
+    <!-- WelcomeScreen -->
+    <string name="welcome_text">환영합니다</string>
+    <string name="nickname_unit_text">님!</string>
+
+</resources>

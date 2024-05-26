@@ -68,5 +68,6 @@ dependencies {
     implementation(project(":feature:sign"))
     implementation(project(":feature:signIn"))
     implementation(project(":feature:termsOfUse"))
+    implementation(project(":feature:welcome"))
     //endregion
 }

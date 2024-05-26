@@ -42,4 +42,5 @@ include(
     ":feature:sign",
     ":feature:signIn",
     ":feature:termsOfUse",
+    ":feature:welcome",
 )

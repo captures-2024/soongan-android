@@ -13,4 +13,5 @@ dependencies {
     implementation(project(":core:designSystem"))
 
     implementation(project(":feature:navigator"))
+    implementation(project(":feature:welcome"))
 }

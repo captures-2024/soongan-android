@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flow
@@ -16,13 +17,14 @@ class MainActivityViewModel
 constructor(
 
 ) : ViewModel() {
-    val uiState: StateFlow<MainActivityUiState> = flow<MainActivityUiState> {
-        emit(MainActivityUiState.Success)
-    }.stateIn(
-        scope = viewModelScope,
-        initialValue = MainActivityUiState.Loading,
-        started = SharingStarted.WhileSubscribed(5_000),
-    )
+    private val _uiState = MutableStateFlow<MainActivityUiState>(MainActivityUiState.Loading)
+    val uiState: StateFlow<MainActivityUiState>
+        get() = _uiState
+
+    fun setUpGuestMode(isGuestMode: Boolean) {
+        _uiState.value = MainActivityUiState.Success(isGuestMode = isGuestMode)
+    }
+
 
 
     companion object {
@@ -40,5 +42,7 @@ constructor(
  **/
 sealed interface MainActivityUiState {
     data object Loading : MainActivityUiState
-    data object Success : MainActivityUiState
+    data class Success(
+        val isGuestMode: Boolean,
+    ) : MainActivityUiState
 }
