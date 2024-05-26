@@ -35,10 +35,14 @@ include(
 )
 
 include(
+    ":feature:awards",
+    ":feature:feed",
+    ":feature:home",
     ":feature:intro",
     ":feature:main",
     ":feature:navigator",
     ":feature:privacyPolicy",
+    ":feature:profile",
     ":feature:sign",
     ":feature:signIn",
     ":feature:termsOfUse",
