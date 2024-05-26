@@ -47,14 +47,16 @@ internal fun WelcomeScreen(
             fontWeight = FontWeight.SemiBold
         )
         Spacer(modifier = Modifier.height(44.dp))
-        if (uiState is WelcomeUiState.Success) {
-            NonScaleText(
-                text = uiState.nickname + stringResource(id = com.captures2024.soongan.feature.welcome.R.string.nickname_unit_text),
-                color = Color.White,
-                fontSize = 36.sp,
-                fontWeight = FontWeight.SemiBold
-            )
-        }
+        NonScaleText(
+            text = when (uiState) {
+                is WelcomeUiState.Success -> uiState.nickname + stringResource(id = com.captures2024.soongan.feature.welcome.R.string.nickname_unit_text)
+                else -> ""
+            },
+            color = Color.White,
+            fontSize = 36.sp,
+            fontWeight = FontWeight.SemiBold
+        )
+
     }
 }
 

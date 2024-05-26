@@ -12,6 +12,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import com.captures2024.soongan.core.analytics.NetworkMonitor
+import com.captures2024.soongan.feature.home.navigation.navigateToHome
 import com.captures2024.soongan.feature.main.navigation.TopLevelDestination
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
@@ -70,7 +71,7 @@ internal class MainRouteState(
 
             when (topLevelDestination) {
                 TopLevelDestination.HOME -> {
-//                    navController.navigateToHome(topLevelNavOptions)
+                    navController.navigateToHome(topLevelNavOptions)
                 }
                 TopLevelDestination.FEED -> {
 //                    navController.navigateToFeed(topLevelNavOptions)

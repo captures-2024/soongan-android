@@ -18,7 +18,8 @@ constructor(
 ) : ViewModel() {
     val uiState: StateFlow<WelcomeUiState> = flow<WelcomeUiState> {
         emit(WelcomeUiState.Success("테스트"))
-
+        delay(1000)
+        emit(WelcomeUiState.MoveHome)
     }.stateIn(
         scope = viewModelScope,
         initialValue = WelcomeUiState.Loading,
