@@ -14,6 +14,7 @@ internal fun SignInRoute(
     appleSignIn: () -> Unit,
     googleSignIn: () -> Unit,
     kakaoSignIn: () -> Unit,
+    navigateToMain: (Boolean) -> Unit,
     navigateToTermsOfUse: (NavOptions) -> Unit,
     navigateToPrivacyPolicy: (NavOptions) -> Unit,
     signInViewModel: SignInViewModel
@@ -28,6 +29,7 @@ internal fun SignInRoute(
             onClickAppleSignIn = appleSignIn,
             onClickGoogleSignIn = googleSignIn,
             onClickKakaoSignIn =  kakaoSignIn,
+            navigateToMain = navigateToMain,
             navigateToTermsOfUse = navigateToTermsOfUse,
             navigateToPrivacyPolicy = navigateToPrivacyPolicy
         )

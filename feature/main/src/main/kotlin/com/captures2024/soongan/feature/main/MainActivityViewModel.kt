@@ -1,4 +1,4 @@
-package com.captures2024.soongan.feature.intro
+package com.captures2024.soongan.feature.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,30 +11,34 @@ import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
-class IntroActivityViewModel
+class MainActivityViewModel
 @Inject
 constructor(
 
 ) : ViewModel() {
-    val uiState: StateFlow<IntroActivityUiState> = flow<IntroActivityUiState> {
-        emit(IntroActivityUiState.Success)
+    val uiState: StateFlow<MainActivityUiState> = flow<MainActivityUiState> {
+        emit(MainActivityUiState.Success)
     }.stateIn(
         scope = viewModelScope,
-        initialValue = IntroActivityUiState.Loading,
+        initialValue = MainActivityUiState.Loading,
         started = SharingStarted.WhileSubscribed(5_000),
     )
 
+
+    companion object {
+        private const val TAG = "MainActVM"
+    }
 }
 
 /**
  * State 설명
  *
- * Intro Activity의 각종 UI theme을 설정하는 ViewModel
+ * Main Activity의 각종 UI theme을 설정하는 ViewModel
  *
  * @property Loading
  * @property Success
  **/
-sealed interface IntroActivityUiState {
-    data object Loading : IntroActivityUiState
-    data object Success : IntroActivityUiState
+sealed interface MainActivityUiState {
+    data object Loading : MainActivityUiState
+    data object Success : MainActivityUiState
 }

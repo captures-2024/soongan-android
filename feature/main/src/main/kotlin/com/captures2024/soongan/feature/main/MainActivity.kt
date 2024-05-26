@@ -1,7 +1,8 @@
-package com.captures2024.soongan.feature.intro
+package com.captures2024.soongan.feature.main
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
@@ -12,26 +13,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.captures2024.soongan.core.analytics.AnalyticsHelper
 import com.captures2024.soongan.core.analytics.LocalAnalyticsHelper
 import com.captures2024.soongan.core.analytics.NetworkMonitor
 import com.captures2024.soongan.core.designsystem.theme.SoonGanTheme
-import com.captures2024.soongan.feature.intro.route.IntroRoute
-import com.captures2024.soongan.feature.navigator.MainNavigator
-import com.captures2024.soongan.feature.navigator.SignNavigator
+import com.captures2024.soongan.feature.main.route.MainRoute
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class IntroActivity : ComponentActivity() {
-
-    @Inject
-    lateinit var signNavigator: SignNavigator
-
-    @Inject
-    lateinit var mainNavigator: MainNavigator
+class MainActivity : ComponentActivity()  {
 
     @Inject
     lateinit var analyticsHelper: AnalyticsHelper
@@ -39,15 +31,15 @@ class IntroActivity : ComponentActivity() {
     @Inject
     lateinit var networkMonitor: NetworkMonitor
 
-    private val viewModel: IntroActivityViewModel by viewModels()
+    private val viewModel: MainActivityViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        installSplashScreen()
         super.onCreate(savedInstanceState)
 
         setContent {
-            val uiState: IntroActivityUiState by viewModel.uiState.collectAsStateWithLifecycle()
+            val uiState: MainActivityUiState by viewModel.uiState.collectAsStateWithLifecycle()
 
+            Log.d(TAG, "CurrnetState = $uiState")
             val darkTheme = ShouldUseDarkTheme(uiState)
 
             DisposableEffect(darkTheme) {
@@ -70,28 +62,21 @@ class IntroActivity : ComponentActivity() {
                     androidTheme = ShouldUseAndroidTheme(uiState),
                     disableDynamicTheming = ShouldDisableDynamicTheming(uiState),
                 ) {
-                    IntroRoute(
-                        uiState = uiState,
-                        networkMonitor = networkMonitor,
-                        navigateToSign = {
-                            signNavigator.navigateFrom(
-                                activity = this,
-                                withFinish = true,
-                            )
-                        },
-                        navigateToMain = {
-                            mainNavigator.navigateFrom(
-                                activity = this,
-                                withFinish = true,
-                            )
-                        }
-                    )
+                    Log.d(TAG, "isGuestMode = ${this.intent.getBooleanExtra("isGuestMode", false)}")
+
+                    when (uiState) {
+                        is MainActivityUiState.Success -> MainRoute(networkMonitor = networkMonitor)
+                        else -> Unit
+                    }
                 }
             }
         }
 
     }
 
+    companion object {
+        private const val TAG = "MainAct"
+    }
 }
 
 /**
@@ -99,10 +84,10 @@ class IntroActivity : ComponentActivity() {
  */
 @Composable
 private fun ShouldUseAndroidTheme(
-    uiState: IntroActivityUiState,
+    uiState: MainActivityUiState,
 ): Boolean = when (uiState) {
-    IntroActivityUiState.Loading -> false
-    IntroActivityUiState.Success -> false
+    MainActivityUiState.Loading -> false
+    MainActivityUiState.Success -> false
 }
 
 /**
@@ -110,10 +95,10 @@ private fun ShouldUseAndroidTheme(
  */
 @Composable
 private fun ShouldDisableDynamicTheming(
-    uiState: IntroActivityUiState,
+    uiState: MainActivityUiState,
 ): Boolean = when (uiState) {
-    IntroActivityUiState.Loading -> false
-    IntroActivityUiState.Success -> false
+    MainActivityUiState.Loading -> false
+    MainActivityUiState.Success -> false
 }
 
 
@@ -123,10 +108,10 @@ private fun ShouldDisableDynamicTheming(
  */
 @Composable
 private fun ShouldUseDarkTheme(
-    uiState: IntroActivityUiState,
+    uiState: MainActivityUiState,
 ): Boolean = when (uiState) {
-    IntroActivityUiState.Loading -> isSystemInDarkTheme()
-    IntroActivityUiState.Success -> isSystemInDarkTheme()
+    MainActivityUiState.Loading -> isSystemInDarkTheme()
+    MainActivityUiState.Success -> isSystemInDarkTheme()
 }
 
 /**

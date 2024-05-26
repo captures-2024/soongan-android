@@ -20,6 +20,7 @@ import com.captures2024.soongan.core.analytics.NetworkMonitor
 import com.captures2024.soongan.core.auth.GoogleAuthUiClient
 import com.captures2024.soongan.core.designsystem.theme.SoonGanTheme
 import com.captures2024.soongan.core.model.SignInResult
+import com.captures2024.soongan.feature.navigator.MainNavigator
 import com.captures2024.soongan.feature.sign.route.SignRoute
 import com.captures2024.soongan.feature.signIn.SignInViewModel
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
@@ -39,6 +40,9 @@ class SignActivity : ComponentActivity() {
 
     @Inject
     lateinit var beginSignInRequest: BeginSignInRequest
+
+    @Inject
+    lateinit var mainNavigator: MainNavigator
 
     private val signInViewModel: SignInViewModel by viewModels()
 
@@ -120,6 +124,15 @@ class SignActivity : ComponentActivity() {
                                 // TODO finish KakaoSignIn
                             }
                         },
+                        navigateToMain = { isGuestMode ->
+                            mainNavigator.navigateFrom(
+                                activity = this,
+                                withFinish = true,
+                                intentBuilder = {
+                                    putExtra(GUEST_MODE_KEY, isGuestMode)
+                                }
+                            )
+                        },
                         signInViewModel = signInViewModel
                     )
                 }
@@ -127,6 +140,9 @@ class SignActivity : ComponentActivity() {
         }
     }
 
+    companion object {
+        const val GUEST_MODE_KEY = "isGuestMode"
+    }
 }
 
 /**

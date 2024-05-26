@@ -22,12 +22,13 @@ constructor(
     private val getAllTokenUseCase: GetAllTokenUseCase
 ) : ViewModel() {
     val introState: StateFlow<IntroState> = flow {
-        getAllTokenUseCase().getOrNull()?.let { (accessToken, refreshToken) ->
-            when {
-                accessToken.isNotEmpty() && refreshToken.isNotEmpty() -> emit(IntroState.Main)
-                else -> emit(IntroState.Sign)
-            }
-        } ?: emit(IntroState.Sign)
+//        getAllTokenUseCase().getOrNull()?.let { (accessToken, refreshToken) ->
+//            when {
+//                accessToken.isNotEmpty() && refreshToken.isNotEmpty() -> emit(IntroState.Main)
+//                else -> emit(IntroState.Sign)
+//            }
+//        } ?: emit(IntroState.Sign)
+        emit(IntroState.Main)
     }.stateIn(
         scope = viewModelScope,
         initialValue = IntroState.Loading,

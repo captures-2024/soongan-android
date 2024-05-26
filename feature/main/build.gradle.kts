@@ -8,5 +8,9 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:analytics"))
+    implementation(project(":core:common"))
     implementation(project(":core:designSystem"))
+
+    implementation(project(":feature:navigator"))
 }

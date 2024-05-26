@@ -1,4 +1,4 @@
-package com.captures2024.soongan.feature.sign.route
+package com.captures2024.soongan.feature.main.route
 
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
@@ -12,18 +12,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.captures2024.soongan.core.analytics.NetworkMonitor
 import com.captures2024.soongan.core.design.R
 import com.captures2024.soongan.core.designsystem.component.SoonGanBackground
-import com.captures2024.soongan.feature.sign.ui.SignScreen
-import com.captures2024.soongan.feature.signIn.SignInViewModel
 
 @Composable
-internal fun SignRoute(
+internal fun MainRoute(
     networkMonitor: NetworkMonitor,
-    appleSignIn: () -> Unit,
-    googleSignIn: () -> Unit,
-    kakaoSignIn: () -> Unit,
-    navigateToMain: (isGuestMode: Boolean) -> Unit,
-    signInViewModel: SignInViewModel,
-    routeState: SignRouteState = rememberSignRouteState(networkMonitor = networkMonitor),
+    routeState: MainRouteState = rememberMainRouteState(networkMonitor = networkMonitor),
 ) {
     val height = LocalConfiguration.current.screenHeightDp
 
@@ -43,15 +36,6 @@ internal fun SignRoute(
             }
         }
 
-        SignScreen(
-            routeState = routeState,
-            hostState = snackBarHostState,
-            height = height,
-            appleSignIn = appleSignIn,
-            googleSignIn = googleSignIn,
-            kakaoSignIn = kakaoSignIn,
-            navigateToMain = navigateToMain,
-            signInViewModel = signInViewModel
-        )
+
     }
 }

@@ -19,7 +19,7 @@ fun NavGraphBuilder.signIn(
     kakaoSignIn: () -> Unit,
     signInViewModel: SignInViewModel,
     navigateToSignUp: (NavOptions) -> Unit,
-    navigateToMain: (NavOptions) -> Unit,
+    navigateToMain: (Boolean) -> Unit,
     navigateToTermsOfUse: (NavOptions) -> Unit,
     navigateToPrivacyPolicy: (NavOptions) -> Unit,
 ) {
@@ -28,6 +28,7 @@ fun NavGraphBuilder.signIn(
             appleSignIn = appleSignIn,
             googleSignIn = googleSignIn,
             kakaoSignIn = kakaoSignIn,
+            navigateToMain = navigateToMain,
             navigateToTermsOfUse = navigateToTermsOfUse,
             navigateToPrivacyPolicy = navigateToPrivacyPolicy,
             signInViewModel = signInViewModel

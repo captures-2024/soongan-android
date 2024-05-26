@@ -27,6 +27,11 @@ internal fun IntroRoute(
                 navigateToSign()
             }
         }
+        is IntroState.Main -> {
+            if (uiState is IntroActivityUiState.Success) {
+                navigateToMain()
+            }
+        }
         else -> Unit
     }
 
