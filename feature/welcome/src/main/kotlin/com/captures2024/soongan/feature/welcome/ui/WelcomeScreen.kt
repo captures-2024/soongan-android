@@ -49,14 +49,13 @@ internal fun WelcomeScreen(
         Spacer(modifier = Modifier.height(44.dp))
         NonScaleText(
             text = when (uiState) {
-                is WelcomeUiState.Success -> uiState.nickname + stringResource(id = com.captures2024.soongan.feature.welcome.R.string.nickname_unit_text)
-                else -> ""
+                is WelcomeUiState.Loading -> ""
+                else -> uiState.nickname + stringResource(id = com.captures2024.soongan.feature.welcome.R.string.nickname_unit_text)
             },
             color = Color.White,
             fontSize = 36.sp,
             fontWeight = FontWeight.SemiBold
         )
-
     }
 }
 

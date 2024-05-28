@@ -19,7 +19,7 @@ constructor(
     val uiState: StateFlow<WelcomeUiState> = flow<WelcomeUiState> {
         emit(WelcomeUiState.Success("테스트"))
         delay(1000)
-        emit(WelcomeUiState.MoveHome)
+        emit(WelcomeUiState.MoveHome("테스트"))
     }.stateIn(
         scope = viewModelScope,
         initialValue = WelcomeUiState.Loading,
@@ -31,11 +31,15 @@ constructor(
     }
 }
 
-sealed interface WelcomeUiState {
-    data object Loading : WelcomeUiState
+sealed class WelcomeUiState(
+    open val nickname: String
+) {
+    data object Loading : WelcomeUiState("")
     data class Success(
-        val nickname: String
-    ) : WelcomeUiState
+        override val nickname: String
+    ) : WelcomeUiState(nickname = nickname)
 
-    data object MoveHome : WelcomeUiState
+    data class MoveHome(
+        override val nickname: String
+    ) : WelcomeUiState(nickname = nickname)
 }
