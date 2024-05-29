@@ -187,7 +187,10 @@ okhttp = { module = "com.squareup.okhttp3:okhttp" }
 okhttp-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor" }
 
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit-gson-converter = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+retrofit-scalar-converter = { module = "com.squareup.retrofit2:converter-scalars", version.ref = "retrofit" }
 retrofit-kotlin-serialization-converter = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "kotlinx-serialization-converter" }
+
 
 # Room
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
@@ -228,6 +231,6 @@ navigation = ["navigation-fragment", "navigation-ui"]
 firebase = ["firebase-analytics", "firebase-crashlytics", "firebase-dynamiclink"]
 lifecycle = ["lifecycle", "lifecycle-viewmodel", "lifecycle-livedata"]
 compose = ["ui", "ui-graphics", "ui-tooling", "ui-tooling-preview", "material3-compose", "coil-compose", "ui-foundation", "activity-compose", "lifecycle-compose", "navigation-compose"]
-retrofit = ["retrofit", "retrofit-kotlin-serialization-converter"]
+retrofit = ["retrofit", "retrofit-gson-converter", "retrofit-scalar-converter", "retrofit-kotlin-serialization-converter"]
 junit5 = ["junit5", "junit5-engine", "junit5-params", "junit5-vintage", "junit5-android-test-core", "junit5-android-test-runner"]
 androidx-android-test = ["androidx-test-core", "androidx-test-espresso", "androidx-test-espresso-intents", "androidx-test-junit", "androidx-test-junit-ktx", "androidx-test-rules", "androidx-test-runner", "androidx-test-truth"]

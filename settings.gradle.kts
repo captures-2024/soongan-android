@@ -31,7 +31,8 @@ include(
     ":core:data",
     ":core:datastore",
     ":core:domain",
-    ":core:model"
+    ":core:model",
+    ":core:network"
 )
 
 include(
