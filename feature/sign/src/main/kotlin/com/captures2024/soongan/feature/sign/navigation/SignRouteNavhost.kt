@@ -11,6 +11,8 @@ import com.captures2024.soongan.feature.sign.route.SignRouteState
 import com.captures2024.soongan.feature.signIn.SignInViewModel
 import com.captures2024.soongan.feature.signIn.navigation.SIGN_IN_NAVIGATION_ROUTE
 import com.captures2024.soongan.feature.signIn.navigation.signIn
+import com.captures2024.soongan.feature.signUp.navigation.INPUT_NICKNAME_NAVIGATION_ROUTE
+import com.captures2024.soongan.feature.signUp.navigation.navigateToInputBirthYear
 import com.captures2024.soongan.feature.signUp.navigation.signUp
 import com.captures2024.soongan.feature.termsofuse.navigation.navigateToTermsOfUse
 import com.captures2024.soongan.feature.termsofuse.navigation.termsOfUse
@@ -31,7 +33,8 @@ internal fun SignRouteNavHost(
     NavHost(
         modifier = modifier,
         navController = navController,
-        startDestination = SIGN_IN_NAVIGATION_ROUTE,
+//        startDestination = SIGN_IN_NAVIGATION_ROUTE,
+        startDestination = INPUT_NICKNAME_NAVIGATION_ROUTE,
         enterTransition = { EnterTransition.None },
         exitTransition = { ExitTransition.None },
         popEnterTransition = { EnterTransition.None },
@@ -49,6 +52,9 @@ internal fun SignRouteNavHost(
         )
         termsOfUse(navigateToBack = navController::popBackStack)
         privacyPolicy(navigateToBack = navController::popBackStack)
-        signUp()
+        signUp(
+            navigateToBack = navController::popBackStack,
+            navigateToInputBirthYear = navController::navigateToInputBirthYear
+        )
     }
 }

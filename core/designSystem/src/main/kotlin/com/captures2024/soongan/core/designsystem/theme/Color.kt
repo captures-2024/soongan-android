@@ -64,3 +64,10 @@ internal val Teal30 = Color(0xFF214D56)
 internal val Teal40 = Color(0xFF3A656F)
 internal val Teal80 = Color(0xFFA2CED9)
 internal val Teal90 = Color(0xFFBEEAF6)
+
+
+val PrimaryA = Color(0xFF252525)
+val PrimaryB = Color(0xFFF5F5F5)
+val Accent = Color(0xFFFBC304)
+val Positive = Color(0xFF276EF1)
+val Negative = Color(0xFFDE1135)

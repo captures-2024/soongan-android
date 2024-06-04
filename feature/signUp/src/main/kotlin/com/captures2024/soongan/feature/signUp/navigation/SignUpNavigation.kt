@@ -6,6 +6,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.captures2024.soongan.feature.signUp.route.InputNicknameRoute
 
 const val INPUT_NICKNAME_NAVIGATION_ROUTE = "input_nickname_route"
 const val INPUT_BIRTH_YEAR_NAVIGATION_ROUTE = "input_birth_year_route"
@@ -22,10 +23,14 @@ fun NavController.navigateToInputBirthYear(
 }
 
 fun NavGraphBuilder.signUp(
-
+    navigateToBack: () -> Unit,
+    navigateToInputBirthYear: (String, NavOptions) -> Unit,
 ) {
     composable(route = INPUT_NICKNAME_NAVIGATION_ROUTE) {
-
+        InputNicknameRoute(
+            navigateToBack = navigateToBack,
+            navigateToInputBirthYear = navigateToInputBirthYear
+        )
     }
     composable(
         route = "$INPUT_BIRTH_YEAR_NAVIGATION_ROUTE/{nickname}",
