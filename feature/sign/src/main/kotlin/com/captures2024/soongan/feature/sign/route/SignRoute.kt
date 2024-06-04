@@ -21,6 +21,7 @@ internal fun SignRoute(
     appleSignIn: () -> Unit,
     googleSignIn: () -> Unit,
     kakaoSignIn: () -> Unit,
+    navigateToMain: (isGuestMode: Boolean) -> Unit,
     signInViewModel: SignInViewModel,
     routeState: SignRouteState = rememberSignRouteState(networkMonitor = networkMonitor),
 ) {
@@ -49,6 +50,7 @@ internal fun SignRoute(
             appleSignIn = appleSignIn,
             googleSignIn = googleSignIn,
             kakaoSignIn = kakaoSignIn,
+            navigateToMain = navigateToMain,
             signInViewModel = signInViewModel
         )
     }

@@ -34,6 +34,7 @@ internal fun SignInDefaultScreen(
     onClickAppleSignIn: () -> Unit = {},
     onClickGoogleSignIn: () -> Unit = {},
     onClickKakaoSignIn: () -> Unit = {},
+    navigateToMain: (Boolean) -> Unit,
     navigateToTermsOfUse: (NavOptions) -> Unit = {},
     navigateToPrivacyPolicy: (NavOptions) -> Unit = {},
 ) {
@@ -89,7 +90,7 @@ internal fun SignInDefaultScreen(
             text = stringResource(id = R.string.gesture_looking),
             modifier = Modifier
                 .clickable {
-                    // TODO onClick looking
+                    navigateToMain(true)
                 },
             color = Color(0xFFF5F5F5),
             fontSize = 14.sp,
@@ -104,6 +105,7 @@ private fun SignInDefaultScreenPreview() {
     SignInDefaultScreen(
         onClickGoogleSignIn = {},
         onClickKakaoSignIn = {},
+        navigateToMain = {},
         navigateToTermsOfUse = {},
         navigateToPrivacyPolicy = {}
     )

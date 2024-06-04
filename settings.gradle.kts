@@ -29,16 +29,23 @@ include(
     ":core:common",
     ":core:designSystem",
     ":core:data",
+    ":core:datastore",
     ":core:domain",
-    ":core:model"
+    ":core:model",
+    ":core:network"
 )
 
 include(
+    ":feature:awards",
+    ":feature:feed",
+    ":feature:home",
     ":feature:intro",
     ":feature:main",
     ":feature:navigator",
     ":feature:privacyPolicy",
+    ":feature:profile",
     ":feature:sign",
     ":feature:signIn",
     ":feature:termsOfUse",
+    ":feature:welcome",
 )

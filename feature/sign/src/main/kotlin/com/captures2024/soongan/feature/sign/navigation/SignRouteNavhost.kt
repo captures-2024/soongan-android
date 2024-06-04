@@ -21,6 +21,7 @@ internal fun SignRouteNavHost(
     appleSignIn: () -> Unit,
     googleSignIn: () -> Unit,
     kakaoSignIn: () -> Unit,
+    navigateToMain: (isGuestMode: Boolean) -> Unit,
     signInViewModel: SignInViewModel,
     onShowSnackBar: suspend (String) -> Boolean,
 ) {
@@ -41,7 +42,7 @@ internal fun SignRouteNavHost(
             kakaoSignIn = kakaoSignIn,
             signInViewModel = signInViewModel,
             navigateToSignUp = {},
-            navigateToMain = {},
+            navigateToMain = navigateToMain,
             navigateToTermsOfUse = navController::navigateToTermsOfUse,
             navigateToPrivacyPolicy = navController::navigateToPrivacyPolicy
         )

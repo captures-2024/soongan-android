@@ -19,6 +19,7 @@ import com.captures2024.soongan.core.analytics.LocalAnalyticsHelper
 import com.captures2024.soongan.core.analytics.NetworkMonitor
 import com.captures2024.soongan.core.designsystem.theme.SoonGanTheme
 import com.captures2024.soongan.feature.intro.route.IntroRoute
+import com.captures2024.soongan.feature.navigator.MainNavigator
 import com.captures2024.soongan.feature.navigator.SignNavigator
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -28,6 +29,9 @@ class IntroActivity : ComponentActivity() {
 
     @Inject
     lateinit var signNavigator: SignNavigator
+
+    @Inject
+    lateinit var mainNavigator: MainNavigator
 
     @Inject
     lateinit var analyticsHelper: AnalyticsHelper
@@ -67,6 +71,7 @@ class IntroActivity : ComponentActivity() {
                     disableDynamicTheming = ShouldDisableDynamicTheming(uiState),
                 ) {
                     IntroRoute(
+                        uiState = uiState,
                         networkMonitor = networkMonitor,
                         navigateToSign = {
                             signNavigator.navigateFrom(
@@ -75,7 +80,10 @@ class IntroActivity : ComponentActivity() {
                             )
                         },
                         navigateToMain = {
-
+                            mainNavigator.navigateFrom(
+                                activity = this,
+                                withFinish = true,
+                            )
                         }
                     )
                 }

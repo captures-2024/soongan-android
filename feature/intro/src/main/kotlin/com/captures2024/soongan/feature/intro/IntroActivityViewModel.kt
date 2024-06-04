@@ -17,7 +17,6 @@ constructor(
 
 ) : ViewModel() {
     val uiState: StateFlow<IntroActivityUiState> = flow<IntroActivityUiState> {
-        delay(1000)
         emit(IntroActivityUiState.Success)
     }.stateIn(
         scope = viewModelScope,

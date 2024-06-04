@@ -56,16 +56,23 @@ dependencies {
     implementation(project(":core:common"))
     implementation(project(":core:designSystem"))
     implementation(project(":core:data"))
+    implementation(project(":core:datastore"))
     implementation(project(":core:domain"))
     implementation(project(":core:model"))
+    implementation(project(":core:network"))
     //endregion
 
     //region feature module
+    implementation(project(":feature:awards"))
+    implementation(project(":feature:feed"))
+    implementation(project(":feature:home"))
     implementation(project(":feature:intro"))
     implementation(project(":feature:main"))
     implementation(project(":feature:privacyPolicy"))
+    implementation(project(":feature:profile"))
     implementation(project(":feature:sign"))
     implementation(project(":feature:signIn"))
     implementation(project(":feature:termsOfUse"))
+    implementation(project(":feature:welcome"))
     //endregion
 }

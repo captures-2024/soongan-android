@@ -29,6 +29,7 @@ internal fun SignScreen(
     appleSignIn: () -> Unit,
     googleSignIn: () -> Unit,
     kakaoSignIn: () -> Unit,
+    navigateToMain: (isGuestMode: Boolean) -> Unit,
     signInViewModel: SignInViewModel,
 ) = Scaffold(
     snackbarHost = {
@@ -58,6 +59,7 @@ internal fun SignScreen(
         appleSignIn = appleSignIn,
         googleSignIn = googleSignIn,
         kakaoSignIn = kakaoSignIn,
+        navigateToMain = navigateToMain,
         signInViewModel = signInViewModel
     ) { message ->
         hostState.showSnackbar(
