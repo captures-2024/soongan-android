@@ -11,6 +11,10 @@ import com.captures2024.soongan.feature.sign.route.SignRouteState
 import com.captures2024.soongan.feature.signIn.SignInViewModel
 import com.captures2024.soongan.feature.signIn.navigation.SIGN_IN_NAVIGATION_ROUTE
 import com.captures2024.soongan.feature.signIn.navigation.signIn
+import com.captures2024.soongan.feature.signUp.navigation.INPUT_NICKNAME_NAVIGATION_ROUTE
+import com.captures2024.soongan.feature.signUp.navigation.navigateToInputBirthYear
+import com.captures2024.soongan.feature.signUp.navigation.navigateToInputNickname
+import com.captures2024.soongan.feature.signUp.navigation.signUp
 import com.captures2024.soongan.feature.termsofuse.navigation.navigateToTermsOfUse
 import com.captures2024.soongan.feature.termsofuse.navigation.termsOfUse
 
@@ -41,12 +45,16 @@ internal fun SignRouteNavHost(
             googleSignIn = googleSignIn,
             kakaoSignIn = kakaoSignIn,
             signInViewModel = signInViewModel,
-            navigateToSignUp = {},
             navigateToMain = navigateToMain,
+            navigateToSignUp = navController::navigateToInputNickname,
             navigateToTermsOfUse = navController::navigateToTermsOfUse,
             navigateToPrivacyPolicy = navController::navigateToPrivacyPolicy
         )
         termsOfUse(navigateToBack = navController::popBackStack)
         privacyPolicy(navigateToBack = navController::popBackStack)
+        signUp(
+            navigateToBack = navController::popBackStack,
+            navigateToInputBirthYear = navController::navigateToInputBirthYear
+        )
     }
 }

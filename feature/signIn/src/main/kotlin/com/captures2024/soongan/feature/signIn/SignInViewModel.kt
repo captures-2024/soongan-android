@@ -24,6 +24,10 @@ constructor(
     val uiState: StateFlow<SignInState>
         get() = _uiState
 
+    fun restoreInitState() {
+        _uiState.value = Init
+    }
+
     fun onClickSignIn(
         activeSocialSignIn: () -> Unit
     ) {
@@ -53,8 +57,9 @@ constructor(
     suspend fun finishGoogleSignIn(signInResult: SignInResult) {
         when (signInResult.data) {
             null -> {
-                Log.d(TAG, "errorMessage = ${signInResult.errorMessage}")
-                _uiState.emit(ErrorSignIn)
+                _uiState.emit(SignUp)
+//                Log.d(TAG, "errorMessage = ${signInResult.errorMessage}")
+//                _uiState.emit(ErrorSignIn)
             }
             else -> {
                 // TODO Success Logic

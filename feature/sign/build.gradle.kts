@@ -18,6 +18,7 @@ dependencies {
 
     implementation(project(":feature:privacyPolicy"))
     implementation(project(":feature:signIn"))
+    implementation(project(":feature:signUp"))
     implementation(project(":feature:termsOfUse"))
     implementation(project(":feature:navigator"))
 
