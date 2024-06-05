@@ -18,4 +18,22 @@ object Validation {
         }
     }
 
+    enum class BirthYearValidState {
+        Success, Length, Regex
+    }
+
+    fun isValidBirthYear(birthYear: String): BirthYearValidState {
+        if (birthYear.length in 0 until 4) {
+            return BirthYearValidState.Length
+        }
+
+        val num = birthYear.toIntOrNull() ?: return BirthYearValidState.Regex
+
+        if (num !in 1950 .. 2009) {
+            return BirthYearValidState.Regex
+        }
+
+        return BirthYearValidState.Success
+    }
+
 }

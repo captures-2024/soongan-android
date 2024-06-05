@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.TextFieldDefaults
@@ -44,6 +45,7 @@ fun CustomBasicTextField(
     title: String,
     hint: String = "",
     isValid: CustomBasicTextFieldState = CustomBasicTextFieldState.Init,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     enabled: Boolean = true,
     singleLine: Boolean = true,
@@ -83,6 +85,7 @@ fun CustomBasicTextField(
                     },
                     shape = shape
                 ),
+            keyboardOptions = keyboardOptions,
             interactionSource = interactionSource,
             enabled = enabled,
             singleLine = singleLine

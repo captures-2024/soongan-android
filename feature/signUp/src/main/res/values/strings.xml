@@ -7,10 +7,23 @@
     <string name="btn_next_text">다음</string>
 
     <!-- InputNicknameScreen -->
+    <string name="btn_nickname_input_title">다음이 마지막 단계입니다!</string>
+
+    <!-- InputNicknameScreen -->
     <string name="input_nickname_input_title">닉네임</string>
+    <string name="input_nickname_input_form_hint_text">사용자명을 입력해주세요.</string>
     <string name="input_nickname_default_hint_text">3–10자리 숫자, 영문, 한글로 입력해주세요</string>
     <string name="input_nickname_fail_regex_hint_text">특수문자는 제거해주세요</string>
     <string name="input_nickname_fail_duplication_hint_text">아이디가 중복되었습니다.</string>
-    <string name="btn_nickname_input_title">다음이 마지막 단계입니다!</string>
+
+    <!-- InputBirthYearBodyScreen -->
+    <string name="input_birth_year_nickname_title">닉네임</string>
+    <string name="input_birth_year_title">출생연도</string>
+    <string name="input_birth_year_input_form_hint_text">YYYY</string>
+    <string name="input_birth_default_hint_text">출생연도 숫자 4자리 기입해주세요</string>
+    <string name="input_birth_fail_hint_text">1950-2009이내의 기간을 입력해주세요.</string>
+
+    <!-- InputBirthYearScreen -->
+    <string name="input_birth_year_button_title">마지막 단계입니다!</string>
 
 </resources>

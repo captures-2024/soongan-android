@@ -3,6 +3,7 @@ package com.captures2024.soongan.feature.welcome.route
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavOptions
 import com.captures2024.soongan.feature.welcome.WelcomeUiState
 import com.captures2024.soongan.feature.welcome.WelcomeViewModel
@@ -14,7 +15,7 @@ internal fun WelcomeRoute(
     navigateToHome: (NavOptions) -> Unit,
     welcomeViewModel: WelcomeViewModel = hiltViewModel()
 ) {
-    val uiState = welcomeViewModel.uiState.collectAsState()
+    val uiState = welcomeViewModel.uiState.collectAsStateWithLifecycle()
 
     if (uiState.value is WelcomeUiState.MoveHome) {
         val navOptions = NavOptions.Builder()

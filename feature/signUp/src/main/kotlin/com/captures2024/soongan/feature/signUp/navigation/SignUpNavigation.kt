@@ -6,6 +6,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.captures2024.soongan.feature.signUp.route.InputBirthYearRoute
 import com.captures2024.soongan.feature.signUp.route.InputNicknameRoute
 
 const val INPUT_NICKNAME_NAVIGATION_ROUTE = "input_nickname_route"
@@ -37,8 +38,18 @@ fun NavGraphBuilder.signUp(
         arguments = listOf(
             navArgument("nickname") { type = NavType.StringType }
         )
-    ) {
+    ) { navBackStackEntry ->
+        val nickname = navBackStackEntry.arguments?.getString("nickname")
 
+        if (nickname == null) {
+            navigateToBack()
+        } else {
+            InputBirthYearRoute(
+                nickname = nickname,
+                navigateToBack = navigateToBack,
+                navigateToHome = {}
+            )
+        }
     }
 
 }

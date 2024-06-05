@@ -16,6 +16,9 @@ constructor(
     val uiState: StateFlow<InputNickNameUIState>
         get() = _uiState
 
+    fun restoreState() {
+        _uiState.value = InputNickNameUIState.Init
+    }
 
     fun onChangedValue(nickname: String) {
         val currentState = _uiState.value
