@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
@@ -15,7 +14,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.captures2024.soongan.core.designsystem.theme.PrimaryA
 import com.captures2024.soongan.core.designsystem.theme.PrimaryB
-import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 
 @Composable
 fun RowScope.SoonGanNavigationBarItem(
@@ -67,14 +65,6 @@ fun SoonGanNavigationBar(
         tonalElevation = 0.dp,
         content = content,
     )
-}
-
-@DevicePreviews
-@Composable
-private fun SoonGanNavigationBarPreview() {
-    SoonGanNavigationBar {
-
-    }
 }
 
 object SoonGanNavigationDefaults {
