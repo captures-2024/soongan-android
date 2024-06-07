@@ -1,27 +1,30 @@
 package com.captures2024.soongan.feature.main.navigation
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.ui.graphics.vector.ImageVector
+import com.captures2024.soongan.core.designsystem.icon.MyIconPack
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconAwards
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFeed
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconHome
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconProfile
 
 enum class TopLevelDestination(
     val selectedIcon: ImageVector,
     val unselectedIcon: ImageVector,
 ) {
     HOME(
-        selectedIcon = Icons.Default.Home,
-        unselectedIcon = Icons.Default.Home,
+        selectedIcon = MyIconPack.IconHome,
+        unselectedIcon = MyIconPack.IconHome,
     ),
     FEED(
-        selectedIcon = Icons.Default.Home,
-        unselectedIcon = Icons.Default.Home,
+        selectedIcon = MyIconPack.IconFeed,
+        unselectedIcon = MyIconPack.IconFeed,
     ),
     AWARDS(
-        selectedIcon = Icons.Default.Home,
-        unselectedIcon = Icons.Default.Home,
+        selectedIcon = MyIconPack.IconAwards,
+        unselectedIcon = MyIconPack.IconAwards,
     ),
     PROFILE(
-        selectedIcon = Icons.Default.Home,
-        unselectedIcon = Icons.Default.Home,
+        selectedIcon = MyIconPack.IconProfile,
+        unselectedIcon = MyIconPack.IconProfile,
     ),
 }

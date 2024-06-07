@@ -16,6 +16,7 @@ import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.captures2024.soongan.feature.main.navigation.MainRouteNavHost
 import com.captures2024.soongan.feature.main.route.MainRouteState
@@ -45,6 +46,14 @@ internal fun MainScreen(
                     Box(Modifier.fillMaxSize())
                 }
             }
+        )
+    },
+    bottomBar = {
+        SoonGanBottomBar(
+            destinations = routeState.topLevelDestinations,
+            onNavigateToDestination = routeState::navigateToTopLevelDestination,
+            currentDestination = routeState.currentDestination,
+            modifier = Modifier.testTag("SoonGanBottomBar"),
         )
     }
 ) { padding ->
