@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.captures2024.soongan.feature.main.navigation.MainRouteNavHost
+import com.captures2024.soongan.feature.main.navigation.TopLevelDestination
 import com.captures2024.soongan.feature.main.route.MainRouteState
 
 @Composable
@@ -49,12 +50,23 @@ internal fun MainScreen(
         )
     },
     bottomBar = {
-        SoonGanBottomBar(
-            destinations = routeState.topLevelDestinations,
-            onNavigateToDestination = routeState::navigateToTopLevelDestination,
-            currentDestination = routeState.currentDestination,
-            modifier = Modifier.testTag("SoonGanBottomBar"),
-        )
+        var isNotViewBottomBar = true
+
+        for (topLevelDestination in routeState.topLevelDestinations) {
+            if (routeState.currentDestination.isTopLevelDestinationInHierarchy(topLevelDestination)) {
+                isNotViewBottomBar = false
+                break
+            }
+        }
+
+        if (!isNotViewBottomBar) {
+            SoonGanBottomBar(
+                destinations = routeState.topLevelDestinations,
+                onNavigateToDestination = routeState::navigateToTopLevelDestination,
+                currentDestination = routeState.currentDestination,
+                modifier = Modifier.testTag("SoonGanBottomBar"),
+            )
+        }
     }
 ) { padding ->
     MainRouteNavHost(
