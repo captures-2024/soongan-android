@@ -1,4 +1,4 @@
-package com.captures2024.soongan.feature.home.ui
+package com.captures2024.soongan.feature.profile.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -14,7 +14,7 @@ import com.captures2024.soongan.core.designsystem.theme.PrimaryB
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 
 @Composable
-internal fun HomeScreen(
+internal fun ProfileScreen(
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -23,7 +23,7 @@ internal fun HomeScreen(
         contentAlignment = Alignment.Center
     ) {
         NonScaleText(
-            text = "home",
+            text = "profile",
             color = Color.Black,
             fontSize = 36.sp,
             fontWeight = FontWeight.Bold
@@ -33,6 +33,6 @@ internal fun HomeScreen(
 
 @DevicePreviews
 @Composable
-private fun HomeScreenPreview() {
-    HomeScreen()
+private fun ProfileScreenPreview() {
+    ProfileScreen()
 }
