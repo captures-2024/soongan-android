@@ -1,9 +1,13 @@
 package com.captures2024.soongan.core.designsystem.icon
 
 import androidx.compose.ui.graphics.vector.ImageVector
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconAwards
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconBack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconCircleCheck
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconCircleCheckFail
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFeed
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconHome
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconProfile
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.LogoApple
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.LogoGoogle
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.LogoKakao
@@ -18,7 +22,7 @@ public val MyIconPack.AllIcons: ____KtList<ImageVector>
     if (__AllIcons != null) {
       return __AllIcons!!
     }
-    __AllIcons= listOf(LogoGoogle, IconCircleCheck, IconBack, LogoApple, IconCircleCheckFail,
-        LogoKakao)
+    __AllIcons= listOf(IconAwards, LogoGoogle, IconCircleCheck, IconBack, IconProfile, IconFeed,
+        LogoApple, IconCircleCheckFail, IconHome, LogoKakao)
     return __AllIcons!!
   }
