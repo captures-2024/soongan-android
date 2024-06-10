@@ -4,11 +4,14 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.grid.LazyGridState
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -38,7 +41,9 @@ import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 @Composable
 internal fun HomeGalleryTopBar(
     modifier: Modifier = Modifier,
-    lazyListState: LazyListState = rememberLazyListState(),
+    lazyGridState: LazyGridState = rememberLazyGridState(),
+    onClickBack: () -> Unit,
+    onClickFilter: () -> Unit
 ) {
     var scrolledY = 0f
     var previousOffset = 0
@@ -46,74 +51,18 @@ internal fun HomeGalleryTopBar(
     Row(
         modifier = modifier
             .graphicsLayer {
-                scrolledY += lazyListState.firstVisibleItemScrollOffset - previousOffset
+                scrolledY += lazyGridState.firstVisibleItemScrollOffset - previousOffset
                 translationY = scrolledY * 0.5f
-                previousOffset = lazyListState.firstVisibleItemScrollOffset
+                previousOffset = lazyGridState.firstVisibleItemScrollOffset
             }
             .fillMaxWidth()
             .height(100.dp)
-//            .background(color = Color.Black)
-            .background(color = PrimaryB)
-            .paint(
-                painter = painterResource(id = R.drawable.background_home_gallery),
-                contentScale = ContentScale.Crop,
-                alpha = 0.8f
-            )
             .padding(20.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Button(
-            onClick = { /*TODO*/ },
-            modifier = Modifier
-                .size(44.dp)
-                .innerShadow(
-                    shape = CircleShape,
-                    color = Color(0x4DFFFFFF),
-                    blur = 2.dp,
-                    offsetX = 1.dp,
-                    offsetY = 1.dp,
-                    spread = 0.dp
-                )
-                .innerShadow(
-                    shape = CircleShape,
-                    color = Color(0x80D4D4D4),
-                    blur = 2.dp,
-                    offsetX = (-1).dp,
-                    offsetY = (-1).dp,
-                    spread = 0.dp
-                )
-                .dropShadow(
-                    shape = CircleShape,
-                    color = Color(0x33D4D4D4),
-                    blur = 10.dp,
-                    offsetX = (-5).dp,
-                    offsetY = 5.dp
-                )
-                .dropShadow(
-                    shape = CircleShape,
-                    color = Color(0x33D4D4D4),
-                    blur = 10.dp,
-                    offsetX = 5.dp,
-                    offsetY = (-5).dp
-                )
-                .dropShadow(
-                    shape = CircleShape,
-                    color = Color(0xE6FFFFFF),
-                    blur = 10.dp,
-                    offsetX = (-5).dp,
-                    offsetY = (-5).dp
-                )
-                .dropShadow(
-                    shape = CircleShape,
-                    color = Color(0xE6D4D4D4),
-                    blur = 13.dp,
-                    offsetX = 5.dp,
-                    offsetY = 5.dp
-                ),
-            shape = CircleShape,
-            contentPadding = PaddingValues(0.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFEBEBEB))
+        HomeGalleryTopBarButton(
+            onClick = onClickBack
         ) {
 
         }
@@ -125,65 +74,86 @@ internal fun HomeGalleryTopBar(
             fontWeight = FontWeight.Medium
         )
 
-        Button(
-            onClick = { /*TODO*/ },
-            modifier = Modifier
-                .size(44.dp)
-                .innerShadow(
-                    shape = CircleShape,
-                    color = Color(0x4DFFFFFF),
-                    blur = 2.dp,
-                    offsetX = 1.dp,
-                    offsetY = 1.dp,
-                    spread = 0.dp
-                )
-                .innerShadow(
-                    shape = CircleShape,
-                    color = Color(0x80D4D4D4),
-                    blur = 2.dp,
-                    offsetX = (-1).dp,
-                    offsetY = (-1).dp,
-                    spread = 0.dp
-                )
-                .dropShadow(
-                    shape = CircleShape,
-                    color = Color(0x33D4D4D4),
-                    blur = 10.dp,
-                    offsetX = (-5).dp,
-                    offsetY = 5.dp
-                )
-                .dropShadow(
-                    shape = CircleShape,
-                    color = Color(0x33D4D4D4),
-                    blur = 10.dp,
-                    offsetX = 5.dp,
-                    offsetY = (-5).dp
-                )
-                .dropShadow(
-                    shape = CircleShape,
-                    color = Color(0xE6FFFFFF),
-                    blur = 10.dp,
-                    offsetX = (-5).dp,
-                    offsetY = (-5).dp
-                )
-                .dropShadow(
-                    shape = CircleShape,
-                    color = Color(0xE6D4D4D4),
-                    blur = 13.dp,
-                    offsetX = 5.dp,
-                    offsetY = 5.dp
-                ),
-            shape = CircleShape,
-            contentPadding = PaddingValues(0.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFEBEBEB))
+        HomeGalleryTopBarButton(
+            onClick = { /*TODO*/ }
         ) {
 
         }
     }
 }
 
+@Composable
+private fun HomeGalleryTopBarButton(
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
+    content: @Composable RowScope.() -> Unit
+) = Button(
+    onClick = onClick,
+    modifier = modifier
+        .size(44.dp)
+        .innerShadow(
+            shape = CircleShape,
+            color = Color(0x4DFFFFFF),
+            blur = 2.dp,
+            offsetX = 1.dp,
+            offsetY = 1.dp,
+            spread = 0.dp
+        )
+        .innerShadow(
+            shape = CircleShape,
+            color = Color(0x80D4D4D4),
+            blur = 2.dp,
+            offsetX = (-1).dp,
+            offsetY = (-1).dp,
+            spread = 0.dp
+        )
+        .dropShadow(
+            shape = CircleShape,
+            color = Color(0x33D4D4D4),
+            blur = 10.dp,
+            offsetX = (-5).dp,
+            offsetY = 5.dp
+        )
+        .dropShadow(
+            shape = CircleShape,
+            color = Color(0x33D4D4D4),
+            blur = 10.dp,
+            offsetX = 5.dp,
+            offsetY = (-5).dp
+        )
+        .dropShadow(
+            shape = CircleShape,
+            color = Color(0xE6FFFFFF),
+            blur = 10.dp,
+            offsetX = (-5).dp,
+            offsetY = (-5).dp
+        )
+        .dropShadow(
+            shape = CircleShape,
+            color = Color(0xE6D4D4D4),
+            blur = 13.dp,
+            offsetX = 5.dp,
+            offsetY = 5.dp
+        ),
+    shape = CircleShape,
+    contentPadding = PaddingValues(0.dp),
+    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFEBEBEB)),
+    content = content
+)
+
 @DevicePreviews
 @Composable
 private fun HomeGalleryTopBarPreview() {
-    HomeGalleryTopBar()
+    HomeGalleryTopBar(
+        onClickBack = {},
+        onClickFilter = {}
+    )
+}
+
+@DevicePreviews
+@Composable
+private fun HomeGalleryTopBarButtonPreview() {
+    HomeGalleryTopBarButton(onClick = { /*TODO*/ }) {
+        
+    }
 }
