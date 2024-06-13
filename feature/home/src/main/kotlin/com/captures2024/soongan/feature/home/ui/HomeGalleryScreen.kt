@@ -90,31 +90,9 @@ internal fun HomeGalleryScreen(
                 horizontal = 20.dp,
                 vertical = 36.dp
             ),
-        verticalArrangement = Arrangement.SpaceBetween,
+        verticalArrangement = Arrangement.Bottom,
         horizontalAlignment = Alignment.End
     ) {
-        Row(
-            modifier = modifier
-                .fillMaxWidth()
-                .height(100.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-        ) {
-            HomeGalleryButton(onClick = { /*TODO*/ }) {
-                Icon(
-                    imageVector = MyIconPack.IconBack2,
-                    contentDescription = "",
-                    tint = PrimaryA
-                )
-            }
-            HomeGalleryButton(onClick = { /*TODO*/ }) {
-                Icon(
-                    imageVector = MyIconPack.IconFilter,
-                    contentDescription = "",
-                    tint = PrimaryA
-                )
-            }
-
-        }
         HomeGalleryButton(
             modifier = Modifier.offset(
                 y = when (lazyStaggeredGridState.firstVisibleItemIndex) {

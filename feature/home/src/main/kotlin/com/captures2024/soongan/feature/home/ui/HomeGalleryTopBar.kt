@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.staggeredgrid.LazyStaggeredGridState
 import androidx.compose.foundation.lazy.staggeredgrid.rememberLazyStaggeredGridState
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -16,6 +17,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
+import com.captures2024.soongan.core.designsystem.icon.MyIconPack
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconBack2
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFilter
+import com.captures2024.soongan.core.designsystem.theme.PrimaryA
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 
 @Composable
@@ -37,14 +42,28 @@ internal fun HomeGalleryTopBar(
             .height(100.dp)
             .padding(20.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center,
+            horizontalArrangement = Arrangement.SpaceBetween,
     ) {
+        HomeGalleryButton(onClick = { /*TODO*/ }) {
+            Icon(
+                imageVector = MyIconPack.IconBack2,
+                contentDescription = "",
+                tint = PrimaryA
+            )
+        }
         NonScaleText(
             text = "W _ 1회차 | 평화",
             color = Color.Black,
             fontSize = 24.sp,
             fontWeight = FontWeight.Medium
         )
+        HomeGalleryButton(onClick = { /*TODO*/ }) {
+            Icon(
+                imageVector = MyIconPack.IconFilter,
+                contentDescription = "",
+                tint = PrimaryA
+            )
+        }
     }
 }
 
