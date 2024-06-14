@@ -83,6 +83,7 @@ dot-indicator = "5.0"
 kakao = "2.18.0"
 splash-screen = "1.0.1"
 javax-inject = "1"
+timber = "5.0.1"
 
 
 [libraries]
@@ -190,6 +191,8 @@ retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit
 retrofit-gson-converter = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 retrofit-scalar-converter = { module = "com.squareup.retrofit2:converter-scalars", version.ref = "retrofit" }
 retrofit-kotlin-serialization-converter = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "kotlinx-serialization-converter" }
+
+timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
 
 
 # Room
