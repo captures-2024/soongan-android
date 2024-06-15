@@ -76,4 +76,7 @@ dependencies {
     implementation(project(":feature:termsOfUse"))
     implementation(project(":feature:welcome"))
     //endregion
+
+    androidTestImplementation(libs.ui.test.junit4)
+    implementation(libs.startup)
 }
