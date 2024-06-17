@@ -4,6 +4,7 @@ import com.captures2024.soongan.core.datastore.TokenDataSource
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response
+import timber.log.Timber
 import javax.inject.Inject
 
 class AuthInterceptor
@@ -15,23 +16,37 @@ constructor(
     override fun intercept(chain: Interceptor.Chain): Response = with(chain) {
         val defaultRequest = request()
 
-        return@with when (shouldRequestAuthenticatedHeaders(defaultRequest.url.encodedPath)) {
-            true -> {
+        val isAccessToken = defaultRequest.headers["Authorization"]
+
+        return@with when (isAccessToken) {
+            "true" -> {
                 val accessToken = runBlocking { tokenDataSource.getAccessToken() }
 
-                val headerRequest = defaultRequest.newBuilder()
-                    .addHeader("Authorization", "Bearer $accessToken")
+                val newRequest = defaultRequest.newBuilder()
+                    .header("Authorization", "Bearer $accessToken")
                     .addHeader("OS", "Android")
                     .build()
 
-                proceed(headerRequest)
+                proceed(newRequest)
             }
-            false -> chain.proceed(defaultRequest)
+            "false" -> {
+                val refreshToken = runBlocking { tokenDataSource.getRefreshToken() }
+
+                val newRequest = defaultRequest.newBuilder()
+                    .header("Authorization", "Bearer $refreshToken")
+                    .addHeader("OS", "Android")
+                    .build()
+
+                proceed(newRequest)
+            }
+            else -> {
+                val newRequest = defaultRequest.newBuilder()
+                    .addHeader("OS", "Android")
+                    .build()
+
+                proceed(newRequest)
+            }
         }
     }
 
-    private fun shouldRequestAuthenticatedHeaders(encodedPath: String) = when (encodedPath) {
-        "TODO/reissue" -> false
-        else -> true
-    }
 }
