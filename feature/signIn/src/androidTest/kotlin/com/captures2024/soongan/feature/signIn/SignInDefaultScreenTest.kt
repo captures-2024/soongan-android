@@ -15,7 +15,9 @@ class SignInDefaultScreenTest {
     @Test
     internal fun `구글_로그인_버튼이_존재하는지_확인`() {
         composeRule.setContent {
-            SignInDefaultScreen()
+            SignInDefaultScreen(
+                navigateToMain = {}
+            )
         }
 
         Thread.sleep(1000)
@@ -28,6 +30,7 @@ class SignInDefaultScreenTest {
         var result = false
         composeRule.setContent {
             SignInDefaultScreen(
+                navigateToMain = {},
                 onClickGoogleSignIn = {
                     result = true
                 }
@@ -44,7 +47,9 @@ class SignInDefaultScreenTest {
     @Test
     internal fun `카카오_로그인_버튼이_존재하는지_확인`() {
         composeRule.setContent {
-            SignInDefaultScreen()
+            SignInDefaultScreen(
+                navigateToMain = {},
+            )
         }
 
         Thread.sleep(1000)
@@ -57,6 +62,7 @@ class SignInDefaultScreenTest {
         var result = false
         composeRule.setContent {
             SignInDefaultScreen(
+                navigateToMain = {},
                 onClickKakaoSignIn = {
                     result = true
                 }

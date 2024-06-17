@@ -2,7 +2,6 @@ package com.captures2024.soongan.core.auth
 
 import android.content.Intent
 import android.content.IntentSender
-import android.util.Log
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.firebase.auth.GoogleAuthProvider
@@ -25,35 +24,10 @@ class GoogleAuthUiClient(
         return result?.pendingIntent?.intentSender
     }
 
-    suspend fun signInWithIntent(intent: Intent) : com.captures2024.soongan.core.model.SignInResult {
+    fun signInWithIntent(intent: Intent): String? {
         val credential = oneTapClient.getSignInCredentialFromIntent(intent)
         val googleIdToken = credential.googleIdToken
-        val googleCredentials = GoogleAuthProvider.getCredential(googleIdToken, null)
-        Log.d("token", "googleIdToken = $googleIdToken")
-//        return try {
-//            val user = auth.signInWithCredential(googleCredentials).await().user
-//            SignInResult(
-//                data = user?.run {
-//                    UserData(
-//                        userId = uid,
-//                        username = displayName,
-//                        profilePictureUrl = photoUrl?.toString()
-//                    )
-//                },
-//                errorMessage = null
-//            )
-//        } catch (e: Exception) {
-//            e.printStackTrace()
-//            if(e is CancellationException) throw e
-//            SignInResult(
-//                data = null,
-//                errorMessage = e.message
-//            )
-//        }
-        return com.captures2024.soongan.core.model.SignInResult(
-            data = null,
-            errorMessage = ""
-        )
+        return googleIdToken
     }
 
     suspend fun signOut() {

@@ -2,6 +2,8 @@ package com.captures2024.soongan.feature.signIn
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.captures2024.soongan.core.domain.usecase.members.SigningGoogleUseCase
 import com.captures2024.soongan.core.model.SignInResult
 import com.captures2024.soongan.feature.signIn.SignInState.ErrorSignIn
 import com.captures2024.soongan.feature.signIn.SignInState.Home
@@ -12,13 +14,15 @@ import com.captures2024.soongan.feature.signIn.SignInState.SuccessSignIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class SignInViewModel
 @Inject
 constructor(
-
+    private val signingGoogleUseCase: SigningGoogleUseCase
 ) : ViewModel() {
     private val _uiState = MutableStateFlow<SignInState>(Init)
     val uiState: StateFlow<SignInState>
@@ -42,6 +46,10 @@ constructor(
         activeSocialSignIn()
     }
 
+    suspend fun canceledSignIn() {
+        _uiState.emit(Init)
+    }
+
     suspend fun finishAppleSignIn(signInResult: SignInResult) {
         when (signInResult.data) {
             null -> {
@@ -54,15 +62,28 @@ constructor(
         }
     }
 
-    suspend fun finishGoogleSignIn(signInResult: SignInResult) {
-        when (signInResult.data) {
+    suspend fun finishGoogleSignIn(token: String?) {
+        when (token) {
             null -> {
-                _uiState.emit(SignUp)
-//                Log.d(TAG, "errorMessage = ${signInResult.errorMessage}")
-//                _uiState.emit(ErrorSignIn)
+                Timber.tag(TAG).d("errorMessage = token is Null")
+                _uiState.emit(Init)
             }
             else -> {
-                // TODO Success Logic
+                val result = signingGoogleUseCase(token = token).getOrNull()
+
+                when (result) {
+                    null -> {
+                        Timber.tag(TAG).d("errorMessage = result is Null")
+                        _uiState.emit(Init)
+                    }
+                    true -> {
+                        _uiState.emit(SignUp)
+                    }
+                    false -> {
+                        Timber.tag(TAG).d("errorMessage = result is false")
+                        _uiState.emit(Init)
+                    }
+                }
             }
         }
     }

@@ -64,13 +64,14 @@ class SignActivity : ComponentActivity() {
                 onResult = { result ->
                     when (result.resultCode) {
                         RESULT_OK -> lifecycleScope.launch {
-                            val signInResult = googleAuthUiClient.signInWithIntent(
-                                intent = result.data ?: return@launch
+                            signInViewModel.finishGoogleSignIn(
+                                token = googleAuthUiClient.signInWithIntent(
+                                    intent = result.data ?: return@launch
+                                )
                             )
-                            signInViewModel.finishGoogleSignIn(signInResult)
                         }
                         RESULT_CANCELED -> lifecycleScope.launch {
-                            signInViewModel.finishGoogleSignIn(SignInResult(null, "RESULT_CANCELED"))
+                            signInViewModel.canceledSignIn()
                         }
                     }
                 }
@@ -110,7 +111,7 @@ class SignActivity : ComponentActivity() {
                                     val signInIntentSender = googleAuthUiClient.signIn()
 
                                     if (signInIntentSender == null) {
-                                        signInViewModel.finishGoogleSignIn(SignInResult(null, "signInIntentSender is null"))
+                                        signInViewModel.finishGoogleSignIn(null)
                                         return@launch
                                     }
 
