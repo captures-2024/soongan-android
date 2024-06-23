@@ -30,11 +30,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -42,22 +41,29 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImagePainter.State.Empty.painter
 import com.captures2024.soongan.core.design.R
-import com.captures2024.soongan.feature.home.R as Rhome
-import com.captures2024.soongan.core.designsystem.theme.PrimaryB
 import com.captures2024.soongan.core.designsystem.theme.dropShadow
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.feature.home.R as Rhome
 
 @Composable
 internal fun HomeScreen(
     modifier: Modifier = Modifier
 ) {
+    Image(
+        modifier = Modifier.fillMaxSize(),
+        painter = painterResource(id = R.drawable.background_home_gallery),
+        contentScale = ContentScale.Crop,
+        alpha = 0.8f,
+        contentDescription = ""
+    )
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(PrimaryB)
-            .padding(start = 32.dp, top = 40.dp, end = 32.dp)
+            .padding(
+                horizontal = 32.dp
+            )
+            .padding(top = 40.dp)
     ) {
         MainTopBar()
         Spacer(modifier = Modifier.height(68.dp))
@@ -123,8 +129,7 @@ private fun MainContent() {
     val black800 = colorResource(id = R.color.black_800)
 
     Column(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
+        modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Surface(
             modifier = Modifier
@@ -155,8 +160,7 @@ private fun MainContent() {
         }
         Spacer(modifier = Modifier.height(52.dp))
         Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.End
+            modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End
         ) {
             WeeklyDailySelector()
         }
@@ -166,7 +170,6 @@ private fun MainContent() {
 
 @Composable
 private fun WeeklyDailySelector() {
-    val black800 = colorResource(id = R.color.black_800)
     var contestPeriod by remember { mutableStateOf(ContestPeriod.DAILY) }
 
     Column(
@@ -178,12 +181,10 @@ private fun WeeklyDailySelector() {
                 .background(color = Color.White, shape = RoundedCornerShape(4.dp))
         ) {
             WeeklyDailyBtn(
-                stringResource(id = Rhome.string.daily),
-                contestPeriod == ContestPeriod.DAILY
+                stringResource(id = Rhome.string.daily), contestPeriod == ContestPeriod.DAILY
             ) { contestPeriod = ContestPeriod.DAILY }
             WeeklyDailyBtn(
-                stringResource(id = Rhome.string.weekly),
-                contestPeriod == ContestPeriod.WEEKLY
+                stringResource(id = Rhome.string.weekly), contestPeriod == ContestPeriod.WEEKLY
             ) { contestPeriod = ContestPeriod.WEEKLY }
         }
         Spacer(modifier = Modifier.height(16.dp))
@@ -196,15 +197,12 @@ private fun WeeklyDailySelector() {
 @Composable
 private fun WeeklyDailyBtn(periodText: String, selected: Boolean, onClick: () -> Unit) {
     Button(
-        onClick = onClick,
-        colors = ButtonDefaults.buttonColors(
+        onClick = onClick, colors = ButtonDefaults.buttonColors(
             containerColor = if (selected) colorResource(id = R.color.black_800) else Color.White,
             contentColor = if (selected) Color.White else colorResource(id = R.color.black_400)
-        ),
-        modifier = Modifier
+        ), modifier = Modifier
             .width(79.dp)
-            .height(32.dp),
-        shape = RoundedCornerShape(4.dp)
+            .height(32.dp), shape = RoundedCornerShape(4.dp)
     ) {
         Text(
             text = periodText,
@@ -220,27 +218,20 @@ private fun contestPeriodText(text: String, period: String) {
     val black800 = colorResource(id = R.color.black_800)
 
     Text(
-        text = "$text | $period",
-        color = black800,
-        fontSize = 14.sp
+        text = "$text | $period", color = black800, fontSize = 14.sp
     )
 }
 
 @Composable
 private fun MainBottomBar() {
     Row(
-        horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = Modifier.fillMaxWidth()
+        horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()
     ) {
         MainBottomIcon(
-            {},
-            R.drawable.ic_contest_info,
-            stringResource(id = Rhome.string.contest_info)
+            {}, R.drawable.ic_contest_info, stringResource(id = Rhome.string.contest_info)
         )
         MainBottomIcon(
-            {},
-            R.drawable.ic_next_page,
-            stringResource(id = Rhome.string.participated_photo)
+            {}, R.drawable.ic_next_page, stringResource(id = Rhome.string.participated_photo)
         )
     }
 }
@@ -251,23 +242,25 @@ private fun MainBottomIcon(onClick: () -> Unit, iconResource: Int, iconDescripti
 
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         IconButton(
-            onClick = { onClick },
-            modifier = Modifier.padding(0.dp)
+            onClick = { onClick }, modifier = Modifier
+                .padding(0.dp)
+                .size(44.dp)
+                .dropShadow(
+                    shape = CircleShape, offsetY = 1.dp, offsetX = 0.dp, blur = 4.dp, spread = 0.dp
+                )
         ) {
             Image(
                 imageVector = ImageVector.vectorResource(iconResource),
                 contentDescription = iconDescription,
                 modifier = Modifier
                     .padding(0.dp)
-                    .size(44.dp)
-                    .dropShadow(shape = CircleShape, offsetY = 2.dp)
+                    .fillMaxSize()
+
             )
         }
         Spacer(modifier = Modifier.height(4.dp))
         Text(
-            text = iconDescription,
-            fontSize = 12.sp,
-            color = black800
+            text = iconDescription, fontSize = 12.sp, color = black800
         )
     }
 }
