@@ -18,8 +18,9 @@ import com.captures2024.soongan.core.analytics.AnalyticsHelper
 import com.captures2024.soongan.core.analytics.LocalAnalyticsHelper
 import com.captures2024.soongan.core.analytics.NetworkMonitor
 import com.captures2024.soongan.core.auth.GoogleAuthUiClient
+import com.captures2024.soongan.core.auth.kakao.KakaoLoginCallback
+import com.captures2024.soongan.core.auth.kakaoLogin
 import com.captures2024.soongan.core.designsystem.theme.SoonGanTheme
-import com.captures2024.soongan.core.model.SignInResult
 import com.captures2024.soongan.feature.navigator.MainNavigator
 import com.captures2024.soongan.feature.sign.route.SignRoute
 import com.captures2024.soongan.feature.signIn.SignInViewModel
@@ -58,6 +59,21 @@ class SignActivity : ComponentActivity() {
 
         setContent {
             val darkTheme = isSystemInDarkTheme()
+
+            val kakaoLoginCallback = object : KakaoLoginCallback {
+
+                override fun onSuccess(
+                    accessToken: String?,
+                    refreshToken: String?
+                ) {
+                    signInViewModel.onSuccessKakao(accessToken, refreshToken)
+                }
+
+                override fun onFailure(error: Throwable?) {
+                    signInViewModel.onFailureKakao(error)
+                }
+
+            }
 
             val launcher = rememberLauncherForActivityResult(
                 contract = ActivityResultContracts.StartIntentSenderForResult(),
@@ -121,8 +137,10 @@ class SignActivity : ComponentActivity() {
                         },
                         kakaoSignIn = {
                             signInViewModel.onClickSignIn {
-                                // TODO active KakaoSignIn
-                                // TODO finish KakaoSignIn
+                                kakaoLogin(
+                                    context = this,
+                                    callback = kakaoLoginCallback
+                                )
                             }
                         },
                         navigateToMain = { isGuestMode ->

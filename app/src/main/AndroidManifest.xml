@@ -32,6 +32,10 @@
             <meta-data
                 android:name="com.captures2024.soongan.initializer.TimberInitializer"
                 android:value="androidx.startup" />
+
+            <meta-data
+                android:name="com.captures2024.soongan.initializer.KakaoSDKInitializer"
+                android:value="androidx.startup" />
         </provider>
 
     </application>

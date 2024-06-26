@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.captures2024.soongan.core.domain.usecase.members.SigningGoogleUseCase
+import com.captures2024.soongan.core.domain.usecase.members.SigningKakaoUseCase
 import com.captures2024.soongan.core.model.SignInResult
 import com.captures2024.soongan.feature.signIn.SignInState.ErrorSignIn
 import com.captures2024.soongan.feature.signIn.SignInState.Home
@@ -22,7 +23,8 @@ import javax.inject.Inject
 class SignInViewModel
 @Inject
 constructor(
-    private val signingGoogleUseCase: SigningGoogleUseCase
+    private val signingGoogleUseCase: SigningGoogleUseCase,
+    private val signingKakaoUseCase: SigningKakaoUseCase
 ) : ViewModel() {
     private val _uiState = MutableStateFlow<SignInState>(Init)
     val uiState: StateFlow<SignInState>
@@ -46,11 +48,11 @@ constructor(
         activeSocialSignIn()
     }
 
-    suspend fun canceledSignIn() {
+    fun canceledSignIn() = viewModelScope.launch {
         _uiState.emit(Init)
     }
 
-    suspend fun finishAppleSignIn(signInResult: SignInResult) {
+    fun finishAppleSignIn(signInResult: SignInResult) = viewModelScope.launch {
         when (signInResult.data) {
             null -> {
                 Log.d(TAG, "errorMessage = ${signInResult.errorMessage}")
@@ -62,7 +64,7 @@ constructor(
         }
     }
 
-    suspend fun finishGoogleSignIn(token: String?) {
+    fun finishGoogleSignIn(token: String?) = viewModelScope.launch {
         when (token) {
             null -> {
                 Timber.tag(TAG).d("errorMessage = token is Null")
@@ -88,7 +90,7 @@ constructor(
         }
     }
 
-    suspend fun finishKakaoSignIn(signInResult: SignInResult) {
+    fun finishKakaoSignIn(signInResult: SignInResult) = viewModelScope.launch {
         when (signInResult.data) {
             null -> {
                 Log.d(TAG, "errorMessage = ${signInResult.errorMessage}")
@@ -98,6 +100,40 @@ constructor(
                 // TODO Success Logic
             }
         }
+    }
+
+    fun onSuccessKakao(
+        accessToken: String?,
+        refreshToken: String?
+    ) = viewModelScope.launch {
+        if (accessToken == null || refreshToken == null) {
+            Timber.tag(TAG).d("errorMessage = accessToken OR refreshToken is null")
+            _uiState.emit(SignUp)
+            return@launch
+        }
+
+        val result = signingKakaoUseCase(token = accessToken).getOrNull()
+
+        when (result) {
+            null -> {
+                Timber.tag(TAG).d("errorMessage = result is Null")
+                _uiState.emit(Init)
+            }
+            true -> {
+                _uiState.emit(SignUp)
+            }
+            false -> {
+                Timber.tag(TAG).d("errorMessage = result is false")
+                _uiState.emit(Init)
+            }
+        }
+    }
+
+    fun onFailureKakao(
+        error: Throwable?
+    ) = viewModelScope.launch {
+        Timber.tag(TAG).d("errorMessage = $error")
+        _uiState.emit(SignUp)
     }
 
     /**
