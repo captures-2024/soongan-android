@@ -12,4 +12,5 @@ dependencies {
     implementation(project(":core:model"))
 
     implementation(libs.firebase.auth)
+    implementation(libs.kakao.login)
 }

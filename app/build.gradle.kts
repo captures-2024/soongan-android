@@ -79,4 +79,5 @@ dependencies {
 
     androidTestImplementation(libs.ui.test.junit4)
     implementation(libs.startup)
+    implementation(libs.kakao.login)
 }
