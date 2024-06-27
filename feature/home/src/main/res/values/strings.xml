@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="exhibit">출품하기</string>
+    <string name="daily">일간</string>
+    <string name="weekly">주간</string>
+    <string name="start_date">시작 일정</string>
+    <string name="end_date">마감 일정</string>
+    <string name="contest_info">대회정보</string>
+    <string name="participated_photo">참가작품</string>
+</resources>
