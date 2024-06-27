@@ -42,6 +42,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.design.R
+import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.theme.dropShadow
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.home.R as Rhome
@@ -86,7 +87,7 @@ private fun MainTopBar() {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text(
+            NonScaleText(
                 text = "평화",
                 fontSize = 42.sp,
                 fontWeight = FontWeight.ExtraBold,
@@ -242,7 +243,7 @@ private fun MainBottomIcon(onClick: () -> Unit, iconResource: Int, iconDescripti
 
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         IconButton(
-            onClick = { onClick }, modifier = Modifier
+            onClick = onClick, modifier = Modifier
                 .padding(0.dp)
                 .size(44.dp)
                 .dropShadow(
