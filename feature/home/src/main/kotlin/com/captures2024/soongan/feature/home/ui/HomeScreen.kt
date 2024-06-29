@@ -22,7 +22,6 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -38,6 +37,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -152,10 +152,9 @@ private fun MainContent() {
                         modifier = Modifier.size(40.dp)
                     )
                 }
-                Text(
+                NonScaleText(
                     text = stringResource(id = Rhome.string.exhibit),
-                    color = black800,
-                    fontSize = 14.sp
+                    style = TextStyle(fontSize = 14.sp, color = black800),
                 )
             }
         }
@@ -205,10 +204,11 @@ private fun WeeklyDailyBtn(periodText: String, selected: Boolean, onClick: () ->
             .width(79.dp)
             .height(32.dp), shape = RoundedCornerShape(4.dp)
     ) {
-        Text(
+        NonScaleText(
             text = periodText,
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Bold,
+            style = TextStyle(
+                fontSize = 16.sp, fontWeight = FontWeight.Bold
+            ),
         )
     }
 }
@@ -218,8 +218,9 @@ private fun WeeklyDailyBtn(periodText: String, selected: Boolean, onClick: () ->
 private fun contestPeriodText(text: String, period: String) {
     val black800 = colorResource(id = R.color.black_800)
 
-    Text(
-        text = "$text | $period", color = black800, fontSize = 14.sp
+    NonScaleText(
+        text = "$text | $(period",
+        style = TextStyle(fontSize = 14.sp, color = black800)
     )
 }
 
@@ -260,8 +261,9 @@ private fun MainBottomIcon(onClick: () -> Unit, iconResource: Int, iconDescripti
             )
         }
         Spacer(modifier = Modifier.height(4.dp))
-        Text(
-            text = iconDescription, fontSize = 12.sp, color = black800
+        NonScaleText(
+            text = iconDescription,
+            style = TextStyle(fontSize = 12.sp, color = black800)
         )
     }
 }
