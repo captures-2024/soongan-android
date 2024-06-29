@@ -33,7 +33,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -43,6 +42,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.design.R
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
+import com.captures2024.soongan.core.designsystem.theme.Accent
+import com.captures2024.soongan.core.designsystem.theme.PrimaryA
+import com.captures2024.soongan.core.designsystem.theme.PrimaryC
 import com.captures2024.soongan.core.designsystem.theme.dropShadow
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.home.R as Rhome
@@ -76,8 +78,6 @@ internal fun HomeScreen(
 
 @Composable
 private fun MainTopBar() {
-    val black800 = colorResource(id = R.color.black_800)
-
     Box(
         modifier = Modifier.fillMaxWidth()
     ) {
@@ -91,7 +91,7 @@ private fun MainTopBar() {
                 text = "평화",
                 fontSize = 42.sp,
                 fontWeight = FontWeight.ExtraBold,
-                color = black800,
+                color = PrimaryA,
                 modifier = Modifier.padding(start = 4.dp)
             )
             Image(
@@ -107,8 +107,6 @@ private fun MainTopBar() {
 
 @Composable
 private fun TitleBackground() {
-    val color = colorResource(id = R.color.yellow_600)
-
     Box(
         modifier = Modifier.offset(x = (-20).dp, y = (-10).dp)
     ) {
@@ -118,17 +116,14 @@ private fun TitleBackground() {
                 .align(Alignment.Center)
         ) {
             drawCircle(
-                color = color, radius = size.width / 2
+                color = Accent, radius = size.width / 2
             )
         }
     }
 }
 
-
 @Composable
 private fun MainContent() {
-    val black800 = colorResource(id = R.color.black_800)
-
     Column(
         modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -154,7 +149,7 @@ private fun MainContent() {
                 }
                 NonScaleText(
                     text = stringResource(id = Rhome.string.exhibit),
-                    style = TextStyle(fontSize = 14.sp, color = black800)
+                    style = TextStyle(fontSize = 14.sp, color = PrimaryA)
                 )
             }
         }
@@ -202,8 +197,8 @@ private fun WeeklyDailyBtn(
 ) {
     Button(
         onClick = onClick, colors = ButtonDefaults.buttonColors(
-            containerColor = if (selected) colorResource(id = R.color.black_800) else Color.White,
-            contentColor = if (selected) Color.White else colorResource(id = R.color.black_400)
+            containerColor = if (selected) PrimaryA else Color.White,
+            contentColor = if (selected) Color.White else PrimaryC
         ), modifier = Modifier
             .width(79.dp)
             .height(32.dp), shape = RoundedCornerShape(4.dp)
@@ -223,11 +218,9 @@ private fun contestPeriodText(
     text: String,
     period: String,
 ) {
-    val black800 = colorResource(id = R.color.black_800)
-
     NonScaleText(
         text = "$text | $period",
-        style = TextStyle(fontSize = 14.sp, color = black800)
+        style = TextStyle(fontSize = 14.sp, color = PrimaryA)
     )
 }
 
@@ -251,8 +244,6 @@ private fun MainBottomIcon(
     iconResource: Int,
     iconDescription: String,
 ) {
-    val black800 = colorResource(id = R.color.black_800)
-
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         IconButton(
             onClick = onClick, modifier = Modifier
@@ -274,7 +265,7 @@ private fun MainBottomIcon(
         Spacer(modifier = Modifier.height(4.dp))
         NonScaleText(
             text = iconDescription,
-            style = TextStyle(fontSize = 12.sp, color = black800)
+            style = TextStyle(fontSize = 12.sp, color = PrimaryA)
         )
     }
 }
