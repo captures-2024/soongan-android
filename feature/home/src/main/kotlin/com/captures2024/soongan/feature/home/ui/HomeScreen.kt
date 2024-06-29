@@ -49,14 +49,14 @@ import com.captures2024.soongan.feature.home.R as Rhome
 
 @Composable
 internal fun HomeScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Image(
         modifier = Modifier.fillMaxSize(),
         painter = painterResource(id = R.drawable.background_home_gallery),
         contentScale = ContentScale.Crop,
         alpha = 0.8f,
-        contentDescription = ""
+        contentDescription = "background"
     )
     Column(
         modifier = modifier
@@ -154,7 +154,7 @@ private fun MainContent() {
                 }
                 NonScaleText(
                     text = stringResource(id = Rhome.string.exhibit),
-                    style = TextStyle(fontSize = 14.sp, color = black800),
+                    style = TextStyle(fontSize = 14.sp, color = black800)
                 )
             }
         }
@@ -195,7 +195,11 @@ private fun WeeklyDailySelector() {
 }
 
 @Composable
-private fun WeeklyDailyBtn(periodText: String, selected: Boolean, onClick: () -> Unit) {
+private fun WeeklyDailyBtn(
+    periodText: String,
+    selected: Boolean,
+    onClick: () -> Unit,
+) {
     Button(
         onClick = onClick, colors = ButtonDefaults.buttonColors(
             containerColor = if (selected) colorResource(id = R.color.black_800) else Color.White,
@@ -215,11 +219,14 @@ private fun WeeklyDailyBtn(periodText: String, selected: Boolean, onClick: () ->
 
 
 @Composable
-private fun contestPeriodText(text: String, period: String) {
+private fun contestPeriodText(
+    text: String,
+    period: String,
+) {
     val black800 = colorResource(id = R.color.black_800)
 
     NonScaleText(
-        text = "$text | $(period",
+        text = "$text | $period",
         style = TextStyle(fontSize = 14.sp, color = black800)
     )
 }
@@ -239,7 +246,11 @@ private fun MainBottomBar() {
 }
 
 @Composable
-private fun MainBottomIcon(onClick: () -> Unit, iconResource: Int, iconDescription: String) {
+private fun MainBottomIcon(
+    onClick: () -> Unit,
+    iconResource: Int,
+    iconDescription: String,
+) {
     val black800 = colorResource(id = R.color.black_800)
 
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
