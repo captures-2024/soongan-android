@@ -5,18 +5,33 @@ import com.captures2024.soongan.core.datastore.TokenDataSource
 import com.captures2024.soongan.core.network.AuthInterceptor
 import com.captures2024.soongan.core.network.NullOrEmptyConverterFactory
 import com.captures2024.soongan.core.network.SoonGanAuthenticator
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.serialization.json.Json
 import okhttp3.Authenticator
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
+import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
+
+private const val MaxTimeoutMillis = 60_000L
+
+private val jsonRule = Json {
+    encodeDefaults = true
+    ignoreUnknownKeys = true
+    prettyPrint = true
+    isLenient = true
+}
+
+private val jsonConverterFactory = jsonRule.asConverterFactory("application/json".toMediaType())
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -24,22 +39,22 @@ internal object NetworkModule {
 
     @Provides
     @Singleton
-    fun providerSoonGanAuthenticator(
-        tokenDataSource: TokenDataSource,
-    ): Authenticator = SoonGanAuthenticator(
-        tokenDataSource = tokenDataSource,
-    )
+    fun providerSoonGanAuthenticator(tokenDataSource: TokenDataSource, ): Authenticator = SoonGanAuthenticator(tokenDataSource = tokenDataSource)
 
     @Provides
     @Singleton
-    fun providerAuthInterceptor(
-        tokenDataSource: TokenDataSource
-    ): AuthInterceptor = AuthInterceptor(tokenDataSource = tokenDataSource)
+    fun providerAuthInterceptor(tokenDataSource: TokenDataSource): AuthInterceptor = AuthInterceptor(tokenDataSource = tokenDataSource)
 
     @Provides
     @Singleton
-    fun provideLoggingInterceptor(): HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
+    fun provideLoggingInterceptor(): HttpLoggingInterceptor = HttpLoggingInterceptor { message ->
+        Timber.tag("ApiService").d(message)
+    }.apply {
         level = HttpLoggingInterceptor.Level.BODY
+//        level = when (BuildConfig.DEBUG) {
+//            true -> HttpLoggingInterceptor.Level.BODY
+//            false -> HttpLoggingInterceptor.Level.NONE
+//        }
     }
 
     @Provides
@@ -49,9 +64,9 @@ internal object NetworkModule {
         authInterceptor: AuthInterceptor,
         authenticator: Authenticator,
     ): OkHttpClient = OkHttpClient.Builder()
-        .readTimeout(10, TimeUnit.SECONDS)
-        .connectTimeout(10, TimeUnit.SECONDS)
-        .writeTimeout(10, TimeUnit.SECONDS)
+        .readTimeout(MaxTimeoutMillis, TimeUnit.MILLISECONDS)
+        .connectTimeout(MaxTimeoutMillis, TimeUnit.MILLISECONDS)
+        .writeTimeout(MaxTimeoutMillis, TimeUnit.MILLISECONDS)
         .addInterceptor(loggingInterceptor)
         .addInterceptor(authInterceptor)
         .authenticator(authenticator)
@@ -60,28 +75,11 @@ internal object NetworkModule {
     @Provides
     @Singleton
     fun provideRetrofit(
-        okHttpClient: OkHttpClient,
-        gsonConverterFactory: GsonConverterFactory,
-        nullOrEmptyConverterFactory: NullOrEmptyConverterFactory,
-        scalarsConverterFactory: ScalarsConverterFactory
+        okHttpClient: OkHttpClient
     ): Retrofit = Retrofit.Builder()
         .baseUrl(BuildConfig.CAPTURES_BASE_URL)
         .client(okHttpClient)
-        .addConverterFactory(nullOrEmptyConverterFactory)
-        .addConverterFactory(scalarsConverterFactory)
-        .addConverterFactory(gsonConverterFactory)
+        .addConverterFactory(jsonConverterFactory)
         .build()
-
-    @Provides
-    @Singleton
-    fun provideGsonConverterFactory(): GsonConverterFactory = GsonConverterFactory.create()
-
-    @Provides
-    @Singleton
-    fun provideScalarConverterFactory(): ScalarsConverterFactory = ScalarsConverterFactory.create()
-
-    @Provides
-    @Singleton
-    fun provideNullOrEmptyConverterFactory(): NullOrEmptyConverterFactory = NullOrEmptyConverterFactory()
 
 }

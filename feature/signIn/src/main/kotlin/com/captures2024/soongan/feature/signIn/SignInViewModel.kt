@@ -2,6 +2,9 @@ package com.captures2024.soongan.feature.signIn
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.captures2024.soongan.core.domain.usecase.members.SigningGoogleUseCase
+import com.captures2024.soongan.core.domain.usecase.members.SigningKakaoUseCase
 import com.captures2024.soongan.core.model.SignInResult
 import com.captures2024.soongan.feature.signIn.SignInState.ErrorSignIn
 import com.captures2024.soongan.feature.signIn.SignInState.Home
@@ -12,13 +15,16 @@ import com.captures2024.soongan.feature.signIn.SignInState.SuccessSignIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class SignInViewModel
 @Inject
 constructor(
-
+    private val signingGoogleUseCase: SigningGoogleUseCase,
+    private val signingKakaoUseCase: SigningKakaoUseCase
 ) : ViewModel() {
     private val _uiState = MutableStateFlow<SignInState>(Init)
     val uiState: StateFlow<SignInState>
@@ -42,7 +48,11 @@ constructor(
         activeSocialSignIn()
     }
 
-    suspend fun finishAppleSignIn(signInResult: SignInResult) {
+    fun canceledSignIn() = viewModelScope.launch {
+        _uiState.emit(Init)
+    }
+
+    fun finishAppleSignIn(signInResult: SignInResult) = viewModelScope.launch {
         when (signInResult.data) {
             null -> {
                 Log.d(TAG, "errorMessage = ${signInResult.errorMessage}")
@@ -54,29 +64,76 @@ constructor(
         }
     }
 
-    suspend fun finishGoogleSignIn(signInResult: SignInResult) {
+    fun finishGoogleSignIn(token: String?) = viewModelScope.launch {
+        when (token) {
+            null -> {
+                Timber.tag(TAG).d("errorMessage = token is Null")
+                _uiState.emit(Init)
+            }
+            else -> {
+                val result = signingGoogleUseCase(token = token).getOrNull()
+
+                when (result) {
+                    null -> {
+                        Timber.tag(TAG).d("errorMessage = result is Null")
+                        _uiState.emit(Init)
+                    }
+                    true -> {
+                        _uiState.emit(SignUp)
+                    }
+                    false -> {
+                        Timber.tag(TAG).d("errorMessage = result is false")
+                        _uiState.emit(Init)
+                    }
+                }
+            }
+        }
+    }
+
+    fun finishKakaoSignIn(signInResult: SignInResult) = viewModelScope.launch {
         when (signInResult.data) {
             null -> {
+                Log.d(TAG, "errorMessage = ${signInResult.errorMessage}")
+                _uiState.emit(ErrorSignIn)
+            }
+            else -> {
+                // TODO Success Logic
+            }
+        }
+    }
+
+    fun onSuccessKakao(
+        accessToken: String?,
+        refreshToken: String?
+    ) = viewModelScope.launch {
+        if (accessToken == null || refreshToken == null) {
+            Timber.tag(TAG).d("errorMessage = accessToken OR refreshToken is null")
+            _uiState.emit(SignUp)
+            return@launch
+        }
+
+        val result = signingKakaoUseCase(token = accessToken).getOrNull()
+
+        when (result) {
+            null -> {
+                Timber.tag(TAG).d("errorMessage = result is Null")
+                _uiState.emit(Init)
+            }
+            true -> {
                 _uiState.emit(SignUp)
-//                Log.d(TAG, "errorMessage = ${signInResult.errorMessage}")
-//                _uiState.emit(ErrorSignIn)
             }
-            else -> {
-                // TODO Success Logic
+            false -> {
+                Timber.tag(TAG).d("errorMessage = result is false")
+                _uiState.emit(Init)
             }
         }
     }
 
-    suspend fun finishKakaoSignIn(signInResult: SignInResult) {
-        when (signInResult.data) {
-            null -> {
-                Log.d(TAG, "errorMessage = ${signInResult.errorMessage}")
-                _uiState.emit(ErrorSignIn)
-            }
-            else -> {
-                // TODO Success Logic
-            }
-        }
+    fun onFailureKakao(
+        error: Throwable?
+    ) = viewModelScope.launch {
+        Timber.tag(TAG).d("errorMessage = $error")
+        _uiState.emit(SignUp)
     }
 
     /**

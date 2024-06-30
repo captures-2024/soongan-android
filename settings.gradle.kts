@@ -1,3 +1,5 @@
+import java.net.URI
+
 pluginManagement {
     includeBuild("build-logic")
     repositories {
@@ -17,6 +19,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url = URI("https://devrepo.kakao.com/nexus/content/groups/public/") }
     }
 }
 
