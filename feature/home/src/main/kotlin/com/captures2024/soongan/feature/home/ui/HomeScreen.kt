@@ -6,6 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -38,6 +39,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.design.R
@@ -196,18 +198,24 @@ private fun WeeklyDailyBtn(
     onClick: () -> Unit,
 ) {
     Button(
-        onClick = onClick, colors = ButtonDefaults.buttonColors(
+        onClick = onClick,
+        colors = ButtonDefaults.buttonColors(
             containerColor = if (selected) PrimaryA else Color.White,
             contentColor = if (selected) Color.White else PrimaryC
-        ), modifier = Modifier
+        ),
+        modifier = Modifier
             .width(79.dp)
-            .height(32.dp), shape = RoundedCornerShape(4.dp)
+            .height(32.dp),
+        shape = RoundedCornerShape(4.dp),
+        contentPadding = PaddingValues(0.dp),
     ) {
         NonScaleText(
             text = periodText,
             style = TextStyle(
-                fontSize = 16.sp, fontWeight = FontWeight.Bold
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold
             ),
+            textAlign = TextAlign.Center
         )
     }
 }
