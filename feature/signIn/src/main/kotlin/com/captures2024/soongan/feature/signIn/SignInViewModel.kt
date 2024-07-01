@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.captures2024.soongan.core.domain.usecase.members.SigningGoogleUseCase
 import com.captures2024.soongan.core.domain.usecase.members.SigningKakaoUseCase
-import com.captures2024.soongan.core.model.SignInResult
+import com.captures2024.soongan.core.model.mock.SignInResult
 import com.captures2024.soongan.feature.signIn.SignInState.ErrorSignIn
 import com.captures2024.soongan.feature.signIn.SignInState.Home
 import com.captures2024.soongan.feature.signIn.SignInState.Init
