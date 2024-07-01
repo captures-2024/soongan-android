@@ -23,53 +23,16 @@ internal fun HomeGalleryButton(
     onClick = onClick,
     modifier = modifier
         .size(44.dp)
-        .innerShadow(
-            shape = CircleShape,
-            color = Color(0x4DFFFFFF),
-            blur = 2.dp,
-            offsetX = 1.dp,
-            offsetY = 1.dp,
-            spread = 0.dp
-        )
-        .innerShadow(
-            shape = CircleShape,
-            color = Color(0x80D4D4D4),
-            blur = 2.dp,
-            offsetX = (-1).dp,
-            offsetY = (-1).dp,
-            spread = 0.dp
-        )
         .dropShadow(
             shape = CircleShape,
-            color = Color(0x33D4D4D4),
-            blur = 10.dp,
-            offsetX = (-5).dp,
-            offsetY = 5.dp
-        )
-        .dropShadow(
-            shape = CircleShape,
-            color = Color(0x33D4D4D4),
-            blur = 10.dp,
-            offsetX = 5.dp,
-            offsetY = (-5).dp
-        )
-        .dropShadow(
-            shape = CircleShape,
-            color = Color(0xE6FFFFFF),
-            blur = 10.dp,
-            offsetX = (-5).dp,
-            offsetY = (-5).dp
-        )
-        .dropShadow(
-            shape = CircleShape,
-            color = Color(0xE6D4D4D4),
-            blur = 13.dp,
-            offsetX = 5.dp,
-            offsetY = 5.dp
+            color = Color(0x40000000),
+            blur = 4.dp,
+            offsetX = 0.dp,
+            offsetY = 2.dp
         ),
     shape = CircleShape,
     contentPadding = PaddingValues(0.dp),
-    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFEBEBEB)),
+    colors = ButtonDefaults.buttonColors(containerColor = Color.White),
     content = content
 )
 
