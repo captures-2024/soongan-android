@@ -3,12 +3,14 @@ package com.captures2024.soongan.feature.home.ui
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -16,6 +18,7 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -44,12 +47,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.design.R
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
+import com.captures2024.soongan.core.designsystem.icon.MyIconPack
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconPlus
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconPlusBig
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconPlusWhite
 import com.captures2024.soongan.core.designsystem.theme.Accent
 import com.captures2024.soongan.core.designsystem.theme.PrimaryA
 import com.captures2024.soongan.core.designsystem.theme.PrimaryC
 import com.captures2024.soongan.core.designsystem.theme.dropShadow
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.home.R as Rhome
+
+const val MAX_EXHIBIT_CNT = 3;
 
 @Composable
 internal fun HomeScreen(
@@ -65,9 +74,6 @@ internal fun HomeScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(
-                horizontal = 32.dp
-            )
             .padding(top = 40.dp)
     ) {
         MainTopBar()
@@ -81,7 +87,11 @@ internal fun HomeScreen(
 @Composable
 private fun MainTopBar() {
     Box(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(
+                horizontal = 32.dp
+            )
     ) {
         TitleBackground()
         Row(
@@ -127,39 +137,119 @@ private fun TitleBackground() {
 @Composable
 private fun MainContent() {
     Column(
-        modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally
+        verticalArrangement = Arrangement.Center
     ) {
-        Surface(
+        ExhibitPhoto()
+    }
+    Spacer(modifier = Modifier.height(52.dp))
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(
+                horizontal = 32.dp
+            ), horizontalArrangement = Arrangement.End
+    ) {
+        WeeklyDailySelector()
+    }
+}
+
+
+@Composable
+private fun ExhibitPhoto() {
+    val exhibitPhoto =
+        remember { mutableListOf<Int>() }
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(257.dp)
+            .horizontalScroll(rememberScrollState())
+            .padding(
+                horizontal = 32.dp
+            ), horizontalArrangement = Arrangement.Center
+    ) {
+        when (exhibitPhoto.toList().size) {
+            0 -> {
+                ExhibitBtn(width = 257, exhibitPhoto.toList().size)
+            }
+
+            else -> {
+                ExhibitBtn(width = 60, exhibitPhoto.toList().size)
+            }
+        }
+        exhibitPhoto.toList().forEach { photo ->
+            Spacer(modifier = Modifier.width(16.dp))
+            Image(
+                painter = painterResource(id = photo),
+                contentDescription = "photo",
+                contentScale = ContentScale.Inside,
+                modifier = Modifier
+                    .padding(0.dp)
+                    .fillMaxHeight()
+            )
+        }
+    }
+}
+
+@Composable
+private fun ExhibitBtn(
+    width: Int, exhibitCnt: Int
+) {
+    Surface(
+        modifier = Modifier
+            .width(width.dp)
+            .height(257.dp)
+            .dropShadow(shape = RectangleShape),
+    ) {
+        Column(
             modifier = Modifier
-                .size(257.dp)
-                .background(Color.White)
-                .dropShadow(shape = RectangleShape)
+                .fillMaxSize()
+                .background(
+                    color = when (exhibitCnt) {
+                        MAX_EXHIBIT_CNT -> PrimaryC
+                        else -> Color.White
+                    }
+                ),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
+            IconButton(
+                onClick = { /*TODO*/ },
+                modifier = Modifier.align(Alignment.CenterHorizontally),
             ) {
-                IconButton(
-                    onClick = { /*TODO*/ }, modifier = Modifier.align(Alignment.CenterHorizontally)
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_plus),
-                        contentDescription = "exhibit",
-                        modifier = Modifier.size(40.dp)
-                    )
-                }
+                Icon(
+                    imageVector = when (exhibitCnt) {
+                        0 -> MyIconPack.IconPlusBig
+                        MAX_EXHIBIT_CNT -> MyIconPack.IconPlusWhite
+                        else -> MyIconPack.IconPlus
+                    },
+                    contentDescription = "exhibit",
+                )
+            }
+            if (exhibitCnt == 0) {
                 NonScaleText(
                     text = stringResource(id = Rhome.string.exhibit),
                     style = TextStyle(fontSize = 14.sp, color = PrimaryA)
                 )
             }
         }
-        Spacer(modifier = Modifier.height(52.dp))
-        Row(
-            modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End
-        ) {
-            WeeklyDailySelector()
+        if (exhibitCnt > 0) {
+            Box(
+                modifier = Modifier.fillMaxSize()
+            ) {
+                NonScaleText(
+                    text = "$exhibitCnt/$MAX_EXHIBIT_CNT",
+                    color = when (exhibitCnt) {
+                        MAX_EXHIBIT_CNT -> Color.White
+                        else -> PrimaryA
+                    },
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Normal,
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter)
+                        .padding(bottom = 24.dp),
+                )
+            }
         }
     }
 }
@@ -185,9 +275,9 @@ private fun WeeklyDailySelector() {
             ) { contestPeriod = ContestPeriod.WEEKLY }
         }
         Spacer(modifier = Modifier.height(16.dp))
-        contestPeriodText(stringResource(id = Rhome.string.start_date), "2024.05.10")
+        ContestPeriodText(stringResource(id = Rhome.string.start_date), "2024.05.10")
         Spacer(modifier = Modifier.height(8.dp))
-        contestPeriodText(stringResource(id = Rhome.string.end_date), "2024.05.10")
+        ContestPeriodText(stringResource(id = Rhome.string.end_date), "2024.05.10")
     }
 }
 
@@ -222,7 +312,7 @@ private fun WeeklyDailyBtn(
 
 
 @Composable
-private fun contestPeriodText(
+private fun ContestPeriodText(
     text: String,
     period: String,
 ) {
@@ -235,7 +325,12 @@ private fun contestPeriodText(
 @Composable
 private fun MainBottomBar() {
     Row(
-        horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()
+        horizontalArrangement = Arrangement.SpaceBetween,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(
+                horizontal = 32.dp
+            )
     ) {
         MainBottomIcon(
             {}, R.drawable.ic_contest_info, stringResource(id = Rhome.string.contest_info)
