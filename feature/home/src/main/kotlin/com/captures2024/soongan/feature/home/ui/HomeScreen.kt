@@ -39,7 +39,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -48,9 +47,12 @@ import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.design.R
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconContentInfo
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNextPage
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconPlus
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconPlusBig
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconPlusWhite
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.Logo
 import com.captures2024.soongan.core.designsystem.theme.Accent
 import com.captures2024.soongan.core.designsystem.theme.PrimaryA
 import com.captures2024.soongan.core.designsystem.theme.PrimaryC
@@ -107,7 +109,7 @@ private fun MainTopBar() {
                 modifier = Modifier.padding(start = 4.dp)
             )
             Image(
-                painter = painterResource(id = R.drawable.logo),
+                imageVector = MyIconPack.Logo,
                 contentDescription = "logo",
                 modifier = Modifier
                     .width(33.1f.dp)
@@ -333,10 +335,10 @@ private fun MainBottomBar() {
             )
     ) {
         MainBottomIcon(
-            {}, R.drawable.ic_contest_info, stringResource(id = Rhome.string.contest_info)
+            {}, MyIconPack.IconContentInfo, stringResource(id = Rhome.string.contest_info)
         )
         MainBottomIcon(
-            {}, R.drawable.ic_next_page, stringResource(id = Rhome.string.participated_photo)
+            {}, MyIconPack.IconNextPage, stringResource(id = Rhome.string.participated_photo)
         )
     }
 }
@@ -344,20 +346,23 @@ private fun MainBottomBar() {
 @Composable
 private fun MainBottomIcon(
     onClick: () -> Unit,
-    iconResource: Int,
+    icon: ImageVector,
     iconDescription: String,
 ) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         IconButton(
             onClick = onClick, modifier = Modifier
-                .padding(0.dp)
                 .size(44.dp)
                 .dropShadow(
-                    shape = CircleShape, offsetY = 1.dp, offsetX = 0.dp, blur = 4.dp, spread = 0.dp
+                    shape = CircleShape,
+                    offsetY = 1.dp,
+                    offsetX = 0.dp,
+                    blur = 4.dp,
+                    spread = 0.dp
                 )
         ) {
             Image(
-                imageVector = ImageVector.vectorResource(iconResource),
+                imageVector = icon,
                 contentDescription = iconDescription,
                 modifier = Modifier
                     .padding(0.dp)
