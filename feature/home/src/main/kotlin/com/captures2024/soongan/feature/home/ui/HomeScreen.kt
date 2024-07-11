@@ -159,7 +159,7 @@ private fun MainContent() {
 @Composable
 private fun ExhibitPhoto() {
     val exhibitPhoto =
-        remember { mutableListOf<Int>() }
+        remember { mutableListOf<Int>(R.drawable.test, R.drawable.test2, R.drawable.test3) }
 
     Row(
         modifier = Modifier
@@ -278,7 +278,6 @@ private fun WeeklyDailySelector() {
         }
         Spacer(modifier = Modifier.height(16.dp))
         ContestPeriodText(stringResource(id = Rhome.string.start_date), "2024.05.10")
-        Spacer(modifier = Modifier.height(8.dp))
         ContestPeriodText(stringResource(id = Rhome.string.end_date), "2024.05.10")
     }
 }
