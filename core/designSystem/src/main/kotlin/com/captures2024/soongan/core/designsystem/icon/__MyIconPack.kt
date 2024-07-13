@@ -6,11 +6,14 @@ import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconBack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconBack2
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconCircleCheck
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconCircleCheckFail
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconComment
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconContestInfo
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFeed
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFillHeart
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFilter
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFilter2
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconHome
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconMenu
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNext
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconPlus
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconProfile
@@ -32,6 +35,6 @@ public val MyIconPack.AllIcons: ____KtList<ImageVector>
     }
     __AllIcons= listOf(IconAwards, IconBack2, LogoGoogle, IconCircleCheck, IconBack, IconTopArrow,
         IconProfile, IconFilter, IconFeed, LogoApple, IconCircleCheckFail, IconHome, LogoKakao,
-        IconPlus, Logo, IconContestInfo, IconNext, IconFilter2)
+        IconPlus, Logo, IconContestInfo, IconNext, IconFilter2, IconMenu, IconFillHeart,IconComment )
     return __AllIcons!!
   }
