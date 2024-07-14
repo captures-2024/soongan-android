@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -34,8 +33,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.focus.focusModifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -50,7 +48,9 @@ import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.design.R
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconComment
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconContestInfo
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconHeart
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNext
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconPlus
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.Logo
@@ -59,6 +59,7 @@ import com.captures2024.soongan.core.designsystem.theme.PrimaryA
 import com.captures2024.soongan.core.designsystem.theme.PrimaryC
 import com.captures2024.soongan.core.designsystem.theme.dropShadow
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.model.HomeExhibitedPhoto
 import com.captures2024.soongan.feature.home.R as Rhome
 
 const val MAX_EXHIBIT_CNT = 3;
@@ -145,7 +146,7 @@ private fun MainContent() {
     ) {
         ExhibitPhoto()
     }
-    Spacer(modifier = Modifier.height(52.dp))
+    Spacer(modifier = Modifier.height(32.dp))
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -161,16 +162,22 @@ private fun MainContent() {
 @Composable
 private fun ExhibitPhoto() {
     val exhibitPhoto =
-        remember { mutableListOf<Int>(R.drawable.test, R.drawable.test2, R.drawable.test3) }
+        remember {
+            mutableListOf<HomeExhibitedPhoto>(
+                HomeExhibitedPhoto(R.drawable.test, 100, 10),
+                HomeExhibitedPhoto(R.drawable.test2, 300, 8),
+                HomeExhibitedPhoto(R.drawable.test3, 20, 11),
+            )
+        }
 
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .height(257.dp)
             .horizontalScroll(rememberScrollState())
             .padding(
                 horizontal = 32.dp
-            ), horizontalArrangement = Arrangement.Center
+            ),
+        horizontalArrangement = Arrangement.Center
     ) {
         when (exhibitPhoto.toList().size) {
             0 -> {
@@ -183,14 +190,49 @@ private fun ExhibitPhoto() {
         }
         exhibitPhoto.toList().forEach { photo ->
             Spacer(modifier = Modifier.width(16.dp))
-            Image(
-                painter = painterResource(id = photo),
-                contentDescription = "photo",
-                contentScale = ContentScale.Inside,
-                modifier = Modifier
-                    .padding(0.dp)
-                    .fillMaxHeight()
-            )
+            Column {
+                Image(
+                    painter = painterResource(id = photo.photoId),
+                    contentDescription = "photo",
+                    contentScale = ContentScale.FillWidth,
+                    modifier = Modifier
+                        .shadow(0.dp, clip = false)
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.Top
+                ) {
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Icon(
+                        imageVector = MyIconPack.IconHeart,
+                        contentDescription = "heart",
+                        modifier = Modifier.size(12.dp)
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    NonScaleText(
+                        text = "${photo.heartCnt}",
+                        color = PrimaryA,
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Normal,
+                        lineHeight = 12.sp
+                    )
+                    Spacer(modifier = Modifier.width(12.dp))
+                    Icon(
+                        imageVector = MyIconPack.IconComment,
+                        contentDescription = "comment",
+                        modifier = Modifier.size(12.dp)
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    NonScaleText(
+                        text = "${photo.commentCnt}",
+                        color = PrimaryA,
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Normal,
+                        lineHeight = 12.sp
+                    )
+                }
+            }
         }
     }
 }
