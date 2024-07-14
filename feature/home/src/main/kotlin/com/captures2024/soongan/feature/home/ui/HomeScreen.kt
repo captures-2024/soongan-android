@@ -3,6 +3,7 @@ package com.captures2024.soongan.feature.home.ui
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -44,14 +45,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImagePainter.State.Empty.painter
 import com.captures2024.soongan.core.design.R
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconContentInfo
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNextPage
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconPlus
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconPlusBig
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconPlusWhite
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.Logo
 import com.captures2024.soongan.core.designsystem.theme.Accent
 import com.captures2024.soongan.core.designsystem.theme.PrimaryA
@@ -216,20 +216,27 @@ private fun ExhibitBtn(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            IconButton(
-                onClick = { /*TODO*/ },
-                modifier = Modifier.align(Alignment.CenterHorizontally),
-            ) {
-                Icon(
-                    imageVector = when (exhibitCnt) {
-                        0 -> MyIconPack.IconPlusBig
-                        MAX_EXHIBIT_CNT -> MyIconPack.IconPlusWhite
-                        else -> MyIconPack.IconPlus
-                    },
-                    contentDescription = "exhibit",
-                )
-            }
+            Icon(
+                imageVector = MyIconPack.IconPlus,
+                contentDescription = "exhibit",
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .clickable { }
+                    .size(
+                        when (exhibitCnt) {
+                            0 -> 40.dp
+                            else -> 28.dp
+                        }
+                    ),
+                tint = when (exhibitCnt) {
+                    MAX_EXHIBIT_CNT -> Color.White
+                    else -> Color.Black
+                }
+
+            )
+
             if (exhibitCnt == 0) {
+                Spacer(modifier = Modifier.height(8.dp))
                 NonScaleText(
                     text = stringResource(id = Rhome.string.exhibit),
                     style = TextStyle(fontSize = 14.sp, color = PrimaryA)
@@ -338,7 +345,9 @@ private fun MainBottomBar(navigateToFeed: () -> Unit) {
             {}, MyIconPack.IconContentInfo, stringResource(id = Rhome.string.contest_info)
         )
         MainBottomIcon(
-            navigateToFeed, MyIconPack.IconNextPage, stringResource(id = Rhome.string.participated_photo)
+            navigateToFeed,
+            MyIconPack.IconNextPage,
+            stringResource(id = Rhome.string.participated_photo)
         )
     }
 }
