@@ -34,6 +34,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -45,12 +47,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImagePainter.State.Empty.painter
 import com.captures2024.soongan.core.design.R
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconContentInfo
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNextPage
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconContestInfo
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNext
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconPlus
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.Logo
 import com.captures2024.soongan.core.designsystem.theme.Accent
@@ -327,7 +328,7 @@ private fun ContestPeriodText(
 ) {
     NonScaleText(
         text = "$text | $period",
-        style = TextStyle(fontSize = 14.sp, color = PrimaryA)
+        style = TextStyle(fontSize = 15.sp, color = PrimaryA, fontWeight = FontWeight.SemiBold)
     )
 }
 
@@ -342,11 +343,11 @@ private fun MainBottomBar(navigateToFeed: () -> Unit) {
             )
     ) {
         MainBottomIcon(
-            {}, MyIconPack.IconContentInfo, stringResource(id = Rhome.string.contest_info)
+            {}, MyIconPack.IconContestInfo, stringResource(id = Rhome.string.contest_info)
         )
         MainBottomIcon(
             navigateToFeed,
-            MyIconPack.IconNextPage,
+            MyIconPack.IconNext,
             stringResource(id = Rhome.string.participated_photo)
         )
     }
@@ -361,28 +362,26 @@ private fun MainBottomIcon(
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         IconButton(
             onClick = onClick, modifier = Modifier
-                .size(44.dp)
+                .size(34.dp)
                 .dropShadow(
                     shape = CircleShape,
-                    offsetY = 1.dp,
+                    offsetY = 2.dp,
                     offsetX = 0.dp,
                     blur = 4.dp,
                     spread = 0.dp
                 )
+                .background(Color.White, CircleShape)
         ) {
-            Image(
+            Icon(
                 imageVector = icon,
                 contentDescription = iconDescription,
-                modifier = Modifier
-                    .padding(0.dp)
-                    .fillMaxSize()
-
+                modifier = Modifier.size(24.dp)
             )
         }
-        Spacer(modifier = Modifier.height(4.dp))
+        Spacer(modifier = Modifier.height(12.dp))
         NonScaleText(
             text = iconDescription,
-            style = TextStyle(fontSize = 12.sp, color = PrimaryA)
+            style = TextStyle(fontSize = 13.sp, color = PrimaryA)
         )
     }
 }
