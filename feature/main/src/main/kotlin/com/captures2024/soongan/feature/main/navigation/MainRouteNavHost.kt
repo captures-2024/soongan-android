@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import com.captures2024.soongan.feature.awards.navigation.awards
 import com.captures2024.soongan.feature.feed.navigation.feed
+import com.captures2024.soongan.feature.feed.navigation.navigateToFeed
 import com.captures2024.soongan.feature.home.navigation.HOME_NAVIGATION_ROUTE
 import com.captures2024.soongan.feature.home.navigation.home
 import com.captures2024.soongan.feature.home.navigation.navigateToHome
@@ -39,7 +40,9 @@ internal fun MainRouteNavHost(
         welcome(
             navigateToHome = navController::navigateToHome,
         )
-        home()
+        home(
+            navigateToFeed = navController::navigateToFeed,
+        )
         feed()
         awards()
         profile()

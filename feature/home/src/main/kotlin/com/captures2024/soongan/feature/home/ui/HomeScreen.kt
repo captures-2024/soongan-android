@@ -65,6 +65,7 @@ const val MAX_EXHIBIT_CNT = 3;
 @Composable
 internal fun HomeScreen(
     modifier: Modifier = Modifier,
+    navigateToFeed: () -> Unit,
 ) {
     Image(
         modifier = Modifier.fillMaxSize(),
@@ -82,7 +83,7 @@ internal fun HomeScreen(
         Spacer(modifier = Modifier.height(68.dp))
         MainContent()
         Spacer(modifier = Modifier.height(32.dp))
-        MainBottomBar()
+        MainBottomBar(navigateToFeed)
     }
 }
 
@@ -324,7 +325,7 @@ private fun ContestPeriodText(
 }
 
 @Composable
-private fun MainBottomBar() {
+private fun MainBottomBar(navigateToFeed: () -> Unit) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
@@ -337,7 +338,7 @@ private fun MainBottomBar() {
             {}, MyIconPack.IconContentInfo, stringResource(id = Rhome.string.contest_info)
         )
         MainBottomIcon(
-            {}, MyIconPack.IconNextPage, stringResource(id = Rhome.string.participated_photo)
+            navigateToFeed, MyIconPack.IconNextPage, stringResource(id = Rhome.string.participated_photo)
         )
     }
 }
@@ -380,7 +381,6 @@ private fun MainBottomIcon(
 @DevicePreviews
 @Composable
 private fun HomeScreenPreview() {
-    HomeScreen()
 }
 
 enum class ContestPeriod {

@@ -4,6 +4,8 @@ import androidx.compose.runtime.Composable
 import com.captures2024.soongan.feature.home.ui.HomeScreen
 
 @Composable
-internal fun HomeRoute() {
-    HomeScreen()
+internal fun HomeRoute(
+    navigateToFeed: () -> Unit,
+) {
+    HomeScreen(navigateToFeed = navigateToFeed)
 }
