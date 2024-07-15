@@ -1,4 +1,4 @@
-package com.captures2024.soongan.feature.home.ui
+package com.captures2024.soongan.feature.home.ui.photo
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -32,7 +32,9 @@ import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconBack2
 import com.captures2024.soongan.core.designsystem.theme.PrimaryA
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.feature.home.PhotoDetailControlUIState
 import com.captures2024.soongan.feature.home.samplePhotos
+import com.captures2024.soongan.feature.home.ui.gallery.HomeGalleryButton
 import kotlinx.coroutines.delay
 import timber.log.Timber
 
@@ -41,28 +43,33 @@ private const val DEFAULT_DURATION: Long = 1L * 1L * 1000L
 @Composable
 internal fun PhotoDetailControlScreen(
     modifier: Modifier = Modifier,
-    url: String
+    uiState: PhotoDetailControlUIState,
+    onClickBack: () -> Unit = {}
 ) {
     val context = LocalContext.current
+
+    val url = uiState.photoUrl
 
     val showShimmer = remember { mutableStateOf(true) }
 
     var currentTimerValue by remember(DEFAULT_DURATION) { mutableLongStateOf(DEFAULT_DURATION) }
 
-    val imageLoader = ImageLoader(context)
     val model = ImageRequest.Builder(context)
         .data(url)
-//        .size(Size.ORIGINAL)
         .build()
 
-    LaunchedEffect(key1 = currentTimerValue) {
-        if (currentTimerValue > 0) {
-            delay(1000L)
-            currentTimerValue -= 1000L
-        }
+    if (url.isNotEmpty()) {
+        val imageLoader = ImageLoader(context)
 
-        val bitmap = imageLoader.execute(model).drawable?.toBitmap()
-        Timber.tag("PhotoDetailControlScreen").d("height = ${bitmap?.height}, width = ${bitmap?.width}")
+        LaunchedEffect(key1 = currentTimerValue) {
+            if (currentTimerValue > 0) {
+                delay(1000L)
+                currentTimerValue -= 1000L
+            }
+
+            val bitmap = imageLoader.execute(model).drawable?.toBitmap()
+            Timber.tag("PhotoDetailControlScreen").d("height = ${bitmap?.height}, width = ${bitmap?.width}")
+        }
     }
 
     Box(
@@ -71,31 +78,33 @@ internal fun PhotoDetailControlScreen(
             .background(Color.Black),
         contentAlignment = Alignment.TopStart
     ) {
-        ZoomableBox(
-            modifier = Modifier
-                .fillMaxSize()
-                .clickable(
-                    interactionSource = remember { MutableInteractionSource() },
-                    indication = null,
-                    onClick = {
-                        if (currentTimerValue > 0L) {
-                            currentTimerValue -= 1000L
-                        }
-                    }
-                ),
-        ) {
-            AsyncImage(
-                model = model,
-                contentDescription = "image",
+        if (url.isNotEmpty()) {
+            ZoomableBox(
                 modifier = Modifier
-                    .graphicsLayer(
-                        scaleX = scale,
-                        scaleY = scale,
-                        translationX = offsetX,
-                        translationY = offsetY
+                    .fillMaxSize()
+                    .clickable(
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = null,
+                        onClick = {
+                            if (currentTimerValue > 0L) {
+                                currentTimerValue -= 1000L
+                            }
+                        }
                     ),
-                contentScale = ContentScale.FillWidth,
-            )
+            ) {
+                AsyncImage(
+                    model = model,
+                    contentDescription = "image",
+                    modifier = Modifier
+                        .graphicsLayer(
+                            scaleX = scale,
+                            scaleY = scale,
+                            translationX = offsetX,
+                            translationY = offsetY
+                        ),
+                    contentScale = ContentScale.FillWidth,
+                )
+            }
         }
 
         Box(
@@ -106,7 +115,7 @@ internal fun PhotoDetailControlScreen(
             contentAlignment = Alignment.CenterStart
         ) {
             if (currentTimerValue <= 0) {
-                HomeGalleryButton(onClick = { /*TODO*/ }) {
+                HomeGalleryButton(onClick = onClickBack) {
                     Icon(
                         imageVector = MyIconPack.IconBack2,
                         contentDescription = "back",
@@ -123,5 +132,6 @@ internal fun PhotoDetailControlScreen(
 @DevicePreviews
 @Composable
 private fun PhotoDetailControlScreenPreview() {
-    PhotoDetailControlScreen(url = samplePhotos[0].url)
+    PhotoDetailControlScreen(uiState = PhotoDetailControlUIState.Init)
+//    samplePhotos[0].url
 }

@@ -1,4 +1,4 @@
-package com.captures2024.soongan.feature.home.ui
+package com.captures2024.soongan.feature.home.ui.gallery
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -21,7 +21,6 @@ import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconBack2
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFilter
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFilter2
 import com.captures2024.soongan.core.designsystem.theme.PrimaryA
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews

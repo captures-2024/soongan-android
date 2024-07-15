@@ -1,4 +1,4 @@
-package com.captures2024.soongan.feature.home.ui
+package com.captures2024.soongan.feature.home.ui.gallery
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -31,7 +31,6 @@ import com.captures2024.soongan.core.designsystem.theme.PrimaryA
 import com.captures2024.soongan.core.designsystem.theme.PrimaryB
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.home.samplePhotos
-import com.captures2024.soongan.feature.home.sampleSkeletonPhotos
 import kotlinx.coroutines.launch
 
 @Composable

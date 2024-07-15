@@ -1,4 +1,4 @@
-package com.captures2024.soongan.feature.home.ui
+package com.captures2024.soongan.feature.home.ui.gallery
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

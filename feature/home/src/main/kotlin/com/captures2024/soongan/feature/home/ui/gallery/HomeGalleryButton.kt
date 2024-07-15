@@ -1,4 +1,4 @@
-package com.captures2024.soongan.feature.home.ui
+package com.captures2024.soongan.feature.home.ui.gallery
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
@@ -11,7 +11,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.captures2024.soongan.core.designsystem.theme.dropShadow
-import com.captures2024.soongan.core.designsystem.theme.innerShadow
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 
 @Composable

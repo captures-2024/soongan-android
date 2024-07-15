@@ -18,9 +18,7 @@ fun NavController.navigateToPhotoDetail(navOptions: NavOptions? = null) {
     this.navigate(PHOTO_DETAIL_NAVIGATION_ROUTE, navOptions)
 }
 
-fun NavGraphBuilder.home(
-    navigateToFeed: () -> Unit,
-) {
+fun NavGraphBuilder.home() {
     composable(route = HOME_NAVIGATION_ROUTE) {
         HomeRoute(
             navigateToFeed = navigateToFeed,

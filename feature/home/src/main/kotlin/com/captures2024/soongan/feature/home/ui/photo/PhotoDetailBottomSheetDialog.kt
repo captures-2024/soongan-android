@@ -1,13 +1,13 @@
-package com.captures2024.soongan.feature.home.ui
+package com.captures2024.soongan.feature.home.ui.photo
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.SheetState
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -25,24 +25,8 @@ import com.captures2024.soongan.feature.home.state.PhotoDetailModalState
 @Composable
 internal fun PhotoDetailBottomSheetDialog(
     modifier: Modifier = Modifier,
-    modalState: PhotoDetailModalState
+    modalBottomSheetState: SheetState = rememberModalBottomSheetState()
 ) {
-    val modalBottomSheetState = rememberModalBottomSheetState()
-
-    when (modalState) {
-        PhotoDetailModalState.Open -> {
-            LaunchedEffect(key1 = true) {
-                modalBottomSheetState.show()
-            }
-        }
-
-        PhotoDetailModalState.Close -> {
-            LaunchedEffect(key1 = true) {
-                modalBottomSheetState.hide()
-            }
-        }
-    }
-
     ModalBottomSheet(
         modifier = modifier
             .height(600.dp),
@@ -68,13 +52,11 @@ internal fun PhotoDetailBottomSheetDialog(
 
         }
     }
-
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @DevicePreviews
 @Composable
 private fun PhotoDetailBottomSheetDialogPreview() {
-    PhotoDetailBottomSheetDialog(
-        modalState = PhotoDetailModalState.Open
-    )
+    PhotoDetailBottomSheetDialog()
 }
