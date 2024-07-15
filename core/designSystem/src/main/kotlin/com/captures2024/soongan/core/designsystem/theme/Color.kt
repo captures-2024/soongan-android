@@ -68,6 +68,7 @@ internal val Teal90 = Color(0xFFBEEAF6)
 
 val PrimaryA = Color(0xFF252525)
 val PrimaryB = Color(0xFFF5F5F5)
+val PrimaryC = Color(0xFFBEBEBE)
 val Accent = Color(0xFFFBC304)
 val Positive = Color(0xFF276EF1)
 val Negative = Color(0xFFDE1135)
