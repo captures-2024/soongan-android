@@ -102,6 +102,7 @@ internal fun PhotoDetailControlScreen(
                             translationX = offsetX,
                             translationY = offsetY
                         ),
+                    onSuccess = { showShimmer.value = true },
                     contentScale = ContentScale.FillWidth,
                 )
             }

@@ -1,6 +1,7 @@
 package com.captures2024.soongan.feature.home.ui.gallery
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
@@ -21,6 +22,7 @@ import com.captures2024.soongan.core.designsystem.theme.dropShadow
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.model.mock.GalleryImage
 import com.captures2024.soongan.core.model.mock.GridItem
+import timber.log.Timber
 
 @Composable
 internal fun HomeGallerySkeletonItem(
@@ -44,7 +46,8 @@ internal fun HomeGallerySkeletonItem(
 @Composable
 internal fun HomeGalleryImageItem(
     modifier: Modifier = Modifier,
-    item: GalleryImage
+    item: GalleryImage,
+    onClick: (GalleryImage) -> Unit = {},
 ) {
     val showShimmer = remember { mutableStateOf(true) }
 
@@ -62,7 +65,14 @@ internal fun HomeGalleryImageItem(
                 color = Color(0x40000000),
                 offsetY = 4.dp,
                 blur = 4.dp
-            ),
+            )
+            .clickable {
+                Timber.tag("HomeGalleryImageItem").d("showShimmer = ${showShimmer.value}")
+                if (!showShimmer.value) {
+                    onClick(item)
+                }
+            },
+        onSuccess = { showShimmer.value = false },
         contentScale = ContentScale.FillWidth,
     )
 }

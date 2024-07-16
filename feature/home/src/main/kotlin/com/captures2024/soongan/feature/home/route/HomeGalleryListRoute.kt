@@ -13,6 +13,7 @@ internal fun HomeGalleryListRoute(
     homeGalleryListViewModel: HomeGalleryListViewModel = hiltViewModel()
 ) {
     HomeGalleryListScreen(
-        onClickBack = navigateToBack
+        onClickBack = navigateToBack,
+        onClickItem = navigateToPhotoDetail
     )
 }

@@ -24,6 +24,7 @@ import androidx.compose.ui.draw.paint
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavOptions
 import com.captures2024.soongan.core.design.R
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconTopArrow
@@ -37,6 +38,7 @@ import kotlinx.coroutines.launch
 internal fun HomeGalleryListScreen(
     modifier: Modifier = Modifier,
     onClickBack: () -> Unit = {},
+    onClickItem: (String, NavOptions?) -> Unit = { _, _ -> },
 ) {
     val photos by rememberSaveable { mutableStateOf(samplePhotos) }
     val lazyStaggeredGridState = rememberLazyStaggeredGridState()
@@ -65,7 +67,16 @@ internal fun HomeGalleryListScreen(
         }
         items(photos, key = { it.id }) {
 //            HomeGallerySkeletonItem(item = it)
-            HomeGalleryImageItem(item = it)
+            HomeGalleryImageItem(
+                item = it,
+                onClick = { item ->
+                    val options = NavOptions.Builder().build()
+                    onClickItem(
+                        item.id.toString(),
+                        options
+                    )
+                }
+            )
         }
     }
 
