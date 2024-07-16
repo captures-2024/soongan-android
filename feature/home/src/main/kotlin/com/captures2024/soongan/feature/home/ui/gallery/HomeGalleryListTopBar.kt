@@ -28,6 +28,7 @@ import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 @Composable
 internal fun HomeGalleryTopBar(
     modifier: Modifier = Modifier,
+    onClickBack: () -> Unit = {},
     lazyStaggeredGridState: LazyStaggeredGridState = rememberLazyStaggeredGridState()
 ) {
     var scrolledY = 0f
@@ -46,7 +47,7 @@ internal fun HomeGalleryTopBar(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
     ) {
-        HomeGalleryButton(onClick = { /*TODO*/ }) {
+        HomeGalleryButton(onClick = onClickBack) {
             Icon(
                 imageVector = MyIconPack.IconBack2,
                 contentDescription = "",
@@ -76,7 +77,7 @@ internal fun HomeGalleryTopBar(
             )
         }
 
-        HomeGalleryButton(onClick = { /*TODO*/ }) {
+        HomeGalleryButton(onClick = { /* TODO */ }) {
             Icon(
                 imageVector = MyIconPack.IconFilter2,
                 contentDescription = "",

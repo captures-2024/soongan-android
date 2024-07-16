@@ -34,8 +34,9 @@ import com.captures2024.soongan.feature.home.samplePhotos
 import kotlinx.coroutines.launch
 
 @Composable
-internal fun HomeGalleryScreen(
+internal fun HomeGalleryListScreen(
     modifier: Modifier = Modifier,
+    onClickBack: () -> Unit = {},
 ) {
     val photos by rememberSaveable { mutableStateOf(samplePhotos) }
     val lazyStaggeredGridState = rememberLazyStaggeredGridState()
@@ -57,7 +58,10 @@ internal fun HomeGalleryScreen(
         contentPadding = PaddingValues(8.dp)
     ) {
         item(span = StaggeredGridItemSpan.FullLine) {
-            HomeGalleryTopBar(lazyStaggeredGridState = lazyStaggeredGridState)
+            HomeGalleryTopBar(
+                onClickBack = onClickBack,
+                lazyStaggeredGridState = lazyStaggeredGridState
+            )
         }
         items(photos, key = { it.id }) {
 //            HomeGallerySkeletonItem(item = it)
@@ -95,13 +99,10 @@ internal fun HomeGalleryScreen(
             )
         }
     }
-
-    
-
 }
 
 @DevicePreviews
 @Composable
-private fun HomeGalleryScreenPreview() {
-    HomeGalleryScreen()
+private fun HomeGalleryListScreenPreview() {
+    HomeGalleryListScreen()
 }

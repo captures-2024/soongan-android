@@ -1,11 +1,14 @@
 package com.captures2024.soongan.feature.home.route
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavOptions
 import com.captures2024.soongan.feature.home.ui.HomeScreen
 
 @Composable
 internal fun HomeRoute(
-    navigateToFeed: () -> Unit,
+    navigateToPhotoList: (NavOptions?) -> Unit,
 ) {
-    HomeScreen(navigateToFeed = navigateToFeed)
+    HomeScreen(
+        navigateToPhotoList = navigateToPhotoList
+    )
 }

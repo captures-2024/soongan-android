@@ -11,6 +11,9 @@ import com.captures2024.soongan.feature.feed.navigation.navigateToFeed
 import com.captures2024.soongan.feature.home.navigation.HOME_NAVIGATION_ROUTE
 import com.captures2024.soongan.feature.home.navigation.home
 import com.captures2024.soongan.feature.home.navigation.navigateToHome
+import com.captures2024.soongan.feature.home.navigation.navigateToHomeGalleryList
+import com.captures2024.soongan.feature.home.navigation.navigateToPhotoDetail
+import com.captures2024.soongan.feature.home.navigation.navigateToPhotoDetailControl
 import com.captures2024.soongan.feature.main.route.MainRouteState
 import com.captures2024.soongan.feature.profile.navigation.profile
 import com.captures2024.soongan.feature.welcome.navigation.WELCOME_NAVIGATION_ROUTE
@@ -40,7 +43,12 @@ internal fun MainRouteNavHost(
         welcome(
             navigateToHome = navController::navigateToHome,
         )
-        home()
+        home(
+            navigateToBack = navController::popBackStack,
+            navigateToPhotoList = navController::navigateToHomeGalleryList,
+            navigateToPhotoDetail = navController::navigateToPhotoDetail,
+            navigateToPhotoDetailControl = navController::navigateToPhotoDetailControl
+        )
         feed()
         awards()
         profile()
