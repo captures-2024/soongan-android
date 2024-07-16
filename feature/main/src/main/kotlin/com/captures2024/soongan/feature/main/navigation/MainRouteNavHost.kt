@@ -40,9 +40,7 @@ internal fun MainRouteNavHost(
         welcome(
             navigateToHome = navController::navigateToHome,
         )
-        home(
-            navigateToFeed = navController::navigateToFeed,
-        )
+        home()
         feed()
         awards()
         profile()
