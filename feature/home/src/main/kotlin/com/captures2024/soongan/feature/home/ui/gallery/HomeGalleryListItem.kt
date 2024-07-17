@@ -20,18 +20,18 @@ import coil.request.ImageRequest
 import com.captures2024.soongan.core.designsystem.component.shimmerBrush
 import com.captures2024.soongan.core.designsystem.theme.dropShadow
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
-import com.captures2024.soongan.core.model.mock.GalleryImage
+import com.captures2024.soongan.core.model.UserPost
 import com.captures2024.soongan.core.model.mock.GridItem
 import timber.log.Timber
 
 @Composable
 internal fun HomeGallerySkeletonItem(
     modifier: Modifier = Modifier,
-    item: GridItem
+    item: UserPost.SkeletonPost
 ) = Box(
     modifier = modifier
         .width(190.dp)
-        .height(item.size)
+        .height(item.height.dp)
         .dropShadow(
             shape = RoundedCornerShape(0.dp),
             color = Color(0x40000000),
@@ -46,8 +46,8 @@ internal fun HomeGallerySkeletonItem(
 @Composable
 internal fun HomeGalleryImageItem(
     modifier: Modifier = Modifier,
-    item: GalleryImage,
-    onClick: (GalleryImage) -> Unit = {},
+    item: UserPost.PhotoPost,
+    onClick: (UserPost.PhotoPost) -> Unit = {},
 ) {
     val showShimmer = remember { mutableStateOf(true) }
 
@@ -81,10 +81,7 @@ internal fun HomeGalleryImageItem(
 @Composable
 private fun HomeGallerySkeletonItemPreview() {
     HomeGallerySkeletonItem(
-        item = GridItem(
-            id = "",
-            size = (100..200).random().dp
-        )
+        item = UserPost.SkeletonPost(id = 1)
     )
 }
 
@@ -92,7 +89,7 @@ private fun HomeGallerySkeletonItemPreview() {
 @Composable
 private fun HomeGalleryImageItemPreview() {
     HomeGalleryImageItem(
-        item = GalleryImage(
+        item = UserPost.PhotoPost(
             id = 0,
             url = "",
             title = ""

@@ -16,40 +16,34 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavOptions
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.captures2024.soongan.core.design.R
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.component.shimmerBrush
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconBack2
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconComment
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFillHeart
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconMenu
 import com.captures2024.soongan.core.designsystem.theme.PrimaryA
 import com.captures2024.soongan.core.designsystem.theme.dropShadow
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
-import com.captures2024.soongan.core.model.mock.GalleryImage
-import com.captures2024.soongan.feature.home.samplePhotos
+import com.captures2024.soongan.core.model.UserPost
+import com.captures2024.soongan.core.model.mock.samplePhotos
 import com.captures2024.soongan.feature.home.state.PhotoDetailModalState
 import com.captures2024.soongan.feature.home.state.PhotoDetailModelState
 import com.captures2024.soongan.feature.home.state.PhotoDetailUIState
-import com.captures2024.soongan.feature.home.ui.gallery.HomeGalleryButton
 
 @Composable
 internal fun PhotoDetailScreen(
@@ -203,7 +197,7 @@ private fun PhotoDetailScreenLoadImagePreview() {
     PhotoDetailScreen(
         uiState = PhotoDetailUIState.LoadImage(
             modalState = PhotoDetailModalState.Close,
-            modelState = PhotoDetailModelState.Init(samplePhotos[0])
+            modelState = PhotoDetailModelState.Init(samplePhotos[0] as UserPost.PhotoPost)
         )
     )
 }

@@ -1,6 +1,8 @@
 package com.captures2024.soongan.feature.home
 
 import androidx.lifecycle.ViewModel
+import com.captures2024.soongan.core.model.UserPost
+import com.captures2024.soongan.core.model.mock.samplePhotos
 import com.captures2024.soongan.feature.home.state.PhotoDetailModelState
 import com.captures2024.soongan.feature.home.state.PhotoDetailUIState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,7 +31,7 @@ constructor(
             modalState = currentState.modalState,
             // TODO
 //            modelState = PhotoDetailModelState.Init(model = )
-            modelState = PhotoDetailModelState.Init(samplePhotos[20])
+            modelState = PhotoDetailModelState.Init((samplePhotos[20] as UserPost.PhotoPost))
         )
     }
 

@@ -1,7 +1,6 @@
 package com.captures2024.soongan.feature.home.route
 
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.SheetState
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -9,8 +8,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavOptions
 import com.captures2024.soongan.feature.home.PhotoDetailViewModel
-import com.captures2024.soongan.feature.home.samplePhotos
-import com.captures2024.soongan.feature.home.ui.photo.PhotoDetailBottomSheetDialog
 import com.captures2024.soongan.feature.home.ui.photo.PhotoDetailScreen
 import timber.log.Timber
 

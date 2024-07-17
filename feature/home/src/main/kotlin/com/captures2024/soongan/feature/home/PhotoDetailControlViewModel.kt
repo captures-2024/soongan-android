@@ -1,6 +1,8 @@
 package com.captures2024.soongan.feature.home
 
 import androidx.lifecycle.ViewModel
+import com.captures2024.soongan.core.model.UserPost
+import com.captures2024.soongan.core.model.mock.samplePhotos
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -23,7 +25,7 @@ constructor(
             return
         }
 
-        _uiState.value = PhotoDetailControlUIState.LoadImage(photoUrl = samplePhotos[20].url)
+        _uiState.value = PhotoDetailControlUIState.LoadImage(photoUrl = (samplePhotos[20] as UserPost.PhotoPost).url)
     }
 
 }

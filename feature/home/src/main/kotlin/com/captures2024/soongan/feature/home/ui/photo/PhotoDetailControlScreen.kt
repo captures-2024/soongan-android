@@ -33,7 +33,6 @@ import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconBack2
 import com.captures2024.soongan.core.designsystem.theme.PrimaryA
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.home.PhotoDetailControlUIState
-import com.captures2024.soongan.feature.home.samplePhotos
 import com.captures2024.soongan.feature.home.ui.gallery.HomeGalleryButton
 import kotlinx.coroutines.delay
 import timber.log.Timber

@@ -31,16 +31,17 @@ import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconTopArrow
 import com.captures2024.soongan.core.designsystem.theme.PrimaryA
 import com.captures2024.soongan.core.designsystem.theme.PrimaryB
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
-import com.captures2024.soongan.feature.home.samplePhotos
+import com.captures2024.soongan.core.model.UserPost
+import com.captures2024.soongan.feature.home.state.HomeGalleryListUIState
 import kotlinx.coroutines.launch
 
 @Composable
 internal fun HomeGalleryListScreen(
     modifier: Modifier = Modifier,
+    uiState: HomeGalleryListUIState,
     onClickBack: () -> Unit = {},
     onClickItem: (String, NavOptions?) -> Unit = { _, _ -> },
 ) {
-    val photos by rememberSaveable { mutableStateOf(samplePhotos) }
     val lazyStaggeredGridState = rememberLazyStaggeredGridState()
     val coroutineScope = rememberCoroutineScope()
 
@@ -65,18 +66,18 @@ internal fun HomeGalleryListScreen(
                 lazyStaggeredGridState = lazyStaggeredGridState
             )
         }
-        items(photos, key = { it.id }) {
-//            HomeGallerySkeletonItem(item = it)
-            HomeGalleryImageItem(
-                item = it,
-                onClick = { item ->
+        items(uiState.photoList, key = { it.id }) {
+            when (val item = it) {
+                is UserPost.SkeletonPost -> HomeGallerySkeletonItem(item = item)
+
+                is UserPost.PhotoPost -> HomeGalleryImageItem(item = item) { currentItem ->
                     val options = NavOptions.Builder().build()
                     onClickItem(
-                        item.id.toString(),
+                        currentItem.id.toString(),
                         options
                     )
                 }
-            )
+            }
         }
     }
 
@@ -115,5 +116,7 @@ internal fun HomeGalleryListScreen(
 @DevicePreviews
 @Composable
 private fun HomeGalleryListScreenPreview() {
-    HomeGalleryListScreen()
+    HomeGalleryListScreen(
+        uiState = HomeGalleryListUIState.Init
+    )
 }
