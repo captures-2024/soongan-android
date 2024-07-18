@@ -3,7 +3,6 @@ package com.captures2024.soongan.core.network.di
 import com.captures2024.soongan.core.datastore.BuildConfig
 import com.captures2024.soongan.core.datastore.TokenDataSource
 import com.captures2024.soongan.core.network.AuthInterceptor
-import com.captures2024.soongan.core.network.NullOrEmptyConverterFactory
 import com.captures2024.soongan.core.network.SoonGanAuthenticator
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
@@ -16,8 +15,6 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.converter.scalars.ScalarsConverterFactory
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton

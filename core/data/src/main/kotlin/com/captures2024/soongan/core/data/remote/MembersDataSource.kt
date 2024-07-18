@@ -1,7 +1,7 @@
 package com.captures2024.soongan.core.data.remote
 
-import com.captures2024.soongan.core.model.SocialSignType
-import com.captures2024.soongan.core.model.response.SignWithTokenResponse
+import com.captures2024.soongan.core.model.network.SocialSignType
+import com.captures2024.soongan.core.model.network.response.SignWithTokenResponse
 
 interface MembersDataSource {
 

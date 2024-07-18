@@ -2,7 +2,7 @@ package com.captures2024.soongan.core.domain.usecase.members
 
 import com.captures2024.soongan.core.domain.repository.MembersRepository
 import com.captures2024.soongan.core.domain.runSuspendCatching
-import com.captures2024.soongan.core.model.SocialSignType
+import com.captures2024.soongan.core.model.network.SocialSignType
 import javax.inject.Inject
 import javax.inject.Singleton
 

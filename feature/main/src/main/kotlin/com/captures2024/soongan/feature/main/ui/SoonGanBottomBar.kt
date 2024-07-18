@@ -8,6 +8,7 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import com.captures2024.soongan.core.designsystem.component.SoonGanNavigationBar
 import com.captures2024.soongan.core.designsystem.component.SoonGanNavigationBarItem
 import com.captures2024.soongan.feature.main.navigation.TopLevelDestination
+import timber.log.Timber
 
 @Composable
 internal fun SoonGanBottomBar(

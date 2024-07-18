@@ -49,10 +49,7 @@ class MainActivity : ComponentActivity()  {
                         Color.TRANSPARENT,
                         Color.TRANSPARENT,
                     ) { darkTheme },
-                    navigationBarStyle = SystemBarStyle.auto(
-                        lightScrim,
-                        darkScrim,
-                    ) { darkTheme },
+                    navigationBarStyle = SystemBarStyle.light(Color.WHITE, Color.WHITE),
                 )
                 onDispose {}
             }

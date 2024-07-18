@@ -1,4 +1,4 @@
-package com.captures2024.soongan.core.model.response
+package com.captures2024.soongan.core.model.network.response
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

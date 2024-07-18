@@ -1,4 +1,4 @@
-package com.captures2024.soongan.core.model
+package com.captures2024.soongan.core.model.mock
 
 import androidx.compose.ui.unit.Dp
 

@@ -45,6 +45,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavOptions
 import com.captures2024.soongan.core.design.R
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
@@ -67,7 +68,7 @@ const val MAX_EXHIBIT_CNT = 3;
 @Composable
 internal fun HomeScreen(
     modifier: Modifier = Modifier,
-    navigateToFeed: () -> Unit,
+    navigateToPhotoList: (NavOptions?) -> Unit,
 ) {
     Image(
         modifier = Modifier.fillMaxSize(),
@@ -85,7 +86,7 @@ internal fun HomeScreen(
         Spacer(modifier = Modifier.height(68.dp))
         MainContent()
         Spacer(modifier = Modifier.height(32.dp))
-        MainBottomBar(navigateToFeed)
+        MainBottomBar(navigateToPhotoList)
     }
 }
 
@@ -375,7 +376,9 @@ private fun ContestPeriodText(
 }
 
 @Composable
-private fun MainBottomBar(navigateToFeed: () -> Unit) {
+private fun MainBottomBar(
+    navigateToPhotoList: (NavOptions?) -> Unit,
+) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
@@ -388,7 +391,10 @@ private fun MainBottomBar(navigateToFeed: () -> Unit) {
             {}, MyIconPack.IconContestInfo, stringResource(id = Rhome.string.contest_info)
         )
         MainBottomIcon(
-            navigateToFeed,
+            {
+                val options = NavOptions.Builder().build()
+                navigateToPhotoList(options)
+            },
             MyIconPack.IconNext,
             stringResource(id = Rhome.string.participated_photo)
         )
