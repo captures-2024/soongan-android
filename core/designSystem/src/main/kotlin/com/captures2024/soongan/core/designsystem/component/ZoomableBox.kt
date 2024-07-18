@@ -17,7 +17,6 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.unit.IntSize
 import com.captures2024.soongan.core.designsystem.util.ZoomableBoxScope
-import com.captures2024.soongan.core.designsystem.util.ZoomableBoxScopeImpl
 
 @Composable
 fun ZoomableBox(
@@ -51,3 +50,9 @@ fun ZoomableBox(
         scope.content()
     }
 }
+
+private data class ZoomableBoxScopeImpl(
+    override val scale: Float,
+    override val offsetX: Float,
+    override val offsetY: Float
+) : ZoomableBoxScope
