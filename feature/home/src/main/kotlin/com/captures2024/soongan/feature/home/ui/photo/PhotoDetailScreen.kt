@@ -50,7 +50,9 @@ internal fun PhotoDetailScreen(
     modifier: Modifier = Modifier,
     uiState: PhotoDetailUIState,
     onClickBack: () -> Unit = {},
-    onClickImage: (String, NavOptions?) -> Unit = { _, _ ->}
+    onClickImage: (String, NavOptions?) -> Unit = { _, _ ->},
+    onClickMenu: () -> Unit = {},
+    onClickComment: () -> Unit = {},
 ) {
     val item = uiState.modelState.model
     val showShimmer = remember { mutableStateOf(true) }
@@ -97,7 +99,10 @@ internal fun PhotoDetailScreen(
                         Icon(
                             imageVector = MyIconPack.IconComment,
                             contentDescription = "comment",
-                            tint = PrimaryA
+                            tint = PrimaryA,
+                            modifier = Modifier.clickable {
+                                onClickComment()
+                            }
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         NonScaleText(
@@ -196,7 +201,8 @@ private fun PhotoDetailScreenInitPreview() {
 private fun PhotoDetailScreenLoadImagePreview() {
     PhotoDetailScreen(
         uiState = PhotoDetailUIState.LoadImage(
-            modalState = PhotoDetailModalState.Close,
+            menuModalState = PhotoDetailModalState.Close,
+            commentModalState = PhotoDetailModalState.Close,
             modelState = PhotoDetailModelState.Init(samplePhotos[0] as UserPost.PhotoPost)
         )
     )

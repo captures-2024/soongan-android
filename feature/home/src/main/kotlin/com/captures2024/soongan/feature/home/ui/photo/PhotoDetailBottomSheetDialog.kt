@@ -25,13 +25,14 @@ import com.captures2024.soongan.feature.home.state.PhotoDetailModalState
 @Composable
 internal fun PhotoDetailBottomSheetDialog(
     modifier: Modifier = Modifier,
-    modalBottomSheetState: SheetState = rememberModalBottomSheetState()
+    sheetState: SheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
+    closeSheet: () -> Unit
 ) {
     ModalBottomSheet(
         modifier = modifier
             .height(600.dp),
-        onDismissRequest = { /* TODO */ },
-        sheetState = modalBottomSheetState,
+        onDismissRequest = closeSheet,
+        sheetState = sheetState,
     ) {
         Column(
             modifier = Modifier
@@ -49,7 +50,6 @@ internal fun PhotoDetailBottomSheetDialog(
                 color = Color(0x4D252525),
                 thickness = 1.dp
             )
-
         }
     }
 }
@@ -58,5 +58,7 @@ internal fun PhotoDetailBottomSheetDialog(
 @DevicePreviews
 @Composable
 private fun PhotoDetailBottomSheetDialogPreview() {
-    PhotoDetailBottomSheetDialog()
+    PhotoDetailBottomSheetDialog {
+
+    }
 }

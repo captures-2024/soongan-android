@@ -3,6 +3,7 @@ package com.captures2024.soongan.feature.home
 import androidx.lifecycle.ViewModel
 import com.captures2024.soongan.core.model.UserPost
 import com.captures2024.soongan.core.model.mock.samplePhotos
+import com.captures2024.soongan.feature.home.state.PhotoDetailModalState
 import com.captures2024.soongan.feature.home.state.PhotoDetailModelState
 import com.captures2024.soongan.feature.home.state.PhotoDetailUIState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -28,9 +29,58 @@ constructor(
         }
 
         _uiState.value = PhotoDetailUIState.LoadImage(
-            modalState = currentState.modalState,
-            // TODO
-//            modelState = PhotoDetailModelState.Init(model = )
+            menuModalState = currentState.menuModalState,
+            commentModalState = currentState.commentModalState,
+            modelState = PhotoDetailModelState.Init((samplePhotos[20] as UserPost.PhotoPost))
+        )
+    }
+
+    fun openModal(isComment: Boolean) {
+        val currentState = _uiState.value
+
+        if (currentState.modelState is PhotoDetailModelState.NonInit) {
+            return
+        }
+
+        if (currentState.menuModalState is PhotoDetailModalState.Open || currentState.commentModalState is PhotoDetailModalState.Open) {
+            // menu 또는 comment modal이 열린 상태
+            return
+        }
+
+        _uiState.value = PhotoDetailUIState.LoadImage(
+            menuModalState = when (isComment) {
+                true -> currentState.menuModalState
+                false -> PhotoDetailModalState.Open
+            },
+            commentModalState = when (isComment) {
+                true -> PhotoDetailModalState.Open
+                false -> currentState.commentModalState
+            },
+            modelState = PhotoDetailModelState.Init((samplePhotos[20] as UserPost.PhotoPost))
+        )
+    }
+
+    fun closeModal(isComment: Boolean) {
+        val currentState = _uiState.value
+
+        if (currentState.modelState is PhotoDetailModelState.NonInit) {
+            return
+        }
+
+        if (currentState.menuModalState !is PhotoDetailModalState.Open && currentState.commentModalState !is PhotoDetailModalState.Open) {
+            // Modal이 아무것도 open 되지 않은 상태
+            return
+        }
+
+        _uiState.value = PhotoDetailUIState.LoadImage(
+            menuModalState = when (isComment) {
+                true -> currentState.menuModalState
+                false -> PhotoDetailModalState.Close
+            },
+            commentModalState = when (isComment) {
+                true -> PhotoDetailModalState.Close
+                false -> currentState.commentModalState
+            },
             modelState = PhotoDetailModelState.Init((samplePhotos[20] as UserPost.PhotoPost))
         )
     }

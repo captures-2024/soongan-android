@@ -1,20 +1,24 @@
 package com.captures2024.soongan.feature.home.state
 
 sealed class PhotoDetailUIState(
-    open val modalState: PhotoDetailModalState,
+    open val menuModalState: PhotoDetailModalState,
+    open val commentModalState: PhotoDetailModalState,
     open val modelState: PhotoDetailModelState
 ) {
 
     data object Init : PhotoDetailUIState(
-        modalState = PhotoDetailModalState.Close,
+        menuModalState = PhotoDetailModalState.Close,
+        commentModalState = PhotoDetailModalState.Close,
         modelState = PhotoDetailModelState.NonInit
     )
 
     data class LoadImage(
-        override val modalState: PhotoDetailModalState,
+        override val menuModalState: PhotoDetailModalState,
+        override val commentModalState: PhotoDetailModalState,
         override val modelState: PhotoDetailModelState.Init
     ) : PhotoDetailUIState(
-        modalState = modalState,
+        menuModalState = menuModalState,
+        commentModalState = commentModalState,
         modelState = modelState
     )
 

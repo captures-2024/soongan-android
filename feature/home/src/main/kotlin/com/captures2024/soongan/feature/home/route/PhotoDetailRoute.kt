@@ -8,6 +8,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavOptions
 import com.captures2024.soongan.feature.home.PhotoDetailViewModel
+import com.captures2024.soongan.feature.home.state.PhotoDetailModalState
+import com.captures2024.soongan.feature.home.ui.photo.PhotoDetailBottomSheetDialog
 import com.captures2024.soongan.feature.home.ui.photo.PhotoDetailScreen
 import timber.log.Timber
 
@@ -20,7 +22,6 @@ internal fun PhotoDetailRoute(
     navigateToControlImage: (String, NavOptions?) -> Unit
 ) {
     val uiState = photoDetailViewModel.uiState.collectAsStateWithLifecycle().value
-    val modalBottomSheetState = rememberModalBottomSheetState()
 
     LaunchedEffect(key1 = true) {
         photoDetailViewModel.loadImage(photoId)
@@ -31,7 +32,17 @@ internal fun PhotoDetailRoute(
     PhotoDetailScreen(
         uiState = uiState,
         onClickBack = navigateToBack,
-        onClickImage = navigateToControlImage
+        onClickImage = navigateToControlImage,
+        onClickComment = { photoDetailViewModel.openModal(true) }
     )
-//    PhotoDetailBottomSheetDialog(modalBottomSheetState = modalBottomSheetState)
+//    if (uiState.menuModalState is PhotoDetailModalState.Open) {
+//        PhotoDetailBottomSheetDialog {
+//
+//        }
+//    }
+    if (uiState.commentModalState is PhotoDetailModalState.Open) {
+        PhotoDetailBottomSheetDialog {
+            photoDetailViewModel.closeModal(true)
+        }
+    }
 }
