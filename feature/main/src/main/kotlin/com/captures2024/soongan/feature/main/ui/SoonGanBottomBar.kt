@@ -1,12 +1,15 @@
 package com.captures2024.soongan.feature.main.ui
 
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import com.captures2024.soongan.core.designsystem.component.SoonGanNavigationBar
 import com.captures2024.soongan.core.designsystem.component.SoonGanNavigationBarItem
+import com.captures2024.soongan.core.designsystem.theme.PrimaryA
 import com.captures2024.soongan.feature.main.navigation.TopLevelDestination
 import timber.log.Timber
 
@@ -29,12 +32,16 @@ internal fun SoonGanBottomBar(
                     Icon(
                         imageVector = destination.unselectedIcon,
                         contentDescription = null,
+                        tint = PrimaryA.copy(alpha = 0.3f),
+                        modifier = Modifier.size(24.dp, 24.dp)
                     )
                 },
                 selectedIcon = {
                     Icon(
                         imageVector = destination.selectedIcon,
                         contentDescription = null,
+                        tint = PrimaryA,
+                        modifier = Modifier.size(24.dp, 24.dp)
                     )
                 },
             )

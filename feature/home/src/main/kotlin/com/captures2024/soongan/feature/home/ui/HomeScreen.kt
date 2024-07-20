@@ -49,11 +49,11 @@ import androidx.navigation.NavOptions
 import com.captures2024.soongan.core.design.R
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconComment
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconContestInfo
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconHeart
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNext
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconPlus
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFillHeart
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillComment
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillInfo
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillPlus
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillRightArrow
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.Logo
 import com.captures2024.soongan.core.designsystem.theme.Accent
 import com.captures2024.soongan.core.designsystem.theme.PrimaryA
@@ -206,7 +206,7 @@ private fun ExhibitPhoto() {
                 ) {
                     Spacer(modifier = Modifier.width(4.dp))
                     Icon(
-                        imageVector = MyIconPack.IconHeart,
+                        imageVector = MyIconPack.IconFillHeart,
                         contentDescription = "heart",
                         modifier = Modifier.size(12.dp)
                     )
@@ -220,7 +220,7 @@ private fun ExhibitPhoto() {
                     )
                     Spacer(modifier = Modifier.width(12.dp))
                     Icon(
-                        imageVector = MyIconPack.IconComment,
+                        imageVector = MyIconPack.IconNonFillComment,
                         contentDescription = "comment",
                         modifier = Modifier.size(12.dp)
                     )
@@ -261,7 +261,7 @@ private fun ExhibitBtn(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Icon(
-                imageVector = MyIconPack.IconPlus,
+                imageVector = MyIconPack.IconNonFillPlus,
                 contentDescription = "exhibit",
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
@@ -388,14 +388,14 @@ private fun MainBottomBar(
             )
     ) {
         MainBottomIcon(
-            {}, MyIconPack.IconContestInfo, stringResource(id = Rhome.string.contest_info)
+            {}, MyIconPack.IconNonFillInfo, stringResource(id = Rhome.string.contest_info)
         )
         MainBottomIcon(
             {
                 val options = NavOptions.Builder().build()
                 navigateToPhotoList(options)
             },
-            MyIconPack.IconNext,
+            MyIconPack.IconNonFillRightArrow,
             stringResource(id = Rhome.string.participated_photo)
         )
     }

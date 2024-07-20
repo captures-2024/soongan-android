@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -33,9 +34,9 @@ import coil.request.ImageRequest
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.component.shimmerBrush
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconComment
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFillHeart
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconMenu
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillComment
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillMenu
 import com.captures2024.soongan.core.designsystem.theme.PrimaryA
 import com.captures2024.soongan.core.designsystem.theme.dropShadow
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
@@ -77,16 +78,32 @@ internal fun PhotoDetailScreen(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Icon(
-                        imageVector = MyIconPack.IconMenu,
-                        contentDescription = "menu",
-                        tint = PrimaryA
-                    )
+                    Box(
+                        modifier =  Modifier.size(
+                            width = 24.dp,
+                            height = 24.dp
+                        ),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            imageVector = MyIconPack.IconNonFillMenu,
+                            contentDescription = "menu",
+                            tint = PrimaryA,
+                            modifier = Modifier.size(
+                                width = 4.dp,
+                                height = 20.dp
+                            )
+                        )
+                    }
                     Row {
                         Icon(
                             imageVector = MyIconPack.IconFillHeart,
                             contentDescription = "heart",
-                            tint = PrimaryA
+                            tint = PrimaryA,
+                            modifier = Modifier.size(
+                                width = 24.dp,
+                                height = 21.dp
+                            )
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         NonScaleText(
@@ -97,12 +114,17 @@ internal fun PhotoDetailScreen(
                         )
                         Spacer(modifier = Modifier.width(31.dp))
                         Icon(
-                            imageVector = MyIconPack.IconComment,
+                            imageVector = MyIconPack.IconNonFillComment,
                             contentDescription = "comment",
                             tint = PrimaryA,
-                            modifier = Modifier.clickable {
-                                onClickComment()
-                            }
+                            modifier = Modifier
+                                .size(
+                                    width = 24.dp,
+                                    height = 24.dp
+                                )
+                                .clickable {
+                                    onClickComment()
+                                },
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         NonScaleText(
@@ -154,7 +176,8 @@ internal fun PhotoDetailScreen(
                                 offsetY = 6.dp,
                             )
                             .clickable {
-                                val navOptions = NavOptions.Builder()
+                                val navOptions = NavOptions
+                                    .Builder()
                                     .build()
                                 onClickImage(item.url, navOptions)
                             },

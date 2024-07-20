@@ -22,9 +22,9 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavOptions
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.LogoApple
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.LogoGoogle
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.LogoKakao
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconLogoApple
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconLogoGoogle
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconLogoKakao
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.signIn.R
 
@@ -59,19 +59,19 @@ internal fun SignInDefaultScreen(
         Spacer(modifier = Modifier.height(32.dp))
         SocialSignInButton(
             text = stringResource(id = R.string.sign_in_text_apple),
-            icon = MyIconPack.LogoApple,
+            icon = MyIconPack.IconLogoApple,
             onClick = onClickAppleSignIn
         )
         Spacer(modifier = Modifier.height(16.dp))
         SocialSignInButton(
             text = stringResource(id = R.string.sign_in_text_google),
-            icon = MyIconPack.LogoGoogle,
+            icon = MyIconPack.IconLogoGoogle,
             onClick = onClickGoogleSignIn
         )
         Spacer(modifier = Modifier.height(16.dp))
         SocialSignInButton(
             text = stringResource(id = R.string.sign_in_text_kakao),
-            icon = MyIconPack.LogoKakao,
+            icon = MyIconPack.IconLogoKakao,
             onClick = onClickKakaoSignIn
         )
         Spacer(modifier = Modifier.height(16.dp))

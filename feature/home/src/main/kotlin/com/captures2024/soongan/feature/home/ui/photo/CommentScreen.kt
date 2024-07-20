@@ -2,6 +2,7 @@ package com.captures2024.soongan.feature.home.ui.photo
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -15,6 +16,7 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -27,8 +29,8 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconHearts
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconMenu
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillHeart
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillMenu
 import com.captures2024.soongan.core.designsystem.theme.PrimaryA
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.model.UserPost
@@ -57,12 +59,23 @@ internal fun CommentScreen(
         Spacer(modifier = Modifier.width(8.dp))
         CommentBodyScreen()
         Spacer(modifier = Modifier.width(8.dp))
-        Icon(
-            imageVector = MyIconPack.IconMenu,
-            contentDescription = "menu",
-            tint = PrimaryA,
-            modifier = Modifier.size(20.dp, 20.dp)
-        )
+        Box(
+            modifier = Modifier.size(
+                width = 20.dp,
+                height = 20.dp
+            ),
+            contentAlignment = Alignment.Center
+        ) {
+            Icon(
+                imageVector = MyIconPack.IconNonFillMenu,
+                contentDescription = "menu",
+                tint = PrimaryA,
+                modifier = Modifier.size(
+                    width = 2.dp,
+                    height = 12.dp
+                )
+            )
+        }
     }
 }
 
@@ -92,11 +105,17 @@ private fun CommentBodyScreen(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Row {
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Icon(
-                    imageVector = MyIconPack.IconHearts,
+                    imageVector = MyIconPack.IconNonFillHeart,
                     contentDescription = "heart",
-                    tint = PrimaryA.copy(alpha = 0.9f)
+                    tint = PrimaryA.copy(alpha = 0.9f),
+                    modifier = Modifier.size(
+                        width = 16.dp,
+                        height = 16.dp
+                    )
                 )
                 Spacer(modifier = Modifier.width(4.dp))
                 NonScaleText(
