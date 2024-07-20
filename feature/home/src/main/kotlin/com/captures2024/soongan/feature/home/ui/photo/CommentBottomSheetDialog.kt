@@ -10,7 +10,6 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SheetState
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -19,11 +18,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
-import com.captures2024.soongan.feature.home.state.PhotoDetailModalState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun PhotoDetailBottomSheetDialog(
+internal fun CommentBottomSheetDialog(
     modifier: Modifier = Modifier,
     sheetState: SheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
     closeSheet: () -> Unit
@@ -50,6 +48,8 @@ internal fun PhotoDetailBottomSheetDialog(
                 color = Color(0x4D252525),
                 thickness = 1.dp
             )
+
+            CommentScreen()
         }
     }
 }
@@ -57,8 +57,8 @@ internal fun PhotoDetailBottomSheetDialog(
 @OptIn(ExperimentalMaterial3Api::class)
 @DevicePreviews
 @Composable
-private fun PhotoDetailBottomSheetDialogPreview() {
-    PhotoDetailBottomSheetDialog {
+private fun CommentBottomSheetDialogPreview() {
+    CommentBottomSheetDialog {
 
     }
 }
