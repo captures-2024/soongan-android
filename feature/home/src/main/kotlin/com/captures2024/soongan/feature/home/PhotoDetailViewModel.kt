@@ -50,10 +50,10 @@ constructor(
         _uiState.value = PhotoDetailUIState.LoadImage(
             menuModalState = when (isComment) {
                 true -> currentState.menuModalState
-                false -> PhotoDetailModalState.Open
+                false -> PhotoDetailModalState.Open()
             },
             commentModalState = when (isComment) {
-                true -> PhotoDetailModalState.Open
+                true -> PhotoDetailModalState.Open()
                 false -> currentState.commentModalState
             },
             modelState = PhotoDetailModelState.Init((samplePhotos[20] as UserPost.PhotoPost))
@@ -82,6 +82,24 @@ constructor(
                 false -> currentState.commentModalState
             },
             modelState = PhotoDetailModelState.Init((samplePhotos[20] as UserPost.PhotoPost))
+        )
+    }
+
+    fun onCommentValueChanged(comment: String) {
+        val currentState = _uiState.value
+
+        if (currentState.modelState is PhotoDetailModelState.NonInit) {
+            return
+        }
+
+        if (currentState.commentModalState !is PhotoDetailModalState.Open) {
+            return
+        }
+
+        _uiState.value = PhotoDetailUIState.LoadImage(
+            menuModalState = currentState.menuModalState,
+            commentModalState = PhotoDetailModalState.Open(comment),
+            modelState = (currentState.modelState as PhotoDetailModelState.Init)
         )
     }
 

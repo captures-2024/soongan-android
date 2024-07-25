@@ -1,6 +1,8 @@
 package com.captures2024.soongan.feature.home.state
 
-sealed interface PhotoDetailModalState {
-    data object Open : PhotoDetailModalState
-    data object Close : PhotoDetailModalState
+sealed class PhotoDetailModalState {
+    data class Open(
+        val comment: String = ""
+    ) : PhotoDetailModalState()
+    data object Close : PhotoDetailModalState()
 }

@@ -40,8 +40,10 @@ internal fun PhotoDetailRoute(
 //        }
 //    }
     if (uiState.commentModalState is PhotoDetailModalState.Open) {
-        CommentBottomSheetDialog {
-            photoDetailViewModel.closeModal(true)
-        }
+        CommentBottomSheetDialog(
+            closeSheet = { photoDetailViewModel.closeModal(true) },
+            comment = (uiState.commentModalState as PhotoDetailModalState.Open).comment,
+            onCommentValueChanged = photoDetailViewModel::onCommentValueChanged
+        )
     }
 }
