@@ -92,7 +92,7 @@ internal fun PhotoDetailScreen(
                             modifier = Modifier.size(
                                 width = 4.dp,
                                 height = 20.dp
-                            )
+                            ).clickable { onClickMenu() }
                         )
                     }
                     Row {

@@ -1,6 +1,8 @@
 package com.captures2024.soongan.feature.home.ui.photo
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -73,7 +75,8 @@ internal fun CommentBottomSheetDialog(
         sheetState = sheetState,
     ) {
         Scaffold(
-            modifier = modifier.fillMaxSize()
+            modifier = modifier
+                .fillMaxSize()
                 .nestedScroll(connection),
             topBar = @Composable {
                 Column(
@@ -127,13 +130,19 @@ internal fun CommentBottomSheetDialog(
             }
         ) { paddingValues ->
             LazyColumn(
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier
+                    .fillMaxSize()
                     .padding(paddingValues),
+                verticalArrangement = Arrangement.spacedBy(28.dp),
+                contentPadding = PaddingValues(top = 16.dp)
             ) {
                 items(10) {
                     CommentScreen(
-                        modifier = Modifier
+                        profileSize = 36,
                     )
+                    if (true) {
+                        NestedCommentScreen()
+                    }
                 }
             }
         }

@@ -186,7 +186,7 @@ private fun CommentInputTextFieldPreview() {
         )
         CommentInputTextField(
             modifier = Modifier.fillMaxWidth(),
-            value = "adsdsasdadsadsadsadsadsadsadsadsadsadsaddsadsadas",
+            value = "adsdsasdadsadsadsadsadsadsadsadsadsadsaddsadsadasadsdsasdadsadsadsadsadsadsadsadsadsadsaddsadsadasadsdsasdadsadsadsadsadsadsadsadsadsadsaddsadsadasadsdsasdadsadsadsadsadsadsadsadsadsadsaddsadsadasadsdsasdadsadsadsadsadsadsadsadsadsadsaddsadsadasadsdsasdadsadsadsadsadsadsadsadsadsadsaddsadsadasadsdsasdadsadsadsadsadsadsadsadsadsadsaddsadsadasadsdsasdadsadsadsadsadsadsadsadsadsadsaddsadsadas",
             onValueChange = {}
         )
     }

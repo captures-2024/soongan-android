@@ -1,5 +1,6 @@
 package com.captures2024.soongan.feature.home.ui.photo
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
@@ -38,11 +40,12 @@ import com.captures2024.soongan.core.model.mock.samplePhotos
 @Composable
 internal fun CommentScreen(
     modifier: Modifier = Modifier,
+    profileSize: Int,
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(vertical = 16.dp, horizontal = 12.dp)
+            .padding(horizontal = 12.dp)
             .wrapContentHeight(),
     ) {
         AsyncImage(
@@ -51,7 +54,7 @@ internal fun CommentScreen(
                 .build(),
             contentDescription = "user_profile",
             modifier = Modifier
-                .size(36.dp, 36.dp)
+                .size(profileSize.dp, profileSize.dp)
                 .clip(CircleShape),
             contentScale = ContentScale.FillWidth
         )
@@ -106,7 +109,8 @@ private fun CommentBodyScreen(
         Spacer(modifier = Modifier.height(8.dp))
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically
@@ -151,5 +155,9 @@ private fun CommentBodyScreen(
 @DevicePreviews
 @Composable
 private fun CommentScreenPreview() {
-    CommentScreen()
+    Box(modifier = Modifier.background(Color.White)) {
+        CommentScreen(
+            profileSize = 36,
+        )
+    }
 }

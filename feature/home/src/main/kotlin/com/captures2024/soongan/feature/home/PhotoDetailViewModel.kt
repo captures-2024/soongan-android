@@ -6,6 +6,7 @@ import com.captures2024.soongan.core.model.mock.samplePhotos
 import com.captures2024.soongan.feature.home.state.PhotoDetailModalState
 import com.captures2024.soongan.feature.home.state.PhotoDetailModelState
 import com.captures2024.soongan.feature.home.state.PhotoDetailUIState
+import com.captures2024.soongan.feature.home.state.ReportType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -50,10 +51,10 @@ constructor(
         _uiState.value = PhotoDetailUIState.LoadImage(
             menuModalState = when (isComment) {
                 true -> currentState.menuModalState
-                false -> PhotoDetailModalState.Open()
+                false -> PhotoDetailModalState.Open.ReportOpen()
             },
             commentModalState = when (isComment) {
-                true -> PhotoDetailModalState.Open()
+                true -> PhotoDetailModalState.Open.CommentOpen()
                 false -> currentState.commentModalState
             },
             modelState = PhotoDetailModelState.Init((samplePhotos[20] as UserPost.PhotoPost))
@@ -85,6 +86,24 @@ constructor(
         )
     }
 
+    fun onReportValueChanged(reportType: ReportType) {
+        val currentState = _uiState.value
+
+        if (currentState.modelState is PhotoDetailModelState.NonInit) {
+            return
+        }
+
+        if (currentState.menuModalState !is PhotoDetailModalState.Open) {
+            return
+        }
+
+        _uiState.value = PhotoDetailUIState.LoadImage(
+            menuModalState = PhotoDetailModalState.Open.ReportOpen(reportType),
+            commentModalState = currentState.commentModalState,
+            modelState = (currentState.modelState as PhotoDetailModelState.Init)
+        )
+    }
+
     fun onCommentValueChanged(comment: String) {
         val currentState = _uiState.value
 
@@ -98,7 +117,7 @@ constructor(
 
         _uiState.value = PhotoDetailUIState.LoadImage(
             menuModalState = currentState.menuModalState,
-            commentModalState = PhotoDetailModalState.Open(comment),
+            commentModalState = PhotoDetailModalState.Open.CommentOpen(comment),
             modelState = (currentState.modelState as PhotoDetailModelState.Init)
         )
     }
