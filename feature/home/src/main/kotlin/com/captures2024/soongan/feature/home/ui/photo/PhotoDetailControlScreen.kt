@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -29,7 +30,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.captures2024.soongan.core.designsystem.component.ZoomableBox
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconBack2
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillLeftArrow
 import com.captures2024.soongan.core.designsystem.theme.PrimaryA
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.home.PhotoDetailControlUIState
@@ -117,9 +118,13 @@ internal fun PhotoDetailControlScreen(
             if (currentTimerValue <= 0) {
                 HomeGalleryButton(onClick = onClickBack) {
                     Icon(
-                        imageVector = MyIconPack.IconBack2,
+                        imageVector = MyIconPack.IconNonFillLeftArrow,
                         contentDescription = "back",
-                        tint = PrimaryA
+                        tint = PrimaryA,
+                        modifier = Modifier.size(
+                            width = 20.dp,
+                            height = 16.dp
+                        )
                     )
                 }
 

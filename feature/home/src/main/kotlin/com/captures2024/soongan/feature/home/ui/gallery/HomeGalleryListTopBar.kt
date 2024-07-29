@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.staggeredgrid.LazyStaggeredGridState
 import androidx.compose.foundation.lazy.staggeredgrid.rememberLazyStaggeredGridState
@@ -20,8 +21,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconBack2
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFilter2
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillFillter
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillLeftArrow
 import com.captures2024.soongan.core.designsystem.theme.PrimaryA
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 
@@ -49,9 +50,13 @@ internal fun HomeGalleryTopBar(
     ) {
         HomeGalleryButton(onClick = onClickBack) {
             Icon(
-                imageVector = MyIconPack.IconBack2,
+                imageVector = MyIconPack.IconNonFillLeftArrow,
                 contentDescription = "",
-                tint = PrimaryA
+                tint = PrimaryA,
+                modifier = Modifier.size(
+                    width = 20.dp,
+                    height = 16.dp
+                )
             )
         }
         Row {
@@ -79,9 +84,13 @@ internal fun HomeGalleryTopBar(
 
         HomeGalleryButton(onClick = { /* TODO */ }) {
             Icon(
-                imageVector = MyIconPack.IconFilter2,
+                imageVector = MyIconPack.IconNonFillFillter,
                 contentDescription = "",
-                tint = PrimaryA
+                tint = PrimaryA,
+                modifier = Modifier.size(
+                    width = 20.dp,
+                    height = 20.dp
+                )
             )
         }
     }

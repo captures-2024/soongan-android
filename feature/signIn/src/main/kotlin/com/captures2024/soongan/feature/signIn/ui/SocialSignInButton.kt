@@ -3,6 +3,7 @@ package com.captures2024.soongan.feature.signIn.ui
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -16,9 +17,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.LogoApple
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.LogoGoogle
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.LogoKakao
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconLogoApple
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconLogoGoogle
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconLogoKakao
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 
 @Composable
@@ -68,7 +69,7 @@ private fun SocialSignInButtonPreview() {
 private fun SocialSignInAppleButtonPreview() {
     SocialSignInButton(
         text = "Test",
-        icon = MyIconPack.LogoApple
+        icon = MyIconPack.IconLogoApple
     ) {
 
     }
@@ -79,7 +80,7 @@ private fun SocialSignInAppleButtonPreview() {
 private fun SocialSignInGoogleButtonPreview() {
     SocialSignInButton(
         text = "Test",
-        icon = MyIconPack.LogoGoogle
+        icon = MyIconPack.IconLogoGoogle
     ) {
 
     }
@@ -90,7 +91,7 @@ private fun SocialSignInGoogleButtonPreview() {
 private fun SocialSignInKakaoButtonPreview() {
     SocialSignInButton(
         text = "Test",
-        icon = MyIconPack.LogoKakao
+        icon = MyIconPack.IconLogoKakao
     ) {
 
     }

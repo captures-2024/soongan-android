@@ -18,7 +18,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.captures2024.soongan.core.design.R
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconBack2
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillLeftArrow
 import com.captures2024.soongan.core.designsystem.theme.PrimaryA
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.home.ui.gallery.HomeGalleryButton
@@ -47,7 +47,7 @@ internal fun PhotoDetailBaseScreen(
             ) {
                 HomeGalleryButton(onClick = onClickBackButton) {
                     Icon(
-                        imageVector = MyIconPack.IconBack2,
+                        imageVector = MyIconPack.IconNonFillLeftArrow,
                         contentDescription = "back",
                         tint = PrimaryA
                     )
