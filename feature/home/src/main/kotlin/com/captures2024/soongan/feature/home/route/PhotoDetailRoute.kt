@@ -1,17 +1,17 @@
 package com.captures2024.soongan.feature.home.route
 
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavOptions
 import com.captures2024.soongan.feature.home.PhotoDetailViewModel
+import com.captures2024.soongan.feature.home.state.PhotoDetailModalState
+import com.captures2024.soongan.feature.home.ui.photo.CommentBottomSheetDialog
 import com.captures2024.soongan.feature.home.ui.photo.PhotoDetailScreen
+import com.captures2024.soongan.feature.home.ui.photo.PostReportBottomSheetDialog
 import timber.log.Timber
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun PhotoDetailRoute(
     photoId: String,
@@ -20,7 +20,6 @@ internal fun PhotoDetailRoute(
     navigateToControlImage: (String, NavOptions?) -> Unit
 ) {
     val uiState = photoDetailViewModel.uiState.collectAsStateWithLifecycle().value
-    val modalBottomSheetState = rememberModalBottomSheetState()
 
     LaunchedEffect(key1 = true) {
         photoDetailViewModel.loadImage(photoId)
@@ -31,7 +30,29 @@ internal fun PhotoDetailRoute(
     PhotoDetailScreen(
         uiState = uiState,
         onClickBack = navigateToBack,
-        onClickImage = navigateToControlImage
+        onClickImage = navigateToControlImage,
+        onClickMenu = { photoDetailViewModel.openModal(false) },
+        onClickComment = { photoDetailViewModel.openModal(true) }
     )
-//    PhotoDetailBottomSheetDialog(modalBottomSheetState = modalBottomSheetState)
+
+    when (val reportMenuState = uiState.menuModalState) {
+        is PhotoDetailModalState.Open.ReportOpen -> {
+            PostReportBottomSheetDialog(
+                reportState = reportMenuState,
+                onClickReport = photoDetailViewModel::onReportValueChanged,
+                closeSheet = { photoDetailViewModel.closeModal(false) }
+            )
+        }
+        else -> Unit
+    }
+    when (val commentState = uiState.commentModalState) {
+        is PhotoDetailModalState.Open.CommentOpen -> {
+            CommentBottomSheetDialog(
+                closeSheet = { photoDetailViewModel.closeModal(true) },
+                comment = commentState.comment,
+                onCommentValueChanged = photoDetailViewModel::onCommentValueChanged
+            )
+        }
+        else -> Unit
+    }
 }

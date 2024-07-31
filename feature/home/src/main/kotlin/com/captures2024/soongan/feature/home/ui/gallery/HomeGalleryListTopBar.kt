@@ -35,11 +35,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconBack2
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFilter2
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFilterLike
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFilterNew
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFilterOld
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillFillter
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillLeftArrow
 import com.captures2024.soongan.core.designsystem.theme.PrimaryA
 import com.captures2024.soongan.core.designsystem.theme.PrimaryC
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
@@ -73,9 +70,13 @@ internal fun HomeGalleryTopBar(
     ) {
         HomeGalleryButton(onClick = onClickBack) {
             Icon(
-                imageVector = MyIconPack.IconBack2,
+                imageVector = MyIconPack.IconNonFillLeftArrow,
                 contentDescription = "",
-                tint = PrimaryA
+                tint = PrimaryA,
+                modifier = Modifier.size(
+                    width = 20.dp,
+                    height = 16.dp
+                )
             )
         }
         Row {
@@ -105,9 +106,13 @@ internal fun HomeGalleryTopBar(
             showBottomSheet = true
         }) {
             Icon(
-                imageVector = MyIconPack.IconFilter2,
+                imageVector = MyIconPack.IconNonFillFillter,
                 contentDescription = "",
-                tint = PrimaryA
+                tint = PrimaryA,
+                modifier = Modifier.size(
+                    width = 20.dp,
+                    height = 20.dp
+                )
             )
         }
 

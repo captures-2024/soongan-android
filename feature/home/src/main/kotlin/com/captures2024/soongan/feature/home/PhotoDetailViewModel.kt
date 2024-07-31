@@ -3,8 +3,10 @@ package com.captures2024.soongan.feature.home
 import androidx.lifecycle.ViewModel
 import com.captures2024.soongan.core.model.UserPost
 import com.captures2024.soongan.core.model.mock.samplePhotos
+import com.captures2024.soongan.feature.home.state.PhotoDetailModalState
 import com.captures2024.soongan.feature.home.state.PhotoDetailModelState
 import com.captures2024.soongan.feature.home.state.PhotoDetailUIState
+import com.captures2024.soongan.feature.home.state.ReportType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -28,10 +30,95 @@ constructor(
         }
 
         _uiState.value = PhotoDetailUIState.LoadImage(
-            modalState = currentState.modalState,
-            // TODO
-//            modelState = PhotoDetailModelState.Init(model = )
+            menuModalState = currentState.menuModalState,
+            commentModalState = currentState.commentModalState,
             modelState = PhotoDetailModelState.Init((samplePhotos[20] as UserPost.PhotoPost))
+        )
+    }
+
+    fun openModal(isComment: Boolean) {
+        val currentState = _uiState.value
+
+        if (currentState.modelState is PhotoDetailModelState.NonInit) {
+            return
+        }
+
+        if (currentState.menuModalState is PhotoDetailModalState.Open || currentState.commentModalState is PhotoDetailModalState.Open) {
+            // menu 또는 comment modal이 열린 상태
+            return
+        }
+
+        _uiState.value = PhotoDetailUIState.LoadImage(
+            menuModalState = when (isComment) {
+                true -> currentState.menuModalState
+                false -> PhotoDetailModalState.Open.ReportOpen()
+            },
+            commentModalState = when (isComment) {
+                true -> PhotoDetailModalState.Open.CommentOpen()
+                false -> currentState.commentModalState
+            },
+            modelState = PhotoDetailModelState.Init((samplePhotos[20] as UserPost.PhotoPost))
+        )
+    }
+
+    fun closeModal(isComment: Boolean) {
+        val currentState = _uiState.value
+
+        if (currentState.modelState is PhotoDetailModelState.NonInit) {
+            return
+        }
+
+        if (currentState.menuModalState !is PhotoDetailModalState.Open && currentState.commentModalState !is PhotoDetailModalState.Open) {
+            // Modal이 아무것도 open 되지 않은 상태
+            return
+        }
+
+        _uiState.value = PhotoDetailUIState.LoadImage(
+            menuModalState = when (isComment) {
+                true -> currentState.menuModalState
+                false -> PhotoDetailModalState.Close
+            },
+            commentModalState = when (isComment) {
+                true -> PhotoDetailModalState.Close
+                false -> currentState.commentModalState
+            },
+            modelState = PhotoDetailModelState.Init((samplePhotos[20] as UserPost.PhotoPost))
+        )
+    }
+
+    fun onReportValueChanged(reportType: ReportType) {
+        val currentState = _uiState.value
+
+        if (currentState.modelState is PhotoDetailModelState.NonInit) {
+            return
+        }
+
+        if (currentState.menuModalState !is PhotoDetailModalState.Open) {
+            return
+        }
+
+        _uiState.value = PhotoDetailUIState.LoadImage(
+            menuModalState = PhotoDetailModalState.Open.ReportOpen(reportType),
+            commentModalState = currentState.commentModalState,
+            modelState = (currentState.modelState as PhotoDetailModelState.Init)
+        )
+    }
+
+    fun onCommentValueChanged(comment: String) {
+        val currentState = _uiState.value
+
+        if (currentState.modelState is PhotoDetailModelState.NonInit) {
+            return
+        }
+
+        if (currentState.commentModalState !is PhotoDetailModalState.Open) {
+            return
+        }
+
+        _uiState.value = PhotoDetailUIState.LoadImage(
+            menuModalState = currentState.menuModalState,
+            commentModalState = PhotoDetailModalState.Open.CommentOpen(comment),
+            modelState = (currentState.modelState as PhotoDetailModelState.Init)
         )
     }
 

@@ -24,7 +24,7 @@ constructor(
 
                 val newRequest = defaultRequest.newBuilder()
                     .header("Authorization", "Bearer $accessToken")
-                    .addHeader("OS", "Android")
+                    .addHeader("User-Agent", "ANDROID")
                     .build()
 
                 proceed(newRequest)
@@ -34,14 +34,14 @@ constructor(
 
                 val newRequest = defaultRequest.newBuilder()
                     .header("Authorization", "Bearer $refreshToken")
-                    .addHeader("OS", "Android")
+                    .addHeader("User-Agent", "ANDROID")
                     .build()
 
                 proceed(newRequest)
             }
             else -> {
                 val newRequest = defaultRequest.newBuilder()
-                    .addHeader("OS", "Android")
+                    .addHeader("User-Agent", "ANDROID")
                     .build()
 
                 proceed(newRequest)

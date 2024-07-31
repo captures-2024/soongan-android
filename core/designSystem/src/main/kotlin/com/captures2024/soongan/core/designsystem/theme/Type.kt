@@ -30,6 +30,35 @@ val PretendardFontFamily = FontFamily(
     Font(R.font.pretendard_extralight, FontWeight.ExtraLight, FontStyle.Italic),
 )
 
+val NanumSquareNeoFontFamily = FontFamily(
+    Font(R.font.nanum_square_neo_bold, FontWeight.Bold),
+    Font(R.font.nanum_square_neo_extrabold, FontWeight.ExtraBold),
+    Font(R.font.nanum_square_neo_heavy, FontWeight.W900),
+    Font(R.font.nanum_square_neo_light, FontWeight.Light),
+    Font(R.font.nanum_square_neo_regular, FontWeight.Normal),
+)
+
+val PoppinsFontFamily = FontFamily(
+    Font(R.font.poppins_black, FontWeight.Black),
+    Font(R.font.poppins_black_italic, FontWeight.Black, style = FontStyle.Italic),
+    Font(R.font.poppins_bold, FontWeight.Bold),
+    Font(R.font.poppins_bold_italic, FontWeight.Bold, style = FontStyle.Italic),
+    Font(R.font.poppins_extra_bold, FontWeight.ExtraBold),
+    Font(R.font.poppins_extra_bold_italic, FontWeight.ExtraBold, style = FontStyle.Italic),
+    Font(R.font.poppins_extra_light, FontWeight.ExtraLight),
+    Font(R.font.poppins_extra_light_italic, FontWeight.ExtraLight, style = FontStyle.Italic),
+    Font(R.font.poppins_regular, FontWeight.Normal),
+    Font(R.font.poppins_italic, FontWeight.Normal, style = FontStyle.Italic),
+    Font(R.font.poppins_light, FontWeight.Light),
+    Font(R.font.poppins_light_italic, FontWeight.Light, style = FontStyle.Italic),
+    Font(R.font.poppins_medium, FontWeight.Medium),
+    Font(R.font.poppins_medium_italic, FontWeight.Medium, style = FontStyle.Italic),
+    Font(R.font.poppins_semi_bold, FontWeight.SemiBold),
+    Font(R.font.poppins_extra_bold_italic, FontWeight.SemiBold, style = FontStyle.Italic),
+    Font(R.font.poppins_thin, FontWeight.Thin),
+    Font(R.font.poppins_thin_italic, FontWeight.Thin, style = FontStyle.Italic),
+)
+
 // Set of Material typography styles to start with
 val Typography = Typography(
     displayLarge = TextStyle(

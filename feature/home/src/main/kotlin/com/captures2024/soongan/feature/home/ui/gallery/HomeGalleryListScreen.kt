@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
@@ -27,7 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavOptions
 import com.captures2024.soongan.core.design.R
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconTopArrow
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillTopArrow
 import com.captures2024.soongan.core.designsystem.theme.PrimaryA
 import com.captures2024.soongan.core.designsystem.theme.PrimaryB
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
@@ -105,9 +107,13 @@ internal fun HomeGalleryListScreen(
             }
         ) {
             Icon(
-                imageVector = MyIconPack.IconTopArrow,
+                imageVector = MyIconPack.IconNonFillTopArrow,
                 contentDescription = "",
-                tint = PrimaryA
+                tint = PrimaryA,
+                modifier = Modifier.size(
+                    width = 20.dp,
+                    height = 16.dp
+                )
             )
         }
     }

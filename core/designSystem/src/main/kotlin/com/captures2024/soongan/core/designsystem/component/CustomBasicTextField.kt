@@ -26,8 +26,8 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconCircleCheck
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconCircleCheckFail
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFillCheck
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFillError
 import com.captures2024.soongan.core.designsystem.theme.Negative
 import com.captures2024.soongan.core.designsystem.theme.Positive
 import com.captures2024.soongan.core.designsystem.theme.PrimaryB
@@ -99,8 +99,8 @@ fun CustomBasicTextField(
                 trailingIcon = @Composable {
                     Icon(
                         imageVector = when (isValid) {
-                            CustomBasicTextFieldState.NonValid -> MyIconPack.IconCircleCheckFail
-                            else -> MyIconPack.IconCircleCheck
+                            CustomBasicTextFieldState.NonValid -> MyIconPack.IconFillError
+                            else -> MyIconPack.IconFillCheck
                         },
                         contentDescription = "",
                         tint = when (isValid) {

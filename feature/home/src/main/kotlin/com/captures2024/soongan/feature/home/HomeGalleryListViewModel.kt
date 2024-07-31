@@ -21,7 +21,7 @@ constructor(
     val uiState: StateFlow<HomeGalleryListUIState> = flow<HomeGalleryListUIState> {
         emit(HomeGalleryListUIState.Loading)
 
-        delay(5000)
+        delay(500)
 
         emit(HomeGalleryListUIState.LoadPost(samplePhotos))
     }.stateIn(
