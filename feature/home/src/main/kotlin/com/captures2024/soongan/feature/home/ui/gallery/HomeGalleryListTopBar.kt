@@ -16,6 +16,7 @@ import androidx.compose.foundation.lazy.staggeredgrid.LazyStaggeredGridState
 import androidx.compose.foundation.lazy.staggeredgrid.rememberLazyStaggeredGridState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.runtime.Composable
@@ -132,7 +133,7 @@ internal fun HomeGalleryTopBar(
                     ) {
                         sortOrder = FilterContestPhoto.LIKES
                     }
-                    DrawLine()
+                    HorizontalDivider(color = PrimaryC)
                     FilterItem(
                         stringResource(id = R.string.filter_oldest),
                         MyIconPack.IconFilterOld,
@@ -140,7 +141,7 @@ internal fun HomeGalleryTopBar(
                     ){
                         sortOrder = FilterContestPhoto.OLDEST
                     }
-                    DrawLine()
+                    HorizontalDivider(color = PrimaryC)
                     FilterItem(
                         stringResource(id = R.string.filter_newest),
                         MyIconPack.IconFilterNew,
@@ -178,26 +179,16 @@ private fun FilterItem(
                 text = text,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.SemiBold,
-                color = if(selected) PrimaryA else PrimaryC
+                color = if (selected) PrimaryA else PrimaryC
             )
             Icon(
                 modifier = Modifier.size(26.dp),
                 imageVector = icon,
                 contentDescription = text,
-                tint = if(selected) PrimaryA else PrimaryC
+                tint = if (selected) PrimaryA else PrimaryC
             )
         }
     }
-}
-
-@Composable
-private fun DrawLine() {
-    Spacer(
-        modifier = Modifier
-            .height(1.dp)
-            .fillMaxWidth()
-            .background(PrimaryC)
-    )
 }
 
 enum class FilterContestPhoto {
