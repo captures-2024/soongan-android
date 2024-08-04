@@ -4,6 +4,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFillCheck
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFillError
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFillHeart
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFilterLike
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFilterNew
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFilterOld
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconLogoApple
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconLogoGoogle
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconLogoKakao
@@ -36,15 +39,16 @@ public object MyIconPack
 private var __AllIcons: ____KtList<ImageVector>? = null
 
 public val MyIconPack.AllIcons: ____KtList<ImageVector>
-  get() {
-    if (__AllIcons != null) {
-      return __AllIcons!!
+    get() {
+        if (__AllIcons != null) {
+            return __AllIcons!!
+        }
+        __AllIcons= listOf(IconFillCheck, IconSelectedHome, IconNonSelectedAwards, IconNonFillFillter,
+            IconFilterLike, IconFilterNew, IconFilterOld, IconNonFillTopArrow, IconSelectedFeed, IconNonFillPlus,
+            IconNonFillInfo, IconNonFillHeart, IconSelectedAwards, IconNonSelectedFeed, IconFillError,
+            IconNonFillComment, IconNonFillEdit, IconNonFillBackArrow, IconFillHeart,
+            IconSelectedProfile, IconLogoGoogle, IconLogoApple,
+            IconNonFillPaperDelete, IconNonSelectedProfile, IconNonFillMenu, IconLogoKakao,
+            IconNonFillLeftArrow, IconNonFillRightArrow, IconNonSelectedHome, IconNonFillReport, Logo)
+        return __AllIcons!!
     }
-    __AllIcons= listOf(IconFillCheck, IconSelectedHome, IconNonSelectedAwards, IconNonFillFillter,
-        IconNonFillTopArrow, IconSelectedFeed, IconNonFillPlus, IconNonFillInfo, IconNonFillHeart,
-        IconSelectedAwards, IconNonSelectedFeed, IconFillError, IconNonFillComment, IconNonFillEdit,
-        IconNonFillBackArrow, IconFillHeart, IconSelectedProfile, IconLogoGoogle, IconLogoApple,
-        IconNonFillPaperDelete, IconNonSelectedProfile, IconNonFillMenu, IconLogoKakao,
-        IconNonFillLeftArrow, IconNonFillRightArrow, IconNonSelectedHome, IconNonFillReport, Logo)
-    return __AllIcons!!
-  }

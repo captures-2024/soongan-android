@@ -7,6 +7,9 @@
     <string name="end_date">마감 일정</string>
     <string name="contest_info">대회정보</string>
     <string name="participated_photo">참가작품</string>
+    <string name="filter_likes">좋아요 순</string>
+    <string name="filter_oldest">오래된 순</string>
+    <string name="filter_newest">최신 등록 순</string>
 
 <!--  PostReportBottomSheetDialog  -->
     <string name="report_title_text">신고</string>
