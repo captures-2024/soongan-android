@@ -2,6 +2,7 @@ package com.captures2024.soongan.feature.intro
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.captures2024.soongan.core.domain.usecase.members.GetMemberInformationUseCase
 import com.captures2024.soongan.core.domain.usecase.token.GetAccessTokenUseCase
 import com.captures2024.soongan.core.domain.usecase.token.GetAllTokenUseCase
 import com.captures2024.soongan.core.domain.usecase.token.GetRefreshTokenUseCase
@@ -19,9 +20,11 @@ import javax.inject.Inject
 class IntroViewModel
 @Inject
 constructor(
-    private val getAllTokenUseCase: GetAllTokenUseCase
+    private val getAllTokenUseCase: GetAllTokenUseCase,
+    private val getMemberInformationUseCase: GetMemberInformationUseCase
 ) : ViewModel() {
     val introState: StateFlow<IntroState> = flow {
+        getMemberInformationUseCase()
         getAllTokenUseCase().getOrNull()?.let { (accessToken, refreshToken) ->
             when {
                 accessToken.isNotEmpty() && refreshToken.isNotEmpty() -> emit(IntroState.Main)
