@@ -1,5 +1,6 @@
 package com.captures2024.soongan.core.data.remote
 
+import com.captures2024.soongan.core.model.dto.UserInfoDto
 import com.captures2024.soongan.core.model.network.SocialSignType
 import com.captures2024.soongan.core.model.network.response.members.GetMemberInformationResponse
 import com.captures2024.soongan.core.model.network.response.members.RegisterNicknameResponse
@@ -28,7 +29,7 @@ interface MembersDataSource {
         nickname: String
     ): RegisterNicknameResponse?
 
-    suspend fun getMemberInformation(): GetMemberInformationResponse?
+    suspend fun getMemberInformation(): UserInfoDto?
 
     suspend fun isDuplicateNickname(
         nickname: String

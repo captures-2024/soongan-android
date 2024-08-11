@@ -9,6 +9,7 @@ android {
 
 dependencies {
     implementation(project(":core:datastore"))
+    implementation(project(":core:domain"))
 
     implementation(libs.bundles.retrofit)
     implementation(platform(libs.okhttp.bom))

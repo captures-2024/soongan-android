@@ -6,14 +6,14 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class GetMemberInformationUseCase
+class ReissueTokenUseCase
 @Inject
 constructor(
     private val repository: MembersRepository
 ) {
 
-    suspend operator fun invoke(): Result<Unit> = runSuspendCatching {
-        repository.getMemberInformation()
+    suspend operator fun invoke(): Result<Boolean> = runSuspendCatching {
+        repository.reissueToken().result
     }
 
 }

@@ -1,8 +1,10 @@
 package com.captures2024.soongan.core.data.remote.impl
 
+import com.captures2024.soongan.core.data.mapper.toUserInfoDto
 import com.captures2024.soongan.core.data.remote.MembersDataSource
 import com.captures2024.soongan.core.data.service.MembersService
 import com.captures2024.soongan.core.data.utils.safeAPICall
+import com.captures2024.soongan.core.model.dto.UserInfoDto
 import com.captures2024.soongan.core.model.network.SocialSignType
 import com.captures2024.soongan.core.model.network.request.members.ReissueTokenRequest
 import com.captures2024.soongan.core.model.network.request.members.SignWithTokenRequest
@@ -71,9 +73,9 @@ constructor(
         )
     }.body
 
-    override suspend fun getMemberInformation(): GetMemberInformationResponse? = safeAPICall {
+    override suspend fun getMemberInformation(): UserInfoDto? = safeAPICall {
         service.getMemberInformation()
-    }.body
+    }.body?.toUserInfoDto()
 
     override suspend fun isDuplicateNickname(
         nickname: String
