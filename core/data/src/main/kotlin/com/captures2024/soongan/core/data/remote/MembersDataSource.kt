@@ -33,6 +33,6 @@ interface MembersDataSource {
 
     suspend fun isDuplicateNickname(
         nickname: String
-    ): Boolean?
+    ): Boolean
 
 }

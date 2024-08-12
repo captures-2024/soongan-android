@@ -21,6 +21,7 @@ interface MembersService {
      *
      * 회원을 탈퇴합니다.
      **/
+    @Headers("Authorization: true")
     @POST("members/withdraw")
     suspend fun withdrawWithToken(): Response<Unit>
 
@@ -29,6 +30,7 @@ interface MembersService {
      *
      * 로그인시 발급한 JWT를 말소합니다.
      **/
+    @Headers("Authorization: true")
     @POST("members/logout")
     suspend fun signOutWithToken(): Response<Unit>
 
@@ -47,6 +49,7 @@ interface MembersService {
      *
      * Refresh Token을 이용하여 JWT를 갱신합니다.
      **/
+    @Headers("Authorization: false")
     @PATCH("members/refresh")
     suspend fun reissueToken(
         @Body request: ReissueTokenRequest
@@ -57,6 +60,7 @@ interface MembersService {
      *
      * 프로필 사진을 변경합니다.
      **/
+    @Headers("Authorization: true")
     @PATCH("members/profile-image")
     suspend fun registerProfileImage(
         /* TODO */
@@ -67,6 +71,7 @@ interface MembersService {
      *
      * 닉네임을 변경합니다.
      **/
+    @Headers("Authorization: true")
     @PATCH("members/nickname")
     suspend fun registerNickname(
         @Query("newNickname") nickname: String
@@ -87,6 +92,7 @@ interface MembersService {
      * 닉네임이 중복되는지 확인합니다.
      * @return true면 사용 가능, false면 중복.
      **/
+    @Headers("Authorization: true")
     @GET("members/check-nickname")
     suspend fun isDuplicateNickname(
         @Query("nickname") nickname: String

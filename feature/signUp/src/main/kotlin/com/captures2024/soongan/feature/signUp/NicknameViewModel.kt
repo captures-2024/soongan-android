@@ -1,16 +1,20 @@
 package com.captures2024.soongan.feature.signUp
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.captures2024.soongan.core.domain.usecase.members.IsAllowNicknameUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class NicknameViewModel
 @Inject
 constructor(
-
+    private val isAllowNicknameUseCase: IsAllowNicknameUseCase
 ) : ViewModel() {
     private val _uiState = MutableStateFlow<InputNickNameUIState>(InputNickNameUIState.Init)
     val uiState: StateFlow<InputNickNameUIState>
@@ -35,21 +39,24 @@ constructor(
     }
 
     fun duplicationCheck() {
-        _uiState.value = InputNickNameUIState.Success("testNick")
+        when (val currentState = _uiState.value) {
+            is InputNickNameUIState.Init,
+            is InputNickNameUIState.Loading,
+            is InputNickNameUIState.Error -> return
+            else -> viewModelScope.launch {
+                _uiState.emit(InputNickNameUIState.Loading(currentState.nickname))
 
-        // TODO duplication RESTFul API Connection
-//
-//        val currentState = _uiState.value
-//        when (currentState) {
-//            is InputNickNameUIState.Init,
-//            is InputNickNameUIState.Loading,
-//            is InputNickNameUIState.Error -> {
-//                return
-//            }
-//            else -> Unit
-//        }
-//
-//
+                val isAllow = isAllowNicknameUseCase(currentState.nickname).getOrNull() ?: return@launch _uiState.emit(InputNickNameUIState.Error(currentState.nickname))
+
+                when (isAllow) {
+                    true -> {
+                        // TODO 회원 정보 수정
+                        _uiState.emit(InputNickNameUIState.Success(currentState.nickname))
+                    }
+                    false -> _uiState.emit(InputNickNameUIState.Error(currentState.nickname))
+                }
+            }
+        }
     }
 
     companion object {

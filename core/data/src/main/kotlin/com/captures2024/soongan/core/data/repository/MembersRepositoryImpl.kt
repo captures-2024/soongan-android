@@ -98,7 +98,9 @@ constructor(
     }
 
     override suspend fun isDuplicateNickname(nickname: String): ResultConditionEntity {
-        TODO("Not yet implemented")
+        val result = membersDataSource.isDuplicateNickname(nickname)
+
+        return ResultConditionEntity(result)
     }
 
 }
