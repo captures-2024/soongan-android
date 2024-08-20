@@ -3,18 +3,19 @@ package com.captures2024.soongan.feature.signUp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.captures2024.soongan.core.domain.usecase.members.IsAllowNicknameUseCase
+import com.captures2024.soongan.core.domain.usecase.members.RegisterNicknameUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class NicknameViewModel
 @Inject
 constructor(
-    private val isAllowNicknameUseCase: IsAllowNicknameUseCase
+    private val isAllowNicknameUseCase: IsAllowNicknameUseCase,
+    private val registerNicknameUseCase: RegisterNicknameUseCase
 ) : ViewModel() {
     private val _uiState = MutableStateFlow<InputNickNameUIState>(InputNickNameUIState.Init)
     val uiState: StateFlow<InputNickNameUIState>
@@ -43,19 +44,28 @@ constructor(
             is InputNickNameUIState.Init,
             is InputNickNameUIState.Loading,
             is InputNickNameUIState.Error -> return
+
             else -> viewModelScope.launch {
                 _uiState.emit(InputNickNameUIState.Loading(currentState.nickname))
 
                 val isAllow = isAllowNicknameUseCase(currentState.nickname).getOrNull() ?: return@launch _uiState.emit(InputNickNameUIState.Error(currentState.nickname))
 
-                when (isAllow) {
-                    true -> {
-                        // TODO 회원 정보 수정
-                        _uiState.emit(InputNickNameUIState.Success(currentState.nickname))
-                    }
-                    false -> _uiState.emit(InputNickNameUIState.Error(currentState.nickname))
+                if (!isAllow) {
+                    _uiState.emit(InputNickNameUIState.Error(currentState.nickname))
+                    return@launch
                 }
+
+                registerNickname(currentState.nickname)
             }
+        }
+    }
+
+    private suspend fun registerNickname(nickname: String) {
+        val isRegister = registerNicknameUseCase(nickname).getOrNull() ?: return _uiState.emit(InputNickNameUIState.Error(nickname))
+
+        when (isRegister.result) {
+            true -> _uiState.emit(InputNickNameUIState.Success(nickname))
+            false -> _uiState.emit(InputNickNameUIState.Error(nickname))
         }
     }
 

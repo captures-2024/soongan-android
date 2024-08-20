@@ -5,7 +5,7 @@ import com.captures2024.soongan.core.datastore.TokenDataSource
 import com.captures2024.soongan.core.domain.repository.MembersRepository
 import com.captures2024.soongan.core.model.dto.UserInfoDto
 import com.captures2024.soongan.core.model.network.SocialSignType
-import com.captures2024.soongan.core.model.entity.ResultConditionEntity
+import com.captures2024.soongan.core.model.dto.ResultConditionDto
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -15,27 +15,27 @@ constructor(
     private val tokenDataSource: TokenDataSource,
     private val membersDataSource: MembersDataSource
 ) : MembersRepository {
-    override suspend fun withdrawMember(): ResultConditionEntity = when (membersDataSource.withdrawWithToken()) {
+    override suspend fun withdrawMember(): ResultConditionDto = when (membersDataSource.withdrawWithToken()) {
         true -> {
             tokenDataSource.clearAllToken()
-            ResultConditionEntity(result = true)
+            ResultConditionDto(result = true)
         }
-        false -> ResultConditionEntity(result = false)
+        false -> ResultConditionDto(result = false)
     }
 
-    override suspend fun signOutSocialPlatform(): ResultConditionEntity = when (membersDataSource.signOutWithToken()) {
+    override suspend fun signOutSocialPlatform(): ResultConditionDto = when (membersDataSource.signOutWithToken()) {
         true -> {
             tokenDataSource.clearAllToken()
-            ResultConditionEntity(result = true)
+            ResultConditionDto(result = true)
         }
-        false -> ResultConditionEntity(result = false)
+        false -> ResultConditionDto(result = false)
     }
 
     override suspend fun signingSocialPlatform(
         type: SocialSignType,
         token: String
-    ): ResultConditionEntity {
-        val tokenResult = membersDataSource.signInWithToken(type, token) ?: return ResultConditionEntity(result = false)
+    ): ResultConditionDto {
+        val tokenResult = membersDataSource.signInWithToken(type, token) ?: return ResultConditionDto(result = false)
 
         tokenDataSource.setAccessToken(tokenResult.accessToken)
         tokenDataSource.setRefreshToken(tokenResult.refreshToken)
@@ -44,26 +44,26 @@ constructor(
         val savedRefreshToken = tokenDataSource.getRefreshToken()
 
         return when {
-            savedAccessToken == tokenResult.accessToken && savedRefreshToken == tokenResult.refreshToken -> ResultConditionEntity(result = true)
+            savedAccessToken == tokenResult.accessToken && savedRefreshToken == tokenResult.refreshToken -> ResultConditionDto(result = true)
             else -> {
                 tokenDataSource.clearAllToken()
-                ResultConditionEntity(result = false)
+                ResultConditionDto(result = false)
             }
         }
     }
 
-    override suspend fun reissueToken(): ResultConditionEntity {
+    override suspend fun reissueToken(): ResultConditionDto {
         val currentAccessToken = tokenDataSource.getAccessToken()
         val currentRefreshToken = tokenDataSource.getRefreshToken()
 
         if (currentAccessToken.isEmpty() || currentRefreshToken.isEmpty()) {
-            return ResultConditionEntity(result = false)
+            return ResultConditionDto(result = false)
         }
 
         val tokenResult = membersDataSource.reissueToken(
             accessToken = currentAccessToken,
             refreshToken = currentRefreshToken
-        ) ?: return ResultConditionEntity(result = false)
+        ) ?: return ResultConditionDto(result = false)
 
         tokenDataSource.setAccessToken(tokenResult.accessToken)
         tokenDataSource.setRefreshToken(tokenResult.refreshToken)
@@ -72,10 +72,10 @@ constructor(
         val savedRefreshToken = tokenDataSource.getRefreshToken()
 
         return when {
-            savedAccessToken == tokenResult.accessToken && savedRefreshToken == tokenResult.refreshToken -> ResultConditionEntity(result = true)
+            savedAccessToken == tokenResult.accessToken && savedRefreshToken == tokenResult.refreshToken -> ResultConditionDto(result = true)
             else -> {
                 tokenDataSource.clearAllToken()
-                ResultConditionEntity(result = false)
+                ResultConditionDto(result = false)
             }
         }
     }
@@ -84,9 +84,13 @@ constructor(
         TODO("Not yet implemented")
     }
 
-    override suspend fun registerNickname(nickname: String): ResultConditionEntity {
-        val result = membersDataSource.registerNickname(nickname = nickname) ?: return ResultConditionEntity(result = false)
-        TODO("Not yet implemented")
+    override suspend fun registerNickname(nickname: String): ResultConditionDto {
+        val result = membersDataSource.registerNickname(nickname = nickname) ?: return ResultConditionDto(result = false)
+
+        return when (nickname) {
+            result.nickname -> ResultConditionDto(result = true)
+            else -> ResultConditionDto(result = false)
+        }
     }
 
     override suspend fun getMemberInformation(): UserInfoDto {
@@ -97,10 +101,10 @@ constructor(
         return userInfoDto
     }
 
-    override suspend fun isDuplicateNickname(nickname: String): ResultConditionEntity {
+    override suspend fun isDuplicateNickname(nickname: String): ResultConditionDto {
         val result = membersDataSource.isDuplicateNickname(nickname)
 
-        return ResultConditionEntity(result)
+        return ResultConditionDto(result)
     }
 
 }

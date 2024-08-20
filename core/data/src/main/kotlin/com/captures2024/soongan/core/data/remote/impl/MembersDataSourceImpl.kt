@@ -4,6 +4,7 @@ import com.captures2024.soongan.core.data.mapper.toUserInfoDto
 import com.captures2024.soongan.core.data.remote.MembersDataSource
 import com.captures2024.soongan.core.data.service.MembersService
 import com.captures2024.soongan.core.data.utils.safeAPICall
+import com.captures2024.soongan.core.model.dto.UserDto
 import com.captures2024.soongan.core.model.dto.UserInfoDto
 import com.captures2024.soongan.core.model.network.SocialSignType
 import com.captures2024.soongan.core.model.network.request.members.ReissueTokenRequest
@@ -67,11 +68,23 @@ constructor(
 
     override suspend fun registerNickname(
         nickname: String
-    ): RegisterNicknameResponse? = safeAPICall {
-        service.registerNickname(
-            nickname = nickname
-        )
-    }.body
+    ): UserDto? {
+        val result = safeAPICall {
+            service.registerNickname(
+                nickname = nickname
+            )
+        }.body
+
+
+        return when (result) {
+            null -> null
+            else -> UserDto(
+                email = result.id,
+                nickname = result.nickname,
+                birthDate = ""
+            )
+        }
+    }
 
     override suspend fun getMemberInformation(): UserInfoDto? = safeAPICall {
         service.getMemberInformation()

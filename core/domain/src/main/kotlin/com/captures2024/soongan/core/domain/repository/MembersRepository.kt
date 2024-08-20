@@ -2,27 +2,27 @@ package com.captures2024.soongan.core.domain.repository
 
 import com.captures2024.soongan.core.model.dto.UserInfoDto
 import com.captures2024.soongan.core.model.network.SocialSignType
-import com.captures2024.soongan.core.model.entity.ResultConditionEntity
+import com.captures2024.soongan.core.model.dto.ResultConditionDto
 
 interface MembersRepository {
 
-    suspend fun withdrawMember(): ResultConditionEntity
+    suspend fun withdrawMember(): ResultConditionDto
 
-    suspend fun signOutSocialPlatform(): ResultConditionEntity
+    suspend fun signOutSocialPlatform(): ResultConditionDto
 
     suspend fun signingSocialPlatform(
         type: SocialSignType,
         token: String
-    ): ResultConditionEntity
+    ): ResultConditionDto
 
-    suspend fun reissueToken(): ResultConditionEntity
+    suspend fun reissueToken(): ResultConditionDto
 
     suspend fun registerProfileImage()
 
-    suspend fun registerNickname(nickname: String): ResultConditionEntity
+    suspend fun registerNickname(nickname: String): ResultConditionDto
 
     suspend fun getMemberInformation(): UserInfoDto
 
-    suspend fun isDuplicateNickname(nickname: String): ResultConditionEntity
+    suspend fun isDuplicateNickname(nickname: String): ResultConditionDto
 
 }

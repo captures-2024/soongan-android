@@ -1,5 +1,6 @@
 package com.captures2024.soongan.core.data.remote
 
+import com.captures2024.soongan.core.model.dto.UserDto
 import com.captures2024.soongan.core.model.dto.UserInfoDto
 import com.captures2024.soongan.core.model.network.SocialSignType
 import com.captures2024.soongan.core.model.network.response.members.GetMemberInformationResponse
@@ -27,7 +28,7 @@ interface MembersDataSource {
 
     suspend fun registerNickname(
         nickname: String
-    ): RegisterNicknameResponse?
+    ): UserDto?
 
     suspend fun getMemberInformation(): UserInfoDto?
 
