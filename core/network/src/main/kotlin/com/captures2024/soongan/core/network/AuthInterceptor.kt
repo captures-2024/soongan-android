@@ -16,32 +16,34 @@ constructor(
     override fun intercept(chain: Interceptor.Chain): Response = with(chain) {
         val defaultRequest = request()
 
-        val isAccessToken = defaultRequest.headers["Authorization"]
+        val isAccessToken = defaultRequest.headers[AUTH_HEADER]
 
         return@with when (isAccessToken) {
             "true" -> {
                 val accessToken = runBlocking { tokenDataSource.getAccessToken() }
 
                 val newRequest = defaultRequest.newBuilder()
-                    .header("Authorization", "Bearer $accessToken")
-                    .addHeader("User-Agent", "ANDROID")
+                    .header(AUTH_HEADER, "$AUTH_PREFIX $accessToken")
+                    .addHeader(AGENT_HEADER, OS)
                     .build()
 
                 proceed(newRequest)
             }
+
             "false" -> {
                 val refreshToken = runBlocking { tokenDataSource.getRefreshToken() }
 
                 val newRequest = defaultRequest.newBuilder()
-                    .header("Authorization", "Bearer $refreshToken")
-                    .addHeader("User-Agent", "ANDROID")
+                    .header(AUTH_HEADER, "$AUTH_PREFIX $refreshToken")
+                    .addHeader(AGENT_HEADER, OS)
                     .build()
 
                 proceed(newRequest)
             }
+
             else -> {
                 val newRequest = defaultRequest.newBuilder()
-                    .addHeader("User-Agent", "ANDROID")
+                    .addHeader(AGENT_HEADER, OS)
                     .build()
 
                 proceed(newRequest)
@@ -49,4 +51,10 @@ constructor(
         }
     }
 
+    companion object {
+        private const val AUTH_HEADER = "Authorization"
+        private const val AUTH_PREFIX = "Bearer"
+        private const val AGENT_HEADER = "User-Agent"
+        private const val OS = "ANDROID"
+    }
 }
