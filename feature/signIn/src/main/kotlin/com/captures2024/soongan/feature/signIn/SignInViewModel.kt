@@ -19,133 +19,6 @@ constructor(
     private val signingKakaoUseCase: SigningKakaoUseCase,
     savedStateHandle: SavedStateHandle,
 ) : BaseViewModel<SignInUIState, SignInSideEffect, SignInIntent>(savedStateHandle) {
-//    private val _uiState = MutableStateFlow<SignInState>(Init)
-//    val uiState: StateFlow<SignInState>
-//        get() = _uiState
-//
-//    fun restoreInitState() {
-//        _uiState.value = Init
-//    }
-//
-//    fun onClickSignIn(
-//        activeSocialSignIn: () -> Unit
-//    ) {
-//        val currentState = _uiState.value
-//
-//        if (isNotPossibleOperationState(currentState)) {
-//            return
-//        }
-//
-//        _uiState.value = Loading
-//
-//        activeSocialSignIn()
-//    }
-//
-//    fun canceledSignIn() = viewModelScope.launch {
-//        _uiState.emit(Init)
-//    }
-//
-//    fun finishAppleSignIn(signInResult: SignInResult) = viewModelScope.launch {
-//        when (signInResult.data) {
-//            null -> {
-//                Log.d(TAG, "errorMessage = ${signInResult.errorMessage}")
-//                _uiState.emit(ErrorSignIn)
-//            }
-//            else -> {
-//                // TODO Success Logic
-//            }
-//        }
-//    }
-//
-//    fun finishGoogleSignIn(token: String?) = viewModelScope.launch {
-//        when (token) {
-//            null -> {
-//                Timber.tag(TAG).d("errorMessage = token is Null")
-//                _uiState.emit(Init)
-//            }
-//            else -> {
-//                val result = signingGoogleUseCase(
-//                    token = token,
-//                    fcmToken = ""
-//                ).getOrNull()
-//
-//                when (result) {
-//                    null -> {
-//                        Timber.tag(TAG).d("errorMessage = result is Null")
-//                        _uiState.emit(Init)
-//                    }
-//                    true -> {
-//                        _uiState.emit(SignUp)
-//                    }
-//                    false -> {
-//                        Timber.tag(TAG).d("errorMessage = result is false")
-//                        _uiState.emit(Init)
-//                    }
-//                }
-//            }
-//        }
-//    }
-//
-//    fun finishKakaoSignIn(signInResult: SignInResult) = viewModelScope.launch {
-//        when (signInResult.data) {
-//            null -> {
-//                Log.d(TAG, "errorMessage = ${signInResult.errorMessage}")
-//                _uiState.emit(ErrorSignIn)
-//            }
-//            else -> {
-//                // TODO Success Logic
-//            }
-//        }
-//    }
-//
-//    fun onSuccessKakao(
-//        accessToken: String?,
-//        refreshToken: String?
-//    ) = viewModelScope.launch {
-//        if (accessToken == null || refreshToken == null) {
-//            Timber.tag(TAG).d("errorMessage = accessToken OR refreshToken is null")
-//            _uiState.emit(SignUp)
-//            return@launch
-//        }
-//
-//        val result = signingKakaoUseCase(token = accessToken).getOrNull()
-//
-//        when (result) {
-//            null -> {
-//                Timber.tag(TAG).d("errorMessage = result is Null")
-//                _uiState.emit(Init)
-//            }
-//            true -> {
-//                _uiState.emit(SignUp)
-//            }
-//            false -> {
-//                Timber.tag(TAG).d("errorMessage = result is false")
-//                _uiState.emit(Init)
-//            }
-//        }
-//    }
-//
-//    fun onFailureKakao(
-//        error: Throwable?
-//    ) = viewModelScope.launch {
-//        Timber.tag(TAG).d("errorMessage = $error")
-//        _uiState.emit(SignUp)
-//    }
-//
-//    /**
-//     * 현재 상태가 로그인을 기능을 작동시킬 수 있는 상태인지 판정
-//     *
-//     * 만약 loading, 또는 다른 화면으로 이동 중인 경우 작동 실패
-//     *
-//     * @return if 로그인 작동이 불가능한 경우 true else false
-//     *
-//     * @param currentState SignInState 타입의 상태
-//     * @see SignInState
-//     **/
-//    private fun isNotPossibleOperationState(currentState: SignInState): Boolean = when (currentState) {
-//        is Init, ErrorSignIn -> false
-//        else -> true
-//    }
 
     override fun createInitialState(savedStateHandle: SavedStateHandle): SignInUIState = SignInUIState()
 
@@ -161,11 +34,9 @@ constructor(
 
             is SignInIntent.OnClickSignKakao -> kakaoSignIn()
 
-            is SignInIntent.CanceledSignApple -> TODO()
-
-            is SignInIntent.CanceledSignGoogle -> TODO()
-
-            is SignInIntent.CanceledSignKakao -> TODO()
+            is SignInIntent.CanceledSignApple,
+            is SignInIntent.CanceledSignGoogle,
+            is SignInIntent.CanceledSignKakao -> canceledSignIn()
 
             is SignInIntent.FailedSignApple,
             is SignInIntent.FailedSignGoogle,
@@ -179,6 +50,17 @@ constructor(
 
             is SignInIntent.FetchFCMToken -> fetchFcmToken(token = intent.token)
 
+            is SignInIntent.OnClickGuestMode -> onClickGuestMode()
+
+            is SignInIntent.OnClickPrivacyPolicy -> onClickPrivacyPolicy()
+
+            is SignInIntent.OnClickTermsOfUse -> onClickTermsOfUse()
+        }
+    }
+
+    private fun canceledSignIn() {
+        reduce {
+            copy(isLoading = false)
         }
     }
 
@@ -234,6 +116,18 @@ constructor(
                 fcmToken = token
             )
         }
+    }
+
+    private fun onClickGuestMode() {
+        TODO("Not Impl yet")
+    }
+
+    private fun onClickPrivacyPolicy() {
+        postSideEffect(SignInSideEffect.NavigateToPrivacyPolicy)
+    }
+
+    private fun onClickTermsOfUse() {
+        postSideEffect(SignInSideEffect.NavigateToTermsOfUse)
     }
 
     companion object {

@@ -19,8 +19,8 @@ internal fun SignInRoute(
     kakaoSignIn: () -> Unit,
     navigateToMain: (Boolean) -> Unit,
     navigateToSignUp: (NavOptions) -> Unit,
-    navigateToTermsOfUse: (NavOptions) -> Unit,
-    navigateToPrivacyPolicy: (NavOptions) -> Unit,
+    navigateToTermsOfUse: () -> Unit,
+    navigateToPrivacyPolicy: () -> Unit,
     signInViewModel: SignInViewModel
 ) {
     val uiState by signInViewModel.state.collectAsStateWithLifecycle()
@@ -35,13 +35,13 @@ internal fun SignInRoute(
 
                 is SignInSideEffect.KakaoSignIn -> kakaoSignIn()
 
-                SignInSideEffect.NavigateToMain -> TODO()
+                is SignInSideEffect.NavigateToMain -> TODO()
 
-                SignInSideEffect.NavigateToPrivacyPolicy -> TODO()
+                is SignInSideEffect.NavigateToPrivacyPolicy -> navigateToPrivacyPolicy()
 
-                SignInSideEffect.NavigateToSignUp -> TODO()
+                is SignInSideEffect.NavigateToSignUp -> TODO()
 
-                SignInSideEffect.NavigateToTermsOfUse -> TODO()
+                is SignInSideEffect.NavigateToTermsOfUse -> navigateToTermsOfUse()
             }
         }
     }
@@ -52,9 +52,9 @@ internal fun SignInRoute(
             onClickAppleSignIn = { signInViewModel.intent(SignInIntent.OnClickSignApple) },
             onClickGoogleSignIn = { signInViewModel.intent(SignInIntent.OnClickSignGoogle) },
             onClickKakaoSignIn = { signInViewModel.intent(SignInIntent.OnClickSignKakao) },
-            navigateToMain = {},
-            navigateToTermsOfUse = {},
-            navigateToPrivacyPolicy = {}
+            onClickTermsOfUse = { signInViewModel.intent(SignInIntent.OnClickTermsOfUse) },
+            onClickGuestMode = { signInViewModel.intent(SignInIntent.OnClickGuestMode) },
+            onClickToPrivacyPolicy = { signInViewModel.intent(SignInIntent.OnClickPrivacyPolicy) }
         )
     }
 

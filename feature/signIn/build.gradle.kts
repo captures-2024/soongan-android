@@ -14,6 +14,7 @@ dependencies {
     implementation(project(":core:designSystem"))
     implementation(project(":core:domain"))
     implementation(project(":core:model"))
+    implementation(project(":core:navigator"))
 
     implementation(libs.firebase.auth)
 }

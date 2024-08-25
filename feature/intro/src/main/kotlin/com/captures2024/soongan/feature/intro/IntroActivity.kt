@@ -19,8 +19,8 @@ import com.captures2024.soongan.core.analytics.AnalyticsHelper
 import com.captures2024.soongan.core.analytics.LocalAnalyticsHelper
 import com.captures2024.soongan.core.analytics.NetworkMonitor
 import com.captures2024.soongan.core.designsystem.theme.SoonGanTheme
-import com.captures2024.soongan.core.navigator.MainNavigator
-import com.captures2024.soongan.core.navigator.SignNavigator
+import com.captures2024.soongan.core.navigator.activity.MainActivityNavigator
+import com.captures2024.soongan.core.navigator.activity.SignActivityNavigator
 import com.captures2024.soongan.feature.intro.route.IntroRoute
 import com.captures2024.soongan.feature.intro.state.IntroIntent
 import com.captures2024.soongan.feature.intro.state.IntroUIState
@@ -31,10 +31,10 @@ import javax.inject.Inject
 class IntroActivity : ComponentActivity() {
 
     @Inject
-    lateinit var signNavigator: SignNavigator
+    lateinit var signActivityNavigator: SignActivityNavigator
 
     @Inject
-    lateinit var mainNavigator: MainNavigator
+    lateinit var mainActivityNavigator: MainActivityNavigator
 
     @Inject
     lateinit var analyticsHelper: AnalyticsHelper
@@ -80,13 +80,13 @@ class IntroActivity : ComponentActivity() {
                     IntroRoute(
                         networkMonitor = networkMonitor,
                         navigateToSign = {
-                            signNavigator.navigateFrom(
+                            signActivityNavigator.navigateFrom(
                                 activity = this,
                                 withFinish = true,
                             )
                         },
                         navigateToMain = {
-                            mainNavigator.navigateFrom(
+                            mainActivityNavigator.navigateFrom(
                                 activity = this,
                                 withFinish = true,
                             )

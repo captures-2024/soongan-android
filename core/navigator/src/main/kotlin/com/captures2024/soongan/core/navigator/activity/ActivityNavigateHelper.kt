@@ -1,9 +1,9 @@
-package com.captures2024.soongan.core.navigator
+package com.captures2024.soongan.core.navigator.activity
 
 import android.app.Activity
 import android.content.Intent
 
-interface NavigateHelper {
+interface ActivityNavigateHelper {
     fun navigateFrom(
         activity: Activity,
         withFinish: Boolean,

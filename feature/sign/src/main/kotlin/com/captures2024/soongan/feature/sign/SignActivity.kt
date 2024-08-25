@@ -21,7 +21,7 @@ import com.captures2024.soongan.core.auth.GoogleAuthUiClient
 import com.captures2024.soongan.core.auth.kakao.KakaoLoginCallback
 import com.captures2024.soongan.core.auth.kakaoLogin
 import com.captures2024.soongan.core.designsystem.theme.SoonGanTheme
-import com.captures2024.soongan.core.navigator.MainNavigator
+import com.captures2024.soongan.core.navigator.activity.MainActivityNavigator
 import com.captures2024.soongan.feature.sign.route.SignRoute
 import com.captures2024.soongan.feature.signIn.SignInViewModel
 import com.captures2024.soongan.feature.signIn.state.SignInIntent
@@ -47,7 +47,7 @@ class SignActivity : ComponentActivity() {
     lateinit var beginSignInRequest: BeginSignInRequest
 
     @Inject
-    lateinit var mainNavigator: MainNavigator
+    lateinit var mainActivityNavigator: MainActivityNavigator
 
     private val signInViewModel: SignInViewModel by viewModels()
 
@@ -157,7 +157,7 @@ class SignActivity : ComponentActivity() {
                             )
                         },
                         navigateToMain = { isGuestMode ->
-                            mainNavigator.navigateFrom(
+                            mainActivityNavigator.navigateFrom(
                                 activity = this,
                                 withFinish = true,
                                 intentBuilder = {

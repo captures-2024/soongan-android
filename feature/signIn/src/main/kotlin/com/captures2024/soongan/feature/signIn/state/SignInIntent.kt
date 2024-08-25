@@ -2,7 +2,7 @@ package com.captures2024.soongan.feature.signIn.state
 
 import com.captures2024.soongan.core.common.base.UIIntent
 
-sealed interface SignInIntent : UIIntent {
+interface SignInIntent : UIIntent {
 
     data object OnClickSignApple : SignInIntent
 
@@ -38,5 +38,11 @@ sealed interface SignInIntent : UIIntent {
     data class FetchFCMToken(
         val token: String
     ) : SignInIntent
+
+    data object OnClickTermsOfUse : SignInIntent
+
+    data object OnClickPrivacyPolicy : SignInIntent
+
+    data object OnClickGuestMode : SignInIntent
 
 }
