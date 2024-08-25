@@ -1,95 +1,39 @@
 package com.captures2024.soongan.feature.signUp
 
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.SavedStateHandle
+import androidx.navigation.toRoute
+import com.captures2024.soongan.core.common.base.BaseViewModel
+import com.captures2024.soongan.core.navigator.screen.sign.BirthDateNavigator
+import com.captures2024.soongan.feature.signUp.state.birthdate.BirthDateIntent
+import com.captures2024.soongan.feature.signUp.state.birthdate.BirthDateSideEffect
+import com.captures2024.soongan.feature.signUp.state.birthdate.BirthDateUIState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class BirthYearViewModel
+internal class BirthYearViewModel
 @Inject
 constructor(
+    savedStateHandle: SavedStateHandle
+) : BaseViewModel<BirthDateUIState, BirthDateSideEffect, BirthDateIntent>(savedStateHandle) {
 
-) : ViewModel() {
-    private val _uiState = MutableStateFlow<InputBirthYearUIState>(InputBirthYearUIState.Init)
-    val uiState: StateFlow<InputBirthYearUIState>
-        get() = _uiState
-
-
-    fun initNickname(nickname: String) {
-        val currentState = _uiState.value
-
-        if (currentState !is InputBirthYearUIState.Init) {
-            return
-        }
-
-        _uiState.value = InputBirthYearUIState.ValueChanged(
-            nickname = nickname,
-            birthYear = ""
-        )
+    override fun createInitialState(savedStateHandle: SavedStateHandle): BirthDateUIState {
+        val nickname = savedStateHandle.toRoute<BirthDateNavigator>().nickname
+        return BirthDateUIState(nickname = nickname)
     }
 
-    fun onValueChange(birthYear: String) {
-        val currentState = _uiState.value
+    override fun handleClientException(throwable: Throwable) {
+        Timber.tag(TAG).e(throwable)
+    }
 
-        when (currentState) {
-            is InputBirthYearUIState.Init,
-            is InputBirthYearUIState.Loading,
-            is InputBirthYearUIState.Success -> return
-            else -> Unit
-        }
-
-        _uiState.value = InputBirthYearUIState.ValueChanged(
-            nickname = currentState.nickname,
-            birthYear = birthYear
-        )
+    override suspend fun handleIntent(intent: BirthDateIntent) {
+//        when (intent) {
+//
+//        }
     }
 
     companion object {
         private const val TAG = "BirthYearVM"
     }
-}
-
-sealed class InputBirthYearUIState(
-    open val nickname: String,
-    open val birthYear: String
-) {
-    data object Init : InputBirthYearUIState(
-        nickname = "",
-        birthYear = ""
-    )
-
-    data class Loading(
-        override val nickname: String,
-        override val birthYear: String
-    ) : InputBirthYearUIState(
-        nickname = nickname,
-        birthYear = birthYear
-    )
-
-    data class ValueChanged(
-        override val nickname: String,
-        override val birthYear: String
-    ) : InputBirthYearUIState(
-        nickname = nickname,
-        birthYear = birthYear
-    )
-
-    data class Error(
-        override val nickname: String,
-        override val birthYear: String
-    ) : InputBirthYearUIState(
-        nickname = nickname,
-        birthYear = birthYear
-    )
-
-    data class Success(
-        override val nickname: String,
-        override val birthYear: String
-    ) : InputBirthYearUIState(
-        nickname = nickname,
-        birthYear = birthYear
-    )
-
 }

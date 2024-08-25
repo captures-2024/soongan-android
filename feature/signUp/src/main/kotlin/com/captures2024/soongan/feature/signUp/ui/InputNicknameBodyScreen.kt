@@ -31,14 +31,13 @@ import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.theme.Negative
 import com.captures2024.soongan.core.designsystem.theme.PrimaryA
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
-import com.captures2024.soongan.feature.signUp.InputNickNameUIState
 import com.captures2024.soongan.feature.signUp.R
+import com.captures2024.soongan.feature.signUp.state.nickname.NicknameUIState
 
 @Composable
 internal fun InputNicknameBodyScreen(
     modifier: Modifier = Modifier,
-    state: InputNickNameUIState,
-    isValid: Validation.NicknameValidState,
+    state: NicknameUIState,
     onChangedNickname: (String) -> Unit = {},
 ) {
     val windowInfo = LocalWindowInfo.current
@@ -61,8 +60,8 @@ internal fun InputNicknameBodyScreen(
                 title = stringResource(id = R.string.input_nickname_input_title),
                 hint = stringResource(id = R.string.input_nickname_input_form_hint_text),
                 isValid = when {
-                    state is InputNickNameUIState.Error || isValid == Validation.NicknameValidState.Regex -> CustomBasicTextFieldState.NonValid
-                    isValid == Validation.NicknameValidState.Success -> CustomBasicTextFieldState.Valid
+                    state.isDuplicatedNickname || state.isValidNickname == Validation.NicknameValidState.Regex -> CustomBasicTextFieldState.NonValid
+                    state.isValidNickname == Validation.NicknameValidState.Success -> CustomBasicTextFieldState.Valid
                     else -> CustomBasicTextFieldState.Init
                 },
                 onValueChange = onChangedNickname
@@ -76,12 +75,12 @@ internal fun InputNicknameBodyScreen(
             ) {
                 NonScaleText(
                     text = when {
-                        state is InputNickNameUIState.Error -> stringResource(id = R.string.input_nickname_fail_duplication_hint_text)
-                        isValid == Validation.NicknameValidState.Regex -> stringResource(id = R.string.input_nickname_fail_regex_hint_text)
+                        state.isDuplicatedNickname -> stringResource(id = R.string.input_nickname_fail_duplication_hint_text)
+                        state.isValidNickname == Validation.NicknameValidState.Regex -> stringResource(id = R.string.input_nickname_fail_regex_hint_text)
                         else -> stringResource(id = R.string.input_nickname_default_hint_text)
                     },
                     color = when {
-                        state is InputNickNameUIState.Error || isValid == Validation.NicknameValidState.Regex -> Negative
+                        state.isDuplicatedNickname || state.isValidNickname == Validation.NicknameValidState.Regex -> Negative
                         else -> Color(0xFFCACACA)
                     },
                     fontSize = 12.sp,
@@ -110,20 +109,16 @@ internal fun InputNicknameBodyScreen(
 @Composable
 private fun InputNicknameBodyScreenPreview() {
     InputNicknameBodyScreen(
-        state = InputNickNameUIState.ValueChanged(nickname = "abcd"),
-        isValid = Validation.NicknameValidState.Success,
-    ) {
-
-    }
+        state = NicknameUIState(nickname = "abcd"),
+        onChangedNickname = {}
+    )
 }
 
 @DevicePreviews
 @Composable
 private fun InputNicknameBodyScreenFailPreview() {
     InputNicknameBodyScreen(
-        state = InputNickNameUIState.ValueChanged(nickname = "@!abcd"),
-        isValid = Validation.NicknameValidState.Regex,
-    ) {
-
-    }
+        state = NicknameUIState(nickname = "@!abcd"),
+        onChangedNickname = {}
+    )
 }

@@ -18,7 +18,7 @@ internal fun SignInRoute(
     googleSignIn: () -> Unit,
     kakaoSignIn: () -> Unit,
     navigateToMain: (Boolean) -> Unit,
-    navigateToSignUp: (NavOptions) -> Unit,
+    navigateToNickname: () -> Unit,
     navigateToTermsOfUse: () -> Unit,
     navigateToPrivacyPolicy: () -> Unit,
     signInViewModel: SignInViewModel
@@ -39,7 +39,7 @@ internal fun SignInRoute(
 
                 is SignInSideEffect.NavigateToPrivacyPolicy -> navigateToPrivacyPolicy()
 
-                is SignInSideEffect.NavigateToSignUp -> TODO()
+                is SignInSideEffect.NavigateToSignUp -> navigateToNickname()
 
                 is SignInSideEffect.NavigateToTermsOfUse -> navigateToTermsOfUse()
             }
