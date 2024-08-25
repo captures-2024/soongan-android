@@ -33,9 +33,14 @@ constructor(
 
     override suspend fun signingSocialPlatform(
         type: SocialSignType,
-        token: String
+        token: String,
+        fcmToken: String
     ): ResultConditionDto {
-        val tokenResult = membersDataSource.signInWithToken(type, token) ?: return ResultConditionDto(result = false)
+        val tokenResult = membersDataSource.signInWithToken(
+            type = type,
+            token = token,
+            fcmToken = fcmToken
+        ) ?: return ResultConditionDto(result = false)
 
         tokenDataSource.setAccessToken(tokenResult.accessToken)
         tokenDataSource.setRefreshToken(tokenResult.refreshToken)

@@ -3,8 +3,8 @@ package com.captures2024.soongan.feature.main.di
 import android.app.Activity
 import android.content.Intent
 import com.captures2024.soongan.core.common.extension.startActivityWithAnimation
+import com.captures2024.soongan.core.navigator.MainNavigator
 import com.captures2024.soongan.feature.main.MainActivity
-import com.captures2024.soongan.feature.navigator.MainNavigator
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

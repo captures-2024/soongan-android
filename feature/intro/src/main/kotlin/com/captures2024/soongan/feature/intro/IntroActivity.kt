@@ -11,6 +11,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -18,9 +19,11 @@ import com.captures2024.soongan.core.analytics.AnalyticsHelper
 import com.captures2024.soongan.core.analytics.LocalAnalyticsHelper
 import com.captures2024.soongan.core.analytics.NetworkMonitor
 import com.captures2024.soongan.core.designsystem.theme.SoonGanTheme
+import com.captures2024.soongan.core.navigator.MainNavigator
+import com.captures2024.soongan.core.navigator.SignNavigator
 import com.captures2024.soongan.feature.intro.route.IntroRoute
-import com.captures2024.soongan.feature.navigator.MainNavigator
-import com.captures2024.soongan.feature.navigator.SignNavigator
+import com.captures2024.soongan.feature.intro.state.IntroIntent
+import com.captures2024.soongan.feature.intro.state.IntroUIState
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -39,16 +42,20 @@ class IntroActivity : ComponentActivity() {
     @Inject
     lateinit var networkMonitor: NetworkMonitor
 
-    private val viewModel: IntroActivityViewModel by viewModels()
+    private val viewModel: IntroViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
 
         setContent {
-            val uiState: IntroActivityUiState by viewModel.uiState.collectAsStateWithLifecycle()
+            val uiState by viewModel.state.collectAsStateWithLifecycle()
 
             val darkTheme = ShouldUseDarkTheme(uiState)
+
+            LaunchedEffect(Unit) {
+                viewModel.intent(IntroIntent.RefreshUserData)
+            }
 
             DisposableEffect(darkTheme) {
                 enableEdgeToEdge(
@@ -71,7 +78,6 @@ class IntroActivity : ComponentActivity() {
                     disableDynamicTheming = ShouldDisableDynamicTheming(uiState),
                 ) {
                     IntroRoute(
-                        uiState = uiState,
                         networkMonitor = networkMonitor,
                         navigateToSign = {
                             signNavigator.navigateFrom(
@@ -84,7 +90,8 @@ class IntroActivity : ComponentActivity() {
                                 activity = this,
                                 withFinish = true,
                             )
-                        }
+                        },
+                        introViewModel = viewModel
                     )
                 }
             }
@@ -99,10 +106,10 @@ class IntroActivity : ComponentActivity() {
  */
 @Composable
 private fun ShouldUseAndroidTheme(
-    uiState: IntroActivityUiState,
-): Boolean = when (uiState) {
-    IntroActivityUiState.Loading -> false
-    IntroActivityUiState.Success -> false
+    uiState: IntroUIState,
+): Boolean = when (uiState.useAndroidTheme) {
+    true -> false
+    false -> false
 }
 
 /**
@@ -110,10 +117,10 @@ private fun ShouldUseAndroidTheme(
  */
 @Composable
 private fun ShouldDisableDynamicTheming(
-    uiState: IntroActivityUiState,
-): Boolean = when (uiState) {
-    IntroActivityUiState.Loading -> false
-    IntroActivityUiState.Success -> false
+    uiState: IntroUIState,
+): Boolean = when (uiState.disableDynamicTheming) {
+    true -> false
+    false -> false
 }
 
 
@@ -123,10 +130,10 @@ private fun ShouldDisableDynamicTheming(
  */
 @Composable
 private fun ShouldUseDarkTheme(
-    uiState: IntroActivityUiState,
-): Boolean = when (uiState) {
-    IntroActivityUiState.Loading -> isSystemInDarkTheme()
-    IntroActivityUiState.Success -> isSystemInDarkTheme()
+    uiState: IntroUIState,
+): Boolean = when (uiState.useDarkTheme) {
+    true -> isSystemInDarkTheme()
+    false -> isSystemInDarkTheme()
 }
 
 /**

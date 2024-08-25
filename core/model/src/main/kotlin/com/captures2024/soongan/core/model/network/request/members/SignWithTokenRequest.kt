@@ -9,4 +9,6 @@ data class SignWithTokenRequest(
     val provider: String,
     @SerialName("idToken")
     val idToken: String,
+    @SerialName("fcmToken")
+    val fcmToken: String
 )

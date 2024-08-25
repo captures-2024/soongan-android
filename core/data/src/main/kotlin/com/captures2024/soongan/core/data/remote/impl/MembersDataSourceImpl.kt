@@ -40,12 +40,14 @@ constructor(
 
     override suspend fun signInWithToken(
         type: SocialSignType,
-        token: String
+        token: String,
+        fcmToken: String
     ): SignInWithTokenResponse? = safeAPICall {
         service.signInWithToken(
             request = SignWithTokenRequest(
                 provider = type.provider,
-                idToken = token
+                idToken = token,
+                fcmToken = fcmToken
             )
         )
     }.body

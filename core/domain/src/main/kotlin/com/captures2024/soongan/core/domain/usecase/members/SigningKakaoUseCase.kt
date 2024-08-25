@@ -16,7 +16,8 @@ constructor(
     suspend operator fun invoke(token: String): Result<Boolean> = runSuspendCatching {
         repository.signingSocialPlatform(
             type = SocialSignType.KAKAO,
-            token = token
+            token = token,
+            fcmToken = ""
         ).result
     }
 

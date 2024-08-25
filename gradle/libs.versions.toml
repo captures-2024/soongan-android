@@ -232,7 +232,7 @@ oss = { id = "com.google.android.gms.oss-licenses-plugin", version.ref = "oss-pl
 
 [bundles]
 navigation = ["navigation-fragment", "navigation-ui"]
-firebase = ["firebase-analytics", "firebase-crashlytics", "firebase-dynamiclink"]
+firebase = ["firebase-analytics", "firebase-crashlytics", "firebase-dynamiclink", "firebase-messaging"]
 lifecycle = ["lifecycle", "lifecycle-viewmodel", "lifecycle-livedata"]
 compose = ["ui", "ui-graphics", "ui-tooling", "ui-tooling-preview", "material3-compose", "coil-compose", "ui-foundation", "activity-compose", "lifecycle-compose", "navigation-compose"]
 retrofit = ["retrofit", "retrofit-gson-converter", "retrofit-scalar-converter", "retrofit-kotlin-serialization-converter"]

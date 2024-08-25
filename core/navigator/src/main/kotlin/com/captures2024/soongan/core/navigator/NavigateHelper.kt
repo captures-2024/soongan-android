@@ -1,4 +1,4 @@
-package com.captures2024.soongan.feature.navigator
+package com.captures2024.soongan.core.navigator
 
 import android.app.Activity
 import android.content.Intent

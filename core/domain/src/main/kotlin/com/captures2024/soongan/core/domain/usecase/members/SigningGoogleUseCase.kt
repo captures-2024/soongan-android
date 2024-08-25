@@ -13,10 +13,14 @@ constructor(
     private val repository: MembersRepository
 ) {
 
-    suspend operator fun invoke(token: String): Result<Boolean> = runSuspendCatching {
+    suspend operator fun invoke(
+        token: String,
+        fcmToken: String
+    ): Result<Boolean> = runSuspendCatching {
         repository.signingSocialPlatform(
             type = SocialSignType.GOOGLE,
-            token = token
+            token = token,
+            fcmToken = fcmToken
         ).result
     }
 

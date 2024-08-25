@@ -1,15 +1,16 @@
 package com.captures2024.soongan.feature.signIn.route
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavOptions
-import com.captures2024.soongan.feature.signIn.SignInState
 import com.captures2024.soongan.feature.signIn.SignInViewModel
+import com.captures2024.soongan.feature.signIn.state.SignInIntent
+import com.captures2024.soongan.feature.signIn.state.SignInSideEffect
 import com.captures2024.soongan.feature.signIn.ui.SignInDefaultScreen
 import com.captures2024.soongan.feature.signIn.ui.SignInLoadingScreen
+import timber.log.Timber
 
 @Composable
 internal fun SignInRoute(
@@ -22,29 +23,39 @@ internal fun SignInRoute(
     navigateToPrivacyPolicy: (NavOptions) -> Unit,
     signInViewModel: SignInViewModel
 ) {
-    val uiState = signInViewModel.uiState.collectAsStateWithLifecycle()
+    val uiState by signInViewModel.state.collectAsStateWithLifecycle()
 
-    Log.d("SignInRoute", "State change SignInRoute ${uiState.value}")
+    LaunchedEffect(Unit) {
+        signInViewModel.sideEffect.collect {
+            Timber.tag("SignInRoute").d("Collected sideEffect = $it")
+            when (it) {
+                is SignInSideEffect.AppleSignIn -> appleSignIn()
 
-    when (val value = uiState.value) {
-        is SignInState.Loading -> SignInLoadingScreen()
-        else -> {
-            if (value is SignInState.SignUp) {
-                signInViewModel.restoreInitState()
-                LaunchedEffect(true) {
-                    val options = NavOptions.Builder().build()
-                    navigateToSignUp(options)
-                }
+                is SignInSideEffect.GoogleSignIn -> googleSignIn()
+
+                is SignInSideEffect.KakaoSignIn -> kakaoSignIn()
+
+                SignInSideEffect.NavigateToMain -> TODO()
+
+                SignInSideEffect.NavigateToPrivacyPolicy -> TODO()
+
+                SignInSideEffect.NavigateToSignUp -> TODO()
+
+                SignInSideEffect.NavigateToTermsOfUse -> TODO()
             }
-
-            SignInDefaultScreen(
-                onClickAppleSignIn = appleSignIn,
-                onClickGoogleSignIn = googleSignIn,
-                onClickKakaoSignIn = kakaoSignIn,
-                navigateToMain = navigateToMain,
-                navigateToTermsOfUse = navigateToTermsOfUse,
-                navigateToPrivacyPolicy = navigateToPrivacyPolicy
-            )
         }
     }
+
+    when (uiState.isLoading) {
+        true -> SignInLoadingScreen()
+        false -> SignInDefaultScreen(
+            onClickAppleSignIn = { signInViewModel.intent(SignInIntent.OnClickSignApple) },
+            onClickGoogleSignIn = { signInViewModel.intent(SignInIntent.OnClickSignGoogle) },
+            onClickKakaoSignIn = { signInViewModel.intent(SignInIntent.OnClickSignKakao) },
+            navigateToMain = {},
+            navigateToTermsOfUse = {},
+            navigateToPrivacyPolicy = {}
+        )
+    }
+
 }

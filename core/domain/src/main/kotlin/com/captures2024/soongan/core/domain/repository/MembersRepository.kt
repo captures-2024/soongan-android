@@ -12,7 +12,8 @@ interface MembersRepository {
 
     suspend fun signingSocialPlatform(
         type: SocialSignType,
-        token: String
+        token: String,
+        fcmToken: String
     ): ResultConditionDto
 
     suspend fun reissueToken(): ResultConditionDto
