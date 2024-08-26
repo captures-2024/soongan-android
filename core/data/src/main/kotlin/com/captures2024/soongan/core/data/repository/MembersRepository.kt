@@ -1,4 +1,4 @@
-package com.captures2024.soongan.core.domain.repository
+package com.captures2024.soongan.core.data.repository
 
 import com.captures2024.soongan.core.model.dto.UserInfoDto
 import com.captures2024.soongan.core.model.network.SocialSignType

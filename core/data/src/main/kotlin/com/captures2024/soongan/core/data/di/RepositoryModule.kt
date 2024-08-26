@@ -1,9 +1,9 @@
 package com.captures2024.soongan.core.data.di
 
-import com.captures2024.soongan.core.data.repository.MembersRepositoryImpl
-import com.captures2024.soongan.core.data.repository.TokenRepositoryImpl
-import com.captures2024.soongan.core.domain.repository.MembersRepository
-import com.captures2024.soongan.core.domain.repository.TokenRepository
+import com.captures2024.soongan.core.data.repository.MembersRepository
+import com.captures2024.soongan.core.data.repository.TokenRepository
+import com.captures2024.soongan.core.data.repository.impl.MembersRepositoryImpl
+import com.captures2024.soongan.core.data.repository.impl.TokenRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

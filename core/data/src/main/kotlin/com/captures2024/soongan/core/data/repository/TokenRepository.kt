@@ -1,4 +1,4 @@
-package com.captures2024.soongan.core.domain.repository
+package com.captures2024.soongan.core.data.repository
 
 interface TokenRepository {
 

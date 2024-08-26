@@ -1,7 +1,7 @@
-package com.captures2024.soongan.core.data.repository
+package com.captures2024.soongan.core.data.repository.impl
 
+import com.captures2024.soongan.core.data.repository.TokenRepository
 import com.captures2024.soongan.core.datastore.TokenDataSource
-import com.captures2024.soongan.core.domain.repository.TokenRepository
 import javax.inject.Inject
 
 class TokenRepositoryImpl
