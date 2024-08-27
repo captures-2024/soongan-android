@@ -2,6 +2,7 @@ package com.captures2024.soongan.core.data.service
 
 import com.captures2024.soongan.core.model.network.request.members.ReissueTokenRequest
 import com.captures2024.soongan.core.model.network.request.members.SignWithTokenRequest
+import com.captures2024.soongan.core.model.network.response.BaseResponse
 import com.captures2024.soongan.core.model.network.response.members.GetMemberInformationResponse
 import com.captures2024.soongan.core.model.network.response.members.RegisterNicknameResponse
 import com.captures2024.soongan.core.model.network.response.members.ReissueTokenResponse
@@ -42,7 +43,7 @@ interface MembersService {
     @POST("members/login")
     suspend fun signInWithToken(
         @Body request: SignWithTokenRequest
-    ): Response<SignInWithTokenResponse>
+    ): Response<BaseResponse<SignInWithTokenResponse>>
 
     /**
      * JWT 갱신 API
@@ -53,7 +54,7 @@ interface MembersService {
     @PATCH("members/refresh")
     suspend fun reissueToken(
         @Body request: ReissueTokenRequest
-    ): Response<ReissueTokenResponse>
+    ): Response<BaseResponse<ReissueTokenResponse>>
 
     /**
      * 프로필 사진 변경 API
@@ -75,7 +76,7 @@ interface MembersService {
     @PATCH("members/nickname")
     suspend fun registerNickname(
         @Query("newNickname") nickname: String
-    ): Response<RegisterNicknameResponse>
+    ): Response<BaseResponse<RegisterNicknameResponse>>
 
     /**
      * 회원 정보 조회 API
@@ -84,7 +85,7 @@ interface MembersService {
      **/
     @Headers("Authorization: true")
     @GET("members")
-    suspend fun getMemberInformation(): Response<GetMemberInformationResponse>
+    suspend fun getMemberInformation(): Response<BaseResponse<GetMemberInformationResponse>>
 
     /**
      * 닉네임 중복 확인 API
@@ -96,6 +97,6 @@ interface MembersService {
     @GET("members/check-nickname")
     suspend fun isDuplicateNickname(
         @Query("nickname") nickname: String
-    ): Response<Boolean>
+    ): Response<BaseResponse<Boolean>>
 
 }

@@ -2,8 +2,11 @@ package com.captures2024.soongan.feature.signIn
 
 import androidx.lifecycle.SavedStateHandle
 import com.captures2024.soongan.core.common.base.BaseViewModel
+import com.captures2024.soongan.core.domain.usecase.fcm.InitFcmUseCase
+import com.captures2024.soongan.core.domain.usecase.members.IsAllowUserInfoUseCase
 import com.captures2024.soongan.core.domain.usecase.members.SigningGoogleUseCase
 import com.captures2024.soongan.core.domain.usecase.members.SigningKakaoUseCase
+import com.captures2024.soongan.core.model.network.SocialSignType
 import com.captures2024.soongan.feature.signIn.state.SignInIntent
 import com.captures2024.soongan.feature.signIn.state.SignInSideEffect
 import com.captures2024.soongan.feature.signIn.state.SignInUIState
@@ -15,8 +18,10 @@ import javax.inject.Inject
 class SignInViewModel
 @Inject
 constructor(
+    private val initFcmUseCase: InitFcmUseCase,
     private val signingGoogleUseCase: SigningGoogleUseCase,
     private val signingKakaoUseCase: SigningKakaoUseCase,
+    private val isAllowUserInfoUseCase: IsAllowUserInfoUseCase,
     savedStateHandle: SavedStateHandle,
 ) : BaseViewModel<SignInUIState, SignInSideEffect, SignInIntent>(savedStateHandle) {
 
@@ -98,8 +103,9 @@ constructor(
 
         Timber.tag(TAG).d("result = $result")
 
-        reduce {
-            copy(isLoading = false)
+        when (result) {
+            true -> isAllowCheck()
+            false -> failedSignIn()
         }
     }
 
@@ -116,6 +122,10 @@ constructor(
                 fcmToken = token
             )
         }
+
+        launch {
+            initFcmUseCase(fcmToken = token)
+        }
     }
 
     private fun onClickGuestMode() {
@@ -128,6 +138,23 @@ constructor(
 
     private fun onClickTermsOfUse() {
         postSideEffect(SignInSideEffect.NavigateToTermsOfUse)
+    }
+
+    private fun isAllowCheck() {
+        launch {
+            val result = isAllowUserInfoUseCase().getOrNull() ?: return@launch intent(SignInIntent.FailedSignGoogle)
+
+            when (result) {
+                true -> postSideEffect(SignInSideEffect.NavigateToMain)
+                false -> postSideEffect(SignInSideEffect.NavigateToSignUp)
+            }
+
+            reduce {
+                copy(
+                    isLoading = false
+                )
+            }
+        }
     }
 
     companion object {
