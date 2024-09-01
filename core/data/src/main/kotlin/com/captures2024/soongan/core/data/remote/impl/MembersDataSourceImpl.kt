@@ -40,15 +40,17 @@ constructor(
 
     override suspend fun signInWithToken(
         type: SocialSignType,
-        token: String
+        token: String,
+        fcmToken: String
     ): SignInWithTokenResponse? = safeAPICall {
         service.signInWithToken(
             request = SignWithTokenRequest(
                 provider = type.provider,
-                idToken = token
+                idToken = token,
+                fcmToken = fcmToken
             )
         )
-    }.body
+    }.body?.responseData
 
     override suspend fun reissueToken(
         accessToken: String,
@@ -60,7 +62,7 @@ constructor(
                 refreshToken = refreshToken
             )
         )
-    }.body
+    }.body?.responseData
 
     override suspend fun registerProfileImage() {
         TODO("Not yet implemented")
@@ -73,7 +75,7 @@ constructor(
             service.registerNickname(
                 nickname = nickname
             )
-        }.body
+        }.body?.responseData
 
 
         return when (result) {
@@ -88,7 +90,7 @@ constructor(
 
     override suspend fun getMemberInformation(): UserInfoDto? = safeAPICall {
         service.getMemberInformation()
-    }.body?.toUserInfoDto()
+    }.body?.responseData?.toUserInfoDto()
 
     override suspend fun isDuplicateNickname(
         nickname: String
@@ -99,9 +101,9 @@ constructor(
             )
         }
 
-        return when (result.body) {
+        return when (val data = result.body?.responseData) {
             null -> false
-            else -> result.body
+            else -> data
         }
     }
 

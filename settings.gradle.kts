@@ -38,6 +38,7 @@ include(
     ":core:datastore",
     ":core:domain",
     ":core:model",
+    ":core:navigator",
     ":core:network"
 )
 
@@ -47,7 +48,6 @@ include(
     ":feature:home",
     ":feature:intro",
     ":feature:main",
-    ":feature:navigator",
     ":feature:privacyPolicy",
     ":feature:profile",
     ":feature:sign",

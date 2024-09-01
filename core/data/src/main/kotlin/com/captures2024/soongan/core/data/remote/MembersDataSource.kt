@@ -16,7 +16,8 @@ interface MembersDataSource {
 
     suspend fun signInWithToken(
         type: SocialSignType,
-        token: String
+        token: String,
+        fcmToken: String
     ): SignInWithTokenResponse?
 
     suspend fun reissueToken(

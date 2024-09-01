@@ -21,13 +21,17 @@ import com.captures2024.soongan.core.auth.GoogleAuthUiClient
 import com.captures2024.soongan.core.auth.kakao.KakaoLoginCallback
 import com.captures2024.soongan.core.auth.kakaoLogin
 import com.captures2024.soongan.core.designsystem.theme.SoonGanTheme
-import com.captures2024.soongan.feature.navigator.MainNavigator
+import com.captures2024.soongan.core.navigator.activity.MainActivityNavigator
 import com.captures2024.soongan.feature.sign.route.SignRoute
 import com.captures2024.soongan.feature.signIn.SignInViewModel
+import com.captures2024.soongan.feature.signIn.state.SignInIntent
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.Identity
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -43,7 +47,7 @@ class SignActivity : ComponentActivity() {
     lateinit var beginSignInRequest: BeginSignInRequest
 
     @Inject
-    lateinit var mainNavigator: MainNavigator
+    lateinit var mainActivityNavigator: MainActivityNavigator
 
     private val signInViewModel: SignInViewModel by viewModels()
 
@@ -56,6 +60,18 @@ class SignActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(
+            OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    Timber.tag(TAG).e(task.exception, "Fetching FCM registration token failed")
+                    return@OnCompleteListener
+                }
+
+                val token = task.result
+
+                signInViewModel.intent(SignInIntent.FetchFCMToken(token = token))
+            }
+        )
 
         setContent {
             val darkTheme = isSystemInDarkTheme()
@@ -66,11 +82,11 @@ class SignActivity : ComponentActivity() {
                     accessToken: String?,
                     refreshToken: String?
                 ) {
-                    signInViewModel.onSuccessKakao(accessToken, refreshToken)
+                    signInViewModel.intent(SignInIntent.CompleteSignKakao(accessToken ?: "", refreshToken ?: ""))
                 }
 
                 override fun onFailure(error: Throwable?) {
-                    signInViewModel.onFailureKakao(error)
+                    signInViewModel.intent(SignInIntent.FailedSignKakao)
                 }
 
             }
@@ -79,16 +95,25 @@ class SignActivity : ComponentActivity() {
                 contract = ActivityResultContracts.StartIntentSenderForResult(),
                 onResult = { result ->
                     when (result.resultCode) {
-                        RESULT_OK -> lifecycleScope.launch {
-                            signInViewModel.finishGoogleSignIn(
-                                token = googleAuthUiClient.signInWithIntent(
-                                    intent = result.data ?: return@launch
-                                )
-                            )
+                        RESULT_OK -> {
+                            val resultIntent = result.data
+
+                            if (resultIntent == null) {
+                                signInViewModel.intent(SignInIntent.FailedSignGoogle)
+                                return@rememberLauncherForActivityResult
+                            }
+
+                            val token = googleAuthUiClient.signInWithIntent(resultIntent)
+
+                            if (token == null) {
+                                signInViewModel.intent(SignInIntent.FailedSignGoogle)
+                                return@rememberLauncherForActivityResult
+                            }
+
+                            signInViewModel.intent(SignInIntent.CompleteSignGoogle(token = token))
                         }
-                        RESULT_CANCELED -> lifecycleScope.launch {
-                            signInViewModel.canceledSignIn()
-                        }
+
+                        RESULT_CANCELED -> signInViewModel.intent(SignInIntent.CanceledSignGoogle)
                     }
                 }
             )
@@ -116,35 +141,23 @@ class SignActivity : ComponentActivity() {
                     SignRoute(
                         networkMonitor = networkMonitor,
                         appleSignIn = {
-                            signInViewModel.onClickSignIn {
-                                // TODO active AppleSignIn
-                                // TODO finish AppleSignIn
-                            }
+                            TODO("Apple Sign In Logic")
                         },
                         googleSignIn = {
-                            signInViewModel.onClickSignIn {
-                                lifecycleScope.launch {
-                                    val signInIntentSender = googleAuthUiClient.signIn()
+                            lifecycleScope.launch {
+                                val signInIntentSender = googleAuthUiClient.signIn() ?: return@launch
 
-                                    if (signInIntentSender == null) {
-                                        signInViewModel.finishGoogleSignIn(null)
-                                        return@launch
-                                    }
-
-                                    launcher.launch(IntentSenderRequest.Builder(signInIntentSender).build())
-                                }
+                                launcher.launch(IntentSenderRequest.Builder(signInIntentSender).build())
                             }
                         },
                         kakaoSignIn = {
-                            signInViewModel.onClickSignIn {
-                                kakaoLogin(
-                                    context = this,
-                                    callback = kakaoLoginCallback
-                                )
-                            }
+                            kakaoLogin(
+                                context = this,
+                                callback = kakaoLoginCallback
+                            )
                         },
                         navigateToMain = { isGuestMode ->
-                            mainNavigator.navigateFrom(
+                            mainActivityNavigator.navigateFrom(
                                 activity = this,
                                 withFinish = true,
                                 intentBuilder = {
@@ -160,6 +173,7 @@ class SignActivity : ComponentActivity() {
     }
 
     companion object {
+        private const val TAG = "SignActivity"
         const val GUEST_MODE_KEY = "isGuestMode"
     }
 }

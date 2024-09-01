@@ -34,9 +34,9 @@ internal fun SignInDefaultScreen(
     onClickAppleSignIn: () -> Unit = {},
     onClickGoogleSignIn: () -> Unit = {},
     onClickKakaoSignIn: () -> Unit = {},
-    navigateToMain: (Boolean) -> Unit,
-    navigateToTermsOfUse: (NavOptions) -> Unit = {},
-    navigateToPrivacyPolicy: (NavOptions) -> Unit = {},
+    onClickTermsOfUse: () -> Unit = {},
+    onClickToPrivacyPolicy: () -> Unit = {},
+    onClickGuestMode: () -> Unit = {}
 ) {
     Column(
         modifier = modifier
@@ -76,22 +76,16 @@ internal fun SignInDefaultScreen(
         )
         Spacer(modifier = Modifier.height(16.dp))
         TermsText(
-            onClickTermsOfUse = {
-                val options = NavOptions.Builder().build()
-                navigateToTermsOfUse(options)
-            },
-            onClickPrivacyPolicy = {
-                val options = NavOptions.Builder().build()
-                navigateToPrivacyPolicy(options)
-            }
+            onClickTermsOfUse = onClickTermsOfUse,
+            onClickPrivacyPolicy = onClickToPrivacyPolicy
         )
         Spacer(modifier = Modifier.height(24.dp))
         NonScaleText(
             text = stringResource(id = R.string.gesture_looking),
             modifier = Modifier
-                .clickable {
-                    navigateToMain(true)
-                },
+                .clickable(
+                    onClick = onClickGuestMode
+                ),
             color = Color(0xFFF5F5F5),
             fontSize = 14.sp,
             fontWeight = FontWeight.SemiBold
@@ -102,11 +96,5 @@ internal fun SignInDefaultScreen(
 @DevicePreviews
 @Composable
 private fun SignInDefaultScreenPreview() {
-    SignInDefaultScreen(
-        onClickGoogleSignIn = {},
-        onClickKakaoSignIn = {},
-        navigateToMain = {},
-        navigateToTermsOfUse = {},
-        navigateToPrivacyPolicy = {}
-    )
+    SignInDefaultScreen()
 }

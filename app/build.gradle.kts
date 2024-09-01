@@ -59,6 +59,7 @@ dependencies {
     implementation(project(":core:datastore"))
     implementation(project(":core:domain"))
     implementation(project(":core:model"))
+    implementation(project(":core:navigator"))
     implementation(project(":core:network"))
     //endregion
 

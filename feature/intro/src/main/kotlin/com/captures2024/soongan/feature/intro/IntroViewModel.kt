@@ -1,14 +1,20 @@
 package com.captures2024.soongan.feature.intro
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.captures2024.soongan.core.common.base.BaseViewModel
 import com.captures2024.soongan.core.domain.usecase.members.IsAllowUserInfoUseCase
 import com.captures2024.soongan.core.domain.usecase.token.GetAllTokenUseCase
+import com.captures2024.soongan.feature.intro.state.IntroIntent
+import com.captures2024.soongan.feature.intro.state.IntroSideEffect
+import com.captures2024.soongan.feature.intro.state.IntroUIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -16,45 +22,48 @@ class IntroViewModel
 @Inject
 constructor(
     private val getAllTokenUseCase: GetAllTokenUseCase,
-    private val isAllowUserInfoUseCase: IsAllowUserInfoUseCase
-) : ViewModel() {
-    val introState: StateFlow<IntroState> = flow {
-        val (accessToken, refreshToken) = getAllTokenUseCase().getOrNull() ?: return@flow emit(IntroState.Sign)
+    private val isAllowUserInfoUseCase: IsAllowUserInfoUseCase,
+    savedStateHandle: SavedStateHandle,
+) : BaseViewModel<IntroUIState, IntroSideEffect, IntroIntent>(savedStateHandle = savedStateHandle) {
+    override fun createInitialState(savedStateHandle: SavedStateHandle): IntroUIState = IntroUIState()
 
-        if (accessToken.isEmpty() && refreshToken.isEmpty()) {
-            emit(IntroState.Sign)
-            return@flow
+    override fun handleClientException(throwable: Throwable) {
+        /* TODO */
+    }
+
+    override suspend fun handleIntent(intent: IntroIntent) {
+        when (intent) {
+            is IntroIntent.RefreshUserData -> refreshUserData()
         }
+    }
 
-        val isAllow = isAllowUserInfoUseCase().getOrNull() ?: return@flow emit(IntroState.Sign)
 
-        when (isAllow) {
-            true -> emit(IntroState.Main)
-            false -> emit(IntroState.Sign)
+    private fun refreshUserData() {
+        launch {
+            val tokenResult = getAllTokenUseCase().getOrNull()
+
+            if (tokenResult == null) {
+                Timber.tag(TAG).d("tokenResult is Null")
+                postSideEffect(IntroSideEffect.NavigateToSign)
+                return@launch
+            }
+
+            val isAllow = isAllowUserInfoUseCase().getOrNull()
+
+            if (isAllow == null) {
+                Timber.tag(TAG).d("isAllow is Null")
+                postSideEffect(IntroSideEffect.NavigateToSign)
+                return@launch
+            }
+
+            when (isAllow) {
+                true -> postSideEffect(IntroSideEffect.NavigateToMain)
+                false -> postSideEffect(IntroSideEffect.NavigateToSign)
+            }
         }
-    }.stateIn(
-        scope = viewModelScope,
-        initialValue = IntroState.Loading,
-        started = SharingStarted.WhileSubscribed(5_000),
-    )
+    }
 
     companion object {
         private const val TAG = "IntroVM"
     }
-}
-
-
-/**
- * State 설명
- *
- * 차후 JWT가 추가되었을 때 Token의 만료 여부로 sign, main으로 진입 시점을 저장
- *
- * @property Loading
- * @property Sign
- * @property Main
- **/
-sealed interface IntroState {
-    data object Loading : IntroState
-    data object Sign : IntroState
-    data object Main : IntroState
 }
