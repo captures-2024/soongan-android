@@ -1,9 +1,5 @@
 plugins {
     captures("application")
-    captures("compose")
-    captures("test")
-    captures("google-auth")
-    captures("firebase")
 }
 
 android {
@@ -46,39 +42,4 @@ android {
 //            signingConfig = signingConfigs.getByName("release")
         }
     }
-}
-
-dependencies {
-
-    //region core module
-    implementation(project(":core:analytics"))
-    implementation(project(":core:auth"))
-    implementation(project(":core:common"))
-    implementation(project(":core:designSystem"))
-    implementation(project(":core:data"))
-    implementation(project(":core:datastore"))
-    implementation(project(":core:domain"))
-    implementation(project(":core:model"))
-    implementation(project(":core:navigator"))
-    implementation(project(":core:network"))
-    //endregion
-
-    //region feature module
-    implementation(project(":feature:awards"))
-    implementation(project(":feature:feed"))
-    implementation(project(":feature:home"))
-    implementation(project(":feature:intro"))
-    implementation(project(":feature:main"))
-    implementation(project(":feature:privacyPolicy"))
-    implementation(project(":feature:profile"))
-    implementation(project(":feature:sign"))
-    implementation(project(":feature:signIn"))
-    implementation(project(":feature:signUp"))
-    implementation(project(":feature:termsOfUse"))
-    implementation(project(":feature:welcome"))
-    //endregion
-
-    androidTestImplementation(libs.ui.test.junit4)
-    implementation(libs.startup)
-    implementation(libs.kakao.login)
 }

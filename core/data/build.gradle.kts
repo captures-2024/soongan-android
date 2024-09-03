@@ -1,5 +1,6 @@
 plugins {
     captures("library")
+    captures("network")
 }
 
 android {
@@ -9,7 +10,4 @@ android {
 dependencies {
     implementation(project(":core:datastore"))
     implementation(project(":core:model"))
-
-    implementation(libs.bundles.retrofit)
-    implementation(platform(libs.okhttp.bom))
 }

@@ -6,15 +6,13 @@ import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 
-class KotlinSerializationPlugin : Plugin<Project> {
-    override fun apply(target: Project) = with(target) {
-        with(plugins) {
-            apply("org.jetbrains.kotlin.plugin.serialization")
-        }
+class TimberPlugin : Plugin<Project> {
 
+    override fun apply(target: Project) = with(target) {
         val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
         dependencies {
-            add("implementation", libs.findLibrary("kotlin.serialization.json").get())
+            add("implementation", libs.findLibrary("timber").get())
         }
     }
+
 }

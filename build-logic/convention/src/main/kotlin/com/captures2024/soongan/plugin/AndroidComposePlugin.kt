@@ -7,7 +7,7 @@ import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 
-class ComposePlugin : Plugin<Project> {
+class AndroidComposePlugin : Plugin<Project> {
     override fun apply(target: Project) = with(target) {
         val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
         extensions.getByType<BaseExtension>().apply {
@@ -20,8 +20,8 @@ class ComposePlugin : Plugin<Project> {
         }
 
         dependencies {
-            "implementation"(platform(libs.findLibrary("compose.bom").get()))
-            "implementation"(libs.findBundle("compose").get())
+            add("implementation", platform(libs.findLibrary("compose.bom").get()))
+            add("implementation", libs.findBundle("compose").get())
         }
     }
 }

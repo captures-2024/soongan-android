@@ -1,7 +1,6 @@
 plugins {
-    captures("library")
-    captures("compose")
-    captures("google-auth")
+    captures("feature")
+    captures("google_auth")
     captures("firebase")
 }
 
@@ -10,18 +9,10 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:analytics"))
     implementation(project(":core:auth"))
-    implementation(project(":core:common"))
-    implementation(project(":core:designSystem"))
-    implementation(project(":core:model"))
-    implementation(project(":core:navigator"))
 
     implementation(project(":feature:privacyPolicy"))
     implementation(project(":feature:signIn"))
     implementation(project(":feature:signUp"))
     implementation(project(":feature:termsOfUse"))
-
-    implementation(libs.firebase.auth)
-    implementation(libs.firebase.messaging)
 }
