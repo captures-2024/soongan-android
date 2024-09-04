@@ -1,6 +1,5 @@
 package com.captures2024.soongan.feature.home.ui.gallery
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -48,7 +47,7 @@ import com.captures2024.soongan.feature.home.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun HomeGalleryTopBar(
+internal fun HomeGalleryListTopBar(
     modifier: Modifier = Modifier,
     onClickBack: () -> Unit = {},
     lazyStaggeredGridState: LazyStaggeredGridState = rememberLazyStaggeredGridState()
@@ -197,6 +196,6 @@ enum class FilterContestPhoto {
 
 @DevicePreviews
 @Composable
-private fun HomeGalleryTopBarPreview() {
-    HomeGalleryTopBar()
+private fun HomeGalleryListTopBarPreview() {
+    HomeGalleryListTopBar()
 }

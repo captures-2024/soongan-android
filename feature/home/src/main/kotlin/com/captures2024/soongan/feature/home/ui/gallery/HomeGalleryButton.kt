@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.captures2024.soongan.core.designsystem.theme.PrimaryA
 import com.captures2024.soongan.core.designsystem.theme.dropShadow
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 
@@ -24,7 +25,7 @@ internal fun HomeGalleryButton(
         .size(44.dp)
         .dropShadow(
             shape = CircleShape,
-            color = Color(0x40000000),
+            color = Color(0xFF000000).copy(alpha = 0.25f),
             blur = 4.dp,
             offsetX = 0.dp,
             offsetY = 2.dp
