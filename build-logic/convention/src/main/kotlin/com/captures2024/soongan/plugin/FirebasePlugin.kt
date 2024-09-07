@@ -14,9 +14,10 @@ class FirebasePlugin : Plugin<Project> {
         dependencies {
             val bom = libs.findLibrary("firebase").get()
             add("implementation", platform(bom))
-//            "implementation"(libs.findLibrary("firebase.analytics").get())
-//            "implementation"(libs.findLibrary("firebase.crashlytics").get())
-//            "implementation"(libs.findLibrary("firebase.messaging").get())
+            add("implementation", libs.findLibrary("firebase.auth").get())
+            add("implementation", libs.findLibrary("firebase.analytics").get())
+//            add("implementation", libs.findLibrary("firebase.crashlytics").get())
+            add("implementation", libs.findLibrary("firebase.messaging").get())
         }
     }
 

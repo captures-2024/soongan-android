@@ -31,12 +31,12 @@ class AndroidTestPlugin : Plugin<Project> {
         }
 
         dependencies {
-            "testImplementation"(libs.findLibrary("junit").get())
-            "debugImplementation"(libs.findLibrary("truth").get())
-            "testImplementation"(libs.findLibrary("robolectric").get())
-            "androidTestImplementation"(libs.findBundle("androidx.android.test").get())
-            "androidTestImplementation"(libs.findLibrary("ui.test.junit4").get())
-            "debugImplementation"(libs.findLibrary("ui.test.manifest").get())
+            add("testImplementation", libs.findLibrary("junit").get())
+            add("debugImplementation", libs.findLibrary("truth").get())
+            add("testImplementation", libs.findLibrary("robolectric").get())
+            add("androidTestImplementation", libs.findBundle("androidx.android.test").get())
+            add("androidTestImplementation", libs.findLibrary("ui.test.junit4").get())
+            add("debugImplementation", libs.findLibrary("ui.test.manifest").get())
         }
     }
 }

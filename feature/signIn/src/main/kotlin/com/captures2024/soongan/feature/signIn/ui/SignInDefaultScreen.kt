@@ -19,7 +19,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavOptions
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconLogoApple

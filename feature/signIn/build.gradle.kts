@@ -1,8 +1,6 @@
 plugins {
-    captures("library")
-    captures("compose")
+    captures("feature")
     captures("firebase")
-    captures("test")
 }
 
 android {
@@ -10,11 +8,5 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:common"))
-    implementation(project(":core:designSystem"))
-    implementation(project(":core:domain"))
-    implementation(project(":core:model"))
-    implementation(project(":core:navigator"))
 
-    implementation(libs.firebase.auth)
 }

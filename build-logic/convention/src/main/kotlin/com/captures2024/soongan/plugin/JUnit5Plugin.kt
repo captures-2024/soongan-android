@@ -14,11 +14,11 @@ class JUnit5Plugin : Plugin<Project> {
         val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
         dependencies {
-            "testImplementation"(libs.findBundle("junit5").get())
-            "androidTestImplementation"(libs.findLibrary("junit5").get())
-            "androidTestImplementation"(libs.findLibrary("junit5.params").get())
-            "androidTestImplementation"(libs.findLibrary("junit5.android.test.core").get())
-            "androidTestRuntimeOnly"(libs.findLibrary("junit5.android.test.runner").get())
+            add("testImplementation", libs.findBundle("junit5").get())
+            add("androidTestImplementation", libs.findLibrary("junit5").get())
+            add("androidTestImplementation", libs.findLibrary("junit5.params").get())
+            add("androidTestImplementation", libs.findLibrary("junit5.android.test.core").get())
+            add("androidTestRuntimeOnly", libs.findLibrary("junit5.android.test.runner").get())
         }
     }
 }

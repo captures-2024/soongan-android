@@ -1,6 +1,5 @@
 plugins {
-    captures("library")
-    captures("compose")
+    captures("feature")
 }
 
 android {
@@ -8,5 +7,5 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:designSystem"))
+
 }

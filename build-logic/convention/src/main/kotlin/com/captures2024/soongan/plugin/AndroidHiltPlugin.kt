@@ -15,11 +15,11 @@ class AndroidHiltPlugin : Plugin<Project> {
 
         val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
         dependencies {
-            "implementation"(libs.findLibrary("hilt").get())
-            "ksp"(libs.findLibrary("hilt.compiler").get())
-            "testImplementation"(libs.findLibrary("hilt.testing").get())
-            "kspTest"(libs.findLibrary("hilt.testing.compiler").get())
-            "implementation"(libs.findLibrary("hilt-navigation-compose").get())
+            add("implementation", libs.findLibrary("hilt").get())
+            add("ksp", libs.findLibrary("hilt.compiler").get())
+            add("testImplementation", libs.findLibrary("hilt.testing").get())
+            add("kspTest", libs.findLibrary("hilt.testing.compiler").get())
+            add("implementation", libs.findLibrary("hilt-navigation-compose").get())
         }
     }
 }

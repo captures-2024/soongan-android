@@ -49,8 +49,15 @@ internal fun SoonGanBottomBar(
     }
 }
 
-internal fun NavDestination?.isTopLevelDestinationInHierarchy(destination: TopLevelDestination) =
-    this?.hierarchy
+internal fun NavDestination?.isTopLevelDestinationInHierarchy(destination: TopLevelDestination): Boolean {
+    return this?.hierarchy
         ?.any {
-            it.route?.contains(destination.name, true) ?: false
+            it.route
+                ?.split(".")
+                ?.lastOrNull()
+                ?.removeSuffix("Navigator")
+                ?.equals(destination.name, true)
+                ?: false
         } ?: false
+}
+

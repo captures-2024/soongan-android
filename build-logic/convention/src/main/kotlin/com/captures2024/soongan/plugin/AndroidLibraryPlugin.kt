@@ -5,7 +5,9 @@ import org.gradle.api.Project
 
 class AndroidLibraryPlugin : Plugin<Project> {
     override fun apply(target: Project) = with(target) {
-        plugins.apply("com.android.library")
+        with(plugins) {
+            apply("com.android.library")
+        }
         configureAndroidCommonPlugin()
     }
 }

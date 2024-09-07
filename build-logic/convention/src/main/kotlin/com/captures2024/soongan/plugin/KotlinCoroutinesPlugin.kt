@@ -11,8 +11,8 @@ class KotlinCoroutinesPlugin : Plugin<Project> {
     override fun apply(target: Project) = with(target) {
         val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
         dependencies {
-            "implementation"(libs.findLibrary("kotlin.coroutines.google.play").get())
-            "implementation"(libs.findLibrary("kotlin.coroutines").get())
+            add("implementation", libs.findLibrary("kotlin.coroutines.google.play").get())
+            add("implementation", libs.findLibrary("kotlin.coroutines").get())
         }
     }
 }

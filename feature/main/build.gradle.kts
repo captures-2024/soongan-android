@@ -1,6 +1,5 @@
 plugins {
-    captures("library")
-    captures("compose")
+    captures("feature")
 }
 
 android {
@@ -8,11 +7,6 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:analytics"))
-    implementation(project(":core:common"))
-    implementation(project(":core:designSystem"))
-    implementation(project(":core:navigator"))
-
     implementation(project(":feature:awards"))
     implementation(project(":feature:feed"))
     implementation(project(":feature:home"))

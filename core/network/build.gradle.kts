@@ -1,6 +1,6 @@
 plugins {
     captures("library")
-    captures("serialization")
+    captures("network")
 }
 
 android {

@@ -1,6 +1,6 @@
 plugins {
     captures("library")
-    captures("google-auth")
+    captures("google_auth")
     captures("firebase")
 }
 
@@ -11,6 +11,5 @@ android {
 dependencies {
     implementation(project(":core:model"))
 
-    implementation(libs.firebase.auth)
     implementation(libs.kakao.login)
 }
