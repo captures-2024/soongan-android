@@ -437,6 +437,9 @@ private fun MainBottomIcon(
 @DevicePreviews
 @Composable
 private fun HomeScreenPreview() {
+    HomeScreen {
+
+    }
 }
 
 enum class ContestPeriod {

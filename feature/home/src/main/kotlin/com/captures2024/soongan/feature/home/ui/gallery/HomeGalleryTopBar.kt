@@ -16,10 +16,6 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -39,122 +35,126 @@ import com.captures2024.soongan.core.designsystem.theme.PrimaryA
 import com.captures2024.soongan.core.designsystem.theme.PrimaryC
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.home.R
+import com.captures2024.soongan.feature.home.ui.component.HomeGalleryButton
+import com.captures2024.soongan.feature.home.utils.GalleryPhotoSortFilter
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun HomeGalleryTopBar(
     modifier: Modifier = Modifier,
     lazyStaggeredGridState: LazyStaggeredGridState = rememberLazyStaggeredGridState(),
+    isShowBottomSheet: Boolean,
+    sortOrder: GalleryPhotoSortFilter,
     onBackPressed: () -> Unit = {},
     onClickFilter: () -> Unit = {},
+    onClickSortFilter: (GalleryPhotoSortFilter) -> Unit = {},
     onBottomModalDismissRequest: () -> Unit = {}
 ) {
-//    var scrolledY = 0f
-//    var previousOffset = 0
-//
-//    Row(
-//        modifier = modifier
-//            .graphicsLayer {
-//                scrolledY += lazyStaggeredGridState.firstVisibleItemScrollOffset - previousOffset
-//                translationY = scrolledY * 0.5f
-//                previousOffset = lazyStaggeredGridState.firstVisibleItemScrollOffset
-//            }
-//            .fillMaxWidth()
-//            .height(100.dp)
-//            .padding(20.dp),
-//        verticalAlignment = Alignment.CenterVertically,
-//        horizontalArrangement = Arrangement.SpaceBetween,
-//    ) {
-//        HomeGalleryButton(onClick = onBackPressed) {
-//            Icon(
-//                imageVector = MyIconPack.IconNonFillLeftArrow,
-//                contentDescription = "",
-//                tint = PrimaryA,
-//                modifier = Modifier.size(
-//                    width = 20.dp,
-//                    height = 16.dp
-//                )
-//            )
-//        }
-//        Row {
-//            NonScaleText(
-//                text = "주간",
-//                color = Color.Black,
-//                fontSize = 24.sp,
-//                fontWeight = FontWeight.Medium
-//            )
-//            Spacer(modifier = Modifier.width(8.dp))
-//            NonScaleText(
-//                text = "|",
-//                color = Color.Black,
-//                fontSize = 24.sp,
-//                fontWeight = FontWeight.Medium
-//            )
-//            Spacer(modifier = Modifier.width(8.dp))
-//            NonScaleText(
-//                text = "평화",
-//                color = Color.Black,
-//                fontSize = 24.sp,
-//                fontWeight = FontWeight.Medium
-//            )
-//        }
-//
-//        HomeGalleryButton(onClick = onClickFilter) {
-//            Icon(
-//                imageVector = MyIconPack.IconNonFillFillter,
-//                contentDescription = "",
-//                tint = PrimaryA,
-//                modifier = Modifier.size(
-//                    width = 20.dp,
-//                    height = 20.dp
-//                )
-//            )
-//        }
-//
-//        if (showBottomSheet) {
-//            ModalBottomSheet(
-//                onDismissRequest = onBottomModalDismissRequest,
-//                containerColor = Color.White,
-//            ) {
-//                Column(
-//                    modifier = Modifier.padding(
-//                        horizontal = 20.dp,
-//                        vertical = 20.dp
-//                    )
-//                ) {
-//                    HomeGalleryFilterItem(
-//                        text = stringResource(id = R.string.filter_likes),
-//                        icon = MyIconPack.IconFilterLike,
-//                        selected = sortOrder == FilterContestPhoto.LIKES,
-//                        onClickItem =
-//                    ) {
-//                        sortOrder = FilterContestPhoto.LIKES
-//                    }
-//                    HorizontalDivider(color = PrimaryC)
-//                    HomeGalleryFilterItem(
-//                        stringResource(id = R.string.filter_oldest),
-//                        MyIconPack.IconFilterOld,
-//                        sortOrder == FilterContestPhoto.OLDEST
-//                    ){
-//                        sortOrder = FilterContestPhoto.OLDEST
-//                    }
-//                    HorizontalDivider(color = PrimaryC)
-//                    HomeGalleryFilterItem(
-//                        stringResource(id = R.string.filter_newest),
-//                        MyIconPack.IconFilterNew,
-//                        sortOrder == FilterContestPhoto.NEWEST
-//                    ) {
-//                        sortOrder = FilterContestPhoto.NEWEST
-//                    }
-//                }
-//            }
-//        }
-//    }
+    var scrolledY = 0f
+    var previousOffset = 0
+
+    Row(
+        modifier = modifier
+            .graphicsLayer {
+                scrolledY += lazyStaggeredGridState.firstVisibleItemScrollOffset - previousOffset
+                translationY = scrolledY * 0.5f
+                previousOffset = lazyStaggeredGridState.firstVisibleItemScrollOffset
+            }
+            .fillMaxWidth()
+            .height(100.dp)
+            .padding(20.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween,
+    ) {
+        HomeGalleryButton(onClick = onBackPressed) {
+            Icon(
+                imageVector = MyIconPack.IconNonFillLeftArrow,
+                contentDescription = "",
+                tint = PrimaryA,
+                modifier = Modifier.size(
+                    width = 20.dp,
+                    height = 16.dp
+                )
+            )
+        }
+        Row {
+            NonScaleText(
+                text = stringResource(id = R.string.home_gallery_top_week_example),
+                color = Color.Black,
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Medium
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            NonScaleText(
+                text = stringResource(id = R.string.home_gallery_top_split),
+                color = Color.Black,
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Medium
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            NonScaleText(
+                text = stringResource(id = R.string.home_gallery_top_topic_example),
+                color = Color.Black,
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Medium
+            )
+        }
+
+        HomeGalleryButton(onClick = onClickFilter) {
+            Icon(
+                imageVector = MyIconPack.IconNonFillFillter,
+                contentDescription = "",
+                tint = PrimaryA,
+                modifier = Modifier.size(
+                    width = 20.dp,
+                    height = 20.dp
+                )
+            )
+        }
+
+        if (isShowBottomSheet) {
+            ModalBottomSheet(
+                onDismissRequest = onBottomModalDismissRequest,
+                containerColor = Color.White,
+            ) {
+                Column(
+                    modifier = Modifier.padding(
+                        horizontal = 20.dp,
+                        vertical = 20.dp
+                    )
+                ) {
+                    HomeGalleryFilterItem(
+                        text = stringResource(id = R.string.filter_likes),
+                        icon = MyIconPack.IconFilterLike,
+                        selected = sortOrder == GalleryPhotoSortFilter.LIKES,
+                        onClickItem = { onClickSortFilter(GalleryPhotoSortFilter.LIKES) }
+                    )
+                    HorizontalDivider(color = PrimaryC)
+                    HomeGalleryFilterItem(
+                        text = stringResource(id = R.string.filter_oldest),
+                        icon = MyIconPack.IconFilterOld,
+                        selected = sortOrder == GalleryPhotoSortFilter.OLDEST,
+                        onClickItem = { onClickSortFilter(GalleryPhotoSortFilter.OLDEST) }
+                    )
+                    HorizontalDivider(color = PrimaryC)
+                    HomeGalleryFilterItem(
+                        text = stringResource(id = R.string.filter_newest),
+                        icon = MyIconPack.IconFilterNew,
+                        selected = sortOrder == GalleryPhotoSortFilter.NEWEST,
+                        onClickItem = { onClickSortFilter(GalleryPhotoSortFilter.NEWEST) }
+                    )
+                }
+            }
+        }
+    }
 }
 
 
 @DevicePreviews
 @Composable
 private fun HomeGalleryTopBarPreview() {
-    HomeGalleryTopBar()
+    HomeGalleryTopBar(
+        isShowBottomSheet = false,
+        sortOrder = GalleryPhotoSortFilter.LIKES
+    )
 }

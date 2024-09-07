@@ -15,12 +15,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
+import com.captures2024.soongan.core.designsystem.icon.MyIconPack
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFilterLike
 import com.captures2024.soongan.core.designsystem.theme.PrimaryA
 import com.captures2024.soongan.core.designsystem.theme.PrimaryC
+import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.feature.home.R
 
 @Composable
 internal fun HomeGalleryFilterItem(
@@ -28,7 +33,7 @@ internal fun HomeGalleryFilterItem(
     text: String,
     icon: ImageVector,
     selected: Boolean,
-    onClickItem: () -> Unit,
+    onClickItem: () -> Unit = {},
 ) {
     Box(
         modifier = modifier
@@ -63,4 +68,14 @@ internal fun HomeGalleryFilterItem(
             )
         }
     }
+}
+
+@DevicePreviews
+@Composable
+private fun HomeGalleryFilterItemPreview() {
+    HomeGalleryFilterItem(
+        text = stringResource(id = R.string.filter_likes),
+        icon = MyIconPack.IconFilterLike,
+        selected = false
+    )
 }

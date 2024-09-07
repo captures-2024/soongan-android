@@ -22,7 +22,7 @@ import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
 import com.captures2024.soongan.core.designsystem.theme.PrimaryA
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
-import com.captures2024.soongan.feature.home.state.ReportType
+import com.captures2024.soongan.feature.home.utils.ReportType
 
 @Composable
 internal fun PostReportDefaultScreen(
