@@ -10,7 +10,6 @@ import com.captures2024.soongan.feature.signUp.NicknameViewModel
 import com.captures2024.soongan.feature.signUp.state.nickname.NicknameIntent
 import com.captures2024.soongan.feature.signUp.state.nickname.NicknameSideEffect
 import com.captures2024.soongan.feature.signUp.ui.InputNicknameScreen
-import timber.log.Timber
 
 @Composable
 internal fun InputNicknameRoute(
@@ -20,7 +19,7 @@ internal fun InputNicknameRoute(
 ) {
     val uiState by nicknameViewModel.state.collectAsStateWithLifecycle()
 
-    Timber.tag("InputNicknameRoute").d("InputNicknameRoute State = $uiState")
+//    Timber.tag("InputNicknameRoute").d("InputNicknameRoute State = $uiState")
 
     LaunchedEffect(Unit) {
         nicknameViewModel.sideEffect.collect {

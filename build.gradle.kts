@@ -7,28 +7,32 @@ buildscript {
     }
 
     dependencies {
-        classpath(libs.kotlin.gradleplugin)
-        classpath(libs.hilt.plugin)
-        classpath(libs.agp)
+        classpath(libs.kotlin.gradle.plugin)
+        classpath(libs.google.dagger.hilt.plugin)
+        classpath(libs.android.gradle.plugin)
         classpath(libs.ktlint)
-        classpath(libs.oss.plugin)
+        classpath(libs.android.oss.plugin)
     }
 }
 
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
+    alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.kotlin.jvm) apply false
+    alias(libs.plugins.kotlin.serialization) apply false
+
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.android.library) apply false
-    alias(libs.plugins.kotlin.android) apply false
+
     alias(libs.plugins.dagger.hilt) apply false
-    alias(libs.plugins.ktlint) apply false
-    alias(libs.plugins.ksp) apply false
-    alias(libs.plugins.kotlinx.serialization) apply false
-    alias(libs.plugins.junit5) apply false
     alias(libs.plugins.google.services) apply false
+    alias(libs.plugins.ksp) apply false
     alias(libs.plugins.secret) apply false
-    alias(libs.plugins.app.distribution) apply false
-    alias(libs.plugins.crashlytics) apply false
+    alias(libs.plugins.google.crashlytics) apply false
+
+    alias(libs.plugins.ktlint) apply false
+
+    alias(libs.plugins.junit5) apply false
 }
 
 tasks.register("clean", Delete::class) {

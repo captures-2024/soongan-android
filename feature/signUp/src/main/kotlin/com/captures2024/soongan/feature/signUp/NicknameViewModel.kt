@@ -10,10 +10,6 @@ import com.captures2024.soongan.feature.signUp.state.nickname.NicknameIntent
 import com.captures2024.soongan.feature.signUp.state.nickname.NicknameSideEffect
 import com.captures2024.soongan.feature.signUp.state.nickname.NicknameUIState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -79,7 +75,7 @@ constructor(
     override fun createInitialState(savedStateHandle: SavedStateHandle): NicknameUIState = NicknameUIState()
 
     override fun handleClientException(throwable: Throwable) {
-        Timber.tag(TAG).e(throwable)
+//        Timber.tag(TAG).e(throwable)
     }
 
     override suspend fun handleIntent(intent: NicknameIntent) {
@@ -109,7 +105,7 @@ constructor(
             val isAllow = isAllowNicknameUseCase(currentState.nickname).getOrNull()
 
             if (isAllow == null) {
-                Timber.tag(TAG).d("isAllow is null")
+//                Timber.tag(TAG).d("isAllow is null")
                 reduce {
                     copy(isLoading = false)
                 }
@@ -120,7 +116,7 @@ constructor(
                 true -> intent(NicknameIntent.RegisterNickname)
 
                 false -> {
-                    Timber.tag(TAG).d("isAllow is false")
+//                    Timber.tag(TAG).d("isAllow is false")
                     reduce {
                         copy(
                             isLoading = false,
@@ -144,7 +140,7 @@ constructor(
     private fun registerNickname() {
         launch {
             if (currentState.isDuplicatedNickname) {
-                Timber.tag(TAG).d("${currentState.nickname} is duplicated")
+//                Timber.tag(TAG).d("${currentState.nickname} is duplicated")
                 reduce {
                     copy(
                         isLoading = false,
@@ -159,7 +155,7 @@ constructor(
             val isRegister = registerNicknameUseCase(currentNickname).getOrNull()
 
             if (isRegister == null) {
-                Timber.tag(TAG).d("isRegister is null")
+//                Timber.tag(TAG).d("isRegister is null")
                 reduce {
                     copy(
                         isLoading = false,
@@ -172,7 +168,7 @@ constructor(
                 true -> postSideEffect(NicknameSideEffect.NavigateToBirthDate)
 
                 false -> {
-                    Timber.tag(TAG).d("${currentState.nickname} post failed")
+//                    Timber.tag(TAG).d("${currentState.nickname} post failed")
                     reduce {
                         copy(
                             isLoading = false,

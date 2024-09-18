@@ -11,10 +11,11 @@ import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 
-class AndroidKotlinPlugin : Plugin<Project> {
+class KotlinAndroidPlugin : Plugin<Project> {
     override fun apply(target: Project) = with(target) {
         with(plugins) {
             apply("kotlin-android")
+            apply("org.jetbrains.kotlin.plugin.serialization")
         }
 
         val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
@@ -38,10 +39,12 @@ class AndroidKotlinPlugin : Plugin<Project> {
         }
 
         dependencies {
-            add("coreLibraryDesugaring", libs.findLibrary("desugarLibs").get())
-            add("implementation", libs.findLibrary("kotlin").get())
+            add("coreLibraryDesugaring", libs.findLibrary("android.desugar.libs").get())
+            add("implementation", libs.findLibrary("kotlin.kotlin").get())
+            add("implementation", libs.findLibrary("kotlin.reflect").get())
             add("implementation", libs.findLibrary("kotlin.coroutines").get())
             add("implementation", libs.findLibrary("kotlin.datetime").get())
+            add("implementation", libs.findLibrary("kotlin.serialization.json").get())
         }
     }
 }

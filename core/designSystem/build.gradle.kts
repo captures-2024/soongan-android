@@ -8,6 +8,6 @@ android {
 }
 
 dependencies {
-    implementation(libs.core.ktx)
-    implementation(libs.splash.screen)
+    implementation(libs.android.xml.core)
+    implementation(libs.android.splash.screen)
 }

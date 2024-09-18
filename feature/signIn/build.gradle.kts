@@ -1,6 +1,6 @@
 plugins {
     captures("feature")
-    captures("firebase")
+    captures("google.firebase")
 }
 
 android {

@@ -15,7 +15,6 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -45,7 +44,7 @@ internal object NetworkModule {
     @Provides
     @Singleton
     fun provideLoggingInterceptor(): HttpLoggingInterceptor = HttpLoggingInterceptor { message ->
-        Timber.tag("ApiService").d(message)
+//        Timber.tag("ApiService").d(message)
     }.apply {
         level = HttpLoggingInterceptor.Level.BODY
 //        level = when (BuildConfig.DEBUG) {

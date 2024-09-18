@@ -8,5 +8,5 @@ android {
 }
 
 dependencies {
-    implementation(libs.compose.runtime)
+    implementation(libs.android.compose.runtime)
 }

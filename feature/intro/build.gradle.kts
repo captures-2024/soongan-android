@@ -7,5 +7,5 @@ android {
 }
 
 dependencies {
-    implementation(libs.splash.screen)
+    implementation(libs.android.splash.screen)
 }

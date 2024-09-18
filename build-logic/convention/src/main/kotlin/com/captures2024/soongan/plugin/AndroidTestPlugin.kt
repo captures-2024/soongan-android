@@ -1,6 +1,8 @@
 package com.captures2024.soongan.plugin
 
 import com.android.build.gradle.BaseExtension
+import com.captures2024.soongan.plugin.extension.androidTestImplementation
+import com.captures2024.soongan.plugin.extension.testImplementation
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
@@ -10,7 +12,10 @@ import org.gradle.kotlin.dsl.getByType
 
 class AndroidTestPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
-        apply<JUnit5Plugin>()
+        with(plugins) {
+            apply("de.mannodermaus.android-junit5")
+        }
+
         val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
         extensions.getByType<BaseExtension>().apply {
@@ -31,12 +36,10 @@ class AndroidTestPlugin : Plugin<Project> {
         }
 
         dependencies {
-            add("testImplementation", libs.findLibrary("junit").get())
-            add("debugImplementation", libs.findLibrary("truth").get())
-            add("testImplementation", libs.findLibrary("robolectric").get())
-            add("androidTestImplementation", libs.findBundle("androidx.android.test").get())
-            add("androidTestImplementation", libs.findLibrary("ui.test.junit4").get())
-            add("debugImplementation", libs.findLibrary("ui.test.manifest").get())
+            testImplementation(libs.findLibrary("test.junit").get())
+            testImplementation(libs.findLibrary("test.truth").get())
+            testImplementation(libs.findLibrary("test.robolectric").get())
+            androidTestImplementation(libs.findBundle("androidx.android.test").get())
         }
     }
 }

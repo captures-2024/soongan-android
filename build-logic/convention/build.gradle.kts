@@ -11,9 +11,9 @@ java {
 
 
 dependencies {
-    compileOnly(libs.agp)
-    compileOnly(libs.kotlin.gradleplugin)
-    compileOnly(libs.ksp.gradlePlugin)
+    compileOnly(libs.android.gradle.plugin)
+    compileOnly(libs.kotlin.gradle.plugin)
+    compileOnly(libs.google.ksp.gradle.plugin)
 }
 
 gradlePlugin {
@@ -34,10 +34,6 @@ gradlePlugin {
             id = "com.captures2024.soongan.hilt"
             implementationClass = "com.captures2024.soongan.plugin.AndroidHiltPlugin"
         }
-        create("android-kotlin") {
-            id = "com.captures2024.soongan.kotlin"
-            implementationClass = "com.captures2024.soongan.plugin.AndroidKotlinPlugin"
-        }
         create("android-library") {
             id = "com.captures2024.soongan.library"
             implementationClass = "com.captures2024.soongan.plugin.AndroidLibraryPlugin"
@@ -48,35 +44,27 @@ gradlePlugin {
         }
         create("android-room") {
             id = "com.captures2024.soongan.room"
-            implementationClass = "com.captures2024.soongan.plugin.AndroidRoomConventionPlugin"
+            implementationClass = "com.captures2024.soongan.plugin.AndroidRoomPlugin"
         }
         create("android-test") {
             id = "com.captures2024.soongan.test"
             implementationClass = "com.captures2024.soongan.plugin.AndroidTestPlugin"
         }
-        create("android-firebase") {
-            id = "com.captures2024.soongan.firebase"
-            implementationClass = "com.captures2024.soongan.plugin.FirebasePlugin"
-        }
-        create("android-google-auth") {
-            id = "com.captures2024.soongan.google_auth"
+        create("google-auth") {
+            id = "com.captures2024.soongan.google.auth"
             implementationClass = "com.captures2024.soongan.plugin.GoogleAuthPlugin"
         }
-        create("android-junit5") {
-            id = "ccom.captures2024.soongan.junit5"
-            implementationClass = "com.captures2024.soongan.plugin.JUnit5Plugin"
+        create("google-firebase") {
+            id = "com.captures2024.soongan.google.firebase"
+            implementationClass = "com.captures2024.soongan.plugin.GoogleFirebasePlugin"
         }
-        create("kotlin-coroutines") {
-            id = "ccom.captures2024.soongan.coroutines"
-            implementationClass = "com.captures2024.soongan.plugin.KotlinCoroutinesPlugin"
+        create("kotest") {
+            id = "com.captures2024.soongan.kotest"
+            implementationClass = "com.captures2024.soongan.plugin.KotestPlugin"
         }
-        create("kotlin-serialization") {
-            id = "com.captures2024.soongan.serialization"
-            implementationClass = "com.captures2024.soongan.plugin.KotlinSerializationPlugin"
-        }
-        create("timber") {
-            id = "com.captures2024.soongan.timber"
-            implementationClass = "com.captures2024.soongan.plugin.TimberPlugin"
+        create("kotlin-android") {
+            id = "com.captures2024.soongan.kotlin.android"
+            implementationClass = "com.captures2024.soongan.plugin.KotlinAndroidPlugin"
         }
     }
 }

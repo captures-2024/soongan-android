@@ -7,5 +7,5 @@ android {
 }
 
 dependencies {
-    implementation(libs.datastore.preferences)
+    implementation(libs.android.datastore.preferences)
 }

@@ -10,7 +10,6 @@ import com.captures2024.soongan.core.common.Validation
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.signUp.R
 import com.captures2024.soongan.feature.signUp.state.birthdate.BirthDateUIState
-import timber.log.Timber
 
 @Composable
 internal fun InputBirthYearScreen(
@@ -20,7 +19,7 @@ internal fun InputBirthYearScreen(
     onValueChange: (String) -> Unit = {}
 ) {
     val isValid = Validation.isValidBirthYear(state.birthDate)
-    Timber.tag("InputBirthYearScreen").d("isValid = $isValid")
+//    Timber.tag("InputBirthYearScreen").d("isValid = $isValid")
 
 
     Scaffold(

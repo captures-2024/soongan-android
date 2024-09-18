@@ -6,12 +6,10 @@ import com.captures2024.soongan.core.domain.usecase.fcm.InitFcmUseCase
 import com.captures2024.soongan.core.domain.usecase.members.IsAllowUserInfoUseCase
 import com.captures2024.soongan.core.domain.usecase.members.SigningGoogleUseCase
 import com.captures2024.soongan.core.domain.usecase.members.SigningKakaoUseCase
-import com.captures2024.soongan.core.model.network.SocialSignType
 import com.captures2024.soongan.feature.signIn.state.SignInIntent
 import com.captures2024.soongan.feature.signIn.state.SignInSideEffect
 import com.captures2024.soongan.feature.signIn.state.SignInUIState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,7 +26,7 @@ constructor(
     override fun createInitialState(savedStateHandle: SavedStateHandle): SignInUIState = SignInUIState()
 
     override fun handleClientException(throwable: Throwable) {
-        Timber.tag(TAG).e(throwable)
+//        Timber.tag(TAG).e(throwable)
     }
 
     override suspend fun handleIntent(intent: SignInIntent) {
@@ -96,12 +94,12 @@ constructor(
         ).getOrNull()
 
         if (result == null) {
-            Timber.tag(TAG).d("errorMessage = result is Null")
+//            Timber.tag(TAG).d("errorMessage = result is Null")
             intent(SignInIntent.FailedSignGoogle)
             return@launch
         }
 
-        Timber.tag(TAG).d("result = $result")
+//        Timber.tag(TAG).d("result = $result")
 
         when (result) {
             true -> isAllowCheck()

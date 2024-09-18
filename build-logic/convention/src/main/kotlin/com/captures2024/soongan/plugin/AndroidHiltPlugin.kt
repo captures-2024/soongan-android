@@ -1,5 +1,8 @@
 package com.captures2024.soongan.plugin
 
+import com.captures2024.soongan.plugin.extension.implementation
+import com.captures2024.soongan.plugin.extension.ksp
+import com.captures2024.soongan.plugin.extension.testImplementation
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
@@ -14,12 +17,14 @@ class AndroidHiltPlugin : Plugin<Project> {
         }
 
         val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
+
         dependencies {
-            add("implementation", libs.findLibrary("hilt").get())
-            add("ksp", libs.findLibrary("hilt.compiler").get())
-            add("testImplementation", libs.findLibrary("hilt.testing").get())
-            add("kspTest", libs.findLibrary("hilt.testing.compiler").get())
-            add("implementation", libs.findLibrary("hilt-navigation-compose").get())
+            implementation(libs.findLibrary("google.dagger.hilt").get())
+            ksp(libs.findLibrary("google.dagger.hilt.compiler").get())
+            testImplementation(libs.findLibrary("google.dagger.hilt.testing").get())
+            testImplementation(libs.findLibrary("google.dagger.hilt.testing.compiler").get())
+            ksp(libs.findLibrary("google.dagger.hilt.testing.compiler").get())
+            implementation(libs.findLibrary("google.dagger.hilt.navigation.compose").get())
         }
     }
 }

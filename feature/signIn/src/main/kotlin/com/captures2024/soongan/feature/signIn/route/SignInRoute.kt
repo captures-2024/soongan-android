@@ -10,7 +10,6 @@ import com.captures2024.soongan.feature.signIn.state.SignInIntent
 import com.captures2024.soongan.feature.signIn.state.SignInSideEffect
 import com.captures2024.soongan.feature.signIn.ui.SignInDefaultScreen
 import com.captures2024.soongan.feature.signIn.ui.SignInLoadingScreen
-import timber.log.Timber
 
 @Composable
 internal fun SignInRoute(
@@ -27,7 +26,7 @@ internal fun SignInRoute(
 
     LaunchedEffect(Unit) {
         signInViewModel.sideEffect.collect {
-            Timber.tag("SignInRoute").d("Collected sideEffect = $it")
+//            Timber.tag("SignInRoute").d("Collected sideEffect = $it")
             when (it) {
                 is SignInSideEffect.AppleSignIn -> appleSignIn()
 

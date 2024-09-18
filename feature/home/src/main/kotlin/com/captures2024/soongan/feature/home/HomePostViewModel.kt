@@ -10,7 +10,6 @@ import com.captures2024.soongan.feature.home.state.post.HomePostSideEffect
 import com.captures2024.soongan.feature.home.state.post.HomePostUIState
 import com.captures2024.soongan.feature.home.utils.HomePostBottomModal
 import dagger.hilt.android.lifecycle.HiltViewModel
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -33,7 +32,7 @@ constructor(
     }
 
     override fun handleClientException(throwable: Throwable) {
-        Timber.tag(TAG).e(throwable)
+//        Timber.tag(TAG).e(throwable)
     }
 
     override suspend fun handleIntent(intent: HomePostIntent) {

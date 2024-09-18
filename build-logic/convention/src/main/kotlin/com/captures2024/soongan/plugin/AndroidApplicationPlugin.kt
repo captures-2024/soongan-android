@@ -1,12 +1,14 @@
 package com.captures2024.soongan.plugin
 
 import com.android.build.gradle.BaseExtension
+import com.captures2024.soongan.plugin.extension.implementation
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
+import java.util.Properties
 
 class AndroidApplicationPlugin : Plugin<Project> {
     override fun apply(target: Project) = with(target) {
@@ -17,8 +19,10 @@ class AndroidApplicationPlugin : Plugin<Project> {
 
         apply<AndroidComposePlugin>()
         apply<AndroidTestPlugin>()
-        apply<FirebasePlugin>()
-        apply<GoogleAuthPlugin>()
+
+        val properties = Properties().apply {
+            load(rootProject.file("local.properties").inputStream())
+        }
 
         extensions.getByType<BaseExtension>().apply {
             defaultConfig {
@@ -48,36 +52,37 @@ class AndroidApplicationPlugin : Plugin<Project> {
         configureAndroidCommonPlugin()
 
         val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
+
         dependencies {
-            add("implementation", project(":core:analytics"))
-            add("implementation", project(":core:auth"))
-            add("implementation", project(":core:common"))
-            add("implementation", project(":core:data"))
-            add("implementation", project(":core:datastore"))
-            add("implementation", project(":core:designSystem"))
-            add("implementation", project(":core:domain"))
-            add("implementation", project(":core:model"))
-            add("implementation", project(":core:navigator"))
-            add("implementation", project(":core:network"))
+            implementation(project(":core:analytics"))
+            implementation(project(":core:auth"))
+            implementation(project(":core:common"))
+            implementation(project(":core:data"))
+            implementation(project(":core:datastore"))
+            implementation(project(":core:designSystem"))
+            implementation(project(":core:domain"))
+            implementation(project(":core:model"))
+            implementation(project(":core:navigator"))
+            implementation(project(":core:network"))
 
-            add("implementation", project(":feature:awards"))
-            add("implementation", project(":feature:feed"))
-            add("implementation", project(":feature:home"))
-            add("implementation", project(":feature:intro"))
-            add("implementation", project(":feature:main"))
-            add("implementation", project(":feature:privacyPolicy"))
-            add("implementation", project(":feature:sign"))
-            add("implementation", project(":feature:signIn"))
-            add("implementation", project(":feature:signUp"))
-            add("implementation", project(":feature:termsOfUse"))
-            add("implementation", project(":feature:welcome"))
+            implementation(project(":feature:awards"))
+            implementation(project(":feature:feed"))
+            implementation(project(":feature:home"))
+            implementation(project(":feature:intro"))
+            implementation(project(":feature:main"))
+            implementation(project(":feature:privacyPolicy"))
+            implementation(project(":feature:sign"))
+            implementation(project(":feature:signIn"))
+            implementation(project(":feature:signUp"))
+            implementation(project(":feature:termsOfUse"))
+            implementation(project(":feature:welcome"))
 
-            add("implementation", libs.findLibrary("core.ktx").get())
-            add("implementation", libs.findBundle("lifecycle").get())
-            add("implementation", libs.findLibrary("splash-screen").get())
-            add("implementation", libs.findLibrary("kakao.login").get())
-            add("implementation", libs.findLibrary("startup").get())
-            add("implementation", libs.findLibrary("coil.compose").get())
+            implementation(libs.findLibrary("android.xml.core").get())
+            implementation(libs.findBundle("lifecycle").get())
+            implementation(libs.findLibrary("android.splash.screen").get())
+            implementation(libs.findLibrary("kakao.login").get())
+            implementation(libs.findLibrary("android.startup").get())
+            implementation(libs.findLibrary("coil.compose").get())
         }
     }
 }

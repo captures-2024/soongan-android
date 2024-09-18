@@ -1,10 +1,10 @@
 package com.captures2024.soongan.plugin
 
 import com.android.build.gradle.BaseExtension
-import java.util.Properties
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.getByType
+import java.util.Properties
 
 internal fun Project.configureAndroidCommonPlugin() {
     val properties = Properties().apply {
@@ -16,11 +16,9 @@ internal fun Project.configureAndroidCommonPlugin() {
         apply("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
     }
 
-    apply<AndroidKotlinPlugin>()
-    apply<KotlinSerializationPlugin>()
-    apply<KotlinCoroutinesPlugin>()
     apply<AndroidHiltPlugin>()
-    apply<TimberPlugin>()
+    apply<KotlinAndroidPlugin>()
+    apply<KotestPlugin>()
 
     extensions.getByType<BaseExtension>().apply {
         defaultConfig {

@@ -1,7 +1,7 @@
 plugins {
     captures("library")
-    captures("google_auth")
-    captures("firebase")
+    captures("google.auth")
+    captures("google.firebase")
 }
 
 android {

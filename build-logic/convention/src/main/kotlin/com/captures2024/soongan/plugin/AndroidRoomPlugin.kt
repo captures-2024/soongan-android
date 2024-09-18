@@ -1,5 +1,7 @@
 package com.captures2024.soongan.plugin
 
+import com.captures2024.soongan.plugin.extension.implementation
+import com.captures2024.soongan.plugin.extension.ksp
 import com.google.devtools.ksp.gradle.KspExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -13,7 +15,7 @@ import org.gradle.kotlin.dsl.getByType
 import org.gradle.process.CommandLineArgumentProvider
 import java.io.File
 
-class AndroidRoomConventionPlugin : Plugin<Project> {
+class AndroidRoomPlugin : Plugin<Project> {
 
     override fun apply(target: Project) = with(target) {
         with(plugins) {
@@ -30,9 +32,9 @@ class AndroidRoomConventionPlugin : Plugin<Project> {
         }
 
         dependencies {
-            add("implementation", libs.findLibrary("room.runtime").get())
-            add("implementation", libs.findLibrary("room.ktx").get())
-            add("ksp", libs.findLibrary("room.compiler").get())
+            implementation(libs.findLibrary("android.room.runtime").get())
+            implementation(libs.findLibrary("android.room.ktx").get())
+            ksp(libs.findLibrary("android.room.compiler").get())
         }
     }
 

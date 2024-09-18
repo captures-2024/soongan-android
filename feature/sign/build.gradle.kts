@@ -1,7 +1,7 @@
 plugins {
     captures("feature")
-    captures("google_auth")
-    captures("firebase")
+    captures("google.auth")
+    captures("google.firebase")
 }
 
 android {

@@ -8,7 +8,6 @@ import com.captures2024.soongan.feature.signUp.state.birthdate.BirthDateIntent
 import com.captures2024.soongan.feature.signUp.state.birthdate.BirthDateSideEffect
 import com.captures2024.soongan.feature.signUp.state.birthdate.BirthDateUIState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,7 +23,7 @@ constructor(
     }
 
     override fun handleClientException(throwable: Throwable) {
-        Timber.tag(TAG).e(throwable)
+//        Timber.tag(TAG).e(throwable)
     }
 
     override suspend fun handleIntent(intent: BirthDateIntent) {

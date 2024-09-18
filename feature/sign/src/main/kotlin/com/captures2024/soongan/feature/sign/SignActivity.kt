@@ -31,7 +31,6 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -63,7 +62,7 @@ class SignActivity : ComponentActivity() {
         FirebaseMessaging.getInstance().token.addOnCompleteListener(
             OnCompleteListener { task ->
                 if (!task.isSuccessful) {
-                    Timber.tag(TAG).e(task.exception, "Fetching FCM registration token failed")
+//                    Timber.tag(TAG).e(task.exception, "Fetching FCM registration token failed")
                     return@OnCompleteListener
                 }
 
