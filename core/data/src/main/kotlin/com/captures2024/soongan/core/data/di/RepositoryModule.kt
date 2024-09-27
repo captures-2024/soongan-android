@@ -27,5 +27,4 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindFcmRepository(fcmRepositoryImpl: FcmRepositoryImpl): FcmRepository
-
 }

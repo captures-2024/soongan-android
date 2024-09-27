@@ -1,15 +1,15 @@
 package com.captures2024.soongan.plugin
 
 import com.android.build.gradle.BaseExtension
+import com.captures2024.soongan.plugin.extension.implementation
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
-import org.gradle.api.plugins.ExtensionAware
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
-import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
+import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 
 class KotlinAndroidPlugin : Plugin<Project> {
     override fun apply(target: Project) = with(target) {
@@ -33,18 +33,19 @@ class KotlinAndroidPlugin : Plugin<Project> {
                 targetCompatibility = JavaVersion.VERSION_17
             }
 
-            (this as ExtensionAware).configure<KotlinJvmOptions> {
-                jvmTarget = "17"
+            extensions.configure<KotlinProjectExtension> {
+                jvmToolchain(17)
             }
         }
 
         dependencies {
-            add("coreLibraryDesugaring", libs.findLibrary("android.desugar.libs").get())
-            add("implementation", libs.findLibrary("kotlin.kotlin").get())
-            add("implementation", libs.findLibrary("kotlin.reflect").get())
-            add("implementation", libs.findLibrary("kotlin.coroutines").get())
-            add("implementation", libs.findLibrary("kotlin.datetime").get())
-            add("implementation", libs.findLibrary("kotlin.serialization.json").get())
+            add("coreLibraryDesugaring", libs.findLibrary("android-desugar-libs").get())
+            add("detektPlugins", libs.findLibrary("detekt-formatting").get())
+            implementation(libs.findLibrary("kotlin-kotlin").get())
+            implementation(libs.findLibrary("kotlin-reflect").get())
+            implementation(libs.findLibrary("kotlin-coroutines").get())
+            implementation(libs.findLibrary("kotlin-datetime").get())
+            implementation(libs.findLibrary("kotlin-serialization-json").get())
         }
     }
 }

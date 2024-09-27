@@ -2,7 +2,6 @@ package com.captures2024.soongan.feature.main
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
@@ -14,9 +13,9 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.captures2024.soongan.core.analytics.AnalyticsHelper
-import com.captures2024.soongan.core.analytics.LocalAnalyticsHelper
-import com.captures2024.soongan.core.analytics.NetworkMonitor
+import com.captures2024.soongan.core.android.helper.AnalyticsHelper
+import com.captures2024.soongan.core.android.utils.LocalAnalyticsHelper
+import com.captures2024.soongan.core.android.helper.NetworkMonitor
 import com.captures2024.soongan.core.designsystem.theme.SoonGanTheme
 import com.captures2024.soongan.feature.main.route.MainRoute
 import dagger.hilt.android.AndroidEntryPoint

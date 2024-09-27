@@ -13,8 +13,8 @@ class AndroidNetworkPlugin : Plugin<Project> {
         val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
         dependencies {
-            implementation(platform(libs.findLibrary("okhttp.bom").get()))
-            implementation(libs.findLibrary("okhttp.logging.interceptor").get())
+            implementation(platform(libs.findLibrary("okhttp-bom").get()))
+            implementation(libs.findLibrary("okhttp-logging-interceptor").get())
             implementation(libs.findBundle("retrofit").get())
         }
     }

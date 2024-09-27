@@ -13,7 +13,7 @@ interface MembersRepository {
     suspend fun signingSocialPlatform(
         type: SocialSignType,
         token: String,
-        fcmToken: String
+        fcmToken: String,
     ): ResultConditionDto
 
     suspend fun reissueToken(): ResultConditionDto
@@ -25,5 +25,4 @@ interface MembersRepository {
     suspend fun getMemberInformation(): UserInfoDto
 
     suspend fun isDuplicateNickname(nickname: String): ResultConditionDto
-
 }

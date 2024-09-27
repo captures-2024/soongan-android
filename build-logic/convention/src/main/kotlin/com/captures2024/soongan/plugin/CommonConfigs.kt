@@ -2,7 +2,9 @@ package com.captures2024.soongan.plugin
 
 import com.android.build.gradle.BaseExtension
 import org.gradle.api.Project
+import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.kotlin.dsl.apply
+import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 import java.util.Properties
 
@@ -34,9 +36,15 @@ internal fun Project.configureAndroidCommonPlugin() {
             buildConfigField("String", "GOOGLE_WEB_CLIENT_ID", "\"${googleWebClientId}\"")
             buildConfigField("String", "CAPTURES_BASE_URL", "\"${capturesBaseUrl}\"")
         }
+
         buildFeatures.apply {
             viewBinding = true
             buildConfig = true
+        }
+
+        val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
+        dependencies {
+            add("detektPlugins", libs.findLibrary("detekt-formatting").get())
         }
     }
 }

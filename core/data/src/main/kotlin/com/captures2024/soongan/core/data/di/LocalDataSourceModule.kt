@@ -15,5 +15,4 @@ abstract class LocalDataSourceModule {
     @Binds
     @Singleton
     abstract fun bindTokenDataSource(tokenDataSourceImpl: TokenDataSourceImpl): TokenDataSource
-
 }

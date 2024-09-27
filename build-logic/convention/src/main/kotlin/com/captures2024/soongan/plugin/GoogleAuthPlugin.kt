@@ -12,8 +12,8 @@ class GoogleAuthPlugin : Plugin<Project> {
     override fun apply(target: Project) = with(target) {
         val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
         dependencies {
-            implementation(libs.findLibrary("google.services").get())
-            implementation(libs.findLibrary("google.gms.auth").get())
+            implementation(libs.findLibrary("google-services").get())
+            implementation(libs.findLibrary("google-gms-auth").get())
         }
     }
 

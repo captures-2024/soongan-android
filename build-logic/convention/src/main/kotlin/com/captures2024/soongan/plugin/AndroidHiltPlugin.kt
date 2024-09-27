@@ -19,12 +19,12 @@ class AndroidHiltPlugin : Plugin<Project> {
         val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
         dependencies {
-            implementation(libs.findLibrary("google.dagger.hilt").get())
-            ksp(libs.findLibrary("google.dagger.hilt.compiler").get())
-            testImplementation(libs.findLibrary("google.dagger.hilt.testing").get())
-            testImplementation(libs.findLibrary("google.dagger.hilt.testing.compiler").get())
-            ksp(libs.findLibrary("google.dagger.hilt.testing.compiler").get())
-            implementation(libs.findLibrary("google.dagger.hilt.navigation.compose").get())
+            implementation(libs.findLibrary("google-dagger-hilt").get())
+            ksp(libs.findLibrary("google-dagger-hilt-compiler").get())
+            testImplementation(libs.findLibrary("google-dagger-hilt-testing").get())
+            testImplementation(libs.findLibrary("google-dagger-hilt-testing-compiler").get())
+            ksp(libs.findLibrary("google-dagger-hilt-testing-compiler").get())
+            implementation(libs.findLibrary("google-dagger-hilt-navigation-compose").get())
         }
     }
 }

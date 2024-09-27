@@ -12,7 +12,7 @@ class GoogleFirebasePlugin : Plugin<Project> {
         val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
         dependencies {
-            implementation(platform(libs.findLibrary("google.firebase.bom").get()))
+            implementation(platform(libs.findLibrary("google-firebase-bom").get()))
             implementation(libs.findBundle("firebase").get())
         }
     }

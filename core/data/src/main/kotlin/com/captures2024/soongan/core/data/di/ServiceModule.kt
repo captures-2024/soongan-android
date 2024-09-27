@@ -15,14 +15,9 @@ object ServiceModule {
 
     @Singleton
     @Provides
-    internal fun provideMembersService(retrofit: Retrofit): MembersService {
-        return retrofit.create(MembersService::class.java)
-    }
+    internal fun provideMembersService(retrofit: Retrofit): MembersService = retrofit.create(MembersService::class.java)
 
     @Singleton
     @Provides
-    internal fun provideFcmService(retrofit: Retrofit): FcmService {
-        return retrofit.create(FcmService::class.java)
-    }
-
+    internal fun provideFcmService(retrofit: Retrofit): FcmService = retrofit.create(FcmService::class.java)
 }

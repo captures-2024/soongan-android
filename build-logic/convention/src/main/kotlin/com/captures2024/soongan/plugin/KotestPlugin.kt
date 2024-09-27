@@ -22,9 +22,9 @@ class KotestPlugin : Plugin<Project> {
         val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
         useTestPlatformForTarget()
         dependencies {
-            testImplementation(libs.findLibrary("test.kotest.runner").get())
-            testImplementation(libs.findLibrary("test.kotest.assertion").get())
-            testImplementation(libs.findLibrary("test.kotest.property").get())
+            testImplementation(libs.findLibrary("test-kotest-runner").get())
+            testImplementation(libs.findLibrary("test-kotest-assertion").get())
+            testImplementation(libs.findLibrary("test-kotest-property").get())
         }
     }
     private fun Project.useTestPlatformForTarget() {

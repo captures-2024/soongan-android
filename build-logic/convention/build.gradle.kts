@@ -1,5 +1,8 @@
+@file:Suppress("DSL_SCOPE_VIOLATION", "INLINE_FROM_HIGHER_PLATFORM")
+
 plugins {
     `kotlin-dsl`
+    alias(libs.plugins.gradle.dependency.handler.extensions)
 }
 
 group = "com.captures2024.soongan.buildlogic"
@@ -14,6 +17,8 @@ dependencies {
     compileOnly(libs.android.gradle.plugin)
     compileOnly(libs.kotlin.gradle.plugin)
     compileOnly(libs.google.ksp.gradle.plugin)
+
+    compileOnly(files((libs as Any).javaClass.superclass.protectionDomain.codeSource.location))
 }
 
 gradlePlugin {

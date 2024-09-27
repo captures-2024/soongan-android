@@ -20,14 +20,14 @@ class AndroidFeaturePlugin : Plugin<Project> {
 
         val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
         dependencies {
-            implementation(project(":core:analytics"))
+            implementation(project(":core:analytics-android"))
             implementation(project(":core:common"))
             implementation(project(":core:designSystem"))
             implementation(project(":core:domain"))
             implementation(project(":core:model"))
             implementation(project(":core:navigator"))
 
-            implementation(libs.findLibrary("android.xml.core").get())
+            implementation(libs.findLibrary("android-xml-core").get())
             implementation(libs.findBundle("lifecycle").get())
         }
     }

@@ -1,23 +1,29 @@
 [versions]
-compileSdk = "34"
+compileSdk = "35"
 minSdk = "24"
-targetSdk = "34"
+targetSdk = "35"
 appVersion = "0.0.1"
 versionCode = "1"
 
+gradle-dependency-handler-extensions = "1.1.0"
+
 # kotlin
-kotlin-kotlin = "1.9.23"
+kotlin-kotlin = "2.0.0"
+kotlin-coroutines = "1.8.0"
 kotlin-serialization-json = "1.6.3"
 kotlin-serialization-converter = "1.0.0"
-kotlin-coroutines = "1.8.0"
 kotlin-datetime = "0.4.1"
 
+kotlin-detekt = "1.23.6"
+kotlin-ktlint-gradle = "11.6.1"
+kotlin-ktlint-source = "0.50.0"
+
 # android
-android-gradle-plugin = "8.4.2"
-android-lifecycle = "2.8.5"
-android-lifecycle-runtime = "2.8.5"
-android-navigation = "2.8.0"
-android-startup = "1.1.1"
+android-gradle-plugin = "8.6.1"
+android-lifecycle = "2.8.6"
+android-lifecycle-runtime = "2.8.6"
+android-navigation = "2.8.1"
+android-startup = "1.2.0"
 android-security = "1.1.1"
 android-desugar-jdk = "2.1.2"
 android-in-app-update = "2.1.0"
@@ -38,10 +44,9 @@ android-xml-material = "1.12.0"
 android-xml-constraintlayout = "2.1.4"
 
 # android-compose
-android-compose-compiler = "1.5.11"
-android-compose-bom = "2024.09.01"
+android-compose-bom = "2024.09.02"
 android-compose-activity = "1.9.2"
-android-compose-junit4-test = "1.7.1"
+android-compose-junit4-test = "1.7.2"
 
 # test
 test-junit = "4.13.2"
@@ -59,7 +64,7 @@ test-truth = "1.1.5"
 test-kotest = "5.9.1"
 
 # google
-google-ksp = "1.9.23-1.0.20"
+google-ksp = "2.0.0-1.0.24"
 google-services = "4.4.2"
 google-firebase = "33.3.0"
 google-admob = "23.3.0"
@@ -90,6 +95,8 @@ kotlin-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-s
 kotlin-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlin-coroutines" }
 kotlin-coroutines-google-play = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-play-services", version.ref = "kotlin-coroutines" }
 kotlin-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlin-datetime" }
+detekt-formatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "kotlin-detekt" }
+kotlin-ktlint = { group = "com.pinterest", name = "ktlint", version.ref = "kotlin-ktlint-source" }
 
 
 # android
@@ -190,12 +197,18 @@ retrofit-kotlin-serialization-converter = { group = "com.jakewharton.retrofit", 
 
 kakao-login = { group = "com.kakao.sdk", name = "v2-user", version.ref = "kakao" }
 javax-inject = { group = "javax.inject", name = "javax.inject", version.ref = "javax-inject" }
+aakira-napier = { group = "io.github.aakira", name = "napier", version.ref = "napier"}
 
 [plugins]
+gradle-dependency-handler-extensions = { id = "land.sungbin.dependency.handler.extensions", version.ref = "gradle-dependency-handler-extensions" }
+
 # kotlin
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin-kotlin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin-kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin-kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin-kotlin" }
+kotlin-detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "kotlin-detekt" }
+kotlin-ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "kotlin-ktlint-gradle" }
 
 # android
 android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
@@ -210,9 +223,6 @@ secret = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin
 google-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "google-crashlytics" }
 # test
 junit5 = { id = "de.mannodermaus.android-junit5", version.ref = "test-junit5-plugin" }
-
-# third party
-ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 
 [bundles]
 navigation = [

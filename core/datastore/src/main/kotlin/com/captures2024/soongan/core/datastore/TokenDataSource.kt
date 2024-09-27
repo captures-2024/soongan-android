@@ -19,5 +19,4 @@ interface TokenDataSource {
     suspend fun clearRefreshToken()
 
     suspend fun clearAllToken()
-
 }

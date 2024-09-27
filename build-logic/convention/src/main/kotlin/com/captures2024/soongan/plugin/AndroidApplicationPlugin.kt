@@ -54,7 +54,7 @@ class AndroidApplicationPlugin : Plugin<Project> {
         val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
         dependencies {
-            implementation(project(":core:analytics"))
+            implementation(project(":core:analytics-android"))
             implementation(project(":core:auth"))
             implementation(project(":core:common"))
             implementation(project(":core:data"))
@@ -77,12 +77,12 @@ class AndroidApplicationPlugin : Plugin<Project> {
             implementation(project(":feature:termsOfUse"))
             implementation(project(":feature:welcome"))
 
-            implementation(libs.findLibrary("android.xml.core").get())
+            implementation(libs.findLibrary("android-xml-core").get())
             implementation(libs.findBundle("lifecycle").get())
-            implementation(libs.findLibrary("android.splash.screen").get())
-            implementation(libs.findLibrary("kakao.login").get())
-            implementation(libs.findLibrary("android.startup").get())
-            implementation(libs.findLibrary("coil.compose").get())
+            implementation(libs.findLibrary("android-splash-screen").get())
+            implementation(libs.findLibrary("kakao-login").get())
+            implementation(libs.findLibrary("android-startup").get())
+            implementation(libs.findLibrary("coil-compose").get())
         }
     }
 }

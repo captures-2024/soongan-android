@@ -21,7 +21,7 @@ constructor(
 
     @SuppressLint("HardwareIds")
     override suspend fun initFcm(
-        fcmToken: String
+        fcmToken: String,
     ): FcmDto? = safeAPICall {
 //        Timber.tag("initFcm").d("fcmToken = $fcmToken")
 //        Timber.tag("initFcm").d("deviceId = ${Settings.Secure.getString(
@@ -33,10 +33,9 @@ constructor(
                 token = fcmToken,
                 deviceId = Settings.Secure.getString(
                     context.contentResolver,
-                    Settings.Secure.ANDROID_ID
-                )
-            )
+                    Settings.Secure.ANDROID_ID,
+                ),
+            ),
         )
     }.body?.responseData?.toDto()
-
 }

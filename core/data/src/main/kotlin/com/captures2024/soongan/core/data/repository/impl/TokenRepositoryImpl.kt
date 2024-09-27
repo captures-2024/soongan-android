@@ -7,7 +7,7 @@ import javax.inject.Inject
 class TokenRepositoryImpl
 @Inject
 constructor(
-    private val tokenDataStore: TokenDataSource
+    private val tokenDataStore: TokenDataSource,
 ) : TokenRepository {
 
     override suspend fun setAccessToken(accessToken: String) {
@@ -39,5 +39,4 @@ constructor(
     override suspend fun clearAllToken() {
         tokenDataStore.clearAllToken()
     }
-
 }

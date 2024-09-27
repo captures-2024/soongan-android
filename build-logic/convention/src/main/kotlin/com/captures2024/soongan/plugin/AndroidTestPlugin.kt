@@ -6,7 +6,6 @@ import com.captures2024.soongan.plugin.extension.testImplementation
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
-import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 
@@ -36,10 +35,10 @@ class AndroidTestPlugin : Plugin<Project> {
         }
 
         dependencies {
-            testImplementation(libs.findLibrary("test.junit").get())
-            testImplementation(libs.findLibrary("test.truth").get())
-            testImplementation(libs.findLibrary("test.robolectric").get())
-            androidTestImplementation(libs.findBundle("androidx.android.test").get())
+            testImplementation(libs.findLibrary("test-junit").get())
+            testImplementation(libs.findLibrary("test-truth").get())
+            testImplementation(libs.findLibrary("test-robolectric").get())
+            androidTestImplementation(libs.findBundle("androidx-android-test").get())
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.captures2024.soongan.core.analytics
+package com.captures2024.soongan.core.android.helper.impl
 
 import android.content.Context
 import android.net.ConnectivityManager
@@ -6,6 +6,7 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import androidx.core.content.getSystemService
+import com.captures2024.soongan.core.android.helper.NetworkMonitor
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow

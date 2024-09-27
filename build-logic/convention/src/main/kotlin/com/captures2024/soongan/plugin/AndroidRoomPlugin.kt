@@ -32,12 +32,11 @@ class AndroidRoomPlugin : Plugin<Project> {
         }
 
         dependencies {
-            implementation(libs.findLibrary("android.room.runtime").get())
-            implementation(libs.findLibrary("android.room.ktx").get())
-            ksp(libs.findLibrary("android.room.compiler").get())
+            implementation(libs.findLibrary("android-room-runtime").get())
+            implementation(libs.findLibrary("android-room-ktx").get())
+            ksp(libs.findLibrary("android-room-compiler").get())
         }
     }
-
 
     /**
      * https://issuetracker.google.com/issues/132245929

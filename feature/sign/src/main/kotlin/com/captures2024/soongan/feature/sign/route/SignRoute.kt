@@ -9,7 +9,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.captures2024.soongan.core.analytics.NetworkMonitor
+import com.captures2024.soongan.core.android.helper.NetworkMonitor
 import com.captures2024.soongan.core.design.R
 import com.captures2024.soongan.core.designsystem.component.SoonGanBackground
 import com.captures2024.soongan.feature.sign.ui.SignScreen

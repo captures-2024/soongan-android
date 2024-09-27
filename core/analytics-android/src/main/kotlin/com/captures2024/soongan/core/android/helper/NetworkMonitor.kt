@@ -1,4 +1,4 @@
-package com.captures2024.soongan.core.analytics
+package com.captures2024.soongan.core.android.helper
 
 import kotlinx.coroutines.flow.Flow
 

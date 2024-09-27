@@ -8,7 +8,7 @@ internal fun GetMemberInformationResponse.toUserInfoDto() = UserInfoDto(
     user = UserDto(
         email = this.email,
         nickname = this.nickname ?: "",
-        birthDate = this.birthDate ?: ""
+        birthDate = this.birthDate ?: "",
     ),
-    profileImage = this.profileImage ?: ""
+    profileImage = this.profileImage ?: "",
 )

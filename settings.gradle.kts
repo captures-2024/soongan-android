@@ -30,7 +30,7 @@ rootProject.name = "soongan"
 include(":app")
 
 include(
-    ":core:analytics",
+    ":core:analytics-android",
     ":core:auth",
     ":core:common",
     ":core:designSystem",
@@ -39,7 +39,7 @@ include(
     ":core:domain",
     ":core:model",
     ":core:navigator",
-    ":core:network"
+    ":core:network",
 )
 
 include(
