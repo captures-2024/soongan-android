@@ -39,5 +39,4 @@ class DefaultAnalyticsHelper : AnalyticsHelper {
     ) {
         TODO("Not yet implemented")
     }
-
 }

@@ -16,11 +16,23 @@ public val MyIconPack.IconFilterLike: ImageVector
         if (_iconFilterLike != null) {
             return _iconFilterLike!!
         }
-        _iconFilterLike = Builder(name = "IconFilterLike", defaultWidth = 24.0.dp, defaultHeight =
-                24.0.dp, viewportWidth = 24.0f, viewportHeight = 24.0f).apply {
-            path(fill = SolidColor(Color(0xFF252525)), stroke = null, strokeLineWidth = 0.0f,
-                    strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
-                    pathFillType = NonZero) {
+
+        _iconFilterLike = Builder(
+            name = "IconFilterLike",
+            defaultWidth = 24.0.dp,
+            defaultHeight = 24.0.dp,
+            viewportWidth = 24.0f,
+            viewportHeight = 24.0f,
+        ).apply {
+            path(
+                fill = SolidColor(Color(0xFF252525)),
+                stroke = null,
+                strokeLineWidth = 0.0f,
+                strokeLineCap = Butt,
+                strokeLineJoin = Miter,
+                strokeLineMiter = 4.0f,
+                pathFillType = NonZero,
+            ) {
                 moveTo(10.9091f, 21.6364f)
                 lineTo(7.4454f, 18.5273f)
                 curveTo(6.1364f, 17.3455f, 5.0138f, 16.2909f, 4.0778f, 15.3636f)
@@ -74,8 +86,8 @@ public val MyIconPack.IconFilterLike: ImageVector
                 horizontalLineTo(18.5455f)
                 close()
             }
-        }
-        .build()
+        }.build()
+
         return _iconFilterLike!!
     }
 

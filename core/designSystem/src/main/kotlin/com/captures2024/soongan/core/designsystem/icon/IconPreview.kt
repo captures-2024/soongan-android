@@ -46,11 +46,11 @@ private fun IconFillCheckPreview() {
         modifier = Modifier
             .size(64.dp, 64.dp)
             .background(Color.White),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Icon(
             imageVector = MyIconPack.IconFillCheck,
-            contentDescription = ""
+            contentDescription = "",
         )
     }
 }
@@ -62,11 +62,11 @@ private fun IconSelectedHomePreview() {
         modifier = Modifier
             .size(64.dp, 64.dp)
             .background(Color.White),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Icon(
             imageVector = MyIconPack.IconSelectedHome,
-            contentDescription = ""
+            contentDescription = "",
         )
     }
 }
@@ -78,11 +78,11 @@ private fun IconNonSelectedAwardsPreview() {
         modifier = Modifier
             .size(64.dp, 64.dp)
             .background(Color.White),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Icon(
             imageVector = MyIconPack.IconNonSelectedAwards,
-            contentDescription = ""
+            contentDescription = "",
         )
     }
 }
@@ -94,11 +94,11 @@ private fun IconNonFillFilterPreview() {
         modifier = Modifier
             .size(64.dp, 64.dp)
             .background(Color.White),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Icon(
             imageVector = MyIconPack.IconNonFillFillter,
-            contentDescription = ""
+            contentDescription = "",
         )
     }
 }
@@ -110,11 +110,11 @@ private fun IconNonFillTopArrowPreview() {
         modifier = Modifier
             .size(64.dp, 64.dp)
             .background(Color.White),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Icon(
             imageVector = MyIconPack.IconNonFillTopArrow,
-            contentDescription = ""
+            contentDescription = "",
         )
     }
 }
@@ -126,11 +126,11 @@ private fun IconSelectedFeedPreview() {
         modifier = Modifier
             .size(64.dp, 64.dp)
             .background(Color.White),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Icon(
             imageVector = MyIconPack.IconSelectedFeed,
-            contentDescription = ""
+            contentDescription = "",
         )
     }
 }
@@ -142,11 +142,11 @@ private fun IconNonFillPlusPreview() {
         modifier = Modifier
             .size(64.dp, 64.dp)
             .background(Color.White),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Icon(
             imageVector = MyIconPack.IconNonFillPlus,
-            contentDescription = ""
+            contentDescription = "",
         )
     }
 }
@@ -158,11 +158,11 @@ private fun IconNonFillInfoPreview() {
         modifier = Modifier
             .size(64.dp, 64.dp)
             .background(Color.White),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Icon(
             imageVector = MyIconPack.IconNonFillInfo,
-            contentDescription = ""
+            contentDescription = "",
         )
     }
 }
@@ -174,11 +174,11 @@ private fun IconNonFillHeartPreview() {
         modifier = Modifier
             .size(64.dp, 64.dp)
             .background(Color.White),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Icon(
             imageVector = MyIconPack.IconNonFillHeart,
-            contentDescription = ""
+            contentDescription = "",
         )
     }
 }
@@ -190,11 +190,11 @@ private fun IconSelectedAwardsPreview() {
         modifier = Modifier
             .size(64.dp, 64.dp)
             .background(Color.White),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Icon(
             imageVector = MyIconPack.IconSelectedAwards,
-            contentDescription = ""
+            contentDescription = "",
         )
     }
 }
@@ -206,11 +206,11 @@ private fun IconNonSelectedFeedPreview() {
         modifier = Modifier
             .size(64.dp, 64.dp)
             .background(Color.White),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Icon(
             imageVector = MyIconPack.IconNonSelectedFeed,
-            contentDescription = ""
+            contentDescription = "",
         )
     }
 }
@@ -222,11 +222,11 @@ private fun IconFillErrorPreview() {
         modifier = Modifier
             .size(64.dp, 64.dp)
             .background(Color.White),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Icon(
             imageVector = MyIconPack.IconFillError,
-            contentDescription = ""
+            contentDescription = "",
         )
     }
 }
@@ -238,11 +238,11 @@ private fun IconNonFillCommentPreview() {
         modifier = Modifier
             .size(64.dp, 64.dp)
             .background(Color.White),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Icon(
             imageVector = MyIconPack.IconNonFillComment,
-            contentDescription = ""
+            contentDescription = "",
         )
     }
 }
@@ -254,11 +254,11 @@ private fun IconNonFillEditPreview() {
         modifier = Modifier
             .size(64.dp, 64.dp)
             .background(Color.White),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Icon(
             imageVector = MyIconPack.IconNonFillEdit,
-            contentDescription = ""
+            contentDescription = "",
         )
     }
 }
@@ -270,11 +270,11 @@ private fun IconNonFillBackArrowPreview() {
         modifier = Modifier
             .size(64.dp, 64.dp)
             .background(Color.White),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Icon(
             imageVector = MyIconPack.IconNonFillBackArrow,
-            contentDescription = ""
+            contentDescription = "",
         )
     }
 }
@@ -286,11 +286,11 @@ private fun IconFillHeartPreview() {
         modifier = Modifier
             .size(64.dp, 64.dp)
             .background(Color.White),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Icon(
             imageVector = MyIconPack.IconFillHeart,
-            contentDescription = ""
+            contentDescription = "",
         )
     }
 }
@@ -302,11 +302,11 @@ private fun IconSelectedProfilePreview() {
         modifier = Modifier
             .size(64.dp, 64.dp)
             .background(Color.White),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Icon(
             imageVector = MyIconPack.IconSelectedProfile,
-            contentDescription = ""
+            contentDescription = "",
         )
     }
 }
@@ -318,11 +318,11 @@ private fun IconLogoGooglePreview() {
         modifier = Modifier
             .size(64.dp, 64.dp)
             .background(Color.White),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Icon(
             imageVector = MyIconPack.IconLogoGoogle,
-            contentDescription = ""
+            contentDescription = "",
         )
     }
 }
@@ -334,11 +334,11 @@ private fun IconLogoApplePreview() {
         modifier = Modifier
             .size(64.dp, 64.dp)
             .background(Color.White),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Icon(
             imageVector = MyIconPack.IconLogoApple,
-            contentDescription = ""
+            contentDescription = "",
         )
     }
 }
@@ -350,11 +350,11 @@ private fun IconNonFillPaperDeletePreview() {
         modifier = Modifier
             .size(64.dp, 64.dp)
             .background(Color.White),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Icon(
             imageVector = MyIconPack.IconNonFillPaperDelete,
-            contentDescription = ""
+            contentDescription = "",
         )
     }
 }
@@ -366,11 +366,11 @@ private fun IconNonSelectedProfilePreview() {
         modifier = Modifier
             .size(64.dp, 64.dp)
             .background(Color.White),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Icon(
             imageVector = MyIconPack.IconNonSelectedProfile,
-            contentDescription = ""
+            contentDescription = "",
         )
     }
 }
@@ -382,11 +382,11 @@ private fun IconNonFillMenuPreview() {
         modifier = Modifier
             .size(64.dp, 64.dp)
             .background(Color.White),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Icon(
             imageVector = MyIconPack.IconNonFillMenu,
-            contentDescription = ""
+            contentDescription = "",
         )
     }
 }
@@ -398,11 +398,11 @@ private fun IconLogoKakaoPreview() {
         modifier = Modifier
             .size(64.dp, 64.dp)
             .background(Color.White),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Icon(
             imageVector = MyIconPack.IconLogoKakao,
-            contentDescription = ""
+            contentDescription = "",
         )
     }
 }
@@ -414,15 +414,14 @@ private fun IconNonFillLeftArrowPreview() {
         modifier = Modifier
             .size(64.dp, 64.dp)
             .background(Color.White),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Icon(
             imageVector = MyIconPack.IconNonFillLeftArrow,
-            contentDescription = ""
+            contentDescription = "",
         )
     }
 }
-
 
 @Preview
 @Composable
@@ -431,11 +430,11 @@ private fun IconNonFillRightArrowPreview() {
         modifier = Modifier
             .size(64.dp, 64.dp)
             .background(Color.White),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Icon(
             imageVector = MyIconPack.IconNonFillRightArrow,
-            contentDescription = ""
+            contentDescription = "",
         )
     }
 }
@@ -447,11 +446,11 @@ private fun IconNonSelectedHomePreview() {
         modifier = Modifier
             .size(64.dp, 64.dp)
             .background(Color.White),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Icon(
             imageVector = MyIconPack.IconNonSelectedHome,
-            contentDescription = ""
+            contentDescription = "",
         )
     }
 }
@@ -463,11 +462,11 @@ private fun IconNonFillReportPreview() {
         modifier = Modifier
             .size(64.dp, 64.dp)
             .background(Color.White),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Icon(
             imageVector = MyIconPack.IconNonFillReport,
-            contentDescription = ""
+            contentDescription = "",
         )
     }
 }
@@ -479,11 +478,11 @@ private fun LogoPreview() {
         modifier = Modifier
             .size(64.dp, 64.dp)
             .background(Color.White),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Icon(
             imageVector = MyIconPack.Logo,
-            contentDescription = ""
+            contentDescription = "",
         )
     }
 }

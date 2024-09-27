@@ -9,17 +9,17 @@ import kotlinx.coroutines.tasks.await
 
 class GoogleAuthUiClient(
     private val oneTapClient: SignInClient,
-    private val signInRequest: BeginSignInRequest
+    private val signInRequest: BeginSignInRequest,
 ) {
 
     suspend fun signIn(): IntentSender? {
-        val result = try {
+        val result = kotlin.runCatching {
             oneTapClient.beginSignIn(signInRequest).await()
-        } catch(e: Exception) {
-            e.printStackTrace()
-            if (e is CancellationException) throw e
-            null
-        }
+        }.onFailure {
+            it.printStackTrace()
+            if (it is CancellationException) throw it
+        }.getOrNull()
+
         return result?.pendingIntent?.intentSender
     }
 
@@ -30,12 +30,11 @@ class GoogleAuthUiClient(
     }
 
     suspend fun signOut() {
-        try {
+        kotlin.runCatching {
             oneTapClient.signOut().await()
-        } catch(e: Exception) {
-            e.printStackTrace()
-            if(e is CancellationException) throw e
+        }.onFailure {
+            it.printStackTrace()
+            if (it is CancellationException) throw it
         }
     }
-
 }

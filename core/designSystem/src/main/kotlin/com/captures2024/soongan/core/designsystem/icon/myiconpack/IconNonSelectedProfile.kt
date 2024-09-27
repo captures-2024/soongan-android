@@ -16,11 +16,23 @@ public val MyIconPack.IconNonSelectedProfile: ImageVector
         if (_iconNonSelectedProfile != null) {
             return _iconNonSelectedProfile!!
         }
-        _iconNonSelectedProfile = Builder(name = "IconNonSelectedProfile", defaultWidth = 24.0.dp,
-                defaultHeight = 24.0.dp, viewportWidth = 24.0f, viewportHeight = 24.0f).apply {
-            path(fill = SolidColor(Color(0xFF252525)), stroke = null, fillAlpha = 0.3f,
-                    strokeLineWidth = 0.0f, strokeLineCap = Butt, strokeLineJoin = Miter,
-                    strokeLineMiter = 4.0f, pathFillType = NonZero) {
+        _iconNonSelectedProfile = Builder(
+            name = "IconNonSelectedProfile",
+            defaultWidth = 24.0.dp,
+            defaultHeight = 24.0.dp,
+            viewportWidth = 24.0f,
+            viewportHeight = 24.0f,
+        ).apply {
+            path(
+                fill = SolidColor(Color(0xFF252525)),
+                stroke = null,
+                fillAlpha = 0.3f,
+                strokeLineWidth = 0.0f,
+                strokeLineCap = Butt,
+                strokeLineJoin = Miter,
+                strokeLineMiter = 4.0f,
+                pathFillType = NonZero,
+            ) {
                 moveTo(12.0f, 3.0f)
                 curveTo(13.65f, 3.0f, 15.0f, 4.35f, 15.0f, 6.0f)
                 curveTo(15.0f, 7.65f, 13.65f, 9.0f, 12.0f, 9.0f)
@@ -46,8 +58,8 @@ public val MyIconPack.IconNonSelectedProfile: ImageVector
                 curveTo(24.0f, 17.01f, 16.005f, 15.0f, 12.0f, 15.0f)
                 close()
             }
-        }
-        .build()
+        }.build()
+
         return _iconNonSelectedProfile!!
     }
 

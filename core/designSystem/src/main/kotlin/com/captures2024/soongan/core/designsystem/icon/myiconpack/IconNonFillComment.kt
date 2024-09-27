@@ -16,11 +16,22 @@ public val MyIconPack.IconNonFillComment: ImageVector
         if (_iconNonFillComment != null) {
             return _iconNonFillComment!!
         }
-        _iconNonFillComment = Builder(name = "IconNonFillComment", defaultWidth = 12.0.dp,
-                defaultHeight = 12.0.dp, viewportWidth = 12.0f, viewportHeight = 12.0f).apply {
-            path(fill = SolidColor(Color(0x00000000)), stroke = SolidColor(Color(0xFF252525)),
-                    strokeLineWidth = 1.0f, strokeLineCap = Butt, strokeLineJoin = Miter,
-                    strokeLineMiter = 4.0f, pathFillType = NonZero) {
+        _iconNonFillComment = Builder(
+            name = "IconNonFillComment",
+            defaultWidth = 12.0.dp,
+            defaultHeight = 12.0.dp,
+            viewportWidth = 12.0f,
+            viewportHeight = 12.0f,
+        ).apply {
+            path(
+                fill = SolidColor(Color(0x00000000)),
+                stroke = SolidColor(Color(0xFF252525)),
+                strokeLineWidth = 1.0f,
+                strokeLineCap = Butt,
+                strokeLineJoin = Miter,
+                strokeLineMiter = 4.0f,
+                pathFillType = NonZero,
+            ) {
                 moveTo(11.494f, 1.2f)
                 verticalLineTo(1.2003f)
                 lineTo(11.4993f, 10.7922f)
@@ -35,8 +46,8 @@ public val MyIconPack.IconNonFillComment: ImageVector
                 curveTo(11.1806f, 0.5f, 11.494f, 0.8129f, 11.494f, 1.2f)
                 close()
             }
-        }
-        .build()
+        }.build()
+
         return _iconNonFillComment!!
     }
 

@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 
 fun Canvas.clipToOutline(
     outline: Outline,
-    clipOp: ClipOp = ClipOp.Intersect
+    clipOp: ClipOp = ClipOp.Intersect,
 ) {
     when (outline) {
         is Outline.Generic ->
@@ -33,7 +33,7 @@ fun Canvas.clipToOutline(
             clipPath(
                 path = androidx.compose.ui.graphics.Path()
                     .apply { addRoundRect(outline.roundRect) },
-                clipOp = clipOp
+                clipOp = clipOp,
             )
     }
 }
@@ -44,7 +44,7 @@ fun Modifier.dropShadow(
     blur: Dp = 4.dp,
     offsetY: Dp = 4.dp,
     offsetX: Dp = 0.dp,
-    spread: Dp = 0.dp
+    spread: Dp = 0.dp,
 ) = this.drawBehind {
     val shadowSize = Size(size.width + spread.toPx(), size.height + spread.toPx())
     val shadowOutline = shape.createOutline(shadowSize, layoutDirection, this)
@@ -73,7 +73,7 @@ fun Modifier.innerShadow(
     blur: Dp,
     offsetY: Dp,
     offsetX: Dp,
-    spread: Dp
+    spread: Dp,
 ) = drawWithContent {
     drawContent()
 
@@ -103,5 +103,4 @@ fun Modifier.innerShadow(
         canvas.drawOutline(shadowOutline, paint)
         canvas.restore()
     }
-
 }

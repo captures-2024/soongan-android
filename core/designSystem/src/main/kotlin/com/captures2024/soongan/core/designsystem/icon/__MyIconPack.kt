@@ -43,12 +43,12 @@ public val MyIconPack.AllIcons: ____KtList<ImageVector>
         if (__AllIcons != null) {
             return __AllIcons!!
         }
-        __AllIcons= listOf(IconFillCheck, IconSelectedHome, IconNonSelectedAwards, IconNonFillFillter,
+        __AllIcons = listOf(IconFillCheck, IconSelectedHome, IconNonSelectedAwards, IconNonFillFillter,
             IconFilterLike, IconFilterNew, IconFilterOld, IconNonFillTopArrow, IconSelectedFeed, IconNonFillPlus,
             IconNonFillInfo, IconNonFillHeart, IconSelectedAwards, IconNonSelectedFeed, IconFillError,
             IconNonFillComment, IconNonFillEdit, IconNonFillBackArrow, IconFillHeart,
             IconSelectedProfile, IconLogoGoogle, IconLogoApple,
             IconNonFillPaperDelete, IconNonSelectedProfile, IconNonFillMenu, IconLogoKakao,
-            IconNonFillLeftArrow, IconNonFillRightArrow, IconNonSelectedHome, IconNonFillReport, Logo)
+            IconNonFillLeftArrow, IconNonFillRightArrow, IconNonSelectedHome, IconNonFillReport, Logo,)
         return __AllIcons!!
     }

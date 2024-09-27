@@ -4,11 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
@@ -65,9 +62,9 @@ fun CommentInputTextField(
             .border(
                 width = 1.dp,
                 color = PrimaryA.copy(alpha = 0.3f),
-                shape = RoundedCornerShape(202.dp)
+                shape = RoundedCornerShape(202.dp),
             )
-            .focusRequester(focusRequester)
+            .focusRequester(focusRequester),
     ) {
         CommentInputBasicTextField(
             value = value,
@@ -117,14 +114,14 @@ private fun CommentInputBasicTextField(
             fontWeight = FontWeight.Normal,
             fontStyle = FontStyle.Normal,
             fontSize = 14.sp.nonScaleSp,
-            lineHeight = 14.sp.nonScaleSp
+            lineHeight = 14.sp.nonScaleSp,
         ),
         interactionSource = interactionSource,
         decorationBox = @Composable { innerTextField ->
             Box(
                 modifier = Modifier
                     .padding(top = 4.dp, end = 64.dp),
-                contentAlignment = Alignment.CenterStart
+                contentAlignment = Alignment.CenterStart,
             ) {
                 innerTextField()
             }
@@ -145,7 +142,7 @@ private fun CommentInputBasicTextField(
                             fontSize = 14.sp,
                             lineHeight = 14.sp,
                             fontWeight = FontWeight.Normal,
-                            fontFamily = NanumSquareNeoFontFamily
+                            fontFamily = NanumSquareNeoFontFamily,
                         )
                     }
 
@@ -155,15 +152,15 @@ private fun CommentInputBasicTextField(
                             .height(24.dp)
                             .background(
                                 color = PrimaryA,
-                                shape = RoundedCornerShape(20.dp)
+                                shape = RoundedCornerShape(20.dp),
                             ),
-                        contentAlignment = Alignment.Center
+                        contentAlignment = Alignment.Center,
                     ) {
                         Icon(
                             imageVector = MyIconPack.IconNonFillTopArrow,
                             contentDescription = "button",
                             modifier = Modifier.size(16.dp, 16.dp),
-                            tint = Color.White
+                            tint = Color.White,
                         )
                     }
                 }
@@ -176,18 +173,18 @@ private fun CommentInputBasicTextField(
 @Composable
 private fun CommentInputTextFieldPreview() {
     Column(
-        modifier = Modifier.background(Color.White)
+        modifier = Modifier.background(Color.White),
     ) {
         CommentInputTextField(
             modifier = Modifier.fillMaxWidth(),
             value = "",
             hint = "dasdsadsa",
-            onValueChange = {}
+            onValueChange = {},
         )
         CommentInputTextField(
             modifier = Modifier.fillMaxWidth(),
             value = "adsdsasdadsadsadsadsadsadsadsadsadsadsaddsadsadasadsdsasdadsadsadsadsadsadsadsadsadsadsaddsadsadasadsdsasdadsadsadsadsadsadsadsadsadsadsaddsadsadasadsdsasdadsadsadsadsadsadsadsadsadsadsaddsadsadasadsdsasdadsadsadsadsadsadsadsadsadsadsaddsadsadasadsdsasdadsadsadsadsadsadsadsadsadsadsaddsadsadasadsdsasdadsadsadsadsadsadsadsadsadsadsaddsadsadasadsdsasdadsadsadsadsadsadsadsadsadsadsaddsadsadas",
-            onValueChange = {}
+            onValueChange = {},
         )
     }
 }

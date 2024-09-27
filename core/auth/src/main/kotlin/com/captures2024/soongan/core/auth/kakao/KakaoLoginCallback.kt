@@ -4,9 +4,8 @@ interface KakaoLoginCallback {
 
     fun onSuccess(
         accessToken: String?,
-        refreshToken: String?
+        refreshToken: String?,
     )
 
     fun onFailure(error: Throwable?)
-
 }

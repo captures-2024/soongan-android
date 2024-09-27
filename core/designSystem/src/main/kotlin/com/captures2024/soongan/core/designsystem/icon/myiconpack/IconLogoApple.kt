@@ -16,11 +16,22 @@ public val MyIconPack.IconLogoApple: ImageVector
         if (_iconLogoApple != null) {
             return _iconLogoApple!!
         }
-        _iconLogoApple = Builder(name = "IconLogoApple", defaultWidth = 14.0.dp, defaultHeight =
-                16.0.dp, viewportWidth = 14.0f, viewportHeight = 16.0f).apply {
-            path(fill = SolidColor(Color(0xFF252525)), stroke = null, strokeLineWidth = 0.0f,
-                    strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
-                    pathFillType = NonZero) {
+        _iconLogoApple = Builder(
+            name = "IconLogoApple",
+            defaultWidth = 14.0.dp,
+            defaultHeight = 16.0.dp,
+            viewportWidth = 14.0f,
+            viewportHeight = 16.0f,
+        ).apply {
+            path(
+                fill = SolidColor(Color(0xFF252525)),
+                stroke = null,
+                strokeLineWidth = 0.0f,
+                strokeLineCap = Butt,
+                strokeLineJoin = Miter,
+                strokeLineMiter = 4.0f,
+                pathFillType = NonZero,
+            ) {
                 moveTo(11.2413f, 8.4551f)
                 curveTo(11.2342f, 7.1442f, 11.8272f, 6.1547f, 13.0274f, 5.426f)
                 curveTo(12.3558f, 4.4651f, 11.3413f, 3.9364f, 10.0018f, 3.8328f)
@@ -41,8 +52,8 @@ public val MyIconPack.IconLogoApple: ImageVector
                 curveTo(7.6693f, 3.8864f, 8.5194f, 3.4078f, 9.2195f, 2.5898f)
                 close()
             }
-        }
-        .build()
+        }.build()
+
         return _iconLogoApple!!
     }
 

@@ -7,7 +7,7 @@ import com.kakao.sdk.user.UserApiClient
 
 fun kakaoLogin(
     context: Context,
-    callback: KakaoLoginCallback
+    callback: KakaoLoginCallback,
 ) {
     val kakaoCallback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
         when {
