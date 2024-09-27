@@ -1,5 +1,7 @@
 import java.net.URI
 
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 pluginManagement {
     includeBuild("build-logic")
     repositories {
@@ -22,9 +24,6 @@ dependencyResolutionManagement {
         maven { url = URI("https://devrepo.kakao.com/nexus/content/groups/public/") }
     }
 }
-
-gradle.startParameter.excludedTaskNames
-    .addAll(listOf(":build-logic:convention:testClasses"))
 
 rootProject.name = "soongan"
 include(":app")

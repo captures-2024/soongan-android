@@ -1,7 +1,10 @@
+import com.captures2024.soongan.plugin.implementation
+
 plugins {
-    captures("library")
+    alias(libs.plugins.captures2024.soongan.jvm.kotlin)
+    alias(libs.plugins.kotlin.serialization)
 }
 
-android {
-    namespace = "com.captures2024.soongan.core.model"
+dependencies {
+    implementation(libs.kotlin.serialization.json)
 }

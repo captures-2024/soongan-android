@@ -1,5 +1,5 @@
 plugins {
-    captures("feature")
+    alias(libs.plugins.captures2024.soongan.android.feature)
 }
 
 android {
@@ -7,9 +7,9 @@ android {
 }
 
 dependencies {
-    implementation(project(":feature:awards"))
-    implementation(project(":feature:feed"))
-    implementation(project(":feature:home"))
-    implementation(project(":feature:profile"))
-    implementation(project(":feature:welcome"))
+    implementation(projects.feature.awards)
+    implementation(projects.feature.feed)
+    implementation(projects.feature.home)
+    implementation(projects.feature.profile)
+    implementation(projects.feature.welcome)
 }

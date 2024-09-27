@@ -1,6 +1,7 @@
 plugins {
-    captures("library")
-    captures("compose")
+    alias(libs.plugins.captures2024.soongan.android.library)
+    alias(libs.plugins.captures2024.soongan.android.library.compose)
+    alias(libs.plugins.captures2024.soongan.android.hilt)
 }
 
 android {

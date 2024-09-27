@@ -1,5 +1,5 @@
 plugins {
-    captures("library")
+    alias(libs.plugins.captures2024.soongan.android.library)
 }
 
 android {
@@ -9,4 +9,6 @@ android {
 dependencies {
     implementation(project(":core:data"))
     implementation(project(":core:model"))
+
+    implementation(libs.javax.inject)
 }

@@ -1,8 +1,8 @@
 package com.captures2024.soongan.core.network.di
 
-import com.captures2024.soongan.core.datastore.BuildConfig
 import com.captures2024.soongan.core.datastore.TokenDataSource
 import com.captures2024.soongan.core.network.AuthInterceptor
+import com.captures2024.soongan.core.network.BuildConfig
 import com.captures2024.soongan.core.network.SoonGanAuthenticator
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
