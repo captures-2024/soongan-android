@@ -16,11 +16,22 @@ public val MyIconPack.IconFilterOld: ImageVector
         if (_iconFilterOld != null) {
             return _iconFilterOld!!
         }
-        _iconFilterOld = Builder(name = "IconFilterOld", defaultWidth = 24.0.dp, defaultHeight =
-                24.0.dp, viewportWidth = 24.0f, viewportHeight = 24.0f).apply {
-            path(fill = SolidColor(Color(0xFF252525)), stroke = null, strokeLineWidth = 0.0f,
-                    strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
-                    pathFillType = NonZero) {
+        _iconFilterOld = Builder(
+            name = "IconFilterOld",
+            defaultWidth = 24.0.dp,
+            defaultHeight = 24.0.dp,
+            viewportWidth = 24.0f,
+            viewportHeight = 24.0f,
+        ).apply {
+            path(
+                fill = SolidColor(Color(0xFF252525)),
+                stroke = null,
+                strokeLineWidth = 0.0f,
+                strokeLineCap = Butt,
+                strokeLineJoin = Miter,
+                strokeLineMiter = 4.0f,
+                pathFillType = NonZero,
+            ) {
                 moveTo(20.6364f, 2.1818f)
                 horizontalLineTo(19.5455f)
                 verticalLineTo(0.0f)
@@ -52,9 +63,15 @@ public val MyIconPack.IconFilterOld: ImageVector
                 verticalLineTo(7.6364f)
                 close()
             }
-            path(fill = SolidColor(Color(0xFF252525)), stroke = null, strokeLineWidth = 0.0f,
-                    strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
-                    pathFillType = NonZero) {
+            path(
+                fill = SolidColor(Color(0xFF252525)),
+                stroke = null,
+                strokeLineWidth = 0.0f,
+                strokeLineCap = Butt,
+                strokeLineJoin = Miter,
+                strokeLineMiter = 4.0f,
+                pathFillType = NonZero,
+            ) {
                 moveTo(16.0f, 15.0f)
                 lineTo(14.9965f, 16.0f)
                 lineTo(12.9922f, 14.0f)
@@ -67,8 +84,8 @@ public val MyIconPack.IconFilterOld: ImageVector
                 lineTo(16.0f, 15.0f)
                 close()
             }
-        }
-        .build()
+        }.build()
+
         return _iconFilterOld!!
     }
 

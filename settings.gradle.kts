@@ -16,6 +16,7 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -24,6 +25,8 @@ dependencyResolutionManagement {
         maven { url = URI("https://devrepo.kakao.com/nexus/content/groups/public/") }
     }
 }
+
+gradle.startParameter.excludedTaskNames.addAll(listOf(":build-logic:testClasses"))
 
 rootProject.name = "soongan"
 include(":app")

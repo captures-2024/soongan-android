@@ -8,5 +8,5 @@ data class InitFcmRequest(
     @SerialName("token")
     val token: String,
     @SerialName("deviceId")
-    val deviceId: String
+    val deviceId: String,
 )

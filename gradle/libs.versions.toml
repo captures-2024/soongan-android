@@ -8,7 +8,7 @@ versionCode = "1"
 gradle-dependency-handler-extensions = "1.1.0"
 
 # kotlin
-kotlin-kotlin = "2.0.0"
+kotlin-kotlin = "2.0.20"
 kotlin-coroutines = "1.8.0"
 kotlin-serialization-json = "1.6.3"
 kotlin-serialization-converter = "1.0.0"
@@ -64,7 +64,7 @@ test-truth = "1.1.5"
 test-kotest = "5.9.1"
 
 # google
-google-ksp = "2.0.0-1.0.24"
+google-ksp = "2.0.20-1.0.25"
 google-services = "4.4.2"
 google-firebase = "33.3.0"
 google-admob = "23.3.0"
@@ -97,7 +97,7 @@ kotlin-coroutines-google-play = { group = "org.jetbrains.kotlinx", name = "kotli
 kotlin-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlin-datetime" }
 detekt-formatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "kotlin-detekt" }
 kotlin-ktlint = { group = "com.pinterest", name = "ktlint", version.ref = "kotlin-ktlint-source" }
-
+kotlin-compose-compiler-extension = { group = "org.jetbrains.kotlin", name = "compose-compiler-gradle-plugin", version.ref = "kotlin-kotlin" }
 
 # android
 android-gradle-plugin = { group = "com.android.tools.build", name = "gradle", version.ref = "android-gradle-plugin" }

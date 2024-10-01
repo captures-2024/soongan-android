@@ -1,6 +1,8 @@
+@file:Suppress("DSL_SCOPE_VIOLATION", "INLINE_FROM_HIGHER_PLATFORM")
+
 plugins {
     `kotlin-dsl`
-    kotlin("jvm") version "1.9.22"
+    kotlin("jvm").version(libs.versions.kotlin.kotlin.get())
 }
 
 gradlePlugin {
@@ -33,8 +35,9 @@ repositories {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
 }
 
 kotlin {
@@ -45,6 +48,7 @@ dependencies {
     compileOnly(libs.android.gradle.plugin)
     compileOnly(libs.kotlin.gradle.plugin)
     compileOnly(libs.google.ksp.gradle.plugin)
+    compileOnly(libs.kotlin.compose.compiler.extension)
 
     compileOnly(files((libs as Any).javaClass.superclass.protectionDomain.codeSource.location))
 }

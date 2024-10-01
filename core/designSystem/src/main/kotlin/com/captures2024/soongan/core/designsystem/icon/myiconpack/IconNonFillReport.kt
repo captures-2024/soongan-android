@@ -19,11 +19,22 @@ public val MyIconPack.IconNonFillReport: ImageVector
         if (_iconNonFillReport != null) {
             return _iconNonFillReport!!
         }
-        _iconNonFillReport = Builder(name = "IconNonFillReport", defaultWidth = 24.0.dp,
-                defaultHeight = 24.0.dp, viewportWidth = 24.0f, viewportHeight = 24.0f).apply {
-            path(fill = SolidColor(Color(0xFFFC0000)), stroke = null, strokeLineWidth = 0.0f,
-                    strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
-                    pathFillType = NonZero) {
+        _iconNonFillReport = Builder(
+            name = "IconNonFillReport",
+            defaultWidth = 24.0.dp,
+            defaultHeight = 24.0.dp,
+            viewportWidth = 24.0f,
+            viewportHeight = 24.0f,
+        ).apply {
+            path(
+                fill = SolidColor(Color(0xFFFC0000)),
+                stroke = null,
+                strokeLineWidth = 0.0f,
+                strokeLineCap = Butt,
+                strokeLineJoin = Miter,
+                strokeLineMiter = 4.0f,
+                pathFillType = NonZero,
+            ) {
                 moveTo(16.9733f, 0.0f)
                 horizontalLineTo(7.0267f)
                 lineTo(0.0f, 7.0267f)
@@ -45,9 +56,15 @@ public val MyIconPack.IconNonFillReport: ImageVector
                 verticalLineTo(15.8667f)
                 close()
             }
-            path(fill = SolidColor(Color(0xFFFC0000)), stroke = null, strokeLineWidth = 0.0f,
-                    strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
-                    pathFillType = NonZero) {
+            path(
+                fill = SolidColor(Color(0xFFFC0000)),
+                stroke = null,
+                strokeLineWidth = 0.0f,
+                strokeLineCap = Butt,
+                strokeLineJoin = Miter,
+                strokeLineMiter = 4.0f,
+                pathFillType = NonZero,
+            ) {
                 moveTo(12.0003f, 18.6667f)
                 curveTo(12.7367f, 18.6667f, 13.3337f, 18.0697f, 13.3337f, 17.3333f)
                 curveTo(13.3337f, 16.597f, 12.7367f, 16.0f, 12.0003f, 16.0f)

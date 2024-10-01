@@ -12,5 +12,5 @@ data class InitFcmResponse(
     @SerialName("deviceId")
     val deviceId: String,
     @SerialName("deviceType")
-    val deviceType: String
+    val deviceType: String,
 )

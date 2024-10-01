@@ -8,5 +8,5 @@ data class RegisterNicknameResponse(
     @SerialName("memberEmail")
     val id: String,
     @SerialName("updatedNickname")
-    val nickname: String
+    val nickname: String,
 )

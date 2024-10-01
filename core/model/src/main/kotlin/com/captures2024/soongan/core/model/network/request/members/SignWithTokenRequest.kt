@@ -10,5 +10,5 @@ data class SignWithTokenRequest(
     @SerialName("idToken")
     val idToken: String,
     @SerialName("fcmToken")
-    val fcmToken: String
+    val fcmToken: String,
 )
