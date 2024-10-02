@@ -3,7 +3,6 @@ package com.captures2024.soongan.core.designsystem.component
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,7 +17,6 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -46,13 +44,13 @@ fun CommentInputTextField(
     value: String,
     onValueChange: (newValue: String) -> Unit,
     hint: String? = null,
-    onSideBtnClick: (() -> Unit)? = null,
+//    onSideBtnClick: (() -> Unit)? = null,
     keyboardType: KeyboardType = KeyboardType.Text,
     imeAction: ImeAction = ImeAction.Default,
     singleLine: Boolean = true,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
-    val isFocused by interactionSource.collectIsFocusedAsState()
+//    val isFocused by interactionSource.collectIsFocusedAsState()
     val focusRequester = remember { FocusRequester() }
 
     Box(
@@ -71,7 +69,7 @@ fun CommentInputTextField(
             onValueChange = onValueChange,
             hint = hint,
             enable = true,
-            onSideBtnClick = onSideBtnClick,
+//            onSideBtnClick = onSideBtnClick,
             interactionSource = interactionSource,
             keyboardOptions = KeyboardOptions(
                 keyboardType = keyboardType,
@@ -88,7 +86,7 @@ private fun CommentInputBasicTextField(
     onValueChange: (String) -> Unit,
     hint: String? = null,
     enable: Boolean = true,
-    onSideBtnClick: (() -> Unit)? = null,
+//    onSideBtnClick: (() -> Unit)? = null,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     keyboardOptions: KeyboardOptions = KeyboardOptions(
         keyboardType = KeyboardType.Text,

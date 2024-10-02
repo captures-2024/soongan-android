@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 data class HomePostNavigator(
     val id: Int,
     val url: String,
-    val title: String
+    val title: String,
 )

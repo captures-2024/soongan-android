@@ -16,11 +16,22 @@ public val MyIconPack.IconLogoKakao: ImageVector
         if (_iconLogoKakao != null) {
             return _iconLogoKakao!!
         }
-        _iconLogoKakao = Builder(name = "IconLogoKakao", defaultWidth = 18.0.dp, defaultHeight =
-                16.0.dp, viewportWidth = 18.0f, viewportHeight = 16.0f).apply {
-            path(fill = SolidColor(Color(0xFF252525)), stroke = null, strokeLineWidth = 0.0f,
-                    strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
-                    pathFillType = NonZero) {
+        _iconLogoKakao = Builder(
+            name = "IconLogoKakao",
+            defaultWidth = 18.0.dp,
+            defaultHeight = 16.0.dp,
+            viewportWidth = 18.0f,
+            viewportHeight = 16.0f,
+        ).apply {
+            path(
+                fill = SolidColor(Color(0xFF252525)),
+                stroke = null,
+                strokeLineWidth = 0.0f,
+                strokeLineCap = Butt,
+                strokeLineJoin = Miter,
+                strokeLineMiter = 4.0f,
+                pathFillType = NonZero,
+            ) {
                 moveTo(8.6607f, 0.0f)
                 curveTo(10.2266f, 0.0f, 11.6749f, 0.3048f, 13.0056f, 0.9143f)
                 curveTo(14.3363f, 1.5238f, 15.3883f, 2.3526f, 16.1615f, 3.4007f)
@@ -42,8 +53,8 @@ public val MyIconPack.IconLogoKakao: ImageVector
                 curveTo(5.6465f, 0.3048f, 7.0948f, 0.0f, 8.6607f, 0.0f)
                 close()
             }
-        }
-        .build()
+        }.build()
+
         return _iconLogoKakao!!
     }
 

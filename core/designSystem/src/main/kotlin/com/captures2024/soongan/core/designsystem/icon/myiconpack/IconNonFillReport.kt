@@ -1,12 +1,9 @@
 package com.captures2024.soongan.core.designsystem.icon.myiconpack
 
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.PathFillType
 import androidx.compose.ui.graphics.PathFillType.Companion.NonZero
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.StrokeCap.Companion.Butt
-import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.StrokeJoin.Companion.Miter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.ImageVector.Builder
@@ -72,9 +69,15 @@ public val MyIconPack.IconNonFillReport: ImageVector
                 curveTo(10.667f, 18.0697f, 11.2639f, 18.6667f, 12.0003f, 18.6667f)
                 close()
             }
-            path(fill = SolidColor(Color(0xFFFC0000)), stroke = null, strokeLineWidth = 0.0f,
-                    strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
-                    pathFillType = NonZero) {
+            path(
+                fill = SolidColor(Color(0xFFFC0000)),
+                stroke = null,
+                strokeLineWidth = 0.0f,
+                strokeLineCap = Butt,
+                strokeLineJoin = Miter,
+                strokeLineMiter = 4.0f,
+                pathFillType = NonZero,
+            ) {
                 moveTo(10.667f, 5.3333f)
                 horizontalLineTo(13.3337f)
                 verticalLineTo(14.6666f)
@@ -82,8 +85,8 @@ public val MyIconPack.IconNonFillReport: ImageVector
                 verticalLineTo(5.3333f)
                 close()
             }
-        }
-        .build()
+        }.build()
+
         return _iconNonFillReport!!
     }
 

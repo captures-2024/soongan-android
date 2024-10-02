@@ -38,13 +38,13 @@ internal fun WelcomeScreen(
             )
             .padding(all = 16.dp),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         NonScaleText(
             text = stringResource(id = com.captures2024.soongan.feature.welcome.R.string.welcome_text),
             color = Color.White,
             fontSize = 36.sp,
-            fontWeight = FontWeight.SemiBold
+            fontWeight = FontWeight.SemiBold,
         )
         Spacer(modifier = Modifier.height(44.dp))
         NonScaleText(
@@ -54,7 +54,7 @@ internal fun WelcomeScreen(
             },
             color = Color.White,
             fontSize = 36.sp,
-            fontWeight = FontWeight.SemiBold
+            fontWeight = FontWeight.SemiBold,
         )
     }
 }

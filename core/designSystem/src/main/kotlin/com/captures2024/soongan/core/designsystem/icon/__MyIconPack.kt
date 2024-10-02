@@ -36,19 +36,19 @@ import kotlin.collections.List as ____KtList
 
 public object MyIconPack
 
-private var __AllIcons: ____KtList<ImageVector>? = null
+private var allIcons: ____KtList<ImageVector>? = null
 
 public val MyIconPack.AllIcons: ____KtList<ImageVector>
     get() {
-        if (__AllIcons != null) {
-            return __AllIcons!!
+        if (allIcons != null) {
+            return allIcons!!
         }
-        __AllIcons = listOf(IconFillCheck, IconSelectedHome, IconNonSelectedAwards, IconNonFillFillter,
+        allIcons = listOf(IconFillCheck, IconSelectedHome, IconNonSelectedAwards, IconNonFillFillter,
             IconFilterLike, IconFilterNew, IconFilterOld, IconNonFillTopArrow, IconSelectedFeed, IconNonFillPlus,
             IconNonFillInfo, IconNonFillHeart, IconSelectedAwards, IconNonSelectedFeed, IconFillError,
             IconNonFillComment, IconNonFillEdit, IconNonFillBackArrow, IconFillHeart,
             IconSelectedProfile, IconLogoGoogle, IconLogoApple,
             IconNonFillPaperDelete, IconNonSelectedProfile, IconNonFillMenu, IconLogoKakao,
             IconNonFillLeftArrow, IconNonFillRightArrow, IconNonSelectedHome, IconNonFillReport, Logo,)
-        return __AllIcons!!
+        return allIcons!!
     }

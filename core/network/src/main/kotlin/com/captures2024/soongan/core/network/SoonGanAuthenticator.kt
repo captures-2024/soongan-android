@@ -1,8 +1,5 @@
 package com.captures2024.soongan.core.network
 
-import com.captures2024.soongan.core.datastore.TokenDataSource
-import com.captures2024.soongan.core.domain.usecase.members.ReissueTokenUseCase
-import kotlinx.coroutines.runBlocking
 import okhttp3.Authenticator
 import okhttp3.Request
 import okhttp3.Response
@@ -12,7 +9,7 @@ import javax.inject.Inject
 class SoonGanAuthenticator
 @Inject
 constructor(
-    private val tokenDataSource: TokenDataSource
+//    private val tokenDataSource: TokenDataSource,
 ) : Authenticator {
     override fun authenticate(route: Route?, response: Response): Request? {
         if (response.request.header("Authorization") == null) {
@@ -20,9 +17,9 @@ constructor(
         }
 
         if (response.code == 401) {
-            val refreshToken = runBlocking { tokenDataSource.getRefreshToken() }
-
-            val reissueResult = runCatching {
+//            val refreshToken = runBlocking { tokenDataSource.getRefreshToken() }
+//
+//            val reissueResult = runCatching {
 //                runBlocking {
 //                    val result = reissueTokenUseCase().getOrThrow()
 //
@@ -32,11 +29,11 @@ constructor(
 //                        tokenDataSource.getAccessToken()
 //                    }
 //                }
-            }.onFailure {
-                runBlocking {
-                    tokenDataSource.clearAllToken()
-                }
-            }.getOrThrow()
+//            }.onFailure {
+//                runBlocking {
+//                    tokenDataSource.clearAllToken()
+//                }
+//            }.getOrThrow()
 
             return response.request.newBuilder()
 //                .header("Authorization", "Bearer ${newTokens.data.accessToken}")

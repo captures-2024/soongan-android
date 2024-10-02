@@ -13,7 +13,7 @@ import com.captures2024.soongan.feature.welcome.ui.WelcomeScreen
 @Composable
 internal fun WelcomeRoute(
     navigateToHome: (NavOptions) -> Unit,
-    welcomeViewModel: WelcomeViewModel = hiltViewModel()
+    welcomeViewModel: WelcomeViewModel = hiltViewModel(),
 ) {
     val uiState = welcomeViewModel.uiState.collectAsStateWithLifecycle()
 
@@ -25,6 +25,6 @@ internal fun WelcomeRoute(
     }
 
     WelcomeScreen(
-        uiState = uiState.value
+        uiState = uiState.value,
     )
 }

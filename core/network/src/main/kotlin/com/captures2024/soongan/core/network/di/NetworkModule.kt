@@ -35,7 +35,8 @@ internal object NetworkModule {
 
     @Provides
     @Singleton
-    fun providerSoonGanAuthenticator(tokenDataSource: TokenDataSource, ): Authenticator = SoonGanAuthenticator(tokenDataSource = tokenDataSource)
+    fun providerSoonGanAuthenticator(tokenDataSource: TokenDataSource): Authenticator = SoonGanAuthenticator()
+//    (tokenDataSource = tokenDataSource)
 
     @Provides
     @Singleton
@@ -70,12 +71,9 @@ internal object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(
-        okHttpClient: OkHttpClient
-    ): Retrofit = Retrofit.Builder()
+    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
         .baseUrl(BuildConfig.CAPTURES_BASE_URL)
         .client(okHttpClient)
         .addConverterFactory(jsonConverterFactory)
         .build()
-
 }
