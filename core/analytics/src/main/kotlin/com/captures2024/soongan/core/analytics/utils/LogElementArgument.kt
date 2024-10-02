@@ -1,4 +1,4 @@
-package com.captures2024.soongan.core.android.utils
+package com.captures2024.soongan.core.analytics.utils
 
 data class LogElementArgument(
     val key: String,

@@ -1,16 +1,61 @@
-package com.captures2024.soongan.core.android.helper.impl
+package com.captures2024.soongan.core.analytics
 
-import com.captures2024.soongan.core.android.utils.LogElementArgument
-import com.captures2024.soongan.core.android.utils.LogLevel
-import com.captures2024.soongan.core.android.helper.AnalyticsHelper
+import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
+import com.captures2024.soongan.core.analytics.helper.LoggingHelper
+import com.captures2024.soongan.core.analytics.utils.LogElementArgument
+import com.captures2024.soongan.core.analytics.utils.LogLevel
 import io.github.aakira.napier.DebugAntilog
 import io.github.aakira.napier.Napier
 import java.util.regex.Pattern
 
-class NapierAnalyticsHelper : AnalyticsHelper {
-
-    override fun initialize() {
+class NapierAnalyticsHelper : AnalyticsHelper() {
+    override fun initLogger() {
         Napier.base(DebugAntilog())
+    }
+
+    override fun setTag(): Pair<String, List<LogElementArgument>> {
+        val ignoreClassList = listOf(
+            AnalyticsHelper::class.java.name,
+            LoggingHelper::class.java.name,
+            NapierAnalyticsHelper::class.java.name,
+        )
+
+        val pair = Throwable("current").stackTrace
+            .first { it.className.split("$")[0] !in ignoreClassList }
+            .let(this::createStacktraceElementTag)
+
+        return pair
+    }
+
+    override fun createStacktraceElementTag(element: StackTraceElement): Pair<String, List<LogElementArgument>> {
+        var tag = element.className.substringAfterLast('.')
+
+        val m = Pattern.compile("(\\$\\d+)+$").matcher(tag)
+
+        if (m.find()) {
+            tag = m.replaceAll("")
+        }
+
+        val list = mutableListOf(
+            LogElementArgument(
+                "fileName",
+                element.fileName ?: "null"
+            ),
+            LogElementArgument(
+                "lineNumber",
+                element.lineNumber.toString()
+            ),
+            LogElementArgument(
+                "methodName",
+                element.methodName
+            ),
+        )
+
+        return if (tag.length <= 23) {
+            tag to list
+        } else {
+            tag.substring(0, 23) to list
+        }
     }
 
     override fun v(
@@ -165,41 +210,6 @@ class NapierAnalyticsHelper : AnalyticsHelper {
                 message = message,
                 tag = tag,
             )
-        }
-    }
-
-    private fun setTag(): Pair<String, List<LogElementArgument>> {
-        val ignoreClassList = listOf(
-            AnalyticsHelper::class.java.name,
-            NapierAnalyticsHelper::class.java.name,
-        )
-
-        val pair = Throwable("current").stackTrace
-            .first { it.className.split("$")[0] !in ignoreClassList }
-            .let(this::createStacktraceElementTag)
-
-        return pair
-    }
-
-    private fun createStacktraceElementTag(element: StackTraceElement): Pair<String, List<LogElementArgument>> {
-        var tag = element.className.substringAfterLast('.')
-
-        val m = Pattern.compile("(\\$\\d+)+$").matcher(tag)
-
-        if (m.find()) {
-            tag = m.replaceAll("")
-        }
-
-        val list = mutableListOf(
-            LogElementArgument("fileName", element.fileName ?: "null"),
-            LogElementArgument("lineNumber", element.lineNumber.toString()),
-            LogElementArgument("methodName", element.methodName),
-        )
-
-        return if (tag.length <= 23) {
-            tag to list
-        } else {
-            tag.substring(0, 23) to list
         }
     }
 }

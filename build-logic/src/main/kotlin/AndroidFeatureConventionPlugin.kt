@@ -11,6 +11,7 @@ class AndroidFeatureConventionPlugin : BaseConventionPlugin({
     }
 
     dependencies {
+        implementation(project(path = ":core:analytics"))
         implementation(project(path = ":core:analytics-android"))
         implementation(project(path = ":core:common"))
         implementation(project(path = ":core:designSystem"))

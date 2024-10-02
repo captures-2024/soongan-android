@@ -14,7 +14,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
 import androidx.lifecycle.lifecycleScope
-import com.captures2024.soongan.core.android.helper.AnalyticsHelper
+import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.android.utils.LocalAnalyticsHelper
 import com.captures2024.soongan.core.android.helper.NetworkMonitor
 import com.captures2024.soongan.core.auth.GoogleAuthUiClient
@@ -37,7 +37,7 @@ import javax.inject.Inject
 class SignActivity : ComponentActivity() {
 
     @Inject
-    lateinit var analyticsHelper: AnalyticsHelper
+    lateinit var analyticsHelper: com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 
     @Inject
     lateinit var networkMonitor: NetworkMonitor

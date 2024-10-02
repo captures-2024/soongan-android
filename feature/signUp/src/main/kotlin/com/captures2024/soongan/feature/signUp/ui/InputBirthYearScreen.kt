@@ -6,6 +6,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import com.captures2024.soongan.core.analytics.utils.LogElementArgument
+import com.captures2024.soongan.core.android.utils.LocalAnalyticsHelper
 import com.captures2024.soongan.core.common.Validation
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.signUp.R
@@ -18,9 +20,12 @@ internal fun InputBirthYearScreen(
     onClickBack: () -> Unit = {},
     onValueChange: (String) -> Unit = {}
 ) {
+    val analyticsHelper = LocalAnalyticsHelper.current
     val isValid = Validation.isValidBirthYear(state.birthDate)
-//    Timber.tag("InputBirthYearScreen").d("isValid = $isValid")
 
+    analyticsHelper.d(
+        LogElementArgument("isValid", isValid.toString()),
+    )
 
     Scaffold(
         topBar = @Composable {

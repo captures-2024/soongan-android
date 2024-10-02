@@ -1,10 +1,9 @@
-package com.captures2024.soongan.core.android.helper
+package com.captures2024.soongan.core.analytics.helper
 
-import com.captures2024.soongan.core.android.utils.LogElementArgument
-import com.captures2024.soongan.core.android.utils.LogLevel
+import com.captures2024.soongan.core.analytics.utils.LogElementArgument
+import com.captures2024.soongan.core.analytics.utils.LogLevel
 
-interface AnalyticsHelper {
-    fun initialize()
+interface LoggingHelper {
 
     fun v(
         vararg logVariable: LogElementArgument,

@@ -63,6 +63,7 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.analytics)
     implementation(projects.core.analyticsAndroid)
     implementation(projects.core.auth)
     implementation(projects.core.common)

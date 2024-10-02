@@ -1,5 +1,6 @@
 package com.captures2024.soongan.core.network.di
 
+import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.datastore.TokenDataSource
 import com.captures2024.soongan.core.network.AuthInterceptor
 import com.captures2024.soongan.core.network.BuildConfig
@@ -35,18 +36,27 @@ internal object NetworkModule {
 
     @Provides
     @Singleton
-    fun providerSoonGanAuthenticator(tokenDataSource: TokenDataSource): Authenticator = SoonGanAuthenticator()
-//    (tokenDataSource = tokenDataSource)
+    fun providerSoonGanAuthenticator(
+        analyticsHelper: AnalyticsHelper,
+        tokenDataSource: TokenDataSource,
+    ): Authenticator = SoonGanAuthenticator(
+        analyticsHelper = analyticsHelper,
+        tokenDataSource = tokenDataSource,
+    )
 
     @Provides
     @Singleton
-    fun providerAuthInterceptor(tokenDataSource: TokenDataSource): AuthInterceptor = AuthInterceptor(tokenDataSource = tokenDataSource)
+    fun providerAuthInterceptor(
+        analyticsHelper: AnalyticsHelper,
+        tokenDataSource: TokenDataSource,
+    ): AuthInterceptor = AuthInterceptor(
+        analyticsHelper = analyticsHelper,
+        tokenDataSource = tokenDataSource,
+    )
 
     @Provides
     @Singleton
-    fun provideLoggingInterceptor(): HttpLoggingInterceptor = HttpLoggingInterceptor { message ->
-//        Timber.tag("ApiService").d(message)
-    }.apply {
+    fun provideLoggingInterceptor(analyticsHelper: AnalyticsHelper): HttpLoggingInterceptor = HttpLoggingInterceptor { message -> analyticsHelper.d(message = message) }.apply {
         level = HttpLoggingInterceptor.Level.BODY
 //        level = when (BuildConfig.DEBUG) {
 //            true -> HttpLoggingInterceptor.Level.BODY

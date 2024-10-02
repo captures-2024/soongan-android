@@ -1,6 +1,7 @@
 package com.captures2024.soongan.feature.signIn
 
 import androidx.lifecycle.SavedStateHandle
+import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.common.base.BaseViewModel
 import com.captures2024.soongan.core.domain.usecase.fcm.InitFcmUseCase
 import com.captures2024.soongan.core.domain.usecase.members.IsAllowUserInfoUseCase
@@ -16,6 +17,7 @@ import javax.inject.Inject
 class SignInViewModel
 @Inject
 constructor(
+    private val analyticsHelper: AnalyticsHelper,
     private val initFcmUseCase: InitFcmUseCase,
     private val signingGoogleUseCase: SigningGoogleUseCase,
     private val signingKakaoUseCase: SigningKakaoUseCase,
@@ -26,7 +28,10 @@ constructor(
     override fun createInitialState(savedStateHandle: SavedStateHandle): SignInUIState = SignInUIState()
 
     override fun handleClientException(throwable: Throwable) {
-//        Timber.tag(TAG).e(throwable)
+        analyticsHelper.e(
+            throwable = throwable,
+            logVariable = currentState.toLoggingElements(),
+        )
     }
 
     override suspend fun handleIntent(intent: SignInIntent) {
@@ -94,12 +99,12 @@ constructor(
         ).getOrNull()
 
         if (result == null) {
-//            Timber.tag(TAG).d("errorMessage = result is Null")
+            analyticsHelper.d(message = "result is null")
             intent(SignInIntent.FailedSignGoogle)
             return@launch
         }
 
-//        Timber.tag(TAG).d("result = $result")
+        analyticsHelper.d(message = "result = $result")
 
         when (result) {
             true -> isAllowCheck()
@@ -153,9 +158,5 @@ constructor(
                 )
             }
         }
-    }
-
-    companion object {
-        private const val TAG = "SignInVM"
     }
 }

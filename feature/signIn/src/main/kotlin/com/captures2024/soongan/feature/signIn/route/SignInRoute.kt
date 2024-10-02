@@ -5,6 +5,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavOptions
+import com.captures2024.soongan.core.android.utils.LocalAnalyticsHelper
 import com.captures2024.soongan.feature.signIn.SignInViewModel
 import com.captures2024.soongan.feature.signIn.state.SignInIntent
 import com.captures2024.soongan.feature.signIn.state.SignInSideEffect
@@ -22,11 +23,12 @@ internal fun SignInRoute(
     navigateToPrivacyPolicy: () -> Unit,
     signInViewModel: SignInViewModel
 ) {
+    val analyticsHelper = LocalAnalyticsHelper.current
     val uiState by signInViewModel.state.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
         signInViewModel.sideEffect.collect {
-//            Timber.tag("SignInRoute").d("Collected sideEffect = $it")
+            analyticsHelper.d(message = "Collected sideEffect = $it")
             when (it) {
                 is SignInSideEffect.AppleSignIn -> appleSignIn()
 

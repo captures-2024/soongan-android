@@ -2,6 +2,7 @@ package com.captures2024.soongan.feature.signUp
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.toRoute
+import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.common.base.BaseViewModel
 import com.captures2024.soongan.core.navigator.screen.sign.BirthDateNavigator
 import com.captures2024.soongan.feature.signUp.state.birthdate.BirthDateIntent
@@ -14,6 +15,7 @@ import javax.inject.Inject
 internal class BirthYearViewModel
 @Inject
 constructor(
+    private val analyticsHelper: AnalyticsHelper,
     savedStateHandle: SavedStateHandle
 ) : BaseViewModel<BirthDateUIState, BirthDateSideEffect, BirthDateIntent>(savedStateHandle) {
 
@@ -23,16 +25,13 @@ constructor(
     }
 
     override fun handleClientException(throwable: Throwable) {
-//        Timber.tag(TAG).e(throwable)
+        analyticsHelper.e(
+            throwable = throwable,
+            logVariable = currentState.toLoggingElements(),
+        )
     }
 
     override suspend fun handleIntent(intent: BirthDateIntent) {
-//        when (intent) {
-//
-//        }
-    }
-
-    companion object {
-        private const val TAG = "BirthYearVM"
+        TODO("Not Impl Yet")
     }
 }

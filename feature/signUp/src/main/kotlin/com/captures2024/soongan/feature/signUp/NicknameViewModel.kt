@@ -3,6 +3,7 @@ package com.captures2024.soongan.feature.signUp
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.common.base.BaseViewModel
 import com.captures2024.soongan.core.domain.usecase.members.IsAllowNicknameUseCase
 import com.captures2024.soongan.core.domain.usecase.members.RegisterNicknameUseCase
@@ -16,66 +17,19 @@ import javax.inject.Inject
 internal class NicknameViewModel
 @Inject
 constructor(
+    private val analyticsHelper: AnalyticsHelper,
     private val isAllowNicknameUseCase: IsAllowNicknameUseCase,
     private val registerNicknameUseCase: RegisterNicknameUseCase,
     savedStateHandle: SavedStateHandle
 ) : BaseViewModel<NicknameUIState, NicknameSideEffect, NicknameIntent>(savedStateHandle) {
-//    private val _uiState = MutableStateFlow<InputNickNameUIState>(InputNickNameUIState.Init)
-//    val uiState: StateFlow<InputNickNameUIState>
-//        get() = _uiState
-//
-//    fun restoreState() {
-//        _uiState.value = InputNickNameUIState.Init
-//    }
-//
-//    fun onChangedValue(nickname: String) {
-//        val currentState = _uiState.value
-//
-//        if (currentState is InputNickNameUIState.Loading) {
-//            return
-//        }
-//
-//        if (nickname.length > 10) {
-//            return
-//        }
-//
-//        _uiState.value = InputNickNameUIState.ValueChanged(nickname = nickname)
-//    }
-//
-//    fun duplicationCheck() {
-//        when (val currentState = _uiState.value) {
-//            is InputNickNameUIState.Init,
-//            is InputNickNameUIState.Loading,
-//            is InputNickNameUIState.Error -> return
-//
-//            else -> viewModelScope.launch {
-//                _uiState.emit(InputNickNameUIState.Loading(currentState.nickname))
-//
-//                val isAllow = isAllowNicknameUseCase(currentState.nickname).getOrNull() ?: return@launch _uiState.emit(InputNickNameUIState.Error(currentState.nickname))
-//
-//                if (!isAllow) {
-//                    _uiState.emit(InputNickNameUIState.Error(currentState.nickname))
-//                    return@launch
-//                }
-//
-//                registerNickname(currentState.nickname)
-//            }
-//        }
-//    }
-//
-//    private suspend fun registerNickname(nickname: String) {
-//        val isRegister = registerNicknameUseCase(nickname).getOrNull() ?: return _uiState.emit(InputNickNameUIState.Error(nickname))
-//
-//        when (isRegister.result) {
-//            true -> _uiState.emit(InputNickNameUIState.Success(nickname))
-//            false -> _uiState.emit(InputNickNameUIState.Error(nickname))
-//        }
-//    }
 
     override fun createInitialState(savedStateHandle: SavedStateHandle): NicknameUIState = NicknameUIState()
 
     override fun handleClientException(throwable: Throwable) {
-//        Timber.tag(TAG).e(throwable)
+        analyticsHelper.e(
+            throwable = throwable,
+            logVariable = currentState.toLoggingElements(),
+        )
     }
 
     override suspend fun handleIntent(intent: NicknameIntent) {
@@ -105,7 +59,7 @@ constructor(
             val isAllow = isAllowNicknameUseCase(currentState.nickname).getOrNull()
 
             if (isAllow == null) {
-//                Timber.tag(TAG).d("isAllow is null")
+                analyticsHelper.d(message = "isAllow is null")
                 reduce {
                     copy(isLoading = false)
                 }
@@ -116,7 +70,7 @@ constructor(
                 true -> intent(NicknameIntent.RegisterNickname)
 
                 false -> {
-//                    Timber.tag(TAG).d("isAllow is false")
+                    analyticsHelper.d(message = "isAllow is false")
                     reduce {
                         copy(
                             isLoading = false,
@@ -140,7 +94,7 @@ constructor(
     private fun registerNickname() {
         launch {
             if (currentState.isDuplicatedNickname) {
-//                Timber.tag(TAG).d("${currentState.nickname} is duplicated")
+                analyticsHelper.d(message = "nickname[${currentState.nickname}] is duplicated")
                 reduce {
                     copy(
                         isLoading = false,
@@ -155,7 +109,7 @@ constructor(
             val isRegister = registerNicknameUseCase(currentNickname).getOrNull()
 
             if (isRegister == null) {
-//                Timber.tag(TAG).d("isRegister is null")
+                analyticsHelper.d(message = "isRegister is null")
                 reduce {
                     copy(
                         isLoading = false,
@@ -168,7 +122,7 @@ constructor(
                 true -> postSideEffect(NicknameSideEffect.NavigateToBirthDate)
 
                 false -> {
-//                    Timber.tag(TAG).d("${currentState.nickname} post failed")
+                    analyticsHelper.d(message = "nickame[${currentState.nickname}] post failed")
                     reduce {
                         copy(
                             isLoading = false,
@@ -177,9 +131,5 @@ constructor(
                 }
             }
         }
-    }
-
-    companion object {
-        private const val TAG = "NicknameVM"
     }
 }

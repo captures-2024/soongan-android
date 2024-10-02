@@ -32,6 +32,7 @@ rootProject.name = "soongan"
 include(":app")
 
 include(
+    ":core:analytics",
     ":core:analytics-android",
     ":core:auth",
     ":core:common",
