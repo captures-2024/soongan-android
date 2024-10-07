@@ -51,7 +51,7 @@ internal fun SignRoute(
             googleSignIn = googleSignIn,
             kakaoSignIn = kakaoSignIn,
             navigateToMain = navigateToMain,
-            signInViewModel = signInViewModel
+            signInViewModel = signInViewModel,
         )
     }
 }
