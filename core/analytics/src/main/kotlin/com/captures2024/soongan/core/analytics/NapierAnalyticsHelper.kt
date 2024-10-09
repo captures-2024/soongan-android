@@ -212,4 +212,13 @@ class NapierAnalyticsHelper : AnalyticsHelper() {
             )
         }
     }
+
+    override fun networkLog(message: String?) {
+        val (defaultTag, _) = setTag()
+
+        Napier.d(
+            message = "$message\n",
+            tag = defaultTag,
+        )
+    }
 }

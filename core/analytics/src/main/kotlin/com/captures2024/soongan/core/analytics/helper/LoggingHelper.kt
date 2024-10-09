@@ -44,4 +44,8 @@ interface LoggingHelper {
         message: String? = null,
         tag: String? = null,
     )
+
+    fun networkLog(
+        message: String? = null,
+    )
 }
