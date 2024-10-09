@@ -12,9 +12,9 @@ class KakaoAuthHelperImpl : KakaoAuthHelper {
     ) {
         val kakaoCallback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
             when {
-                error != null -> callback.onFailure(error = error)
-                token != null -> callback.onSuccess(token.accessToken, token.refreshToken)
-                else -> callback.onFailure(null)
+                error != null -> callback.onFailureKakaoLogin(error = error)
+                token != null -> callback.onSuccessKakaoLogin(token.accessToken, token.refreshToken)
+                else -> callback.onFailureKakaoLogin(null)
             }
         }
 

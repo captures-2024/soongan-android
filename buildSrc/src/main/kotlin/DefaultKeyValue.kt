@@ -7,6 +7,9 @@ object DefaultKeyValue {
     private const val DEFAULT_GOOGLE_API_KEY = "YOUR_API_KEY"
     private const val DEFAULT_GOOGLE_CLIENT_ID = "YOUR_CLIENT_ID"
     private const val DEFAULT_KAKAO_API_KEY = "YOUR_API_KEY"
+    private const val DEFAULT_APPLE_ENDPOINT = "YOUR_ENDPOINT"
+    private const val DEFAULT_APPLE_REDIRECT_URL = "YOUR_REDIRECT_URL"
+    private const val DEFAULT_APPLE_RESPONSE_URL = "YOUR_RESPONSE_URL"
 
     @Throws(
         IllegalArgumentException::class,
@@ -67,6 +70,54 @@ object DefaultKeyValue {
 
         if (key == DEFAULT_KAKAO_API_KEY) {
             throw IllegalArgumentException("kakao api key is default. Please input your kakao api key")
+        }
+
+        return key
+    }
+
+    @Throws(
+        IllegalArgumentException::class,
+        NullPointerException::class,
+    )
+    fun isAllowedAppleEndpoint(key: String?): String {
+        if (key == null) {
+            throw NullPointerException("AppleEndpoint is null. Please input your kakao api key")
+        }
+
+        if (key == DEFAULT_APPLE_ENDPOINT) {
+            throw IllegalArgumentException("AppleEndpoint is default. Please input your kakao api key")
+        }
+
+        return key
+    }
+
+    @Throws(
+        IllegalArgumentException::class,
+        NullPointerException::class,
+    )
+    fun isAllowedAppleRedirectUrl(key: String?): String {
+        if (key == null) {
+            throw NullPointerException("AppleRedirectUrl is null. Please input your kakao api key")
+        }
+
+        if (key == DEFAULT_APPLE_REDIRECT_URL) {
+            throw IllegalArgumentException("AppleRedirectUrl is default. Please input your kakao api key")
+        }
+
+        return key
+    }
+
+    @Throws(
+        IllegalArgumentException::class,
+        NullPointerException::class,
+    )
+    fun isAllowedAppleResponseUrl(key: String?): String {
+        if (key == null) {
+            throw NullPointerException("AppleResponseUrl is null. Please input your kakao api key")
+        }
+
+        if (key == DEFAULT_APPLE_RESPONSE_URL) {
+            throw IllegalArgumentException("AppleResponseUrl is default. Please input your kakao api key")
         }
 
         return key

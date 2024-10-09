@@ -15,6 +15,8 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.android.utils.LocalAnalyticsHelper
@@ -26,6 +28,7 @@ import com.captures2024.soongan.core.auth.kakao.KakaoLoginCallback
 import com.captures2024.soongan.core.designsystem.theme.SoonGanTheme
 import com.captures2024.soongan.core.navigator.activity.MainActivityNavigator
 import com.captures2024.soongan.feature.sign.route.SignRoute
+import com.captures2024.soongan.feature.sign.ui.AppleWebView
 import com.captures2024.soongan.feature.signIn.SignInViewModel
 import com.captures2024.soongan.feature.signIn.state.SignInIntent
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
@@ -52,6 +55,7 @@ class SignActivity : ComponentActivity(), KakaoLoginCallback {
     lateinit var mainActivityNavigator: MainActivityNavigator
 
     private val signInViewModel: SignInViewModel by viewModels()
+    private val appleSignInViewModel: AppleSignInViewModel by viewModels()
 
     private val googleAuthUiClient by lazy {
         GoogleAuthUiClient(
@@ -112,20 +116,30 @@ class SignActivity : ComponentActivity(), KakaoLoginCallback {
                     androidTheme = false,
                     disableDynamicTheming = false,
                 ) {
-                    SignRoute(
-                        networkMonitor = networkMonitor,
-                        appleSignIn = { TODO("Apple Sign In Logic") },
-                        googleSignIn = { signInWithGoogle(launcher) },
-                        kakaoSignIn = { kakaoAuthHelper.kakaoLogin(context = this, callback = this) },
-                        navigateToMain = this::navigateToMain,
-                        signInViewModel = signInViewModel,
-                    )
+                    val appleState by appleSignInViewModel.appleSignInState.collectAsStateWithLifecycle()
+
+                    when (appleState) {
+                        is AppleSignInState.Init -> AppleWebView(
+                            onSuccess = {},
+                            onFailure = {}
+                        )
+
+                        else -> SignRoute(
+                            networkMonitor = networkMonitor,
+                            appleSignIn = { appleSignInViewModel.onClickAppleSignIn() },
+                            googleSignIn = { signInWithGoogle(launcher) },
+                            kakaoSignIn = { kakaoAuthHelper.kakaoLogin(context = this, callback = this) },
+                            navigateToMain = this::navigateToMain,
+                            signInViewModel = signInViewModel,
+                        )
+                    }
+
                 }
             }
         }
     }
 
-    override fun onSuccess(
+    override fun onSuccessKakaoLogin(
         accessToken: String?,
         refreshToken: String?,
     ) {
@@ -137,7 +151,7 @@ class SignActivity : ComponentActivity(), KakaoLoginCallback {
         )
     }
 
-    override fun onFailure(error: Throwable?) {
+    override fun onFailureKakaoLogin(error: Throwable?) {
         signInViewModel.intent(SignInIntent.FailedSignKakao)
     }
 
