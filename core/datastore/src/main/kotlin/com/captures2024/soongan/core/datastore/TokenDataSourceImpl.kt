@@ -37,7 +37,6 @@ constructor(
             }
         }.first()[KEY_ACCESS_TOKEN] ?: ""
 
-
     override suspend fun getRefreshToken(): String = dataStore.data
         .catch { exception ->
             when (exception) {

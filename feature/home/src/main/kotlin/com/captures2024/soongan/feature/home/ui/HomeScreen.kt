@@ -283,7 +283,8 @@ private fun ExhibitBtn(
                 Spacer(modifier = Modifier.height(8.dp))
                 NonScaleText(
                     text = stringResource(id = Rhome.string.exhibit),
-                    style = TextStyle(fontSize = 14.sp, color = PrimaryA)
+                    fontSize = 14.sp,
+                    color = PrimaryA,
                 )
             }
         }
@@ -354,10 +355,8 @@ private fun WeeklyDailyBtn(
     ) {
         NonScaleText(
             text = periodText,
-            style = TextStyle(
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold
-            ),
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center
         )
     }
@@ -371,7 +370,9 @@ private fun ContestPeriodText(
 ) {
     NonScaleText(
         text = "$text | $period",
-        style = TextStyle(fontSize = 15.sp, color = PrimaryA, fontWeight = FontWeight.SemiBold)
+        fontSize = 15.sp,
+        color = PrimaryA,
+        fontWeight = FontWeight.SemiBold,
     )
 }
 
@@ -429,7 +430,8 @@ private fun MainBottomIcon(
         Spacer(modifier = Modifier.height(12.dp))
         NonScaleText(
             text = iconDescription,
-            style = TextStyle(fontSize = 13.sp, color = PrimaryA)
+            fontSize = 13.sp,
+            color = PrimaryA,
         )
     }
 }
@@ -437,6 +439,9 @@ private fun MainBottomIcon(
 @DevicePreviews
 @Composable
 private fun HomeScreenPreview() {
+    HomeScreen {
+
+    }
 }
 
 enum class ContestPeriod {

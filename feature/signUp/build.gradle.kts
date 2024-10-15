@@ -1,13 +1,7 @@
 plugins {
-    captures("library")
-    captures("compose")
+    alias(libs.plugins.captures2024.soongan.android.feature)
 }
 
 android {
     namespace = "com.captures2024.soongan.feature.signUp"
-}
-
-dependencies {
-    implementation(project(":core:common"))
-    implementation(project(":core:designSystem"))
 }

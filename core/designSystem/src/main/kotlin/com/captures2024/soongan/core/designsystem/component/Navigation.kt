@@ -57,8 +57,8 @@ fun SoonGanNavigationBar(
                     topStart = 13.dp,
                     topEnd = 13.dp,
                     bottomEnd = 0.dp,
-                    bottomStart = 0.dp
-                )
+                    bottomStart = 0.dp,
+                ),
             ),
         containerColor = Color.White,
         contentColor = SoonGanNavigationDefaults.navigationContentColor(),

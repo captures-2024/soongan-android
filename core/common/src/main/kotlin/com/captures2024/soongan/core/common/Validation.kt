@@ -6,7 +6,7 @@ object Validation {
     }
 
     fun isValidNickname(nickname: String): NicknameValidState {
-        if (nickname.length !in 3 .. 10) {
+        if (nickname.length !in 3..10) {
             return NicknameValidState.Length
         }
 
@@ -29,11 +29,10 @@ object Validation {
 
         val num = birthYear.toIntOrNull() ?: return BirthYearValidState.Regex
 
-        if (num !in 1950 .. 2009) {
+        if (num !in 1950..2009) {
             return BirthYearValidState.Regex
         }
 
         return BirthYearValidState.Success
     }
-
 }

@@ -16,11 +16,22 @@ public val MyIconPack.IconFillError: ImageVector
         if (_iconFillError != null) {
             return _iconFillError!!
         }
-        _iconFillError = Builder(name = "IconFillError", defaultWidth = 24.0.dp, defaultHeight =
-                24.0.dp, viewportWidth = 24.0f, viewportHeight = 24.0f).apply {
-            path(fill = SolidColor(Color(0xFFDE1135)), stroke = null, strokeLineWidth = 0.0f,
-                    strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
-                    pathFillType = NonZero) {
+        _iconFillError = Builder(
+            name = "IconFillError",
+            defaultWidth = 24.0.dp,
+            defaultHeight = 24.0.dp,
+            viewportWidth = 24.0f,
+            viewportHeight = 24.0f,
+        ).apply {
+            path(
+                fill = SolidColor(Color(0xFFDE1135)),
+                stroke = null,
+                strokeLineWidth = 0.0f,
+                strokeLineCap = Butt,
+                strokeLineJoin = Miter,
+                strokeLineMiter = 4.0f,
+                pathFillType = NonZero,
+            ) {
                 moveTo(12.0f, 2.0f)
                 curveTo(6.47f, 2.0f, 2.0f, 6.47f, 2.0f, 12.0f)
                 curveTo(2.0f, 17.53f, 6.47f, 22.0f, 12.0f, 22.0f)
@@ -42,8 +53,8 @@ public val MyIconPack.IconFillError: ImageVector
                 lineTo(17.0f, 15.59f)
                 close()
             }
-        }
-        .build()
+        }.build()
+
         return _iconFillError!!
     }
 

@@ -8,19 +8,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.captures2024.soongan.core.common.Validation
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
-import com.captures2024.soongan.feature.signUp.InputNickNameUIState
 import com.captures2024.soongan.feature.signUp.R
+import com.captures2024.soongan.feature.signUp.state.nickname.NicknameUIState
 
 @Composable
 internal fun InputNicknameScreen(
-    state: InputNickNameUIState,
+    state: NicknameUIState,
     modifier: Modifier = Modifier,
     onClickBack: () -> Unit = {},
     onChangedNickname: (String) -> Unit = {},
-    onClickCheckDuplication: () -> Unit = {}
+    onClickConfirm: () -> Unit = {},
 ) {
-    val isValid = Validation.isValidNickname(nickname = state.nickname)
-
     Scaffold(
         topBar = @Composable {
             SignUpTopBar(onClickBack = onClickBack)
@@ -29,18 +27,17 @@ internal fun InputNicknameScreen(
             SignUpBottomBar(
                 modifier = Modifier.imePadding(),
                 title = stringResource(id = R.string.btn_nickname_input_title),
-                enabled = when (isValid) {
+                enabled = when (state.isValidNickname) {
                     Validation.NicknameValidState.Success -> true
                     else -> false
                 },
-                onClick = onClickCheckDuplication
+                onClick = onClickConfirm
             )
         }
     ) { paddingValues ->
         InputNicknameBodyScreen(
             modifier = modifier.padding(paddingValues),
             state = state,
-            isValid = isValid,
             onChangedNickname = onChangedNickname
         )
     }
@@ -50,6 +47,14 @@ internal fun InputNicknameScreen(
 @Composable
 private fun InputNicknameScreenPreview() {
     InputNicknameScreen(
-        state = InputNickNameUIState.Init
+        state = NicknameUIState()
+    )
+}
+
+@DevicePreviews
+@Composable
+private fun InputNicknameScreenInputPreview() {
+    InputNicknameScreen(
+        state = NicknameUIState(nickname = "test")
     )
 }

@@ -22,7 +22,6 @@ import androidx.navigation.NavDestination
 import com.captures2024.soongan.feature.main.navigation.MainRouteNavHost
 import com.captures2024.soongan.feature.main.navigation.TopLevelDestination
 import com.captures2024.soongan.feature.main.route.MainRouteState
-import timber.log.Timber
 
 @Composable
 internal fun MainScreen(
@@ -90,7 +89,7 @@ private fun isNotViewBottomBar(
     topLevelDestinations: List<TopLevelDestination>
 ): Boolean {
     var isNotViewBottomBar = true
-    Timber.tag("isNotViewBottomBar").d("currentDestination = $currentDestination")
+//    Timber.tag("isNotViewBottomBar").d("currentDestination = $currentDestination")
     for (topLevelDestination in topLevelDestinations) {
         if (currentDestination.isTopLevelDestinationInHierarchy(topLevelDestination)) {
             isNotViewBottomBar = false

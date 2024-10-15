@@ -11,7 +11,6 @@ import com.captures2024.soongan.core.designsystem.component.SoonGanNavigationBar
 import com.captures2024.soongan.core.designsystem.component.SoonGanNavigationBarItem
 import com.captures2024.soongan.core.designsystem.theme.PrimaryA
 import com.captures2024.soongan.feature.main.navigation.TopLevelDestination
-import timber.log.Timber
 
 @Composable
 internal fun SoonGanBottomBar(
@@ -49,8 +48,15 @@ internal fun SoonGanBottomBar(
     }
 }
 
-internal fun NavDestination?.isTopLevelDestinationInHierarchy(destination: TopLevelDestination) =
-    this?.hierarchy
+internal fun NavDestination?.isTopLevelDestinationInHierarchy(destination: TopLevelDestination): Boolean {
+    return this?.hierarchy
         ?.any {
-            it.route?.contains(destination.name, true) ?: false
+            it.route
+                ?.split(".")
+                ?.lastOrNull()
+                ?.removeSuffix("Navigator")
+                ?.equals(destination.name, true)
+                ?: false
         } ?: false
+}
+

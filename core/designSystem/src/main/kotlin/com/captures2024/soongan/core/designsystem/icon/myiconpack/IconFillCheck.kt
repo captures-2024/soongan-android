@@ -16,11 +16,22 @@ public val MyIconPack.IconFillCheck: ImageVector
         if (_iconFillCheck != null) {
             return _iconFillCheck!!
         }
-        _iconFillCheck = Builder(name = "IconFillCheck", defaultWidth = 20.0.dp, defaultHeight =
-                20.0.dp, viewportWidth = 20.0f, viewportHeight = 20.0f).apply {
-            path(fill = SolidColor(Color(0xFFDBDBDB)), stroke = null, strokeLineWidth = 0.0f,
-                    strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
-                    pathFillType = NonZero) {
+        _iconFillCheck = Builder(
+            name = "IconFillCheck",
+            defaultWidth = 20.0.dp,
+            defaultHeight = 20.0.dp,
+            viewportWidth = 20.0f,
+            viewportHeight = 20.0f,
+        ).apply {
+            path(
+                fill = SolidColor(Color(0xFFDBDBDB)),
+                stroke = null,
+                strokeLineWidth = 0.0f,
+                strokeLineCap = Butt,
+                strokeLineJoin = Miter,
+                strokeLineMiter = 4.0f,
+                pathFillType = NonZero,
+            ) {
                 moveTo(10.0f, 0.0f)
                 curveTo(4.48f, 0.0f, 0.0f, 4.48f, 0.0f, 10.0f)
                 curveTo(0.0f, 15.52f, 4.48f, 20.0f, 10.0f, 20.0f)
@@ -36,8 +47,8 @@ public val MyIconPack.IconFillCheck: ImageVector
                 lineTo(8.0f, 15.0f)
                 close()
             }
-        }
-        .build()
+        }.build()
+
         return _iconFillCheck!!
     }
 

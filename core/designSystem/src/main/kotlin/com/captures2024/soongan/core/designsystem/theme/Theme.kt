@@ -221,6 +221,5 @@ fun SoonGanTheme(
     }
 }
 
-
 @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.S)
 fun supportsDynamicTheming() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S

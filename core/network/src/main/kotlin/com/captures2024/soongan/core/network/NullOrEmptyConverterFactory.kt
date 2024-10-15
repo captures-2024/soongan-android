@@ -10,7 +10,7 @@ class NullOrEmptyConverterFactory : Converter.Factory() {
     override fun responseBodyConverter(
         type: Type,
         annotations: Array<out Annotation>,
-        retrofit: Retrofit
+        retrofit: Retrofit,
     ) = object : Converter<ResponseBody, Any?> {
         val nextResponseBodyConverter = retrofit.nextResponseBodyConverter<Any?>(this@NullOrEmptyConverterFactory, type, annotations)
 

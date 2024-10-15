@@ -1,12 +1,7 @@
 plugins {
-    captures("library")
-    captures("compose")
-}
-
-android {
-    namespace = "com.captures2024.soongan.core.analytics"
+    alias(libs.plugins.captures2024.soongan.jvm.kotlin)
 }
 
 dependencies {
-    implementation(libs.compose.runtime)
+    implementation(libs.aakira.napier)
 }

@@ -1,9 +1,15 @@
+import com.captures2024.soongan.plugin.implementation
+
 plugins {
-    captures("application")
-    captures("compose")
-    captures("test")
-    captures("google-auth")
-    captures("firebase")
+    alias(libs.plugins.captures2024.soongan.android.application)
+    alias(libs.plugins.captures2024.soongan.android.application.compose)
+    alias(libs.plugins.captures2024.soongan.android.hilt)
+    alias(libs.plugins.captures2024.soongan.google.auth)
+    alias(libs.plugins.captures2024.soongan.google.firebase)
+    alias(libs.plugins.captures2024.soongan.okhttp)
+    alias(libs.plugins.captures2024.soongan.retrofit)
+    alias(libs.plugins.captures2024.soongan.test.junit5)
+    alias(libs.plugins.captures2024.soongan.test.kotest)
 }
 
 android {
@@ -13,6 +19,14 @@ android {
         applicationId = "com.captures2024.soongan"
         versionCode = libs.versions.versionCode.get().toInt()
         versionName = libs.versions.appVersion.get()
+
+        val properties = loadProperties()
+
+        val kakaoApiKey = DefaultKeyValue.isAllowedBaseUrl(properties["kakaoApiKey"] as? String)
+
+        manifestPlaceholders["KAKAO_API_KEY"] = kakaoApiKey
+
+        buildConfigField("String", "KAKAO_API_KEY", "\"${kakaoApiKey}\"")
     }
 
 //    signingConfigs {
@@ -31,53 +45,49 @@ android {
 //    }
 
     buildTypes {
-        debug {
+        getByName("debug") {
             isDebuggable = true
-//            signingConfig = signingConfigs.getByName("debug")
-        }
-        release {
-//            isMinifyEnabled = true
-//            isShrinkResources = true
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro",
+            manifestPlaceholders += mapOf(
+                "appName" to "@string/app_name_dev",
             )
+        }
+
+        getByName("release") {
+            isDebuggable = false
 //            signingConfig = signingConfigs.getByName("release")
+            manifestPlaceholders += mapOf(
+                "appName" to "@string/app_name",
+            )
         }
     }
 }
 
 dependencies {
+    implementation(projects.core.analytics)
+    implementation(projects.core.analyticsAndroid)
+    implementation(projects.core.auth)
+    implementation(projects.core.common)
+    implementation(projects.core.data)
+    implementation(projects.core.datastore)
+    implementation(projects.core.designSystem)
+    implementation(projects.core.domain)
+    implementation(projects.core.model)
+    implementation(projects.core.navigator)
+    implementation(projects.core.network)
 
-    //region core module
-    implementation(project(":core:analytics"))
-    implementation(project(":core:auth"))
-    implementation(project(":core:common"))
-    implementation(project(":core:designSystem"))
-    implementation(project(":core:data"))
-    implementation(project(":core:datastore"))
-    implementation(project(":core:domain"))
-    implementation(project(":core:model"))
-    implementation(project(":core:network"))
-    //endregion
+    implementation(projects.feature.awards)
+    implementation(projects.feature.feed)
+    implementation(projects.feature.home)
+    implementation(projects.feature.intro)
+    implementation(projects.feature.main)
+    implementation(projects.feature.privacyPolicy)
+    implementation(projects.feature.profile)
+    implementation(projects.feature.sign)
+    implementation(projects.feature.signIn)
+    implementation(projects.feature.signUp)
+    implementation(projects.feature.termsOfUse)
+    implementation(projects.feature.welcome)
 
-    //region feature module
-    implementation(project(":feature:awards"))
-    implementation(project(":feature:feed"))
-    implementation(project(":feature:home"))
-    implementation(project(":feature:intro"))
-    implementation(project(":feature:main"))
-    implementation(project(":feature:privacyPolicy"))
-    implementation(project(":feature:profile"))
-    implementation(project(":feature:sign"))
-    implementation(project(":feature:signIn"))
-    implementation(project(":feature:signUp"))
-    implementation(project(":feature:termsOfUse"))
-    implementation(project(":feature:welcome"))
-    //endregion
-
-    androidTestImplementation(libs.ui.test.junit4)
-    implementation(libs.startup)
+    implementation(libs.android.startup)
     implementation(libs.kakao.login)
 }

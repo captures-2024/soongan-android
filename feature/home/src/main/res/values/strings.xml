@@ -11,6 +11,18 @@
     <string name="filter_oldest">오래된 순</string>
     <string name="filter_newest">최신 등록 순</string>
 
+<!-- HomeScreenTopBar  -->
+    <string name="home_top_bar_topic_example">평화</string>
+
+<!-- HomeGalleryTopBar  -->
+    <string name="home_gallery_top_week_example">주간</string>
+    <string name="home_gallery_top_split">|</string>
+    <string name="home_gallery_top_topic_example">평화</string>
+
+<!--  HomePostCommentBottomSheetDialog  -->
+    <string name="home_post_comment_bottom_sheet_dialog_title">댓글</string>
+    <string name="home_post_comment_bottom_sheet_dialog_input_hint">댓글이 들어갈 공간입니다.</string>
+
 <!--  PostReportBottomSheetDialog  -->
     <string name="report_title_text">신고</string>
 

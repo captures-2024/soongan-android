@@ -1,8 +1,9 @@
+import com.captures2024.soongan.plugin.implementation
+
 plugins {
-    captures("library")
-    captures("compose")
-    captures("google-auth")
-    captures("firebase")
+    alias(libs.plugins.captures2024.soongan.android.feature)
+    alias(libs.plugins.captures2024.soongan.google.auth)
+    alias(libs.plugins.captures2024.soongan.google.firebase)
 }
 
 android {
@@ -10,17 +11,10 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:analytics"))
-    implementation(project(":core:auth"))
-    implementation(project(":core:common"))
-    implementation(project(":core:designSystem"))
-    implementation(project(":core:model"))
+    implementation(projects.core.auth)
 
-    implementation(project(":feature:privacyPolicy"))
-    implementation(project(":feature:signIn"))
-    implementation(project(":feature:signUp"))
-    implementation(project(":feature:termsOfUse"))
-    implementation(project(":feature:navigator"))
-
-    implementation(libs.firebase.auth)
+    implementation(projects.feature.privacyPolicy)
+    implementation(projects.feature.signIn)
+    implementation(projects.feature.signUp)
+    implementation(projects.feature.termsOfUse)
 }

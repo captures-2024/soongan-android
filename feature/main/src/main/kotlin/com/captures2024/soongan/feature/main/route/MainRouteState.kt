@@ -11,12 +11,12 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
-import com.captures2024.soongan.core.analytics.NetworkMonitor
-import com.captures2024.soongan.feature.awards.navigation.navigateToAwards
-import com.captures2024.soongan.feature.feed.navigation.navigateToFeed
-import com.captures2024.soongan.feature.home.navigation.navigateToHome
+import com.captures2024.soongan.core.android.helper.NetworkMonitor
 import com.captures2024.soongan.feature.main.navigation.TopLevelDestination
-import com.captures2024.soongan.feature.profile.navigation.navigateToProfile
+import com.captures2024.soongan.feature.main.navigation.navigateToAwards
+import com.captures2024.soongan.feature.main.navigation.navigateToFeed
+import com.captures2024.soongan.feature.main.navigation.navigateToHome
+import com.captures2024.soongan.feature.main.navigation.navigateToProfile
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map

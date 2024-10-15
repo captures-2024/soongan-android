@@ -1,6 +1,8 @@
+import com.captures2024.soongan.plugin.implementation
+
 plugins {
-    captures("library")
-    captures("compose")
+    alias(libs.plugins.captures2024.soongan.android.library)
+    alias(libs.plugins.captures2024.soongan.android.library.compose)
 }
 
 android {
@@ -8,6 +10,8 @@ android {
 }
 
 dependencies {
-    implementation(libs.core.ktx)
-    implementation(libs.splash.screen)
+    implementation(projects.core.analytics)
+
+    implementation(libs.android.xml.core)
+    implementation(libs.android.splash.screen)
 }

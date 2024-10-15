@@ -16,11 +16,23 @@ public val MyIconPack.IconNonFillHeart: ImageVector
         if (_iconNonFillHeart != null) {
             return _iconNonFillHeart!!
         }
-        _iconNonFillHeart = Builder(name = "IconNonFillHeart", defaultWidth = 16.0.dp, defaultHeight
-                = 14.0.dp, viewportWidth = 16.0f, viewportHeight = 14.0f).apply {
-            path(fill = SolidColor(Color(0x00000000)), stroke = SolidColor(Color(0xFF252525)),
-                    strokeAlpha = 0.9f, strokeLineWidth = 1.5f, strokeLineCap = Butt, strokeLineJoin
-                    = Miter, strokeLineMiter = 4.0f, pathFillType = NonZero) {
+        _iconNonFillHeart = Builder(
+            name = "IconNonFillHeart",
+            defaultWidth = 16.0.dp,
+            defaultHeight = 14.0.dp,
+            viewportWidth = 16.0f,
+            viewportHeight = 14.0f,
+        ).apply {
+            path(
+                fill = SolidColor(Color(0x00000000)),
+                stroke = SolidColor(Color(0xFF252525)),
+                strokeAlpha = 0.9f,
+                strokeLineWidth = 1.5f,
+                strokeLineCap = Butt,
+                strokeLineJoin = Miter,
+                strokeLineMiter = 4.0f,
+                pathFillType = NonZero,
+            ) {
                 moveTo(7.3317f, 12.4266f)
                 lineTo(7.3306f, 12.4256f)
                 curveTo(5.255f, 10.6306f, 3.5947f, 9.193f, 2.4443f, 7.8517f)
@@ -38,8 +50,8 @@ public val MyIconPack.IconNonFillHeart: ImageVector
                 lineTo(7.3317f, 12.4266f)
                 close()
             }
-        }
-        .build()
+        }.build()
+
         return _iconNonFillHeart!!
     }
 

@@ -16,11 +16,22 @@ public val MyIconPack.IconSelectedAwards: ImageVector
         if (_iconSelectedAwards != null) {
             return _iconSelectedAwards!!
         }
-        _iconSelectedAwards = Builder(name = "IconSelectedAwards", defaultWidth = 24.0.dp,
-                defaultHeight = 24.0.dp, viewportWidth = 24.0f, viewportHeight = 24.0f).apply {
-            path(fill = SolidColor(Color(0xFF252525)), stroke = null, strokeLineWidth = 0.0f,
-                    strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
-                    pathFillType = NonZero) {
+        _iconSelectedAwards = Builder(
+            name = "IconSelectedAwards",
+            defaultWidth = 24.0.dp,
+            defaultHeight = 24.0.dp,
+            viewportWidth = 24.0f,
+            viewportHeight = 24.0f,
+        ).apply {
+            path(
+                fill = SolidColor(Color(0xFF252525)),
+                stroke = null,
+                strokeLineWidth = 0.0f,
+                strokeLineCap = Butt,
+                strokeLineJoin = Miter,
+                strokeLineMiter = 4.0f,
+                pathFillType = NonZero,
+            ) {
                 moveTo(5.3333f, 24.0f)
                 verticalLineTo(21.3333f)
                 horizontalLineTo(10.6667f)
@@ -73,8 +84,8 @@ public val MyIconPack.IconSelectedAwards: ImageVector
                 verticalLineTo(10.4f)
                 close()
             }
-        }
-        .build()
+        }.build()
+
         return _iconSelectedAwards!!
     }
 

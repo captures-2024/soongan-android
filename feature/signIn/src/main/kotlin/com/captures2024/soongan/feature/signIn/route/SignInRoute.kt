@@ -1,13 +1,14 @@
 package com.captures2024.soongan.feature.signIn.route
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavOptions
-import com.captures2024.soongan.feature.signIn.SignInState
+import com.captures2024.soongan.core.android.utils.LocalAnalyticsHelper
 import com.captures2024.soongan.feature.signIn.SignInViewModel
+import com.captures2024.soongan.feature.signIn.state.SignInIntent
+import com.captures2024.soongan.feature.signIn.state.SignInSideEffect
 import com.captures2024.soongan.feature.signIn.ui.SignInDefaultScreen
 import com.captures2024.soongan.feature.signIn.ui.SignInLoadingScreen
 
@@ -17,34 +18,45 @@ internal fun SignInRoute(
     googleSignIn: () -> Unit,
     kakaoSignIn: () -> Unit,
     navigateToMain: (Boolean) -> Unit,
-    navigateToSignUp: (NavOptions) -> Unit,
-    navigateToTermsOfUse: (NavOptions) -> Unit,
-    navigateToPrivacyPolicy: (NavOptions) -> Unit,
+    navigateToNickname: () -> Unit,
+    navigateToTermsOfUse: () -> Unit,
+    navigateToPrivacyPolicy: () -> Unit,
     signInViewModel: SignInViewModel
 ) {
-    val uiState = signInViewModel.uiState.collectAsStateWithLifecycle()
+    val analyticsHelper = LocalAnalyticsHelper.current
+    val uiState by signInViewModel.state.collectAsStateWithLifecycle()
 
-    Log.d("SignInRoute", "State change SignInRoute ${uiState.value}")
+    LaunchedEffect(Unit) {
+        signInViewModel.sideEffect.collect {
+            analyticsHelper.d(message = "Collected sideEffect = $it")
+            when (it) {
+                is SignInSideEffect.AppleSignIn -> appleSignIn()
 
-    when (val value = uiState.value) {
-        is SignInState.Loading -> SignInLoadingScreen()
-        else -> {
-            if (value is SignInState.SignUp) {
-                signInViewModel.restoreInitState()
-                LaunchedEffect(true) {
-                    val options = NavOptions.Builder().build()
-                    navigateToSignUp(options)
-                }
+                is SignInSideEffect.GoogleSignIn -> googleSignIn()
+
+                is SignInSideEffect.KakaoSignIn -> kakaoSignIn()
+
+                is SignInSideEffect.NavigateToMain -> TODO()
+
+                is SignInSideEffect.NavigateToPrivacyPolicy -> navigateToPrivacyPolicy()
+
+                is SignInSideEffect.NavigateToSignUp -> navigateToNickname()
+
+                is SignInSideEffect.NavigateToTermsOfUse -> navigateToTermsOfUse()
             }
-
-            SignInDefaultScreen(
-                onClickAppleSignIn = appleSignIn,
-                onClickGoogleSignIn = googleSignIn,
-                onClickKakaoSignIn = kakaoSignIn,
-                navigateToMain = navigateToMain,
-                navigateToTermsOfUse = navigateToTermsOfUse,
-                navigateToPrivacyPolicy = navigateToPrivacyPolicy
-            )
         }
     }
+
+    when (uiState.isLoading) {
+        true -> SignInLoadingScreen()
+        false -> SignInDefaultScreen(
+            onClickAppleSignIn = { signInViewModel.intent(SignInIntent.OnClickSignApple) },
+            onClickGoogleSignIn = { signInViewModel.intent(SignInIntent.OnClickSignGoogle) },
+            onClickKakaoSignIn = { signInViewModel.intent(SignInIntent.OnClickSignKakao) },
+            onClickTermsOfUse = { signInViewModel.intent(SignInIntent.OnClickTermsOfUse) },
+            onClickGuestMode = { signInViewModel.intent(SignInIntent.OnClickGuestMode) },
+            onClickToPrivacyPolicy = { signInViewModel.intent(SignInIntent.OnClickPrivacyPolicy) }
+        )
+    }
+
 }
