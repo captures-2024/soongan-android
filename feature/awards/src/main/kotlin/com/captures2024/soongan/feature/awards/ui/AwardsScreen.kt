@@ -15,18 +15,18 @@ import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 
 @Composable
 internal fun AwardsScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Box(
         modifier = modifier.fillMaxSize()
             .background(PrimaryB),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         NonScaleText(
             text = "awards",
             color = Color.Black,
             fontSize = 36.sp,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
         )
     }
 }

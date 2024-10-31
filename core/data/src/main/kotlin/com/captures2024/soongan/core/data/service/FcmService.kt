@@ -10,8 +10,5 @@ import retrofit2.http.POST
 interface FcmService {
 
     @POST("fcm")
-    suspend fun initFcm(
-        @Body request: InitFcmRequest
-    ): Response<BaseResponse<InitFcmResponse>>
-
+    suspend fun initFcm(@Body request: InitFcmRequest): Response<BaseResponse<InitFcmResponse>>
 }

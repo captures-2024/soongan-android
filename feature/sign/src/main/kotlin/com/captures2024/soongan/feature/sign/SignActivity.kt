@@ -4,25 +4,31 @@ import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
+import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.ActivityResult
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import com.captures2024.soongan.core.analytics.AnalyticsHelper
-import com.captures2024.soongan.core.analytics.LocalAnalyticsHelper
-import com.captures2024.soongan.core.analytics.NetworkMonitor
+import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
+import com.captures2024.soongan.core.android.utils.LocalAnalyticsHelper
+import com.captures2024.soongan.core.android.helper.NetworkMonitor
 import com.captures2024.soongan.core.auth.GoogleAuthUiClient
+import com.captures2024.soongan.core.auth.kakao.KakaoAuthHelper
+import com.captures2024.soongan.core.auth.kakao.KakaoAuthHelperImpl
 import com.captures2024.soongan.core.auth.kakao.KakaoLoginCallback
-import com.captures2024.soongan.core.auth.kakaoLogin
 import com.captures2024.soongan.core.designsystem.theme.SoonGanTheme
 import com.captures2024.soongan.core.navigator.activity.MainActivityNavigator
 import com.captures2024.soongan.feature.sign.route.SignRoute
+import com.captures2024.soongan.feature.sign.ui.AppleWebView
 import com.captures2024.soongan.feature.signIn.SignInViewModel
 import com.captures2024.soongan.feature.signIn.state.SignInIntent
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
@@ -31,11 +37,10 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SignActivity : ComponentActivity() {
+class SignActivity : ComponentActivity(), KakaoLoginCallback {
 
     @Inject
     lateinit var analyticsHelper: AnalyticsHelper
@@ -50,6 +55,7 @@ class SignActivity : ComponentActivity() {
     lateinit var mainActivityNavigator: MainActivityNavigator
 
     private val signInViewModel: SignInViewModel by viewModels()
+    private val appleSignInViewModel: AppleSignInViewModel by viewModels()
 
     private val googleAuthUiClient by lazy {
         GoogleAuthUiClient(
@@ -58,12 +64,17 @@ class SignActivity : ComponentActivity() {
         )
     }
 
+    private val kakaoAuthHelper: KakaoAuthHelper by lazy { KakaoAuthHelperImpl() }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         FirebaseMessaging.getInstance().token.addOnCompleteListener(
             OnCompleteListener { task ->
                 if (!task.isSuccessful) {
-                    Timber.tag(TAG).e(task.exception, "Fetching FCM registration token failed")
+                    analyticsHelper.e(
+                        throwable = task.exception,
+                        message = "Fetching FCM registration token failed"
+                    )
                     return@OnCompleteListener
                 }
 
@@ -76,58 +87,25 @@ class SignActivity : ComponentActivity() {
         setContent {
             val darkTheme = isSystemInDarkTheme()
 
-            val kakaoLoginCallback = object : KakaoLoginCallback {
-
-                override fun onSuccess(
-                    accessToken: String?,
-                    refreshToken: String?
-                ) {
-                    signInViewModel.intent(SignInIntent.CompleteSignKakao(accessToken ?: "", refreshToken ?: ""))
-                }
-
-                override fun onFailure(error: Throwable?) {
-                    signInViewModel.intent(SignInIntent.FailedSignKakao)
-                }
-
-            }
-
             val launcher = rememberLauncherForActivityResult(
                 contract = ActivityResultContracts.StartIntentSenderForResult(),
-                onResult = { result ->
-                    when (result.resultCode) {
-                        RESULT_OK -> {
-                            val resultIntent = result.data
-
-                            if (resultIntent == null) {
-                                signInViewModel.intent(SignInIntent.FailedSignGoogle)
-                                return@rememberLauncherForActivityResult
-                            }
-
-                            val token = googleAuthUiClient.signInWithIntent(resultIntent)
-
-                            if (token == null) {
-                                signInViewModel.intent(SignInIntent.FailedSignGoogle)
-                                return@rememberLauncherForActivityResult
-                            }
-
-                            signInViewModel.intent(SignInIntent.CompleteSignGoogle(token = token))
-                        }
-
-                        RESULT_CANCELED -> signInViewModel.intent(SignInIntent.CanceledSignGoogle)
-                    }
-                }
+                onResult = this::onResult
             )
 
             DisposableEffect(darkTheme) {
                 enableEdgeToEdge(
                     statusBarStyle = SystemBarStyle.auto(
-                        Color.TRANSPARENT,
-                        Color.TRANSPARENT,
-                    ) { darkTheme },
+                        lightScrim = Color.TRANSPARENT,
+                        darkScrim = Color.TRANSPARENT,
+                    ) {
+                        darkTheme
+                    },
                     navigationBarStyle = SystemBarStyle.auto(
-                        lightScrim,
-                        darkScrim,
-                    ) { darkTheme },
+                        lightScrim = lightScrim,
+                        darkScrim = darkScrim,
+                    ) {
+                        darkTheme
+                    },
                 )
                 onDispose {}
             }
@@ -138,42 +116,86 @@ class SignActivity : ComponentActivity() {
                     androidTheme = false,
                     disableDynamicTheming = false,
                 ) {
-                    SignRoute(
-                        networkMonitor = networkMonitor,
-                        appleSignIn = {
-                            TODO("Apple Sign In Logic")
-                        },
-                        googleSignIn = {
-                            lifecycleScope.launch {
-                                val signInIntentSender = googleAuthUiClient.signIn() ?: return@launch
+                    val appleState by appleSignInViewModel.appleSignInState.collectAsStateWithLifecycle()
 
-                                launcher.launch(IntentSenderRequest.Builder(signInIntentSender).build())
-                            }
-                        },
-                        kakaoSignIn = {
-                            kakaoLogin(
-                                context = this,
-                                callback = kakaoLoginCallback
-                            )
-                        },
-                        navigateToMain = { isGuestMode ->
-                            mainActivityNavigator.navigateFrom(
-                                activity = this,
-                                withFinish = true,
-                                intentBuilder = {
-                                    putExtra(GUEST_MODE_KEY, isGuestMode)
-                                }
-                            )
-                        },
-                        signInViewModel = signInViewModel
-                    )
+                    when (appleState) {
+                        is AppleSignInState.Init -> AppleWebView(
+                            onSuccess = {},
+                            onFailure = {}
+                        )
+
+                        else -> SignRoute(
+                            networkMonitor = networkMonitor,
+                            appleSignIn = { appleSignInViewModel.onClickAppleSignIn() },
+                            googleSignIn = { signInWithGoogle(launcher) },
+                            kakaoSignIn = { kakaoAuthHelper.kakaoLogin(context = this, callback = this) },
+                            navigateToMain = this::navigateToMain,
+                            signInViewModel = signInViewModel,
+                        )
+                    }
+
                 }
             }
         }
     }
 
+    override fun onSuccessKakaoLogin(
+        accessToken: String?,
+        refreshToken: String?,
+    ) {
+        signInViewModel.intent(
+            SignInIntent.CompleteSignKakao(
+                accessToken = accessToken ?: "",
+                refreshToken = refreshToken ?: "",
+            )
+        )
+    }
+
+    override fun onFailureKakaoLogin(error: Throwable?) {
+        signInViewModel.intent(SignInIntent.FailedSignKakao)
+    }
+
+    private fun onResult(result: ActivityResult) {
+        when (result.resultCode) {
+            RESULT_OK -> {
+                val resultIntent = result.data
+
+                if (resultIntent == null) {
+                    signInViewModel.intent(SignInIntent.FailedSignGoogle)
+                    return
+                }
+
+                val token = googleAuthUiClient.signInWithIntent(resultIntent)
+
+                if (token == null) {
+                    signInViewModel.intent(SignInIntent.FailedSignGoogle)
+                    return
+                }
+
+                signInViewModel.intent(SignInIntent.CompleteSignGoogle(token = token))
+            }
+
+            RESULT_CANCELED -> signInViewModel.intent(SignInIntent.CanceledSignGoogle)
+        }
+    }
+
+    private fun signInWithGoogle(launcher: ManagedActivityResultLauncher<IntentSenderRequest, ActivityResult>) {
+        lifecycleScope.launch {
+            val signInIntentSender = googleAuthUiClient.signIn() ?: return@launch
+
+            launcher.launch(IntentSenderRequest.Builder(signInIntentSender).build())
+        }
+    }
+
+    private fun navigateToMain(isGuestMode: Boolean) {
+        mainActivityNavigator.navigateFrom(
+            activity = this,
+            withFinish = true,
+            intentBuilder = { putExtra(GUEST_MODE_KEY, isGuestMode) }
+        )
+    }
+
     companion object {
-        private const val TAG = "SignActivity"
         const val GUEST_MODE_KEY = "isGuestMode"
     }
 }

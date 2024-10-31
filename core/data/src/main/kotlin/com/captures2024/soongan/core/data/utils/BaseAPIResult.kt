@@ -4,6 +4,5 @@ import okhttp3.Headers
 
 data class BaseAPIResult<T>(
     val headers: Headers,
-    val body: T?
-
+    val body: T?,
 )

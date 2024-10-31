@@ -22,5 +22,5 @@ fun NonScaleSpanStyle(
     fontFamily = fontFamily,
     fontWeight = fontWeight,
     color = color,
-    textDecoration = textDecoration
+    textDecoration = textDecoration,
 )

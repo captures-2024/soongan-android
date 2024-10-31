@@ -1,6 +1,5 @@
 package com.captures2024.soongan.core.designsystem.component
 
-import android.util.Log
 import androidx.compose.foundation.gestures.detectTransformGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
@@ -23,7 +22,7 @@ fun ZoomableBox(
     modifier: Modifier = Modifier,
     minScale: Float = 1f,
     maxScale: Float = 3f,
-    content: @Composable ZoomableBoxScope.() -> Unit
+    content: @Composable ZoomableBoxScope.() -> Unit,
 ) {
     var scale by remember { mutableFloatStateOf(1f) }
     var offsetX by remember { mutableFloatStateOf(0f) }
@@ -44,7 +43,7 @@ fun ZoomableBox(
                     offsetY = maxOf(minY, minOf(maxY, offsetY + pan.y))
                 }
             },
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         val scope = ZoomableBoxScopeImpl(scale, offsetX, offsetY)
         scope.content()
@@ -54,5 +53,5 @@ fun ZoomableBox(
 private data class ZoomableBoxScopeImpl(
     override val scale: Float,
     override val offsetX: Float,
-    override val offsetY: Float
+    override val offsetY: Float,
 ) : ZoomableBoxScope

@@ -1,12 +1,9 @@
 package com.captures2024.soongan.core.designsystem.icon.myiconpack
 
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.PathFillType
 import androidx.compose.ui.graphics.PathFillType.Companion.NonZero
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.StrokeCap.Companion.Butt
-import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.StrokeJoin.Companion.Miter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.ImageVector.Builder
@@ -19,11 +16,22 @@ public val MyIconPack.IconNonFillEdit: ImageVector
         if (_iconNonFillEdit != null) {
             return _iconNonFillEdit!!
         }
-        _iconNonFillEdit = Builder(name = "IconNonFillEdit", defaultWidth = 24.0.dp, defaultHeight =
-                24.0.dp, viewportWidth = 24.0f, viewportHeight = 24.0f).apply {
-            path(fill = SolidColor(Color(0xFF252525)), stroke = null, strokeLineWidth = 0.0f,
-                    strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
-                    pathFillType = NonZero) {
+        _iconNonFillEdit = Builder(
+            name = "IconNonFillEdit",
+            defaultWidth = 24.0.dp,
+            defaultHeight = 24.0.dp,
+            viewportWidth = 24.0f,
+            viewportHeight = 24.0f,
+        ).apply {
+            path(
+                fill = SolidColor(Color(0xFF252525)),
+                stroke = null,
+                strokeLineWidth = 0.0f,
+                strokeLineCap = Butt,
+                strokeLineJoin = Miter,
+                strokeLineMiter = 4.0f,
+                pathFillType = NonZero,
+            ) {
                 moveTo(0.0f, 24.0f)
                 horizontalLineTo(4.9993f)
                 lineTo(19.7439f, 9.2554f)
@@ -39,9 +47,15 @@ public val MyIconPack.IconNonFillEdit: ImageVector
                 verticalLineTo(20.1072f)
                 close()
             }
-            path(fill = SolidColor(Color(0xFF252525)), stroke = null, strokeLineWidth = 0.0f,
-                    strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
-                    pathFillType = NonZero) {
+            path(
+                fill = SolidColor(Color(0xFF252525)),
+                stroke = null,
+                strokeLineWidth = 0.0f,
+                strokeLineCap = Butt,
+                strokeLineJoin = Miter,
+                strokeLineMiter = 4.0f,
+                pathFillType = NonZero,
+            ) {
                 moveTo(20.4903f, 0.3899f)
                 curveTo(19.9704f, -0.13f, 19.1305f, -0.13f, 18.6106f, 0.3899f)
                 lineTo(16.1709f, 2.8296f)
@@ -51,8 +65,8 @@ public val MyIconPack.IconNonFillEdit: ImageVector
                 lineTo(20.4903f, 0.3899f)
                 close()
             }
-        }
-        .build()
+        }.build()
+
         return _iconNonFillEdit!!
     }
 

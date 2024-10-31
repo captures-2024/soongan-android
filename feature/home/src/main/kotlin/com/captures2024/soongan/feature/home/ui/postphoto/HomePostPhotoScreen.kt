@@ -36,7 +36,6 @@ import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.home.state.postphoto.HomePostPhotoUIState
 import com.captures2024.soongan.feature.home.ui.component.HomeGalleryButton
 import kotlinx.coroutines.delay
-import timber.log.Timber
 
 private const val DEFAULT_DURATION: Long = 1L * 1L * 1000L
 
@@ -62,7 +61,7 @@ internal fun HomePostPhotoScreen(
         }
 
         val bitmap = imageLoader.execute(model).drawable?.toBitmap()
-        Timber.tag("HomePostPhotoScreen").d("height = ${bitmap?.height}, width = ${bitmap?.width}")
+//        Timber.tag("HomePostPhotoScreen").d("height = ${bitmap?.height}, width = ${bitmap?.width}")
     }
 
     Box(

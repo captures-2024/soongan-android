@@ -19,7 +19,7 @@
 
                 <data
                     android:host="oauth"
-                    android:scheme="kakao${kakaoApiKey}" />
+                    android:scheme="kakao${KAKAO_API_KEY}" />
 
             </intent-filter>
 

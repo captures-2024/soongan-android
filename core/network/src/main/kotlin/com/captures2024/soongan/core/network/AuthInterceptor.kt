@@ -1,16 +1,17 @@
 package com.captures2024.soongan.core.network
 
+import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.datastore.TokenDataSource
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response
-import timber.log.Timber
 import javax.inject.Inject
 
 class AuthInterceptor
 @Inject
 constructor(
-    private val tokenDataSource: TokenDataSource
+    private val analyticsHelper: AnalyticsHelper,
+    private val tokenDataSource: TokenDataSource,
 ) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response = with(chain) {

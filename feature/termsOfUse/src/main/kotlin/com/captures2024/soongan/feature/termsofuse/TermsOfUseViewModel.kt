@@ -2,6 +2,7 @@ package com.captures2024.soongan.feature.termsofuse
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.common.base.BaseViewModel
 import com.captures2024.soongan.feature.termsofuse.state.TermsOfUseIntent
 import com.captures2024.soongan.feature.termsofuse.state.TermsOfUseSideEffect
@@ -13,13 +14,17 @@ import javax.inject.Inject
 internal class TermsOfUseViewModel
 @Inject
 constructor(
-    savedStateHandle: SavedStateHandle
+    private val analyticsHelper: AnalyticsHelper,
+    savedStateHandle: SavedStateHandle,
 ) : BaseViewModel<TermsOfUseUIState, TermsOfUseSideEffect, TermsOfUseIntent>(savedStateHandle) {
 
     override fun createInitialState(savedStateHandle: SavedStateHandle): TermsOfUseUIState = TermsOfUseUIState()
 
     override fun handleClientException(throwable: Throwable) {
-//        TODO("Not yet implemented")
+        analyticsHelper.e(
+            throwable = throwable,
+            logVariable = currentState.toLoggingElements(),
+        )
     }
 
     override suspend fun handleIntent(intent: TermsOfUseIntent) {
@@ -30,9 +35,5 @@ constructor(
 
     private fun onClickBack() {
         postSideEffect(TermsOfUseSideEffect.NavigateToBack)
-    }
-
-    companion object {
-        private const val TAG = "TermsOfUseVM"
     }
 }

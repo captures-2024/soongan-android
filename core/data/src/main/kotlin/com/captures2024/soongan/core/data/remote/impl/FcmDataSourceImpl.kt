@@ -10,7 +10,6 @@ import com.captures2024.soongan.core.data.utils.safeAPICall
 import com.captures2024.soongan.core.model.dto.FcmDto
 import com.captures2024.soongan.core.model.network.request.fcm.InitFcmRequest
 import dagger.hilt.android.qualifiers.ApplicationContext
-import timber.log.Timber
 import javax.inject.Inject
 
 class FcmDataSourceImpl
@@ -22,22 +21,21 @@ constructor(
 
     @SuppressLint("HardwareIds")
     override suspend fun initFcm(
-        fcmToken: String
+        fcmToken: String,
     ): FcmDto? = safeAPICall {
-        Timber.tag("initFcm").d("fcmToken = $fcmToken")
-        Timber.tag("initFcm").d("deviceId = ${Settings.Secure.getString(
-            context.contentResolver,
-            Settings.Secure.ANDROID_ID
-        )}")
+//        Timber.tag("initFcm").d("fcmToken = $fcmToken")
+//        Timber.tag("initFcm").d("deviceId = ${Settings.Secure.getString(
+//            context.contentResolver,
+//            Settings.Secure.ANDROID_ID
+//        )}")
         service.initFcm(
             request = InitFcmRequest(
                 token = fcmToken,
                 deviceId = Settings.Secure.getString(
                     context.contentResolver,
-                    Settings.Secure.ANDROID_ID
-                )
-            )
+                    Settings.Secure.ANDROID_ID,
+                ),
+            ),
         )
     }.body?.responseData?.toDto()
-
 }

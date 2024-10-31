@@ -5,8 +5,9 @@ import retrofit2.HttpException
 import retrofit2.Response
 import java.net.UnknownHostException
 
+@Suppress("TooGenericExceptionCaught")
 internal suspend fun <T> safeAPICall(
-    request: suspend () -> Response<T>
+    request: suspend () -> Response<T>,
 ): BaseAPIResult<T> = try {
     val response = request()
 
@@ -15,7 +16,7 @@ internal suspend fun <T> safeAPICall(
             // Success Response
             BaseAPIResult(
                 headers = response.headers(),
-                body = response.body()
+                body = response.body(),
             )
         }
         false -> {
@@ -27,7 +28,7 @@ internal suspend fun <T> safeAPICall(
             throw NetworkExceptionWrapper(
                 statusCode = response.code(),
                 message = exception.message,
-                cause = exception
+                cause = exception,
             )
         }
     }
@@ -38,18 +39,18 @@ internal suspend fun <T> safeAPICall(
     throw NetworkExceptionWrapper(
         statusCode = exception.code(),
         message = exception.message,
-        cause = exception
+        cause = exception,
     )
 } catch (exception: UnknownHostException) {
     // UnknownHost exception cause: not connect network
     throw NetworkExceptionWrapper(
         message = exception.message,
-        cause = exception
+        cause = exception,
     )
 } catch (exception: Exception) {
     // Unknown exception
     throw NetworkExceptionWrapper(
         message = exception.message,
-        cause = exception
+        cause = exception,
     )
 }

@@ -2,6 +2,7 @@ package com.captures2024.soongan.feature.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +16,7 @@ import javax.inject.Inject
 class MainActivityViewModel
 @Inject
 constructor(
-
+    private val analyticsHelper: AnalyticsHelper,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow<MainActivityUiState>(MainActivityUiState.Loading)
     val uiState: StateFlow<MainActivityUiState>
@@ -23,12 +24,6 @@ constructor(
 
     fun setUpGuestMode(isGuestMode: Boolean) {
         _uiState.value = MainActivityUiState.Success(isGuestMode = isGuestMode)
-    }
-
-
-
-    companion object {
-        private const val TAG = "MainActVM"
     }
 }
 

@@ -6,14 +6,13 @@ import com.captures2024.soongan.core.datastore.TokenDataSource
 import com.captures2024.soongan.core.model.dto.UserInfoDto
 import com.captures2024.soongan.core.model.network.SocialSignType
 import com.captures2024.soongan.core.model.dto.ResultConditionDto
-import timber.log.Timber
 import javax.inject.Inject
 
 class MembersRepositoryImpl
 @Inject
 constructor(
     private val tokenDataSource: TokenDataSource,
-    private val membersDataSource: MembersDataSource
+    private val membersDataSource: MembersDataSource,
 ) : MembersRepository {
     override suspend fun withdrawMember(): ResultConditionDto = when (membersDataSource.withdrawWithToken()) {
         true -> {
@@ -34,12 +33,12 @@ constructor(
     override suspend fun signingSocialPlatform(
         type: SocialSignType,
         token: String,
-        fcmToken: String
+        fcmToken: String,
     ): ResultConditionDto {
         val tokenResult = membersDataSource.signInWithToken(
             type = type,
             token = token,
-            fcmToken = fcmToken
+            fcmToken = fcmToken,
         ) ?: return ResultConditionDto(result = false)
 
         tokenDataSource.setAccessToken(tokenResult.accessToken)
@@ -67,7 +66,7 @@ constructor(
 
         val tokenResult = membersDataSource.reissueToken(
             accessToken = currentAccessToken,
-            refreshToken = currentRefreshToken
+            refreshToken = currentRefreshToken,
         ) ?: return ResultConditionDto(result = false)
 
         tokenDataSource.setAccessToken(tokenResult.accessToken)
@@ -99,10 +98,7 @@ constructor(
     }
 
     override suspend fun getMemberInformation(): UserInfoDto {
-        val userInfoDto = membersDataSource.getMemberInformation() ?: throw NullPointerException()
-
-        Timber.tag("getMemberInformation").d("userInfoDto = $userInfoDto")
-
+        val userInfoDto = membersDataSource.getMemberInformation() ?: throw NullPointerException("getMemberInformation is null")
         return userInfoDto
     }
 
@@ -111,5 +107,4 @@ constructor(
 
         return ResultConditionDto(result)
     }
-
 }

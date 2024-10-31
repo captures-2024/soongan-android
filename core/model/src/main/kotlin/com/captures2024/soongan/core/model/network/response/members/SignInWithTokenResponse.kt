@@ -8,5 +8,5 @@ data class SignInWithTokenResponse(
     @SerialName("accessToken")
     val accessToken: String,
     @SerialName("refreshToken")
-    val refreshToken: String
+    val refreshToken: String,
 )

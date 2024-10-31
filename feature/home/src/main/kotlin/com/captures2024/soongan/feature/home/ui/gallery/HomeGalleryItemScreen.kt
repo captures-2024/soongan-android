@@ -21,7 +21,6 @@ import com.captures2024.soongan.core.designsystem.component.shimmerBrush
 import com.captures2024.soongan.core.designsystem.theme.dropShadow
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.model.UserPost
-import timber.log.Timber
 
 @Composable
 internal fun HomeGallerySkeletonItem(
@@ -66,7 +65,7 @@ internal fun HomeGalleryImageItem(
                 blur = 4.dp
             )
             .clickable {
-                Timber.tag("HomeGalleryImageItem").d("showShimmer = ${showShimmer.value}")
+//                Timber.tag("HomeGalleryImageItem").d("showShimmer = ${showShimmer.value}")
                 if (!showShimmer.value) {
                     onClick(item)
                 }

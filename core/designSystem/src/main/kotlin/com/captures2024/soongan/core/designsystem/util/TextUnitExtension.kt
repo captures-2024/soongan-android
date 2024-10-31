@@ -5,7 +5,6 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
 
-
 internal val TextUnit.nonScaleSp
     @Composable
     get() = when (this) {

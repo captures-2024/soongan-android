@@ -9,8 +9,6 @@ import com.captures2024.soongan.core.model.dto.UserInfoDto
 import com.captures2024.soongan.core.model.network.SocialSignType
 import com.captures2024.soongan.core.model.network.request.members.ReissueTokenRequest
 import com.captures2024.soongan.core.model.network.request.members.SignWithTokenRequest
-import com.captures2024.soongan.core.model.network.response.members.GetMemberInformationResponse
-import com.captures2024.soongan.core.model.network.response.members.RegisterNicknameResponse
 import com.captures2024.soongan.core.model.network.response.members.ReissueTokenResponse
 import com.captures2024.soongan.core.model.network.response.members.SignInWithTokenResponse
 import javax.inject.Inject
@@ -18,7 +16,7 @@ import javax.inject.Inject
 class MembersDataSourceImpl
 @Inject
 constructor(
-    private val service: MembersService
+    private val service: MembersService,
 ) : MembersDataSource {
     override suspend fun withdrawWithToken(): Boolean {
         val result = safeAPICall { service.withdrawWithToken() }
@@ -41,26 +39,26 @@ constructor(
     override suspend fun signInWithToken(
         type: SocialSignType,
         token: String,
-        fcmToken: String
+        fcmToken: String,
     ): SignInWithTokenResponse? = safeAPICall {
         service.signInWithToken(
             request = SignWithTokenRequest(
                 provider = type.provider,
                 idToken = token,
-                fcmToken = fcmToken
-            )
+                fcmToken = fcmToken,
+            ),
         )
     }.body?.responseData
 
     override suspend fun reissueToken(
         accessToken: String,
-        refreshToken: String
+        refreshToken: String,
     ): ReissueTokenResponse? = safeAPICall {
         service.reissueToken(
             request = ReissueTokenRequest(
                 accessToken = accessToken,
-                refreshToken = refreshToken
-            )
+                refreshToken = refreshToken,
+            ),
         )
     }.body?.responseData
 
@@ -69,21 +67,20 @@ constructor(
     }
 
     override suspend fun registerNickname(
-        nickname: String
+        nickname: String,
     ): UserDto? {
         val result = safeAPICall {
             service.registerNickname(
-                nickname = nickname
+                nickname = nickname,
             )
         }.body?.responseData
-
 
         return when (result) {
             null -> null
             else -> UserDto(
                 email = result.id,
                 nickname = result.nickname,
-                birthDate = ""
+                birthDate = "",
             )
         }
     }
@@ -93,11 +90,11 @@ constructor(
     }.body?.responseData?.toUserInfoDto()
 
     override suspend fun isDuplicateNickname(
-        nickname: String
+        nickname: String,
     ): Boolean {
         val result = safeAPICall {
             service.isDuplicateNickname(
-                nickname = nickname
+                nickname = nickname,
             )
         }
 
@@ -106,5 +103,4 @@ constructor(
             else -> data
         }
     }
-
 }

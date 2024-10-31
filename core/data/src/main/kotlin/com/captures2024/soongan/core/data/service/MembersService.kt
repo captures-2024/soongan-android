@@ -42,7 +42,7 @@ interface MembersService {
      **/
     @POST("members/login")
     suspend fun signInWithToken(
-        @Body request: SignWithTokenRequest
+        @Body request: SignWithTokenRequest,
     ): Response<BaseResponse<SignInWithTokenResponse>>
 
     /**
@@ -53,7 +53,7 @@ interface MembersService {
     @Headers("Authorization: false")
     @PATCH("members/refresh")
     suspend fun reissueToken(
-        @Body request: ReissueTokenRequest
+        @Body request: ReissueTokenRequest,
     ): Response<BaseResponse<ReissueTokenResponse>>
 
     /**
@@ -75,7 +75,7 @@ interface MembersService {
     @Headers("Authorization: true")
     @PATCH("members/nickname")
     suspend fun registerNickname(
-        @Query("newNickname") nickname: String
+        @Query("newNickname") nickname: String,
     ): Response<BaseResponse<RegisterNicknameResponse>>
 
     /**
@@ -96,7 +96,6 @@ interface MembersService {
     @Headers("Authorization: true")
     @GET("members/check-nickname")
     suspend fun isDuplicateNickname(
-        @Query("nickname") nickname: String
+        @Query("nickname") nickname: String,
     ): Response<BaseResponse<Boolean>>
-
 }

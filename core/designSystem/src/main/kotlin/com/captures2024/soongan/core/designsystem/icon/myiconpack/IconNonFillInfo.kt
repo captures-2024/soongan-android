@@ -16,11 +16,22 @@ public val MyIconPack.IconNonFillInfo: ImageVector
         if (_iconNonFillInfo != null) {
             return _iconNonFillInfo!!
         }
-        _iconNonFillInfo = Builder(name = "IconNonFillInfo", defaultWidth = 24.0.dp, defaultHeight =
-                24.0.dp, viewportWidth = 24.0f, viewportHeight = 24.0f).apply {
-            path(fill = SolidColor(Color(0xFF252525)), stroke = null, strokeLineWidth = 0.0f,
-                    strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
-                    pathFillType = NonZero) {
+        _iconNonFillInfo = Builder(
+            name = "IconNonFillInfo",
+            defaultWidth = 24.0.dp,
+            defaultHeight = 24.0.dp,
+            viewportWidth = 24.0f,
+            viewportHeight = 24.0f,
+        ).apply {
+            path(
+                fill = SolidColor(Color(0xFF252525)),
+                stroke = null,
+                strokeLineWidth = 0.0f,
+                strokeLineCap = Butt,
+                strokeLineJoin = Miter,
+                strokeLineMiter = 4.0f,
+                pathFillType = NonZero,
+            ) {
                 moveTo(10.8f, 6.0f)
                 horizontalLineTo(13.2f)
                 verticalLineTo(8.4f)
@@ -46,8 +57,8 @@ public val MyIconPack.IconNonFillInfo: ImageVector
                 curveTo(21.6f, 17.292f, 17.292f, 21.6f, 12.0f, 21.6f)
                 close()
             }
-        }
-        .build()
+        }.build()
+
         return _iconNonFillInfo!!
     }
 

@@ -59,23 +59,21 @@ fun CustomBasicTextField(
             Spacer(modifier = Modifier.width(12.dp))
             NonScaleText(
                 text = title,
-                color = PrimaryB ,
+                color = PrimaryB,
                 fontSize = 16.sp,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.SemiBold,
             )
         }
         Spacer(modifier = Modifier.height(4.dp))
         BasicTextField(
             value = value,
             onValueChange = onValueChange,
-            textStyle = TextStyle(
-
-            ),
+            textStyle = TextStyle(),
             modifier = Modifier
                 .fillMaxWidth()
                 .background(
                     color = PrimaryB,
-                    shape = shape
+                    shape = shape,
                 )
                 .border(
                     width = 2.dp,
@@ -83,12 +81,12 @@ fun CustomBasicTextField(
                         CustomBasicTextFieldState.NonValid -> Negative
                         else -> Color(0xFFDBDBDB)
                     },
-                    shape = shape
+                    shape = shape,
                 ),
             keyboardOptions = keyboardOptions,
             interactionSource = interactionSource,
             enabled = enabled,
-            singleLine = singleLine
+            singleLine = singleLine,
         ) {
             TextFieldDefaults.DecorationBox(
                 value = value,
@@ -107,7 +105,7 @@ fun CustomBasicTextField(
                             CustomBasicTextFieldState.Init -> Color(0xFFDBDBDB)
                             CustomBasicTextFieldState.Valid -> Positive
                             CustomBasicTextFieldState.NonValid -> Negative
-                        }
+                        },
                     )
                 },
                 placeholder = @Composable {
@@ -123,7 +121,7 @@ fun CustomBasicTextField(
                     start = 16.dp,
                     end = 16.dp,
                     top = 12.dp,
-                    bottom = 12.dp
+                    bottom = 12.dp,
                 ),
                 shape = shape,
                 colors = TextFieldDefaults.colors(
@@ -134,7 +132,7 @@ fun CustomBasicTextField(
                     focusedIndicatorColor = Color.Transparent,
                     unfocusedIndicatorColor = Color.Transparent,
                     disabledIndicatorColor = Color.Transparent,
-                )
+                ),
             )
         }
     }
@@ -145,10 +143,8 @@ fun CustomBasicTextField(
 private fun CustomBasicTextFieldInitPreview() {
     CustomBasicTextField(
         value = "",
-        title = "닉네임"
-    ) {
-
-    }
+        title = "닉네임",
+    ) {}
 }
 
 @DevicePreviews
@@ -157,10 +153,8 @@ private fun CustomBasicTextFieldValidPreview() {
     CustomBasicTextField(
         value = "",
         title = "닉네임",
-        isValid = CustomBasicTextFieldState.Valid
-    ) {
-
-    }
+        isValid = CustomBasicTextFieldState.Valid,
+    ) {}
 }
 
 @DevicePreviews
@@ -169,8 +163,6 @@ private fun CustomBasicTextFieldNonValidPreview() {
     CustomBasicTextField(
         value = "",
         title = "닉네임",
-        isValid = CustomBasicTextFieldState.NonValid
-    ) {
-
-    }
+        isValid = CustomBasicTextFieldState.NonValid,
+    ) {}
 }

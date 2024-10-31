@@ -19,5 +19,4 @@ interface TokenRepository {
     suspend fun clearRefreshToken()
 
     suspend fun clearAllToken()
-
 }

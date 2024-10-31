@@ -1,5 +1,7 @@
 import java.net.URI
 
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 pluginManagement {
     includeBuild("build-logic")
     repositories {
@@ -14,6 +16,7 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -23,14 +26,14 @@ dependencyResolutionManagement {
     }
 }
 
-gradle.startParameter.excludedTaskNames
-    .addAll(listOf(":build-logic:convention:testClasses"))
+gradle.startParameter.excludedTaskNames.addAll(listOf(":build-logic:testClasses"))
 
 rootProject.name = "soongan"
 include(":app")
 
 include(
     ":core:analytics",
+    ":core:analytics-android",
     ":core:auth",
     ":core:common",
     ":core:designSystem",
@@ -39,7 +42,7 @@ include(
     ":core:domain",
     ":core:model",
     ":core:navigator",
-    ":core:network"
+    ":core:network",
 )
 
 include(

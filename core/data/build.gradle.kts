@@ -1,6 +1,9 @@
+import com.captures2024.soongan.plugin.implementation
+
 plugins {
-    captures("library")
-    captures("network")
+    alias(libs.plugins.captures2024.soongan.android.library)
+    alias(libs.plugins.captures2024.soongan.android.hilt)
+    alias(libs.plugins.captures2024.soongan.retrofit)
 }
 
 android {
@@ -8,6 +11,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:datastore"))
-    implementation(project(":core:model"))
+    implementation(projects.core.analytics)
+    implementation(projects.core.datastore)
+    implementation(projects.core.model)
 }

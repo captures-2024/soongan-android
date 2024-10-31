@@ -1,12 +1,9 @@
 package com.captures2024.soongan.core.designsystem.icon.myiconpack
 
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.PathFillType
 import androidx.compose.ui.graphics.PathFillType.Companion.NonZero
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.StrokeCap.Companion.Butt
-import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.StrokeJoin.Companion.Miter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.ImageVector.Builder
@@ -19,11 +16,22 @@ public val MyIconPack.IconLogoGoogle: ImageVector
         if (_iconLogoGoogle != null) {
             return _iconLogoGoogle!!
         }
-        _iconLogoGoogle = Builder(name = "IconLogoGoogle", defaultWidth = 16.0.dp, defaultHeight =
-                16.0.dp, viewportWidth = 16.0f, viewportHeight = 16.0f).apply {
-            path(fill = SolidColor(Color(0xFFFFC107)), stroke = null, strokeLineWidth = 0.0f,
-                    strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
-                    pathFillType = NonZero) {
+        _iconLogoGoogle = Builder(
+            name = "IconLogoGoogle",
+            defaultWidth = 16.0.dp,
+            defaultHeight = 16.0.dp,
+            viewportWidth = 16.0f,
+            viewportHeight = 16.0f,
+        ).apply {
+            path(
+                fill = SolidColor(Color(0xFFFFC107)),
+                stroke = null,
+                strokeLineWidth = 0.0f,
+                strokeLineCap = Butt,
+                strokeLineJoin = Miter,
+                strokeLineMiter = 4.0f,
+                pathFillType = NonZero,
+            ) {
                 moveTo(15.8444f, 6.4332f)
                 horizontalLineTo(15.2f)
                 verticalLineTo(6.4f)
@@ -42,9 +50,15 @@ public val MyIconPack.IconLogoGoogle: ImageVector
                 curveTo(16.0f, 7.4636f, 15.9448f, 6.94f, 15.8444f, 6.4332f)
                 close()
             }
-            path(fill = SolidColor(Color(0xFFFF3D00)), stroke = null, strokeLineWidth = 0.0f,
-                    strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
-                    pathFillType = NonZero) {
+            path(
+                fill = SolidColor(Color(0xFFFF3D00)),
+                stroke = null,
+                strokeLineWidth = 0.0f,
+                strokeLineCap = Butt,
+                strokeLineJoin = Miter,
+                strokeLineMiter = 4.0f,
+                pathFillType = NonZero,
+            ) {
                 moveTo(0.9229f, 4.2764f)
                 lineTo(3.5512f, 6.204f)
                 curveTo(4.2625f, 4.4432f, 5.9848f, 3.2f, 8.0005f, 3.2f)
@@ -54,9 +68,15 @@ public val MyIconPack.IconLogoGoogle: ImageVector
                 curveTo(4.9276f, 0.0f, 2.2629f, 1.7348f, 0.9229f, 4.2764f)
                 close()
             }
-            path(fill = SolidColor(Color(0xFF4CAF50)), stroke = null, strokeLineWidth = 0.0f,
-                    strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
-                    pathFillType = NonZero) {
+            path(
+                fill = SolidColor(Color(0xFF4CAF50)),
+                stroke = null,
+                strokeLineWidth = 0.0f,
+                strokeLineCap = Butt,
+                strokeLineJoin = Miter,
+                strokeLineMiter = 4.0f,
+                pathFillType = NonZero,
+            ) {
                 moveTo(7.9999f, 15.9995f)
                 curveTo(10.0663f, 15.9995f, 11.9439f, 15.2087f, 13.3635f, 13.9227f)
                 lineTo(10.8875f, 11.8275f)
@@ -66,9 +86,15 @@ public val MyIconPack.IconLogoGoogle: ImageVector
                 curveTo(2.2019f, 14.2219f, 4.8907f, 15.9995f, 7.9999f, 15.9995f)
                 close()
             }
-            path(fill = SolidColor(Color(0xFF1976D2)), stroke = null, strokeLineWidth = 0.0f,
-                    strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
-                    pathFillType = NonZero) {
+            path(
+                fill = SolidColor(Color(0xFF1976D2)),
+                stroke = null,
+                strokeLineWidth = 0.0f,
+                strokeLineCap = Butt,
+                strokeLineJoin = Miter,
+                strokeLineMiter = 4.0f,
+                pathFillType = NonZero,
+            ) {
                 moveTo(15.8444f, 6.4336f)
                 horizontalLineTo(15.2f)
                 verticalLineTo(6.4004f)
@@ -82,8 +108,8 @@ public val MyIconPack.IconLogoGoogle: ImageVector
                 curveTo(16.0f, 7.464f, 15.9448f, 6.9404f, 15.8444f, 6.4336f)
                 close()
             }
-        }
-        .build()
+        }.build()
+
         return _iconLogoGoogle!!
     }
 

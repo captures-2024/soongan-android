@@ -8,7 +8,7 @@ import javax.inject.Inject
 class FcmRepositoryImpl
 @Inject
 constructor(
-    private val fcmDataSource: FcmDataSource
+    private val fcmDataSource: FcmDataSource,
 ) : FcmRepository {
 
     override suspend fun initFcm(fcmToken: String): ResultConditionDto {
@@ -19,5 +19,4 @@ constructor(
             else -> ResultConditionDto(false)
         }
     }
-
 }

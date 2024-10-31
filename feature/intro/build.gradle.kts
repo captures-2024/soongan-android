@@ -1,5 +1,5 @@
 plugins {
-    captures("feature")
+    alias(libs.plugins.captures2024.soongan.android.feature)
 }
 
 android {
@@ -7,5 +7,5 @@ android {
 }
 
 dependencies {
-    implementation(libs.splash.screen)
+    implementation(libs.android.splash.screen)
 }

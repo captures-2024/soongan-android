@@ -6,21 +6,28 @@ import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavOptions
+import com.captures2024.soongan.core.analytics.utils.LogElementArgument
+import com.captures2024.soongan.core.android.utils.LocalAnalyticsHelper
 import com.captures2024.soongan.feature.signUp.NicknameViewModel
 import com.captures2024.soongan.feature.signUp.state.nickname.NicknameIntent
 import com.captures2024.soongan.feature.signUp.state.nickname.NicknameSideEffect
 import com.captures2024.soongan.feature.signUp.ui.InputNicknameScreen
-import timber.log.Timber
 
 @Composable
 internal fun InputNicknameRoute(
     navigateToBack: () -> Unit,
     navigateToBirthDate: (String) -> Unit,
-    nicknameViewModel: NicknameViewModel = hiltViewModel()
+    nicknameViewModel: NicknameViewModel = hiltViewModel(),
 ) {
+    val analyticsHelper = LocalAnalyticsHelper.current
     val uiState by nicknameViewModel.state.collectAsStateWithLifecycle()
 
-    Timber.tag("InputNicknameRoute").d("InputNicknameRoute State = $uiState")
+    analyticsHelper.d(
+        LogElementArgument("isLoading", uiState.isLoading.toString()),
+        LogElementArgument("nickname", uiState.nickname),
+        LogElementArgument("isValidNickname", uiState.isValidNickname.toString()),
+        LogElementArgument("isDuplicatedNickname", uiState.isDuplicatedNickname.toString()),
+    )
 
     LaunchedEffect(Unit) {
         nicknameViewModel.sideEffect.collect {

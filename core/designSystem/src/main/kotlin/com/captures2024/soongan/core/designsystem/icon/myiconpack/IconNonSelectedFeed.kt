@@ -16,11 +16,23 @@ public val MyIconPack.IconNonSelectedFeed: ImageVector
         if (_iconNonSelectedFeed != null) {
             return _iconNonSelectedFeed!!
         }
-        _iconNonSelectedFeed = Builder(name = "IconNonSelectedFeed", defaultWidth = 24.0.dp,
-                defaultHeight = 24.0.dp, viewportWidth = 24.0f, viewportHeight = 24.0f).apply {
-            path(fill = SolidColor(Color(0xFF252525)), stroke = null, fillAlpha = 0.3f,
-                    strokeLineWidth = 0.0f, strokeLineCap = Butt, strokeLineJoin = Miter,
-                    strokeLineMiter = 4.0f, pathFillType = NonZero) {
+        _iconNonSelectedFeed = Builder(
+            name = "IconNonSelectedFeed",
+            defaultWidth = 24.0.dp,
+            defaultHeight = 24.0.dp,
+            viewportWidth = 24.0f,
+            viewportHeight = 24.0f,
+        ).apply {
+            path(
+                fill = SolidColor(Color(0xFF252525)),
+                stroke = null,
+                fillAlpha = 0.3f,
+                strokeLineWidth = 0.0f,
+                strokeLineCap = Butt,
+                strokeLineJoin = Miter,
+                strokeLineMiter = 4.0f,
+                pathFillType = NonZero,
+            ) {
                 moveTo(21.3333f, 2.6667f)
                 verticalLineTo(21.3333f)
                 horizontalLineTo(2.6667f)
@@ -45,8 +57,8 @@ public val MyIconPack.IconNonSelectedFeed: ImageVector
                 lineTo(14.8533f, 11.8133f)
                 close()
             }
-        }
-        .build()
+        }.build()
+
         return _iconNonSelectedFeed!!
     }
 

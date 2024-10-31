@@ -16,11 +16,22 @@ public val MyIconPack.IconNonFillPaperDelete: ImageVector
         if (_iconNonFillPaperDelete != null) {
             return _iconNonFillPaperDelete!!
         }
-        _iconNonFillPaperDelete = Builder(name = "IconNonFillPaperDelete", defaultWidth = 21.0.dp,
-                defaultHeight = 24.0.dp, viewportWidth = 21.0f, viewportHeight = 24.0f).apply {
-            path(fill = SolidColor(Color(0xFF252525)), stroke = null, strokeLineWidth = 0.0f,
-                    strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
-                    pathFillType = NonZero) {
+        _iconNonFillPaperDelete = Builder(
+            name = "IconNonFillPaperDelete",
+            defaultWidth = 21.0.dp,
+            defaultHeight = 24.0.dp,
+            viewportWidth = 21.0f,
+            viewportHeight = 24.0f,
+        ).apply {
+            path(
+                fill = SolidColor(Color(0xFF252525)),
+                stroke = null,
+                strokeLineWidth = 0.0f,
+                strokeLineCap = Butt,
+                strokeLineJoin = Miter,
+                strokeLineMiter = 4.0f,
+                pathFillType = NonZero,
+            ) {
                 moveTo(2.4f, 24.0f)
                 curveTo(1.74f, 24.0f, 1.175f, 23.765f, 0.705f, 23.295f)
                 curveTo(0.235f, 22.825f, 0.0f, 22.26f, 0.0f, 21.6f)
@@ -57,8 +68,8 @@ public val MyIconPack.IconNonFillPaperDelete: ImageVector
                 lineTo(14.28f, 23.4f)
                 close()
             }
-        }
-        .build()
+        }.build()
+
         return _iconNonFillPaperDelete!!
     }
 

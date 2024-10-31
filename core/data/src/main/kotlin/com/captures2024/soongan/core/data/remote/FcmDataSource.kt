@@ -5,7 +5,6 @@ import com.captures2024.soongan.core.model.dto.FcmDto
 interface FcmDataSource {
 
     suspend fun initFcm(
-        fcmToken: String
+        fcmToken: String,
     ): FcmDto?
-
 }

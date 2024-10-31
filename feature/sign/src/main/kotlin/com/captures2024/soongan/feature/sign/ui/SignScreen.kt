@@ -60,7 +60,7 @@ internal fun SignScreen(
         googleSignIn = googleSignIn,
         kakaoSignIn = kakaoSignIn,
         navigateToMain = navigateToMain,
-        signInViewModel = signInViewModel
+        signInViewModel = signInViewModel,
     ) { message ->
         hostState.showSnackbar(
             message = message,
@@ -68,4 +68,3 @@ internal fun SignScreen(
         ) == SnackbarResult.ActionPerformed
     }
 }
-

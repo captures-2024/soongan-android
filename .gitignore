@@ -1,9 +1,11 @@
 # Gradle files
 .gradle/
 build/
+.kotlin/
 
 # Local configuration file (sdk path, etc)
 local.properties
+secrets.properties
 
 # Log/OS Files
 *.log
@@ -34,3 +36,6 @@ google-services.json
 
 # Mac OS
 .DS_Store
+
+# report module
+/report/*

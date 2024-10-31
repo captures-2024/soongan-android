@@ -1,5 +1,6 @@
 plugins {
-    captures("library")
+    alias(libs.plugins.captures2024.soongan.android.library)
+    alias(libs.plugins.captures2024.soongan.android.hilt)
 }
 
 android {
@@ -7,5 +8,5 @@ android {
 }
 
 dependencies {
-    implementation(libs.datastore.preferences)
+    implementation(libs.android.datastore.preferences)
 }

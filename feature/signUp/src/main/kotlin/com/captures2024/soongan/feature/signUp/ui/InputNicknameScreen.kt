@@ -17,7 +17,7 @@ internal fun InputNicknameScreen(
     modifier: Modifier = Modifier,
     onClickBack: () -> Unit = {},
     onChangedNickname: (String) -> Unit = {},
-    onClickConfirm: () -> Unit = {}
+    onClickConfirm: () -> Unit = {},
 ) {
     Scaffold(
         topBar = @Composable {

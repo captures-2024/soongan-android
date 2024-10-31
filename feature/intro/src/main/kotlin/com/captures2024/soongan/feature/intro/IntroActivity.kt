@@ -15,9 +15,9 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.captures2024.soongan.core.analytics.AnalyticsHelper
-import com.captures2024.soongan.core.analytics.LocalAnalyticsHelper
-import com.captures2024.soongan.core.analytics.NetworkMonitor
+import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
+import com.captures2024.soongan.core.android.utils.LocalAnalyticsHelper
+import com.captures2024.soongan.core.android.helper.NetworkMonitor
 import com.captures2024.soongan.core.designsystem.theme.SoonGanTheme
 import com.captures2024.soongan.core.navigator.activity.MainActivityNavigator
 import com.captures2024.soongan.core.navigator.activity.SignActivityNavigator
@@ -37,7 +37,7 @@ class IntroActivity : ComponentActivity() {
     lateinit var mainActivityNavigator: MainActivityNavigator
 
     @Inject
-    lateinit var analyticsHelper: AnalyticsHelper
+    lateinit var analyticsHelper: com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 
     @Inject
     lateinit var networkMonitor: NetworkMonitor

@@ -16,11 +16,22 @@ public val MyIconPack.IconNonFillTopArrow: ImageVector
         if (_iconNonFillTopArrow != null) {
             return _iconNonFillTopArrow!!
         }
-        _iconNonFillTopArrow = Builder(name = "IconNonFillTopArrow", defaultWidth = 16.0.dp,
-                defaultHeight = 20.0.dp, viewportWidth = 16.0f, viewportHeight = 20.0f).apply {
-            path(fill = SolidColor(Color(0xFF252525)), stroke = null, strokeLineWidth = 0.0f,
-                    strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
-                    pathFillType = NonZero) {
+        _iconNonFillTopArrow = Builder(
+            name = "IconNonFillTopArrow",
+            defaultWidth = 16.0.dp,
+            defaultHeight = 20.0.dp,
+            viewportWidth = 16.0f,
+            viewportHeight = 20.0f,
+        ).apply {
+            path(
+                fill = SolidColor(Color(0xFF252525)),
+                stroke = null,
+                strokeLineWidth = 0.0f,
+                strokeLineCap = Butt,
+                strokeLineJoin = Miter,
+                strokeLineMiter = 4.0f,
+                pathFillType = NonZero,
+            ) {
                 moveTo(16.0f, 7.6191f)
                 lineTo(14.6f, 8.9762f)
                 lineTo(9.0f, 3.6429f)
@@ -33,8 +44,8 @@ public val MyIconPack.IconNonFillTopArrow: ImageVector
                 lineTo(16.0f, 7.6191f)
                 close()
             }
-        }
-        .build()
+        }.build()
+
         return _iconNonFillTopArrow!!
     }
 

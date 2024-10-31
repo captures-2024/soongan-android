@@ -20,13 +20,13 @@ internal fun FeedScreen(
     Box(
         modifier = modifier.fillMaxSize()
             .background(PrimaryB),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         NonScaleText(
             text = "feed",
             color = Color.Black,
             fontSize = 36.sp,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
         )
     }
 }

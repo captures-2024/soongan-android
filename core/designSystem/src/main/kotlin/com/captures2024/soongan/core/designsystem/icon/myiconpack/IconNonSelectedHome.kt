@@ -16,11 +16,23 @@ public val MyIconPack.IconNonSelectedHome: ImageVector
         if (_iconNonSelectedHome != null) {
             return _iconNonSelectedHome!!
         }
-        _iconNonSelectedHome = Builder(name = "IconNonSelectedHome", defaultWidth = 24.0.dp,
-                defaultHeight = 24.0.dp, viewportWidth = 24.0f, viewportHeight = 24.0f).apply {
-            path(fill = SolidColor(Color(0xFF252525)), stroke = null, fillAlpha = 0.3f,
-                    strokeLineWidth = 0.0f, strokeLineCap = Butt, strokeLineJoin = Miter,
-                    strokeLineMiter = 4.0f, pathFillType = NonZero) {
+        _iconNonSelectedHome = Builder(
+            name = "IconNonSelectedHome",
+            defaultWidth = 24.0.dp,
+            defaultHeight = 24.0.dp,
+            viewportWidth = 24.0f,
+            viewportHeight = 24.0f,
+        ).apply {
+            path(
+                fill = SolidColor(Color(0xFF252525)),
+                stroke = null,
+                fillAlpha = 0.3f,
+                strokeLineWidth = 0.0f,
+                strokeLineCap = Butt,
+                strokeLineJoin = Miter,
+                strokeLineMiter = 4.0f,
+                pathFillType = NonZero,
+            ) {
                 moveTo(0.0f, 24.0f)
                 verticalLineTo(8.0f)
                 lineTo(12.0f, 0.0f)
@@ -44,8 +56,8 @@ public val MyIconPack.IconNonSelectedHome: ImageVector
                 verticalLineTo(21.3333f)
                 close()
             }
-        }
-        .build()
+        }.build()
+
         return _iconNonSelectedHome!!
     }
 

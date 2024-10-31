@@ -81,7 +81,8 @@ internal fun HomeExhibitButton(
                 Spacer(modifier = Modifier.height(8.dp))
                 NonScaleText(
                     text = stringResource(id = R.string.exhibit),
-                    style = TextStyle(fontSize = 14.sp, color = PrimaryA)
+                    fontSize = 14.sp,
+                    color = PrimaryA,
                 )
             }
         }
