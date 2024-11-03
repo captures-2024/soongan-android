@@ -132,3 +132,12 @@ fun Project.loadProperties(): Properties = Properties().apply {
         true -> load(file.inputStream())
     }
 }
+
+@Throws(FileNotFoundException::class)
+fun Project.loadKeyProperties(): Properties = Properties().apply {
+    val file = rootProject.file("keystore.properties")
+    when (file.exists()) {
+        false -> throw FileNotFoundException("keystore.properties is not founded")
+        true -> load(file.inputStream())
+    }
+}
