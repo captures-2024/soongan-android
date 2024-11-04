@@ -127,17 +127,21 @@ object DefaultKeyValue {
 @Throws(FileNotFoundException::class)
 fun Project.loadProperties(): Properties = Properties().apply {
     val file = rootProject.file("secrets.properties")
-    when (file.exists()) {
-        false -> throw FileNotFoundException("secrets.properties is not founded")
-        true -> load(file.inputStream())
+
+    if (!file.exists()) {
+        throw FileNotFoundException("secrets.properties is not founded")
     }
+
+    load(file.inputStream())
 }
 
 @Throws(FileNotFoundException::class)
 fun Project.loadKeyProperties(): Properties = Properties().apply {
     val file = rootProject.file("keystore.properties")
-    when (file.exists()) {
-        false -> throw FileNotFoundException("keystore.properties is not founded")
-        true -> load(file.inputStream())
+
+    if (!file.exists()) {
+        throw FileNotFoundException("keystore.properties is not founded")
     }
+
+    load(file.inputStream())
 }
