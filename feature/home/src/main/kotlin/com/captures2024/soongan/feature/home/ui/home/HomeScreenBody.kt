@@ -1,8 +1,10 @@
 package com.captures2024.soongan.feature.home.ui.home
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -17,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -107,5 +110,7 @@ internal fun HomeScreenBody(
 @DevicePreviews
 @Composable
 private fun HomeScreenBodyPreview() {
-    HomeScreenBody()
+    Box(modifier = Modifier.background(Color.White)) {
+        HomeScreenBody()
+    }
 }
