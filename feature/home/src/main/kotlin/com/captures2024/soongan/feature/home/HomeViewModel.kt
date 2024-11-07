@@ -3,6 +3,7 @@ package com.captures2024.soongan.feature.home
 import androidx.lifecycle.SavedStateHandle
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.common.base.BaseViewModel
+import com.captures2024.soongan.core.model.UserPost
 import com.captures2024.soongan.feature.home.state.home.HomeIntent
 import com.captures2024.soongan.feature.home.state.home.HomeSideEffect
 import com.captures2024.soongan.feature.home.state.home.HomeUIState
@@ -26,8 +27,47 @@ constructor(
     }
 
     override suspend fun handleIntent(intent: HomeIntent) {
-        TODO("Not yet implemented")
+        when (intent) {
+            is HomeIntent.OnClickPlus -> onClickPlus()
+
+            is HomeIntent.OnClickMyPost -> onClickMyPost(intent.myPost)
+
+            is HomeIntent.OnToggleWeeklyDaily -> onToggleWeeklyDaily()
+
+            is HomeIntent.OnClickInfo -> onClickInfo()
+
+            is HomeIntent.OnClickRightArrow -> onClickRightArrow()
+        }
     }
+
+    private fun onClickPlus() {
+        postSideEffect(HomeSideEffect.NavigateToHomeExhibition)
+    }
+
+    private fun onClickMyPost(myPost: UserPost.PhotoPost) {
+        postSideEffect(HomeSideEffect.NavigateToHomePost(myPost))
+    }
+
+    private fun onToggleWeeklyDaily() {
+        reduce {
+            copy(
+                isWeeklySelected = !isWeeklySelected
+            )
+        }
+    }
+
+    private fun onClickInfo() {
+        reduce {
+            copy(
+                isOpenBottomSheet = true
+            )
+        }
+    }
+
+    private fun onClickRightArrow() {
+        postSideEffect(HomeSideEffect.NavigateToHomeGallery)
+    }
+
 
     companion object {
         private const val TAG = "HomeVM"
