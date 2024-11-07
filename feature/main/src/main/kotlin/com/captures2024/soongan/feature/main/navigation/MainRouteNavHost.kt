@@ -49,6 +49,7 @@ internal fun MainRouteNavHost(
         )
         home(
             navigateToBack = navController::popBackStack,
+//            navigateToExhibition = navController::navigateToHomeExhibition,
             navigateToGallery = navController::navigateToHomeGallery,
             navigateToPost = navController::navigateToHomePost,
             navigateToPostPhoto = navController::navigateToHomePostPhoto
@@ -60,10 +61,15 @@ internal fun MainRouteNavHost(
 }
 
 internal fun NavController.navigateToHome() = navigate(HomeNavigator)
-internal fun NavController.navigateToHome(navOptions: NavOptions) = navigate(HomeNavigator, navOptions)
+internal fun NavController.navigateToHome(navOptions: NavOptions) =
+    navigate(HomeNavigator, navOptions)
+
+//internal fun NavController.navigateToHomeExhibition() = navigate(HomeExhibitionNavigator)
+//internal fun NavController.navigateToHomeExhibition(navOptions: NavOptions) = navigate(HomeExhibitionNavigator, navOptions)
 
 internal fun NavController.navigateToHomeGallery() = navigate(HomeGalleryNavigator)
-internal fun NavController.navigateToHomeGallery(navOptions: NavOptions) = navigate(HomeGalleryNavigator, navOptions)
+internal fun NavController.navigateToHomeGallery(navOptions: NavOptions) =
+    navigate(HomeGalleryNavigator, navOptions)
 
 internal fun NavController.navigateToHomePost(
     post: UserPost.PhotoPost
@@ -74,6 +80,7 @@ internal fun NavController.navigateToHomePost(
         title = post.title
     )
 )
+
 internal fun NavController.navigateToHomePost(
     post: UserPost.PhotoPost,
     navOptions: NavOptions
@@ -86,17 +93,22 @@ internal fun NavController.navigateToHomePost(
     navOptions = navOptions
 )
 
-internal fun NavController.navigateToHomePostPhoto(url: String) = navigate(HomePostPhotoNavigator(url))
+internal fun NavController.navigateToHomePostPhoto(url: String) =
+    navigate(HomePostPhotoNavigator(url))
+
 internal fun NavController.navigateToHomePostPhoto(
     url: String,
     navOptions: NavOptions
 ) = navigate(HomePostPhotoNavigator(url), navOptions)
 
 internal fun NavController.navigateToFeed() = navigate(FeedNavigator)
-internal fun NavController.navigateToFeed(navOptions: NavOptions) = navigate(FeedNavigator, navOptions)
+internal fun NavController.navigateToFeed(navOptions: NavOptions) =
+    navigate(FeedNavigator, navOptions)
 
 internal fun NavController.navigateToAwards() = navigate(AwardsNavigator)
-internal fun NavController.navigateToAwards(navOptions: NavOptions) = navigate(AwardsNavigator, navOptions)
+internal fun NavController.navigateToAwards(navOptions: NavOptions) =
+    navigate(AwardsNavigator, navOptions)
 
 internal fun NavController.navigateToProfile() = navigate(ProfileNavigator)
-internal fun NavController.navigateToProfile(navOptions: NavOptions) = navigate(ProfileNavigator, navOptions)
+internal fun NavController.navigateToProfile(navOptions: NavOptions) =
+    navigate(ProfileNavigator, navOptions)
