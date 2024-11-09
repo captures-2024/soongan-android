@@ -54,7 +54,7 @@ constructor(
 
             is SignInIntent.CompleteSignGoogle -> googleSignIn(token = intent.token)
 
-            is SignInIntent.CompleteSignKakao -> TODO()
+            is SignInIntent.CompleteSignKakao -> kakaoSignIn(token = intent.accessToken)
 
             is SignInIntent.FetchFCMToken -> fetchFcmToken(token = intent.token)
 
@@ -117,6 +117,26 @@ constructor(
             copy(isLoading = true)
         }
         postSideEffect(SignInSideEffect.KakaoSignIn)
+    }
+
+    private fun kakaoSignIn(token: String) = launch {
+        val result = signingKakaoUseCase(
+            token = token,
+            fcmToken = currentState.fcmToken
+        ).getOrNull()
+
+        if (result == null) {
+            analyticsHelper.d(message = "result is null")
+            intent(SignInIntent.FailedSignKakao)
+            return@launch
+        }
+
+        analyticsHelper.d(message = "result = $result")
+
+        when (result) {
+            true -> isAllowCheck()
+            false -> failedSignIn()
+        }
     }
 
     private fun fetchFcmToken(token: String) {
