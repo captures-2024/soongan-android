@@ -122,19 +122,24 @@ constructor(
     private fun kakaoSignIn(token: String) = launch {
         val result = signingKakaoUseCase(
             token = token,
-            fcmToken = currentState.fcmToken
+            fcmToken = currentState.fcmToken,
         ).getOrNull()
 
         if (result == null) {
-            analyticsHelper.d(message = "result is null")
+            analyticsHelper.d(
+                message = "result is null",
+            )
             intent(SignInIntent.FailedSignKakao)
             return@launch
         }
 
-        analyticsHelper.d(message = "result = $result")
+        analyticsHelper.d(
+            message = "result = $result",
+        )
 
         when (result) {
             true -> isAllowCheck()
+
             false -> failedSignIn()
         }
     }
