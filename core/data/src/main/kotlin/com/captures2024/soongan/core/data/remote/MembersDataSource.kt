@@ -8,21 +8,6 @@ import com.captures2024.soongan.core.model.network.response.members.SignInWithTo
 
 interface MembersDataSource {
 
-    suspend fun withdrawWithToken(): Boolean
-
-    suspend fun signOutWithToken(): Boolean
-
-    suspend fun signInWithToken(
-        type: SocialSignType,
-        token: String,
-        fcmToken: String,
-    ): SignInWithTokenResponse?
-
-    suspend fun reissueToken(
-        accessToken: String,
-        refreshToken: String,
-    ): ReissueTokenResponse?
-
     suspend fun registerProfileImage()
 
     suspend fun registerNickname(

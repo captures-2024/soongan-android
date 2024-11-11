@@ -5,8 +5,8 @@ import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.common.base.BaseViewModel
 import com.captures2024.soongan.core.domain.usecase.fcm.InitFcmUseCase
 import com.captures2024.soongan.core.domain.usecase.members.IsAllowUserInfoUseCase
-import com.captures2024.soongan.core.domain.usecase.members.SigningGoogleUseCase
-import com.captures2024.soongan.core.domain.usecase.members.SigningKakaoUseCase
+import com.captures2024.soongan.core.domain.usecase.auth.SigningGoogleUseCase
+import com.captures2024.soongan.core.domain.usecase.auth.SigningKakaoUseCase
 import com.captures2024.soongan.feature.signIn.state.SignInIntent
 import com.captures2024.soongan.feature.signIn.state.SignInSideEffect
 import com.captures2024.soongan.feature.signIn.state.SignInUIState

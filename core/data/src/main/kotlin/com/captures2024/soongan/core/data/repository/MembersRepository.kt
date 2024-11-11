@@ -6,18 +6,6 @@ import com.captures2024.soongan.core.model.dto.ResultConditionDto
 
 interface MembersRepository {
 
-    suspend fun withdrawMember(): ResultConditionDto
-
-    suspend fun signOutSocialPlatform(): ResultConditionDto
-
-    suspend fun signingSocialPlatform(
-        type: SocialSignType,
-        token: String,
-        fcmToken: String,
-    ): ResultConditionDto
-
-    suspend fun reissueToken(): ResultConditionDto
-
     suspend fun registerProfileImage()
 
     suspend fun registerNickname(nickname: String): ResultConditionDto

@@ -1,8 +1,10 @@
 package com.captures2024.soongan.core.data.di
 
+import com.captures2024.soongan.core.data.repository.AuthRepository
 import com.captures2024.soongan.core.data.repository.FcmRepository
 import com.captures2024.soongan.core.data.repository.MembersRepository
 import com.captures2024.soongan.core.data.repository.TokenRepository
+import com.captures2024.soongan.core.data.repository.impl.AuthRepositoryImpl
 import com.captures2024.soongan.core.data.repository.impl.FcmRepositoryImpl
 import com.captures2024.soongan.core.data.repository.impl.MembersRepositoryImpl
 import com.captures2024.soongan.core.data.repository.impl.TokenRepositoryImpl
@@ -27,4 +29,8 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindFcmRepository(fcmRepositoryImpl: FcmRepositoryImpl): FcmRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindAuthRepository(authRepositoryImpl: AuthRepositoryImpl): AuthRepository
 }
