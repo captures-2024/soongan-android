@@ -43,6 +43,8 @@ constructor(
             is HomeIntent.OnClickInfo -> onClickInfo()
 
             is HomeIntent.OnClickRightArrow -> onClickRightArrow()
+
+            is HomeIntent.OnCloseBottomSheet -> onCloseBottomSheet()
         }
     }
 
@@ -72,6 +74,14 @@ constructor(
 
     private fun onClickRightArrow() {
         postSideEffect(HomeSideEffect.NavigateToHomeGallery)
+    }
+
+    private fun onCloseBottomSheet() {
+        reduce {
+            copy(
+                isOpenBottomSheet = false
+            )
+        }
     }
 
 

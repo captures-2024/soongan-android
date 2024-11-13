@@ -18,6 +18,7 @@ import com.captures2024.soongan.feature.home.HomeViewModel
 import com.captures2024.soongan.feature.home.state.home.HomeIntent
 import com.captures2024.soongan.feature.home.state.home.HomeSideEffect
 import com.captures2024.soongan.feature.home.ui.home.HomeScreen
+import com.captures2024.soongan.feature.home.ui.home.HomeScreenBottomSheet
 
 @Composable
 internal fun HomeRoute(
@@ -57,4 +58,6 @@ internal fun HomeRoute(
         onClickInfo = {homeViewModel.intent(HomeIntent.OnClickInfo)},
         onClickRightArrow = {homeViewModel.intent(HomeIntent.OnClickRightArrow)},
     )
+
+    if(uiState.isOpenBottomSheet) HomeScreenBottomSheet { homeViewModel.intent(HomeIntent.OnCloseBottomSheet) }
 }
