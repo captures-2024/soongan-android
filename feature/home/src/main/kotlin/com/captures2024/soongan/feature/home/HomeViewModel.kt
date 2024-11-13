@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.common.base.BaseViewModel
 import com.captures2024.soongan.core.model.UserPost
+import com.captures2024.soongan.core.model.mock.samplePhotos
 import com.captures2024.soongan.feature.home.state.home.HomeIntent
 import com.captures2024.soongan.feature.home.state.home.HomeSideEffect
 import com.captures2024.soongan.feature.home.state.home.HomeUIState
@@ -17,6 +18,11 @@ constructor(
     private val analyticsHelper: AnalyticsHelper,
     savedStateHandle: SavedStateHandle
 ) : BaseViewModel<HomeUIState, HomeSideEffect, HomeIntent>(savedStateHandle) {
+    private val samples by lazy { samplePhotos.filterIsInstance<UserPost.PhotoPost>().take(3) }
+
+    init {
+        reduce { copy(myPosts = samples) }
+    }
 
     override fun createInitialState(savedStateHandle: SavedStateHandle): HomeUIState {
         return HomeUIState()
