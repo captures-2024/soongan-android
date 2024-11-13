@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -28,6 +29,7 @@ import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.component.WidthSpacer
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFillHeart
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillComment
 import com.captures2024.soongan.core.designsystem.theme.PrimaryA
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.model.UserPost
@@ -97,15 +99,18 @@ private fun MyPostPhoto(
                 .clickable { onClick() }
         )
         Spacer(modifier = Modifier.height(8.dp))
-        Row {
+        Row(
+            modifier = Modifier.padding(start = 8.dp)
+        ) {
             InteractionIconBox(
                 imageVector = MyIconPack.IconFillHeart,
                 contentDescription = "heart",
                 interactionCount = "220"
             )
+            WidthSpacer(8.dp)
             InteractionIconBox(
-                imageVector = MyIconPack.IconFillHeart,
-                contentDescription = "heart",
+                imageVector = MyIconPack.IconNonFillComment,
+                contentDescription = "comment",
                 interactionCount = "220"
             )
         }
@@ -119,7 +124,10 @@ private fun InteractionIconBox(
     contentDescription: String,
     interactionCount: String,
 ) {
-    Row(modifier = modifier) {
+    Row(
+        modifier = modifier,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
         Icon(
             imageVector = imageVector,
             contentDescription = contentDescription,
@@ -141,7 +149,7 @@ private fun InteractionIconBox(
 @Composable
 private fun HomeScreenBodyPreview() {
     // size 체크용
-    val samples = List(3){ UserPost.PhotoPost(0,"","") }
+    val samples = List(3) { UserPost.PhotoPost(0, "", "") }
 
     Column(modifier = Modifier.background(Color.White)) {
         HomeScreenBody(
