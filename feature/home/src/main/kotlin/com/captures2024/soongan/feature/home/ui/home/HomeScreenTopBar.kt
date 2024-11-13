@@ -34,8 +34,6 @@ internal fun HomeScreenTopBar(
 ) {
     Box(
         modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = 32.dp)
     ) {
         Box(
             modifier = Modifier.offset(
