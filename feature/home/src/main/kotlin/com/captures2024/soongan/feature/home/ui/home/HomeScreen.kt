@@ -64,7 +64,7 @@ internal fun HomeScreen(
 }
 
 @Composable
-fun HomeScreenToggle(
+private fun HomeScreenToggle(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
     isWeeklySelected: Boolean,
@@ -86,7 +86,7 @@ fun HomeScreenToggle(
 }
 
 @Composable
-fun HomeScreenDeadLine(
+private fun HomeScreenDeadLine(
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier) {

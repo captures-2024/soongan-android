@@ -53,7 +53,7 @@ internal fun HomeScreenBody(
 }
 
 @Composable
-fun ExhibitContent(
+private fun ExhibitContent(
     modifier: Modifier = Modifier,
     onClickPlus: () -> Unit,
     onClickMyPost: (UserPost.PhotoPost) -> Unit,
@@ -80,7 +80,7 @@ fun ExhibitContent(
 }
 
 @Composable
-fun MyPostPhoto(
+private fun MyPostPhoto(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
     url: String,
@@ -113,7 +113,7 @@ fun MyPostPhoto(
 }
 
 @Composable
-fun InteractionIconBox(
+private fun InteractionIconBox(
     modifier: Modifier = Modifier,
     imageVector: ImageVector,
     contentDescription: String,
