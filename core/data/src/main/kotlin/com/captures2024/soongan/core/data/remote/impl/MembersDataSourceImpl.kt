@@ -18,49 +18,6 @@ class MembersDataSourceImpl
 constructor(
     private val service: MembersService,
 ) : MembersDataSource {
-    override suspend fun withdrawWithToken(): Boolean {
-        val result = safeAPICall { service.withdrawWithToken() }
-
-        return when (result.body) {
-            null -> false
-            else -> true
-        }
-    }
-
-    override suspend fun signOutWithToken(): Boolean {
-        val result = safeAPICall { service.signOutWithToken() }
-
-        return when (result.body) {
-            null -> false
-            else -> true
-        }
-    }
-
-    override suspend fun signInWithToken(
-        type: SocialSignType,
-        token: String,
-        fcmToken: String,
-    ): SignInWithTokenResponse? = safeAPICall {
-        service.signInWithToken(
-            request = SignWithTokenRequest(
-                provider = type.provider,
-                idToken = token,
-                fcmToken = fcmToken,
-            ),
-        )
-    }.body?.responseData
-
-    override suspend fun reissueToken(
-        accessToken: String,
-        refreshToken: String,
-    ): ReissueTokenResponse? = safeAPICall {
-        service.reissueToken(
-            request = ReissueTokenRequest(
-                accessToken = accessToken,
-                refreshToken = refreshToken,
-            ),
-        )
-    }.body?.responseData
 
     override suspend fun registerProfileImage() {
         TODO("Not yet implemented")

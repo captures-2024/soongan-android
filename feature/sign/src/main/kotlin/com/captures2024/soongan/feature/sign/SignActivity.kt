@@ -19,6 +19,7 @@ import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
+import com.captures2024.soongan.core.analytics.utils.LogElementArgument
 import com.captures2024.soongan.core.android.utils.LocalAnalyticsHelper
 import com.captures2024.soongan.core.android.helper.NetworkMonitor
 import com.captures2024.soongan.core.auth.GoogleAuthUiClient
@@ -143,6 +144,12 @@ class SignActivity : ComponentActivity(), KakaoLoginCallback {
         accessToken: String?,
         refreshToken: String?,
     ) {
+        analyticsHelper.d(
+            LogElementArgument("accessToken", accessToken.toString()),
+            LogElementArgument("refreshToken", refreshToken.toString()),
+            message = "onSuccessKakaoLogin"
+        )
+
         signInViewModel.intent(
             SignInIntent.CompleteSignKakao(
                 accessToken = accessToken ?: "",
@@ -152,6 +159,11 @@ class SignActivity : ComponentActivity(), KakaoLoginCallback {
     }
 
     override fun onFailureKakaoLogin(error: Throwable?) {
+        analyticsHelper.e(
+            throwable = error,
+            message = "onFailureKakaoLogin",
+        )
+
         signInViewModel.intent(SignInIntent.FailedSignKakao)
     }
 
