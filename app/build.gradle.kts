@@ -29,20 +29,23 @@ android {
         buildConfigField("String", "KAKAO_API_KEY", "\"${kakaoApiKey}\"")
     }
 
-//    signingConfigs {
-//        getByName("debug") {
-//            keyAlias = "android_debug_key"
-//            keyPassword = "android"
-//            storeFile = File("${project.rootDir.absolutePath}/keystore/debug.keystore")
-//            storePassword = "android"
-//        }
-//        create("release") {
-//            keyAlias = properties.getProperty("keyAlias")
-//            keyPassword = properties.getProperty("keyPassword")
-//            storeFile = File("${project.rootDir.absolutePath}/keystore/release.keystore.jks")
-//            storePassword = properties.getProperty("storePassword")
-//        }
-//    }
+    signingConfigs {
+        getByName("debug") {
+            storeFile = File("${project.rootDir.absolutePath}/keystore/debug.keystore")
+            storePassword = "android"
+            keyAlias = "androiddebugkey"
+            keyPassword = "android"
+        }
+
+        create("release") {
+            val properties = loadKeyProperties()
+
+            storeFile = File("${project.rootDir.absolutePath}/keystore/release.keystore.jks")
+            storePassword = properties.getProperty("storePassword")
+            keyAlias = properties.getProperty("keyAlias")
+            keyPassword = properties.getProperty("keyPassword")
+        }
+    }
 
     buildTypes {
         getByName("debug") {
@@ -54,7 +57,7 @@ android {
 
         getByName("release") {
             isDebuggable = false
-//            signingConfig = signingConfigs.getByName("release")
+            signingConfig = signingConfigs.getByName("release")
             manifestPlaceholders += mapOf(
                 "appName" to "@string/app_name",
             )
