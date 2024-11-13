@@ -17,7 +17,7 @@ import com.captures2024.soongan.core.model.UserPost
 import com.captures2024.soongan.feature.home.HomeViewModel
 import com.captures2024.soongan.feature.home.state.home.HomeIntent
 import com.captures2024.soongan.feature.home.state.home.HomeSideEffect
-import com.captures2024.soongan.feature.home.ui.home._HomeScreen
+import com.captures2024.soongan.feature.home.ui.home.HomeScreen
 
 @Composable
 internal fun HomeRoute(
@@ -48,7 +48,7 @@ internal fun HomeRoute(
         }
     }
 
-    _HomeScreen(
+    HomeScreen(
         modifier = modifier,
         uiState = uiState,
         onClickPlus = {homeViewModel.intent(HomeIntent.OnClickPlus)},

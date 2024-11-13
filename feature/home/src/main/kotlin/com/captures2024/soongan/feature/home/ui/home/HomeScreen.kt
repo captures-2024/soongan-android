@@ -27,7 +27,7 @@ import com.captures2024.soongan.feature.home.ui.home.component.ContestPeriodText
 import com.captures2024.soongan.feature.home.ui.home.component.HomePeriodToggleButton
 
 @Composable
-internal fun _HomeScreen(
+internal fun HomeScreen(
     modifier: Modifier = Modifier,
     uiState: HomeUIState,
     onClickPlus: () -> Unit = {},
@@ -106,7 +106,7 @@ private fun HomeScreenPreview() {
         )
         .padding(top = 100.dp)
 
-    _HomeScreen(
+    HomeScreen(
         modifier = modifier,
         uiState = HomeUIState()
     )

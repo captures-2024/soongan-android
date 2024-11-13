@@ -40,7 +40,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -66,7 +65,7 @@ import com.captures2024.soongan.feature.home.R as Rhome
 const val MAX_EXHIBIT_CNT = 3;
 
 @Composable
-internal fun HomeScreen(
+internal fun _HomeScreen(
     modifier: Modifier = Modifier,
     navigateToPhotoList: (NavOptions?) -> Unit,
 ) {
@@ -439,7 +438,7 @@ private fun MainBottomIcon(
 @DevicePreviews
 @Composable
 private fun HomeScreenPreview() {
-    HomeScreen {
+    _HomeScreen {
 
     }
 }
