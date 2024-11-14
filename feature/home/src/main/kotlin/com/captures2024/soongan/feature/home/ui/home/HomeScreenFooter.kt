@@ -42,13 +42,15 @@ internal fun HomeScreenFooter(
                 onClick = onClickInfo,
                 imageVector = MyIconPack.IconNonFillInfo,
                 text = stringResource(id = com.captures2024.soongan.feature.home.R.string.contest_info),
-                width = 24.dp, height = 24.dp
+                width = 24.dp,
+                height = 24.dp
             )
             IconBox(
                 onClick = onClickRightArrow,
                 imageVector = MyIconPack.IconNonFillRightArrow,
                 text = stringResource(id = com.captures2024.soongan.feature.home.R.string.participated_photo),
-                width = 20.dp, height = 16.dp
+                width = 20.dp,
+                height = 16.dp
             )
         }
     }

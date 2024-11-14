@@ -14,7 +14,7 @@ import com.captures2024.soongan.feature.home.route.HomeRoute
 
 fun NavGraphBuilder.home(
     navigateToBack: () -> Unit,
-    navigateToExhibition: () -> Unit = {},
+    navigateToExhibition: () -> Unit = TODO("출품 화면 미구현"),
     navigateToGallery: () -> Unit,
     navigateToPost: (UserPost.PhotoPost) -> Unit,
     navigateToPostPhoto: (String) -> Unit
