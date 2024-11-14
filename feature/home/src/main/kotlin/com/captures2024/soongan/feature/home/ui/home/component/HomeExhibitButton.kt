@@ -1,4 +1,4 @@
-package com.captures2024.soongan.feature.home.ui.component
+package com.captures2024.soongan.feature.home.ui.home.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -12,14 +12,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -37,11 +35,13 @@ private const val MAX_EXHIBIT_CNT = 3
 @Composable
 internal fun HomeExhibitButton(
     modifier: Modifier = Modifier,
-    width: Int,
-    exhibitCount: Int
+    onClick: () -> Unit,
+    exhibitCount: Int,
 ) {
+    val width = if(exhibitCount == 0) 257 else 60
     Box(
         modifier = modifier
+            .clickable { onClick() }
             .width(width.dp)
             .height(257.dp)
             .dropShadow(shape = RectangleShape),
@@ -115,12 +115,12 @@ private fun HomeExhibitButtonPreview() {
             .padding(40.dp)
     ) {
         HomeExhibitButton(
-            width = 90,
+            onClick = {},
             exhibitCount = 0
         )
         Spacer(modifier = Modifier.height(30.dp))
         HomeExhibitButton(
-            width = 90,
+            onClick = {},
             exhibitCount = 3
         )
     }
