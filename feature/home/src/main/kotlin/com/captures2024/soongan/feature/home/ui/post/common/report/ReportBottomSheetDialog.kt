@@ -1,4 +1,4 @@
-package com.captures2024.soongan.feature.home.ui.photo
+package com.captures2024.soongan.feature.home.ui.post.common.report
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -28,7 +28,7 @@ import com.captures2024.soongan.feature.home.utils.ReportType
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun PostReportBottomSheetDialog(
+internal fun ReportBottomSheetDialog(
     modifier: Modifier = Modifier,
     reportState: PhotoDetailModalState.Open.ReportOpen,
     onClickReport: (ReportType) -> Unit,
@@ -72,14 +72,14 @@ internal fun PostReportBottomSheetDialog(
             },
         ) { paddingValues ->
             when (reportState.reportType) {
-                ReportType.NONE -> PostReportDefaultScreen(
+                ReportType.NONE -> ReportSelectScreen(
                     modifier = Modifier.padding(paddingValues),
                     onClickReport = onClickReport
                 )
-                ReportType.FINISH -> PostReportFinishScreen(
+                ReportType.FINISH -> ReportCompleteScreen(
                     onClickConfirm = closeSheet
                 )
-                else -> PostReportDetailScreen(
+                else -> ReportConfirmScreen(
                     modifier = Modifier.padding(paddingValues),
                     reportType = reportState.reportType,
                     onClickSubmit = { onClickReport(ReportType.FINISH) }
@@ -89,12 +89,10 @@ internal fun PostReportBottomSheetDialog(
     }
 }
 
-
-
 @DevicePreviews
 @Composable
 private fun PostReportBottomSheetDialogPreview() {
-    PostReportBottomSheetDialog(
+    ReportBottomSheetDialog(
         reportState = PhotoDetailModalState.Open.ReportOpen(),
         onClickReport = {},
         closeSheet = {}
