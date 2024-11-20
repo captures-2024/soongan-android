@@ -1,4 +1,4 @@
-package com.captures2024.soongan.feature.home.ui.photo
+package com.captures2024.soongan.feature.home.ui.post.common.report
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -29,7 +28,7 @@ import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.home.R
 
 @Composable
-internal fun PostReportFinishScreen(
+internal fun ReportCompleteScreen(
     modifier: Modifier = Modifier,
     onClickConfirm: () -> Unit
 ) {
@@ -88,7 +87,7 @@ internal fun PostReportFinishScreen(
 @Composable
 private fun PostReportFinishScreenPreview() {
     Box(modifier = Modifier.background(Color.White)) {
-        PostReportFinishScreen {
+        ReportCompleteScreen {
 
         }
     }
