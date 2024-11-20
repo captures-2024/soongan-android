@@ -1,6 +1,8 @@
 package com.captures2024.soongan.feature.home.ui.post.common.report
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,6 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -62,7 +65,8 @@ private fun ReportReasonInput(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .background(PrimaryB, RoundedCornerShape(8.dp))
+            .background(Color.White, RoundedCornerShape(8.dp))
+            .border(BorderStroke(1.dp, PrimaryA.copy(alpha = 0.15f)), RoundedCornerShape(8.dp))
             .height(160.dp)
     ) {
         BasicTextField(
@@ -81,7 +85,7 @@ private fun ReportReasonInput(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(PrimaryB, shape = RoundedCornerShape(8.dp))
+                        .background(Color.White, shape = RoundedCornerShape(8.dp))
                 ) {
                     if (text.isEmpty()) {
                         Text(
