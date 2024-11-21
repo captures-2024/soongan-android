@@ -7,5 +7,7 @@ class GoogleAuthConventionPlugin : BaseConventionPlugin({
     dependencies {
         implementation(libs.google.services)
         implementation(libs.google.gms.auth)
+//        implementation(libs.android.credentials)
+        implementation(libs.google.credentials.auth)
     }
 })

@@ -16,6 +16,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
+import androidx.credentials.CredentialManager
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
@@ -35,6 +36,7 @@ import com.captures2024.soongan.feature.signIn.state.SignInIntent
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -53,6 +55,9 @@ class SignActivity : ComponentActivity(), KakaoLoginCallback {
     lateinit var beginSignInRequest: BeginSignInRequest
 
     @Inject
+    lateinit var googleIdOption: GetGoogleIdOption
+
+    @Inject
     lateinit var mainActivityNavigator: MainActivityNavigator
 
     private val signInViewModel: SignInViewModel by viewModels()
@@ -61,7 +66,10 @@ class SignActivity : ComponentActivity(), KakaoLoginCallback {
     private val googleAuthUiClient by lazy {
         GoogleAuthUiClient(
             oneTapClient = Identity.getSignInClient(this),
-            signInRequest = beginSignInRequest
+            signInRequest = beginSignInRequest,
+            context = this@SignActivity,
+            credentialManager = CredentialManager.create(this),
+            googleIdOption = googleIdOption,
         )
     }
 
@@ -184,6 +192,7 @@ class SignActivity : ComponentActivity(), KakaoLoginCallback {
                     return
                 }
 
+//                lifecycleScope.launch { googleAuthUiClient.signOut() }
                 signInViewModel.intent(SignInIntent.CompleteSignGoogle(token = token))
             }
 
@@ -193,9 +202,20 @@ class SignActivity : ComponentActivity(), KakaoLoginCallback {
 
     private fun signInWithGoogle(launcher: ManagedActivityResultLauncher<IntentSenderRequest, ActivityResult>) {
         lifecycleScope.launch {
-            val signInIntentSender = googleAuthUiClient.signIn() ?: return@launch
+//            val signInIntentSender = googleAuthUiClient.signIn() ?: return@launch
+//
+//            launcher.launch(IntentSenderRequest.Builder(signInIntentSender).build())
 
-            launcher.launch(IntentSenderRequest.Builder(signInIntentSender).build())
+            val result = googleAuthUiClient.requestGoogleLogin()
+
+            analyticsHelper.d(message = "result = $result")
+
+            if (result == null) {
+                signInViewModel.intent(SignInIntent.FailedSignGoogle)
+                return@launch
+            }
+
+            signInViewModel.intent(SignInIntent.CompleteSignGoogle(token = result))
         }
     }
 
