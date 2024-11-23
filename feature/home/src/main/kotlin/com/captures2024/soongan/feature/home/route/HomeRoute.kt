@@ -52,11 +52,11 @@ internal fun HomeRoute(
     HomeScreen(
         modifier = modifier,
         uiState = uiState,
-        onClickPlus = {homeViewModel.intent(HomeIntent.OnClickPlus)},
-        onClickMyPost = {homeViewModel.intent(HomeIntent.OnClickMyPost(it))},
-        onToggleWeeklyDaily = {homeViewModel.intent(HomeIntent.OnToggleWeeklyDaily)},
-        onClickInfo = {homeViewModel.intent(HomeIntent.OnClickInfo)},
-        onClickRightArrow = {homeViewModel.intent(HomeIntent.OnClickRightArrow)},
+        onClickPlus = { homeViewModel.intent(HomeIntent.OnClickPlus) },
+        onClickMyPost = { homeViewModel.intent(HomeIntent.OnClickMyPost(it)) },
+        onToggleWeeklyDaily = { homeViewModel.intent(HomeIntent.OnToggleWeeklyDaily) },
+        onClickInfo = { homeViewModel.intent(HomeIntent.OnClickInfo) },
+        onClickRightArrow = { homeViewModel.intent(HomeIntent.OnClickRightArrow) },
     )
 
     if(uiState.isOpenBottomSheet) HomeScreenBottomSheet { homeViewModel.intent(HomeIntent.OnCloseBottomSheet) }
