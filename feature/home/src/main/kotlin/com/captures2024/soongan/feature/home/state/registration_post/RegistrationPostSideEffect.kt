@@ -7,4 +7,6 @@ internal sealed interface RegistrationPostSideEffect : UISideEffect {
     data object OpenMediaPicker : RegistrationPostSideEffect
 
     data object NavigateToBack : RegistrationPostSideEffect
+
+    data object NavigateToPost : RegistrationPostSideEffect
 }

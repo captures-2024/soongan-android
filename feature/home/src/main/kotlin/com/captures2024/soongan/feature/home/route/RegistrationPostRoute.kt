@@ -14,6 +14,7 @@ import com.captures2024.soongan.feature.home.RegistrationPostViewModel
 import com.captures2024.soongan.feature.home.state.registration_post.RegistrationPostIntent
 import com.captures2024.soongan.feature.home.state.registration_post.RegistrationPostSideEffect
 import com.captures2024.soongan.feature.home.ui.registration_post.RegistrationPostScreen
+import com.captures2024.soongan.feature.home.ui.registration_post.SubmitBottomSheetDialog
 
 @Composable
 internal fun RegistrationPostRoute(
@@ -40,6 +41,10 @@ internal fun RegistrationPostRoute(
                 )
 
                 is RegistrationPostSideEffect.NavigateToBack -> navigateToBack()
+
+                is RegistrationPostSideEffect.NavigateToPost -> {
+                    TODO("NavigateToPost using navigateToPost")
+                }
             }
         }
     }
@@ -54,4 +59,12 @@ internal fun RegistrationPostRoute(
         onTitleValueChanged = { registrationPostViewModel.intent(RegistrationPostIntent.OnTitleValueChanged(it)) },
         onClickSubmit = { registrationPostViewModel.intent(RegistrationPostIntent.OnClickSubmit) },
     )
+
+    if (uiState.isOpenSubmitBottomSheet) {
+        SubmitBottomSheetDialog(
+            uiState = uiState,
+            onClickConfirm = { registrationPostViewModel.intent(RegistrationPostIntent.OnClickSubmitRemote) },
+            closeSheet = { registrationPostViewModel.intent(RegistrationPostIntent.OnClickCloseBottomSheet) }
+        )
+    }
 }

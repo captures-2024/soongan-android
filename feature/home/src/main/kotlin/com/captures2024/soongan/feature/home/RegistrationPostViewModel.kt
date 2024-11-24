@@ -38,6 +38,10 @@ constructor(
             is RegistrationPostIntent.OnTitleValueChanged -> handleOnTitleValueChanged(intent)
 
             is RegistrationPostIntent.OnClickSubmit -> handleOnClickSubmit(intent)
+
+            is RegistrationPostIntent.OnClickCloseBottomSheet -> handleOnClickCloseBottomSheet(intent)
+
+            is RegistrationPostIntent.OnClickSubmitRemote -> handleOnClickSubmitRemote(intent)
         }
     }
 
@@ -94,5 +98,31 @@ constructor(
         reduce {
             copy(isOpenSubmitBottomSheet = true)
         }
+    }
+
+    private fun handleOnClickCloseBottomSheet(intent: RegistrationPostIntent.OnClickCloseBottomSheet) {
+        analyticsHelper.d(message = "handleOnClickCloseBottomSheet - intent: $intent")
+
+        reduce {
+            copy(isOpenSubmitBottomSheet = false)
+        }
+    }
+
+    private fun handleOnClickSubmitRemote(intent: RegistrationPostIntent.OnClickSubmitRemote) {
+        analyticsHelper.d(message = "handleOnClickSubmitRemote - intent: $intent")
+
+        val submitData = currentState
+
+        if (null == submitData.currentMedia) {
+            analyticsHelper.d(message = "handleOnClickSubmitRemote - submitData.currentMedia is null")
+            return
+        }
+
+        if (submitData.title.isEmpty()) {
+            analyticsHelper.d(message = "handleOnClickSubmitRemote - submitData.title is empty")
+            return
+        }
+
+        TODO("Submit Remote")
     }
 }

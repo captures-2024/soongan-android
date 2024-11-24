@@ -17,4 +17,8 @@ internal sealed interface RegistrationPostIntent : UIIntent {
     ) : RegistrationPostIntent
 
     data object OnClickSubmit : RegistrationPostIntent
+
+    data object OnClickCloseBottomSheet : RegistrationPostIntent
+
+    data object OnClickSubmitRemote : RegistrationPostIntent
 }
