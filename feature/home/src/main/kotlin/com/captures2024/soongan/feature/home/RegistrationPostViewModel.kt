@@ -34,6 +34,10 @@ constructor(
             is RegistrationPostIntent.Init -> handleInit(intent)
 
             is RegistrationPostIntent.InitMedia -> handleInitMedia(intent)
+
+            is RegistrationPostIntent.OnTitleValueChanged -> handleOnTitleValueChanged(intent)
+
+            is RegistrationPostIntent.OnClickSubmit -> handleOnClickSubmit(intent)
         }
     }
 
@@ -55,6 +59,40 @@ constructor(
 
         reduce {
             copy(currentMedia = intent.mediaUri)
+        }
+    }
+
+    private fun handleOnTitleValueChanged(intent: RegistrationPostIntent.OnTitleValueChanged) {
+        analyticsHelper.d(message = "handleOnTitleValueChanged - intent: $intent")
+
+        val newValue = intent.newValue
+
+        if (newValue.length !in 0 .. 15) {
+            return
+        }
+
+        reduce {
+            copy(title = newValue)
+        }
+    }
+
+    private fun handleOnClickSubmit(intent: RegistrationPostIntent.OnClickSubmit) {
+        analyticsHelper.d(message = "handleOnClickSubmit - intent: $intent")
+
+        val submitData = currentState
+
+        if (null == submitData.currentMedia) {
+            analyticsHelper.d(message = "handleOnClickSubmit - submitData.currentMedia is null")
+            return
+        }
+
+        if (submitData.title.isEmpty()) {
+            analyticsHelper.d(message = "handleOnClickSubmit - submitData.title is empty")
+            return
+        }
+
+        reduce {
+            copy(isOpenSubmitBottomSheet = true)
         }
     }
 }

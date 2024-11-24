@@ -13,6 +13,7 @@ import com.captures2024.soongan.core.model.UserPost
 import com.captures2024.soongan.feature.home.RegistrationPostViewModel
 import com.captures2024.soongan.feature.home.state.registration_post.RegistrationPostIntent
 import com.captures2024.soongan.feature.home.state.registration_post.RegistrationPostSideEffect
+import com.captures2024.soongan.feature.home.ui.registration_post.RegistrationPostScreen
 
 @Composable
 internal fun RegistrationPostRoute(
@@ -46,5 +47,11 @@ internal fun RegistrationPostRoute(
     LaunchedEffect(Unit) {
         registrationPostViewModel.intent(RegistrationPostIntent.Init)
     }
-    
+
+    RegistrationPostScreen(
+        uiState = uiState,
+        onBackPressed = navigateToBack,
+        onTitleValueChanged = { registrationPostViewModel.intent(RegistrationPostIntent.OnTitleValueChanged(it)) },
+        onClickSubmit = { registrationPostViewModel.intent(RegistrationPostIntent.OnClickSubmit) },
+    )
 }

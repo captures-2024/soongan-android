@@ -11,4 +11,10 @@ internal sealed interface RegistrationPostIntent : UIIntent {
     data class InitMedia(
         val mediaUri: Uri?,
     ) : RegistrationPostIntent
+
+    data class OnTitleValueChanged(
+        val newValue: String,
+    ) : RegistrationPostIntent
+
+    data object OnClickSubmit : RegistrationPostIntent
 }
