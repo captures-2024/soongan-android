@@ -1,4 +1,4 @@
-package com.captures2024.soongan.feature.profile.ui
+package com.captures2024.soongan.feature.profile.ui.profile
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
