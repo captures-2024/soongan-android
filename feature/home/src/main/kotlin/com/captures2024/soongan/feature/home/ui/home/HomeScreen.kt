@@ -22,6 +22,7 @@ import com.captures2024.soongan.core.designsystem.component.WeightSpacer
 import com.captures2024.soongan.core.designsystem.theme.dropShadow
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.model.UserPost
+import com.captures2024.soongan.core.model.mock.samplePhotos
 import com.captures2024.soongan.feature.home.state.home.HomeUIState
 import com.captures2024.soongan.feature.home.ui.home.component.ContestPeriodText
 import com.captures2024.soongan.feature.home.ui.home.component.HomePeriodToggleButton
@@ -109,5 +110,24 @@ private fun HomeScreenPreview() {
     HomeScreen(
         modifier = modifier,
         uiState = HomeUIState()
+    )
+}
+
+@DevicePreviews
+@Composable
+private fun HomeScreenMultiPostPreview() {
+    val modifier = Modifier
+        .fillMaxSize()
+        .paint(
+            painter = painterResource(id = R.drawable.background_home_gallery),
+            contentScale = ContentScale.Crop
+        )
+        .padding(top = 100.dp)
+
+    HomeScreen(
+        modifier = modifier,
+        uiState = HomeUIState(
+            myPosts = samplePhotos.map { it as UserPost.PhotoPost }
+        )
     )
 }

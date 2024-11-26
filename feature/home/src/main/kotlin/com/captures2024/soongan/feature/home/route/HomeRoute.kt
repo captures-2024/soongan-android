@@ -22,7 +22,7 @@ import com.captures2024.soongan.feature.home.ui.home.HomeScreenBottomSheet
 
 @Composable
 internal fun HomeRoute(
-    navigateToExhibition: () -> Unit,
+    navigateToRegistrationPost: () -> Unit,
     navigateToMyPost: (UserPost.PhotoPost) -> Unit,
     navigateToGallery: () -> Unit,
     homeViewModel: HomeViewModel = hiltViewModel()
@@ -40,7 +40,7 @@ internal fun HomeRoute(
     LaunchedEffect(key1 = Unit) {
         homeViewModel.sideEffect.collect { effect ->
             when (effect) {
-                is HomeSideEffect.NavigateToHomeExhibition -> navigateToExhibition()
+                is HomeSideEffect.NavigateToRegistrationPost -> navigateToRegistrationPost()
 
                 is HomeSideEffect.NavigateToHomePost -> navigateToMyPost(effect.myPost)
 
@@ -52,12 +52,14 @@ internal fun HomeRoute(
     HomeScreen(
         modifier = modifier,
         uiState = uiState,
-        onClickPlus = {homeViewModel.intent(HomeIntent.OnClickPlus)},
-        onClickMyPost = {homeViewModel.intent(HomeIntent.OnClickMyPost(it))},
-        onToggleWeeklyDaily = {homeViewModel.intent(HomeIntent.OnToggleWeeklyDaily)},
-        onClickInfo = {homeViewModel.intent(HomeIntent.OnClickInfo)},
-        onClickRightArrow = {homeViewModel.intent(HomeIntent.OnClickRightArrow)},
+        onClickPlus = { homeViewModel.intent(HomeIntent.OnClickPlus) },
+        onClickMyPost = { homeViewModel.intent(HomeIntent.OnClickMyPost(it)) },
+        onToggleWeeklyDaily = { homeViewModel.intent(HomeIntent.OnToggleWeeklyDaily) },
+        onClickInfo = { homeViewModel.intent(HomeIntent.OnClickInfo) },
+        onClickRightArrow = { homeViewModel.intent(HomeIntent.OnClickRightArrow) },
     )
 
-    if(uiState.isOpenBottomSheet) HomeScreenBottomSheet { homeViewModel.intent(HomeIntent.OnCloseBottomSheet) }
+    if (uiState.isOpenBottomSheet) {
+        HomeScreenBottomSheet { homeViewModel.intent(HomeIntent.OnCloseBottomSheet) }
+    }
 }
