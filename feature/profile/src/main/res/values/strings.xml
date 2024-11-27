@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="profile_tab_gallery_title">갤러리</string>
+    <string name="default_self_introduction">본인을 소개해주세요</string>
+</resources>
