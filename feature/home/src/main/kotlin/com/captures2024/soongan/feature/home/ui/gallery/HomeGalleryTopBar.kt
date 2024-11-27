@@ -35,7 +35,7 @@ import com.captures2024.soongan.core.designsystem.theme.PrimaryA
 import com.captures2024.soongan.core.designsystem.theme.PrimaryC
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.home.R
-import com.captures2024.soongan.feature.home.ui.component.HomeGalleryButton
+import com.captures2024.soongan.core.designsystem.component.SoonGanIconButton
 import com.captures2024.soongan.feature.home.utils.GalleryPhotoSortFilter
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -66,7 +66,7 @@ internal fun HomeGalleryTopBar(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
-        HomeGalleryButton(onClick = onBackPressed) {
+        SoonGanIconButton(onClick = onBackPressed) {
             Icon(
                 imageVector = MyIconPack.IconNonFillLeftArrow,
                 contentDescription = "",
@@ -100,7 +100,7 @@ internal fun HomeGalleryTopBar(
             )
         }
 
-        HomeGalleryButton(onClick = onClickFilter) {
+        SoonGanIconButton(onClick = onClickFilter) {
             Icon(
                 imageVector = MyIconPack.IconNonFillFillter,
                 contentDescription = "",

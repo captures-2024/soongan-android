@@ -30,7 +30,7 @@ import com.captures2024.soongan.core.designsystem.theme.PrimaryB
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.model.UserPost
 import com.captures2024.soongan.feature.home.state.home_gallery.HomeGalleryUIState
-import com.captures2024.soongan.feature.home.ui.component.HomeGalleryButton
+import com.captures2024.soongan.core.designsystem.component.SoonGanIconButton
 import com.captures2024.soongan.feature.home.utils.GalleryPhotoSortFilter
 import kotlinx.coroutines.launch
 
@@ -97,7 +97,7 @@ internal fun HomeGalleryScreen(
         verticalArrangement = Arrangement.Bottom,
         horizontalAlignment = Alignment.End
     ) {
-        HomeGalleryButton(
+        SoonGanIconButton(
             modifier = Modifier.offset(
                 y = when (lazyStaggeredGridState.firstVisibleItemIndex) {
                     0 -> 100.dp
