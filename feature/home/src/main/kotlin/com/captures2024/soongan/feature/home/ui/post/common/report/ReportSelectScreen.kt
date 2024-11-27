@@ -1,4 +1,4 @@
-package com.captures2024.soongan.feature.home.ui.photo
+package com.captures2024.soongan.feature.home.ui.post.common.report
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -25,7 +25,7 @@ import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.home.utils.ReportType
 
 @Composable
-internal fun PostReportDefaultScreen(
+internal fun ReportSelectScreen(
     modifier: Modifier = Modifier,
     onClickReport: (ReportType) -> Unit,
 ) {
@@ -94,7 +94,7 @@ private fun PostReportDefaultBody(
 @Composable
 private fun PostReportScreenPreview() {
     Box(modifier = Modifier.background(Color.White)) {
-        PostReportDefaultScreen {
+        ReportSelectScreen {
 
         }
     }

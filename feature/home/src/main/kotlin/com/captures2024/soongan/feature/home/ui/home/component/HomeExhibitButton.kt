@@ -38,11 +38,19 @@ internal fun HomeExhibitButton(
     onClick: () -> Unit,
     exhibitCount: Int,
 ) {
-    val width = if(exhibitCount == 0) 257 else 60
+    val widthValue = when (exhibitCount) {
+        0 -> 257
+        else -> 60
+    }
+
     Box(
         modifier = modifier
-            .clickable { onClick() }
-            .width(width.dp)
+            .clickable {
+                if (exhibitCount < MAX_EXHIBIT_CNT) {
+                    onClick()
+                }
+            }
+            .width(widthValue.dp)
             .height(257.dp)
             .dropShadow(shape = RectangleShape),
     ) {
@@ -50,10 +58,10 @@ internal fun HomeExhibitButton(
             modifier = Modifier
                 .fillMaxSize()
                 .background(
-                    color = when (exhibitCount) {
-                        MAX_EXHIBIT_CNT -> PrimaryC
-                        else -> Color.White
-                    }
+                    color = when {
+                        exhibitCount < MAX_EXHIBIT_CNT -> Color.White
+                        else -> PrimaryC
+                    },
                 ),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
@@ -63,20 +71,17 @@ internal fun HomeExhibitButton(
                 contentDescription = "exhibit",
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
-                    .clickable { }
                     .size(
                         when (exhibitCount) {
                             0 -> 40.dp
                             else -> 28.dp
                         }
                     ),
-                tint = when (exhibitCount) {
-                    MAX_EXHIBIT_CNT -> Color.White
-                    else -> Color.Black
-                }
-
+                tint = when {
+                    exhibitCount< MAX_EXHIBIT_CNT -> Color.Black
+                    else -> Color.White
+                },
             )
-
             if (exhibitCount == 0) {
                 Spacer(modifier = Modifier.height(8.dp))
                 NonScaleText(
@@ -117,6 +122,11 @@ private fun HomeExhibitButtonPreview() {
         HomeExhibitButton(
             onClick = {},
             exhibitCount = 0
+        )
+        Spacer(modifier = Modifier.height(30.dp))
+        HomeExhibitButton(
+            onClick = {},
+            exhibitCount = 1
         )
         Spacer(modifier = Modifier.height(30.dp))
         HomeExhibitButton(

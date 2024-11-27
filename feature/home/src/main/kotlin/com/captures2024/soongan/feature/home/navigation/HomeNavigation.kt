@@ -7,27 +7,33 @@ import com.captures2024.soongan.core.navigator.screen.main.HomeGalleryNavigator
 import com.captures2024.soongan.core.navigator.screen.main.HomeNavigator
 import com.captures2024.soongan.core.navigator.screen.main.HomePostNavigator
 import com.captures2024.soongan.core.navigator.screen.main.HomePostPhotoNavigator
+import com.captures2024.soongan.core.navigator.screen.main.RegistrationPostNavigator
 import com.captures2024.soongan.feature.home.route.HomeGalleryRoute
 import com.captures2024.soongan.feature.home.route.HomePostPhotoRoute
 import com.captures2024.soongan.feature.home.route.HomePostRoute
 import com.captures2024.soongan.feature.home.route.HomeRoute
+import com.captures2024.soongan.feature.home.route.RegistrationPostRoute
 
 fun NavGraphBuilder.home(
     navigateToBack: () -> Unit,
-    navigateToExhibition: () -> Unit = TODO("출품 화면 미구현"),
+    navigateToRegistrationPost: () -> Unit,
     navigateToGallery: () -> Unit,
     navigateToPost: (UserPost.PhotoPost) -> Unit,
     navigateToPostPhoto: (String) -> Unit
 ) {
     composable<HomeNavigator> {
         HomeRoute(
-            navigateToExhibition = navigateToExhibition,
+            navigateToRegistrationPost = navigateToRegistrationPost,
             navigateToGallery = navigateToGallery,
             navigateToMyPost = navigateToPost
         )
     }
-//    composable<HomeExhibitionNavigator> {
-//    }
+    composable<RegistrationPostNavigator> {
+        RegistrationPostRoute(
+            navigateToBack = navigateToBack,
+            navigateToPost = navigateToPost,
+        )
+    }
     composable<HomeGalleryNavigator> {
         HomeGalleryRoute(
             navigateToBack = navigateToBack,

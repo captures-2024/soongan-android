@@ -15,6 +15,7 @@ import com.captures2024.soongan.core.navigator.screen.main.HomeNavigator
 import com.captures2024.soongan.core.navigator.screen.main.HomePostNavigator
 import com.captures2024.soongan.core.navigator.screen.main.HomePostPhotoNavigator
 import com.captures2024.soongan.core.navigator.screen.main.ProfileNavigator
+import com.captures2024.soongan.core.navigator.screen.main.RegistrationPostNavigator
 import com.captures2024.soongan.core.navigator.screen.main.WelcomeNavigator
 import com.captures2024.soongan.feature.awards.navigation.awards
 import com.captures2024.soongan.feature.feed.navigation.feed
@@ -49,7 +50,7 @@ internal fun MainRouteNavHost(
         )
         home(
             navigateToBack = navController::popBackStack,
-//            navigateToExhibition = navController::navigateToHomeExhibition,
+            navigateToRegistrationPost = navController::navigateToRegistrationPost,
             navigateToGallery = navController::navigateToHomeGallery,
             navigateToPost = navController::navigateToHomePost,
             navigateToPostPhoto = navController::navigateToHomePostPhoto
@@ -64,8 +65,8 @@ internal fun NavController.navigateToHome() = navigate(HomeNavigator)
 internal fun NavController.navigateToHome(navOptions: NavOptions) =
     navigate(HomeNavigator, navOptions)
 
-//internal fun NavController.navigateToHomeExhibition() = navigate(HomeExhibitionNavigator)
-//internal fun NavController.navigateToHomeExhibition(navOptions: NavOptions) = navigate(HomeExhibitionNavigator, navOptions)
+internal fun NavController.navigateToRegistrationPost() = navigate(RegistrationPostNavigator)
+internal fun NavController.navigateToRegistrationPost(navOptions: NavOptions) = navigate(RegistrationPostNavigator, navOptions)
 
 internal fun NavController.navigateToHomeGallery() = navigate(HomeGalleryNavigator)
 internal fun NavController.navigateToHomeGallery(navOptions: NavOptions) =

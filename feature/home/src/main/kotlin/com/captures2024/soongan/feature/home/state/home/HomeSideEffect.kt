@@ -5,11 +5,11 @@ import com.captures2024.soongan.core.model.UserPost
 
 internal sealed interface HomeSideEffect : UISideEffect {
 
-    data object NavigateToHomeExhibition : HomeSideEffect
+    data object NavigateToRegistrationPost : HomeSideEffect
 
     data object NavigateToHomeGallery : HomeSideEffect
 
     data class NavigateToHomePost(
-        val myPost: UserPost.PhotoPost
+        val myPost: UserPost.PhotoPost,
     ) : HomeSideEffect
 }

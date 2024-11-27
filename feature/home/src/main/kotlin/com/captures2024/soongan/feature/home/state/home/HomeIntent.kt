@@ -13,7 +13,7 @@ internal sealed interface HomeIntent : UIIntent {
 
     data object OnClickInfo : HomeIntent
 
-    data object OnCloseBottomSheet: HomeIntent
+    data object OnCloseBottomSheet : HomeIntent
 
     data object OnClickRightArrow : HomeIntent
 }

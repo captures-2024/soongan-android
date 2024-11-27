@@ -1,4 +1,4 @@
-package com.captures2024.soongan.feature.home.ui.photo
+package com.captures2024.soongan.feature.home.ui.post.common.report
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -28,7 +28,7 @@ import com.captures2024.soongan.feature.home.R
 import com.captures2024.soongan.feature.home.utils.ReportType
 
 @Composable
-internal fun PostReportDetailScreen(
+internal fun ReportConfirmScreen(
     modifier: Modifier = Modifier,
     reportType: ReportType,
     onClickSubmit: () -> Unit
@@ -94,7 +94,7 @@ internal fun PostReportDetailScreen(
 @Composable
 private fun PostReportDetailScreenPreview() {
     Box(modifier = Modifier.background(Color.White)) {
-        PostReportDetailScreen(
+        ReportConfirmScreen(
             reportType = ReportType.INAPPROPRIATE_IMAGE_OR_LANGUAGE
         ) {
 

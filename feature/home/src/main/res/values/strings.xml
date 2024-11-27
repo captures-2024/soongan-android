@@ -23,10 +23,10 @@
     <string name="home_post_comment_bottom_sheet_dialog_title">댓글</string>
     <string name="home_post_comment_bottom_sheet_dialog_input_hint">댓글이 들어갈 공간입니다.</string>
 
-<!--  PostReportBottomSheetDialog  -->
+<!--  ReportBottomSheetDialog  -->
     <string name="report_title_text">신고</string>
 
-<!--  PostReportDetailScreen  -->
+<!--  ReportConfirmScreen  -->
     <string name="report_inappropriate_image_or_language_text">부적절한 사진 게시 및 언행</string>
     <string name="report_hate_speech_text">욕설, 혐오, 비하 등이 포함된 표현</string>
     <string name="report_copyright_infringement_text">도용, 초상권, 저작권 등 타인의 권리 침해</string>
@@ -38,8 +38,21 @@
     <string name="report_suffix_text">로 정말 신고하시겠습니까?</string>
     <string name="report_submit_text">신고 제출</string>
 
-<!--  PostReportFinishScreen  -->
+<!--  ReportReasonScreen  -->
+    <string name="report_reason_input_text">신고 사유를 입력해주세요</string>
+
+<!--  ReportCompleteScreen  -->
     <string name="report_finish_text">신고가 완료됐습니다.\n\n해당 게시물은 숨김처리 되었습니다.\n\n3일 이내로 검토 후 조치가 이뤄질 예정입니다.\n결과가 나오면 알림으로 알려드리겠습니다.\n감사합니다.</string>
     <string name="report_confirm_text">확인</string>
 
+<!-- RegistrationPostScreen   -->
+    <string name="registration_post_button_title">제출하기</string>
+    <string name="registration_post_cautionary_phrase">부적절한 사진은 삭제될 수 있습니다</string>
+
+<!-- SubmitBottomSheetDialog   -->
+    <string name="submit_bottom_sheet_title">제목 확인</string>
+    <string name="submit_bottom_sheet_content">(으)로 작품을 제출할까요?</string>
+    <string name="submit_bottom_sheet_confirm_button_title">완료</string>
+
+    
 </resources>
