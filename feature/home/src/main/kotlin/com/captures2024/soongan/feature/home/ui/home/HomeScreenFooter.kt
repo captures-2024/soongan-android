@@ -23,7 +23,7 @@ import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillInfo
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillRightArrow
 import com.captures2024.soongan.core.designsystem.theme.PrimaryA
-import com.captures2024.soongan.feature.home.ui.component.HomeGalleryButton
+import com.captures2024.soongan.core.designsystem.component.SoonGanIconButton
 
 @Composable
 internal fun HomeScreenFooter(
@@ -69,7 +69,7 @@ private fun IconBox(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        HomeGalleryButton(onClick = onClick) {
+        SoonGanIconButton(onClick = onClick) {
             Icon(
                 imageVector = imageVector,
                 contentDescription = text,

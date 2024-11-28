@@ -5,7 +5,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -42,7 +41,7 @@ import com.captures2024.soongan.core.designsystem.theme.dropShadow
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.model.UserPost
 import com.captures2024.soongan.feature.home.state.post.HomePostUIState
-import com.captures2024.soongan.feature.home.ui.component.HomeGalleryButton
+import com.captures2024.soongan.core.designsystem.component.SoonGanIconButton
 
 @Composable
 internal fun HomePostScreen(
@@ -71,7 +70,7 @@ internal fun HomePostScreen(
                     .padding(20.dp),
                 contentAlignment = Alignment.CenterStart
             ) {
-                HomeGalleryButton(onClick = onBackPressed) {
+                SoonGanIconButton(onClick = onBackPressed) {
                     Icon(
                         imageVector = MyIconPack.IconNonFillLeftArrow,
                         contentDescription = "back",

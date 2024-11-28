@@ -14,7 +14,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -34,7 +33,7 @@ import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillLef
 import com.captures2024.soongan.core.designsystem.theme.PrimaryA
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.home.state.postphoto.HomePostPhotoUIState
-import com.captures2024.soongan.feature.home.ui.component.HomeGalleryButton
+import com.captures2024.soongan.core.designsystem.component.SoonGanIconButton
 import kotlinx.coroutines.delay
 
 private const val DEFAULT_DURATION: Long = 1L * 1L * 1000L
@@ -105,7 +104,7 @@ internal fun HomePostPhotoScreen(
             contentAlignment = Alignment.CenterStart
         ) {
             if (currentTimerValue <= 0) {
-                HomeGalleryButton(onClick = onBackPressed) {
+                SoonGanIconButton(onClick = onBackPressed) {
                     Icon(
                         imageVector = MyIconPack.IconNonFillLeftArrow,
                         contentDescription = "back",

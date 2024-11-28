@@ -1,23 +1,26 @@
-package com.captures2024.soongan.feature.home.ui.component
+package com.captures2024.soongan.core.designsystem.component
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.captures2024.soongan.core.designsystem.theme.dropShadow
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 
 @Composable
-internal fun HomeGalleryButton(
+fun SoonGanIconButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
-    content: @Composable RowScope.() -> Unit
+    content: @Composable RowScope.() -> Unit,
 ) = Button(
     onClick = onClick,
     modifier = modifier
@@ -38,7 +41,10 @@ internal fun HomeGalleryButton(
 @DevicePreviews
 @Composable
 private fun HomeGalleryButtonPreview() {
-    HomeGalleryButton(onClick = { /*TODO*/ }) {
+    Surface {
+        SoonGanIconButton(onClick = { /*TODO*/ }) {
+
+        }
 
     }
 }

@@ -11,6 +11,7 @@ import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconLogoApple
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconLogoGoogle
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconLogoKakao
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillBackArrow
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillBell
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillComment
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillEdit
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillFillter
@@ -31,24 +32,23 @@ import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconSelectedAw
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconSelectedFeed
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconSelectedHome
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconSelectedProfile
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.Logo
 import kotlin.collections.List as ____KtList
 
 public object MyIconPack
 
-private var allIcons: ____KtList<ImageVector>? = null
+private var __AllIcons: ____KtList<ImageVector>? = null
 
 public val MyIconPack.AllIcons: ____KtList<ImageVector>
-    get() {
-        if (allIcons != null) {
-            return allIcons!!
-        }
-        allIcons = listOf(IconFillCheck, IconSelectedHome, IconNonSelectedAwards, IconNonFillFillter,
-            IconFilterLike, IconFilterNew, IconFilterOld, IconNonFillTopArrow, IconSelectedFeed, IconNonFillPlus,
-            IconNonFillInfo, IconNonFillHeart, IconSelectedAwards, IconNonSelectedFeed, IconFillError,
-            IconNonFillComment, IconNonFillEdit, IconNonFillBackArrow, IconFillHeart,
-            IconSelectedProfile, IconLogoGoogle, IconLogoApple,
-            IconNonFillPaperDelete, IconNonSelectedProfile, IconNonFillMenu, IconLogoKakao,
-            IconNonFillLeftArrow, IconNonFillRightArrow, IconNonSelectedHome, IconNonFillReport, Logo,)
-        return allIcons!!
+  get() {
+    if (__AllIcons != null) {
+      return __AllIcons!!
     }
+    __AllIcons= listOf(IconFillCheck, IconSelectedHome, IconNonSelectedAwards, IconNonFillFillter,
+        IconNonFillTopArrow, IconNonFillBell, IconSelectedFeed, IconNonFillPlus, IconFilterLike,
+        IconNonFillInfo, IconFilterOld, IconNonFillHeart, IconSelectedAwards, IconNonSelectedFeed,
+        IconFillError, IconNonFillComment, IconNonFillEdit, IconNonFillBackArrow, IconFillHeart,
+        IconSelectedProfile, IconLogoGoogle, IconLogoApple, IconFilterNew, IconNonFillPaperDelete,
+        IconNonSelectedProfile, IconNonFillMenu, IconLogoKakao, IconNonFillLeftArrow,
+        IconNonFillRightArrow, IconNonSelectedHome, IconNonFillReport)
+    return __AllIcons!!
+  }

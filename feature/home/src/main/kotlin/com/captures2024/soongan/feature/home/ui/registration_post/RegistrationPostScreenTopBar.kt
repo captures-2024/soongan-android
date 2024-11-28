@@ -12,17 +12,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
+import com.captures2024.soongan.core.designsystem.component.SoonGanIconButton
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillLeftArrow
 import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
 import com.captures2024.soongan.core.designsystem.theme.PrimaryA
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
-import com.captures2024.soongan.feature.home.ui.component.HomeGalleryButton
 
 @Composable
 internal fun RegistrationPostScreenTopBar(
     modifier: Modifier = Modifier,
-    onBackPressed: () -> Unit = {}
+    onBackPressed: () -> Unit = {},
 ) {
     Box(
         modifier = modifier
@@ -36,7 +36,7 @@ internal fun RegistrationPostScreenTopBar(
                 .padding(horizontal = 20.dp),
             contentAlignment = Alignment.CenterStart
         ) {
-            HomeGalleryButton(onClick = onBackPressed) {
+            SoonGanIconButton(onClick = onBackPressed) {
                 Icon(
                     imageVector = MyIconPack.IconNonFillLeftArrow,
                     contentDescription = "back",
