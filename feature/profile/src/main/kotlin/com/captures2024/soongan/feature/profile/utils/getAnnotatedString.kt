@@ -17,17 +17,14 @@ internal fun getNonScaleAnnotatedStringTitle(
     count: Int,
     countFontSize: TextUnit,
 ) = buildAnnotatedString {
-    val commonParagraphStyle = ParagraphStyle(lineHeight = (titleFontSize.value + 6.sp.value).sp)
-    val commonSpanStyle = SpanStyle(fontWeight = FontWeight.Bold)
-    val titleStyle = commonSpanStyle + getNonScaleSpanStyle(fontSize = titleFontSize)
-    val countStyle = commonSpanStyle + getNonScaleSpanStyle(fontSize = countFontSize)
+    val commonParagraphStyle = ParagraphStyle(lineHeight = 24.sp)
 
     pushStyle(style = commonParagraphStyle)
-    withStyle(style = titleStyle) {
+    withStyle(style = getNonScaleSpanStyle(fontSize = titleFontSize)) {
         append(title)
     }
     append(" ")
-    withStyle(style = countStyle) {
+    withStyle(style = getNonScaleSpanStyle(fontSize = countFontSize)) {
         append("$count")
     }
 }

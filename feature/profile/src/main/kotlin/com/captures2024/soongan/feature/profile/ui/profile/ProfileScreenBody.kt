@@ -1,5 +1,7 @@
 package com.captures2024.soongan.feature.profile.ui.profile
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -40,8 +42,7 @@ internal fun ProfileScreenBody(
         HeightSpacer(8.dp)
         HorizontalDivider(
             modifier = Modifier
-                .width(120.dp)
-                .padding(vertical = 4.dp), color = Color.Black,
+                .width(120.dp), color = Color.Black,
             thickness = 2.dp
         )
         ProfileGallery(myPhotos = myPhotos)
@@ -118,5 +119,7 @@ internal fun _ProfileTapRow(
 private fun ProfileScreenBodyPreview() {
     val samples = samplePhotos.map { it as UserPost.PhotoPost }
 
-    ProfileScreenBody(myPhotos = samples)
+    Box(modifier = Modifier.background(color = Color.White)) {
+        ProfileScreenBody(myPhotos = samples)
+    }
 }

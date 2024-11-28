@@ -16,18 +16,19 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextGeometricTransform
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
+import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
 import com.captures2024.soongan.core.designsystem.theme.PretendardFontFamily
 
 @Composable
 fun getNonScaleSpanStyle(
     fontSize: TextUnit,
     color: Color = Color.Unspecified,
-    fontWeight: FontWeight? = null,
+    fontWeight: FontWeight? = FontWeight.Bold,
     fontStyle: FontStyle? = null,
     fontSynthesis: FontSynthesis? = null,
-    fontFamily: FontFamily? = PretendardFontFamily,
+    fontFamily: FontFamily? = NanumSquareNeoFontFamily,
     fontFeatureSettings: String? = null,
-    letterSpacing: TextUnit = 1.sp,
+    letterSpacing: TextUnit = 0.sp,
     baselineShift: BaselineShift? = null,
     textGeometricTransform: TextGeometricTransform? = null,
     localeList: LocaleList? = null,

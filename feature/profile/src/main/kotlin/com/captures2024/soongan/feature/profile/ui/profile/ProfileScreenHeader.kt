@@ -1,5 +1,6 @@
 package com.captures2024.soongan.feature.profile.ui.profile
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,7 +19,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.captures2024.soongan.core.design.R as RDesign
 import com.captures2024.soongan.core.designsystem.component.HeightSpacer
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.component.WeightSpacer
@@ -26,7 +26,10 @@ import com.captures2024.soongan.core.designsystem.component.WidthSpacer
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillBell
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillMenu
+import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
+import com.captures2024.soongan.core.designsystem.theme.PoppinsFontFamily
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.design.R as RDesign
 import com.captures2024.soongan.feature.profile.R as RProfile
 
 @Composable
@@ -58,20 +61,27 @@ private fun ProfileCard(
             model = profileImageUrl,
             contentDescription = "profile image",
             modifier = Modifier.size(60.dp),
-            placeholder = painterResource(RDesign.drawable.ic_border_profile)
+            placeholder = painterResource(RDesign.drawable.ic_border_profile),
+            error = painterResource(RDesign.drawable.ic_border_profile)
         )
         WidthSpacer(16.dp)
         Column {
             NonScaleText(
                 text = "user1",
                 fontSize = 16.sp,
-                fontWeight = FontWeight.Bold,
+                fontWeight = FontWeight.Medium,
+                fontFamily = PoppinsFontFamily,
+                letterSpacing = 0.sp,
+                lineHeight = 20.sp
             )
             HeightSpacer(8.dp)
             NonScaleText(
                 text = stringResource(RProfile.string.default_self_introduction),
                 fontSize = 12.sp,
-                fontWeight = FontWeight.Light
+                fontWeight = FontWeight.Normal,
+                fontFamily = NanumSquareNeoFontFamily,
+                letterSpacing = 0.sp,
+                lineHeight = 16.sp
             )
         }
     }
@@ -94,7 +104,7 @@ fun IconBox(
             )
             Icon(
                 imageVector = MyIconPack.IconNonFillBell,
-                contentDescription = MyIconPack.IconNonFillBell.name,
+                contentDescription = MyIconPack.IconNonFillBell.name
             )
         }
         WidthSpacer(16.dp)
@@ -115,5 +125,8 @@ fun IconBox(
 @DevicePreviews
 @Composable
 private fun ProfileScreenHeaderPreview() {
-    ProfileScreenHeader(profileImageUrl = "")
+    Box(modifier = Modifier.background(color = Color.White)) {
+        ProfileScreenHeader(profileImageUrl = "")
+
+    }
 }

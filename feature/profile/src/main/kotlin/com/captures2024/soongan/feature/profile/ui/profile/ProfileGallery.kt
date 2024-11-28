@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
@@ -72,6 +73,7 @@ internal fun ProfileGallery(
                                 showShimmer = showShimmer.value
                             )
                         )
+                        .heightIn(100.dp)
                         .width(190.dp)
                         .dropShadow(
                             shape = RoundedCornerShape(0.dp),
@@ -88,7 +90,6 @@ internal fun ProfileGallery(
                 )
             }
         }
-
     }
 }
 
