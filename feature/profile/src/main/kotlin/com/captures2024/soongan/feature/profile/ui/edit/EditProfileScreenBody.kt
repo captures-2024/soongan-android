@@ -45,15 +45,15 @@ internal fun EditProfileScreenBody(
         ProfileOutlinedTextField(
             value = nickname,
             onValueChange = onNicknameChanged,
-            hint = "닉네임은 한글, 영문, 숫자만 입력해주세요",
-            placeHolder = "닉네임을 입력해주세요",
+            detailTitle = "닉네임은 한글, 영문, 숫자만 입력해주세요",
+            hint = "닉네임을 입력해주세요",
         )
         HeightSpacer(36.dp)
         ProfileOutlinedTextField(
             value = selfIntroduction,
             onValueChange = onIntroductionChanged,
-            hint = "자기소개를 입력해주세요",
-            placeHolder = "본인을 소개해주세요",
+            detailTitle = "자기소개를 입력해주세요",
+            hint = "본인을 소개해주세요",
         )
         HeightSpacer(130.dp)
         EditProfileButton("수정하기", onClick = onClickEdit)

@@ -31,13 +31,13 @@ internal fun ProfileOutlinedTextField(
     modifier: Modifier = Modifier,
     value: String,
     onValueChange: (String) -> Unit,
+    detailTitle: String = "",
     hint: String = "",
-    placeHolder: String = "",
 ) {
     Column(modifier = modifier) {
         Box(modifier = modifier.padding(start = 12.dp)) {
             NonScaleText(
-                text = hint,
+                text = detailTitle,
                 fontSize = 8.sp,
                 color = Color.Black,
                 fontWeight = FontWeight.Normal,
@@ -65,7 +65,7 @@ internal fun ProfileOutlinedTextField(
                 ) {
                     if (value.isEmpty()) {
                         NonScaleText(
-                            text = placeHolder,
+                            text = hint,
                             fontSize = 16.sp,
                             color = PrimaryA.copy(alpha = 0.3f),
                             fontWeight = FontWeight.Bold,
@@ -103,8 +103,8 @@ private fun ProfileOutlinedTextFieldPreview() {
         ProfileOutlinedTextField(
             value = "",
             onValueChange = {},
-            hint = "닉네임은 한글, 영문, 숫자만 입력해주세요",
-            placeHolder = "닉네임은 한글, 영문, 숫자만 입력해주세요"
+            detailTitle = "닉네임은 한글, 영문, 숫자만 입력해주세요",
+            hint = "닉네임은 한글, 영문, 숫자만 입력해주세요"
         )
 
     }

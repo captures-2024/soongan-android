@@ -17,10 +17,9 @@ import androidx.compose.ui.text.style.TextGeometricTransform
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
-import com.captures2024.soongan.core.designsystem.theme.PretendardFontFamily
 
 @Composable
-fun getNonScaleSpanStyle(
+fun nonScaleSpanStyle(
     fontSize: TextUnit,
     color: Color = Color.Unspecified,
     fontWeight: FontWeight? = FontWeight.Bold,

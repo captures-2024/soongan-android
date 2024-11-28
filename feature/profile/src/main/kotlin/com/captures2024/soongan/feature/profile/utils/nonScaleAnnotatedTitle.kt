@@ -2,16 +2,14 @@ package com.captures2024.soongan.feature.profile.utils
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.ParagraphStyle
-import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
-import com.captures2024.soongan.core.designsystem.util.getNonScaleSpanStyle
+import com.captures2024.soongan.core.designsystem.util.nonScaleSpanStyle
 
 @Composable
-internal fun getNonScaleAnnotatedStringTitle(
+internal fun nonScaleAnnotatedTitle(
     title: String,
     titleFontSize: TextUnit,
     count: Int,
@@ -20,11 +18,11 @@ internal fun getNonScaleAnnotatedStringTitle(
     val commonParagraphStyle = ParagraphStyle(lineHeight = 24.sp)
 
     pushStyle(style = commonParagraphStyle)
-    withStyle(style = getNonScaleSpanStyle(fontSize = titleFontSize)) {
+    withStyle(style = nonScaleSpanStyle(fontSize = titleFontSize)) {
         append(title)
     }
     append(" ")
-    withStyle(style = getNonScaleSpanStyle(fontSize = countFontSize)) {
+    withStyle(style = nonScaleSpanStyle(fontSize = countFontSize)) {
         append("$count")
     }
 }
