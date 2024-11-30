@@ -4,7 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.toRoute
 import com.captures2024.soongan.core.common.base.BaseViewModel
 import com.captures2024.soongan.core.model.UserPost
-import com.captures2024.soongan.core.navigator.screen.main.HomePostNavigator
+import com.captures2024.soongan.core.navigator.screen.main.home.HomePostNavigator
 import com.captures2024.soongan.feature.home.state.post.HomePostIntent
 import com.captures2024.soongan.feature.home.state.post.HomePostSideEffect
 import com.captures2024.soongan.feature.home.state.post.HomePostUIState

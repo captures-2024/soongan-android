@@ -3,7 +3,7 @@ package com.captures2024.soongan.feature.home
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.toRoute
 import com.captures2024.soongan.core.common.base.BaseViewModel
-import com.captures2024.soongan.core.navigator.screen.main.HomePostPhotoNavigator
+import com.captures2024.soongan.core.navigator.screen.main.home.HomePostPhotoNavigator
 import com.captures2024.soongan.feature.home.state.postphoto.HomePostPhotoIntent
 import com.captures2024.soongan.feature.home.state.postphoto.HomePostPhotoSideEffect
 import com.captures2024.soongan.feature.home.state.postphoto.HomePostPhotoUIState

@@ -8,15 +8,15 @@ import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.NavHost
 import com.captures2024.soongan.core.model.UserPost
-import com.captures2024.soongan.core.navigator.screen.main.AwardsNavigator
-import com.captures2024.soongan.core.navigator.screen.main.FeedNavigator
-import com.captures2024.soongan.core.navigator.screen.main.HomeGalleryNavigator
-import com.captures2024.soongan.core.navigator.screen.main.HomeNavigator
-import com.captures2024.soongan.core.navigator.screen.main.HomePostNavigator
-import com.captures2024.soongan.core.navigator.screen.main.HomePostPhotoNavigator
-import com.captures2024.soongan.core.navigator.screen.main.ProfileNavigator
-import com.captures2024.soongan.core.navigator.screen.main.RegistrationPostNavigator
-import com.captures2024.soongan.core.navigator.screen.main.WelcomeNavigator
+import com.captures2024.soongan.core.navigator.screen.main.awards.AwardsNavigator
+import com.captures2024.soongan.core.navigator.screen.main.feed.FeedNavigator
+import com.captures2024.soongan.core.navigator.screen.main.home.HomeGalleryNavigator
+import com.captures2024.soongan.core.navigator.screen.main.home.HomeNavigator
+import com.captures2024.soongan.core.navigator.screen.main.home.HomePostNavigator
+import com.captures2024.soongan.core.navigator.screen.main.home.HomePostPhotoNavigator
+import com.captures2024.soongan.core.navigator.screen.main.profile.ProfileNavigator
+import com.captures2024.soongan.core.navigator.screen.main.home.RegistrationPostNavigator
+import com.captures2024.soongan.core.navigator.screen.main.welcome.WelcomeNavigator
 import com.captures2024.soongan.feature.awards.navigation.awards
 import com.captures2024.soongan.feature.feed.navigation.feed
 import com.captures2024.soongan.feature.home.navigation.home
@@ -66,7 +66,8 @@ internal fun NavController.navigateToHome(navOptions: NavOptions) =
     navigate(HomeNavigator, navOptions)
 
 internal fun NavController.navigateToRegistrationPost() = navigate(RegistrationPostNavigator)
-internal fun NavController.navigateToRegistrationPost(navOptions: NavOptions) = navigate(RegistrationPostNavigator, navOptions)
+internal fun NavController.navigateToRegistrationPost(navOptions: NavOptions) = navigate(
+    RegistrationPostNavigator, navOptions)
 
 internal fun NavController.navigateToHomeGallery() = navigate(HomeGalleryNavigator)
 internal fun NavController.navigateToHomeGallery(navOptions: NavOptions) =
