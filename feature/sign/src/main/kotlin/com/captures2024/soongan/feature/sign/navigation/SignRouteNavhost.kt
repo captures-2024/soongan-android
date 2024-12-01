@@ -34,10 +34,7 @@ internal fun SignRouteNavHost(
         popExitTransition = { ExitTransition.None }
     ) {
         signIn(
-            googleSignIn = {},
-            kakaoSignIn = {},
             signInViewModel = signInViewModel,
-            navigateToMain = {},
             navigateToNickname = navController::navigateToNickname,
             navigateToTermsOfUse = navController::navigateToTermsOfUse,
             navigateToPrivacyPolicy = navController::navigateToPrivacyPolicy
@@ -50,8 +47,6 @@ internal fun SignRouteNavHost(
         )
     }
 }
-
-fun NavController.navigateToSignIn() = navigate(SignInNavigator)
 
 fun NavController.navigateToTermsOfUse() = navigate(TermsOfUseNavigator)
 

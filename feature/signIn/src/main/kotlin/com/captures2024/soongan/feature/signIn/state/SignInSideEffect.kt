@@ -8,11 +8,13 @@ sealed interface SignInSideEffect : UISideEffect {
 
     data object KakaoSignIn : SignInSideEffect
 
-    data object NavigateToMain : SignInSideEffect
-
-    data object NavigateToSignUp : SignInSideEffect
+    data object SuccessSocialSign : SignInSideEffect
 
     data object NavigateToTermsOfUse : SignInSideEffect
 
     data object NavigateToPrivacyPolicy : SignInSideEffect
+
+    data class NavigateToSignUp(
+        val isNicknameScreen: Boolean = true
+    ) : SignInSideEffect
 }

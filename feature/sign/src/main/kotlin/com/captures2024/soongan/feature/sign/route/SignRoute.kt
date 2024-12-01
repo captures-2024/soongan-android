@@ -9,7 +9,6 @@ import com.captures2024.soongan.feature.signIn.SignInViewModel
 
 @Composable
 fun SignRoute(
-    socialSignIn: () -> Unit,
     signInViewModel: SignInViewModel,
 ) {
     val navController: NavHostController = rememberNavController()

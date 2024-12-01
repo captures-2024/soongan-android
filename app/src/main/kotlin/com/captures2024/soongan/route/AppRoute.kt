@@ -42,10 +42,7 @@ private fun AppLandingRoute() {
 private fun AppSignRoute(
     signInViewModel: SignInViewModel,
 ) {
-    SignRoute(
-        socialSignIn = {},
-        signInViewModel = signInViewModel,
-    )
+    SignRoute(signInViewModel = signInViewModel)
 }
 
 @Composable

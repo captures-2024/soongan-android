@@ -14,9 +14,6 @@ import com.captures2024.soongan.feature.signIn.ui.SignInLoadingScreen
 
 @Composable
 internal fun SignInRoute(
-    googleSignIn: () -> Unit,
-    kakaoSignIn: () -> Unit,
-    navigateToMain: (Boolean) -> Unit,
     navigateToNickname: () -> Unit,
     navigateToTermsOfUse: () -> Unit,
     navigateToPrivacyPolicy: () -> Unit,
@@ -29,28 +26,29 @@ internal fun SignInRoute(
         signInViewModel.sideEffect.collect {
             analyticsHelper.d(message = "Collected sideEffect = $it")
             when (it) {
-                is SignInSideEffect.GoogleSignIn -> googleSignIn()
-
-                is SignInSideEffect.KakaoSignIn -> kakaoSignIn()
-
-                is SignInSideEffect.NavigateToMain -> TODO()
+                is SignInSideEffect.NavigateToTermsOfUse -> navigateToTermsOfUse()
 
                 is SignInSideEffect.NavigateToPrivacyPolicy -> navigateToPrivacyPolicy()
 
-                is SignInSideEffect.NavigateToSignUp -> navigateToNickname()
+                is SignInSideEffect.NavigateToSignUp -> {
+                    navigateToNickname()
+                }
 
-                is SignInSideEffect.NavigateToTermsOfUse -> navigateToTermsOfUse()
+                is SignInSideEffect.GoogleSignIn,
+                is SignInSideEffect.KakaoSignIn,
+                is SignInSideEffect.SuccessSocialSign -> Unit
             }
         }
     }
 
     when (uiState.isLoading) {
         true -> SignInLoadingScreen()
+
         false -> SignInDefaultScreen(
             onClickGoogleSignIn = { signInViewModel.intent(SignInIntent.OnClickSignGoogle) },
             onClickKakaoSignIn = { signInViewModel.intent(SignInIntent.OnClickSignKakao) },
             onClickTermsOfUse = { signInViewModel.intent(SignInIntent.OnClickTermsOfUse) },
-            onClickGuestMode = { signInViewModel.intent(SignInIntent.OnClickGuestMode) },
+            onClickGuestMode = { TODO("Not Impl") },
             onClickToPrivacyPolicy = { signInViewModel.intent(SignInIntent.OnClickPrivacyPolicy) }
         )
     }

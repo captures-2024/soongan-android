@@ -7,4 +7,6 @@ internal sealed interface AppRootIntent : UIIntent {
     data class FetchFCMToken(
         val token: String,
     ) : AppRootIntent
+
+    data object SuccessSign : AppRootIntent
 }

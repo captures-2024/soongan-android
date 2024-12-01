@@ -15,6 +15,7 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.lifecycle.lifecycleScope
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.analytics.utils.LogElementArgument
@@ -25,8 +26,11 @@ import com.captures2024.soongan.core.auth.kakao.KakaoAuthHelperImpl
 import com.captures2024.soongan.core.auth.kakao.KakaoLoginCallback
 import com.captures2024.soongan.core.designsystem.theme.SoonGanTheme
 import com.captures2024.soongan.feature.signIn.SignInViewModel
+import com.captures2024.soongan.feature.signIn.state.SignInIntent
+import com.captures2024.soongan.feature.signIn.state.SignInSideEffect
 import com.captures2024.soongan.route.AppRoute
 import com.captures2024.soongan.state.AppRootIntent
+import com.captures2024.soongan.state.AppRootSideEffect
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.firebase.messaging.FirebaseMessaging
@@ -86,6 +90,44 @@ class SoonGanActivity : ComponentActivity(), KakaoLoginCallback {
                 onDispose {}
             }
 
+            LaunchedEffect(Unit) {
+                signInViewModel.sideEffect.collect { sideEffect ->
+                    analyticsHelper.d(
+                        LogElementArgument("signInVm.sideEffect", "signInViewModel.sideEffect = $sideEffect"),
+                        message = "Collected sideEffect"
+                    )
+
+                    when (sideEffect) {
+                        is SignInSideEffect.GoogleSignIn -> signInGoogle(launcher)
+
+                        is SignInSideEffect.KakaoSignIn -> signInKakao()
+
+                        is SignInSideEffect.SuccessSocialSign -> successSocialSign()
+
+                        is SignInSideEffect.NavigateToSignUp,
+                        is SignInSideEffect.NavigateToPrivacyPolicy,
+                        is SignInSideEffect.NavigateToTermsOfUse -> Unit
+                    }
+                }
+            }
+
+            LaunchedEffect(Unit) {
+                appRootViewModel.sideEffect.collect { sideEffect ->
+                    analyticsHelper.d(
+                        LogElementArgument("appRootVm.sideEffect", "appRootVm.sideEffect = $sideEffect"),
+                        message = "Collected sideEffect"
+                    )
+
+                    when (sideEffect) {
+                        is AppRootSideEffect.FetchFcmToken -> fetchFcmToken(sideEffect.token)
+
+                        is AppRootSideEffect.FailedRemoteSyncData -> failedSyncData()
+
+                        is AppRootSideEffect.SuccessRemoteSyncData -> successSyncData(sideEffect)
+                    }
+                }
+            }
+
             CompositionLocalProvider(LocalAnalyticsHelper provides analyticsHelper) {
                 SoonGanTheme(darkTheme = darkTheme) {
                     AppRoute(
@@ -118,24 +160,27 @@ class SoonGanActivity : ComponentActivity(), KakaoLoginCallback {
     private fun onResult(result: ActivityResult) {
         when (result.resultCode) {
             RESULT_OK -> {
-                TODO("Not yet implemented")
+                val resultIntent = result.data
+
+                if (resultIntent == null) {
+                    signInViewModel.intent(SignInIntent.FailedSignGoogle)
+                    return
+                }
+
+                val token = googleAuthUiClient.signInWithIntent(resultIntent)
+
+                if (token == null) {
+                    signInViewModel.intent(SignInIntent.FailedSignGoogle)
+                    return
+                }
+
+                signInViewModel.intent(SignInIntent.CompleteSignGoogle(token = token))
             }
 
             RESULT_CANCELED -> {
-                TODO("Not yet implemented")
+                signInViewModel.intent(SignInIntent.CanceledSignGoogle)
             }
         }
-    }
-
-    private fun signInGoogle(launcher: ManagedActivityResultLauncher<IntentSenderRequest, ActivityResult>) = lifecycleScope.launch {
-        TODO("Not yet implemented")
-    }
-
-    private fun signInKakao() {
-        kakaoAuthHelper.kakaoLogin(
-            context = this,
-            callback = this,
-        )
     }
 
     override fun onSuccessKakaoLogin(
@@ -148,7 +193,12 @@ class SoonGanActivity : ComponentActivity(), KakaoLoginCallback {
             message = "onSuccessKakaoLogin"
         )
 
-        TODO("Not yet implemented")
+        signInViewModel.intent(
+            SignInIntent.CompleteSignKakao(
+                accessToken = accessToken ?: "",
+                refreshToken = refreshToken ?: "",
+            )
+        )
     }
 
     override fun onFailureKakaoLogin(
@@ -159,7 +209,41 @@ class SoonGanActivity : ComponentActivity(), KakaoLoginCallback {
             message = "onFailureKakaoLogin",
         )
 
-        TODO("Not yet implemented")
+        signInViewModel.intent(SignInIntent.FailedSignKakao)
+    }
+
+    private fun signInGoogle(launcher: ManagedActivityResultLauncher<IntentSenderRequest, ActivityResult>) = lifecycleScope.launch {
+        val signInIntentSender = googleAuthUiClient.signIn() ?: return@launch
+
+        launcher.launch(IntentSenderRequest.Builder(signInIntentSender).build())
+    }
+
+    private fun signInKakao() {
+        kakaoAuthHelper.kakaoLogin(
+            context = this,
+            callback = this,
+        )
+    }
+
+    private fun successSocialSign() {
+        appRootViewModel.intent(AppRootIntent.SuccessSign)
+    }
+
+    private fun fetchFcmToken(fcmToken: String) {
+        signInViewModel.intent(SignInIntent.FetchFcmToken(fcmToken))
+    }
+
+    private fun failedSyncData() {
+        signInViewModel.intent(SignInIntent.FailedSyncData)
+    }
+
+    private fun successSyncData(sideEffect: AppRootSideEffect.SuccessRemoteSyncData) {
+        signInViewModel.intent(
+            SignInIntent.SuccessSyncData(
+                isNeedRegisterNickname = sideEffect.isNeedRegisterNickname,
+                isNeedRegisterBirth = sideEffect.isNeedRegisterBirth,
+            )
+        )
     }
 }
 
