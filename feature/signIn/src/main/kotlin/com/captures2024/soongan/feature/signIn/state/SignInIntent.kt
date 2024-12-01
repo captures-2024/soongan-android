@@ -4,21 +4,13 @@ import com.captures2024.soongan.core.common.base.UIIntent
 
 interface SignInIntent : UIIntent {
 
-    data object OnClickSignApple : SignInIntent
-
     data object OnClickSignGoogle : SignInIntent
 
     data object OnClickSignKakao : SignInIntent
 
-    data object CanceledSignApple : SignInIntent
-
     data object CanceledSignGoogle : SignInIntent
 
     data object CanceledSignKakao : SignInIntent
-
-    data class CompleteSignApple(
-        val token: String
-    ) : SignInIntent
 
     data class CompleteSignGoogle(
         val token: String
@@ -28,8 +20,6 @@ interface SignInIntent : UIIntent {
         val accessToken: String,
         val refreshToken: String
     ) : SignInIntent
-
-    data object FailedSignApple : SignInIntent
 
     data object FailedSignGoogle : SignInIntent
 

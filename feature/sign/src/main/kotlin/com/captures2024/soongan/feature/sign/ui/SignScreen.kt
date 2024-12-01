@@ -26,7 +26,6 @@ internal fun SignScreen(
     routeState: SignRouteState,
     hostState: SnackbarHostState,
     height: Int,
-    appleSignIn: () -> Unit,
     googleSignIn: () -> Unit,
     kakaoSignIn: () -> Unit,
     navigateToMain: (isGuestMode: Boolean) -> Unit,
@@ -56,7 +55,6 @@ internal fun SignScreen(
     SignRouteNavHost(
         modifier = Modifier.padding(padding),
         routeState = routeState,
-        appleSignIn = appleSignIn,
         googleSignIn = googleSignIn,
         kakaoSignIn = kakaoSignIn,
         navigateToMain = navigateToMain,

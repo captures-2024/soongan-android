@@ -14,7 +14,6 @@ import com.captures2024.soongan.feature.signIn.ui.SignInLoadingScreen
 
 @Composable
 internal fun SignInRoute(
-    appleSignIn: () -> Unit,
     googleSignIn: () -> Unit,
     kakaoSignIn: () -> Unit,
     navigateToMain: (Boolean) -> Unit,
@@ -30,8 +29,6 @@ internal fun SignInRoute(
         signInViewModel.sideEffect.collect {
             analyticsHelper.d(message = "Collected sideEffect = $it")
             when (it) {
-                is SignInSideEffect.AppleSignIn -> appleSignIn()
-
                 is SignInSideEffect.GoogleSignIn -> googleSignIn()
 
                 is SignInSideEffect.KakaoSignIn -> kakaoSignIn()
@@ -50,7 +47,6 @@ internal fun SignInRoute(
     when (uiState.isLoading) {
         true -> SignInLoadingScreen()
         false -> SignInDefaultScreen(
-            onClickAppleSignIn = { signInViewModel.intent(SignInIntent.OnClickSignApple) },
             onClickGoogleSignIn = { signInViewModel.intent(SignInIntent.OnClickSignGoogle) },
             onClickKakaoSignIn = { signInViewModel.intent(SignInIntent.OnClickSignKakao) },
             onClickTermsOfUse = { signInViewModel.intent(SignInIntent.OnClickTermsOfUse) },

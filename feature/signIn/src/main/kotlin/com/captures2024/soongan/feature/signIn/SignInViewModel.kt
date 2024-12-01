@@ -36,21 +36,15 @@ constructor(
 
     override suspend fun handleIntent(intent: SignInIntent) {
         when (intent) {
-            is SignInIntent.OnClickSignApple -> appleSignIn()
-
             is SignInIntent.OnClickSignGoogle -> googleSignIn()
 
             is SignInIntent.OnClickSignKakao -> kakaoSignIn()
 
-            is SignInIntent.CanceledSignApple,
             is SignInIntent.CanceledSignGoogle,
             is SignInIntent.CanceledSignKakao -> canceledSignIn()
 
-            is SignInIntent.FailedSignApple,
             is SignInIntent.FailedSignGoogle,
             is SignInIntent.FailedSignKakao -> failedSignIn()
-
-            is SignInIntent.CompleteSignApple -> TODO()
 
             is SignInIntent.CompleteSignGoogle -> googleSignIn(token = intent.token)
 
@@ -76,13 +70,6 @@ constructor(
         reduce {
             copy(isLoading = false)
         }
-    }
-
-    private fun appleSignIn() {
-        reduce {
-            copy(isLoading = true)
-        }
-        postSideEffect(SignInSideEffect.AppleSignIn)
     }
 
     private fun googleSignIn() {
