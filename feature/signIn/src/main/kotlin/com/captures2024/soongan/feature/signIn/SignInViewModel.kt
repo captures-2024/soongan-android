@@ -4,7 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.common.base.BaseViewModel
 import com.captures2024.soongan.core.domain.usecase.fcm.InitFcmUseCase
-import com.captures2024.soongan.core.domain.usecase.members.IsAllowUserInfoUseCase
+import com.captures2024.soongan.core.domain.usecase.members.GetMemberInformationUseCase
 import com.captures2024.soongan.core.domain.usecase.auth.SigningGoogleUseCase
 import com.captures2024.soongan.core.domain.usecase.auth.SigningKakaoUseCase
 import com.captures2024.soongan.feature.signIn.state.SignInIntent
@@ -21,7 +21,7 @@ constructor(
     private val initFcmUseCase: InitFcmUseCase,
     private val signingGoogleUseCase: SigningGoogleUseCase,
     private val signingKakaoUseCase: SigningKakaoUseCase,
-    private val isAllowUserInfoUseCase: IsAllowUserInfoUseCase,
+    private val getMemberInformationUseCase: GetMemberInformationUseCase,
     savedStateHandle: SavedStateHandle,
 ) : BaseViewModel<SignInUIState, SignInSideEffect, SignInIntent>(savedStateHandle) {
 
@@ -170,12 +170,12 @@ constructor(
 
     private fun isAllowCheck() {
         launch {
-            val result = isAllowUserInfoUseCase().getOrNull() ?: return@launch intent(SignInIntent.FailedSignGoogle)
+            val result = getMemberInformationUseCase().getOrNull() ?: return@launch intent(SignInIntent.FailedSignGoogle)
 
-            when (result) {
-                true -> postSideEffect(SignInSideEffect.NavigateToMain)
-                false -> postSideEffect(SignInSideEffect.NavigateToSignUp)
-            }
+//            when (result) {
+//                true -> postSideEffect(SignInSideEffect.NavigateToMain)
+//                false -> postSideEffect(SignInSideEffect.NavigateToSignUp)
+//            }
 
             reduce {
                 copy(
