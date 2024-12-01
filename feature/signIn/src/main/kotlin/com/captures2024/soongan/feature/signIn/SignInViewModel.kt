@@ -133,7 +133,7 @@ constructor(
 
         postSideEffect(
             SignInSideEffect.NavigateToSignUp(
-                isNicknameScreen = intent.isNeedRegisterNickname
+                nickname = intent.nickname,
             ),
         )
     }

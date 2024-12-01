@@ -1,12 +1,10 @@
 package com.captures2024.soongan.ui
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import com.captures2024.soongan.core.designsystem.theme.SoonGanTheme
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.state.AppRootRouteState
@@ -20,8 +18,7 @@ internal fun AppRootScreen(
     appMainRoute: @Composable () -> Unit,
 ) {
     Box(
-        modifier = Modifier.fillMaxSize()
-            .background(color = Color.White),
+        modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center,
     ) {
         when (uiState.rootRouteState) {

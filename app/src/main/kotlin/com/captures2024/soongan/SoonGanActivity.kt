@@ -240,8 +240,8 @@ class SoonGanActivity : ComponentActivity(), KakaoLoginCallback {
     private fun successSyncData(sideEffect: AppRootSideEffect.SuccessRemoteSyncData) {
         signInViewModel.intent(
             SignInIntent.SuccessSyncData(
-                isNeedRegisterNickname = sideEffect.isNeedRegisterNickname,
-                isNeedRegisterBirth = sideEffect.isNeedRegisterBirth,
+                nickname = sideEffect.nickname,
+                birthDate = sideEffect.birthDate,
             )
         )
     }

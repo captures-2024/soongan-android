@@ -26,5 +26,4 @@ fun NavGraphBuilder.signUp(
             navigateToMain = {}
         )
     }
-
 }

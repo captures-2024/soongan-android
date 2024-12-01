@@ -15,6 +15,7 @@ import com.captures2024.soongan.feature.signIn.ui.SignInLoadingScreen
 @Composable
 internal fun SignInRoute(
     navigateToNickname: () -> Unit,
+    navigateToBirthDate: (String) -> Unit,
     navigateToTermsOfUse: () -> Unit,
     navigateToPrivacyPolicy: () -> Unit,
     signInViewModel: SignInViewModel
@@ -30,8 +31,10 @@ internal fun SignInRoute(
 
                 is SignInSideEffect.NavigateToPrivacyPolicy -> navigateToPrivacyPolicy()
 
-                is SignInSideEffect.NavigateToSignUp -> {
-                    navigateToNickname()
+                is SignInSideEffect.NavigateToSignUp -> when (it.nickname.isEmpty()) {
+                    true -> navigateToNickname()
+
+                    false -> navigateToBirthDate(it.nickname)
                 }
 
                 is SignInSideEffect.GoogleSignIn,

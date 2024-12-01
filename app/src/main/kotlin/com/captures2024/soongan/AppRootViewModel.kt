@@ -90,8 +90,8 @@ constructor(
 
         postSideEffect(
             AppRootSideEffect.SuccessRemoteSyncData(
-                isNeedRegisterNickname = isNeedRegisterNickname,
-                isNeedRegisterBirth = isNeedRegisterBirth,
+                nickname = memberInfo.user.nickname,
+                birthDate =  memberInfo.user.birthDate,
             )
         )
 

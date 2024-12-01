@@ -10,8 +10,10 @@ import com.captures2024.soongan.core.designsystem.theme.SoonGanTheme
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 
 @Composable
-internal fun IntroScreen() = Box(
-    modifier = Modifier.fillMaxSize()
+internal fun IntroScreen(
+    modifier: Modifier = Modifier,
+) = Box(
+    modifier = modifier.fillMaxSize()
         .background(Color.White),
 ) {
 

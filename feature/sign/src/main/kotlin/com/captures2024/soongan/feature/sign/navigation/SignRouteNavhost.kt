@@ -36,6 +36,7 @@ internal fun SignRouteNavHost(
         signIn(
             signInViewModel = signInViewModel,
             navigateToNickname = navController::navigateToNickname,
+            navigateToBirthDate = navController::navigateToBirthDate,
             navigateToTermsOfUse = navController::navigateToTermsOfUse,
             navigateToPrivacyPolicy = navController::navigateToPrivacyPolicy
         )

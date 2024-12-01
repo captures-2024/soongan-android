@@ -15,6 +15,6 @@ sealed interface SignInSideEffect : UISideEffect {
     data object NavigateToPrivacyPolicy : SignInSideEffect
 
     data class NavigateToSignUp(
-        val isNicknameScreen: Boolean = true
+        val nickname: String,
     ) : SignInSideEffect
 }

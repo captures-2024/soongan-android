@@ -1,13 +1,17 @@
 package com.captures2024.soongan.feature.intro.route
 
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import com.captures2024.soongan.core.designsystem.component.SoonGanBackground
+import androidx.compose.ui.Modifier
 import com.captures2024.soongan.feature.intro.ui.IntroScreen
 
 @Composable
 fun IntroRoute() {
-    SoonGanBackground {
-        IntroScreen()
+    Scaffold { padding ->
+        IntroScreen(
+            modifier = Modifier.padding(padding),
+        )
     }
 }
 
