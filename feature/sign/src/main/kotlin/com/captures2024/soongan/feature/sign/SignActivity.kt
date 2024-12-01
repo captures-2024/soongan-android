@@ -115,12 +115,12 @@ class SignActivity : ComponentActivity(), KakaoLoginCallback {
                 ) {
                     SignRoute(
                         networkMonitor = networkMonitor,
-                        googleSignIn = { signInWithGoogle(launcher) },
-                        kakaoSignIn = { kakaoAuthHelper.kakaoLogin(context = this, callback = this) },
+//                        googleSignIn = { signInWithGoogle(launcher) },
+//                        kakaoSignIn = { kakaoAuthHelper.kakaoLogin(context = this, callback = this) },
+                        socialSignIn = {},
                         navigateToMain = this::navigateToMain,
                         signInViewModel = signInViewModel,
                     )
-
                 }
             }
         }

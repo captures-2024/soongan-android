@@ -10,7 +10,7 @@ import com.captures2024.soongan.ui.AppRootScreen
 
 @Composable
 internal fun AppRoute(
-    appRootViewModel: AppRootViewModel = hiltViewModel()
+    appRootViewModel: AppRootViewModel,
 ) {
     val uiState by appRootViewModel.state.collectAsStateWithLifecycle()
 

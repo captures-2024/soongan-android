@@ -6,21 +6,45 @@ import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.android.utils.LocalAnalyticsHelper
+import com.captures2024.soongan.core.auth.GoogleAuthUiClient
+import com.captures2024.soongan.core.auth.kakao.KakaoAuthHelper
+import com.captures2024.soongan.core.auth.kakao.KakaoAuthHelperImpl
 import com.captures2024.soongan.core.designsystem.theme.SoonGanTheme
 import com.captures2024.soongan.route.AppRoute
+import com.captures2024.soongan.state.AppRootIntent
+import com.google.android.gms.auth.api.identity.BeginSignInRequest
+import com.google.android.gms.auth.api.identity.Identity
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class SoonGanActivity : ComponentActivity() {
 
+    //region di property
     @Inject
     lateinit var analyticsHelper: AnalyticsHelper
+
+    @Inject
+    lateinit var beginSignInRequest: BeginSignInRequest
+    //endregion
+
+    private val appRootViewModel: AppRootViewModel by viewModels()
+
+    private val googleAuthUiClient by lazy {
+        GoogleAuthUiClient(
+            oneTapClient = Identity.getSignInClient(this),
+            signInRequest = beginSignInRequest
+        )
+    }
+
+    private val kakaoAuthHelper: KakaoAuthHelper by lazy { KakaoAuthHelperImpl() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +53,8 @@ class SoonGanActivity : ComponentActivity() {
 
         setContent {
             val darkTheme = isSystemInDarkTheme()
+
+            initFcmToken()
 
             DisposableEffect(darkTheme) {
                 enableEdgeToEdge(
@@ -46,10 +72,30 @@ class SoonGanActivity : ComponentActivity() {
 
             CompositionLocalProvider(LocalAnalyticsHelper provides analyticsHelper) {
                 SoonGanTheme(darkTheme = darkTheme) {
-                    AppRoute()
+                    AppRoute(
+                        appRootViewModel = appRootViewModel,
+                    )
                 }
             }
         }
+    }
+
+    private fun initFcmToken() {
+        FirebaseMessaging.getInstance()
+            .token
+            .addOnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    analyticsHelper.e(
+                        throwable = task.exception,
+                        message = "Fetching FCM registration token failed"
+                    )
+                    return@addOnCompleteListener
+                }
+
+                val token = task.result
+
+                appRootViewModel.intent(AppRootIntent.FetchFCMToken(token = token))
+            }
     }
 }
 

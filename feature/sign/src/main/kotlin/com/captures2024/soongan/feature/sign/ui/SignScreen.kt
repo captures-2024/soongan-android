@@ -26,8 +26,6 @@ internal fun SignScreen(
     routeState: SignRouteState,
     hostState: SnackbarHostState,
     height: Int,
-    googleSignIn: () -> Unit,
-    kakaoSignIn: () -> Unit,
     navigateToMain: (isGuestMode: Boolean) -> Unit,
     signInViewModel: SignInViewModel,
 ) = Scaffold(
@@ -55,8 +53,6 @@ internal fun SignScreen(
     SignRouteNavHost(
         modifier = Modifier.padding(padding),
         routeState = routeState,
-        googleSignIn = googleSignIn,
-        kakaoSignIn = kakaoSignIn,
         navigateToMain = navigateToMain,
         signInViewModel = signInViewModel,
     ) { message ->

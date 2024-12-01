@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.analytics.utils.LogElementArgument
 import com.captures2024.soongan.core.common.base.BaseViewModel
+import com.captures2024.soongan.core.domain.usecase.fcm.InitFcmUseCase
 import com.captures2024.soongan.core.domain.usecase.token.GetAllTokenUseCase
 import com.captures2024.soongan.state.AppRootIntent
 import com.captures2024.soongan.state.AppRootRouteState
@@ -18,13 +19,10 @@ internal class AppRootViewModel
 @Inject
 constructor(
     private val analyticsHelper: AnalyticsHelper,
+    private val initFcmUseCase: InitFcmUseCase,
     private val getAllTokenUseCase: GetAllTokenUseCase,
     savedStateHandle: SavedStateHandle,
 ) : BaseViewModel<AppRootUIState, AppRootSideEffect, AppRootIntent>(savedStateHandle) {
-
-    init {
-        refreshTokenData()
-    }
 
     override fun createInitialState(savedStateHandle: SavedStateHandle): AppRootUIState = AppRootUIState()
 
@@ -33,10 +31,22 @@ constructor(
     }
 
     override suspend fun handleIntent(intent: AppRootIntent) {
-
+        when (intent) {
+            is AppRootIntent.FetchFCMToken -> handleFetchFCMToken(intent)
+        }
     }
 
-    private fun refreshTokenData() = launch(Dispatchers.IO) {
+    private suspend fun handleFetchFCMToken(intent: AppRootIntent.FetchFCMToken) {
+        reduce {
+            copy(
+                fcmToken = intent.token,
+            )
+        }
+
+        fetchRemoteFcmToken(fcmToken = intent.token)
+    }
+
+    private suspend fun refreshTokenData() = launch(Dispatchers.IO) {
         analyticsHelper.d(message = "entry refreshTokenData")
 
         val tokenResult = getAllTokenUseCase().getOrNull()
@@ -75,5 +85,17 @@ constructor(
             LogElementArgument("routeState", "routeState = $routeState"),
             message = "fin fetchRootRoute",
         )
+    }
+
+    private suspend fun fetchRemoteFcmToken(fcmToken: String) = launch(Dispatchers.IO) {
+        val result = initFcmUseCase(fcmToken = fcmToken)
+
+        analyticsHelper.d(
+            LogElementArgument("fcmToken", "fcmToken = $fcmToken"),
+            LogElementArgument("result", "result = $result"),
+            message = "fin fetchRemoteFcmToken",
+        )
+
+        refreshTokenData()
     }
 }

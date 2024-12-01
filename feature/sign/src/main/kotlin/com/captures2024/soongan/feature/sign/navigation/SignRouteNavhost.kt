@@ -22,8 +22,6 @@ import com.captures2024.soongan.feature.termsofuse.navigation.termsOfUse
 internal fun SignRouteNavHost(
     modifier: Modifier = Modifier,
     routeState: SignRouteState,
-    googleSignIn: () -> Unit,
-    kakaoSignIn: () -> Unit,
     navigateToMain: (isGuestMode: Boolean) -> Unit,
     signInViewModel: SignInViewModel,
     onShowSnackBar: suspend (String) -> Boolean,
@@ -40,8 +38,8 @@ internal fun SignRouteNavHost(
         popExitTransition = { ExitTransition.None }
     ) {
         signIn(
-            googleSignIn = googleSignIn,
-            kakaoSignIn = kakaoSignIn,
+            googleSignIn = {},
+            kakaoSignIn = {},
             signInViewModel = signInViewModel,
             navigateToMain = navigateToMain,
             navigateToNickname = navController::navigateToNickname,
