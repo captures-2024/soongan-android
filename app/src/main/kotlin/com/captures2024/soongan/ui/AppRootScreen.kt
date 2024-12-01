@@ -7,13 +7,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.captures2024.soongan.feature.intro.route.IntroRoute
+import com.captures2024.soongan.core.designsystem.theme.SoonGanTheme
+import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.state.AppRootRouteState
 import com.captures2024.soongan.state.AppRootUIState
 
 @Composable
 internal fun AppRootScreen(
     uiState: AppRootUIState,
+    appLandingRoute: @Composable () -> Unit,
+    appSignRoute: @Composable () -> Unit,
+    appMainRoute: @Composable () -> Unit,
 ) {
     Box(
         modifier = Modifier.fillMaxSize()
@@ -21,27 +25,24 @@ internal fun AppRootScreen(
         contentAlignment = Alignment.Center,
     ) {
         when (uiState.rootRouteState) {
-            AppRootRouteState.LANDING -> AppLandingRoute()
+            AppRootRouteState.LANDING -> appLandingRoute()
 
-            AppRootRouteState.SIGN -> AppSignRoute()
+            AppRootRouteState.SIGN -> appSignRoute()
 
-            AppRootRouteState.MAIN -> AppMainRoute()
+            AppRootRouteState.MAIN -> appMainRoute()
         }
     }
 }
 
+@DevicePreviews
 @Composable
-private fun AppLandingRoute() {
-    IntroRoute()
+private fun PreviewAppRootScreen() {
+    SoonGanTheme {
+        AppRootScreen(
+            uiState = AppRootUIState(),
+            appLandingRoute = {},
+            appSignRoute = {},
+            appMainRoute = {},
+        )
+    }
 }
-
-@Composable
-private fun AppSignRoute() {
-
-}
-
-@Composable
-private fun AppMainRoute() {
-
-}
-

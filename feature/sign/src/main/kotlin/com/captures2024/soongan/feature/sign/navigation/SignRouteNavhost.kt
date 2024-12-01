@@ -5,6 +5,7 @@ import androidx.compose.animation.ExitTransition
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.captures2024.soongan.core.navigator.screen.sign.BirthDateNavigator
 import com.captures2024.soongan.core.navigator.screen.sign.NicknameNavigator
@@ -12,7 +13,6 @@ import com.captures2024.soongan.core.navigator.screen.sign.PrivacyPolicyNavigato
 import com.captures2024.soongan.core.navigator.screen.sign.SignInNavigator
 import com.captures2024.soongan.core.navigator.screen.sign.TermsOfUseNavigator
 import com.captures2024.soongan.feature.privacypolicy.navigation.privacyPolicy
-import com.captures2024.soongan.feature.sign.route.SignRouteState
 import com.captures2024.soongan.feature.signIn.SignInViewModel
 import com.captures2024.soongan.feature.signIn.navigation.signIn
 import com.captures2024.soongan.feature.signUp.navigation.signUp
@@ -20,14 +20,10 @@ import com.captures2024.soongan.feature.termsofuse.navigation.termsOfUse
 
 @Composable
 internal fun SignRouteNavHost(
-    modifier: Modifier = Modifier,
-    routeState: SignRouteState,
-    navigateToMain: (isGuestMode: Boolean) -> Unit,
+    navController: NavHostController,
     signInViewModel: SignInViewModel,
-    onShowSnackBar: suspend (String) -> Boolean,
+    modifier: Modifier = Modifier,
 ) {
-    val navController = routeState.navController
-
     NavHost(
         modifier = modifier,
         navController = navController,
@@ -41,7 +37,7 @@ internal fun SignRouteNavHost(
             googleSignIn = {},
             kakaoSignIn = {},
             signInViewModel = signInViewModel,
-            navigateToMain = navigateToMain,
+            navigateToMain = {},
             navigateToNickname = navController::navigateToNickname,
             navigateToTermsOfUse = navController::navigateToTermsOfUse,
             navigateToPrivacyPolicy = navController::navigateToPrivacyPolicy

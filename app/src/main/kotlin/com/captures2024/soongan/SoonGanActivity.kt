@@ -4,28 +4,38 @@ import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
+import androidx.activity.compose.ManagedActivityResultLauncher
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.IntentSenderRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
+import androidx.lifecycle.lifecycleScope
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
+import com.captures2024.soongan.core.analytics.utils.LogElementArgument
 import com.captures2024.soongan.core.android.utils.LocalAnalyticsHelper
 import com.captures2024.soongan.core.auth.GoogleAuthUiClient
 import com.captures2024.soongan.core.auth.kakao.KakaoAuthHelper
 import com.captures2024.soongan.core.auth.kakao.KakaoAuthHelperImpl
+import com.captures2024.soongan.core.auth.kakao.KakaoLoginCallback
 import com.captures2024.soongan.core.designsystem.theme.SoonGanTheme
+import com.captures2024.soongan.feature.signIn.SignInViewModel
 import com.captures2024.soongan.route.AppRoute
 import com.captures2024.soongan.state.AppRootIntent
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SoonGanActivity : ComponentActivity() {
+class SoonGanActivity : ComponentActivity(), KakaoLoginCallback {
 
     //region di property
     @Inject
@@ -36,6 +46,7 @@ class SoonGanActivity : ComponentActivity() {
     //endregion
 
     private val appRootViewModel: AppRootViewModel by viewModels()
+    private val signInViewModel: SignInViewModel by viewModels()
 
     private val googleAuthUiClient by lazy {
         GoogleAuthUiClient(
@@ -53,6 +64,11 @@ class SoonGanActivity : ComponentActivity() {
 
         setContent {
             val darkTheme = isSystemInDarkTheme()
+
+            val launcher = rememberLauncherForActivityResult(
+                contract = ActivityResultContracts.StartIntentSenderForResult(),
+                onResult = this::onResult
+            )
 
             initFcmToken()
 
@@ -74,6 +90,7 @@ class SoonGanActivity : ComponentActivity() {
                 SoonGanTheme(darkTheme = darkTheme) {
                     AppRoute(
                         appRootViewModel = appRootViewModel,
+                        signInViewModel = signInViewModel,
                     )
                 }
             }
@@ -96,6 +113,53 @@ class SoonGanActivity : ComponentActivity() {
 
                 appRootViewModel.intent(AppRootIntent.FetchFCMToken(token = token))
             }
+    }
+
+    private fun onResult(result: ActivityResult) {
+        when (result.resultCode) {
+            RESULT_OK -> {
+                TODO("Not yet implemented")
+            }
+
+            RESULT_CANCELED -> {
+                TODO("Not yet implemented")
+            }
+        }
+    }
+
+    private fun signInGoogle(launcher: ManagedActivityResultLauncher<IntentSenderRequest, ActivityResult>) = lifecycleScope.launch {
+        TODO("Not yet implemented")
+    }
+
+    private fun signInKakao() {
+        kakaoAuthHelper.kakaoLogin(
+            context = this,
+            callback = this,
+        )
+    }
+
+    override fun onSuccessKakaoLogin(
+        accessToken: String?,
+        refreshToken: String?,
+    ) {
+        analyticsHelper.d(
+            LogElementArgument("accessToken", accessToken.toString()),
+            LogElementArgument("refreshToken", refreshToken.toString()),
+            message = "onSuccessKakaoLogin"
+        )
+
+        TODO("Not yet implemented")
+    }
+
+    override fun onFailureKakaoLogin(
+        error: Throwable?,
+    ) {
+        analyticsHelper.e(
+            throwable = error,
+            message = "onFailureKakaoLogin",
+        )
+
+        TODO("Not yet implemented")
     }
 }
 
