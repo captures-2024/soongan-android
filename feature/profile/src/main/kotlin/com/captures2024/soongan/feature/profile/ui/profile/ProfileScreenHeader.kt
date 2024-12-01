@@ -88,7 +88,7 @@ private fun ProfileCard(
 }
 
 @Composable
-fun IconBox(
+private fun IconBox(
     modifier: Modifier = Modifier,
     onClickNotification: () -> Unit,
     onClickMenu: () -> Unit,
