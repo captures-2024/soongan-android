@@ -16,6 +16,8 @@ import com.captures2024.soongan.core.navigator.screen.main.home.HomePostNavigato
 import com.captures2024.soongan.core.navigator.screen.main.home.HomePostPhotoNavigator
 import com.captures2024.soongan.core.navigator.screen.main.profile.ProfileNavigator
 import com.captures2024.soongan.core.navigator.screen.main.home.RegistrationPostNavigator
+import com.captures2024.soongan.core.navigator.screen.main.profile.EditProfileNavigator
+import com.captures2024.soongan.core.navigator.screen.main.profile.NotificationNavigator
 import com.captures2024.soongan.core.navigator.screen.main.welcome.WelcomeNavigator
 import com.captures2024.soongan.feature.awards.navigation.awards
 import com.captures2024.soongan.feature.feed.navigation.feed
@@ -114,3 +116,11 @@ internal fun NavController.navigateToAwards(navOptions: NavOptions) =
 internal fun NavController.navigateToProfile() = navigate(ProfileNavigator)
 internal fun NavController.navigateToProfile(navOptions: NavOptions) =
     navigate(ProfileNavigator, navOptions)
+
+internal fun NavController.navigateToEditProfile() = navigate(EditProfileNavigator)
+internal fun NavController.navigateToEditProfile(navOptions: NavOptions) =
+    navigate(EditProfileNavigator, navOptions)
+
+internal fun NavController.navigateToNotification() = navigate(NotificationNavigator)
+internal fun NavController.navigateToNotification(navOptions: NavOptions) =
+    navigate(NotificationNavigator, navOptions)
