@@ -24,41 +24,21 @@ import kotlinx.coroutines.flow.stateIn
 
 @Composable
 internal fun rememberMainRouteState(
-    networkMonitor: NetworkMonitor,
-    coroutineScope: CoroutineScope = rememberCoroutineScope(),
     navController: NavHostController = rememberNavController(),
-): MainRouteState = remember(
-    networkMonitor,
-    coroutineScope,
-    navController,
-) {
-    MainRouteState(
-        navController = navController,
-        coroutineScope = coroutineScope,
-        networkMonitor = networkMonitor,
-    )
+): MainRouteState = remember(navController) {
+    MainRouteState(navController = navController)
 }
 
 
 @Stable
 internal class MainRouteState(
     val navController: NavHostController,
-    val coroutineScope: CoroutineScope,
-    networkMonitor: NetworkMonitor,
 ) {
     val currentDestination: NavDestination?
         @Composable get() = navController
             .currentBackStackEntryAsState()
             .value
             ?.destination
-
-    val isOffline = networkMonitor.isOnline
-        .map(Boolean::not)
-        .stateIn(
-            scope = coroutineScope,
-            started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = false,
-        )
 
     val topLevelDestinations: List<TopLevelDestination> = TopLevelDestination.entries
 

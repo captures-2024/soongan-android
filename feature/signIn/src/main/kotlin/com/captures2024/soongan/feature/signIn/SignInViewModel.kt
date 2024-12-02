@@ -37,6 +37,8 @@ constructor(
         when (intent) {
             is SignInIntent.FetchFcmToken -> handleFetchFcmToken(intent)
 
+            is SignInIntent.OnClickGuestMode -> handleOnClickGuestMode()
+
             is SignInIntent.OnClickSignGoogle -> handleOnClickSignGoogle()
 
             is SignInIntent.OnClickSignKakao -> handleOnClickSignKakao()
@@ -69,6 +71,10 @@ constructor(
                 fcmToken = intent.fcmToken,
             )
         }
+    }
+
+    private fun handleOnClickGuestMode() {
+        postSideEffect(SignInSideEffect.NavigateToMain)
     }
 
     private fun handleOnClickSignGoogle() {

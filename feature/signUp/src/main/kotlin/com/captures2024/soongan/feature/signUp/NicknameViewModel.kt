@@ -1,8 +1,6 @@
 package com.captures2024.soongan.feature.signUp
 
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.common.base.BaseViewModel
 import com.captures2024.soongan.core.domain.usecase.members.IsAllowNicknameUseCase
@@ -67,7 +65,7 @@ constructor(
             }
 
             when (isAllow) {
-                true -> intent(NicknameIntent.RegisterNickname)
+                true -> postSideEffect(NicknameSideEffect.NavigateToBirthDate)
 
                 false -> {
                     analyticsHelper.d(message = "isAllow is false")
@@ -86,7 +84,7 @@ constructor(
         reduce {
             copy(
                 nickname = newValue,
-                isDuplicatedNickname = false
+                isDuplicatedNickname = false,
             )
         }
     }

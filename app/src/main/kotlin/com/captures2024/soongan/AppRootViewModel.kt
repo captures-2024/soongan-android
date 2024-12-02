@@ -37,6 +37,8 @@ constructor(
             is AppRootIntent.FetchFCMToken -> handleFetchFCMToken(intent)
 
             is AppRootIntent.SuccessSign -> handleSuccessSign()
+
+            is AppRootIntent.NavigateToMain -> handleNavigateToMain()
         }
     }
 
@@ -52,6 +54,14 @@ constructor(
 
     private suspend fun handleSuccessSign() {
         syncAllData(isSignSession = true)
+    }
+
+    private fun handleNavigateToMain() {
+        reduce {
+            copy(
+                rootRouteState = AppRootRouteState.MAIN,
+            )
+        }
     }
 
     private suspend fun syncAllData(isSignSession: Boolean = false) = launch(Dispatchers.IO) {

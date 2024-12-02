@@ -8,6 +8,8 @@ sealed interface SignInIntent : UIIntent {
         val fcmToken: String,
     ): SignInIntent
 
+    data object OnClickGuestMode : SignInIntent
+
     data object OnClickSignGoogle : SignInIntent
 
     data object OnClickSignKakao : SignInIntent

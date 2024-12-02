@@ -21,4 +21,6 @@ internal data class AppRootUIState(
         LogElementArgument("refreshToken", refreshToken.toString()),
         LogElementArgument("memberInfo", memberInfo.toString()),
     )
+
+    fun isGuestMode(): Boolean = accessToken.isEmpty() && refreshToken.isEmpty()
 }

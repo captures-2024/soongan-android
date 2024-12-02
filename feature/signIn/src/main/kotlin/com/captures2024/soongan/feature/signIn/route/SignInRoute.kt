@@ -37,6 +37,7 @@ internal fun SignInRoute(
                     false -> navigateToBirthDate(it.nickname)
                 }
 
+                is SignInSideEffect.NavigateToMain,
                 is SignInSideEffect.GoogleSignIn,
                 is SignInSideEffect.KakaoSignIn,
                 is SignInSideEffect.SuccessSocialSign -> Unit
@@ -51,7 +52,7 @@ internal fun SignInRoute(
             onClickGoogleSignIn = { signInViewModel.intent(SignInIntent.OnClickSignGoogle) },
             onClickKakaoSignIn = { signInViewModel.intent(SignInIntent.OnClickSignKakao) },
             onClickTermsOfUse = { signInViewModel.intent(SignInIntent.OnClickTermsOfUse) },
-            onClickGuestMode = { TODO("Not Impl") },
+            onClickGuestMode = { signInViewModel.intent(SignInIntent.OnClickGuestMode) },
             onClickToPrivacyPolicy = { signInViewModel.intent(SignInIntent.OnClickPrivacyPolicy) }
         )
     }

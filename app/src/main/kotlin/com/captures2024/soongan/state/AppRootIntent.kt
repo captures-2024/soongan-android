@@ -9,4 +9,6 @@ internal sealed interface AppRootIntent : UIIntent {
     ) : AppRootIntent
 
     data object SuccessSign : AppRootIntent
+
+    data object NavigateToMain : AppRootIntent
 }

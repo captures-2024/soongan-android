@@ -104,6 +104,8 @@ class SoonGanActivity : ComponentActivity(), KakaoLoginCallback {
 
                         is SignInSideEffect.SuccessSocialSign -> successSocialSign()
 
+                        is SignInSideEffect.NavigateToMain -> navigateToMain()
+
                         is SignInSideEffect.NavigateToSignUp,
                         is SignInSideEffect.NavigateToPrivacyPolicy,
                         is SignInSideEffect.NavigateToTermsOfUse -> Unit
@@ -244,6 +246,10 @@ class SoonGanActivity : ComponentActivity(), KakaoLoginCallback {
                 birthDate = sideEffect.birthDate,
             )
         )
+    }
+
+    private fun navigateToMain() {
+        appRootViewModel.intent(AppRootIntent.NavigateToMain)
     }
 }
 
