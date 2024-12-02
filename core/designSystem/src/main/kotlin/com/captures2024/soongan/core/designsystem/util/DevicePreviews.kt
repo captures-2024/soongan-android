@@ -8,21 +8,26 @@ import androidx.compose.ui.tooling.preview.Preview
 @Preview(
     name = "Pixel 5",
     device = "spec:shape=Normal,width=1080,height=2400,unit=px,dpi=480",
+    showBackground = true,
 )
 @Preview(
     name = "Samsung Galaxy S21 Ultra",
     device = "spec:shape=Normal,width=1440,height=3200,unit=px,dpi=515",
+    showBackground = true,
 )
 @Preview(
     name = "small-phone",
     device = Devices.PIXEL_4A,
+    showBackground = true,
 )
 @Preview(
     name = "phone",
     device = Devices.PHONE,
+    showBackground = true,
 )
 @Preview(
     name = "foldable",
     device = "spec:shape=Normal,width=673,height=841,unit=dp,dpi=480",
+    showBackground = true,
 )
 annotation class DevicePreviews
