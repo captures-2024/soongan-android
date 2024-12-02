@@ -33,8 +33,9 @@ import com.captures2024.soongan.core.model.mock.samplePhotos
 
 @Composable
 internal fun ProfileGallery(
+    userPhotos: List<UserPost.PhotoPost>,
     modifier: Modifier = Modifier,
-    myPhotos: List<UserPost.PhotoPost>,
+    onClickUserPhoto: (UserPost.PhotoPost) -> Unit = {},
 ) {
     val lazyStaggeredGridState = rememberLazyStaggeredGridState()
     val showShimmer = remember { mutableStateOf(true) }
@@ -60,7 +61,7 @@ internal fun ProfileGallery(
             contentPadding = PaddingValues(8.dp)
         ) {
             items(
-                items = myPhotos,
+                items = userPhotos,
                 key = { it.id }
             ) {
                 AsyncImage(
@@ -82,7 +83,7 @@ internal fun ProfileGallery(
                             blur = 4.dp
                         )
                         .clickable(enabled = !showShimmer.value) {
-                            TODO("navigate homePostScreen")
+                            onClickUserPhoto(it)
                         },
                     error = painterResource(R.drawable.test),
                     onSuccess = { showShimmer.value = false },
@@ -98,5 +99,5 @@ internal fun ProfileGallery(
 private fun ProfileGalleryPreview() {
     val samples = samplePhotos.map { it as UserPost.PhotoPost }
 
-    ProfileGallery(myPhotos = samples)
+    ProfileGallery(userPhotos = samples)
 }

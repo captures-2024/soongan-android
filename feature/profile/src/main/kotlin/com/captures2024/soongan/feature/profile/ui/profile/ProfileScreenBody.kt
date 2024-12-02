@@ -1,7 +1,5 @@
 package com.captures2024.soongan.feature.profile.ui.profile
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.width
@@ -23,13 +21,15 @@ import com.captures2024.soongan.feature.profile.utils.nonScaleAnnotatedTitle
 
 @Composable
 internal fun ProfileScreenBody(
+    userPhotos: List<UserPost.PhotoPost>,
     modifier: Modifier = Modifier,
-    myPhotos: List<UserPost.PhotoPost>,
+    userPhotoSize: Int = 25,
+    onClickUserPhoto: (UserPost.PhotoPost) -> Unit = {},
 ) {
     val title = nonScaleAnnotatedTitle(
         title = stringResource(R.string.profile_tab_gallery_title),
         titleFontSize = 14.sp,
-        count = myPhotos.size,
+        count = userPhotoSize,
         countFontSize = 10.sp
     )
 
@@ -44,7 +44,10 @@ internal fun ProfileScreenBody(
                 .width(120.dp), color = Color.Black,
             thickness = 2.dp
         )
-        ProfileGallery(myPhotos = myPhotos)
+        ProfileGallery(
+            userPhotos = userPhotos,
+            onClickUserPhoto = onClickUserPhoto
+        )
     }
 }
 
@@ -118,7 +121,5 @@ internal fun _ProfileTapRow(
 private fun ProfileScreenBodyPreview() {
     val samples = samplePhotos.map { it as UserPost.PhotoPost }
 
-    Box(modifier = Modifier.background(color = Color.White)) {
-        ProfileScreenBody(myPhotos = samples)
-    }
+    ProfileScreenBody(userPhotos = samples)
 }

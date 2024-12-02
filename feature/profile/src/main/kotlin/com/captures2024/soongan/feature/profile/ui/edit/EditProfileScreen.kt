@@ -10,25 +10,34 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.captures2024.soongan.core.designsystem.component.HeightSpacer
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.feature.profile.state.edit.EditProfileUiState
 
 @Composable
-internal fun EditProfileScreen(modifier: Modifier = Modifier) {
+internal fun EditProfileScreen(
+    uiState: EditProfileUiState,
+    modifier: Modifier = Modifier,
+    onBackPressed: () -> Unit = {},
+    onClickProfileImage: () -> Unit = {},
+    onNicknameChanged: (String) -> Unit = {},
+    onIntroductionChanged: (String) -> Unit = {},
+    onClickEditButton: () -> Unit = {},
+) {
     Column(
         modifier = modifier
             .fillMaxSize()
             .background(color = Color.White)
-            .padding(top = 14.dp)
             .padding(horizontal = 20.dp)
     ) {
         EditProfileScreenHeader(
-            onBackPressed = { TODO("navigateUp") }
+            onBackPressed = onBackPressed
         )
-        HeightSpacer(28.dp)
+        HeightSpacer(8.dp)
         EditProfileScreenBody(
-            onClickProfileImage = { TODO("open photoPicker") },
-            onNicknameChanged = { TODO() },
-            onIntroductionChanged = { TODO() },
-            onClickEdit = { TODO("navigateUp") }
+            uiState = uiState,
+            onClickProfileImage = onClickProfileImage,
+            onNicknameChanged = onNicknameChanged,
+            onIntroductionChanged = onIntroductionChanged,
+            onClickEdit = onClickEditButton
         )
     }
 }
@@ -36,5 +45,7 @@ internal fun EditProfileScreen(modifier: Modifier = Modifier) {
 @DevicePreviews
 @Composable
 private fun EditProfileScreenPreview() {
-    EditProfileScreen()
+    EditProfileScreen(
+        uiState = EditProfileUiState()
+    )
 }

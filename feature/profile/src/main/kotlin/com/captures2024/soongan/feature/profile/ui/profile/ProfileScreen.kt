@@ -9,30 +9,39 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.captures2024.soongan.core.designsystem.component.HeightSpacer
-import com.captures2024.soongan.core.designsystem.theme.PrimaryB
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.model.UserPost
-import com.captures2024.soongan.core.model.mock.samplePhotos
+import com.captures2024.soongan.feature.profile.state.profile.ProfileUiState
 
 @Composable
 internal fun ProfileScreen(
+    uiState: ProfileUiState,
     modifier: Modifier = Modifier,
-    myPhotos: List<UserPost.PhotoPost> = samplePhotos.map { it as UserPost.PhotoPost },
+    onClickNotification: () -> Unit = {},
+    onClickMenu: () -> Unit = {},
+    onClickUserPhoto: (UserPost.PhotoPost) -> Unit = {},
 ) {
     Column(
         modifier = modifier
             .fillMaxSize()
             .background(color = Color.White)
-            .padding(top = 52.dp),
+            .padding(top = 52.dp)
     ) {
-        ProfileScreenHeader(profileImageUrl = "")
+        ProfileScreenHeader(
+            userProfile = uiState.userProfile,
+            onClickNotification = onClickNotification,
+            onClickMenu = onClickMenu
+        )
         HeightSpacer(28.dp)
-        ProfileScreenBody(myPhotos = myPhotos)
+        ProfileScreenBody(
+            userPhotos = uiState.userPosts,
+            onClickUserPhoto = onClickUserPhoto
+        )
     }
 }
 
 @DevicePreviews
 @Composable
 private fun ProfileScreenPreview() {
-    ProfileScreen()
+    ProfileScreen(uiState = ProfileUiState())
 }

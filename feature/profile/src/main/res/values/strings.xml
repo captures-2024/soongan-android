@@ -2,7 +2,6 @@
 <resources>
 <!--  ProfileScreen  -->
     <string name="profile_tab_gallery_title">갤러리</string>
-    <string name="default_self_introduction">본인을 소개해주세요</string>
 
 <!--  ProfileMenuBottomSheet  -->
     <string name="profile_menu_bottom_sheet_edit_title">프로필 편집</string>

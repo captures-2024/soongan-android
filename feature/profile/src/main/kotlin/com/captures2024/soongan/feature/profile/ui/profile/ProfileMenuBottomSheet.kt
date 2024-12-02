@@ -26,7 +26,7 @@ import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
 import com.captures2024.soongan.core.designsystem.theme.PrimaryA
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
-import com.captures2024.soongan.feature.profile.navigation.ProfileLevelDestination
+import com.captures2024.soongan.feature.profile.navigation.ProfileMenuItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -34,7 +34,7 @@ internal fun ProfileMenuBottomSheet(
     modifier: Modifier = Modifier,
     sheetState: SheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
     closeSheet: () -> Unit = {},
-    onClickMenuItem: (ProfileLevelDestination) -> Unit = {},
+    onClickMenuItem: (ProfileMenuItem) -> Unit = {},
 ) {
     ModalBottomSheet(
         onDismissRequest = closeSheet,
@@ -45,13 +45,13 @@ internal fun ProfileMenuBottomSheet(
         Column(
             modifier = Modifier.padding(horizontal = 24.dp)
         ) {
-            ProfileLevelDestination.entries.forEachIndexed { idx, item ->
+            ProfileMenuItem.entries.forEachIndexed { idx, item ->
                 ProfileMenuRow(
                     item = item,
                     onClick = onClickMenuItem
                 )
                 HeightSpacer(16.dp)
-                if (idx != ProfileLevelDestination.entries.lastIndex) {
+                if (idx != ProfileMenuItem.entries.lastIndex) {
                     HorizontalDivider(color = PrimaryA.copy(alpha = 0.3f))
                     HeightSpacer(16.dp)
                 }
@@ -63,8 +63,8 @@ internal fun ProfileMenuBottomSheet(
 @Composable
 private fun ProfileMenuRow(
     modifier: Modifier = Modifier,
-    item: ProfileLevelDestination,
-    onClick: (ProfileLevelDestination) -> Unit = {},
+    item: ProfileMenuItem,
+    onClick: (ProfileMenuItem) -> Unit = {},
 ) {
     Row(
         modifier = modifier

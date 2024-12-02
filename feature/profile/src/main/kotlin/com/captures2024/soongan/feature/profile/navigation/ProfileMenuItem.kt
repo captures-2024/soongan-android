@@ -13,7 +13,7 @@ import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillUse
 import com.captures2024.soongan.core.designsystem.theme.PrimaryA
 import com.captures2024.soongan.feature.profile.R
 
-internal enum class ProfileLevelDestination(
+internal enum class ProfileMenuItem(
     @StringRes val titleRes: Int,
     val icon: ImageVector,
     val color: Color = PrimaryA,
@@ -22,7 +22,7 @@ internal enum class ProfileLevelDestination(
         titleRes = R.string.profile_menu_bottom_sheet_edit_title,
         icon = MyIconPack.IconNonFillUser,
     ),
-    NOTIFICATION(
+    NOTIFICATION_SETTING(
         titleRes = R.string.profile_menu_bottom_sheet_notification_title,
         icon = MyIconPack.IconNonFillGear,
     ),
