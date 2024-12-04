@@ -6,7 +6,7 @@ import com.captures2024.soongan.core.model.UserPost
 import com.captures2024.soongan.core.model.UserProfile
 import com.captures2024.soongan.core.model.mock.samplePhotos
 
-internal data class ProfileUiState(
+internal data class ProfileUIState(
     val isLoading: Boolean = false,
     val userProfile: UserProfile = UserProfile(),
     val userPosts: List<UserPost.PhotoPost> = samplePhotos.map { it as UserPost.PhotoPost },

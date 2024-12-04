@@ -11,11 +11,11 @@ import androidx.compose.ui.unit.dp
 import com.captures2024.soongan.core.designsystem.component.HeightSpacer
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.model.UserPost
-import com.captures2024.soongan.feature.profile.state.profile.ProfileUiState
+import com.captures2024.soongan.feature.profile.state.profile.ProfileUIState
 
 @Composable
 internal fun ProfileScreen(
-    uiState: ProfileUiState,
+    uiState: ProfileUIState,
     modifier: Modifier = Modifier,
     onClickNotification: () -> Unit = {},
     onClickMenu: () -> Unit = {},
@@ -43,5 +43,5 @@ internal fun ProfileScreen(
 @DevicePreviews
 @Composable
 private fun ProfileScreenPreview() {
-    ProfileScreen(uiState = ProfileUiState())
+    ProfileScreen(uiState = ProfileUIState())
 }

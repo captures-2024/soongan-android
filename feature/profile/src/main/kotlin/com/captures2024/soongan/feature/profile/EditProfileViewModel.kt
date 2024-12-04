@@ -7,7 +7,7 @@ import com.captures2024.soongan.core.common.base.BaseViewModel
 import com.captures2024.soongan.core.navigator.screen.main.profile.EditProfileNavigator
 import com.captures2024.soongan.feature.profile.state.edit.EditProfileIntent
 import com.captures2024.soongan.feature.profile.state.edit.EditProfileSideEffect
-import com.captures2024.soongan.feature.profile.state.edit.EditProfileUiState
+import com.captures2024.soongan.feature.profile.state.edit.EditProfileUIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -17,12 +17,12 @@ internal class EditProfileViewModel
 constructor(
     private val analyticsHelper: AnalyticsHelper,
     savedStateHandle: SavedStateHandle,
-) : BaseViewModel<EditProfileUiState, EditProfileSideEffect, EditProfileIntent>(savedStateHandle = savedStateHandle) {
+) : BaseViewModel<EditProfileUIState, EditProfileSideEffect, EditProfileIntent>(savedStateHandle = savedStateHandle) {
 
-    override fun createInitialState(savedStateHandle: SavedStateHandle): EditProfileUiState {
+    override fun createInitialState(savedStateHandle: SavedStateHandle): EditProfileUIState {
         val userProfile = savedStateHandle.toRoute<EditProfileNavigator>()
 
-        return EditProfileUiState(
+        return EditProfileUIState(
             profileImage = userProfile.image,
             nickname = userProfile.nickname,
             selfIntroduction = userProfile.selfIntroduction

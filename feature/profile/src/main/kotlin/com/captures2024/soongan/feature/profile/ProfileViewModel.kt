@@ -6,7 +6,7 @@ import com.captures2024.soongan.core.common.base.BaseViewModel
 import com.captures2024.soongan.core.model.UserPost
 import com.captures2024.soongan.feature.profile.state.profile.ProfileIntent
 import com.captures2024.soongan.feature.profile.state.profile.ProfileSideEffect
-import com.captures2024.soongan.feature.profile.state.profile.ProfileUiState
+import com.captures2024.soongan.feature.profile.state.profile.ProfileUIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -16,10 +16,10 @@ internal class ProfileViewModel
 constructor(
     private val analyticsHelper: AnalyticsHelper,
     savedStateHandle: SavedStateHandle,
-) : BaseViewModel<ProfileUiState, ProfileSideEffect, ProfileIntent>(savedStateHandle = savedStateHandle) {
+) : BaseViewModel<ProfileUIState, ProfileSideEffect, ProfileIntent>(savedStateHandle = savedStateHandle) {
 
-    override fun createInitialState(savedStateHandle: SavedStateHandle): ProfileUiState {
-        return ProfileUiState()
+    override fun createInitialState(savedStateHandle: SavedStateHandle): ProfileUIState {
+        return ProfileUIState()
     }
 
     override fun handleClientException(throwable: Throwable) {

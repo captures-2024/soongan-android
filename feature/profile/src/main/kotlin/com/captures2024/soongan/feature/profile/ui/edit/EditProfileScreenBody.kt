@@ -17,14 +17,14 @@ import coil.compose.AsyncImage
 import com.captures2024.soongan.core.design.R
 import com.captures2024.soongan.core.designsystem.component.HeightSpacer
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
-import com.captures2024.soongan.feature.profile.state.edit.EditProfileUiState
+import com.captures2024.soongan.feature.profile.state.edit.EditProfileUIState
 import com.captures2024.soongan.feature.profile.ui.edit.component.EditProfileButton
 import com.captures2024.soongan.feature.profile.ui.edit.component.MiniAddIcon
 import com.captures2024.soongan.feature.profile.ui.edit.component.ProfileOutlinedTextField
 
 @Composable
 internal fun EditProfileScreenBody(
-    uiState: EditProfileUiState,
+    uiState: EditProfileUIState,
     modifier: Modifier = Modifier,
     onClickProfileImage: () -> Unit = {},
     onNicknameChanged: (String) -> Unit = {},
@@ -97,6 +97,6 @@ private fun ProfileBox(
 @Composable
 private fun EditProfileScreenBodyPreview() {
     EditProfileScreenBody(
-        uiState = EditProfileUiState()
+        uiState = EditProfileUIState()
     )
 }
