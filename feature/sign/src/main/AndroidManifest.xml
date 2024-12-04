@@ -4,13 +4,6 @@
 
     <application>
 
-        <activity
-            android:name=".SignActivity"
-            android:exported="true"
-            android:theme="@style/Theme.SoonGan">
-
-        </activity>
-
         <service
             android:name=".service.FirebaseCloudMessageService"
             android:exported="false">

@@ -14,11 +14,8 @@ import com.captures2024.soongan.feature.signIn.ui.SignInLoadingScreen
 
 @Composable
 internal fun SignInRoute(
-    appleSignIn: () -> Unit,
-    googleSignIn: () -> Unit,
-    kakaoSignIn: () -> Unit,
-    navigateToMain: (Boolean) -> Unit,
     navigateToNickname: () -> Unit,
+    navigateToBirthDate: (String) -> Unit,
     navigateToTermsOfUse: () -> Unit,
     navigateToPrivacyPolicy: () -> Unit,
     signInViewModel: SignInViewModel
@@ -30,27 +27,28 @@ internal fun SignInRoute(
         signInViewModel.sideEffect.collect {
             analyticsHelper.d(message = "Collected sideEffect = $it")
             when (it) {
-                is SignInSideEffect.AppleSignIn -> appleSignIn()
-
-                is SignInSideEffect.GoogleSignIn -> googleSignIn()
-
-                is SignInSideEffect.KakaoSignIn -> kakaoSignIn()
-
-                is SignInSideEffect.NavigateToMain -> TODO()
+                is SignInSideEffect.NavigateToTermsOfUse -> navigateToTermsOfUse()
 
                 is SignInSideEffect.NavigateToPrivacyPolicy -> navigateToPrivacyPolicy()
 
-                is SignInSideEffect.NavigateToSignUp -> navigateToNickname()
+                is SignInSideEffect.NavigateToSignUp -> when (it.nickname.isEmpty()) {
+                    true -> navigateToNickname()
 
-                is SignInSideEffect.NavigateToTermsOfUse -> navigateToTermsOfUse()
+                    false -> navigateToBirthDate(it.nickname)
+                }
+
+                is SignInSideEffect.NavigateToMain,
+                is SignInSideEffect.GoogleSignIn,
+                is SignInSideEffect.KakaoSignIn,
+                is SignInSideEffect.SuccessSocialSign -> Unit
             }
         }
     }
 
     when (uiState.isLoading) {
         true -> SignInLoadingScreen()
+
         false -> SignInDefaultScreen(
-            onClickAppleSignIn = { signInViewModel.intent(SignInIntent.OnClickSignApple) },
             onClickGoogleSignIn = { signInViewModel.intent(SignInIntent.OnClickSignGoogle) },
             onClickKakaoSignIn = { signInViewModel.intent(SignInIntent.OnClickSignKakao) },
             onClickTermsOfUse = { signInViewModel.intent(SignInIntent.OnClickTermsOfUse) },
