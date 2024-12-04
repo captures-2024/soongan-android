@@ -32,7 +32,6 @@ internal fun MainRouteNavHost(
     modifier: Modifier = Modifier,
     isGuestMode: Boolean,
     routeState: MainRouteState,
-    onShowSnackBar: suspend (String) -> Boolean,
 ) {
     val navController = routeState.navController
 

@@ -12,7 +12,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-internal class BirthYearViewModel
+internal class BirthDateViewModel
 @Inject
 constructor(
     private val analyticsHelper: AnalyticsHelper,
@@ -32,6 +32,18 @@ constructor(
     }
 
     override suspend fun handleIntent(intent: BirthDateIntent) {
-        TODO("Not Impl Yet")
+        when (intent) {
+            is BirthDateIntent.OnClickBack -> handleOnClickBack()
+
+            is BirthDateIntent.OnValueChanged -> handleOnValueChanged(intent)
+        }
+    }
+
+    private fun handleOnClickBack() {
+        postSideEffect(BirthDateSideEffect.NavigateToBack)
+    }
+
+    private fun handleOnValueChanged(intent: BirthDateIntent.OnValueChanged) {
+
     }
 }

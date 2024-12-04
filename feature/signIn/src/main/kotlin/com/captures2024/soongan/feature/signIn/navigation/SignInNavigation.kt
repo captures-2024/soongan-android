@@ -9,22 +9,16 @@ import com.captures2024.soongan.feature.signIn.route.SignInRoute
 
 
 fun NavGraphBuilder.signIn(
-    appleSignIn: () -> Unit,
-    googleSignIn: () -> Unit,
-    kakaoSignIn: () -> Unit,
     signInViewModel: SignInViewModel,
-    navigateToMain: (Boolean) -> Unit,
     navigateToNickname: () -> Unit,
+    navigateToBirthDate: (String) -> Unit,
     navigateToTermsOfUse: () -> Unit,
     navigateToPrivacyPolicy: () -> Unit,
 ) {
     composable<SignInNavigator> {
         SignInRoute(
-            appleSignIn = appleSignIn,
-            googleSignIn = googleSignIn,
-            kakaoSignIn = kakaoSignIn,
-            navigateToMain = navigateToMain,
             navigateToNickname = navigateToNickname,
+            navigateToBirthDate = navigateToBirthDate,
             navigateToTermsOfUse = navigateToTermsOfUse,
             navigateToPrivacyPolicy = navigateToPrivacyPolicy,
             signInViewModel = signInViewModel

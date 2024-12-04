@@ -3,14 +3,14 @@ package com.captures2024.soongan.feature.signIn
 import androidx.lifecycle.SavedStateHandle
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.common.base.BaseViewModel
-import com.captures2024.soongan.core.domain.usecase.fcm.InitFcmUseCase
-import com.captures2024.soongan.core.domain.usecase.members.IsAllowUserInfoUseCase
 import com.captures2024.soongan.core.domain.usecase.auth.SigningGoogleUseCase
 import com.captures2024.soongan.core.domain.usecase.auth.SigningKakaoUseCase
+import com.captures2024.soongan.core.domain.usecase.token.ClearAllTokenUseCase
 import com.captures2024.soongan.feature.signIn.state.SignInIntent
 import com.captures2024.soongan.feature.signIn.state.SignInSideEffect
 import com.captures2024.soongan.feature.signIn.state.SignInUIState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
 @HiltViewModel
@@ -18,10 +18,9 @@ class SignInViewModel
 @Inject
 constructor(
     private val analyticsHelper: AnalyticsHelper,
-    private val initFcmUseCase: InitFcmUseCase,
     private val signingGoogleUseCase: SigningGoogleUseCase,
     private val signingKakaoUseCase: SigningKakaoUseCase,
-    private val isAllowUserInfoUseCase: IsAllowUserInfoUseCase,
+    private val clearAllTokenUseCase: ClearAllTokenUseCase,
     savedStateHandle: SavedStateHandle,
 ) : BaseViewModel<SignInUIState, SignInSideEffect, SignInIntent>(savedStateHandle) {
 
@@ -36,34 +35,113 @@ constructor(
 
     override suspend fun handleIntent(intent: SignInIntent) {
         when (intent) {
-            is SignInIntent.OnClickSignApple -> appleSignIn()
+            is SignInIntent.FetchFcmToken -> handleFetchFcmToken(intent)
 
-            is SignInIntent.OnClickSignGoogle -> googleSignIn()
+            is SignInIntent.OnClickGuestMode -> handleOnClickGuestMode()
 
-            is SignInIntent.OnClickSignKakao -> kakaoSignIn()
+            is SignInIntent.OnClickSignGoogle -> handleOnClickSignGoogle()
 
-            is SignInIntent.CanceledSignApple,
-            is SignInIntent.CanceledSignGoogle,
-            is SignInIntent.CanceledSignKakao -> canceledSignIn()
+            is SignInIntent.OnClickSignKakao -> handleOnClickSignKakao()
 
-            is SignInIntent.FailedSignApple,
-            is SignInIntent.FailedSignGoogle,
-            is SignInIntent.FailedSignKakao -> failedSignIn()
+            is SignInIntent.OnClickPrivacyPolicy -> handleOnClickPrivacyPolicy()
 
-            is SignInIntent.CompleteSignApple -> TODO()
+            is SignInIntent.OnClickTermsOfUse -> handleOnClickTermsOfUse()
 
-            is SignInIntent.CompleteSignGoogle -> googleSignIn(token = intent.token)
+            is SignInIntent.CanceledSignGoogle -> handleCanceledSignGoogle()
 
-            is SignInIntent.CompleteSignKakao -> kakaoSignIn(token = intent.accessToken)
+            is SignInIntent.CanceledSignKakao -> handleCanceledSignKakao()
 
-            is SignInIntent.FetchFCMToken -> fetchFcmToken(token = intent.token)
+            is SignInIntent.FailedSignGoogle -> handleFailedSignGoogle()
 
-            is SignInIntent.OnClickGuestMode -> onClickGuestMode()
+            is SignInIntent.FailedSignKakao -> handleFailedSignKakao()
 
-            is SignInIntent.OnClickPrivacyPolicy -> onClickPrivacyPolicy()
+            is SignInIntent.CompleteSignGoogle -> handleCompleteSignGoogle(intent)
 
-            is SignInIntent.OnClickTermsOfUse -> onClickTermsOfUse()
+            is SignInIntent.CompleteSignKakao -> handleCompleteSignKakao(intent)
+
+            is SignInIntent.FailedSyncData -> handleFailedSyncData()
+
+            is SignInIntent.SuccessSyncData -> handleSuccessSyncData(intent)
         }
+    }
+
+    private fun handleFetchFcmToken(intent: SignInIntent.FetchFcmToken) {
+        reduce {
+            copy(
+                fcmToken = intent.fcmToken,
+            )
+        }
+    }
+
+    private fun handleOnClickGuestMode() {
+        postSideEffect(SignInSideEffect.NavigateToMain)
+    }
+
+    private fun handleOnClickSignGoogle() {
+        reduce {
+            copy(isLoading = true)
+        }
+
+        postSideEffect(SignInSideEffect.GoogleSignIn)
+    }
+
+    private fun handleOnClickSignKakao() {
+        reduce {
+            copy(isLoading = true)
+        }
+
+        postSideEffect(SignInSideEffect.KakaoSignIn)
+    }
+
+    private fun handleOnClickPrivacyPolicy() {
+        postSideEffect(SignInSideEffect.NavigateToPrivacyPolicy)
+    }
+
+    private fun handleOnClickTermsOfUse() {
+        postSideEffect(SignInSideEffect.NavigateToTermsOfUse)
+    }
+
+    private fun handleCanceledSignGoogle() {
+        canceledSignIn()
+    }
+
+    private fun handleCanceledSignKakao() {
+        canceledSignIn()
+    }
+
+    private fun handleFailedSignGoogle() {
+        failedSignIn()
+    }
+
+    private fun handleFailedSignKakao() {
+        failedSignIn()
+    }
+
+    private suspend fun handleCompleteSignGoogle(intent: SignInIntent.CompleteSignGoogle) {
+        googleSignIn(token = intent.token)
+    }
+
+    private suspend fun handleCompleteSignKakao(intent: SignInIntent.CompleteSignKakao) {
+        kakaoSignIn(token = intent.accessToken)
+    }
+
+    private suspend fun handleFailedSyncData() {
+        clearAllTokenUseCase()
+        failedSignIn()
+    }
+
+    private suspend fun handleSuccessSyncData(intent: SignInIntent.SuccessSyncData) {
+        reduce {
+            copy(
+                isLoading = false,
+            )
+        }
+
+        postSideEffect(
+            SignInSideEffect.NavigateToSignUp(
+                nickname = intent.nickname,
+            ),
+        )
     }
 
     private fun canceledSignIn() {
@@ -78,110 +156,50 @@ constructor(
         }
     }
 
-    private fun appleSignIn() {
-        reduce {
-            copy(isLoading = true)
-        }
-        postSideEffect(SignInSideEffect.AppleSignIn)
-    }
-
-    private fun googleSignIn() {
-        reduce {
-            copy(isLoading = true)
-        }
-        postSideEffect(SignInSideEffect.GoogleSignIn)
-    }
-
-    private fun googleSignIn(token: String) = launch {
+    private suspend fun googleSignIn(token: String) = launch(Dispatchers.IO) {
         val result = signingGoogleUseCase(
             token = token,
-            fcmToken = currentState.fcmToken
+            fcmToken = currentState.fcmToken,
         ).getOrNull()
 
         if (result == null) {
             analyticsHelper.d(message = "result is null")
-            intent(SignInIntent.FailedSignGoogle)
+            failedSignIn()
             return@launch
         }
 
-        analyticsHelper.d(message = "result = $result")
-
-        when (result) {
-            true -> isAllowCheck()
-            false -> failedSignIn()
+        if (result == false) {
+            analyticsHelper.d(message = "result: false")
+            failedSignIn()
+            return@launch
         }
+
+        successSign()
     }
 
-    private fun kakaoSignIn() {
-        reduce {
-            copy(isLoading = true)
-        }
-        postSideEffect(SignInSideEffect.KakaoSignIn)
-    }
-
-    private fun kakaoSignIn(token: String) = launch {
+    private suspend fun kakaoSignIn(token: String) = launch {
         val result = signingKakaoUseCase(
             token = token,
             fcmToken = currentState.fcmToken,
         ).getOrNull()
 
         if (result == null) {
-            analyticsHelper.d(
-                message = "result is null",
-            )
-            intent(SignInIntent.FailedSignKakao)
+            analyticsHelper.d(message = "result is null",)
+            failedSignIn()
             return@launch
         }
 
-        analyticsHelper.d(
-            message = "result = $result",
-        )
-
-        when (result) {
-            true -> isAllowCheck()
-
-            false -> failedSignIn()
-        }
-    }
-
-    private fun fetchFcmToken(token: String) {
-        reduce {
-            copy(
-                fcmToken = token
-            )
+        if (result == false) {
+            analyticsHelper.d(message = "result: false")
+            failedSignIn()
+            return@launch
         }
 
-        launch {
-            initFcmUseCase(fcmToken = token)
-        }
+        successSign()
     }
 
-    private fun onClickGuestMode() {
-        TODO("Not Impl yet")
+    private fun successSign() {
+        postSideEffect(SignInSideEffect.SuccessSocialSign)
     }
 
-    private fun onClickPrivacyPolicy() {
-        postSideEffect(SignInSideEffect.NavigateToPrivacyPolicy)
-    }
-
-    private fun onClickTermsOfUse() {
-        postSideEffect(SignInSideEffect.NavigateToTermsOfUse)
-    }
-
-    private fun isAllowCheck() {
-        launch {
-            val result = isAllowUserInfoUseCase().getOrNull() ?: return@launch intent(SignInIntent.FailedSignGoogle)
-
-            when (result) {
-                true -> postSideEffect(SignInSideEffect.NavigateToMain)
-                false -> postSideEffect(SignInSideEffect.NavigateToSignUp)
-            }
-
-            reduce {
-                copy(
-                    isLoading = false
-                )
-            }
-        }
-    }
 }

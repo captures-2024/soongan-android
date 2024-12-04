@@ -35,7 +35,6 @@ internal fun InputNicknameRoute(
                 is NicknameSideEffect.NavigateToBack -> navigateToBack()
 
                 is NicknameSideEffect.NavigateToBirthDate -> navigateToBirthDate(uiState.nickname)
-
             }
         }
     }
