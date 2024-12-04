@@ -43,12 +43,6 @@ constructor(
     }
 
     private suspend fun handleFetchFCMToken(intent: AppRootIntent.FetchFCMToken) {
-        reduce {
-            copy(
-                fcmToken = intent.token,
-            )
-        }
-
         fetchRemoteFcmToken(fcmToken = intent.token)
     }
 
@@ -89,8 +83,6 @@ constructor(
 
         reduce {
             copy(
-                accessToken = tokenResult.first,
-                refreshToken = tokenResult.second,
                 memberInfo = memberInfo,
             )
         }
