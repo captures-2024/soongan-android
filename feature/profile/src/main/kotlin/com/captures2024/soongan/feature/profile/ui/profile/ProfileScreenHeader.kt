@@ -1,6 +1,5 @@
 package com.captures2024.soongan.feature.profile.ui.profile
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,7 +13,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -29,24 +27,26 @@ import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillMen
 import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
 import com.captures2024.soongan.core.designsystem.theme.PoppinsFontFamily
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.model.UserProfile
 import com.captures2024.soongan.core.design.R as RDesign
-import com.captures2024.soongan.feature.profile.R as RProfile
 
 @Composable
 internal fun ProfileScreenHeader(
+    userProfile: UserProfile,
     modifier: Modifier = Modifier,
-    profileImageUrl: String,
+    onClickNotification: () -> Unit,
+    onClickMenu: () -> Unit,
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
             .padding(start = 20.dp, end = 16.dp)
     ) {
-        ProfileCard(profileImageUrl = profileImageUrl)
+        ProfileCard(userProfile = userProfile)
         WeightSpacer(1f)
         IconBox(
-            onClickNotification = { TODO("Navigate notification screen") },
-            onClickMenu = { TODO("Open bottom modal sheet") }
+            onClickNotification = onClickNotification,
+            onClickMenu = onClickMenu
         )
     }
 }
@@ -54,12 +54,12 @@ internal fun ProfileScreenHeader(
 @Composable
 private fun ProfileCard(
     modifier: Modifier = Modifier,
-    profileImageUrl: String,
+    userProfile: UserProfile,
 ) {
     Row(modifier = modifier) {
         AsyncImage(
-            model = profileImageUrl,
-            contentDescription = "profile image",
+            model = userProfile.image,
+            contentDescription = null,
             modifier = Modifier.size(60.dp),
             placeholder = painterResource(RDesign.drawable.ic_border_profile),
             error = painterResource(RDesign.drawable.ic_border_profile)
@@ -67,7 +67,7 @@ private fun ProfileCard(
         WidthSpacer(16.dp)
         Column {
             NonScaleText(
-                text = "user1",
+                text = userProfile.nickname,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Medium,
                 fontFamily = PoppinsFontFamily,
@@ -76,7 +76,7 @@ private fun ProfileCard(
             )
             HeightSpacer(8.dp)
             NonScaleText(
-                text = stringResource(RProfile.string.default_self_introduction),
+                text = userProfile.selfIntroduction,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Normal,
                 fontFamily = NanumSquareNeoFontFamily,
@@ -88,7 +88,7 @@ private fun ProfileCard(
 }
 
 @Composable
-fun IconBox(
+private fun IconBox(
     modifier: Modifier = Modifier,
     onClickNotification: () -> Unit,
     onClickMenu: () -> Unit,
@@ -104,7 +104,7 @@ fun IconBox(
             )
             Icon(
                 imageVector = MyIconPack.IconNonFillBell,
-                contentDescription = MyIconPack.IconNonFillBell.name
+                contentDescription = "notification icon"
             )
         }
         WidthSpacer(16.dp)
@@ -115,7 +115,7 @@ fun IconBox(
         ) {
             Icon(
                 imageVector = MyIconPack.IconNonFillMenu,
-                contentDescription = MyIconPack.IconNonFillMenu.name,
+                contentDescription = "bottom sheet menu icon",
                 modifier = Modifier.size(20.dp)
             )
         }
@@ -125,8 +125,9 @@ fun IconBox(
 @DevicePreviews
 @Composable
 private fun ProfileScreenHeaderPreview() {
-    Box(modifier = Modifier.background(color = Color.White)) {
-        ProfileScreenHeader(profileImageUrl = "")
-
-    }
+        ProfileScreenHeader(
+            userProfile = UserProfile(),
+            onClickNotification = {},
+            onClickMenu = {}
+        )
 }

@@ -1,4 +1,4 @@
-package com.captures2024.soongan.core.navigator.screen.main
+package com.captures2024.soongan.core.navigator.screen.main.feed
 
 import kotlinx.serialization.Serializable
 

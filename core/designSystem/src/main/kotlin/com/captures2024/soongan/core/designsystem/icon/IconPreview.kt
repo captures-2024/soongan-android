@@ -10,16 +10,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconArrowRightFromBracket
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFillCheck
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFillError
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFillHeart
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFillPersonRunning
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconLogoApple
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconLogoGoogle
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconLogoKakao
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillBackArrow
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillBell
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillCircleQuestion
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillComment
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillEdit
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillFile
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillFillter
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillGear
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillHeart
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillInfo
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillLeftArrow
@@ -29,6 +35,7 @@ import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillPlu
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillReport
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillRightArrow
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillTopArrow
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillUser
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonSelectedAwards
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonSelectedFeed
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonSelectedHome
@@ -38,6 +45,38 @@ import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconSelectedFe
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconSelectedHome
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconSelectedProfile
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.Logo
+
+@Preview
+@Composable
+private fun IconNonFillCircleQuestionPreview() {
+    Box(
+        modifier = Modifier
+            .size(64.dp, 64.dp)
+            .background(Color.White),
+        contentAlignment = Alignment.Center,
+    ) {
+        Icon(
+            imageVector = MyIconPack.IconNonFillCircleQuestion,
+            contentDescription = "",
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun IconNonFillFilePreview() {
+    Box(
+        modifier = Modifier
+            .size(64.dp, 64.dp)
+            .background(Color.White),
+        contentAlignment = Alignment.Center,
+    ) {
+        Icon(
+            imageVector = MyIconPack.IconNonFillFile,
+            contentDescription = "",
+        )
+    }
+}
 
 @Preview
 @Composable
@@ -105,6 +144,22 @@ private fun IconNonFillFilterPreview() {
 
 @Preview
 @Composable
+private fun IconFillPersonRunningPreview() {
+    Box(
+        modifier = Modifier
+            .size(64.dp, 64.dp)
+            .background(Color.White),
+        contentAlignment = Alignment.Center,
+    ) {
+        Icon(
+            imageVector = MyIconPack.IconFillPersonRunning,
+            contentDescription = "",
+        )
+    }
+}
+
+@Preview
+@Composable
 private fun IconNonFillTopArrowPreview() {
     Box(
         modifier = Modifier
@@ -114,6 +169,38 @@ private fun IconNonFillTopArrowPreview() {
     ) {
         Icon(
             imageVector = MyIconPack.IconNonFillTopArrow,
+            contentDescription = "",
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun IconNonFillUserPreview() {
+    Box(
+        modifier = Modifier
+            .size(64.dp, 64.dp)
+            .background(Color.White),
+        contentAlignment = Alignment.Center,
+    ) {
+        Icon(
+            imageVector = MyIconPack.IconNonFillUser,
+            contentDescription = "",
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun IconNonFillBellPreview() {
+    Box(
+        modifier = Modifier
+            .size(64.dp, 64.dp)
+            .background(Color.White),
+        contentAlignment = Alignment.Center,
+    ) {
+        Icon(
+            imageVector = MyIconPack.IconNonFillBell,
             contentDescription = "",
         )
     }
@@ -137,6 +224,22 @@ private fun IconSelectedFeedPreview() {
 
 @Preview
 @Composable
+private fun IconArrowRightFromBracketPreview() {
+    Box(
+        modifier = Modifier
+            .size(64.dp, 64.dp)
+            .background(Color.White),
+        contentAlignment = Alignment.Center,
+    ) {
+        Icon(
+            imageVector = MyIconPack.IconArrowRightFromBracket,
+            contentDescription = "",
+        )
+    }
+}
+
+@Preview
+@Composable
 private fun IconNonFillPlusPreview() {
     Box(
         modifier = Modifier
@@ -146,6 +249,22 @@ private fun IconNonFillPlusPreview() {
     ) {
         Icon(
             imageVector = MyIconPack.IconNonFillPlus,
+            contentDescription = "",
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun IconNonFillGearPreview() {
+    Box(
+        modifier = Modifier
+            .size(64.dp, 64.dp)
+            .background(Color.White),
+        contentAlignment = Alignment.Center,
+    ) {
+        Icon(
+            imageVector = MyIconPack.IconNonFillGear,
             contentDescription = "",
         )
     }
