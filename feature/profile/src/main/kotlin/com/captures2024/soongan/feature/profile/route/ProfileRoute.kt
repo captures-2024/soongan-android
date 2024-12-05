@@ -9,7 +9,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.captures2024.soongan.core.model.UserPost
 import com.captures2024.soongan.core.model.UserProfile
 import com.captures2024.soongan.feature.profile.ProfileViewModel
-import com.captures2024.soongan.feature.profile.navigation.ProfileMenuItem
 import com.captures2024.soongan.feature.profile.state.profile.ProfileIntent
 import com.captures2024.soongan.feature.profile.state.profile.ProfileSideEffect
 import com.captures2024.soongan.feature.profile.ui.profile.ProfileMenuBottomSheet
@@ -44,23 +43,10 @@ internal fun ProfileRoute(
         onClickUserPhoto = { profileViewModel.intent(ProfileIntent.OnClickPhoto(it)) }
     )
 
-    fun navigateToProfileDestination(
-        profileMenuItem: ProfileMenuItem,
-    ) {
-        when (profileMenuItem) {
-            ProfileMenuItem.EDIT -> profileViewModel.intent(ProfileIntent.OnClickEdit)
-            ProfileMenuItem.NOTIFICATION_SETTING -> profileViewModel.intent(ProfileIntent.OnClickNotificationSetting)
-            ProfileMenuItem.TERMS_AND_POLICY -> profileViewModel.intent(ProfileIntent.OnClickTermsAndPolicy)
-            ProfileMenuItem.FAQ -> profileViewModel.intent(ProfileIntent.OnClickFAQ)
-            ProfileMenuItem.WITHDRAW -> profileViewModel.intent(ProfileIntent.OnClickWithdraw)
-            ProfileMenuItem.SIGN_OUT -> profileViewModel.intent(ProfileIntent.OnClickSignOut)
-        }
-    }
-
     if (uiState.isOpenBottomSheet) {
         ProfileMenuBottomSheet(
             closeSheet = { profileViewModel.intent(ProfileIntent.OnCloseBottomSheet) },
-            onClickMenuItem = { navigateToProfileDestination(it) }
+            onClickMenuItem = { profileViewModel.intent(it.intent) }
         )
     }
 }
