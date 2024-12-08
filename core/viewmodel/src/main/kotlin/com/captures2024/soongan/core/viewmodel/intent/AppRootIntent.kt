@@ -1,8 +1,8 @@
-package com.captures2024.soongan.state
+package com.captures2024.soongan.core.viewmodel.intent
 
 import com.captures2024.soongan.core.common.base.UIIntent
 
-internal sealed interface AppRootIntent : UIIntent {
+sealed interface AppRootIntent : UIIntent {
 
     data class FetchFCMToken(
         val token: String,

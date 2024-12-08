@@ -25,12 +25,13 @@ import com.captures2024.soongan.core.auth.kakao.KakaoAuthHelper
 import com.captures2024.soongan.core.auth.kakao.KakaoAuthHelperImpl
 import com.captures2024.soongan.core.auth.kakao.KakaoLoginCallback
 import com.captures2024.soongan.core.designsystem.theme.SoonGanTheme
+import com.captures2024.soongan.core.viewmodel.AppRootViewModel
+import com.captures2024.soongan.core.viewmodel.effect.AppRootSideEffect
+import com.captures2024.soongan.core.viewmodel.intent.AppRootIntent
 import com.captures2024.soongan.feature.signIn.SignInViewModel
 import com.captures2024.soongan.feature.signIn.state.SignInIntent
 import com.captures2024.soongan.feature.signIn.state.SignInSideEffect
 import com.captures2024.soongan.route.AppRoute
-import com.captures2024.soongan.state.AppRootIntent
-import com.captures2024.soongan.state.AppRootSideEffect
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.firebase.messaging.FirebaseMessaging

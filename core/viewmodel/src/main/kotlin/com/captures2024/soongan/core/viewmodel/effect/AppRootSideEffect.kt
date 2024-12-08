@@ -1,8 +1,8 @@
-package com.captures2024.soongan.state
+package com.captures2024.soongan.core.viewmodel.effect
 
 import com.captures2024.soongan.core.common.base.UISideEffect
 
-internal sealed interface AppRootSideEffect : UISideEffect {
+sealed interface AppRootSideEffect : UISideEffect {
 
     data class FetchFcmToken(
         val token: String,

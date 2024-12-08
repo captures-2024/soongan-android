@@ -7,8 +7,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.captures2024.soongan.core.designsystem.theme.SoonGanTheme
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
-import com.captures2024.soongan.state.AppRootRouteState
-import com.captures2024.soongan.state.AppRootUIState
+import com.captures2024.soongan.core.viewmodel.state.AppRootUIState
+import com.captures2024.soongan.core.viewmodel.utils.AppRootRoute
 
 @Composable
 internal fun AppRootScreen(
@@ -22,11 +22,11 @@ internal fun AppRootScreen(
         contentAlignment = Alignment.Center,
     ) {
         when (uiState.rootRouteState) {
-            AppRootRouteState.LANDING -> appLandingRoute()
+            AppRootRoute.LANDING -> appLandingRoute()
 
-            AppRootRouteState.SIGN -> appSignRoute()
+            AppRootRoute.SIGN -> appSignRoute()
 
-            AppRootRouteState.MAIN -> appMainRoute()
+            AppRootRoute.MAIN -> appMainRoute()
         }
     }
 }

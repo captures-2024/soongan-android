@@ -1,4 +1,4 @@
-package com.captures2024.soongan
+package com.captures2024.soongan.core.viewmodel
 
 import androidx.lifecycle.SavedStateHandle
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
@@ -7,16 +7,16 @@ import com.captures2024.soongan.core.common.base.BaseViewModel
 import com.captures2024.soongan.core.domain.usecase.fcm.InitFcmUseCase
 import com.captures2024.soongan.core.domain.usecase.members.GetMemberInformationUseCase
 import com.captures2024.soongan.core.domain.usecase.token.GetAllTokenUseCase
-import com.captures2024.soongan.state.AppRootIntent
-import com.captures2024.soongan.state.AppRootRouteState
-import com.captures2024.soongan.state.AppRootSideEffect
-import com.captures2024.soongan.state.AppRootUIState
+import com.captures2024.soongan.core.viewmodel.effect.AppRootSideEffect
+import com.captures2024.soongan.core.viewmodel.intent.AppRootIntent
+import com.captures2024.soongan.core.viewmodel.state.AppRootUIState
+import com.captures2024.soongan.core.viewmodel.utils.AppRootRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
 @HiltViewModel
-internal class AppRootViewModel
+class AppRootViewModel
 @Inject
 constructor(
     private val analyticsHelper: AnalyticsHelper,
@@ -53,7 +53,7 @@ constructor(
     private fun handleNavigateToMain() {
         reduce {
             copy(
-                rootRouteState = AppRootRouteState.MAIN,
+                rootRouteState = AppRootRoute.MAIN,
             )
         }
     }
@@ -98,9 +98,9 @@ constructor(
         )
 
         if (!isNeedRegisterNickname && !isNeedRegisterBirth) {
-            fetchRootRoute(routeState = AppRootRouteState.MAIN)
+            fetchRootRoute(routeState = AppRootRoute.MAIN)
         } else {
-            fetchRootRoute(routeState = AppRootRouteState.SIGN)
+            fetchRootRoute(routeState = AppRootRoute.SIGN)
         }
     }
 
@@ -110,11 +110,11 @@ constructor(
                 postSideEffect(AppRootSideEffect.FailedRemoteSyncData)
             }
 
-            false -> fetchRootRoute(AppRootRouteState.SIGN)
+            false -> fetchRootRoute(AppRootRoute.SIGN)
         }
     }
 
-    private fun fetchRootRoute(routeState: AppRootRouteState) {
+    private fun fetchRootRoute(routeState: AppRootRoute) {
         reduce {
             copy(
                 rootRouteState = routeState,
