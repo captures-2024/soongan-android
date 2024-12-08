@@ -4,11 +4,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavOptions
 import com.captures2024.soongan.core.android.utils.LocalAnalyticsHelper
-import com.captures2024.soongan.core.viewmodel.SignInViewModel
-import com.captures2024.soongan.core.viewmodel.effect.SignInSideEffect
-import com.captures2024.soongan.core.viewmodel.intent.SignInIntent
+import com.captures2024.soongan.core.viewmodel.SignViewModel
+import com.captures2024.soongan.core.viewmodel.effect.SignSideEffect
+import com.captures2024.soongan.core.viewmodel.intent.SignIntent
 import com.captures2024.soongan.feature.signIn.ui.SignInDefaultScreen
 import com.captures2024.soongan.feature.signIn.ui.SignInLoadingScreen
 
@@ -18,20 +17,20 @@ internal fun SignInRoute(
     navigateToBirthDate: (String) -> Unit,
     navigateToTermsOfUse: () -> Unit,
     navigateToPrivacyPolicy: () -> Unit,
-    signInViewModel: SignInViewModel,
+    signViewModel: SignViewModel,
 ) {
     val analyticsHelper = LocalAnalyticsHelper.current
-    val uiState by signInViewModel.state.collectAsStateWithLifecycle()
+    val uiState by signViewModel.state.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
-        signInViewModel.sideEffect.collect {
+        signViewModel.sideEffect.collect {
             analyticsHelper.d(message = "Collected sideEffect = $it")
             when (it) {
-                is SignInSideEffect.NavigateToTermsOfUse -> navigateToTermsOfUse()
+                is SignSideEffect.NavigateToTermsOfUse -> navigateToTermsOfUse()
 
-                is SignInSideEffect.NavigateToPrivacyPolicy -> navigateToPrivacyPolicy()
+                is SignSideEffect.NavigateToPrivacyPolicy -> navigateToPrivacyPolicy()
 
-                is SignInSideEffect.NavigateToSignUp -> {
+                is SignSideEffect.NavigateToSignUp -> {
                     val nickname = it.nickname
 
                     if (nickname == null) {
@@ -46,10 +45,11 @@ internal fun SignInRoute(
                     }
                 }
 
-                is SignInSideEffect.NavigateToMain,
-                is SignInSideEffect.GoogleSignIn,
-                is SignInSideEffect.KakaoSignIn,
-                is SignInSideEffect.SuccessSocialSign -> Unit
+                is SignSideEffect.PatchInfo,
+                is SignSideEffect.NavigateToMain,
+                is SignSideEffect.GoogleSignIn,
+                is SignSideEffect.KakaoSignIn,
+                is SignSideEffect.SuccessSocialSign -> Unit
             }
         }
     }
@@ -58,11 +58,11 @@ internal fun SignInRoute(
         true -> SignInLoadingScreen()
 
         false -> SignInDefaultScreen(
-            onClickGoogleSignIn = { signInViewModel.intent(SignInIntent.OnClickSignGoogle) },
-            onClickKakaoSignIn = { signInViewModel.intent(SignInIntent.OnClickSignKakao) },
-            onClickTermsOfUse = { signInViewModel.intent(SignInIntent.OnClickTermsOfUse) },
-            onClickGuestMode = { signInViewModel.intent(SignInIntent.OnClickGuestMode) },
-            onClickToPrivacyPolicy = { signInViewModel.intent(SignInIntent.OnClickPrivacyPolicy) }
+            onClickGoogleSignIn = { signViewModel.intent(SignIntent.OnClickSignGoogle) },
+            onClickKakaoSignIn = { signViewModel.intent(SignIntent.OnClickSignKakao) },
+            onClickTermsOfUse = { signViewModel.intent(SignIntent.OnClickTermsOfUse) },
+            onClickGuestMode = { signViewModel.intent(SignIntent.OnClickGuestMode) },
+            onClickToPrivacyPolicy = { signViewModel.intent(SignIntent.OnClickPrivacyPolicy) }
         )
     }
 

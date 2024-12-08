@@ -11,20 +11,20 @@ import com.captures2024.soongan.core.android.utils.LocalAnalyticsHelper
 import com.captures2024.soongan.core.common.Validation
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.signUp.R
-import com.captures2024.soongan.feature.signUp.state.birthdate.BirthDateUIState
+import com.captures2024.soongan.feature.signUp.state.birthdate.BirthUIState
 
 @Composable
-internal fun InputBirthYearScreen(
+internal fun InputBirthScreen(
     modifier: Modifier = Modifier,
-    state: BirthDateUIState,
+    state: BirthUIState,
     onClickBack: () -> Unit = {},
-    onValueChange: (String) -> Unit = {}
+    onValueChange: (String) -> Unit = {},
+    onClickConfirm: () -> Unit = {},
 ) {
     val analyticsHelper = LocalAnalyticsHelper.current
-    val isValid = Validation.isValidBirthYear(state.birthDate)
 
     analyticsHelper.d(
-        LogElementArgument("isValid", isValid.toString()),
+        LogElementArgument("isValid", state.isValid.toString()),
     )
 
     Scaffold(
@@ -35,18 +35,18 @@ internal fun InputBirthYearScreen(
             SignUpBottomBar(
                 modifier = Modifier.imePadding(),
                 title = stringResource(id = R.string.input_birth_year_button_title),
-                enabled = when (isValid) {
+                enabled = when (state.isValid) {
                     Validation.BirthYearValidState.Success -> true
                     else -> false
                 },
-                onClick = {}
+                onClick = onClickConfirm,
             )
         }
     ) { paddingValues ->
-        InputBirthYearBodyScreen(
+        InputBirthBodyScreen(
             modifier = modifier.padding(paddingValues),
             state = state,
-            isValid = isValid,
+            isValid = state.isValid,
             onValueChange = onValueChange
         )
     }
@@ -54,16 +54,19 @@ internal fun InputBirthYearScreen(
 
 @DevicePreviews
 @Composable
-private fun InputBirthYearScreenInitPreview() {
-    InputBirthYearScreen(
-        state = BirthDateUIState(nickname = "test")
+private fun InputBirthScreenInitPreview() {
+    InputBirthScreen(
+        state = BirthUIState(nickname = "test")
     )
 }
 
 @DevicePreviews
 @Composable
-private fun InputBirthYearScreenValueChangedPreview() {
-    InputBirthYearScreen(
-        state = BirthDateUIState(nickname = "test")
+private fun InputBirthScreenValueChangedPreview() {
+    InputBirthScreen(
+        state = BirthUIState(
+            nickname = "test",
+            birthYear = "2009"
+        )
     )
 }

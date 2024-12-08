@@ -33,12 +33,12 @@ import com.captures2024.soongan.core.designsystem.theme.PrimaryA
 import com.captures2024.soongan.core.designsystem.theme.PrimaryB
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.signUp.R
-import com.captures2024.soongan.feature.signUp.state.birthdate.BirthDateUIState
+import com.captures2024.soongan.feature.signUp.state.birthdate.BirthUIState
 
 @Composable
-internal fun InputBirthYearBodyScreen(
+internal fun InputBirthBodyScreen(
     modifier: Modifier = Modifier,
-    state: BirthDateUIState,
+    state: BirthUIState,
     isValid: Validation.BirthYearValidState,
     onValueChange: (String) -> Unit = {}
 ) {
@@ -78,7 +78,7 @@ internal fun InputBirthYearBodyScreen(
             Spacer(modifier = Modifier.height(36.dp))
             CustomBasicTextField(
                 modifier = Modifier.focusRequester(focusRequester),
-                value = state.birthDate,
+                value = state.birthYear,
                 title = stringResource(id = R.string.input_birth_year_title),
                 hint = stringResource(id = R.string.input_birth_year_input_form_hint_text),
                 isValid = when (isValid) {
@@ -122,10 +122,10 @@ internal fun InputBirthYearBodyScreen(
 @DevicePreviews
 @Composable
 private fun InputBirthYearBodyScreenPreview() {
-    InputBirthYearBodyScreen(
-        state = BirthDateUIState(
+    InputBirthBodyScreen(
+        state = BirthUIState(
             nickname = "테스트",
-            birthDate = ""
+            birthYear = ""
         ),
         isValid = Validation.BirthYearValidState.Length
     )

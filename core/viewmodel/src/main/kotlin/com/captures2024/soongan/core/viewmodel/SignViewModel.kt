@@ -6,15 +6,15 @@ import com.captures2024.soongan.core.common.base.BaseViewModel
 import com.captures2024.soongan.core.domain.usecase.auth.SigningGoogleUseCase
 import com.captures2024.soongan.core.domain.usecase.auth.SigningKakaoUseCase
 import com.captures2024.soongan.core.domain.usecase.token.ClearAllTokenUseCase
-import com.captures2024.soongan.core.viewmodel.effect.SignInSideEffect
-import com.captures2024.soongan.core.viewmodel.intent.SignInIntent
-import com.captures2024.soongan.core.viewmodel.state.SignInUIState
+import com.captures2024.soongan.core.viewmodel.effect.SignSideEffect
+import com.captures2024.soongan.core.viewmodel.intent.SignIntent
+import com.captures2024.soongan.core.viewmodel.state.SignUIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
 @HiltViewModel
-class SignInViewModel
+class SignViewModel
 @Inject
 constructor(
     private val analyticsHelper: AnalyticsHelper,
@@ -22,9 +22,9 @@ constructor(
     private val signingKakaoUseCase: SigningKakaoUseCase,
     private val clearAllTokenUseCase: ClearAllTokenUseCase,
     savedStateHandle: SavedStateHandle,
-) : BaseViewModel<SignInUIState, SignInSideEffect, SignInIntent>(savedStateHandle) {
+) : BaseViewModel<SignUIState, SignSideEffect, SignIntent>(savedStateHandle) {
 
-    override fun createInitialState(savedStateHandle: SavedStateHandle): SignInUIState = SignInUIState()
+    override fun createInitialState(savedStateHandle: SavedStateHandle): SignUIState = SignUIState()
 
     override fun handleClientException(throwable: Throwable) {
         analyticsHelper.e(
@@ -33,39 +33,41 @@ constructor(
         )
     }
 
-    override suspend fun handleIntent(intent: SignInIntent) {
+    override suspend fun handleIntent(intent: SignIntent) {
         when (intent) {
-            is SignInIntent.FetchFcmToken -> handleFetchFcmToken(intent)
+            is SignIntent.FetchFcmToken -> handleFetchFcmToken(intent)
 
-            is SignInIntent.OnClickGuestMode -> handleOnClickGuestMode()
+            is SignIntent.OnClickGuestMode -> handleOnClickGuestMode()
 
-            is SignInIntent.OnClickSignGoogle -> handleOnClickSignGoogle()
+            is SignIntent.OnClickSignGoogle -> handleOnClickSignGoogle()
 
-            is SignInIntent.OnClickSignKakao -> handleOnClickSignKakao()
+            is SignIntent.OnClickSignKakao -> handleOnClickSignKakao()
 
-            is SignInIntent.OnClickPrivacyPolicy -> handleOnClickPrivacyPolicy()
+            is SignIntent.OnClickPrivacyPolicy -> handleOnClickPrivacyPolicy()
 
-            is SignInIntent.OnClickTermsOfUse -> handleOnClickTermsOfUse()
+            is SignIntent.OnClickTermsOfUse -> handleOnClickTermsOfUse()
 
-            is SignInIntent.CanceledSignGoogle -> handleCanceledSignGoogle()
+            is SignIntent.CanceledSignGoogle -> handleCanceledSignGoogle()
 
-            is SignInIntent.CanceledSignKakao -> handleCanceledSignKakao()
+            is SignIntent.CanceledSignKakao -> handleCanceledSignKakao()
 
-            is SignInIntent.FailedSignGoogle -> handleFailedSignGoogle()
+            is SignIntent.FailedSignGoogle -> handleFailedSignGoogle()
 
-            is SignInIntent.FailedSignKakao -> handleFailedSignKakao()
+            is SignIntent.FailedSignKakao -> handleFailedSignKakao()
 
-            is SignInIntent.CompleteSignGoogle -> handleCompleteSignGoogle(intent)
+            is SignIntent.CompleteSignGoogle -> handleCompleteSignGoogle(intent)
 
-            is SignInIntent.CompleteSignKakao -> handleCompleteSignKakao(intent)
+            is SignIntent.CompleteSignKakao -> handleCompleteSignKakao(intent)
 
-            is SignInIntent.FailedSyncData -> handleFailedSyncData()
+            is SignIntent.FailedSyncData -> handleFailedSyncData()
 
-            is SignInIntent.SuccessSyncData -> handleSuccessSyncData(intent)
+            is SignIntent.SuccessSyncData -> handleSuccessSyncData(intent)
+
+            is SignIntent.SuccessPathBirth -> handleSuccessPathBirth(intent)
         }
     }
 
-    private fun handleFetchFcmToken(intent: SignInIntent.FetchFcmToken) {
+    private fun handleFetchFcmToken(intent: SignIntent.FetchFcmToken) {
         reduce {
             copy(
                 fcmToken = intent.fcmToken,
@@ -74,7 +76,7 @@ constructor(
     }
 
     private fun handleOnClickGuestMode() {
-        postSideEffect(SignInSideEffect.NavigateToMain)
+        postSideEffect(SignSideEffect.NavigateToMain)
     }
 
     private fun handleOnClickSignGoogle() {
@@ -82,7 +84,7 @@ constructor(
             copy(isLoading = true)
         }
 
-        postSideEffect(SignInSideEffect.GoogleSignIn)
+        postSideEffect(SignSideEffect.GoogleSignIn)
     }
 
     private fun handleOnClickSignKakao() {
@@ -90,15 +92,15 @@ constructor(
             copy(isLoading = true)
         }
 
-        postSideEffect(SignInSideEffect.KakaoSignIn)
+        postSideEffect(SignSideEffect.KakaoSignIn)
     }
 
     private fun handleOnClickPrivacyPolicy() {
-        postSideEffect(SignInSideEffect.NavigateToPrivacyPolicy)
+        postSideEffect(SignSideEffect.NavigateToPrivacyPolicy)
     }
 
     private fun handleOnClickTermsOfUse() {
-        postSideEffect(SignInSideEffect.NavigateToTermsOfUse)
+        postSideEffect(SignSideEffect.NavigateToTermsOfUse)
     }
 
     private fun handleCanceledSignGoogle() {
@@ -117,11 +119,11 @@ constructor(
         failedSignIn()
     }
 
-    private suspend fun handleCompleteSignGoogle(intent: SignInIntent.CompleteSignGoogle) {
+    private suspend fun handleCompleteSignGoogle(intent: SignIntent.CompleteSignGoogle) {
         googleSignIn(token = intent.token)
     }
 
-    private suspend fun handleCompleteSignKakao(intent: SignInIntent.CompleteSignKakao) {
+    private suspend fun handleCompleteSignKakao(intent: SignIntent.CompleteSignKakao) {
         kakaoSignIn(token = intent.accessToken)
     }
 
@@ -130,7 +132,7 @@ constructor(
         failedSignIn()
     }
 
-    private suspend fun handleSuccessSyncData(intent: SignInIntent.SuccessSyncData) {
+    private suspend fun handleSuccessSyncData(intent: SignIntent.SuccessSyncData) {
         reduce {
             copy(
                 isLoading = false,
@@ -138,9 +140,18 @@ constructor(
         }
 
         postSideEffect(
-            SignInSideEffect.NavigateToSignUp(
+            SignSideEffect.NavigateToSignUp(
                 nickname = intent.nickname,
             ),
+        )
+    }
+
+    private suspend fun handleSuccessPathBirth(intent: SignIntent.SuccessPathBirth) {
+        postSideEffect(
+            SignSideEffect.PatchInfo(
+                nickname = intent.nickname,
+                birthYear = intent.birthYear,
+            )
         )
     }
 
@@ -199,6 +210,6 @@ constructor(
     }
 
     private fun successSign() {
-        postSideEffect(SignInSideEffect.SuccessSocialSign)
+        postSideEffect(SignSideEffect.SuccessSocialSign)
     }
 }

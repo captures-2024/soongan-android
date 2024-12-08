@@ -39,6 +39,8 @@ constructor(
             is AppRootIntent.SuccessSign -> handleSuccessSign()
 
             is AppRootIntent.NavigateToMain -> handleNavigateToMain()
+
+            is AppRootIntent.PatchMemberInfo -> handlePatchMemberInfo(intent)
         }
     }
 
@@ -56,6 +58,19 @@ constructor(
                 rootRouteState = AppRootRoute.MAIN,
             )
         }
+    }
+
+    private fun handlePatchMemberInfo(intent: AppRootIntent.PatchMemberInfo) {
+        reduce {
+            copy(
+                memberInfo = currentState.patchMemberInfo(
+                    nickname = intent.nickname,
+                    birthYear = intent.birthYear,
+                )
+            )
+        }
+
+        handleNavigateToMain()
     }
 
     private suspend fun syncAllData(isSignSession: Boolean = false) = launch(Dispatchers.IO) {

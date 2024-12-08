@@ -6,19 +6,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.captures2024.soongan.core.viewmodel.SignInViewModel
+import com.captures2024.soongan.core.viewmodel.SignViewModel
 import com.captures2024.soongan.feature.sign.navigation.SignRouteNavHost
 
 @Composable
 fun SignRoute(
-    signInViewModel: SignInViewModel,
+    signViewModel: SignViewModel,
 ) {
     val navController: NavHostController = rememberNavController()
 
     Scaffold { padding ->
         SignRouteNavHost(
             navController = navController,
-            signInViewModel = signInViewModel,
+            signViewModel = signViewModel,
             modifier = Modifier.padding(padding)
         )
     }

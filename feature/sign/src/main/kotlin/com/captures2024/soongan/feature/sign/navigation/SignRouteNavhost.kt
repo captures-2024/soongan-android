@@ -12,7 +12,7 @@ import com.captures2024.soongan.core.navigator.screen.sign.NicknameNavigator
 import com.captures2024.soongan.core.navigator.screen.sign.PrivacyPolicyNavigator
 import com.captures2024.soongan.core.navigator.screen.sign.SignInNavigator
 import com.captures2024.soongan.core.navigator.screen.sign.TermsOfUseNavigator
-import com.captures2024.soongan.core.viewmodel.SignInViewModel
+import com.captures2024.soongan.core.viewmodel.SignViewModel
 import com.captures2024.soongan.feature.privacypolicy.navigation.privacyPolicy
 import com.captures2024.soongan.feature.signIn.navigation.signIn
 import com.captures2024.soongan.feature.signUp.navigation.signUp
@@ -21,7 +21,7 @@ import com.captures2024.soongan.feature.termsofuse.navigation.termsOfUse
 @Composable
 internal fun SignRouteNavHost(
     navController: NavHostController,
-    signInViewModel: SignInViewModel,
+    signViewModel: SignViewModel,
     modifier: Modifier = Modifier,
 ) {
     NavHost(
@@ -34,7 +34,7 @@ internal fun SignRouteNavHost(
         popExitTransition = { ExitTransition.None }
     ) {
         signIn(
-            signInViewModel = signInViewModel,
+            signViewModel = signViewModel,
             navigateToNickname = navController::navigateToNickname,
             navigateToBirthDate = navController::navigateToBirthDate,
             navigateToTermsOfUse = navController::navigateToTermsOfUse,
@@ -44,7 +44,8 @@ internal fun SignRouteNavHost(
         privacyPolicy(navigateToBack = navController::popBackStack)
         signUp(
             navigateToBack = navController::popBackStack,
-            navigateToBirthDate = navController::navigateToBirthDate
+            navigateToBirthDate = navController::navigateToBirthDate,
+            signViewModel = signViewModel,
         )
     }
 }
@@ -56,3 +57,5 @@ fun NavController.navigateToPrivacyPolicy() = navigate(PrivacyPolicyNavigator)
 fun NavController.navigateToNickname() = navigate(NicknameNavigator)
 
 fun NavController.navigateToBirthDate(nickname: String) = navigate(BirthDateNavigator(nickname))
+
+fun NavController.navigateToSign() = navigate(SignInNavigator)

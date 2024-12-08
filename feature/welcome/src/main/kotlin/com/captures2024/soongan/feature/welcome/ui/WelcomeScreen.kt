@@ -21,12 +21,12 @@ import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.design.R
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
-import com.captures2024.soongan.feature.welcome.WelcomeUiState
+import com.captures2024.soongan.feature.welcome.state.WelcomeUIState
 
 @Composable
 internal fun WelcomeScreen(
+    uiState: WelcomeUIState,
     modifier: Modifier = Modifier,
-    uiState: WelcomeUiState,
 ) {
     Column(
         modifier = modifier
@@ -48,10 +48,7 @@ internal fun WelcomeScreen(
         )
         Spacer(modifier = Modifier.height(44.dp))
         NonScaleText(
-            text = when (uiState) {
-                is WelcomeUiState.Loading -> ""
-                else -> uiState.nickname + stringResource(id = com.captures2024.soongan.feature.welcome.R.string.nickname_unit_text)
-            },
+            text =uiState.nickname + stringResource(id = com.captures2024.soongan.feature.welcome.R.string.nickname_unit_text),
             color = Color.White,
             fontSize = 36.sp,
             fontWeight = FontWeight.SemiBold,
@@ -63,6 +60,6 @@ internal fun WelcomeScreen(
 @Composable
 private fun WelcomeScreenPreview() {
     WelcomeScreen(
-        uiState = WelcomeUiState.Success("테스트")
+        uiState = WelcomeUIState("테스트"),
     )
 }

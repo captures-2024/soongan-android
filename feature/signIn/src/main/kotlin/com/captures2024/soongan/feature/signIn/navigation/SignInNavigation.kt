@@ -3,12 +3,12 @@ package com.captures2024.soongan.feature.signIn.navigation
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.captures2024.soongan.core.navigator.screen.sign.SignInNavigator
-import com.captures2024.soongan.core.viewmodel.SignInViewModel
+import com.captures2024.soongan.core.viewmodel.SignViewModel
 import com.captures2024.soongan.feature.signIn.route.SignInRoute
 
 
 fun NavGraphBuilder.signIn(
-    signInViewModel: SignInViewModel,
+    signViewModel: SignViewModel,
     navigateToNickname: () -> Unit,
     navigateToBirthDate: (String) -> Unit,
     navigateToTermsOfUse: () -> Unit,
@@ -20,7 +20,7 @@ fun NavGraphBuilder.signIn(
             navigateToBirthDate = navigateToBirthDate,
             navigateToTermsOfUse = navigateToTermsOfUse,
             navigateToPrivacyPolicy = navigateToPrivacyPolicy,
-            signInViewModel = signInViewModel
+            signViewModel = signViewModel
         )
     }
 }

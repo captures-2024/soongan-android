@@ -18,4 +18,14 @@ data class AppRootUIState(
     )
 
     fun isGuestMode(): Boolean = memberInfo.email.isEmpty()
+
+    fun getNickname(): String = memberInfo.nickname ?: ""
+
+    fun patchMemberInfo(
+        nickname: String,
+        birthYear: Int,
+    ): UserInfoDto = memberInfo.copy(
+        nickname = nickname,
+        birthYear = birthYear,
+    )
 }

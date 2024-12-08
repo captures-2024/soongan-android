@@ -11,4 +11,9 @@ sealed interface AppRootIntent : UIIntent {
     data object SuccessSign : AppRootIntent
 
     data object NavigateToMain : AppRootIntent
+
+    data class PatchMemberInfo(
+        val nickname: String,
+        val birthYear: Int,
+    ) : AppRootIntent
 }

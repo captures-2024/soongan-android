@@ -3,6 +3,7 @@ package com.captures2024.soongan.feature.signUp
 import androidx.lifecycle.SavedStateHandle
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.common.base.BaseViewModel
+import com.captures2024.soongan.core.domain.usecase.members.IsVerifiedNicknameUseCase
 import com.captures2024.soongan.feature.signUp.state.nickname.NicknameIntent
 import com.captures2024.soongan.feature.signUp.state.nickname.NicknameSideEffect
 import com.captures2024.soongan.feature.signUp.state.nickname.NicknameUIState
@@ -14,8 +15,8 @@ internal class NicknameViewModel
 @Inject
 constructor(
     private val analyticsHelper: AnalyticsHelper,
-//    private val isAllowNicknameUseCase: IsAllowNicknameUseCase,
-//    private val registerNicknameUseCase: RegisterNicknameUseCase,
+    private val isVerifiedNicknameUseCase: IsVerifiedNicknameUseCase,
+    private val patchNicknameUseCase: IsVerifiedNicknameUseCase,
     savedStateHandle: SavedStateHandle
 ) : BaseViewModel<NicknameUIState, NicknameSideEffect, NicknameIntent>(savedStateHandle) {
 
@@ -34,9 +35,7 @@ constructor(
 
             is NicknameIntent.OnClickConfirm -> onClickConfirm()
 
-            is NicknameIntent.OnValueChanged -> onValueChanged(intent.nickname)
-
-            is NicknameIntent.RegisterNickname -> registerNickname()
+            is NicknameIntent.OnValueChanged -> onValueChanged(intent)
         }
     }
 
@@ -51,81 +50,82 @@ constructor(
             )
         }
 
-//        launch {
-//            val isAllow = isAllowNicknameUseCase(currentState.nickname).getOrNull()
-//
-//            if (isAllow == null) {
-//                analyticsHelper.d(message = "isAllow is null")
-//                reduce {
-//                    copy(isLoading = false)
-//                }
-//                return@launch
-//            }
-//
-//            when (isAllow) {
-//                true -> postSideEffect(NicknameSideEffect.NavigateToBirthDate)
-//
-//                false -> {
-//                    analyticsHelper.d(message = "isAllow is false")
-//                    reduce {
-//                        copy(
-//                            isLoading = false,
-//                            isDuplicatedNickname = true
-//                        )
-//                    }
-//                }
-//            }
-//        }
+        launch {
+            val isAllow = isVerifiedNicknameUseCase(currentState.nickname).getOrNull()
+
+            if (isAllow == null) {
+                analyticsHelper.d(message = "isAllow is null")
+                reduce {
+                    copy(isLoading = false)
+                }
+                return@launch
+            }
+
+            when (isAllow) {
+                true -> registerNickname()
+
+                false -> {
+                    analyticsHelper.d(message = "isAllow is false")
+
+                    reduce {
+                        copy(
+                            isLoading = false,
+                            isDuplicatedNickname = true
+                        )
+                    }
+                }
+            }
+        }
     }
 
-    private fun onValueChanged(newValue: String) {
+    private fun onValueChanged(intent: NicknameIntent.OnValueChanged) {
         reduce {
             copy(
-                nickname = newValue,
+                nickname = intent.nickname,
                 isDuplicatedNickname = false,
             )
         }
     }
 
     private fun registerNickname() {
-//        launch {
-//            if (currentState.isDuplicatedNickname) {
-//                analyticsHelper.d(message = "nickname[${currentState.nickname}] is duplicated")
-//                reduce {
-//                    copy(
-//                        isLoading = false,
-//                        isDuplicatedNickname = true
-//                    )
-//                }
-//                return@launch
-//            }
-//
-//            val currentNickname = currentState.nickname
-//
-//            val isRegister = registerNicknameUseCase(currentNickname).getOrNull()
-//
-//            if (isRegister == null) {
-//                analyticsHelper.d(message = "isRegister is null")
-//                reduce {
-//                    copy(
-//                        isLoading = false,
-//                    )
-//                }
-//                return@launch
-//            }
-//
-//            when (isRegister.result) {
-//                true -> postSideEffect(NicknameSideEffect.NavigateToBirthDate)
-//
-//                false -> {
-//                    analyticsHelper.d(message = "nickame[${currentState.nickname}] post failed")
-//                    reduce {
-//                        copy(
-//                            isLoading = false,
-//                        )
-//                    }
-//                }
-//            }
-//        }
+        launch {
+            if (currentState.isDuplicatedNickname) {
+                analyticsHelper.d(message = "nickname[${currentState.nickname}] is duplicated")
+                reduce {
+                    copy(
+                        isLoading = false,
+                        isDuplicatedNickname = true
+                    )
+                }
+                return@launch
+            }
+
+            val currentNickname = currentState.nickname
+
+            val isPatched = patchNicknameUseCase(currentNickname).getOrNull()
+
+            if (isPatched == null) {
+                analyticsHelper.d(message = "isRegister is null")
+                reduce {
+                    copy(
+                        isLoading = false,
+                    )
+                }
+                return@launch
+            }
+
+            when (isPatched) {
+                true -> postSideEffect(NicknameSideEffect.NavigateToBirthDate)
+
+                false -> {
+                    analyticsHelper.d(message = "nickame[${currentState.nickname}] post failed")
+                    reduce {
+                        copy(
+                            isLoading = false,
+                        )
+                    }
+                }
+            }
+        }
     }
 }

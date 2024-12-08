@@ -32,6 +32,7 @@ internal fun MainRouteNavHost(
     modifier: Modifier = Modifier,
     isGuestMode: Boolean,
     routeState: MainRouteState,
+    nickname: String,
 ) {
     val navController = routeState.navController
 
@@ -40,7 +41,9 @@ internal fun MainRouteNavHost(
         navController = navController,
         startDestination = when (isGuestMode) {
             true -> HomeNavigator
-            false -> WelcomeNavigator
+            false -> WelcomeNavigator(
+                nickname = nickname,
+            )
         },
         enterTransition = { EnterTransition.None },
         exitTransition = { ExitTransition.None },
