@@ -1,4 +1,4 @@
-package com.captures2024.soongan.feature.signIn.state
+package com.captures2024.soongan.core.viewmodel.effect
 
 import com.captures2024.soongan.core.common.base.UISideEffect
 

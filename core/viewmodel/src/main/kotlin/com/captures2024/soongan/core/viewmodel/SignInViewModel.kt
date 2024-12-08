@@ -1,4 +1,4 @@
-package com.captures2024.soongan.feature.signIn
+package com.captures2024.soongan.core.viewmodel
 
 import androidx.lifecycle.SavedStateHandle
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
@@ -6,9 +6,9 @@ import com.captures2024.soongan.core.common.base.BaseViewModel
 import com.captures2024.soongan.core.domain.usecase.auth.SigningGoogleUseCase
 import com.captures2024.soongan.core.domain.usecase.auth.SigningKakaoUseCase
 import com.captures2024.soongan.core.domain.usecase.token.ClearAllTokenUseCase
-import com.captures2024.soongan.feature.signIn.state.SignInIntent
-import com.captures2024.soongan.feature.signIn.state.SignInSideEffect
-import com.captures2024.soongan.feature.signIn.state.SignInUIState
+import com.captures2024.soongan.core.viewmodel.effect.SignInSideEffect
+import com.captures2024.soongan.core.viewmodel.intent.SignInIntent
+import com.captures2024.soongan.core.viewmodel.state.SignInUIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
@@ -201,5 +201,4 @@ constructor(
     private fun successSign() {
         postSideEffect(SignInSideEffect.SuccessSocialSign)
     }
-
 }

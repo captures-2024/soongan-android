@@ -6,8 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.captures2024.soongan.core.viewmodel.SignInViewModel
 import com.captures2024.soongan.feature.sign.navigation.SignRouteNavHost
-import com.captures2024.soongan.feature.signIn.SignInViewModel
 
 @Composable
 fun SignRoute(

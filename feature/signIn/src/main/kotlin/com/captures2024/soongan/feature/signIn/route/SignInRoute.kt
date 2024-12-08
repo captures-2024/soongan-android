@@ -6,9 +6,9 @@ import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavOptions
 import com.captures2024.soongan.core.android.utils.LocalAnalyticsHelper
-import com.captures2024.soongan.feature.signIn.SignInViewModel
-import com.captures2024.soongan.feature.signIn.state.SignInIntent
-import com.captures2024.soongan.feature.signIn.state.SignInSideEffect
+import com.captures2024.soongan.core.viewmodel.SignInViewModel
+import com.captures2024.soongan.core.viewmodel.effect.SignInSideEffect
+import com.captures2024.soongan.core.viewmodel.intent.SignInIntent
 import com.captures2024.soongan.feature.signIn.ui.SignInDefaultScreen
 import com.captures2024.soongan.feature.signIn.ui.SignInLoadingScreen
 
@@ -18,7 +18,7 @@ internal fun SignInRoute(
     navigateToBirthDate: (String) -> Unit,
     navigateToTermsOfUse: () -> Unit,
     navigateToPrivacyPolicy: () -> Unit,
-    signInViewModel: SignInViewModel
+    signInViewModel: SignInViewModel,
 ) {
     val analyticsHelper = LocalAnalyticsHelper.current
     val uiState by signInViewModel.state.collectAsStateWithLifecycle()

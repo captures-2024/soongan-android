@@ -1,4 +1,4 @@
-package com.captures2024.soongan.feature.signIn.state
+package com.captures2024.soongan.core.viewmodel.state
 
 import com.captures2024.soongan.core.analytics.utils.LogElementArgument
 import com.captures2024.soongan.core.common.base.UIState
