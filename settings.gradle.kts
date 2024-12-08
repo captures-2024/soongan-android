@@ -43,6 +43,7 @@ include(
     ":core:model",
     ":core:navigator",
     ":core:network",
+    ":core:viewmodel",
 )
 
 include(

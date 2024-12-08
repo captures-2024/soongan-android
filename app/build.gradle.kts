@@ -77,6 +77,7 @@ dependencies {
     implementation(projects.core.model)
     implementation(projects.core.navigator)
     implementation(projects.core.network)
+    implementation(projects.core.viewmodel)
 
     implementation(projects.feature.awards)
     implementation(projects.feature.feed)
