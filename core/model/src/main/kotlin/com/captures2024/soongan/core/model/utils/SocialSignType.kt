@@ -1,4 +1,4 @@
-package com.captures2024.soongan.core.model.network
+package com.captures2024.soongan.core.model.utils
 
 enum class SocialSignType(
     val provider: String,

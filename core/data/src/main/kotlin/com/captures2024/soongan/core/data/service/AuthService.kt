@@ -1,10 +1,10 @@
 package com.captures2024.soongan.core.data.service
 
-import com.captures2024.soongan.core.model.network.request.members.ReissueTokenRequest
-import com.captures2024.soongan.core.model.network.request.members.SignWithTokenRequest
+import com.captures2024.soongan.core.model.network.request.auth.ReissueTokenRequest
+import com.captures2024.soongan.core.model.network.request.auth.SignWithTokenRequest
 import com.captures2024.soongan.core.model.network.response.BaseResponse
-import com.captures2024.soongan.core.model.network.response.members.ReissueTokenResponse
-import com.captures2024.soongan.core.model.network.response.members.SignInWithTokenResponse
+import com.captures2024.soongan.core.model.network.response.auth.ReissueTokenResponse
+import com.captures2024.soongan.core.model.network.response.auth.SignInWithTokenResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Headers

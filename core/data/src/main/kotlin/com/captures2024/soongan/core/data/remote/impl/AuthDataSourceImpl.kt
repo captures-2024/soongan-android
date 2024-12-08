@@ -3,11 +3,11 @@ package com.captures2024.soongan.core.data.remote.impl
 import com.captures2024.soongan.core.data.remote.AuthDataSource
 import com.captures2024.soongan.core.data.service.AuthService
 import com.captures2024.soongan.core.data.utils.safeAPICall
-import com.captures2024.soongan.core.model.network.SocialSignType
-import com.captures2024.soongan.core.model.network.request.members.ReissueTokenRequest
-import com.captures2024.soongan.core.model.network.request.members.SignWithTokenRequest
-import com.captures2024.soongan.core.model.network.response.members.ReissueTokenResponse
-import com.captures2024.soongan.core.model.network.response.members.SignInWithTokenResponse
+import com.captures2024.soongan.core.model.utils.SocialSignType
+import com.captures2024.soongan.core.model.network.request.auth.ReissueTokenRequest
+import com.captures2024.soongan.core.model.network.request.auth.SignWithTokenRequest
+import com.captures2024.soongan.core.model.network.response.auth.ReissueTokenResponse
+import com.captures2024.soongan.core.model.network.response.auth.SignInWithTokenResponse
 import javax.inject.Inject
 
 class AuthDataSourceImpl

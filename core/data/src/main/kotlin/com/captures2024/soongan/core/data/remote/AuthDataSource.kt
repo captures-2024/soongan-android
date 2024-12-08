@@ -1,8 +1,8 @@
 package com.captures2024.soongan.core.data.remote
 
-import com.captures2024.soongan.core.model.network.SocialSignType
-import com.captures2024.soongan.core.model.network.response.members.ReissueTokenResponse
-import com.captures2024.soongan.core.model.network.response.members.SignInWithTokenResponse
+import com.captures2024.soongan.core.model.utils.SocialSignType
+import com.captures2024.soongan.core.model.network.response.auth.ReissueTokenResponse
+import com.captures2024.soongan.core.model.network.response.auth.SignInWithTokenResponse
 
 interface AuthDataSource {
 

@@ -5,7 +5,6 @@ import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.analytics.utils.LogElementArgument
 import com.captures2024.soongan.core.common.base.BaseViewModel
 import com.captures2024.soongan.core.domain.usecase.fcm.InitFcmUseCase
-import com.captures2024.soongan.core.domain.usecase.members.GetMemberInformationUseCase
 import com.captures2024.soongan.core.domain.usecase.token.GetAllTokenUseCase
 import com.captures2024.soongan.core.viewmodel.effect.AppRootSideEffect
 import com.captures2024.soongan.core.viewmodel.intent.AppRootIntent
@@ -22,7 +21,7 @@ constructor(
     private val analyticsHelper: AnalyticsHelper,
     private val initFcmUseCase: InitFcmUseCase,
     private val getAllTokenUseCase: GetAllTokenUseCase,
-    private val getMemberInformationUseCase: GetMemberInformationUseCase,
+//    private val getMemberInformationUseCase: GetMemberInformationUseCase,
     savedStateHandle: SavedStateHandle,
 ) : BaseViewModel<AppRootUIState, AppRootSideEffect, AppRootIntent>(savedStateHandle) {
 
@@ -73,7 +72,8 @@ constructor(
             return@launch
         }
 
-        val memberInfo = getMemberInformationUseCase().getOrNull()
+//        val memberInfo = getMemberInformationUseCase().getOrNull()
+        val memberInfo = null
 
         if (memberInfo == null) {
             // 토큰으로 조회되는 멤버가 없는 경우
@@ -81,27 +81,27 @@ constructor(
             return@launch
         }
 
-        reduce {
-            copy(
-                memberInfo = memberInfo,
-            )
-        }
-
-        val isNeedRegisterNickname = memberInfo.user.nickname.isEmpty()
-        val isNeedRegisterBirth = memberInfo.user.birthDate.isEmpty()
-
-        postSideEffect(
-            AppRootSideEffect.SuccessRemoteSyncData(
-                nickname = memberInfo.user.nickname,
-                birthDate =  memberInfo.user.birthDate,
-            )
-        )
-
-        if (!isNeedRegisterNickname && !isNeedRegisterBirth) {
-            fetchRootRoute(routeState = AppRootRoute.MAIN)
-        } else {
-            fetchRootRoute(routeState = AppRootRoute.SIGN)
-        }
+//        reduce {
+//            copy(
+//                memberInfo = memberInfo,
+//            )
+//        }
+//
+//        val isNeedRegisterNickname = memberInfo.user.nickname.isEmpty()
+//        val isNeedRegisterBirth = memberInfo.user.birthDate.isEmpty()
+//
+//        postSideEffect(
+//            AppRootSideEffect.SuccessRemoteSyncData(
+//                nickname = memberInfo.user.nickname,
+//                birthDate =  memberInfo.user.birthDate,
+//            )
+//        )
+//
+//        if (!isNeedRegisterNickname && !isNeedRegisterBirth) {
+//            fetchRootRoute(routeState = AppRootRoute.MAIN)
+//        } else {
+//            fetchRootRoute(routeState = AppRootRoute.SIGN)
+//        }
     }
 
     private fun emitSignSession(isSignSession: Boolean) {

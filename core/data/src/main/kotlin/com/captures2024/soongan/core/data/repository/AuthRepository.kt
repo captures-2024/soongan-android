@@ -1,7 +1,7 @@
 package com.captures2024.soongan.core.data.repository
 
 import com.captures2024.soongan.core.model.dto.ResultConditionDto
-import com.captures2024.soongan.core.model.network.SocialSignType
+import com.captures2024.soongan.core.model.utils.SocialSignType
 
 interface AuthRepository {
 
