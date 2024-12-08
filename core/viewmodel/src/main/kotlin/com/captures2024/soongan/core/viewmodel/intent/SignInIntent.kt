@@ -38,7 +38,7 @@ sealed interface SignInIntent : UIIntent {
     data object FailedSyncData : SignInIntent
 
     data class SuccessSyncData(
-        val nickname: String,
-        val birthDate: String,
+        val nickname: String?,
+        val birthYear: Int?,
     ) : SignInIntent
 }

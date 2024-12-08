@@ -244,7 +244,7 @@ class SoonGanActivity : ComponentActivity(), KakaoLoginCallback {
         signInViewModel.intent(
             SignInIntent.SuccessSyncData(
                 nickname = sideEffect.nickname,
-                birthDate = sideEffect.birthDate,
+                birthYear = sideEffect.birthYear,
             )
         )
     }

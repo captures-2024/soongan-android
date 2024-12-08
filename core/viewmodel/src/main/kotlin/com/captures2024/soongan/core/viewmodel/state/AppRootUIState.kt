@@ -17,5 +17,5 @@ data class AppRootUIState(
         LogElementArgument("memberInfo", memberInfo.toString()),
     )
 
-    fun isGuestMode(): Boolean = memberInfo.user.email.isEmpty()
+    fun isGuestMode(): Boolean = memberInfo.email.isEmpty()
 }

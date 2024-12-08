@@ -11,7 +11,7 @@ sealed interface AppRootSideEffect : UISideEffect {
     data object FailedRemoteSyncData : AppRootSideEffect
 
     data class SuccessRemoteSyncData(
-        val nickname: String,
-        val birthDate: String,
+        val nickname: String?,
+        val birthYear: Int?,
     ) : AppRootSideEffect
 }

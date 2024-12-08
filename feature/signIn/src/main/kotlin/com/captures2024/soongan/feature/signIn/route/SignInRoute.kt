@@ -31,10 +31,19 @@ internal fun SignInRoute(
 
                 is SignInSideEffect.NavigateToPrivacyPolicy -> navigateToPrivacyPolicy()
 
-                is SignInSideEffect.NavigateToSignUp -> when (it.nickname.isEmpty()) {
-                    true -> navigateToNickname()
+                is SignInSideEffect.NavigateToSignUp -> {
+                    val nickname = it.nickname
 
-                    false -> navigateToBirthDate(it.nickname)
+                    if (nickname == null) {
+                        navigateToNickname()
+                        return@collect
+                    }
+
+                    when (nickname.isEmpty()) {
+                        true -> navigateToNickname()
+
+                        false -> navigateToBirthDate(nickname)
+                    }
                 }
 
                 is SignInSideEffect.NavigateToMain,

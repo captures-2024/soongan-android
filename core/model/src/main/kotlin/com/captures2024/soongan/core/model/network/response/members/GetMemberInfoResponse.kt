@@ -1,10 +1,10 @@
-package com.captures2024.soongan.core.model.entity
+package com.captures2024.soongan.core.model.network.response.members
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class MemberEntity(
+data class GetMemberInfoResponse(
     @SerialName("email")
     val email: String,
     @SerialName("nickname")
