@@ -115,7 +115,7 @@ constructor(
             }
 
             when (isPatched) {
-                true -> postSideEffect(NicknameSideEffect.NavigateToBirthDate)
+                true -> postSideEffect(NicknameSideEffect.NavigateToBirth)
 
                 false -> {
                     analyticsHelper.d(message = "nickame[${currentState.nickname}] post failed")

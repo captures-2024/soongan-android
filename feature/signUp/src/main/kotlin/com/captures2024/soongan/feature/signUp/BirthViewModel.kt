@@ -6,15 +6,15 @@ import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.common.Validation
 import com.captures2024.soongan.core.common.base.BaseViewModel
 import com.captures2024.soongan.core.domain.usecase.members.PatchBirthYearUseCase
-import com.captures2024.soongan.core.navigator.screen.sign.BirthDateNavigator
-import com.captures2024.soongan.feature.signUp.state.birthdate.BirthIntent
-import com.captures2024.soongan.feature.signUp.state.birthdate.BirthSideEffect
-import com.captures2024.soongan.feature.signUp.state.birthdate.BirthUIState
+import com.captures2024.soongan.core.navigator.screen.sign.BirthNavigator
+import com.captures2024.soongan.feature.signUp.state.birth.BirthIntent
+import com.captures2024.soongan.feature.signUp.state.birth.BirthSideEffect
+import com.captures2024.soongan.feature.signUp.state.birth.BirthUIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-internal class BirthDateViewModel
+internal class BirthViewModel
 @Inject
 constructor(
     private val analyticsHelper: AnalyticsHelper,
@@ -23,7 +23,7 @@ constructor(
 ) : BaseViewModel<BirthUIState, BirthSideEffect, BirthIntent>(savedStateHandle) {
 
     override fun createInitialState(savedStateHandle: SavedStateHandle): BirthUIState {
-        val nickname = savedStateHandle.toRoute<BirthDateNavigator>().nickname
+        val nickname = savedStateHandle.toRoute<BirthNavigator>().nickname
         return BirthUIState(nickname = nickname)
     }
 

@@ -14,7 +14,7 @@ import com.captures2024.soongan.feature.signIn.ui.SignInLoadingScreen
 @Composable
 internal fun SignInRoute(
     navigateToNickname: () -> Unit,
-    navigateToBirthDate: (String) -> Unit,
+    navigateToBirth: (String) -> Unit,
     navigateToTermsOfUse: () -> Unit,
     navigateToPrivacyPolicy: () -> Unit,
     signViewModel: SignViewModel,
@@ -41,7 +41,7 @@ internal fun SignInRoute(
                     when (nickname.isEmpty()) {
                         true -> navigateToNickname()
 
-                        false -> navigateToBirthDate(nickname)
+                        false -> navigateToBirth(nickname)
                     }
                 }
 

@@ -1,4 +1,4 @@
-package com.captures2024.soongan.feature.signUp.state.birthdate
+package com.captures2024.soongan.feature.signUp.state.birth
 
 import com.captures2024.soongan.core.common.base.UISideEffect
 

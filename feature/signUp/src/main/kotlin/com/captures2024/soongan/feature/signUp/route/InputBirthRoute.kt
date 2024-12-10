@@ -6,21 +6,21 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.captures2024.soongan.core.viewmodel.SignViewModel
 import com.captures2024.soongan.core.viewmodel.intent.SignIntent
-import com.captures2024.soongan.feature.signUp.BirthDateViewModel
-import com.captures2024.soongan.feature.signUp.state.birthdate.BirthIntent
-import com.captures2024.soongan.feature.signUp.state.birthdate.BirthSideEffect
+import com.captures2024.soongan.feature.signUp.BirthViewModel
+import com.captures2024.soongan.feature.signUp.state.birth.BirthIntent
+import com.captures2024.soongan.feature.signUp.state.birth.BirthSideEffect
 import com.captures2024.soongan.feature.signUp.ui.InputBirthScreen
 
 @Composable
 internal fun InputBirthRoute(
     navigateToBack: () -> Unit,
     signViewModel: SignViewModel,
-    birthDateViewModel: BirthDateViewModel = hiltViewModel(),
+    birthViewModel: BirthViewModel = hiltViewModel(),
 ) {
-    val uiState = birthDateViewModel.state.collectAsStateWithLifecycle()
+    val uiState = birthViewModel.state.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
-        birthDateViewModel.sideEffect.collect {
+        birthViewModel.sideEffect.collect {
             when (it) {
                 is BirthSideEffect.NavigateToBack -> navigateToBack()
 
@@ -37,8 +37,8 @@ internal fun InputBirthRoute(
 
     InputBirthScreen(
         state = uiState.value,
-        onClickBack = { birthDateViewModel.intent(BirthIntent.OnClickBack) },
-        onValueChange = { birthDateViewModel.intent(BirthIntent.OnValueChanged(it)) },
-        onClickConfirm = { birthDateViewModel.intent(BirthIntent.OnClickConfirm) }
+        onClickBack = { birthViewModel.intent(BirthIntent.OnClickBack) },
+        onValueChange = { birthViewModel.intent(BirthIntent.OnValueChanged(it)) },
+        onClickConfirm = { birthViewModel.intent(BirthIntent.OnClickConfirm) }
     )
 }

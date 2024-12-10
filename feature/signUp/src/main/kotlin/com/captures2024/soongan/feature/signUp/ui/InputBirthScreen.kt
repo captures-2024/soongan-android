@@ -11,7 +11,7 @@ import com.captures2024.soongan.core.android.utils.LocalAnalyticsHelper
 import com.captures2024.soongan.core.common.Validation
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.signUp.R
-import com.captures2024.soongan.feature.signUp.state.birthdate.BirthUIState
+import com.captures2024.soongan.feature.signUp.state.birth.BirthUIState
 
 @Composable
 internal fun InputBirthScreen(

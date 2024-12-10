@@ -15,7 +15,7 @@ import com.captures2024.soongan.feature.signUp.ui.InputNicknameScreen
 @Composable
 internal fun InputNicknameRoute(
     navigateToBack: () -> Unit,
-    navigateToBirthDate: (String) -> Unit,
+    navigateToBirth: (String) -> Unit,
     nicknameViewModel: NicknameViewModel = hiltViewModel(),
 ) {
     val analyticsHelper = LocalAnalyticsHelper.current
@@ -33,7 +33,7 @@ internal fun InputNicknameRoute(
             when (it) {
                 is NicknameSideEffect.NavigateToBack -> navigateToBack()
 
-                is NicknameSideEffect.NavigateToBirthDate -> navigateToBirthDate(uiState.nickname)
+                is NicknameSideEffect.NavigateToBirth -> navigateToBirth(uiState.nickname)
             }
         }
     }

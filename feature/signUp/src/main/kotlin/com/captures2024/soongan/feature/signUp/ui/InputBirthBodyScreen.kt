@@ -33,7 +33,7 @@ import com.captures2024.soongan.core.designsystem.theme.PrimaryA
 import com.captures2024.soongan.core.designsystem.theme.PrimaryB
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.signUp.R
-import com.captures2024.soongan.feature.signUp.state.birthdate.BirthUIState
+import com.captures2024.soongan.feature.signUp.state.birth.BirthUIState
 
 @Composable
 internal fun InputBirthBodyScreen(

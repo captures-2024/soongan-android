@@ -6,6 +6,6 @@ internal sealed interface NicknameSideEffect : UISideEffect {
 
     data object NavigateToBack : NicknameSideEffect
 
-    data object NavigateToBirthDate : NicknameSideEffect
+    data object NavigateToBirth : NicknameSideEffect
 
 }

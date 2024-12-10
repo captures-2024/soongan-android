@@ -10,14 +10,14 @@ import com.captures2024.soongan.feature.signIn.route.SignInRoute
 fun NavGraphBuilder.signIn(
     signViewModel: SignViewModel,
     navigateToNickname: () -> Unit,
-    navigateToBirthDate: (String) -> Unit,
+    navigateToBirth: (String) -> Unit,
     navigateToTermsOfUse: () -> Unit,
     navigateToPrivacyPolicy: () -> Unit,
 ) {
     composable<SignInNavigator> {
         SignInRoute(
             navigateToNickname = navigateToNickname,
-            navigateToBirthDate = navigateToBirthDate,
+            navigateToBirth = navigateToBirth,
             navigateToTermsOfUse = navigateToTermsOfUse,
             navigateToPrivacyPolicy = navigateToPrivacyPolicy,
             signViewModel = signViewModel
