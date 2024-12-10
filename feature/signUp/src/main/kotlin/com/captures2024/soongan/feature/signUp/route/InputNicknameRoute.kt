@@ -5,7 +5,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavOptions
 import com.captures2024.soongan.core.analytics.utils.LogElementArgument
 import com.captures2024.soongan.core.android.utils.LocalAnalyticsHelper
 import com.captures2024.soongan.feature.signUp.NicknameViewModel
@@ -16,7 +15,7 @@ import com.captures2024.soongan.feature.signUp.ui.InputNicknameScreen
 @Composable
 internal fun InputNicknameRoute(
     navigateToBack: () -> Unit,
-    navigateToBirthDate: (String) -> Unit,
+    navigateToBirth: (String) -> Unit,
     nicknameViewModel: NicknameViewModel = hiltViewModel(),
 ) {
     val analyticsHelper = LocalAnalyticsHelper.current
@@ -34,7 +33,7 @@ internal fun InputNicknameRoute(
             when (it) {
                 is NicknameSideEffect.NavigateToBack -> navigateToBack()
 
-                is NicknameSideEffect.NavigateToBirthDate -> navigateToBirthDate(uiState.nickname)
+                is NicknameSideEffect.NavigateToBirth -> navigateToBirth(uiState.nickname)
             }
         }
     }

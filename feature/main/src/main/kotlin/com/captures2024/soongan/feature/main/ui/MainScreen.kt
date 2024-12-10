@@ -14,6 +14,7 @@ import com.captures2024.soongan.feature.main.route.MainRouteState
 internal fun MainScreen(
     isGuestMode: Boolean,
     routeState: MainRouteState,
+    nickname: String,
 ) = Scaffold(
     bottomBar = {
         val isNotViewBottomBar = isNotViewBottomBar(
@@ -35,6 +36,7 @@ internal fun MainScreen(
         modifier = Modifier.padding(padding),
         isGuestMode = isGuestMode,
         routeState = routeState,
+        nickname = nickname,
     )
 }
 

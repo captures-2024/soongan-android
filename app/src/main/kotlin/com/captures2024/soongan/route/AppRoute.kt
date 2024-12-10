@@ -3,18 +3,18 @@ package com.captures2024.soongan.route
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.captures2024.soongan.AppRootViewModel
 import com.captures2024.soongan.core.designsystem.component.SoonGanBackground
+import com.captures2024.soongan.core.viewmodel.AppRootViewModel
+import com.captures2024.soongan.core.viewmodel.SignViewModel
 import com.captures2024.soongan.feature.intro.route.IntroRoute
 import com.captures2024.soongan.feature.main.route.MainRoute
 import com.captures2024.soongan.feature.sign.route.SignRoute
-import com.captures2024.soongan.feature.signIn.SignInViewModel
 import com.captures2024.soongan.ui.AppRootScreen
 
 @Composable
 internal fun AppRoute(
     appRootViewModel: AppRootViewModel,
-    signInViewModel: SignInViewModel,
+    signViewModel: SignViewModel,
 ) {
     val uiState by appRootViewModel.state.collectAsStateWithLifecycle()
 
@@ -24,12 +24,13 @@ internal fun AppRoute(
             appLandingRoute = @Composable { AppLandingRoute() },
             appSignRoute = @Composable {
                 AppSignRoute(
-                    signInViewModel = signInViewModel,
+                    signViewModel = signViewModel,
                 )
             },
             appMainRoute = @Composable {
                 AppMainRoute(
                     isGuestMode = uiState.isGuestMode(),
+                    nickname = uiState.getNickname()
                 )
             },
         )
@@ -44,13 +45,19 @@ private fun AppLandingRoute() {
 
 @Composable
 private fun AppSignRoute(
-    signInViewModel: SignInViewModel,
+    signViewModel: SignViewModel,
 ) {
-    SignRoute(signInViewModel = signInViewModel)
+    SignRoute(signViewModel = signViewModel)
 }
 
 @Composable
-private fun AppMainRoute(isGuestMode: Boolean) {
-    MainRoute(isGuestMode = isGuestMode)
+private fun AppMainRoute(
+    isGuestMode: Boolean,
+    nickname: String,
+) {
+    MainRoute(
+        isGuestMode = isGuestMode,
+        nickname = nickname
+    )
 }
 

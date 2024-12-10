@@ -25,12 +25,13 @@ import com.captures2024.soongan.core.auth.kakao.KakaoAuthHelper
 import com.captures2024.soongan.core.auth.kakao.KakaoAuthHelperImpl
 import com.captures2024.soongan.core.auth.kakao.KakaoLoginCallback
 import com.captures2024.soongan.core.designsystem.theme.SoonGanTheme
-import com.captures2024.soongan.feature.signIn.SignInViewModel
-import com.captures2024.soongan.feature.signIn.state.SignInIntent
-import com.captures2024.soongan.feature.signIn.state.SignInSideEffect
+import com.captures2024.soongan.core.viewmodel.AppRootViewModel
+import com.captures2024.soongan.core.viewmodel.SignViewModel
+import com.captures2024.soongan.core.viewmodel.effect.AppRootSideEffect
+import com.captures2024.soongan.core.viewmodel.effect.SignSideEffect
+import com.captures2024.soongan.core.viewmodel.intent.AppRootIntent
+import com.captures2024.soongan.core.viewmodel.intent.SignIntent
 import com.captures2024.soongan.route.AppRoute
-import com.captures2024.soongan.state.AppRootIntent
-import com.captures2024.soongan.state.AppRootSideEffect
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.firebase.messaging.FirebaseMessaging
@@ -50,7 +51,7 @@ class SoonGanActivity : ComponentActivity(), KakaoLoginCallback {
     //endregion
 
     private val appRootViewModel: AppRootViewModel by viewModels()
-    private val signInViewModel: SignInViewModel by viewModels()
+    private val signViewModel: SignViewModel by viewModels()
 
     private val googleAuthUiClient by lazy {
         GoogleAuthUiClient(
@@ -91,24 +92,26 @@ class SoonGanActivity : ComponentActivity(), KakaoLoginCallback {
             }
 
             LaunchedEffect(Unit) {
-                signInViewModel.sideEffect.collect { sideEffect ->
+                signViewModel.sideEffect.collect { sideEffect ->
                     analyticsHelper.d(
                         LogElementArgument("signInVm.sideEffect", "signInViewModel.sideEffect = $sideEffect"),
                         message = "Collected sideEffect"
                     )
 
                     when (sideEffect) {
-                        is SignInSideEffect.GoogleSignIn -> signInGoogle(launcher)
+                        is SignSideEffect.GoogleSignIn -> signInGoogle(launcher)
 
-                        is SignInSideEffect.KakaoSignIn -> signInKakao()
+                        is SignSideEffect.KakaoSignIn -> signInKakao()
 
-                        is SignInSideEffect.SuccessSocialSign -> successSocialSign()
+                        is SignSideEffect.SuccessSocialSign -> successSocialSign()
 
-                        is SignInSideEffect.NavigateToMain -> navigateToMain()
+                        is SignSideEffect.NavigateToMain -> navigateToMain()
 
-                        is SignInSideEffect.NavigateToSignUp,
-                        is SignInSideEffect.NavigateToPrivacyPolicy,
-                        is SignInSideEffect.NavigateToTermsOfUse -> Unit
+                        is SignSideEffect.PatchInfo -> patchInfo(sideEffect)
+
+                        is SignSideEffect.NavigateToSignUp,
+                        is SignSideEffect.NavigateToPrivacyPolicy,
+                        is SignSideEffect.NavigateToTermsOfUse -> Unit
                     }
                 }
             }
@@ -134,7 +137,7 @@ class SoonGanActivity : ComponentActivity(), KakaoLoginCallback {
                 SoonGanTheme(darkTheme = darkTheme) {
                     AppRoute(
                         appRootViewModel = appRootViewModel,
-                        signInViewModel = signInViewModel,
+                        signViewModel = signViewModel,
                     )
                 }
             }
@@ -165,22 +168,22 @@ class SoonGanActivity : ComponentActivity(), KakaoLoginCallback {
                 val resultIntent = result.data
 
                 if (resultIntent == null) {
-                    signInViewModel.intent(SignInIntent.FailedSignGoogle)
+                    signViewModel.intent(SignIntent.FailedSignGoogle)
                     return
                 }
 
                 val token = googleAuthUiClient.signInWithIntent(resultIntent)
 
                 if (token == null) {
-                    signInViewModel.intent(SignInIntent.FailedSignGoogle)
+                    signViewModel.intent(SignIntent.FailedSignGoogle)
                     return
                 }
 
-                signInViewModel.intent(SignInIntent.CompleteSignGoogle(token = token))
+                signViewModel.intent(SignIntent.CompleteSignGoogle(token = token))
             }
 
             RESULT_CANCELED -> {
-                signInViewModel.intent(SignInIntent.CanceledSignGoogle)
+                signViewModel.intent(SignIntent.CanceledSignGoogle)
             }
         }
     }
@@ -195,8 +198,8 @@ class SoonGanActivity : ComponentActivity(), KakaoLoginCallback {
             message = "onSuccessKakaoLogin"
         )
 
-        signInViewModel.intent(
-            SignInIntent.CompleteSignKakao(
+        signViewModel.intent(
+            SignIntent.CompleteSignKakao(
                 accessToken = accessToken ?: "",
                 refreshToken = refreshToken ?: "",
             )
@@ -211,7 +214,7 @@ class SoonGanActivity : ComponentActivity(), KakaoLoginCallback {
             message = "onFailureKakaoLogin",
         )
 
-        signInViewModel.intent(SignInIntent.FailedSignKakao)
+        signViewModel.intent(SignIntent.FailedSignKakao)
     }
 
     private fun signInGoogle(launcher: ManagedActivityResultLauncher<IntentSenderRequest, ActivityResult>) = lifecycleScope.launch {
@@ -232,24 +235,33 @@ class SoonGanActivity : ComponentActivity(), KakaoLoginCallback {
     }
 
     private fun fetchFcmToken(fcmToken: String) {
-        signInViewModel.intent(SignInIntent.FetchFcmToken(fcmToken))
+        signViewModel.intent(SignIntent.FetchFcmToken(fcmToken))
     }
 
     private fun failedSyncData() {
-        signInViewModel.intent(SignInIntent.FailedSyncData)
+        signViewModel.intent(SignIntent.FailedSyncData)
     }
 
     private fun successSyncData(sideEffect: AppRootSideEffect.SuccessRemoteSyncData) {
-        signInViewModel.intent(
-            SignInIntent.SuccessSyncData(
+        signViewModel.intent(
+            SignIntent.SuccessSyncData(
                 nickname = sideEffect.nickname,
-                birthDate = sideEffect.birthDate,
+                birthYear = sideEffect.birthYear,
             )
         )
     }
 
     private fun navigateToMain() {
         appRootViewModel.intent(AppRootIntent.NavigateToMain)
+    }
+
+    private fun patchInfo(sideEffect: SignSideEffect.PatchInfo) {
+        appRootViewModel.intent(
+            AppRootIntent.PatchMemberInfo(
+                nickname = sideEffect.nickname,
+                birthYear = sideEffect.birthYear,
+            )
+        )
     }
 }
 

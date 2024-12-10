@@ -4,13 +4,9 @@ import com.captures2024.soongan.core.data.mapper.toUserInfoDto
 import com.captures2024.soongan.core.data.remote.MembersDataSource
 import com.captures2024.soongan.core.data.service.MembersService
 import com.captures2024.soongan.core.data.utils.safeAPICall
-import com.captures2024.soongan.core.model.dto.UserDto
+import com.captures2024.soongan.core.model.dto.ResultConditionDto
 import com.captures2024.soongan.core.model.dto.UserInfoDto
-import com.captures2024.soongan.core.model.network.SocialSignType
-import com.captures2024.soongan.core.model.network.request.members.ReissueTokenRequest
-import com.captures2024.soongan.core.model.network.request.members.SignWithTokenRequest
-import com.captures2024.soongan.core.model.network.response.members.ReissueTokenResponse
-import com.captures2024.soongan.core.model.network.response.members.SignInWithTokenResponse
+import com.captures2024.soongan.core.model.network.request.members.PatchProfileRequest
 import javax.inject.Inject
 
 class MembersDataSourceImpl
@@ -19,45 +15,37 @@ constructor(
     private val service: MembersService,
 ) : MembersDataSource {
 
-    override suspend fun registerProfileImage() {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun registerNickname(
-        nickname: String,
-    ): UserDto? {
-        val result = safeAPICall {
-            service.registerNickname(
+    override suspend fun patchProfile(
+        nickname: String?,
+        selfIntroduction: String?,
+        profileImage: String?
+    ): UserInfoDto? = safeAPICall {
+        service.patchProfile(
+            request = PatchProfileRequest(
                 nickname = nickname,
+                selfIntroduction = selfIntroduction,
+                profileImage = profileImage,
             )
-        }.body?.responseData
-
-        return when (result) {
-            null -> null
-            else -> UserDto(
-                email = result.id,
-                nickname = result.nickname,
-                birthDate = "",
-            )
-        }
-    }
-
-    override suspend fun getMemberInformation(): UserInfoDto? = safeAPICall {
-        service.getMemberInformation()
+        )
     }.body?.responseData?.toUserInfoDto()
 
-    override suspend fun isDuplicateNickname(
-        nickname: String,
-    ): Boolean {
-        val result = safeAPICall {
-            service.isDuplicateNickname(
-                nickname = nickname,
-            )
+    override suspend fun patchBirthYear(birthYear: Int): UserInfoDto? = safeAPICall {
+        service.patchBirthYear(birthYear = birthYear)
+    }.body?.responseData?.toUserInfoDto()
+
+    override suspend fun getMemberInfo(): UserInfoDto? = safeAPICall {
+        service.getMemberInfo()
+    }.body?.responseData?.toUserInfoDto()
+
+    override suspend fun isVerifiedNickname(nickname: String): ResultConditionDto? {
+        val data = safeAPICall {
+            service.isVerifiedNickname(nickname)
+        }.body?.responseData
+
+        if (data == null) {
+            return null
         }
 
-        return when (val data = result.body?.responseData) {
-            null -> false
-            else -> data
-        }
+        return ResultConditionDto(data)
     }
 }

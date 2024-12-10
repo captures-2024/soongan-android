@@ -11,6 +11,4 @@ internal sealed interface NicknameIntent : UIIntent {
     ) : NicknameIntent
 
     data object OnClickConfirm : NicknameIntent
-
-    data object RegisterNickname : NicknameIntent
 }

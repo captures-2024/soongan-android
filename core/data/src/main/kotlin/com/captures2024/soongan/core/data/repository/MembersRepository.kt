@@ -1,16 +1,20 @@
 package com.captures2024.soongan.core.data.repository
 
-import com.captures2024.soongan.core.model.dto.UserInfoDto
-import com.captures2024.soongan.core.model.network.SocialSignType
 import com.captures2024.soongan.core.model.dto.ResultConditionDto
+import com.captures2024.soongan.core.model.dto.UserInfoDto
+
 
 interface MembersRepository {
 
-    suspend fun registerProfileImage()
+    suspend fun patchProfile(
+        nickname: String?,
+        selfIntroduction: String?,
+        profileImage: String?
+    ): UserInfoDto
 
-    suspend fun registerNickname(nickname: String): ResultConditionDto
+    suspend fun patchBirthYear(birthYear: Int): UserInfoDto
 
-    suspend fun getMemberInformation(): UserInfoDto
+    suspend fun getMemberInfo(): UserInfoDto
 
-    suspend fun isDuplicateNickname(nickname: String): ResultConditionDto
+    suspend fun isVerifiedNickname(nickname: String): ResultConditionDto
 }

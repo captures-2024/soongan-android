@@ -2,10 +2,8 @@ package com.captures2024.soongan.core.data.repository.impl
 
 import com.captures2024.soongan.core.data.remote.MembersDataSource
 import com.captures2024.soongan.core.data.repository.MembersRepository
-import com.captures2024.soongan.core.datastore.TokenDataSource
-import com.captures2024.soongan.core.model.dto.UserInfoDto
-import com.captures2024.soongan.core.model.network.SocialSignType
 import com.captures2024.soongan.core.model.dto.ResultConditionDto
+import com.captures2024.soongan.core.model.dto.UserInfoDto
 import javax.inject.Inject
 
 class MembersRepositoryImpl
@@ -14,27 +12,39 @@ constructor(
     private val membersDataSource: MembersDataSource,
 ) : MembersRepository {
 
-    override suspend fun registerProfileImage() {
-        TODO("Not yet implemented")
+    override suspend fun patchProfile(
+        nickname: String?,
+        selfIntroduction: String?,
+        profileImage: String?
+    ): UserInfoDto {
+        val userInfoDto = membersDataSource.patchProfile(
+            nickname = nickname,
+            selfIntroduction = selfIntroduction,
+            profileImage = profileImage,
+        )
+
+        return userInfoDto ?: throw NullPointerException("userInfoDto is null")
     }
 
-    override suspend fun registerNickname(nickname: String): ResultConditionDto {
-        val result = membersDataSource.registerNickname(nickname = nickname) ?: return ResultConditionDto(result = false)
+    override suspend fun patchBirthYear(birthYear: Int): UserInfoDto {
+        val userInfoDto = membersDataSource.patchBirthYear(
+            birthYear = birthYear,
+        )
 
-        return when (nickname) {
-            result.nickname -> ResultConditionDto(result = true)
-            else -> ResultConditionDto(result = false)
-        }
+        return userInfoDto ?: throw NullPointerException("userInfoDto is null")
     }
 
-    override suspend fun getMemberInformation(): UserInfoDto {
-        val userInfoDto = membersDataSource.getMemberInformation() ?: throw NullPointerException("getMemberInformation is null")
-        return userInfoDto
+    override suspend fun getMemberInfo(): UserInfoDto {
+        val userInfoDto = membersDataSource.getMemberInfo()
+
+        return userInfoDto ?: throw NullPointerException("MemberInfo is null")
     }
 
-    override suspend fun isDuplicateNickname(nickname: String): ResultConditionDto {
-        val result = membersDataSource.isDuplicateNickname(nickname)
+    override suspend fun isVerifiedNickname(nickname: String): ResultConditionDto {
+        val resultConditionDto = membersDataSource.isVerifiedNickname(
+            nickname = nickname,
+        )
 
-        return ResultConditionDto(result)
+        return resultConditionDto ?: throw NullPointerException("resultConditionDto is null")
     }
 }

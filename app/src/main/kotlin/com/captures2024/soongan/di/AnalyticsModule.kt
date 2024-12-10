@@ -11,11 +11,8 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AnalyticsModule {
-    @Provides
-    @Singleton
-    fun provideNapierAnalyticsHelper(): NapierAnalyticsHelper = NapierAnalyticsHelper()
 
     @Provides
     @Singleton
-    fun provideAnalyticsHelper(napierAnalyticsHelper: NapierAnalyticsHelper): AnalyticsHelper = napierAnalyticsHelper.apply { initialize() }
+    fun provideAnalyticsHelper(): AnalyticsHelper = NapierAnalyticsHelper().apply { initialize() }
 }

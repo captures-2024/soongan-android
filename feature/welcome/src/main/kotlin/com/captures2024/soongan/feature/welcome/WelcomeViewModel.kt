@@ -1,45 +1,47 @@
 package com.captures2024.soongan.feature.welcome
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.SavedStateHandle
+import androidx.navigation.toRoute
+import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
+import com.captures2024.soongan.core.common.base.BaseViewModel
+import com.captures2024.soongan.core.navigator.screen.main.welcome.WelcomeNavigator
+import com.captures2024.soongan.feature.welcome.state.WelcomeIntent
+import com.captures2024.soongan.feature.welcome.state.WelcomeSideEffect
+import com.captures2024.soongan.feature.welcome.state.WelcomeUIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
-class WelcomeViewModel
+internal class WelcomeViewModel
 @Inject
 constructor(
+    private val analyticsHelper: AnalyticsHelper,
+    savedStateHandle: SavedStateHandle,
+) : BaseViewModel<WelcomeUIState, WelcomeSideEffect, WelcomeIntent>(savedStateHandle) {
 
-) : ViewModel() {
-    val uiState: StateFlow<WelcomeUiState> = flow<WelcomeUiState> {
-        emit(WelcomeUiState.Success("테스트"))
-        delay(1000)
-        emit(WelcomeUiState.MoveHome("테스트"))
-    }.stateIn(
-        scope = viewModelScope,
-        initialValue = WelcomeUiState.Loading,
-        started = SharingStarted.WhileSubscribed(5_000),
-    )
-
-    companion object {
-        private const val TAG = "WelcomeVM"
+    init {
+        moveHome()
     }
-}
 
-sealed class WelcomeUiState(
-    open val nickname: String
-) {
-    data object Loading : WelcomeUiState("")
-    data class Success(
-        override val nickname: String
-    ) : WelcomeUiState(nickname = nickname)
+    override fun createInitialState(savedStateHandle: SavedStateHandle): WelcomeUIState {
+        val route = savedStateHandle.toRoute<WelcomeNavigator>()
 
-    data class MoveHome(
-        override val nickname: String
-    ) : WelcomeUiState(nickname = nickname)
+        return WelcomeUIState(nickname = route.nickname)
+    }
+
+    override fun handleClientException(throwable: Throwable) {
+        analyticsHelper.e(throwable)
+    }
+
+    override suspend fun handleIntent(intent: WelcomeIntent) {
+        TODO("Not yet implemented")
+    }
+
+    private fun moveHome() {
+        launch {
+            delay(1000)
+            postSideEffect(WelcomeSideEffect.NavigateToHome)
+        }
+    }
 }

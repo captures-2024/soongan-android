@@ -18,6 +18,7 @@ class AndroidFeatureConventionPlugin : BaseConventionPlugin({
         implementation(project(path = ":core:domain"))
         implementation(project(path = ":core:model"))
         implementation(project(path = ":core:navigator"))
+        implementation(project(path = ":core:viewmodel"))
 
         implementation(libs.bundles.lifecycle)
     }
