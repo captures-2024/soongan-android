@@ -1,4 +1,4 @@
-package com.captures2024.soongan.feature.sign.service
+package com.captures2024.soongan.service
 
 //import android.app.NotificationChannel
 //import android.app.NotificationManager

@@ -37,6 +37,14 @@
             </intent-filter>
         </activity>
 
+        <service
+            android:name="com.captures2024.soongan.service.FirebaseCloudMessageService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"
