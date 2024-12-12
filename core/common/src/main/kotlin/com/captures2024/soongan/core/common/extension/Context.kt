@@ -1,4 +1,4 @@
-package com.captures2024.soongan.utils
+package com.captures2024.soongan.core.common.extension
 
 import android.content.Context
 import android.content.pm.PackageManager
