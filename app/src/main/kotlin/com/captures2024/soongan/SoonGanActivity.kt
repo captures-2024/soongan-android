@@ -1,6 +1,7 @@
 package com.captures2024.soongan
 
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
@@ -74,6 +75,10 @@ class SoonGanActivity : ComponentActivity(), KakaoLoginCallback {
                 contract = ActivityResultContracts.StartIntentSenderForResult(),
                 onResult = this::onResult
             )
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                requestPermissions(arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 1)
+            }
 
             initFcmToken()
 
