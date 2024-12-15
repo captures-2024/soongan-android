@@ -22,7 +22,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -34,7 +33,7 @@ import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillTopArrow
 import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
-import com.captures2024.soongan.core.designsystem.theme.PrimaryA
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.designsystem.util.nonScaleSp
 
@@ -59,7 +58,7 @@ fun CommentInputTextField(
             .wrapContentHeight(Alignment.CenterVertically)
             .border(
                 width = 1.dp,
-                color = PrimaryA.copy(alpha = 0.3f),
+                color = SGColor.primaryA.copy(alpha = 0.3f),
                 shape = RoundedCornerShape(202.dp),
             )
             .focusRequester(focusRequester),
@@ -136,7 +135,7 @@ private fun CommentInputBasicTextField(
                     true -> if (hint != null) {
                         NonScaleText(
                             text = hint,
-                            color = PrimaryA.copy(alpha = 0.3f),
+                            color = SGColor.primaryA.copy(alpha = 0.3f),
                             fontSize = 14.sp,
                             lineHeight = 14.sp,
                             fontWeight = FontWeight.Normal,
@@ -149,7 +148,7 @@ private fun CommentInputBasicTextField(
                             .width(48.dp)
                             .height(24.dp)
                             .background(
-                                color = PrimaryA,
+                                color = SGColor.primaryA,
                                 shape = RoundedCornerShape(20.dp),
                             ),
                         contentAlignment = Alignment.Center,
@@ -158,7 +157,7 @@ private fun CommentInputBasicTextField(
                             imageVector = MyIconPack.IconNonFillTopArrow,
                             contentDescription = "button",
                             modifier = Modifier.size(16.dp, 16.dp),
-                            tint = Color.White,
+                            tint = SGColor.white,
                         )
                     }
                 }
@@ -171,7 +170,7 @@ private fun CommentInputBasicTextField(
 @Composable
 private fun CommentInputTextFieldPreview() {
     Column(
-        modifier = Modifier.background(Color.White),
+        modifier = Modifier.background(SGColor.white),
     ) {
         CommentInputTextField(
             modifier = Modifier.fillMaxWidth(),
