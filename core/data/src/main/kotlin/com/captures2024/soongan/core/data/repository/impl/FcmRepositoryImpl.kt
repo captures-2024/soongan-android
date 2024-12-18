@@ -11,12 +11,13 @@ constructor(
     private val fcmDataSource: FcmDataSource,
 ) : FcmRepository {
 
-    override suspend fun initFcm(fcmToken: String): ResultConditionDto {
-        val result = fcmDataSource.initFcm(fcmToken) ?: return ResultConditionDto(false)
+    override suspend fun initFcm(): ResultConditionDto {
+        val result = fcmDataSource.initFcm() ?: return ResultConditionDto(false)
 
-        return when (fcmToken) {
-            result.token -> ResultConditionDto(true)
-            else -> ResultConditionDto(false)
-        }
+        if (result.token != getFcm()) return ResultConditionDto(false)
+
+        return ResultConditionDto(true)
     }
+
+    override suspend fun getFcm(): String = fcmDataSource.getFcm()
 }
