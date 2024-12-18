@@ -4,10 +4,6 @@ import com.captures2024.soongan.core.common.base.UISideEffect
 
 sealed interface AppRootSideEffect : UISideEffect {
 
-    data class FetchFcmToken(
-        val token: String,
-    ) : AppRootSideEffect
-
     data object FailedRemoteSyncData : AppRootSideEffect
 
     data class SuccessRemoteSyncData(

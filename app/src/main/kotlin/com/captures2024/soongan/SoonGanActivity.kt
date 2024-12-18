@@ -129,8 +129,6 @@ class SoonGanActivity : ComponentActivity(), KakaoLoginCallback {
                     )
 
                     when (sideEffect) {
-                        is AppRootSideEffect.FetchFcmToken -> fetchFcmToken(sideEffect.token)
-
                         is AppRootSideEffect.FailedRemoteSyncData -> failedSyncData()
 
                         is AppRootSideEffect.SuccessRemoteSyncData -> successSyncData(sideEffect)
@@ -150,21 +148,7 @@ class SoonGanActivity : ComponentActivity(), KakaoLoginCallback {
     }
 
     private fun initFcmToken() {
-        FirebaseMessaging.getInstance()
-            .token
-            .addOnCompleteListener { task ->
-                if (!task.isSuccessful) {
-                    analyticsHelper.e(
-                        throwable = task.exception,
-                        message = "Fetching FCM registration token failed"
-                    )
-                    return@addOnCompleteListener
-                }
-
-                val token = task.result
-
-                appRootViewModel.intent(AppRootIntent.FetchFCMToken(token = token))
-            }
+        appRootViewModel.intent(AppRootIntent.FetchFCMToken)
     }
 
     private fun onResult(result: ActivityResult) {
@@ -237,10 +221,6 @@ class SoonGanActivity : ComponentActivity(), KakaoLoginCallback {
 
     private fun successSocialSign() {
         appRootViewModel.intent(AppRootIntent.SuccessSign)
-    }
-
-    private fun fetchFcmToken(fcmToken: String) {
-        signViewModel.intent(SignIntent.FetchFcmToken(fcmToken))
     }
 
     private fun failedSyncData() {

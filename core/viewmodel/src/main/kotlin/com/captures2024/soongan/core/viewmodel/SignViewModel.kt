@@ -5,6 +5,7 @@ import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.common.base.BaseViewModel
 import com.captures2024.soongan.core.domain.usecase.auth.SigningGoogleUseCase
 import com.captures2024.soongan.core.domain.usecase.auth.SigningKakaoUseCase
+import com.captures2024.soongan.core.domain.usecase.fcm.GetFcmUseCase
 import com.captures2024.soongan.core.domain.usecase.token.ClearAllTokenUseCase
 import com.captures2024.soongan.core.viewmodel.effect.SignSideEffect
 import com.captures2024.soongan.core.viewmodel.intent.SignIntent
@@ -18,6 +19,7 @@ class SignViewModel
 @Inject
 constructor(
     private val analyticsHelper: AnalyticsHelper,
+    private val getFcmUseCase: GetFcmUseCase,
     private val signingGoogleUseCase: SigningGoogleUseCase,
     private val signingKakaoUseCase: SigningKakaoUseCase,
     private val clearAllTokenUseCase: ClearAllTokenUseCase,
@@ -35,8 +37,6 @@ constructor(
 
     override suspend fun handleIntent(intent: SignIntent) {
         when (intent) {
-            is SignIntent.FetchFcmToken -> handleFetchFcmToken(intent)
-
             is SignIntent.OnClickGuestMode -> handleOnClickGuestMode()
 
             is SignIntent.OnClickSignGoogle -> handleOnClickSignGoogle()
@@ -64,14 +64,6 @@ constructor(
             is SignIntent.SuccessSyncData -> handleSuccessSyncData(intent)
 
             is SignIntent.SuccessPathBirth -> handleSuccessPathBirth(intent)
-        }
-    }
-
-    private fun handleFetchFcmToken(intent: SignIntent.FetchFcmToken) {
-        reduce {
-            copy(
-                fcmToken = intent.fcmToken,
-            )
         }
     }
 
@@ -168,9 +160,16 @@ constructor(
     }
 
     private suspend fun googleSignIn(token: String) = launch(Dispatchers.IO) {
+        val fcmToken = getFcmUseCase().getOrNull()
+
+        if(fcmToken == null) {
+            analyticsHelper.d(message = "fcm token is null")
+            return@launch
+        }
+
         val result = signingGoogleUseCase(
             token = token,
-            fcmToken = currentState.fcmToken,
+            fcmToken = fcmToken,
         ).getOrNull()
 
         if (result == null) {
@@ -189,13 +188,20 @@ constructor(
     }
 
     private suspend fun kakaoSignIn(token: String) = launch {
+        val fcmToken = getFcmUseCase().getOrNull()
+
+        if(fcmToken == null) {
+            analyticsHelper.d(message = "fcm token is null")
+            return@launch
+        }
+
         val result = signingKakaoUseCase(
             token = token,
-            fcmToken = currentState.fcmToken,
+            fcmToken = fcmToken,
         ).getOrNull()
 
         if (result == null) {
-            analyticsHelper.d(message = "result is null",)
+            analyticsHelper.d(message = "result is null")
             failedSignIn()
             return@launch
         }

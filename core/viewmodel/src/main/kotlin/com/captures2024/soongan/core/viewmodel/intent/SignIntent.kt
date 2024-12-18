@@ -4,10 +4,6 @@ import com.captures2024.soongan.core.common.base.UIIntent
 
 sealed interface SignIntent : UIIntent {
 
-    data class FetchFcmToken(
-        val fcmToken: String,
-    ): SignIntent
-
     data object OnClickGuestMode : SignIntent
 
     data object OnClickSignGoogle : SignIntent
