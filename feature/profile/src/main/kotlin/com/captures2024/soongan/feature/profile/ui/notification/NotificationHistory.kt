@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -40,11 +41,21 @@ internal fun NotificationHistory(
     Column(
         modifier = modifier.fillMaxSize()
     ) {
-        if (notifications.isEmpty()) EmptyNotificationHistory()
-        else NotificationHistoryContent(
-            notifications = notifications,
-            onClick = onClick
-        )
+        if (notifications.isEmpty()) {
+            EmptyNotificationHistory()
+        } else {
+            LazyColumn {
+                items(notifications, key = { it.id }) {
+                    NotificationHistoryContent(
+                        title = it.title,
+                        body = it.body,
+                        receiveAt = it.receiveAt,
+                        isRead = it.isRead,
+                        onClick = onClick
+                    )
+                }
+            }
+        }
     }
 }
 
@@ -68,59 +79,62 @@ private fun EmptyNotificationHistory(modifier: Modifier = Modifier) {
 @Composable
 private fun NotificationHistoryContent(
     modifier: Modifier = Modifier,
-    notifications: List<UserNotification>,
+    title: String,
+    body: String,
+    receiveAt: String,
+    isRead: Boolean = false,
     onClick: () -> Unit,
 ) {
-    LazyColumn(modifier = modifier) {
-        items(notifications, key = { it.id }) {
-            Column(modifier = Modifier.clickable(onClick = onClick)) {
-                HeightSpacer(20.dp)
-                Row(
-                    modifier = Modifier.padding(start = 12.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .size(8.dp)
-                            .clip(CircleShape)
-                            .background(color = if (it.isRead) Color.White else Accent)
-                    )
-                    WidthSpacer(12.dp)
-                    NonScaleText(
-                        text = it.title,
-                        fontSize = 16.sp,
-                        color = PrimaryA,
-                        fontWeight = FontWeight.Bold,
-                        fontFamily = NanumSquareNeoFontFamily,
-                        lineHeight = 16.sp
-                    )
-                }
-
-                HeightSpacer(8.dp)
-                NonScaleText(
-                    text = it.body,
-                    fontSize = 12.sp,
-                    modifier = Modifier.padding(horizontal = 32.dp),
-                    color = PrimaryA.copy(alpha = 0.6f),
-                    fontWeight = FontWeight.Bold,
-                    fontFamily = NanumSquareNeoFontFamily,
-                    lineHeight = 20.sp
-                )
-                HeightSpacer(8.dp)
-                NonScaleText(
-                    text = it.receiveAt,
-                    fontSize = 12.sp,
-                    modifier = Modifier.padding(horizontal = 32.dp),
-                    color = PrimaryA.copy(alpha = 0.6f),
-                    fontWeight = FontWeight.Normal,
-                    fontFamily = NanumSquareNeoFontFamily,
-                    lineHeight = 12.sp
-                )
-                HeightSpacer(20.dp)
-            }
-            HorizontalDivider(modifier = Modifier.padding(horizontal = 20.dp))
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick)
+    ) {
+        HeightSpacer(20.dp)
+        Row(
+            modifier = Modifier.padding(start = 12.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(8.dp)
+                    .clip(CircleShape)
+                    .background(color = if (isRead) Color.White else Accent)
+            )
+            WidthSpacer(12.dp)
+            NonScaleText(
+                text = title,
+                fontSize = 16.sp,
+                color = PrimaryA,
+                fontWeight = FontWeight.Bold,
+                fontFamily = NanumSquareNeoFontFamily,
+                lineHeight = 16.sp
+            )
         }
+
+        HeightSpacer(8.dp)
+        NonScaleText(
+            text = body,
+            fontSize = 12.sp,
+            modifier = Modifier.padding(horizontal = 32.dp),
+            color = PrimaryA.copy(alpha = 0.6f),
+            fontWeight = FontWeight.Bold,
+            fontFamily = NanumSquareNeoFontFamily,
+            lineHeight = 20.sp
+        )
+        HeightSpacer(8.dp)
+        NonScaleText(
+            text = receiveAt,
+            fontSize = 12.sp,
+            modifier = Modifier.padding(horizontal = 32.dp),
+            color = PrimaryA.copy(alpha = 0.6f),
+            fontWeight = FontWeight.Normal,
+            fontFamily = NanumSquareNeoFontFamily,
+            lineHeight = 12.sp
+        )
+        HeightSpacer(20.dp)
     }
+    HorizontalDivider(modifier = Modifier.padding(horizontal = 20.dp))
 }
 
 
