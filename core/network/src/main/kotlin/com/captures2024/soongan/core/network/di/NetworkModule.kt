@@ -10,6 +10,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import okhttp3.Authenticator
 import okhttp3.MediaType.Companion.toMediaType
@@ -21,11 +22,13 @@ import javax.inject.Singleton
 
 private const val MaxTimeoutMillis = 60_000L
 
+@OptIn(ExperimentalSerializationApi::class)
 private val jsonRule = Json {
     encodeDefaults = true
     ignoreUnknownKeys = true
     prettyPrint = true
     isLenient = true
+    explicitNulls = false
 }
 
 private val jsonConverterFactory = jsonRule.asConverterFactory("application/json".toMediaType())
