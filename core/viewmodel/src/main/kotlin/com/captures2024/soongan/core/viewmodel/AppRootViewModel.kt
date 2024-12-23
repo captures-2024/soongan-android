@@ -26,7 +26,8 @@ constructor(
     savedStateHandle: SavedStateHandle,
 ) : BaseViewModel<AppRootUIState, AppRootSideEffect, AppRootIntent>(savedStateHandle) {
 
-    override fun createInitialState(savedStateHandle: SavedStateHandle): AppRootUIState = AppRootUIState()
+    override fun createInitialState(savedStateHandle: SavedStateHandle): AppRootUIState =
+        AppRootUIState()
 
     override fun handleClientException(throwable: Throwable) {
         analyticsHelper.e(throwable = throwable)
@@ -130,14 +131,16 @@ constructor(
     private suspend fun fetchRemoteFcmToken() = launch(Dispatchers.IO) {
         val result = initFcmUseCase().getOrNull()
 
-        if (result != true) {
-            analyticsHelper.d(
-                LogElementArgument("result about init fcm", "result = $result"),
-                message = "Fail to fetch RemoteFcmToken",
-            )
-        } else {
-            analyticsHelper.d(message = "fin fetchRemoteFcmToken")
+        val logMessage = when (result) {
+            true -> "success fetch RemoteFcmToken"
+            false -> "fail fetch RemoteFcmToken"
+            else -> "already registered RemoteFcmToken"
         }
+
+        analyticsHelper.d(
+            LogElementArgument("result about init fcm", "result = $result"),
+            message = logMessage,
+        )
 
         fetchRootRoute(AppRootRoute.SIGN)
     }
