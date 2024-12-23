@@ -9,8 +9,12 @@ import com.captures2024.soongan.core.data.service.FcmService
 import com.captures2024.soongan.core.data.utils.safeAPICall
 import com.captures2024.soongan.core.model.dto.FcmDto
 import com.captures2024.soongan.core.model.network.request.fcm.InitFcmRequest
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 class FcmDataSourceImpl
 @Inject
@@ -20,17 +24,10 @@ constructor(
 ) : FcmDataSource {
 
     @SuppressLint("HardwareIds")
-    override suspend fun initFcm(
-        fcmToken: String,
-    ): FcmDto? = safeAPICall {
-//        Timber.tag("initFcm").d("fcmToken = $fcmToken")
-//        Timber.tag("initFcm").d("deviceId = ${Settings.Secure.getString(
-//            context.contentResolver,
-//            Settings.Secure.ANDROID_ID
-//        )}")
+    override suspend fun initFcm(): FcmDto? = safeAPICall {
         service.initFcm(
             request = InitFcmRequest(
-                token = fcmToken,
+                token = getFcm(),
                 deviceId = Settings.Secure.getString(
                     context.contentResolver,
                     Settings.Secure.ANDROID_ID,
@@ -38,4 +35,22 @@ constructor(
             ),
         )
     }.body?.responseData?.toDto()
+
+    override suspend fun getFcm(): String = suspendCoroutine { continuation ->
+        FirebaseMessaging.getInstance()
+            .token
+            .addOnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    continuation.resumeWithException(
+                        task.exception ?: IllegalStateException("Fail to load FCM token")
+                    )
+
+                    return@addOnCompleteListener
+                }
+
+                val token = task.result
+
+                continuation.resume(token)
+            }
+    }
 }

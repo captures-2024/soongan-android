@@ -1,5 +1,6 @@
 package com.captures2024.soongan.core.model.mock
 
+import com.captures2024.soongan.core.model.UserNotification
 import com.captures2024.soongan.core.model.UserPost
 
 val samplePhotos: List<UserPost> by lazy {
@@ -130,4 +131,50 @@ val samplePhotos: List<UserPost> by lazy {
             title = "",
         ),
     )
+}
+
+val mockNotifications: List<UserNotification> by lazy {
+    listOf(
+        List(8) { idx ->
+            val index = idx + 1
+            UserNotification.Contest(
+                id = index,
+                title = "대회 알림 title $index",
+                body = "대회 알림 content $index",
+                receiveAt = "$index 일전",
+                isRead = idx % 2 != 0
+            )
+        },
+        List(8) { idx ->
+            val index = idx + 9
+            UserNotification.Action(
+                id = index,
+                title = "활동 알림 title $index",
+                body = "활동 알림 content $index",
+                receiveAt = "$index 일전",
+                isRead = idx % 2 != 0
+            )
+        },
+        List(8) { idx ->
+            val index = idx + 17
+            UserNotification.Announcement(
+                id = index,
+                title = "공지 알림 title $index",
+                body = "공지 알림 content $index",
+                receiveAt = "$index 일전",
+                isRead = idx % 2 != 0
+            )
+        },
+        List(4) { idx ->
+            val index = idx + 25
+            UserNotification.Vindication(
+                id = index,
+                title = "소명 알림 title $index",
+                body = "소명 알림 content $index",
+                receiveAt = "$index 일전",
+                isRead = idx % 2 != 0,
+                completed = idx % 2 != 0,
+            )
+        }
+    ).flatten()
 }

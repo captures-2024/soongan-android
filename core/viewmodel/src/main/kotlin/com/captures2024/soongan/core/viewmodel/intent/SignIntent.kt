@@ -9,18 +9,15 @@ sealed interface SignIntent : UIIntent {
      *
      * @property fcmToken fetch 할 fcm Token
      */
-    data class FetchFcmToken(
-        val fcmToken: String,
-    ): SignIntent
+//    data class FetchFcmToken(
+//        val fcmToken: String,
+//    ): SignIntent
 
     /**
      * 사용자가 게스트 모드로 진입하려고 할 때 발생하는 인텐트
      */
     data object OnClickGuestMode : SignIntent
 
-    /**
-     * 사용자가 구글 로그인을 시도할 때 발생하는 인텐트
-     */
     data object OnClickSignGoogle : SignIntent
 
     /**

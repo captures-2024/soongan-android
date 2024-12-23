@@ -4,13 +4,13 @@ import com.captures2024.soongan.core.data.repository.FcmRepository
 import com.captures2024.soongan.core.domain.runSuspendCatching
 import javax.inject.Inject
 
-class InitFcmUseCase
+class GetFcmUseCase
 @Inject
 constructor(
     private val repository: FcmRepository,
 ) {
 
-    suspend operator fun invoke(): Result<Boolean> = runSuspendCatching {
-        repository.initFcm().result
+    suspend operator fun invoke(): Result<String> = runSuspendCatching {
+        repository.getFcm()
     }
 }

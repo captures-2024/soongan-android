@@ -1,6 +1,7 @@
 package com.captures2024.soongan
 
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
@@ -75,6 +76,10 @@ class SoonGanActivity : ComponentActivity(), KakaoLoginCallback {
                 onResult = this::onResult
             )
 
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                requestPermissions(arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 1)
+            }
+
             initFcmToken()
 
             DisposableEffect(darkTheme) {
@@ -124,8 +129,6 @@ class SoonGanActivity : ComponentActivity(), KakaoLoginCallback {
                     )
 
                     when (sideEffect) {
-                        is AppRootSideEffect.FetchFcmToken -> fetchFcmToken(sideEffect.token)
-
                         is AppRootSideEffect.FailedRemoteSyncData -> failedSyncData()
 
                         is AppRootSideEffect.SuccessRemoteSyncData -> successSyncData(sideEffect)
@@ -145,21 +148,7 @@ class SoonGanActivity : ComponentActivity(), KakaoLoginCallback {
     }
 
     private fun initFcmToken() {
-        FirebaseMessaging.getInstance()
-            .token
-            .addOnCompleteListener { task ->
-                if (!task.isSuccessful) {
-                    analyticsHelper.e(
-                        throwable = task.exception,
-                        message = "Fetching FCM registration token failed"
-                    )
-                    return@addOnCompleteListener
-                }
-
-                val token = task.result
-
-                appRootViewModel.intent(AppRootIntent.FetchFCMToken(token = token))
-            }
+        appRootViewModel.intent(AppRootIntent.FetchFCMToken)
     }
 
     private fun onResult(result: ActivityResult) {
@@ -232,10 +221,6 @@ class SoonGanActivity : ComponentActivity(), KakaoLoginCallback {
 
     private fun successSocialSign() {
         appRootViewModel.intent(AppRootIntent.SuccessSign)
-    }
-
-    private fun fetchFcmToken(fcmToken: String) {
-        signViewModel.intent(SignIntent.FetchFcmToken(fcmToken))
     }
 
     private fun failedSyncData() {

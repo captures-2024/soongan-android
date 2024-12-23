@@ -1,29 +1,37 @@
 package com.captures2024.soongan.feature.profile.ui.notification
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.sp
-import com.captures2024.soongan.core.designsystem.component.NonScaleText
-import com.captures2024.soongan.core.designsystem.theme.PrimaryB
+import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.model.UserNotification
+import com.captures2024.soongan.core.model.mock.mockNotifications
 
 @Composable
-fun NotificationScreen(modifier: Modifier = Modifier) {
-    Box(
-        modifier = modifier.fillMaxSize()
-            .background(PrimaryB),
-        contentAlignment = Alignment.Center,
-    ) {
-        NonScaleText(
-            text = "notification",
-            color = Color.Black,
-            fontSize = 36.sp,
-            fontWeight = FontWeight.Bold,
+internal fun NotificationScreen(
+    modifier: Modifier = Modifier,
+    onBackPressed: () -> Unit = {},
+    allNotifications: List<UserNotification> = mockNotifications,
+) {
+    Scaffold(
+        modifier = modifier.fillMaxSize(),
+        topBar = {
+            NotificationTopBar(onBackPressed = onBackPressed)
+        },
+        containerColor = Color.White
+    ) { paddingValues ->
+        NotificationBody(
+            modifier = modifier.padding(paddingValues),
+            notifications = allNotifications
         )
     }
+}
+
+@DevicePreviews
+@Composable
+private fun NotificationScreenPreview() {
+    NotificationScreen(allNotifications = mockNotifications)
 }

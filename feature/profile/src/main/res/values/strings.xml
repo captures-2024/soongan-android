@@ -10,4 +10,12 @@
     <string name="profile_menu_bottom_sheet_faq_title">FAQ</string>
     <string name="profile_menu_bottom_sheet_withdraw_title">회원탈퇴</string>
     <string name="profile_menu_bottom_sheet_sign_out_title">로그아웃</string>
+
+<!--  NotificationBody  -->
+    <string name="contest_notification_title">대회 알림</string>
+    <string name="user_action_notification_title">활동 알림</string>
+    <string name="announce_notification_title">공지 알림</string>
+
+<!--  NotificationHistory  -->
+    <string name="non_exist_notification_message">표시할 알림이 없어요.</string>
 </resources>
