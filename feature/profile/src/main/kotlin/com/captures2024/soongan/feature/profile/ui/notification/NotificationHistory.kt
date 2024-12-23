@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -31,6 +32,7 @@ import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.model.UserNotification
 import com.captures2024.soongan.core.model.mock.mockNotifications
 import com.captures2024.soongan.core.model.utils.NotificationType
+import com.captures2024.soongan.feature.profile.R
 
 @Composable
 internal fun NotificationHistory(
@@ -66,7 +68,7 @@ private fun EmptyNotificationHistory(modifier: Modifier = Modifier) {
         contentAlignment = Alignment.Center
     ) {
         NonScaleText(
-            "표시할 알림이 없습니다.",
+            stringResource(R.string.non_exist_notification_message),
             fontSize = 24.sp,
             color = PrimaryA,
             fontWeight = FontWeight.Bold,

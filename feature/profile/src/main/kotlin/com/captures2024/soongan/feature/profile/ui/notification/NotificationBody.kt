@@ -15,12 +15,14 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.captures2024.soongan.core.designsystem.theme.PrimaryA
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.model.UserNotification
 import com.captures2024.soongan.core.model.mock.mockNotifications
 import com.captures2024.soongan.core.model.utils.NotificationType
+import com.captures2024.soongan.feature.profile.R
 import com.captures2024.soongan.feature.profile.utils.nonScaleAnnotatedTitle
 import kotlinx.coroutines.launch
 
@@ -31,9 +33,18 @@ internal fun NotificationBody(
     notifications: List<UserNotification>,
 ) {
     val tabs = listOf(
-        nonScaleAnnotatedTitle(title = "대회 알림", count = 93),
-        nonScaleAnnotatedTitle(title = "활동 알림", count = 8),
-        nonScaleAnnotatedTitle(title = "공지 알림", count = 8),
+        nonScaleAnnotatedTitle(
+            title = stringResource(R.string.contest_notification_title),
+            count = 93
+        ),
+        nonScaleAnnotatedTitle(
+            title = stringResource(R.string.user_action_notification_title),
+            count = 8
+        ),
+        nonScaleAnnotatedTitle(
+            title = stringResource(R.string.announce_notification_title),
+            count = 8
+        ),
     )
     val pagerState = rememberPagerState(
         pageCount = { tabs.size },
