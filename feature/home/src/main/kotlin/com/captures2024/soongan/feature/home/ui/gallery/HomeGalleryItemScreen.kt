@@ -11,13 +11,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.captures2024.soongan.core.designsystem.component.shimmerBrush
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.theme.dropShadow
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.model.UserPost
@@ -32,11 +32,11 @@ internal fun HomeGallerySkeletonItem(
         .height(item.height.dp)
         .dropShadow(
             shape = RoundedCornerShape(0.dp),
-            color = Color(0x40000000),
+            color = SGColor.black.copy(alpha = 0.2f),
             offsetY = 4.dp,
             blur = 4.dp
         )
-        .background(Color(0xFFD9D9D9))
+        .background(SGColor.gray400)
         .background(brush = shimmerBrush(targetValue = 1300f))
 )
 
@@ -60,12 +60,11 @@ internal fun HomeGalleryImageItem(
             .heightIn(min = 100.dp)
             .dropShadow(
                 shape = RoundedCornerShape(0.dp),
-                color = Color(0x40000000),
+                color = SGColor.black.copy(alpha = 0.2f),
                 offsetY = 4.dp,
-                blur = 4.dp
+                blur = 4.dp,
             )
             .clickable {
-//                Timber.tag("HomeGalleryImageItem").d("showShimmer = ${showShimmer.value}")
                 if (!showShimmer.value) {
                     onClick(item)
                 }

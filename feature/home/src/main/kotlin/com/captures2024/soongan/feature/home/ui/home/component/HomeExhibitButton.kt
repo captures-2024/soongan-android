@@ -15,7 +15,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -25,7 +24,7 @@ import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillPlus
 import com.captures2024.soongan.core.designsystem.theme.PrimaryA
-import com.captures2024.soongan.core.designsystem.theme.PrimaryC
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.theme.dropShadow
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.home.R
@@ -34,9 +33,9 @@ private const val MAX_EXHIBIT_CNT = 3
 
 @Composable
 internal fun HomeExhibitButton(
-    modifier: Modifier = Modifier,
     onClick: () -> Unit,
     exhibitCount: Int,
+    modifier: Modifier = Modifier,
 ) {
     val widthValue = when (exhibitCount) {
         0 -> 257
@@ -59,8 +58,8 @@ internal fun HomeExhibitButton(
                 .fillMaxSize()
                 .background(
                     color = when {
-                        exhibitCount < MAX_EXHIBIT_CNT -> Color.White
-                        else -> PrimaryC
+                        exhibitCount < MAX_EXHIBIT_CNT -> SGColor.white
+                        else -> SGColor.tempPrimaryC
                     },
                 ),
             verticalArrangement = Arrangement.Center,
@@ -78,8 +77,8 @@ internal fun HomeExhibitButton(
                         }
                     ),
                 tint = when {
-                    exhibitCount< MAX_EXHIBIT_CNT -> Color.Black
-                    else -> Color.White
+                    exhibitCount< MAX_EXHIBIT_CNT -> SGColor.black
+                    else -> SGColor.white
                 },
             )
             if (exhibitCount == 0) {
@@ -98,8 +97,8 @@ internal fun HomeExhibitButton(
                 NonScaleText(
                     text = "$exhibitCount/$MAX_EXHIBIT_CNT",
                     color = when (exhibitCount) {
-                        MAX_EXHIBIT_CNT -> Color.White
-                        else -> PrimaryA
+                        MAX_EXHIBIT_CNT -> SGColor.white
+                        else -> SGColor.primaryA
                     },
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Normal,
@@ -116,7 +115,7 @@ internal fun HomeExhibitButton(
 @Composable
 private fun HomeExhibitButtonPreview() {
     Column(
-        modifier = Modifier.background(Color.White)
+        modifier = Modifier.background(SGColor.white)
             .padding(40.dp)
     ) {
         HomeExhibitButton(

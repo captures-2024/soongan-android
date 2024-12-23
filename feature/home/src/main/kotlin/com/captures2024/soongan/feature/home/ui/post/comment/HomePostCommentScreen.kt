@@ -15,7 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -23,14 +22,14 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillMenu
-import com.captures2024.soongan.core.designsystem.theme.PrimaryA
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.model.UserPost
 import com.captures2024.soongan.core.model.mock.samplePhotos
 
 @Composable
 internal fun HomePostCommentScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier
@@ -46,7 +45,7 @@ internal fun HomePostCommentScreen(
             modifier = Modifier
                 .size(28.dp)
                 .clip(CircleShape),
-            contentScale = ContentScale.FillWidth
+            contentScale = ContentScale.FillWidth,
         )
         Spacer(modifier = Modifier.width(8.dp))
         HomePostCommentScreenBody()
@@ -61,10 +60,10 @@ internal fun HomePostCommentScreen(
             Icon(
                 imageVector = MyIconPack.IconNonFillMenu,
                 contentDescription = "menu",
-                tint = PrimaryA,
+                tint = SGColor.primaryA,
                 modifier = Modifier.size(
                     width = 2.dp,
-                    height = 12.dp
+                    height = 12.dp,
                 )
             )
         }
@@ -74,7 +73,7 @@ internal fun HomePostCommentScreen(
 @DevicePreviews
 @Composable
 private fun HomePostCommentScreenPreview() {
-    Box(modifier = Modifier.background(Color.White)) {
+    Box(modifier = Modifier.background(SGColor.white)) {
         HomePostCommentScreen()
     }
 }

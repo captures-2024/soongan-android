@@ -24,7 +24,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -40,6 +39,7 @@ import coil.request.ImageRequest
 import com.captures2024.soongan.core.designsystem.component.CommentInputTextField
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.model.UserPost
 import com.captures2024.soongan.core.model.mock.samplePhotos
@@ -87,7 +87,7 @@ internal fun HomePostCommentBottomSheetDialog(
                 ) {
                     NonScaleText(
                         text = stringResource(id = R.string.home_post_comment_bottom_sheet_dialog_title),
-                        color = Color.Black,
+                        color = SGColor.black,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Bold,
                         lineHeight = 24.sp,
@@ -95,7 +95,7 @@ internal fun HomePostCommentBottomSheetDialog(
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     HorizontalDivider(
-                        color = Color(0x4D252525),
+                        color = SGColor.primaryA.copy(alpha = 0.3f),
                         thickness = 1.dp
                     )
                 }
@@ -119,14 +119,14 @@ internal fun HomePostCommentBottomSheetDialog(
                         modifier = Modifier
                             .size(36.dp, 36.dp)
                             .clip(CircleShape),
-                        contentScale = ContentScale.FillWidth
+                        contentScale = ContentScale.FillWidth,
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     CommentInputTextField(
                         modifier = Modifier.fillMaxWidth(),
                         value = comment,
                         onValueChange = onCommentValueChanged,
-                        hint = stringResource(id = R.string.home_post_comment_bottom_sheet_dialog_input_hint)
+                        hint = stringResource(id = R.string.home_post_comment_bottom_sheet_dialog_input_hint),
                     )
                 }
             }

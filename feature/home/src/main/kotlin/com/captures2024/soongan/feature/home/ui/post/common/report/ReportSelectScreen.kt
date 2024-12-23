@@ -14,13 +14,12 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
-import com.captures2024.soongan.core.designsystem.theme.PrimaryA
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.home.utils.ReportType
 
@@ -71,7 +70,7 @@ private fun PostReportDefaultBody(
         Spacer(modifier = Modifier.width(20.dp))
         NonScaleText(
             text = text,
-            color = PrimaryA,
+            color = SGColor.primaryA,
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
             lineHeight = 24.sp,
@@ -85,7 +84,7 @@ private fun PostReportDefaultBody(
     if (isVisibleDivider) {
         HorizontalDivider(
             modifier = Modifier.fillMaxWidth(),
-            color = PrimaryA.copy(alpha = 0.3f),
+            color = SGColor.primaryA.copy(alpha = 0.3f),
         )
     }
 }
@@ -93,7 +92,7 @@ private fun PostReportDefaultBody(
 @DevicePreviews
 @Composable
 private fun PostReportScreenPreview() {
-    Box(modifier = Modifier.background(Color.White)) {
+    Box(modifier = Modifier.background(SGColor.white)) {
         ReportSelectScreen {
 
         }

@@ -16,7 +16,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -30,7 +29,7 @@ import com.captures2024.soongan.core.designsystem.component.WidthSpacer
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFillHeart
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillComment
-import com.captures2024.soongan.core.designsystem.theme.PrimaryA
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.model.UserPost
 import com.captures2024.soongan.feature.home.ui.home.component.HomeExhibitButton
@@ -65,7 +64,7 @@ private fun ExhibitContent(
         modifier = modifier
             .fillMaxWidth()
             .horizontalScroll(rememberScrollState()),
-        horizontalArrangement = Arrangement.Center
+        horizontalArrangement = Arrangement.Center,
     ) {
         HomeExhibitButton(
             onClick = onClickPlus,
@@ -136,7 +135,7 @@ private fun InteractionIconBox(
         WidthSpacer(4.dp)
         NonScaleText(
             text = interactionCount,
-            color = PrimaryA,
+            color = SGColor.primaryA,
             fontSize = 12.sp,
             fontWeight = FontWeight.Normal,
             lineHeight = 12.sp
@@ -151,7 +150,7 @@ private fun HomeScreenBodyPreview() {
     // size 체크용
     val samples = List(3) { UserPost.PhotoPost(0, "", "") }
 
-    Column(modifier = Modifier.background(Color.White)) {
+    Column(modifier = Modifier.background(SGColor.white)) {
         HomeScreenBody(
             onClickPlus = {},
             onClickMyPost = {},

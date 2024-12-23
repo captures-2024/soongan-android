@@ -17,7 +17,6 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -26,8 +25,7 @@ import com.captures2024.soongan.core.designsystem.component.HeightSpacer
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
 import com.captures2024.soongan.core.designsystem.theme.PretendardFontFamily
-import com.captures2024.soongan.core.designsystem.theme.PrimaryA
-import com.captures2024.soongan.core.designsystem.theme.PrimaryB
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.home.R
 import com.captures2024.soongan.feature.home.state.registration_post.RegistrationPostUIState
@@ -65,7 +63,7 @@ internal fun SubmitBottomSheetDialog(
             topBar = @Composable {
                 SubmitBottomSheetDialogTopBar(onBackPressed = closeSheet)
             },
-            containerColor = Color.Transparent,
+            containerColor = SGColor.transparent,
         ) { paddingValues ->
             Column(
                 modifier = Modifier.fillMaxWidth()
@@ -87,7 +85,7 @@ internal fun SubmitBottomSheetDialog(
                         .height(40.dp)
                         .fillMaxWidth()
                         .background(
-                            color = PrimaryA,
+                            color = SGColor.primaryA,
                             shape = RoundedCornerShape(8.dp),
                         )
                         .clickable(onClick = onClickConfirm),
@@ -95,7 +93,7 @@ internal fun SubmitBottomSheetDialog(
                 ) {
                     NonScaleText(
                         text = stringResource(id = R.string.submit_bottom_sheet_confirm_button_title),
-                        color = PrimaryB,
+                        color = SGColor.primaryB,
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Medium,
                         lineHeight = 20.sp,

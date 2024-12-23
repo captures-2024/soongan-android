@@ -15,7 +15,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -28,7 +27,7 @@ import com.captures2024.soongan.core.designsystem.component.HeightSpacer
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.component.shimmerBrush
 import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
-import com.captures2024.soongan.core.designsystem.theme.PrimaryA
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.theme.dropShadow
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.home.R
@@ -46,7 +45,7 @@ internal fun RegistrationPostScreen(
 
     Scaffold(
         modifier = modifier.fillMaxSize()
-            .background(color = Color(0xFFD9D9D9))
+            .background(color = SGColor.tempPrimaryD)
             .paint(
                 painter = painterResource(id = com.captures2024.soongan.core.design.R.drawable.background_home_gallery),
                 contentScale = ContentScale.Crop,
@@ -54,7 +53,7 @@ internal fun RegistrationPostScreen(
         topBar = @Composable {
             RegistrationPostScreenTopBar(onBackPressed = onBackPressed)
         },
-        containerColor = Color.Transparent,
+        containerColor = SGColor.transparent,
     ) { paddingValues ->
         Column(
             modifier = Modifier
@@ -88,7 +87,7 @@ internal fun RegistrationPostScreen(
                         .height(353.dp)
                         .dropShadow(
                             shape = RoundedCornerShape(0.dp),
-                            color = Color(0x40000000),
+                            color = SGColor.black.copy(alpha = 0.25f),
                             blur = 3.dp,
                             offsetX = 6.dp,
                             offsetY = 6.dp,
@@ -113,7 +112,7 @@ internal fun RegistrationPostScreen(
                 fontSize = 12.sp,
                 lineHeight = 14.sp,
                 fontFamily = NanumSquareNeoFontFamily,
-                color = PrimaryA
+                color = SGColor.primaryA
             )
         }
     }

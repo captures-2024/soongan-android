@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
-import com.captures2024.soongan.core.designsystem.theme.PrimaryA
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 
 @Composable
 internal fun ContestPeriodText(
@@ -14,7 +14,7 @@ internal fun ContestPeriodText(
     NonScaleText(
         text = "$text | $period",
         fontSize = 15.sp,
-        color = PrimaryA,
+        color = SGColor.primaryA,
         fontWeight = FontWeight.SemiBold,
     )
 }

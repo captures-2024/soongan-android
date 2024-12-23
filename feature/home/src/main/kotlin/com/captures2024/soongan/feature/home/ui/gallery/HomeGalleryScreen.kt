@@ -25,12 +25,11 @@ import androidx.compose.ui.unit.dp
 import com.captures2024.soongan.core.design.R
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillTopArrow
-import com.captures2024.soongan.core.designsystem.theme.PrimaryA
-import com.captures2024.soongan.core.designsystem.theme.PrimaryB
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.model.UserPost
 import com.captures2024.soongan.feature.home.state.home_gallery.HomeGalleryUIState
 import com.captures2024.soongan.core.designsystem.component.SoonGanIconButton
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.feature.home.utils.GalleryPhotoSortFilter
 import kotlinx.coroutines.launch
 
@@ -50,7 +49,7 @@ internal fun HomeGalleryScreen(
     LazyVerticalStaggeredGrid(
         modifier = modifier
             .fillMaxSize()
-            .background(color = PrimaryB)
+            .background(color = SGColor.primaryB)
             .paint(
                 painter = painterResource(id = R.drawable.background_home_gallery),
                 contentScale = ContentScale.Crop,
@@ -113,7 +112,7 @@ internal fun HomeGalleryScreen(
             Icon(
                 imageVector = MyIconPack.IconNonFillTopArrow,
                 contentDescription = "",
-                tint = PrimaryA,
+                tint = SGColor.primaryA,
                 modifier = Modifier.size(
                     width = 20.dp,
                     height = 16.dp

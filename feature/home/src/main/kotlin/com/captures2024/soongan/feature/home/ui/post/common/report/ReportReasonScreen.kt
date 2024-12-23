@@ -19,7 +19,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -27,11 +26,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.HeightSpacer
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
-import com.captures2024.soongan.core.designsystem.theme.Negative
 import com.captures2024.soongan.core.designsystem.theme.PretendardFontFamily
-import com.captures2024.soongan.core.designsystem.theme.PrimaryA
-import com.captures2024.soongan.core.designsystem.theme.PrimaryB
-import com.captures2024.soongan.core.designsystem.theme.PrimaryC
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.home.R
 
@@ -65,8 +61,17 @@ private fun ReportReasonInput(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .background(Color.White, RoundedCornerShape(8.dp))
-            .border(BorderStroke(1.dp, PrimaryA.copy(alpha = 0.15f)), RoundedCornerShape(8.dp))
+            .background(
+                color = SGColor.white,
+                shape = RoundedCornerShape(8.dp),
+            )
+            .border(
+                border = BorderStroke(
+                    width = 1.dp,
+                    color = SGColor.primaryA.copy(alpha = 0.15f)
+                ),
+                shape = RoundedCornerShape(8.dp),
+            )
             .height(160.dp)
     ) {
         BasicTextField(
@@ -75,23 +80,28 @@ private fun ReportReasonInput(
                 .padding(12.dp),
             value = text,
             onValueChange = { newText ->
-                if (newText.length <= 200) onTextChange(newText)
+                if (newText.length <= 200) {
+                    onTextChange(newText)
+                }
             },
             textStyle = TextStyle(
                 fontSize = 16.sp,
-                color = PrimaryA
+                color = SGColor.primaryA,
             ),
             decorationBox = { innerTextField ->
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(Color.White, shape = RoundedCornerShape(8.dp))
+                        .background(
+                            color = SGColor.white,
+                            shape = RoundedCornerShape(8.dp),
+                        )
                 ) {
                     if (text.isEmpty()) {
                         Text(
                             text = stringResource(R.string.report_reason_input_text),
                             fontSize = 16.sp,
-                            color = PrimaryA.copy(alpha = 0.3f)
+                            color = SGColor.primaryA.copy(alpha = 0.3f),
                         )
                     }
                     innerTextField()
@@ -102,10 +112,13 @@ private fun ReportReasonInput(
         Text(
             text = "${text.length}/200",
             fontSize = 12.sp,
-            color = if (text.length < 200) PrimaryA else Negative,
+            color = when (text.length < 200) {
+                true -> SGColor.primaryA
+                false -> SGColor.negative
+            },
             modifier = Modifier
                 .padding(8.dp)
-                .align(Alignment.BottomEnd)
+                .align(Alignment.BottomEnd),
         )
     }
 }
@@ -121,22 +134,24 @@ private fun ReportButton(
             .height(40.dp)
             .fillMaxWidth()
             .background(
-                color = if (enabled) PrimaryA else PrimaryC,
+                color = when (enabled) {
+                    true -> SGColor.primaryA
+                    false -> SGColor.tempPrimaryC
+                },
                 shape = RoundedCornerShape(8.dp)
             )
             .clickable(enabled = enabled) {
                 onClickSubmit()
-
             },
         contentAlignment = Alignment.Center
     ) {
         NonScaleText(
             text = stringResource(id = R.string.report_submit_text),
-            color = PrimaryB,
+            color = SGColor.primaryB,
             fontSize = 14.sp,
             fontWeight = FontWeight.Medium,
             lineHeight = 20.sp,
-            fontFamily = PretendardFontFamily
+            fontFamily = PretendardFontFamily,
         )
     }
 }

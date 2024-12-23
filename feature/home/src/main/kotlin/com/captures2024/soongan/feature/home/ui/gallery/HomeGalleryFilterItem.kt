@@ -22,8 +22,7 @@ import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFilterLike
-import com.captures2024.soongan.core.designsystem.theme.PrimaryA
-import com.captures2024.soongan.core.designsystem.theme.PrimaryC
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.home.R
 
@@ -53,8 +52,9 @@ internal fun HomeGalleryFilterItem(
                 fontSize = 18.sp,
                 fontWeight = FontWeight.SemiBold,
                 color = when (selected) {
-                    true -> PrimaryA
-                    false -> PrimaryC
+                    true -> SGColor.primaryA
+
+                    false -> SGColor.primaryA.copy(alpha = 0.3f)
                 }
             )
             Icon(
@@ -62,8 +62,9 @@ internal fun HomeGalleryFilterItem(
                 imageVector = icon,
                 contentDescription = text,
                 tint = when (selected) {
-                    true -> PrimaryA
-                    false -> PrimaryC
+                    true -> SGColor.primaryA
+
+                    false -> SGColor.primaryA.copy(alpha = 0.3f)
                 }
             )
         }

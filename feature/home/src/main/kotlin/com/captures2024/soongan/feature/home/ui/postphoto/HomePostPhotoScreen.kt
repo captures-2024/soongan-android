@@ -18,7 +18,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -30,10 +29,10 @@ import coil.request.ImageRequest
 import com.captures2024.soongan.core.designsystem.component.ZoomableBox
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillLeftArrow
-import com.captures2024.soongan.core.designsystem.theme.PrimaryA
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.home.state.postphoto.HomePostPhotoUIState
 import com.captures2024.soongan.core.designsystem.component.SoonGanIconButton
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import kotlinx.coroutines.delay
 
 private const val DEFAULT_DURATION: Long = 1L * 1L * 1000L
@@ -66,7 +65,7 @@ internal fun HomePostPhotoScreen(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(Color.Black),
+            .background(SGColor.black),
         contentAlignment = Alignment.TopStart
     ) {
         ZoomableBox(
@@ -108,7 +107,7 @@ internal fun HomePostPhotoScreen(
                     Icon(
                         imageVector = MyIconPack.IconNonFillLeftArrow,
                         contentDescription = "back",
-                        tint = PrimaryA,
+                        tint = SGColor.primaryA,
                         modifier = Modifier.size(
                             width = 20.dp,
                             height = 16.dp
