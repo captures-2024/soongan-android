@@ -5,7 +5,6 @@ import androidx.compose.ui.graphics.Color
 val PrimaryA = Color(0xFF252525)
 val PrimaryB = Color(0xFFF5F5F5)
 val PrimaryC = Color(0xFFBEBEBE)
-val PrimaryD = Color(0xFFF4F4F4)
 val Accent = Color(0xFFFBC304)
 val Positive = Color(0xFF276EF1)
 val Negative = Color(0xFFDE1135)
@@ -18,6 +17,9 @@ object SGColor {
 
     val positive = Color(0xFF276EF1)
     val negative = Color(0xFFDE1135)
+
+    val tempPrimaryC = Color(0xFFBEBEBE)
+    val tempPrimaryD = Color(0xFFD9D9D9)
 
     val gray700 = Color(0xFF3F3F3F)
     val gray600 = Color(0xFF595959)
