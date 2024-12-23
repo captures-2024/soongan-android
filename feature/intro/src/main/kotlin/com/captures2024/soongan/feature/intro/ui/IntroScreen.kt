@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.theme.SoonGanTheme
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 
@@ -14,7 +14,7 @@ internal fun IntroScreen(
     modifier: Modifier = Modifier,
 ) = Box(
     modifier = modifier.fillMaxSize()
-        .background(Color.White),
+        .background(SGColor.white),
 ) {
 
 }
