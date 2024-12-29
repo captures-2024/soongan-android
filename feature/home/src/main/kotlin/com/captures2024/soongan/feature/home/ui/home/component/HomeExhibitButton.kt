@@ -23,7 +23,6 @@ import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillPlus
-import com.captures2024.soongan.core.designsystem.theme.PrimaryA
 import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.theme.dropShadow
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
@@ -86,7 +85,7 @@ internal fun HomeExhibitButton(
                 NonScaleText(
                     text = stringResource(id = R.string.exhibit),
                     fontSize = 14.sp,
-                    color = PrimaryA,
+                    color = SGColor.primaryA,
                 )
             }
         }
