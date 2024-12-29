@@ -14,14 +14,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
-import com.captures2024.soongan.core.designsystem.theme.negative
-import com.captures2024.soongan.core.designsystem.theme.primaryA
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 
 private const val MAX_INPUT_LENGTH = 20
@@ -39,7 +37,7 @@ internal fun ProfileOutlinedTextField(
             NonScaleText(
                 text = detailTitle,
                 fontSize = 8.sp,
-                color = Color.Black,
+                color = SGColor.black,
                 fontWeight = FontWeight.Normal,
                 letterSpacing = 0.sp
             )
@@ -55,7 +53,7 @@ internal fun ProfileOutlinedTextField(
                 .clip(RoundedCornerShape(8.dp))
                 .border(
                     width = 1.dp,
-                    color = primaryA.copy(alpha = 0.3f),
+                    color = SGColor.primaryA.copy(alpha = 0.3f),
                     shape = RoundedCornerShape(8.dp)
                 ),
             decorationBox = { innerTextField ->
@@ -67,7 +65,7 @@ internal fun ProfileOutlinedTextField(
                         NonScaleText(
                             text = hint,
                             fontSize = 16.sp,
-                            color = primaryA.copy(alpha = 0.3f),
+                            color = SGColor.primaryA.copy(alpha = 0.3f),
                             fontWeight = FontWeight.Bold,
                             fontFamily = NanumSquareNeoFontFamily,
                             letterSpacing = 0.sp,
@@ -88,7 +86,7 @@ internal fun ProfileOutlinedTextField(
             NonScaleText(
                 text = "${value.length}/$MAX_INPUT_LENGTH",
                 fontSize = 8.sp,
-                color = if (value.length < MAX_INPUT_LENGTH) Color.Black else negative,
+                color = if (value.length < MAX_INPUT_LENGTH) SGColor.black else SGColor.negative,
                 fontWeight = FontWeight.Normal,
                 letterSpacing = 0.sp
             )

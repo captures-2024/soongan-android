@@ -14,8 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
-import com.captures2024.soongan.core.designsystem.theme.accent
-import com.captures2024.soongan.core.designsystem.theme.tempPrimaryC
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.theme.dropShadow
 import com.captures2024.soongan.core.designsystem.theme.innerShadow
 
@@ -39,7 +38,7 @@ internal fun EditProfileButton(
                 blur = 4.dp
             )
             .background(
-                color = accent,
+                color = SGColor.accent,
                 shape = backgroundShape,
             )
             .clickable(onClick = onClick)
@@ -54,7 +53,7 @@ internal fun EditProfileButton(
                 blur = 4.dp
             )
             .background(
-                color = tempPrimaryC,
+                color = SGColor.tempPrimaryC,
                 shape = backgroundShape,
             )
             .innerShadow(
