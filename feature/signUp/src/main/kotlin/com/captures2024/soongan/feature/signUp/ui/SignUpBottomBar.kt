@@ -12,15 +12,12 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
-import com.captures2024.soongan.core.designsystem.theme.Positive
-import com.captures2024.soongan.core.designsystem.theme.PrimaryA
-import com.captures2024.soongan.core.designsystem.theme.PrimaryB
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.signUp.R
 
@@ -35,7 +32,7 @@ internal fun SignUpBottomBar(
         modifier = modifier
             .fillMaxWidth()
             .height(115.dp)
-            .background(color = PrimaryA)
+            .background(color = SGColor.primaryA)
             .padding(
                 horizontal = 40.dp,
                 vertical = 15.dp
@@ -44,7 +41,7 @@ internal fun SignUpBottomBar(
     ) {
         NonScaleText(
             text = title,
-            color = PrimaryB,
+            color = SGColor.primaryB,
             fontSize = 12.sp,
             fontWeight = FontWeight.Medium
         )
@@ -57,14 +54,14 @@ internal fun SignUpBottomBar(
             enabled = enabled,
             shape = RoundedCornerShape(12.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = Positive,
-                contentColor = PrimaryB,
-                disabledContainerColor = Color(0xFFA7A7A7),
+                containerColor = SGColor.positive,
+                contentColor = SGColor.primaryB,
+                disabledContainerColor = SGColor.gray300,
             ),
         ) {
             NonScaleText(
                 text = stringResource(id = R.string.btn_next_text),
-                color = Color.White,
+                color = SGColor.white,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold
             )

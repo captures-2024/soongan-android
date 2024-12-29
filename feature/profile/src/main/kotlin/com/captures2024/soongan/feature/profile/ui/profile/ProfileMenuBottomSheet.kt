@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
-import com.captures2024.soongan.core.designsystem.theme.PrimaryA
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.profile.navigation.ProfileMenuItem
 
@@ -56,7 +56,7 @@ internal fun ProfileMenuBottomSheet(
                     onClick = onClickMenuItem
                 )
                 if (idx != ProfileMenuItem.entries.lastIndex) {
-                    HorizontalDivider(color = PrimaryA.copy(alpha = 0.3f))
+                    HorizontalDivider(color = SGColor.primaryA.copy(alpha = 0.3f))
                 }
             }
         }

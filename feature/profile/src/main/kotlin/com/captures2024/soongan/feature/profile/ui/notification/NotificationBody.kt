@@ -13,11 +13,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.captures2024.soongan.core.designsystem.theme.PrimaryA
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.model.UserNotification
 import com.captures2024.soongan.core.model.mock.mockNotifications
@@ -58,21 +57,21 @@ internal fun NotificationBody(
         SecondaryTabRow(
             selectedTabIndex = tabIndex,
             modifier = modifier,
-            containerColor = Color.White,
+            containerColor = SGColor.white,
             indicator = @Composable {
                 TabRowDefaults.SecondaryIndicator(
                     Modifier
                         .tabIndicatorOffset(tabIndex, matchContentSize = false)
                         .padding(horizontal = 10.dp),
                     height = 2.dp,
-                    color = Color.Black
+                    color = SGColor.black
                 )
             },
             divider = @Composable {
                 HorizontalDivider(
                     modifier = Modifier.graphicsLayer(alpha = 0.4f),
                     thickness = 1.dp,
-                    color = PrimaryA.copy(alpha = 0.3f)
+                    color = SGColor.primaryA.copy(alpha = 0.3f)
                 )
             },
             tabs = @Composable {

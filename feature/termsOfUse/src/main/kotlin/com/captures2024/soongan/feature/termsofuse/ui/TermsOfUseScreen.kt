@@ -9,7 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 
 @Composable
@@ -27,12 +27,12 @@ internal fun TermsOfUseScreen(
             modifier = Modifier
                 .padding(paddingValues)
                 .fillMaxSize()
-                .background(Color.Black),
+                .background(SGColor.black),
             contentAlignment = Alignment.Center
         ) {
             Text(
                 text = "TermsOfUseScreen",
-                color = Color.White
+                color = SGColor.white
             )
         }
     }

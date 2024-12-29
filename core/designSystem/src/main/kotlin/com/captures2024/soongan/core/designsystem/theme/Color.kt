@@ -2,13 +2,6 @@ package com.captures2024.soongan.core.designsystem.theme
 
 import androidx.compose.ui.graphics.Color
 
-val PrimaryA = Color(0xFF252525)
-val PrimaryB = Color(0xFFF5F5F5)
-val PrimaryC = Color(0xFFBEBEBE)
-val Accent = Color(0xFFFBC304)
-val Positive = Color(0xFF276EF1)
-val Negative = Color(0xFFDE1135)
-
 object SGColor {
     val primaryA = Color(0xFF252525)
     val primaryB = Color(0xFFF5F5F5)

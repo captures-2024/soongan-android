@@ -20,8 +20,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
-import com.captures2024.soongan.core.designsystem.theme.Negative
-import com.captures2024.soongan.core.designsystem.theme.PrimaryA
+import com.captures2024.soongan.core.designsystem.theme.negative
+import com.captures2024.soongan.core.designsystem.theme.primaryA
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 
 private const val MAX_INPUT_LENGTH = 20
@@ -55,7 +55,7 @@ internal fun ProfileOutlinedTextField(
                 .clip(RoundedCornerShape(8.dp))
                 .border(
                     width = 1.dp,
-                    color = PrimaryA.copy(alpha = 0.3f),
+                    color = primaryA.copy(alpha = 0.3f),
                     shape = RoundedCornerShape(8.dp)
                 ),
             decorationBox = { innerTextField ->
@@ -67,7 +67,7 @@ internal fun ProfileOutlinedTextField(
                         NonScaleText(
                             text = hint,
                             fontSize = 16.sp,
-                            color = PrimaryA.copy(alpha = 0.3f),
+                            color = primaryA.copy(alpha = 0.3f),
                             fontWeight = FontWeight.Bold,
                             fontFamily = NanumSquareNeoFontFamily,
                             letterSpacing = 0.sp,
@@ -88,7 +88,7 @@ internal fun ProfileOutlinedTextField(
             NonScaleText(
                 text = "${value.length}/$MAX_INPUT_LENGTH",
                 fontSize = 8.sp,
-                color = if (value.length < MAX_INPUT_LENGTH) Color.Black else Negative,
+                color = if (value.length < MAX_INPUT_LENGTH) Color.Black else negative,
                 fontWeight = FontWeight.Normal,
                 letterSpacing = 0.sp
             )
