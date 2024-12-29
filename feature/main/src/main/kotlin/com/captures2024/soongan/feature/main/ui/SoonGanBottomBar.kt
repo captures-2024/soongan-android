@@ -9,7 +9,7 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import com.captures2024.soongan.core.designsystem.component.SoonGanNavigationBar
 import com.captures2024.soongan.core.designsystem.component.SoonGanNavigationBarItem
-import com.captures2024.soongan.core.designsystem.theme.PrimaryA
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.feature.main.navigation.TopLevelDestination
 
 @Composable
@@ -31,7 +31,7 @@ internal fun SoonGanBottomBar(
                     Icon(
                         imageVector = destination.unselectedIcon,
                         contentDescription = null,
-                        tint = PrimaryA.copy(alpha = 0.3f),
+                        tint = SGColor.primaryA.copy(alpha = 0.3f),
                         modifier = Modifier.size(24.dp, 24.dp)
                     )
                 },
@@ -39,7 +39,7 @@ internal fun SoonGanBottomBar(
                     Icon(
                         imageVector = destination.selectedIcon,
                         contentDescription = null,
-                        tint = PrimaryA,
+                        tint = SGColor.primaryA,
                         modifier = Modifier.size(24.dp, 24.dp)
                     )
                 },
