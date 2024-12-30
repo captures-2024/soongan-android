@@ -5,11 +5,13 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Badge
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -40,9 +42,11 @@ internal fun ProfileScreenHeader(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(start = 20.dp, end = 16.dp)
     ) {
-        ProfileCard(userProfile = userProfile)
+        ProfileCard(
+            userProfile = userProfile,
+            modifier = Modifier.padding(top = 8.dp)
+        )
         WeightSpacer(1f)
         IconBox(
             onClickNotification = onClickNotification,
@@ -53,8 +57,8 @@ internal fun ProfileScreenHeader(
 
 @Composable
 private fun ProfileCard(
-    modifier: Modifier = Modifier,
     userProfile: UserProfile,
+    modifier: Modifier = Modifier,
 ) {
     Row(modifier = modifier) {
         AsyncImage(
@@ -71,7 +75,7 @@ private fun ProfileCard(
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Medium,
                 fontFamily = PoppinsFontFamily,
-                letterSpacing = 0.sp,
+                letterSpacing = (-0.5).sp,
                 lineHeight = 20.sp
             )
             HeightSpacer(8.dp)
@@ -80,8 +84,8 @@ private fun ProfileCard(
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Normal,
                 fontFamily = NanumSquareNeoFontFamily,
-                letterSpacing = 0.sp,
-                lineHeight = 16.sp
+                letterSpacing = (-0.5).sp,
+                lineHeight = 12.sp
             )
         }
     }
@@ -95,11 +99,15 @@ private fun IconBox(
 ) {
     Row(modifier = modifier) {
         Box(
-            modifier = Modifier.clickable {
-                onClickNotification()
-            }
+            modifier = Modifier
+                .size(40.dp)
+                .clickable { onClickNotification() },
+            contentAlignment = Alignment.Center
         ) {
             Badge(
+                modifier = Modifier
+                    .size(8.dp)
+                    .offset(x = (-6).dp, y = (-6).dp),
                 containerColor = Color(0xffFBC304)
             )
             Icon(
@@ -107,11 +115,12 @@ private fun IconBox(
                 contentDescription = "notification icon"
             )
         }
-        WidthSpacer(16.dp)
+        WidthSpacer(8.dp)
         Box(
-            modifier = Modifier.clickable {
-                onClickMenu()
-            }
+            modifier = Modifier
+                .size(40.dp)
+                .clickable { onClickMenu() },
+            contentAlignment = Alignment.Center
         ) {
             Icon(
                 imageVector = MyIconPack.IconNonFillMenu,
@@ -125,9 +134,9 @@ private fun IconBox(
 @DevicePreviews
 @Composable
 private fun ProfileScreenHeaderPreview() {
-        ProfileScreenHeader(
-            userProfile = UserProfile(),
-            onClickNotification = {},
-            onClickMenu = {}
-        )
+    ProfileScreenHeader(
+        userProfile = UserProfile(),
+        onClickNotification = {},
+        onClickMenu = {}
+    )
 }
