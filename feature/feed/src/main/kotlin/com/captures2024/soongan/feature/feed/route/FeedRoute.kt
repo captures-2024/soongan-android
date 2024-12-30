@@ -1,9 +1,13 @@
 package com.captures2024.soongan.feature.feed.route
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import com.captures2024.soongan.core.designsystem.util.sgBottomBarPadding
 import com.captures2024.soongan.feature.feed.ui.FeedScreen
 
 @Composable
 internal fun FeedRoute() {
-    FeedScreen()
+    FeedScreen(
+        modifier = Modifier.sgBottomBarPadding()
+    )
 }

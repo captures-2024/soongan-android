@@ -1,5 +1,6 @@
 package com.captures2024.soongan.feature.main.ui
 
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -10,12 +11,14 @@ import com.captures2024.soongan.feature.main.navigation.MainRouteNavHost
 import com.captures2024.soongan.feature.main.navigation.TopLevelDestination
 import com.captures2024.soongan.feature.main.route.MainRouteState
 
+@Suppress("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 internal fun MainScreen(
     isGuestMode: Boolean,
     routeState: MainRouteState,
     nickname: String,
 ) = Scaffold(
+    modifier = Modifier.navigationBarsPadding(),
     bottomBar = {
         val isNotViewBottomBar = isNotViewBottomBar(
             currentDestination = routeState.currentDestination,
@@ -31,9 +34,9 @@ internal fun MainScreen(
             )
         }
     }
-) { padding ->
+) { innerPadding ->
     MainRouteNavHost(
-        modifier = Modifier.padding(padding),
+        modifier = Modifier.padding(top = innerPadding.calculateTopPadding()),
         isGuestMode = isGuestMode,
         routeState = routeState,
         nickname = nickname,
@@ -50,14 +53,9 @@ private fun isNotViewBottomBar(
     currentDestination: NavDestination?,
     topLevelDestinations: List<TopLevelDestination>
 ): Boolean {
-    var isNotViewBottomBar = true
-//    Timber.tag("isNotViewBottomBar").d("currentDestination = $currentDestination")
-    for (topLevelDestination in topLevelDestinations) {
-        if (currentDestination.isTopLevelDestinationInHierarchy(topLevelDestination)) {
-            isNotViewBottomBar = false
-            break
-        }
-    }
+    for (topLevelDestination in topLevelDestinations)
+        if (currentDestination.isTopLevelDestinationInHierarchy(topLevelDestination))
+            return false
 
-    return isNotViewBottomBar
+    return true
 }

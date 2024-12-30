@@ -29,8 +29,8 @@ import com.captures2024.soongan.feature.home.ui.home.component.HomePeriodToggleB
 
 @Composable
 internal fun HomeScreen(
-    modifier: Modifier = Modifier,
     uiState: HomeUIState,
+    modifier: Modifier = Modifier,
     onClickPlus: () -> Unit = {},
     onClickMyPost: (UserPost.PhotoPost) -> Unit = {},
     onToggleWeeklyDaily: () -> Unit = {},
@@ -38,7 +38,9 @@ internal fun HomeScreen(
     onClickRightArrow: () -> Unit = {},
 ) {
     Column(
-        modifier = modifier.padding(horizontal = 32.dp),
+        modifier = modifier
+            .padding(top = 88.dp, bottom = 40.dp)
+            .padding(horizontal = 32.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         HomeScreenTopBar()
@@ -57,7 +59,6 @@ internal fun HomeScreen(
         HomeScreenDeadLine(modifier = Modifier.align(Alignment.End))
         WeightSpacer(1f)
         HomeScreenFooter(
-            modifier = Modifier.padding(bottom = 40.dp),
             onClickInfo = onClickInfo,
             onClickRightArrow = onClickRightArrow
         )
@@ -91,11 +92,17 @@ private fun HomeScreenToggle(
 
 @Composable
 private fun HomeScreenDeadLine(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
-        ContestPeriodText(stringResource(id = com.captures2024.soongan.feature.home.R.string.start_date), "2024.05.10")
-        ContestPeriodText(stringResource(id = com.captures2024.soongan.feature.home.R.string.end_date), "2024.05.10")
+        ContestPeriodText(
+            stringResource(id = com.captures2024.soongan.feature.home.R.string.start_date),
+            "2024.05.10"
+        )
+        ContestPeriodText(
+            stringResource(id = com.captures2024.soongan.feature.home.R.string.end_date),
+            "2024.05.10"
+        )
     }
 }
 
@@ -108,7 +115,6 @@ private fun HomeScreenPreview() {
             painter = painterResource(id = R.drawable.background_home_gallery),
             contentScale = ContentScale.Crop,
         )
-        .padding(top = 100.dp)
 
     HomeScreen(
         modifier = modifier,
@@ -125,7 +131,6 @@ private fun HomeScreenMultiPostPreview() {
             painter = painterResource(id = R.drawable.background_home_gallery),
             contentScale = ContentScale.Crop,
         )
-        .padding(top = 100.dp)
 
     HomeScreen(
         modifier = modifier,

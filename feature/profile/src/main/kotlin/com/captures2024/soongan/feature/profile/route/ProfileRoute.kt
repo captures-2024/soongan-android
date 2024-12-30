@@ -4,8 +4,10 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.captures2024.soongan.core.designsystem.util.sgBottomBarPadding
 import com.captures2024.soongan.core.model.UserPost
 import com.captures2024.soongan.core.model.UserProfile
 import com.captures2024.soongan.feature.profile.ProfileViewModel
@@ -38,6 +40,7 @@ internal fun ProfileRoute(
 
     ProfileScreen(
         uiState = uiState,
+        modifier = Modifier.sgBottomBarPadding(),
         onClickNotification = { profileViewModel.intent(ProfileIntent.OnClickNotification) },
         onClickMenu = { profileViewModel.intent(ProfileIntent.OnClickMenu) },
         onClickUserPhoto = { profileViewModel.intent(ProfileIntent.OnClickPhoto(it)) }
