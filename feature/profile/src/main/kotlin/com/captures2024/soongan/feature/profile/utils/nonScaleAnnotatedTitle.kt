@@ -6,7 +6,8 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
-import com.captures2024.soongan.core.designsystem.util.nonScaleSpanStyle
+import com.captures2024.soongan.core.designsystem.component.nonScaleSpanStyle
+import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
 
 @Composable
 internal fun nonScaleAnnotatedTitle(
@@ -18,11 +19,21 @@ internal fun nonScaleAnnotatedTitle(
     val commonParagraphStyle = ParagraphStyle(lineHeight = 24.sp)
 
     pushStyle(style = commonParagraphStyle)
-    withStyle(style = nonScaleSpanStyle(fontSize = titleFontSize)) {
+    withStyle(
+        style = nonScaleSpanStyle(
+            fontSize = titleFontSize,
+            fontFamily = NanumSquareNeoFontFamily,
+        )
+    ) {
         append(title)
     }
     append(" ")
-    withStyle(style = nonScaleSpanStyle(fontSize = countFontSize)) {
+    withStyle(
+        style = nonScaleSpanStyle(
+            fontSize = countFontSize,
+            fontFamily = NanumSquareNeoFontFamily,
+        )
+    ) {
         append("$count")
     }
 }

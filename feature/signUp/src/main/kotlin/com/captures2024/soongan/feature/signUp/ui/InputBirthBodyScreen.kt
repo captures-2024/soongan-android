@@ -28,9 +28,7 @@ import com.captures2024.soongan.core.common.Validation
 import com.captures2024.soongan.core.designsystem.component.CustomBasicTextField
 import com.captures2024.soongan.core.designsystem.component.CustomBasicTextFieldState
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
-import com.captures2024.soongan.core.designsystem.theme.Negative
-import com.captures2024.soongan.core.designsystem.theme.PrimaryA
-import com.captures2024.soongan.core.designsystem.theme.PrimaryB
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.signUp.R
 import com.captures2024.soongan.feature.signUp.state.birth.BirthUIState
@@ -48,7 +46,7 @@ internal fun InputBirthBodyScreen(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(color = PrimaryA),
+            .background(color = SGColor.primaryA),
         contentAlignment = Alignment.Center
     ) {
         Column(
@@ -70,7 +68,7 @@ internal fun InputBirthBodyScreen(
                 Spacer(modifier = Modifier.height(4.dp))
                 NonScaleText(
                     text = state.nickname,
-                    color = PrimaryB,
+                    color = SGColor.primaryB,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Medium
                 )
@@ -100,7 +98,7 @@ internal fun InputBirthBodyScreen(
                         else -> stringResource(id = R.string.input_birth_default_hint_text)
                     },
                     color = when (isValid) {
-                        Validation.BirthYearValidState.Regex -> Negative
+                        Validation.BirthYearValidState.Regex -> SGColor.negative
                         else -> Color(0xFFCACACA)
                     },
                     fontSize = 12.sp,

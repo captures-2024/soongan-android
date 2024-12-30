@@ -17,7 +17,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -25,9 +24,8 @@ import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.HeightSpacer
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.component.WidthSpacer
-import com.captures2024.soongan.core.designsystem.theme.Accent
 import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
-import com.captures2024.soongan.core.designsystem.theme.PrimaryA
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.model.UserNotification
 import com.captures2024.soongan.core.model.mock.mockNotifications
@@ -70,7 +68,7 @@ private fun EmptyNotificationHistory(modifier: Modifier = Modifier) {
         NonScaleText(
             stringResource(R.string.non_exist_notification_message),
             fontSize = 24.sp,
-            color = PrimaryA,
+            color = SGColor.primaryA,
             fontWeight = FontWeight.Bold,
             fontFamily = NanumSquareNeoFontFamily,
             lineHeight = 16.sp
@@ -101,13 +99,13 @@ private fun NotificationHistoryContent(
                 modifier = Modifier
                     .size(8.dp)
                     .clip(CircleShape)
-                    .background(color = if (isRead) Color.White else Accent)
+                    .background(color = if (isRead) SGColor.white else SGColor.accent)
             )
             WidthSpacer(12.dp)
             NonScaleText(
                 text = title,
                 fontSize = 16.sp,
-                color = PrimaryA,
+                color = SGColor.primaryA,
                 fontWeight = FontWeight.Bold,
                 fontFamily = NanumSquareNeoFontFamily,
                 lineHeight = 16.sp
@@ -119,7 +117,7 @@ private fun NotificationHistoryContent(
             text = body,
             fontSize = 12.sp,
             modifier = Modifier.padding(horizontal = 32.dp),
-            color = PrimaryA.copy(alpha = 0.6f),
+            color = SGColor.primaryA.copy(alpha = 0.6f),
             fontWeight = FontWeight.Bold,
             fontFamily = NanumSquareNeoFontFamily,
             lineHeight = 20.sp
@@ -129,7 +127,7 @@ private fun NotificationHistoryContent(
             text = receiveAt,
             fontSize = 12.sp,
             modifier = Modifier.padding(horizontal = 32.dp),
-            color = PrimaryA.copy(alpha = 0.6f),
+            color = SGColor.primaryA.copy(alpha = 0.6f),
             fontWeight = FontWeight.Normal,
             fontFamily = NanumSquareNeoFontFamily,
             lineHeight = 12.sp

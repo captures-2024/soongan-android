@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.captures2024.soongan.core.design.R
 import com.captures2024.soongan.core.designsystem.component.shimmerBrush
-import com.captures2024.soongan.core.designsystem.theme.PrimaryB
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.theme.dropShadow
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.model.UserPost
@@ -43,7 +43,7 @@ internal fun ProfileGallery(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(color = PrimaryB)
+            .background(color = SGColor.primaryB)
     ) {
         Image(
             painter = painterResource(id = R.drawable.background_home_gallery),

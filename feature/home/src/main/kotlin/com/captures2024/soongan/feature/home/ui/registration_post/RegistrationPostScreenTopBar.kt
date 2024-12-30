@@ -16,7 +16,7 @@ import com.captures2024.soongan.core.designsystem.component.SoonGanIconButton
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillLeftArrow
 import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
-import com.captures2024.soongan.core.designsystem.theme.PrimaryA
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 
 @Composable
@@ -40,7 +40,7 @@ internal fun RegistrationPostScreenTopBar(
                 Icon(
                     imageVector = MyIconPack.IconNonFillLeftArrow,
                     contentDescription = "back",
-                    tint = PrimaryA
+                    tint = SGColor.primaryA
                 )
             }
         }

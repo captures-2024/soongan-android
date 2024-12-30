@@ -16,7 +16,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -25,7 +24,7 @@ import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFillHeart
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillComment
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillMenu
-import com.captures2024.soongan.core.designsystem.theme.PrimaryA
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.theme.dropShadow
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 
@@ -42,12 +41,12 @@ internal fun HomePostScreenBottomBar(
             .height(83.dp)
             .dropShadow(
                 shape = RoundedCornerShape(0.dp),
-                color = Color(0x40000000),
+                color = SGColor.black.copy(alpha = 0.3f),
                 blur = 4.dp,
                 offsetX = 0.dp,
                 offsetY = (-2).dp
             )
-            .background(color = Color.White)
+            .background(color = SGColor.white)
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
@@ -62,7 +61,7 @@ internal fun HomePostScreenBottomBar(
             Icon(
                 imageVector = MyIconPack.IconNonFillMenu,
                 contentDescription = "menu",
-                tint = PrimaryA,
+                tint = SGColor.primaryA,
                 modifier = Modifier.size(
                     width = 4.dp,
                     height = 20.dp
@@ -75,7 +74,7 @@ internal fun HomePostScreenBottomBar(
             Icon(
                 imageVector = MyIconPack.IconFillHeart,
                 contentDescription = "heart",
-                tint = PrimaryA,
+                tint = SGColor.primaryA,
                 modifier = Modifier.size(
                     width = 24.dp,
                     height = 21.dp
@@ -86,7 +85,7 @@ internal fun HomePostScreenBottomBar(
             Spacer(modifier = Modifier.width(8.dp))
             NonScaleText(
                 text = "1.2m",
-                color = PrimaryA,
+                color = SGColor.primaryA,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Light
             )
@@ -94,7 +93,7 @@ internal fun HomePostScreenBottomBar(
             Icon(
                 imageVector = MyIconPack.IconNonFillComment,
                 contentDescription = "comment",
-                tint = PrimaryA,
+                tint = SGColor.primaryA,
                 modifier = Modifier
                     .size(
                         width = 24.dp,
@@ -107,7 +106,7 @@ internal fun HomePostScreenBottomBar(
             Spacer(modifier = Modifier.width(8.dp))
             NonScaleText(
                 text = "1.2m",
-                color = PrimaryA,
+                color = SGColor.primaryA,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Light
             )

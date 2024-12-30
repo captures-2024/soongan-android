@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -20,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.design.R
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.welcome.state.WelcomeUIState
 
@@ -31,7 +31,7 @@ internal fun WelcomeScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(color = Color.Black)
+            .background(color = SGColor.black)
             .paint(
                 painter = painterResource(id = R.drawable.image_background),
                 contentScale = ContentScale.FillBounds,
@@ -42,14 +42,14 @@ internal fun WelcomeScreen(
     ) {
         NonScaleText(
             text = stringResource(id = com.captures2024.soongan.feature.welcome.R.string.welcome_text),
-            color = Color.White,
+            color = SGColor.white,
             fontSize = 36.sp,
             fontWeight = FontWeight.SemiBold,
         )
         Spacer(modifier = Modifier.height(44.dp))
         NonScaleText(
             text =uiState.nickname + stringResource(id = com.captures2024.soongan.feature.welcome.R.string.nickname_unit_text),
-            color = Color.White,
+            color = SGColor.white,
             fontSize = 36.sp,
             fontWeight = FontWeight.SemiBold,
         )

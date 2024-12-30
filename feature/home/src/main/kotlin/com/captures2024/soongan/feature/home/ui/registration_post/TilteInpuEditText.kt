@@ -13,7 +13,6 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -23,7 +22,7 @@ import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.HeightSpacer
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
-import com.captures2024.soongan.core.designsystem.theme.PrimaryA
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.theme.dropShadow
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 
@@ -46,21 +45,21 @@ internal fun TitleInputEditText(
                 fontWeight = FontWeight.Bold,
                 fontFamily = NanumSquareNeoFontFamily,
                 lineHeight = 16.sp,
-                color = PrimaryA,
+                color = SGColor.primaryA,
             ),
             decorationBox = { innerTextField ->
                 Box(
                     modifier = Modifier.fillMaxSize()
                         .dropShadow(
                             shape = RectangleShape,
-                            color = Color.Black.copy(0.25f),
+                            color = SGColor.black.copy(0.25f),
                             offsetX = 0.dp,
                             offsetY = 2.dp,
                             blur = 4.dp,
                             spread = 0.dp,
                         )
                         .background(
-                            color = Color.White,
+                            color = SGColor.white,
                             shape = RoundedCornerShape(4.dp)
                         ),
                     contentAlignment = Alignment.Center
@@ -74,7 +73,7 @@ internal fun TitleInputEditText(
                             fontWeight = FontWeight.Bold,
                             fontFamily = NanumSquareNeoFontFamily,
                             lineHeight = 16.sp,
-                            color = PrimaryA.copy(alpha = 0.3f)
+                            color = SGColor.primaryA.copy(alpha = 0.3f)
                         )
                     }
                 }
@@ -90,7 +89,7 @@ internal fun TitleInputEditText(
                 fontWeight = FontWeight.Normal,
                 fontFamily = NanumSquareNeoFontFamily,
                 lineHeight = 8.sp,
-                color = Color.Black,
+                color = SGColor.black,
             )
         }
     }

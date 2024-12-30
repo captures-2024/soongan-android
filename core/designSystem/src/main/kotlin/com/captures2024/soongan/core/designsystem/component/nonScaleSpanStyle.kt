@@ -11,7 +11,7 @@ import com.captures2024.soongan.core.designsystem.theme.PretendardFontFamily
 import com.captures2024.soongan.core.designsystem.util.nonScaleSp
 
 @Composable
-fun NonScaleSpanStyle(
+fun nonScaleSpanStyle(
     fontSize: TextUnit,
     fontFamily: FontFamily = PretendardFontFamily,
     fontWeight: FontWeight = FontWeight(500),

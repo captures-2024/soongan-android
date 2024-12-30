@@ -31,11 +31,10 @@ import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFilterNew
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFilterOld
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillFillter
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillLeftArrow
-import com.captures2024.soongan.core.designsystem.theme.PrimaryA
-import com.captures2024.soongan.core.designsystem.theme.PrimaryC
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.home.R
 import com.captures2024.soongan.core.designsystem.component.SoonGanIconButton
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.feature.home.utils.GalleryPhotoSortFilter
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -70,7 +69,7 @@ internal fun HomeGalleryTopBar(
             Icon(
                 imageVector = MyIconPack.IconNonFillLeftArrow,
                 contentDescription = "",
-                tint = PrimaryA,
+                tint = SGColor.primaryA,
                 modifier = Modifier.size(
                     width = 20.dp,
                     height = 16.dp
@@ -104,7 +103,7 @@ internal fun HomeGalleryTopBar(
             Icon(
                 imageVector = MyIconPack.IconNonFillFillter,
                 contentDescription = "",
-                tint = PrimaryA,
+                tint = SGColor.primaryA,
                 modifier = Modifier.size(
                     width = 20.dp,
                     height = 20.dp
@@ -129,14 +128,14 @@ internal fun HomeGalleryTopBar(
                         selected = sortOrder == GalleryPhotoSortFilter.LIKES,
                         onClickItem = { onClickSortFilter(GalleryPhotoSortFilter.LIKES) }
                     )
-                    HorizontalDivider(color = PrimaryC)
+                    HorizontalDivider(color = SGColor.primaryA.copy(alpha = 0.3f))
                     HomeGalleryFilterItem(
                         text = stringResource(id = R.string.filter_oldest),
                         icon = MyIconPack.IconFilterOld,
                         selected = sortOrder == GalleryPhotoSortFilter.OLDEST,
                         onClickItem = { onClickSortFilter(GalleryPhotoSortFilter.OLDEST) }
                     )
-                    HorizontalDivider(color = PrimaryC)
+                    HorizontalDivider(color = SGColor.primaryA.copy(alpha = 0.3f))
                     HomeGalleryFilterItem(
                         text = stringResource(id = R.string.filter_newest),
                         icon = MyIconPack.IconFilterNew,

@@ -6,11 +6,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
-import com.captures2024.soongan.core.designsystem.theme.PrimaryB
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 
 @Composable
@@ -19,12 +18,12 @@ internal fun AwardsScreen(
 ) {
     Box(
         modifier = modifier.fillMaxSize()
-            .background(PrimaryB),
+            .background(SGColor.primaryB),
         contentAlignment = Alignment.Center,
     ) {
         NonScaleText(
             text = "awards",
-            color = Color.Black,
+            color = SGColor.black,
             fontSize = 36.sp,
             fontWeight = FontWeight.Bold,
         )

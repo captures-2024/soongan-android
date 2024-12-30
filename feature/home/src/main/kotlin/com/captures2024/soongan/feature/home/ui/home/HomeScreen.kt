@@ -10,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -19,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.captures2024.soongan.core.design.R
 import com.captures2024.soongan.core.designsystem.component.HeightSpacer
 import com.captures2024.soongan.core.designsystem.component.WeightSpacer
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.theme.dropShadow
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.model.UserPost
@@ -73,7 +73,10 @@ private fun HomeScreenToggle(
     Row(
         modifier = modifier
             .dropShadow(shape = RectangleShape)
-            .background(color = Color.White, shape = RoundedCornerShape(4.dp))
+            .background(
+                color = SGColor.white,
+                shape = RoundedCornerShape(4.dp),
+            )
     ) {
         HomePeriodToggleButton(
             onClick = onClick,
@@ -103,7 +106,7 @@ private fun HomeScreenPreview() {
         .fillMaxSize()
         .paint(
             painter = painterResource(id = R.drawable.background_home_gallery),
-            contentScale = ContentScale.Crop
+            contentScale = ContentScale.Crop,
         )
         .padding(top = 100.dp)
 
@@ -120,7 +123,7 @@ private fun HomeScreenMultiPostPreview() {
         .fillMaxSize()
         .paint(
             painter = painterResource(id = R.drawable.background_home_gallery),
-            contentScale = ContentScale.Crop
+            contentScale = ContentScale.Crop,
         )
         .padding(top = 100.dp)
 

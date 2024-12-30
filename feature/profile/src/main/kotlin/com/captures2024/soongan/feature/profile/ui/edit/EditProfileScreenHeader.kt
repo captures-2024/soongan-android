@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import com.captures2024.soongan.core.designsystem.component.SoonGanIconButton
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillLeftArrow
-import com.captures2024.soongan.core.designsystem.theme.PrimaryA
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 
 @Composable
@@ -31,7 +31,7 @@ fun EditProfileScreenHeader(
             Icon(
                 imageVector = MyIconPack.IconNonFillLeftArrow,
                 contentDescription = MyIconPack.IconNonFillLeftArrow.name,
-                tint = PrimaryA
+                tint = SGColor.primaryA
             )
         }
     }

@@ -10,10 +10,8 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.captures2024.soongan.core.designsystem.theme.PrimaryA
-import com.captures2024.soongan.core.designsystem.theme.PrimaryB
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 
 @Composable
 fun RowScope.SoonGanNavigationBarItem(
@@ -39,7 +37,7 @@ fun RowScope.SoonGanNavigationBarItem(
             unselectedIconColor = SoonGanNavigationDefaults.navigationContentColor(),
             selectedTextColor = SoonGanNavigationDefaults.navigationSelectedItemColor(),
             unselectedTextColor = SoonGanNavigationDefaults.navigationContentColor(),
-            indicatorColor = Color.Transparent,
+            indicatorColor = SGColor.transparent,
         ),
     )
 }
@@ -51,7 +49,7 @@ fun SoonGanNavigationBar(
 ) {
     NavigationBar(
         modifier = modifier.fillMaxWidth()
-            .background(PrimaryB)
+            .background(SGColor.primaryB)
             .clip(
                 shape = RoundedCornerShape(
                     topStart = 13.dp,
@@ -60,7 +58,7 @@ fun SoonGanNavigationBar(
                     bottomStart = 0.dp,
                 ),
             ),
-        containerColor = Color.White,
+        containerColor = SGColor.white,
         contentColor = SoonGanNavigationDefaults.navigationContentColor(),
         tonalElevation = 0.dp,
         content = content,
@@ -69,8 +67,8 @@ fun SoonGanNavigationBar(
 
 object SoonGanNavigationDefaults {
     @Composable
-    fun navigationContentColor() = PrimaryB
+    fun navigationContentColor() = SGColor.primaryB
 
     @Composable
-    fun navigationSelectedItemColor() = PrimaryA
+    fun navigationSelectedItemColor() = SGColor.primaryA
 }

@@ -14,7 +14,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -22,8 +21,7 @@ import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
 import com.captures2024.soongan.core.designsystem.theme.PretendardFontFamily
-import com.captures2024.soongan.core.designsystem.theme.PrimaryA
-import com.captures2024.soongan.core.designsystem.theme.PrimaryB
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.home.R
 
@@ -49,7 +47,7 @@ internal fun ReportCompleteScreen(
         ) {
             NonScaleText(
                 text = text,
-                color = PrimaryA,
+                color = SGColor.primaryA,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold,
                 lineHeight = 24.sp,
@@ -63,7 +61,7 @@ internal fun ReportCompleteScreen(
                 .height(40.dp)
                 .fillMaxWidth()
                 .background(
-                    color = PrimaryA,
+                    color = SGColor.primaryA,
                     shape = RoundedCornerShape(8.dp)
                 )
                 .clickable {
@@ -73,7 +71,7 @@ internal fun ReportCompleteScreen(
         ) {
             NonScaleText(
                 text = stringResource(id = R.string.report_confirm_text),
-                color = PrimaryB,
+                color = SGColor.primaryB,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Medium,
                 lineHeight = 20.sp,
@@ -86,7 +84,7 @@ internal fun ReportCompleteScreen(
 @DevicePreviews
 @Composable
 private fun PostReportFinishScreenPreview() {
-    Box(modifier = Modifier.background(Color.White)) {
+    Box(modifier = Modifier.background(SGColor.white)) {
         ReportCompleteScreen {
 
         }

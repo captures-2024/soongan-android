@@ -22,7 +22,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -36,12 +35,12 @@ import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.component.shimmerBrush
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillLeftArrow
-import com.captures2024.soongan.core.designsystem.theme.PrimaryA
 import com.captures2024.soongan.core.designsystem.theme.dropShadow
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.model.UserPost
 import com.captures2024.soongan.feature.home.state.post.HomePostUIState
 import com.captures2024.soongan.core.designsystem.component.SoonGanIconButton
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 
 @Composable
 internal fun HomePostScreen(
@@ -58,7 +57,7 @@ internal fun HomePostScreen(
     Scaffold(
         modifier = modifier
             .fillMaxSize()
-            .background(color = Color(0xFFD9D9D9))
+            .background(color = SGColor.tempPrimaryD)
             .paint(
                 painter = painterResource(id = R.drawable.background_home_gallery),
                 contentScale = ContentScale.Crop,
@@ -74,7 +73,7 @@ internal fun HomePostScreen(
                     Icon(
                         imageVector = MyIconPack.IconNonFillLeftArrow,
                         contentDescription = "back",
-                        tint = PrimaryA
+                        tint = SGColor.primaryA
                     )
                 }
             }
@@ -86,7 +85,7 @@ internal fun HomePostScreen(
                 onClickComment = onClickComment,
             )
         },
-        containerColor = Color.Transparent,
+        containerColor = SGColor.transparent,
     ) { paddingValues ->
         Column(
             modifier = Modifier
@@ -118,13 +117,13 @@ internal fun HomePostScreen(
                         .heightIn(max = 460.dp)
                         .dropShadow(
                             shape = RoundedCornerShape(0.dp),
-                            color = Color(0x40000000),
+                            color = SGColor.black.copy(alpha = 0.3f),
                             blur = 3.dp,
                             offsetX = 6.dp,
                             offsetY = 6.dp,
                         )
                         .clickable(
-                            onClick = onClickPhoto
+                            onClick = onClickPhoto,
                         ),
                     contentScale = ContentScale.FillWidth,
                 )
@@ -138,14 +137,14 @@ internal fun HomePostScreen(
             ) {
                 NonScaleText(
                     text = "무제",
-                    color = PrimaryA,
+                    color = SGColor.primaryA,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 NonScaleText(
                     text = "@dkddkq222",
-                    color = PrimaryA,
+                    color = SGColor.primaryA,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Medium
                 )

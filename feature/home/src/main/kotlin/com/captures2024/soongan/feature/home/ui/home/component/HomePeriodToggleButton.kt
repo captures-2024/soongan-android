@@ -8,15 +8,13 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
-import com.captures2024.soongan.core.designsystem.theme.PrimaryA
-import com.captures2024.soongan.core.designsystem.theme.PrimaryC
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.feature.home.R
 
 @Composable
@@ -25,8 +23,14 @@ internal fun HomePeriodToggleButton(
     onClick: () -> Unit,
 ) {
     val periodText = stringResource(id = if (selected) R.string.daily else R.string.weekly)
-    val containerColor = if (selected) PrimaryA else Color.White
-    val contentColor = if (selected) Color.White else PrimaryC
+    val containerColor = when (selected) {
+        true -> SGColor.primaryA
+        false -> SGColor.white
+    }
+    val contentColor = when (selected) {
+        true -> SGColor.white
+        false -> SGColor.tempPrimaryC
+    }
 
     Button(
         onClick = onClick,

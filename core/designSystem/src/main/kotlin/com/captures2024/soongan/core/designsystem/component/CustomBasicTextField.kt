@@ -18,7 +18,6 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -28,13 +27,13 @@ import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFillCheck
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFillError
-import com.captures2024.soongan.core.designsystem.theme.Negative
-import com.captures2024.soongan.core.designsystem.theme.Positive
-import com.captures2024.soongan.core.designsystem.theme.PrimaryB
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 
 enum class CustomBasicTextFieldState {
-    Init, Valid, NonValid
+    Init,
+    Valid,
+    NonValid;
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -59,7 +58,7 @@ fun CustomBasicTextField(
             Spacer(modifier = Modifier.width(12.dp))
             NonScaleText(
                 text = title,
-                color = PrimaryB,
+                color = SGColor.primaryB,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.SemiBold,
             )
@@ -72,14 +71,15 @@ fun CustomBasicTextField(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(
-                    color = PrimaryB,
+                    color = SGColor.primaryB,
                     shape = shape,
                 )
                 .border(
                     width = 2.dp,
                     color = when (isValid) {
-                        CustomBasicTextFieldState.NonValid -> Negative
-                        else -> Color(0xFFDBDBDB)
+                        CustomBasicTextFieldState.NonValid -> SGColor.negative
+
+                        else -> SGColor.gray100
                     },
                     shape = shape,
                 ),
@@ -98,20 +98,23 @@ fun CustomBasicTextField(
                     Icon(
                         imageVector = when (isValid) {
                             CustomBasicTextFieldState.NonValid -> MyIconPack.IconFillError
+
                             else -> MyIconPack.IconFillCheck
                         },
                         contentDescription = "",
                         tint = when (isValid) {
-                            CustomBasicTextFieldState.Init -> Color(0xFFDBDBDB)
-                            CustomBasicTextFieldState.Valid -> Positive
-                            CustomBasicTextFieldState.NonValid -> Negative
+                            CustomBasicTextFieldState.Init -> SGColor.gray100
+
+                            CustomBasicTextFieldState.Valid -> SGColor.positive
+
+                            CustomBasicTextFieldState.NonValid -> SGColor.negative
                         },
                     )
                 },
                 placeholder = @Composable {
                     NonScaleText(
                         text = hint,
-                        color = Color(0xFFCACACA),
+                        color = SGColor.gray100,
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Medium,
                     )
@@ -125,13 +128,13 @@ fun CustomBasicTextField(
                 ),
                 shape = shape,
                 colors = TextFieldDefaults.colors(
-                    focusedContainerColor = Color.White,
-                    unfocusedContainerColor = Color.White,
-                    focusedTextColor = Color.Black,
-                    unfocusedTextColor = Color.Black,
-                    focusedIndicatorColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Transparent,
-                    disabledIndicatorColor = Color.Transparent,
+                    focusedContainerColor = SGColor.white,
+                    unfocusedContainerColor = SGColor.white,
+                    focusedTextColor = SGColor.black,
+                    unfocusedTextColor = SGColor.black,
+                    focusedIndicatorColor = SGColor.transparent,
+                    unfocusedIndicatorColor = SGColor.transparent,
+                    disabledIndicatorColor = SGColor.transparent,
                 ),
             )
         }

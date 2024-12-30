@@ -9,13 +9,11 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
-import com.captures2024.soongan.core.designsystem.theme.Accent
-import com.captures2024.soongan.core.designsystem.theme.PrimaryC
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.theme.dropShadow
 import com.captures2024.soongan.core.designsystem.theme.innerShadow
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
@@ -39,7 +37,7 @@ internal fun RegistrationButton(
                 blur = 4.dp
             )
             .background(
-                color = Accent,
+                color = SGColor.accent,
                 shape = backgroundShape,
             )
             .clickable(onClick = onClick)
@@ -53,12 +51,12 @@ internal fun RegistrationButton(
                 blur = 4.dp
             )
             .background(
-                color = PrimaryC,
+                color = SGColor.tempPrimaryC,
                 shape = backgroundShape,
             )
             .innerShadow(
                 shape = backgroundShape,
-                color = Color.Black.copy(alpha = 0.25f),
+                color = SGColor.black.copy(alpha = 0.25f),
                 offsetX = 2.dp,
                 offsetY = 2.dp,
                 blur = 4.dp,
@@ -76,8 +74,8 @@ internal fun RegistrationButton(
             fontWeight = FontWeight.Bold,
             lineHeight = 16.sp,
             color = when (enabled) {
-                true -> Color.Black
-                false -> Color.White
+                true -> SGColor.black
+                false -> SGColor.white
             },
         )
     }

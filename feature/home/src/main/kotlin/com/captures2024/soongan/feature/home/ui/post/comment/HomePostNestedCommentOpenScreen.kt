@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
-import com.captures2024.soongan.core.designsystem.theme.PrimaryA
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 
 @Composable
@@ -50,12 +50,12 @@ internal fun HomePostNestedCommentOpenScreen(
                 Spacer(modifier = Modifier.width(4.dp))
                 HorizontalDivider(
                     modifier = Modifier.width(27.dp),
-                    color = PrimaryA.copy(alpha = 0.9f)
+                    color = SGColor.primaryA.copy(alpha = 0.9f)
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 NonScaleText(
                     text = "답글 숨기기",
-                    color = PrimaryA.copy(alpha = 0.9f),
+                    color = SGColor.primaryA.copy(alpha = 0.9f),
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Bold,
                     lineHeight = 16.sp,

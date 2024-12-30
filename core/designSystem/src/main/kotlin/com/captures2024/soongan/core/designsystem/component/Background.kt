@@ -10,6 +10,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.captures2024.soongan.core.designsystem.theme.LocalBackgroundTheme
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 
 /**
  * The main background for the app.
@@ -26,7 +27,7 @@ fun SoonGanBackground(
     val color = LocalBackgroundTheme.current.color
     val tonalElevation = LocalBackgroundTheme.current.tonalElevation
     Surface(
-        color = if (color == Color.Unspecified) Color.Transparent else color,
+        color = if (color == Color.Unspecified) SGColor.transparent else color,
         tonalElevation = if (tonalElevation == Dp.Unspecified) 0.dp else tonalElevation,
         modifier = modifier.fillMaxSize(),
     ) {

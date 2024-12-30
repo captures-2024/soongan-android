@@ -1,6 +1,5 @@
 package com.captures2024.soongan.core.designsystem.component
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.size
@@ -10,9 +9,8 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.theme.dropShadow
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 
@@ -27,14 +25,16 @@ fun SoonGanIconButton(
         .size(44.dp)
         .dropShadow(
             shape = CircleShape,
-            color = Color(0xFF000000).copy(alpha = 0.25f),
+            color = SGColor.black.copy(alpha = 0.25f),
             blur = 4.dp,
             offsetX = 0.dp,
             offsetY = 2.dp
         ),
     shape = CircleShape,
     contentPadding = PaddingValues(0.dp),
-    colors = ButtonDefaults.buttonColors(containerColor = Color.White),
+    colors = ButtonDefaults.buttonColors(
+        containerColor = SGColor.white,
+    ),
     content = content
 )
 
@@ -45,6 +45,5 @@ private fun HomeGalleryButtonPreview() {
         SoonGanIconButton(onClick = { /*TODO*/ }) {
 
         }
-
     }
 }

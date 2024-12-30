@@ -14,13 +14,13 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.home.R
 import com.captures2024.soongan.feature.home.state.PhotoDetailModalState
@@ -57,7 +57,7 @@ internal fun ReportBottomSheetDialog(
                 ) {
                     NonScaleText(
                         text = stringResource(id = R.string.report_title_text),
-                        color = Color.Black,
+                        color = SGColor.black,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Bold,
                         lineHeight = 24.sp,
@@ -65,7 +65,7 @@ internal fun ReportBottomSheetDialog(
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     HorizontalDivider(
-                        color = Color(0x4D252525),
+                        color = SGColor.primaryA.copy(alpha = 0.3f),
                         thickness = 1.dp
                     )
                 }

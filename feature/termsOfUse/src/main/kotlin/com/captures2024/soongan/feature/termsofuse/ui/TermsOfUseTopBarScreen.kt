@@ -13,11 +13,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 
 @Composable
@@ -29,20 +29,20 @@ internal fun TermsOfUseTopBarScreen(
         modifier = modifier
             .fillMaxWidth()
             .height(60.dp)
-            .background(Color.Black),
+            .background(SGColor.black),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Spacer(modifier = Modifier.width(8.dp))
         Icon(
             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
             contentDescription = "",
-            tint = Color.White,
+            tint = SGColor.white,
             modifier = Modifier.clickable(onClick = onClickBack)
         )
         Spacer(modifier = Modifier.width(8.dp))
         NonScaleText(
             text = "TermsOfUseTopBarScreen",
-            color = Color.White,
+            color = SGColor.white,
             fontSize = 18.sp,
             fontWeight = FontWeight(500)
         )

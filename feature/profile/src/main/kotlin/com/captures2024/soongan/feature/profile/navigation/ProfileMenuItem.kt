@@ -10,7 +10,7 @@ import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillCir
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillFile
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillGear
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillUser
-import com.captures2024.soongan.core.designsystem.theme.PrimaryA
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.feature.profile.R
 import com.captures2024.soongan.feature.profile.state.profile.ProfileIntent
 
@@ -18,7 +18,7 @@ internal enum class ProfileMenuItem(
     @StringRes val titleRes: Int,
     val icon: ImageVector,
     val intent: ProfileIntent,
-    val color: Color = PrimaryA,
+    val color: Color = SGColor.primaryA,
 ) {
     EDIT(
         titleRes = R.string.profile_menu_bottom_sheet_edit_title,

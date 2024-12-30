@@ -22,8 +22,8 @@ import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillInfo
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillRightArrow
-import com.captures2024.soongan.core.designsystem.theme.PrimaryA
 import com.captures2024.soongan.core.designsystem.component.SoonGanIconButton
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 
 @Composable
 internal fun HomeScreenFooter(
@@ -74,7 +74,7 @@ private fun IconBox(
                 imageVector = imageVector,
                 contentDescription = text,
                 modifier = Modifier.size(width = width, height = height),
-                tint = PrimaryA
+                tint = SGColor.primaryA
             )
         }
         HeightSpacer(4.dp)

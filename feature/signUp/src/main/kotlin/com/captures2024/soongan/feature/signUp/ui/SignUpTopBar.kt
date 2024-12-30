@@ -20,8 +20,7 @@ import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillBackArrow
-import com.captures2024.soongan.core.designsystem.theme.PrimaryA
-import com.captures2024.soongan.core.designsystem.theme.PrimaryB
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.signUp.R
 
@@ -34,7 +33,7 @@ internal fun SignUpTopBar(
         modifier = modifier
             .fillMaxWidth()
             .heightIn(min = 60.dp)
-            .background(color = PrimaryA)
+            .background(color = SGColor.primaryA)
             .padding(vertical = 20.dp, horizontal = 16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -47,12 +46,12 @@ internal fun SignUpTopBar(
             ).clickable {
                 onClickBack()
             },
-            tint = PrimaryB
+            tint = SGColor.primaryB
         )
         Spacer(modifier = Modifier.width(16.dp))
         NonScaleText(
             text = stringResource(id = R.string.sign_up_text),
-            color = PrimaryB,
+            color = SGColor.primaryB,
             fontSize = 24.sp,
             fontWeight = FontWeight.SemiBold
         )
