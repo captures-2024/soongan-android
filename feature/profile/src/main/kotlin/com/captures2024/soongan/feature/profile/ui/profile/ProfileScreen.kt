@@ -25,10 +25,11 @@ internal fun ProfileScreen(
         modifier = modifier
             .fillMaxSize()
             .background(color = Color.White)
-            .padding(top = 52.dp)
+            .padding(top = 26.dp)
     ) {
         ProfileScreenHeader(
             userProfile = uiState.userProfile,
+            modifier = Modifier.padding(start = 20.dp, end = 16.dp),
             onClickNotification = onClickNotification,
             onClickMenu = onClickMenu
         )

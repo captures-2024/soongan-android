@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.captures2024.soongan.core.design.R
+import com.captures2024.soongan.core.designsystem.util.sgBottomBarPadding
 import com.captures2024.soongan.core.model.UserPost
 import com.captures2024.soongan.feature.home.HomeViewModel
 import com.captures2024.soongan.feature.home.state.home.HomeIntent
@@ -35,7 +36,7 @@ internal fun HomeRoute(
             painter = painterResource(id = R.drawable.background_home_gallery),
             contentScale = ContentScale.Crop
         )
-        .padding(top = 100.dp)
+        .sgBottomBarPadding()
 
     LaunchedEffect(key1 = Unit) {
         homeViewModel.sideEffect.collect { effect ->
@@ -50,8 +51,8 @@ internal fun HomeRoute(
     }
 
     HomeScreen(
-        modifier = modifier,
         uiState = uiState,
+        modifier = modifier,
         onClickPlus = { homeViewModel.intent(HomeIntent.OnClickPlus) },
         onClickMyPost = { homeViewModel.intent(HomeIntent.OnClickMyPost(it)) },
         onToggleWeeklyDaily = { homeViewModel.intent(HomeIntent.OnToggleWeeklyDaily) },

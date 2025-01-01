@@ -24,6 +24,7 @@ import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFillHeart
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillComment
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillMenu
+import com.captures2024.soongan.core.designsystem.theme.Dimensions
 import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.theme.dropShadow
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
@@ -38,7 +39,7 @@ internal fun HomePostScreenBottomBar(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .height(83.dp)
+            .height(Dimensions.bottomBarHeight)
             .dropShadow(
                 shape = RoundedCornerShape(0.dp),
                 color = SGColor.black.copy(alpha = 0.3f),
