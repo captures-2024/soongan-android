@@ -23,4 +23,5 @@ fun GetMemberInfoResponse.toUserInfoDto(): UserInfoDto = UserInfoDto(
     nickname = this.nickname,
     birthYear = this.birthYear,
     profileImageUrl = this.profileImageUrl,
+    selfIntroduction = this.selfIntroduction,
 )

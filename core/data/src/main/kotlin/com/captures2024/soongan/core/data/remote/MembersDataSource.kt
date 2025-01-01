@@ -2,8 +2,6 @@ package com.captures2024.soongan.core.data.remote
 
 import com.captures2024.soongan.core.model.dto.ResultConditionDto
 import com.captures2024.soongan.core.model.dto.UserInfoDto
-import com.captures2024.soongan.core.model.network.response.BaseResponse
-import com.captures2024.soongan.core.model.network.response.members.GetMemberInfoResponse
 
 interface MembersDataSource {
 
