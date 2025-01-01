@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class EditProfileNavigator(
-    val image: String?,
     val nickname: String,
     val selfIntroduction: String,
+    val profileImageUrl: String?,
 )

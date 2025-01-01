@@ -62,7 +62,7 @@ private fun ProfileCard(
 ) {
     Row(modifier = modifier) {
         AsyncImage(
-            model = userProfile.image,
+            model = userProfile.profileImageUrl,
             contentDescription = null,
             modifier = Modifier.size(60.dp),
             placeholder = painterResource(RDesign.drawable.ic_border_profile),

@@ -133,7 +133,7 @@ internal fun NavController.navigateToEditProfile(
     userProfile: UserProfile,
 ) = navigate(
     EditProfileNavigator(
-        image = userProfile.image,
+        profileImageUrl = userProfile.profileImageUrl,
         nickname = userProfile.nickname,
         selfIntroduction = userProfile.selfIntroduction
     )
@@ -144,7 +144,7 @@ internal fun NavController.navigateToEditProfile(
     navOptions: NavOptions,
 ) = navigate(
     EditProfileNavigator(
-        image = userProfile.image,
+        profileImageUrl = userProfile.profileImageUrl,
         nickname = userProfile.nickname,
         selfIntroduction = userProfile.selfIntroduction
     ), navOptions
