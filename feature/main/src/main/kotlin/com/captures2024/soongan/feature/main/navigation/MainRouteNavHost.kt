@@ -1,7 +1,10 @@
 package com.captures2024.soongan.feature.main.navigation
 
-import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
@@ -45,10 +48,10 @@ internal fun MainRouteNavHost(
                 nickname = nickname,
             )
         },
-        enterTransition = { EnterTransition.None },
+        enterTransition = { fadeIn() + scaleIn(initialScale = 0.9f) },
         exitTransition = { ExitTransition.None },
-        popEnterTransition = { EnterTransition.None },
-        popExitTransition = { ExitTransition.None }
+        popEnterTransition = { fadeIn() + scaleIn(initialScale = 0.9f) },
+        popExitTransition = { fadeOut() + scaleOut(targetScale = 0.5f) }
     ) {
         welcome(
             navigateToHome = navController::navigateToHome,

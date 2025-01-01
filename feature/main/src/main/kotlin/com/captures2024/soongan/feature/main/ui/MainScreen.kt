@@ -11,7 +11,6 @@ import com.captures2024.soongan.feature.main.navigation.MainRouteNavHost
 import com.captures2024.soongan.feature.main.navigation.TopLevelDestination
 import com.captures2024.soongan.feature.main.route.MainRouteState
 
-@Suppress("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 internal fun MainScreen(
     isGuestMode: Boolean,
