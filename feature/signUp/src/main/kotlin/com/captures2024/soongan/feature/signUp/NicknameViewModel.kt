@@ -4,7 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.common.base.BaseViewModel
 import com.captures2024.soongan.core.domain.usecase.members.IsVerifiedNicknameUseCase
-import com.captures2024.soongan.core.domain.usecase.members.PatchProfileNicknameUseCase
+import com.captures2024.soongan.core.domain.usecase.members.PatchProfileUseCase
 import com.captures2024.soongan.feature.signUp.state.nickname.NicknameIntent
 import com.captures2024.soongan.feature.signUp.state.nickname.NicknameSideEffect
 import com.captures2024.soongan.feature.signUp.state.nickname.NicknameUIState
@@ -17,7 +17,7 @@ internal class NicknameViewModel
 constructor(
     private val analyticsHelper: AnalyticsHelper,
     private val isVerifiedNicknameUseCase: IsVerifiedNicknameUseCase,
-    private val patchNicknameUseCase: PatchProfileNicknameUseCase,
+    private val patchProfileUseCase: PatchProfileUseCase,
     savedStateHandle: SavedStateHandle
 ) : BaseViewModel<NicknameUIState, NicknameSideEffect, NicknameIntent>(savedStateHandle) {
 
@@ -103,9 +103,9 @@ constructor(
 
             val currentNickname = currentState.nickname
 
-            val isPatched = patchNicknameUseCase(currentNickname).getOrNull()
+            val isPatchedNickname = patchProfileUseCase(currentNickname).getOrNull()
 
-            if (isPatched == null) {
+            if (isPatchedNickname == null) {
                 analyticsHelper.d(message = "isRegister is null")
                 reduce {
                     copy(
@@ -115,7 +115,7 @@ constructor(
                 return@launch
             }
 
-            when (isPatched) {
+            when (isPatchedNickname) {
                 true -> postSideEffect(NicknameSideEffect.NavigateToBirth)
 
                 false -> {

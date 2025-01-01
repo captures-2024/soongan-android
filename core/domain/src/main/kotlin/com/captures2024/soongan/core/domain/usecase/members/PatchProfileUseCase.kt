@@ -4,21 +4,23 @@ import com.captures2024.soongan.core.data.repository.MembersRepository
 import com.captures2024.soongan.core.domain.runSuspendCatching
 import javax.inject.Inject
 
-class PatchProfileNicknameUseCase
+class PatchProfileUseCase
 @Inject
 constructor(
     private val membersRepository: MembersRepository,
 ) {
 
     suspend operator fun invoke(
-        nickname: String,
+        nickname: String? = null,
+        selfIntroduction: String? = null,
+        profileImage: String? = null,
     ): Result<Boolean> = runSuspendCatching {
         val userInfoDto = membersRepository.patchProfile(
             nickname = nickname,
-            selfIntroduction = null,
-            profileImage = null,
+            selfIntroduction = selfIntroduction,
+            profileImage = profileImage,
         )
 
-        return@runSuspendCatching nickname == userInfoDto.nickname
+        return@runSuspendCatching (nickname == userInfoDto.nickname && selfIntroduction == userInfoDto.selfIntroduction && profileImage == userInfoDto.profileImageUrl)
     }
 }
