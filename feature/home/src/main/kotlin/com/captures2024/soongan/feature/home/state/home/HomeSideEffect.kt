@@ -1,7 +1,7 @@
 package com.captures2024.soongan.feature.home.state.home
 
 import com.captures2024.soongan.core.common.base.UISideEffect
-import com.captures2024.soongan.core.model.UserPost
+import com.captures2024.soongan.core.model.dto.PostInfoDto
 
 internal sealed interface HomeSideEffect : UISideEffect {
 
@@ -10,6 +10,6 @@ internal sealed interface HomeSideEffect : UISideEffect {
     data object NavigateToHomeGallery : HomeSideEffect
 
     data class NavigateToHomePost(
-        val myPost: UserPost.PhotoPost,
+        val postInfo: PostInfoDto,
     ) : HomeSideEffect
 }

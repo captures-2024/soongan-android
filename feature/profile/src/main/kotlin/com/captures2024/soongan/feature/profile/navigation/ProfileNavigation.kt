@@ -2,8 +2,8 @@ package com.captures2024.soongan.feature.profile.navigation
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.captures2024.soongan.core.model.UserPost
 import com.captures2024.soongan.core.model.UserProfile
+import com.captures2024.soongan.core.model.dto.PostInfoDto
 import com.captures2024.soongan.core.navigator.screen.main.profile.EditProfileNavigator
 import com.captures2024.soongan.core.navigator.screen.main.profile.NotificationNavigator
 import com.captures2024.soongan.core.navigator.screen.main.profile.ProfileNavigator
@@ -15,13 +15,13 @@ fun NavGraphBuilder.profile(
     navigateToBack: () -> Unit,
     navigateToEditProfile: (userProfile: UserProfile) -> Unit,
     navigateToNotification: () -> Unit,
-    navigateToHomePost: (userPhoto: UserPost.PhotoPost) -> Unit,
+    navigateToHomePost: (postInfo: PostInfoDto) -> Unit,
 ) {
     composable<ProfileNavigator> {
         ProfileRoute(
             navigateToEditProfile = navigateToEditProfile,
             navigateToNotification = navigateToNotification,
-            navigateToHomePost = navigateToHomePost
+            navigateToHomePost = { TODO() }
         )
     }
     composable<EditProfileNavigator> {

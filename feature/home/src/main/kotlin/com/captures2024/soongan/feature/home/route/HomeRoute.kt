@@ -1,7 +1,6 @@
 package com.captures2024.soongan.feature.home.route
 
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -9,12 +8,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.captures2024.soongan.core.design.R
 import com.captures2024.soongan.core.designsystem.util.sgBottomBarPadding
 import com.captures2024.soongan.core.model.UserPost
+import com.captures2024.soongan.core.model.dto.PostInfoDto
 import com.captures2024.soongan.feature.home.HomeViewModel
 import com.captures2024.soongan.feature.home.state.home.HomeIntent
 import com.captures2024.soongan.feature.home.state.home.HomeSideEffect
@@ -24,7 +23,7 @@ import com.captures2024.soongan.feature.home.ui.home.HomeScreenBottomSheet
 @Composable
 internal fun HomeRoute(
     navigateToRegistrationPost: () -> Unit,
-    navigateToMyPost: (UserPost.PhotoPost) -> Unit,
+    navigateToPost: (PostInfoDto) -> Unit,
     navigateToGallery: () -> Unit,
     homeViewModel: HomeViewModel = hiltViewModel()
 ) {
@@ -43,7 +42,9 @@ internal fun HomeRoute(
             when (effect) {
                 is HomeSideEffect.NavigateToRegistrationPost -> navigateToRegistrationPost()
 
-                is HomeSideEffect.NavigateToHomePost -> navigateToMyPost(effect.myPost)
+                is HomeSideEffect.NavigateToHomePost -> {
+//                    navigateToMyPost(effect.myPost)
+                }
 
                 is HomeSideEffect.NavigateToHomeGallery -> navigateToGallery()
             }
@@ -54,7 +55,7 @@ internal fun HomeRoute(
         uiState = uiState,
         modifier = modifier,
         onClickPlus = { homeViewModel.intent(HomeIntent.OnClickPlus) },
-        onClickMyPost = { homeViewModel.intent(HomeIntent.OnClickMyPost(it)) },
+        onClickPost = { homeViewModel.intent(HomeIntent.OnClickPost(it)) },
         onToggleWeeklyDaily = { homeViewModel.intent(HomeIntent.OnToggleWeeklyDaily) },
         onClickInfo = { homeViewModel.intent(HomeIntent.OnClickInfo) },
         onClickRightArrow = { homeViewModel.intent(HomeIntent.OnClickRightArrow) },
