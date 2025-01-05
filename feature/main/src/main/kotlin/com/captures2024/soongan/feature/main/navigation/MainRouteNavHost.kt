@@ -11,7 +11,6 @@ import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.NavHost
 import com.captures2024.soongan.core.model.UserPost
-import com.captures2024.soongan.core.model.UserProfile
 import com.captures2024.soongan.core.navigator.screen.main.awards.AwardsNavigator
 import com.captures2024.soongan.core.navigator.screen.main.feed.FeedNavigator
 import com.captures2024.soongan.core.navigator.screen.main.home.HomeGalleryNavigator
@@ -129,26 +128,11 @@ internal fun NavController.navigateToProfile() = navigate(ProfileNavigator)
 internal fun NavController.navigateToProfile(navOptions: NavOptions) =
     navigate(ProfileNavigator, navOptions)
 
-internal fun NavController.navigateToEditProfile(
-    userProfile: UserProfile,
-) = navigate(
-    EditProfileNavigator(
-        profileImageUrl = userProfile.profileImageUrl,
-        nickname = userProfile.nickname,
-        selfIntroduction = userProfile.selfIntroduction
-    )
-)
+internal fun NavController.navigateToEditProfile() =
+    navigate(EditProfileNavigator)
 
-internal fun NavController.navigateToEditProfile(
-    userProfile: UserProfile,
-    navOptions: NavOptions,
-) = navigate(
-    EditProfileNavigator(
-        profileImageUrl = userProfile.profileImageUrl,
-        nickname = userProfile.nickname,
-        selfIntroduction = userProfile.selfIntroduction
-    ), navOptions
-)
+internal fun NavController.navigateToEditProfile(navOptions: NavOptions) =
+    navigate(EditProfileNavigator, navOptions)
 
 internal fun NavController.navigateToNotification() = navigate(NotificationNavigator)
 internal fun NavController.navigateToNotification(navOptions: NavOptions) =

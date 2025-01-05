@@ -17,14 +17,14 @@ import coil.compose.AsyncImage
 import com.captures2024.soongan.core.design.R
 import com.captures2024.soongan.core.designsystem.component.HeightSpacer
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
-import com.captures2024.soongan.feature.profile.state.edit.EditProfileUIState
+import com.captures2024.soongan.feature.profile.state.profile.EditingState
 import com.captures2024.soongan.feature.profile.ui.edit.component.EditProfileButton
 import com.captures2024.soongan.feature.profile.ui.edit.component.MiniAddIcon
 import com.captures2024.soongan.feature.profile.ui.edit.component.ProfileOutlinedTextField
 
 @Composable
 internal fun EditProfileScreenBody(
-    uiState: EditProfileUIState,
+    uiState: EditingState,
     modifier: Modifier = Modifier,
     onClickProfileImage: () -> Unit = {},
     onNicknameChanged: (String) -> Unit = {},
@@ -36,19 +36,19 @@ internal fun EditProfileScreenBody(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         ProfileBox(
-            profileImage = uiState.profileImage,
+            profileImage = uiState.editingProfile.profileImageUrl,
             onClick = onClickProfileImage
         )
         HeightSpacer(44.dp)
         ProfileOutlinedTextField(
-            value = uiState.nickname,
+            value = uiState.editingProfile.nickname,
             onValueChange = onNicknameChanged,
             detailTitle = "닉네임은 한글, 영문, 숫자만 입력해주세요",
             hint = "닉네임을 입력해주세요",
         )
         HeightSpacer(36.dp)
         ProfileOutlinedTextField(
-            value = uiState.selfIntroduction,
+            value = uiState.editingProfile.selfIntroduction,
             onValueChange = onIntroductionChanged,
             detailTitle = "자기소개를 입력해주세요",
             hint = "본인을 소개해주세요",
@@ -57,7 +57,7 @@ internal fun EditProfileScreenBody(
         EditProfileButton(
             text = "수정하기",
             onClick = onClickEdit,
-            enabled = uiState.isEditEnabled
+            enabled = uiState.isEditable
         )
     }
 }
@@ -97,6 +97,6 @@ private fun ProfileBox(
 @Composable
 private fun EditProfileScreenBodyPreview() {
     EditProfileScreenBody(
-        uiState = EditProfileUIState()
+        uiState = EditingState()
     )
 }
