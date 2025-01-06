@@ -73,7 +73,7 @@ private fun ExhibitContent(
         postList.forEach { post ->
             MyPostPhoto(
                 url = post.imageUrl,
-                listCount = post.likeCount.toString(),
+                likeCount = post.likeCount.toString(),
                 commentCount = post.commentCount.toString(),
                 onClick = { onClickPost(post) },
                 modifier = Modifier.padding(horizontal = 4.dp),
@@ -85,7 +85,7 @@ private fun ExhibitContent(
 @Composable
 private fun MyPostPhoto(
     url: String,
-    listCount: String,
+    likeCount: String,
     commentCount: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -108,7 +108,7 @@ private fun MyPostPhoto(
             InteractionIconBox(
                 imageVector = MyIconPack.IconFillHeart,
                 contentDescription = "heart",
-                interactionCount = listCount,
+                interactionCount = likeCount,
             )
             WidthSpacer(8.dp)
             InteractionIconBox(
