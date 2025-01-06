@@ -26,7 +26,7 @@ constructor(
             post = UserPost.PhotoPost(
                 id = info.id,
                 url = info.url,
-                title = info.title
+                title = ""
             )
         )
     }

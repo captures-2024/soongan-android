@@ -2,6 +2,7 @@ package com.captures2024.soongan.core.data.di
 
 import com.captures2024.soongan.core.data.service.AuthService
 import com.captures2024.soongan.core.data.service.FcmService
+import com.captures2024.soongan.core.data.service.HomeService
 import com.captures2024.soongan.core.data.service.MembersService
 import dagger.Module
 import dagger.Provides
@@ -25,4 +26,8 @@ object ServiceModule {
     @Singleton
     @Provides
     internal fun provideAuthService(retrofit: Retrofit): AuthService = retrofit.create(AuthService::class.java)
+
+    @Singleton
+    @Provides
+    internal fun provideHomeService(retrofit: Retrofit): HomeService = retrofit.create(HomeService::class.java)
 }
