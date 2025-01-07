@@ -18,9 +18,8 @@ import com.captures2024.soongan.core.navigator.screen.main.home.HomeNavigator
 import com.captures2024.soongan.core.navigator.screen.main.home.HomePostNavigator
 import com.captures2024.soongan.core.navigator.screen.main.home.HomePostPhotoNavigator
 import com.captures2024.soongan.core.navigator.screen.main.home.RegistrationPostNavigator
-import com.captures2024.soongan.core.navigator.screen.main.profile.EditProfileNavigator
 import com.captures2024.soongan.core.navigator.screen.main.profile.NotificationNavigator
-import com.captures2024.soongan.core.navigator.screen.main.profile.ProfileNavigator
+import com.captures2024.soongan.core.navigator.screen.main.profile.ProfileRootNavigator
 import com.captures2024.soongan.core.navigator.screen.main.welcome.WelcomeNavigator
 import com.captures2024.soongan.feature.awards.navigation.awards
 import com.captures2024.soongan.feature.feed.navigation.feed
@@ -65,6 +64,7 @@ internal fun MainRouteNavHost(
         feed()
         awards()
         profile(
+            navController = navController,
             navigateToBack = navController::popBackStack,
             navigateToEditProfile = navController::navigateToEditProfile,
             navigateToNotification = navController::navigateToNotification,
@@ -124,15 +124,15 @@ internal fun NavController.navigateToAwards() = navigate(AwardsNavigator)
 internal fun NavController.navigateToAwards(navOptions: NavOptions) =
     navigate(AwardsNavigator, navOptions)
 
-internal fun NavController.navigateToProfile() = navigate(ProfileNavigator)
+internal fun NavController.navigateToProfile() = navigate(ProfileRootNavigator)
 internal fun NavController.navigateToProfile(navOptions: NavOptions) =
-    navigate(ProfileNavigator, navOptions)
+    navigate(ProfileRootNavigator, navOptions)
 
 internal fun NavController.navigateToEditProfile() =
-    navigate(EditProfileNavigator)
+    navigate(ProfileRootNavigator.EditNavigator)
 
 internal fun NavController.navigateToEditProfile(navOptions: NavOptions) =
-    navigate(EditProfileNavigator, navOptions)
+    navigate(ProfileRootNavigator.EditNavigator, navOptions)
 
 internal fun NavController.navigateToNotification() = navigate(NotificationNavigator)
 internal fun NavController.navigateToNotification(navOptions: NavOptions) =
