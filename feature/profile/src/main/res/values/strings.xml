@@ -18,4 +18,15 @@
 
 <!--  NotificationHistory  -->
     <string name="non_exist_notification_message">표시할 알림이 없어요.</string>
+
+<!--  EditProfileScreenBody  -->
+    <string name="input_nickname_detail_title">닉네임은 한글, 영문, 숫자만 입력해주세요</string>
+    <string name="input_nickname_placeholder">닉네임을 입력해주세요</string>
+    <string name="input_nickname_fail_duplication_hint_text">닉네임이 중복되었습니다.</string>
+    <string name="input_nickname_fail_regex_hint_text">특수문자는 제거해주세요</string>
+    <string name="input_nickname_fail_length_hint_text">3-10자리 숫자, 영문, 한글로 입력해주세요</string>
+
+    <string name="input_introduction_detail_title">자기소개를 입력해주세요</string>
+    <string name="input_introduction_placeholder">본인을 소개해주세요</string>
+    <string name="input_introduction_fail_length_hint_text">20자리 이하의 자기소개를 입력해주세요</string>
 </resources>
