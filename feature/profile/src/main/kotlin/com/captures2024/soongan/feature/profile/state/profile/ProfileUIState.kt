@@ -1,6 +1,7 @@
 package com.captures2024.soongan.feature.profile.state.profile
 
 import com.captures2024.soongan.core.analytics.utils.LogElementArgument
+import com.captures2024.soongan.core.common.Validation
 import com.captures2024.soongan.core.common.base.UIState
 import com.captures2024.soongan.core.model.UserPost
 import com.captures2024.soongan.core.model.UserProfile
@@ -28,4 +29,11 @@ internal data class ProfileUIState(
 internal data class EditingState(
     val editingProfile: UserProfile = UserProfile(),
     val isEditable: Boolean = false,
-)
+    val isDuplicatedNickname: Boolean = false,
+) {
+    val isValidNickname: Validation.NicknameValidState
+        get() = Validation.isValidNickname(editingProfile.nickname)
+
+    val isValidIntroduction: Validation.IntroductionValidState
+        get() = Validation.isValidSelfIntroduction(editingProfile.selfIntroduction)
+}

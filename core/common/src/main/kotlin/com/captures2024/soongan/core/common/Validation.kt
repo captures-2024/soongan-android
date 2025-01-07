@@ -35,4 +35,16 @@ object Validation {
 
         return BirthYearValidState.Success
     }
+
+    enum class IntroductionValidState {
+        Success, Length
+    }
+
+    fun isValidSelfIntroduction(selfIntroduction: String) : IntroductionValidState {
+        if(selfIntroduction.length !in 0..20) {
+            return IntroductionValidState.Length
+        }
+
+        return IntroductionValidState.Success
+    }
 }

@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.common.base.BaseViewModel
 import com.captures2024.soongan.core.domain.usecase.members.GetMemberInfoUseCase
+import com.captures2024.soongan.core.domain.usecase.members.IsVerifiedNicknameUseCase
 import com.captures2024.soongan.core.domain.usecase.members.PatchProfileUseCase
 import com.captures2024.soongan.core.model.UserProfile
 import com.captures2024.soongan.feature.profile.state.profile.EditingState
@@ -26,6 +27,7 @@ constructor(
     private val analyticsHelper: AnalyticsHelper,
     private val getMemberInfoUseCase: GetMemberInfoUseCase,
     private val patchProfileUseCase: PatchProfileUseCase,
+    private val isVerifiedNicknameUseCase: IsVerifiedNicknameUseCase,
     savedStateHandle: SavedStateHandle,
 ) : BaseViewModel<ProfileUIState, ProfileSideEffect, ProfileIntent>(savedStateHandle = savedStateHandle) {
 
@@ -96,11 +98,11 @@ constructor(
             EditI.OnClickProfileImage ->
                 postSideEffect(EditSE.OpenMediaPicker)
 
-            is EditI.OnIntroductionChanged -> TODO()
+            is EditI.OnProfileImageChanged -> onProfileImageChanged(intent)
 
-            is EditI.OnNicknameChanged -> TODO()
+            is EditI.OnNicknameChanged -> onNicknameChanged(intent)
 
-            is EditI.OnProfileImageChanged -> TODO()
+            is EditI.OnIntroductionChanged -> onIntroductionChanged(intent)
         }
     }
 
@@ -116,11 +118,13 @@ constructor(
 
             reduce {
                 copy(
-                    userProfile = userProfile
+                    userProfile = userProfile,
+                    editingState = EditingState(userProfile)
                 )
             }
         }
     }
+
 
     // Handle ProfileScreen Intent
     private fun onClickEdit() {
@@ -157,46 +161,106 @@ constructor(
 
 
     // Handle EditScreen - Intent
-    private fun onProfileImageChanged(newProfileImage: String) {
+    private fun onProfileImageChanged(intent: EditI.OnProfileImageChanged) {
         reduce {
-            copy()
+            copy(
+                editingState = editingState.copy(
+                    editingProfile = editingState.editingProfile.copy(
+                        profileImageUrl = intent.newProfileImage
+                    )
+                )
+            )
         }
+
+        updateEditableState()
     }
 
-    private fun onIntroductionChanged(newIntroduction: String) {
-        TODO("validate & manage buttonEnabled")
-
+    private fun onNicknameChanged(intent: EditI.OnNicknameChanged) {
         reduce {
-            copy()
+            copy(
+                editingState = editingState.copy(
+                    editingProfile = editingState.editingProfile.copy(
+                        nickname = intent.newNickname
+                    ),
+                    isDuplicatedNickname = false
+                )
+            )
         }
+
+        updateEditableState()
     }
 
-    private fun onNicknameChanged(newNickname: String) {
+    private fun onIntroductionChanged(intent: EditI.OnIntroductionChanged) {
         reduce {
-            copy()
+            copy(
+                editingState = editingState.copy(
+                    editingProfile = editingState.editingProfile.copy(
+                        selfIntroduction = intent.newIntroduction
+                    )
+                )
+            )
         }
 
-        TODO("validate & manage buttonEnabled")
+        updateEditableState()
+    }
+
+    private fun updateEditableState() {
+        val isEditable = (currentState.userProfile != currentState.editingState.editingProfile)
+
+        reduce {
+            copy(
+                editingState = editingState.copy(
+                    isEditable = isEditable
+                )
+            )
+        }
     }
 
     private fun onClickEditButton() = launch {
         val editedProfile = currentState.editingState.editingProfile
+        val isAllowNickname = isVerifiedNicknameUseCase(editedProfile.nickname).getOrNull()
 
-        patchProfileUseCase(
-            nickname = editedProfile?.nickname,
-            selfIntroduction = editedProfile?.selfIntroduction,
-            profileImage = editedProfile?.profileImageUrl,
-        )
+        analyticsHelper.d(message = "isAllowNickname : $isAllowNickname")
 
-        reduce {
-            copy(
-                userProfile = editedProfile ?: currentState.userProfile,
-                editingState = EditingState()
-            )
+        when (isAllowNickname) {
+            true -> {
+                val isPatchedProfile = patchProfileUseCase(
+                    nickname = editedProfile.nickname,
+                    selfIntroduction = editedProfile.selfIntroduction,
+                    profileImage = editedProfile.profileImageUrl,
+                ).onSuccess {
+                    reduce {
+                        copy(
+                            userProfile = editedProfile
+                        )
+                    }
+                }
+
+                analyticsHelper.d(message = "Patch Profile result : $isPatchedProfile")
+
+                postSideEffect(EditSE.NavigateToBack)
+            }
+
+            false -> {
+                reduce {
+                    copy(
+                        editingState = editingState.copy(
+                            isEditable = false,
+                            isDuplicatedNickname = true
+                        )
+                    )
+                }
+            }
+
+            null -> {
+                reduce {
+                    copy(
+                        editingState = editingState.copy(
+                            isEditable = false
+                        )
+                    )
+                }
+            }
         }
-
-        analyticsHelper.d()
-
-        postSideEffect(EditSE.NavigateToBack)
     }
 }
