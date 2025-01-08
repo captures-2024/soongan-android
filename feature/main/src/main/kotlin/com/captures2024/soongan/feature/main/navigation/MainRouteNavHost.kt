@@ -11,6 +11,8 @@ import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.NavHost
 import com.captures2024.soongan.core.model.UserPost
+import com.captures2024.soongan.core.model.UserProfile
+import com.captures2024.soongan.core.model.dto.PostInfoDto
 import com.captures2024.soongan.core.navigator.screen.main.awards.AwardsNavigator
 import com.captures2024.soongan.core.navigator.screen.main.feed.FeedNavigator
 import com.captures2024.soongan.core.navigator.screen.main.home.HomeGalleryNavigator
@@ -87,23 +89,21 @@ internal fun NavController.navigateToHomeGallery(navOptions: NavOptions) =
     navigate(HomeGalleryNavigator, navOptions)
 
 internal fun NavController.navigateToHomePost(
-    post: UserPost.PhotoPost,
+    post: PostInfoDto,
 ) = navigate(
     HomePostNavigator(
-        id = post.id,
-        url = post.url,
-        title = post.title
-    )
+        id = post.postId,
+        url = post.imageUrl,
+    ),
 )
 
 internal fun NavController.navigateToHomePost(
-    post: UserPost.PhotoPost,
+    post: PostInfoDto,
     navOptions: NavOptions,
 ) = navigate(
     HomePostNavigator(
-        id = post.id,
-        url = post.url,
-        title = post.title
+        id = post.postId,
+        url = post.imageUrl,
     ),
     navOptions = navOptions
 )

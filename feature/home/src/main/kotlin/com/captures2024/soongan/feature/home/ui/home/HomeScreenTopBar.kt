@@ -28,7 +28,8 @@ import com.captures2024.soongan.feature.home.R
 
 @Composable
 internal fun HomeScreenTopBar(
-    modifier: Modifier = Modifier
+    subject: String,
+    modifier: Modifier = Modifier,
 ) {
     Box(
         modifier = modifier
@@ -56,7 +57,7 @@ internal fun HomeScreenTopBar(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             NonScaleText(
-                text = stringResource(id = R.string.home_top_bar_topic_example),
+                text = subject,
                 fontSize = 42.sp,
                 fontWeight = FontWeight.ExtraBold,
                 color = SGColor.primaryA,
@@ -77,6 +78,8 @@ internal fun HomeScreenTopBar(
 @Composable
 private fun HomeScreenTopBarPreview() {
     Box(modifier = Modifier.background(SGColor.white)) {
-        HomeScreenTopBar()
+        HomeScreenTopBar(
+            subject = stringResource(R.string.home_top_bar_topic_example),
+        )
     }
 }

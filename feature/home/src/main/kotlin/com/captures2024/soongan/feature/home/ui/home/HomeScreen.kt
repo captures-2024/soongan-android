@@ -21,8 +21,8 @@ import com.captures2024.soongan.core.designsystem.component.WeightSpacer
 import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.theme.dropShadow
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
-import com.captures2024.soongan.core.model.UserPost
-import com.captures2024.soongan.core.model.mock.samplePhotos
+import com.captures2024.soongan.core.model.dto.ContestInfoDto
+import com.captures2024.soongan.core.model.dto.PostInfoDto
 import com.captures2024.soongan.feature.home.state.home.HomeUIState
 import com.captures2024.soongan.feature.home.ui.home.component.ContestPeriodText
 import com.captures2024.soongan.feature.home.ui.home.component.HomePeriodToggleButton
@@ -32,7 +32,7 @@ internal fun HomeScreen(
     uiState: HomeUIState,
     modifier: Modifier = Modifier,
     onClickPlus: () -> Unit = {},
-    onClickMyPost: (UserPost.PhotoPost) -> Unit = {},
+    onClickPost: (PostInfoDto) -> Unit = {},
     onToggleWeeklyDaily: () -> Unit = {},
     onClickInfo: () -> Unit = {},
     onClickRightArrow: () -> Unit = {},
@@ -43,12 +43,14 @@ internal fun HomeScreen(
             .padding(horizontal = 32.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        HomeScreenTopBar()
+        HomeScreenTopBar(
+            subject = uiState.contestInfo.subject,
+        )
         WeightSpacer(1f)
         HomeScreenBody(
+            postList = uiState.postList,
             onClickPlus = onClickPlus,
-            onClickMyPost = onClickMyPost,
-            myPosts = uiState.myPosts,
+            onClickPost = onClickPost,
         )
         HeightSpacer(64.dp)
 //        HomeScreenToggle(
@@ -56,7 +58,11 @@ internal fun HomeScreen(
 //            onClick = onToggleWeeklyDaily,
 //            isWeeklySelected = uiState.isWeeklySelected,
 //        )
-        HomeScreenDeadLine(modifier = Modifier.align(Alignment.End))
+        HomeScreenDeadLine(
+            startAt = uiState.contestInfo.startAt,
+            endAt = uiState.contestInfo.endAt,
+            modifier = Modifier.align(Alignment.End),
+        )
         WeightSpacer(1f)
         HomeScreenFooter(
             onClickInfo = onClickInfo,
@@ -92,16 +98,18 @@ private fun HomeScreenToggle(
 
 @Composable
 private fun HomeScreenDeadLine(
+    startAt: String,
+    endAt: String,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
         ContestPeriodText(
-            stringResource(id = com.captures2024.soongan.feature.home.R.string.start_date),
-            "2024.05.10"
+            text = stringResource(id = com.captures2024.soongan.feature.home.R.string.start_date),
+            period = startAt,
         )
         ContestPeriodText(
-            stringResource(id = com.captures2024.soongan.feature.home.R.string.end_date),
-            "2024.05.10"
+            text = stringResource(id = com.captures2024.soongan.feature.home.R.string.end_date),
+            period = endAt,
         )
     }
 }
@@ -118,7 +126,13 @@ private fun HomeScreenPreview() {
 
     HomeScreen(
         modifier = modifier,
-        uiState = HomeUIState()
+        uiState = HomeUIState(
+            contestInfo = ContestInfoDto(
+                subject = stringResource(com.captures2024.soongan.feature.home.R.string.home_top_bar_topic_example),
+                startAt = "2024.05.10",
+                endAt = "2024.06.10",
+            ),
+        )
     )
 }
 
@@ -135,7 +149,12 @@ private fun HomeScreenMultiPostPreview() {
     HomeScreen(
         modifier = modifier,
         uiState = HomeUIState(
-            myPosts = samplePhotos.map { it as UserPost.PhotoPost }
+            contestInfo = ContestInfoDto(
+                subject = stringResource(com.captures2024.soongan.feature.home.R.string.home_top_bar_topic_example),
+                startAt = "2024.05.10",
+                endAt = "2024.06.10",
+            ),
+            postList = emptyList(),
         )
     )
 }

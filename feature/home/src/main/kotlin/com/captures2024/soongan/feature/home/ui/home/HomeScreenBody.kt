@@ -31,34 +31,34 @@ import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFillHeart
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillComment
 import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
-import com.captures2024.soongan.core.model.UserPost
+import com.captures2024.soongan.core.model.dto.PostInfoDto
 import com.captures2024.soongan.feature.home.ui.home.component.HomeExhibitButton
 import com.captures2024.soongan.core.design.R as RDesign
 
 @Composable
 internal fun HomeScreenBody(
-    modifier: Modifier = Modifier,
+    postList: List<PostInfoDto>,
     onClickPlus: () -> Unit,
-    onClickMyPost: (UserPost.PhotoPost) -> Unit,
-    myPosts: List<UserPost.PhotoPost>,
+    onClickPost: (PostInfoDto) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier,
     ) {
         ExhibitContent(
             onClickPlus = onClickPlus,
-            onClickMyPost = onClickMyPost,
-            myPosts = myPosts
+            onClickPost = onClickPost,
+            postList = postList,
         )
     }
 }
 
 @Composable
 private fun ExhibitContent(
-    modifier: Modifier = Modifier,
+    postList: List<PostInfoDto>,
     onClickPlus: () -> Unit,
-    onClickMyPost: (UserPost.PhotoPost) -> Unit,
-    myPosts: List<UserPost.PhotoPost>,
+    onClickPost: (PostInfoDto) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier
@@ -68,13 +68,15 @@ private fun ExhibitContent(
     ) {
         HomeExhibitButton(
             onClick = onClickPlus,
-            exhibitCount = myPosts.size
+            exhibitCount = postList.size
         )
-        myPosts.forEach { myPost ->
+        postList.forEach { post ->
             MyPostPhoto(
+                url = post.imageUrl,
+                likeCount = post.likeCount.toString(),
+                commentCount = post.commentCount.toString(),
+                onClick = { onClickPost(post) },
                 modifier = Modifier.padding(horizontal = 4.dp),
-                onClick = { onClickMyPost(myPost) },
-                url = myPost.url,
             )
         }
     }
@@ -82,9 +84,11 @@ private fun ExhibitContent(
 
 @Composable
 private fun MyPostPhoto(
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit,
     url: String,
+    likeCount: String,
+    commentCount: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
         AsyncImage(
@@ -104,13 +108,13 @@ private fun MyPostPhoto(
             InteractionIconBox(
                 imageVector = MyIconPack.IconFillHeart,
                 contentDescription = "heart",
-                interactionCount = "220"
+                interactionCount = likeCount,
             )
             WidthSpacer(8.dp)
             InteractionIconBox(
                 imageVector = MyIconPack.IconNonFillComment,
                 contentDescription = "comment",
-                interactionCount = "220"
+                interactionCount = commentCount,
             )
         }
     }
@@ -148,19 +152,19 @@ private fun InteractionIconBox(
 @Composable
 private fun HomeScreenBodyPreview() {
     // size 체크용
-    val samples = List(3) { UserPost.PhotoPost(0, "", "") }
+    val samples = List(3) { PostInfoDto() }
 
     Column(modifier = Modifier.background(SGColor.white)) {
         HomeScreenBody(
+            postList = emptyList(),
             onClickPlus = {},
-            onClickMyPost = {},
-            myPosts = emptyList()
+            onClickPost = {},
         )
         HeightSpacer(20.dp)
         HomeScreenBody(
+            postList = samples,
             onClickPlus = {},
-            onClickMyPost = {},
-            myPosts = samples
+            onClickPost = {},
         )
     }
 }
