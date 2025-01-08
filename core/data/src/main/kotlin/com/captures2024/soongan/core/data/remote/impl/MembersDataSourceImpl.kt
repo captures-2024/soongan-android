@@ -1,19 +1,22 @@
 package com.captures2024.soongan.core.data.remote.impl
 
+import android.content.Context
 import com.captures2024.soongan.core.data.mapper.toUserInfoDto
 import com.captures2024.soongan.core.data.remote.MembersDataSource
 import com.captures2024.soongan.core.data.service.MembersService
 import com.captures2024.soongan.core.data.utils.safeAPICall
+import com.captures2024.soongan.core.data.utils.toImageMultiPart
+import com.captures2024.soongan.core.data.utils.toTextRequestBody
 import com.captures2024.soongan.core.model.dto.ResultConditionDto
 import com.captures2024.soongan.core.model.dto.UserInfoDto
-import okhttp3.MediaType
-import okhttp3.RequestBody
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 class MembersDataSourceImpl
 @Inject
 constructor(
     private val service: MembersService,
+    @ApplicationContext private val context: Context,
 ) : MembersDataSource {
 
     override suspend fun patchProfile(
@@ -22,10 +25,9 @@ constructor(
         profileImage: String?,
     ): UserInfoDto? = safeAPICall {
         service.patchProfile(
-            nickname = nickname?.let { RequestBody.create(MediaType.parse("text/plain"), nickname) },
-            selfIntroduction = selfIntroduction?.let { RequestBody.create(MediaType.parse("text/plain"), selfIntroduction) },
-            profileImage = null,
-//            profileImage = MultipartBody.Part.createFormData("profileImage", imageFile.name, imageRequestBody),
+            nickname = nickname.toTextRequestBody(),
+            selfIntroduction = selfIntroduction.toTextRequestBody(),
+            profileImage = profileImage.toImageMultiPart(context, "profileImage"),
         )
     }.body?.responseData?.toUserInfoDto()
 
