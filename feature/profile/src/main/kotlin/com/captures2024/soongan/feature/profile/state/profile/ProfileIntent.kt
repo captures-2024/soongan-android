@@ -5,23 +5,55 @@ import com.captures2024.soongan.core.model.UserPost
 
 internal sealed interface ProfileIntent : UIIntent {
 
-    data class OnClickPhoto(val userPhoto: UserPost.PhotoPost) : ProfileIntent
+    // Profile Screen - Intent
+    sealed interface ProfileI : ProfileIntent {
 
-    data object OnClickNotification : ProfileIntent
+        data object Init : ProfileI
 
-    data object OnClickMenu : ProfileIntent
+        data class OnClickPhoto(val userPhoto: UserPost.PhotoPost) : ProfileI
 
-    data object OnClickEdit : ProfileIntent
+        data object OnClickNotification : ProfileI
 
-    data object OnClickNotificationSetting : ProfileIntent
+        data object OnClickMenu : ProfileI
+    }
 
-    data object OnClickTermsAndPolicy : ProfileIntent
+    // Profile Menu Bottom Sheet - Intent
+    sealed interface BottomSheetI : ProfileIntent {
 
-    data object OnClickFAQ : ProfileIntent
+        data object OnClickEdit : BottomSheetI
 
-    data object OnClickWithdraw : ProfileIntent
+        data object OnClickNotificationSetting : BottomSheetI
 
-    data object OnClickSignOut : ProfileIntent
+        data object OnClickTermsAndPolicy : BottomSheetI
 
-    data object OnCloseBottomSheet : ProfileIntent
+        data object OnClickFAQ : BottomSheetI
+
+        data object OnClickWithdraw : BottomSheetI
+
+        data object OnClickSignOut : BottomSheetI
+
+        data object OnCloseBottomSheet : BottomSheetI
+    }
+
+    // Edit Screen - Intent
+    sealed interface EditI : ProfileIntent {
+
+        data object OnBackPressed : EditI
+
+        data object OnClickProfileImage : EditI
+
+        data class OnProfileImageChanged(
+            val newProfileImage: String,
+        ) : EditI
+
+        data class OnNicknameChanged(
+            val newNickname: String,
+        ) : EditI
+
+        data class OnIntroductionChanged(
+            val newIntroduction: String,
+        ) : EditI
+
+        data object OnClickEditButton : EditI
+    }
 }

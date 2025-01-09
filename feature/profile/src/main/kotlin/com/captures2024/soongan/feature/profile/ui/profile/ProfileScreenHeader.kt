@@ -8,12 +8,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Badge
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -62,11 +65,14 @@ private fun ProfileCard(
 ) {
     Row(modifier = modifier) {
         AsyncImage(
-            model = userProfile.image,
+            model = userProfile.profileImageUrl,
             contentDescription = null,
-            modifier = Modifier.size(60.dp),
+            modifier = Modifier
+                .size(60.dp)
+                .clip(CircleShape),
             placeholder = painterResource(RDesign.drawable.ic_border_profile),
-            error = painterResource(RDesign.drawable.ic_border_profile)
+            error = painterResource(RDesign.drawable.ic_border_profile),
+            contentScale = ContentScale.Crop
         )
         WidthSpacer(16.dp)
         Column {

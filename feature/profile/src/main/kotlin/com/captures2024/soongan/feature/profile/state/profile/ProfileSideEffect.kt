@@ -2,17 +2,30 @@ package com.captures2024.soongan.feature.profile.state.profile
 
 import com.captures2024.soongan.core.common.base.UISideEffect
 import com.captures2024.soongan.core.model.UserPost
-import com.captures2024.soongan.core.model.UserProfile
 
 internal sealed interface ProfileSideEffect : UISideEffect {
 
-    data object NavigateToNotification : ProfileSideEffect
+    // Profile Screen - SideEffect
+    sealed interface ProfileSE : ProfileSideEffect {
 
-    data class NavigateToEditProfile(
-        val userProfile: UserProfile,
-    ) : ProfileSideEffect
+        data object NavigateToNotification : ProfileSE
 
-    data class NavigateToHomePost(
-        val userPhoto: UserPost.PhotoPost,
-    ) : ProfileSideEffect
+        data class NavigateToHomePost(
+            val userPhoto: UserPost.PhotoPost,
+        ) : ProfileSE
+    }
+
+    // Profile Menu Bottom Sheet - SideEffect
+    sealed interface BottomSheetSE : ProfileSideEffect {
+
+        data object NavigateToEditProfile : BottomSheetSE
+    }
+
+    // Edit Screen - SideEffect
+    sealed interface EditSE : ProfileSideEffect {
+
+        data object NavigateToBack : EditSE
+
+        data object OpenMediaPicker : EditSE
+    }
 }

@@ -1,15 +1,16 @@
 package com.captures2024.soongan.feature.profile.ui.edit.component
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,15 +23,16 @@ import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
 import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 
-private const val MAX_INPUT_LENGTH = 20
-
 @Composable
 internal fun ProfileOutlinedTextField(
-    modifier: Modifier = Modifier,
     value: String,
     onValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier,
     detailTitle: String = "",
+    placeholder: String = "",
+    isInvalid: Boolean = false,
     hint: String = "",
+    maxInputLength: Int = 20,
 ) {
     Column(modifier = modifier) {
         Box(modifier = modifier.padding(start = 12.dp)) {
@@ -45,7 +47,7 @@ internal fun ProfileOutlinedTextField(
         BasicTextField(
             value = value,
             onValueChange = { newValue ->
-                if (newValue.length <= MAX_INPUT_LENGTH) onValueChange(newValue)
+                if (newValue.length <= maxInputLength + 1) onValueChange(newValue)
             },
             modifier = Modifier
                 .fillMaxWidth()
@@ -53,17 +55,19 @@ internal fun ProfileOutlinedTextField(
                 .clip(RoundedCornerShape(8.dp))
                 .border(
                     width = 1.dp,
-                    color = SGColor.primaryA.copy(alpha = 0.3f),
+                    color = if (isInvalid) SGColor.negative else SGColor.primaryA.copy(alpha = 0.3f),
                     shape = RoundedCornerShape(8.dp)
                 ),
             decorationBox = { innerTextField ->
                 Box(
-                    modifier = Modifier.fillMaxSize().padding(start = 14.dp),
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(start = 14.dp),
                     contentAlignment = Alignment.CenterStart
                 ) {
                     if (value.isEmpty()) {
                         NonScaleText(
-                            text = hint,
+                            text = placeholder,
                             fontSize = 16.sp,
                             color = SGColor.primaryA.copy(alpha = 0.3f),
                             fontWeight = FontWeight.Bold,
@@ -72,21 +76,27 @@ internal fun ProfileOutlinedTextField(
                             lineHeight = 16.sp
                         )
                     }
-
                     innerTextField()
                 }
             }
         )
-        Box(
+        Row(
             modifier = modifier
                 .fillMaxWidth()
-                .padding(end = 4.dp),
-            contentAlignment = Alignment.CenterEnd
+                .padding(start = 12.dp, end = 4.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
             NonScaleText(
-                text = "${value.length}/$MAX_INPUT_LENGTH",
+                text = hint,
                 fontSize = 8.sp,
-                color = if (value.length < MAX_INPUT_LENGTH) SGColor.black else SGColor.negative,
+                color = SGColor.negative,
+                fontWeight = FontWeight.Normal,
+                letterSpacing = 0.sp
+            )
+            NonScaleText(
+                text = "${value.length}/$maxInputLength",
+                fontSize = 8.sp,
+                color = if (value.length <= maxInputLength) SGColor.black else SGColor.negative,
                 fontWeight = FontWeight.Normal,
                 letterSpacing = 0.sp
             )
@@ -97,13 +107,27 @@ internal fun ProfileOutlinedTextField(
 @DevicePreviews
 @Composable
 private fun ProfileOutlinedTextFieldPreview() {
-    Surface {
-        ProfileOutlinedTextField(
-            value = "",
-            onValueChange = {},
-            detailTitle = "닉네임은 한글, 영문, 숫자만 입력해주세요",
-            hint = "닉네임은 한글, 영문, 숫자만 입력해주세요"
-        )
+    ProfileOutlinedTextField(
+        value = "",
+        onValueChange = {},
+        isInvalid = false,
+        hint = "",
+        maxInputLength = 20,
+        detailTitle = "닉네임은 한글, 영문, 숫자만 입력해주세요",
+        placeholder = "닉네임은 한글, 영문, 숫자만 입력해주세요"
+    )
+}
 
-    }
+@DevicePreviews
+@Composable
+private fun ProfileOutlinedTextFieldWithErrorPreview() {
+    ProfileOutlinedTextField(
+        value = "",
+        onValueChange = {},
+        isInvalid = true,
+        hint = "에러메시지",
+        maxInputLength = 20,
+        detailTitle = "닉네임은 한글, 영문, 숫자만 입력해주세요",
+        placeholder = "닉네임은 한글, 영문, 숫자만 입력해주세요"
+    )
 }

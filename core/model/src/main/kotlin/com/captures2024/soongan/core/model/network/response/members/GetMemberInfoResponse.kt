@@ -13,4 +13,6 @@ data class GetMemberInfoResponse(
     val birthYear: Int? = null,
     @SerialName("profileImageUrl")
     val profileImageUrl: String? = null,
+    @SerialName("selfIntroduction")
+    val selfIntroduction: String? = null,
 )
