@@ -18,6 +18,7 @@ import com.captures2024.soongan.feature.profile.state.profile.ProfileSideEffect.
 import com.captures2024.soongan.feature.profile.state.profile.ProfileSideEffect.ProfileSE
 import com.captures2024.soongan.feature.profile.state.profile.ProfileUIState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 @HiltViewModel
@@ -65,8 +66,7 @@ constructor(
 
             ProfileI.OnClickNotification -> onClickNotification()
 
-            is ProfileI.OnClickPhoto ->
-                postSideEffect(ProfileSE.NavigateToHomePost(intent.userPhoto))
+            is ProfileI.OnClickPhoto -> postSideEffect(ProfileSE.NavigateToHomePost(intent.userPhoto))
         }
     }
 
@@ -90,13 +90,11 @@ constructor(
 
     private fun handleEditIntent(intent: EditI) {
         when (intent) {
-            EditI.OnBackPressed ->
-                postSideEffect(EditSE.NavigateToBack)
+            EditI.OnBackPressed -> postSideEffect(EditSE.NavigateToBack)
 
             EditI.OnClickEditButton -> onClickEditButton()
 
-            EditI.OnClickProfileImage ->
-                postSideEffect(EditSE.OpenMediaPicker)
+            EditI.OnClickProfileImage -> postSideEffect(EditSE.OpenMediaPicker)
 
             is EditI.OnProfileImageChanged -> onProfileImageChanged(intent)
 
@@ -106,6 +104,8 @@ constructor(
         }
     }
 
+
+    /** Handle ProfileScreen **/
     private suspend fun fetchUserProfile() = launch {
         val memberInfo = getMemberInfoUseCase().getOrNull()
 
@@ -125,18 +125,6 @@ constructor(
         }
     }
 
-
-    // Handle ProfileScreen Intent
-    private fun onClickEdit() {
-        reduce {
-            copy(
-                editingState = EditingState(editingProfile = currentState.userProfile)
-            )
-        }
-
-        postSideEffect(BottomSheetSE.NavigateToEditProfile)
-    }
-
     private fun onClickMenu() {
         reduce {
             copy(isOpenBottomSheet = true)
@@ -152,7 +140,27 @@ constructor(
     }
 
 
-    // Handle ProfileMenuBottomSheet - Intent
+    /** Handle ProfileMenuBottomSheet **/
+    private fun onClickEdit() {
+        reduce {
+            copy(
+                editingState = EditingState(editingProfile = currentState.userProfile),
+                isOpenBottomSheet = false
+            )
+        }
+
+        postSideEffect(BottomSheetSE.NavigateToEditProfile)
+
+        launch {
+            delay(100)
+            reduce {
+                copy(
+                    isOpenBottomSheet = true
+                )
+            }
+        }
+    }
+
     private fun onCloseBottomSheet() {
         reduce {
             copy(isOpenBottomSheet = false)
@@ -160,7 +168,7 @@ constructor(
     }
 
 
-    // Handle EditScreen - Intent
+    /** Handle EditScreen **/
     private fun onProfileImageChanged(intent: EditI.OnProfileImageChanged) {
         reduce {
             copy(
@@ -231,7 +239,8 @@ constructor(
                 ).onSuccess {
                     reduce {
                         copy(
-                            userProfile = editedProfile
+                            userProfile = editedProfile,
+                            isOpenBottomSheet = false
                         )
                     }
                 }
@@ -260,6 +269,8 @@ constructor(
                         )
                     )
                 }
+
+//                Toast.makeText(context, "not statusCode 200", Toast.LENGTH_SHORT).show()
             }
         }
     }
