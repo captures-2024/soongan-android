@@ -5,13 +5,13 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
@@ -25,7 +25,6 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.captures2024.soongan.core.designsystem.component.HeightSpacer
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
-import com.captures2024.soongan.core.designsystem.component.shimmerBrush
 import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
 import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.theme.dropShadow
@@ -41,8 +40,6 @@ internal fun RegistrationPostScreen(
     onTitleValueChanged: (String) -> Unit = {},
     onClickSubmit: () -> Unit = {},
 ) {
-    val showShimmer = remember { mutableStateOf(true) }
-
     Scaffold(
         modifier = modifier.fillMaxSize()
             .background(color = SGColor.tempPrimaryD)
@@ -77,14 +74,8 @@ internal fun RegistrationPostScreen(
                         .build(),
                     contentDescription = "photo",
                     modifier = modifier
-                        .background(
-                            shimmerBrush(
-                                targetValue = 1300f,
-                                showShimmer = showShimmer.value
-                            )
-                        )
-                        .width(353.dp)
-                        .height(353.dp)
+                        .widthIn(max = 353.dp)
+                        .heightIn(max = 353.dp)
                         .dropShadow(
                             shape = RoundedCornerShape(0.dp),
                             color = SGColor.black.copy(alpha = 0.25f),
@@ -92,7 +83,7 @@ internal fun RegistrationPostScreen(
                             offsetX = 6.dp,
                             offsetY = 6.dp,
                         ),
-                    contentScale = ContentScale.FillWidth,
+                    contentScale = ContentScale.Fit,
                 )
             }
             HeightSpacer(36.dp)
