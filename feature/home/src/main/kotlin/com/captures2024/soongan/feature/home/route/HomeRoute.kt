@@ -9,10 +9,11 @@ import androidx.compose.ui.draw.paint
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.captures2024.soongan.core.design.R
 import com.captures2024.soongan.core.designsystem.util.sgBottomBarPadding
-import com.captures2024.soongan.core.model.UserPost
 import com.captures2024.soongan.core.model.dto.PostInfoDto
 import com.captures2024.soongan.feature.home.HomeViewModel
 import com.captures2024.soongan.feature.home.state.home.HomeIntent
@@ -49,6 +50,10 @@ internal fun HomeRoute(
                 is HomeSideEffect.NavigateToHomeGallery -> navigateToGallery()
             }
         }
+    }
+
+    LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
+        homeViewModel.intent(HomeIntent.Init)
     }
 
     HomeScreen(

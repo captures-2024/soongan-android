@@ -50,6 +50,7 @@ internal fun RegistrationPostScreenTopBar(
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
             fontFamily = NanumSquareNeoFontFamily,
+            color = SGColor.primaryA,
         )
     }
 }

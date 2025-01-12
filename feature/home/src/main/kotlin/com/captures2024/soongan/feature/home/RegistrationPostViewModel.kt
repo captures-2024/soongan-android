@@ -3,6 +3,7 @@ package com.captures2024.soongan.feature.home
 import androidx.lifecycle.SavedStateHandle
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.common.base.BaseViewModel
+import com.captures2024.soongan.core.domain.usecase.weekly.contests.RegisterPostUseCase
 import com.captures2024.soongan.feature.home.state.registration_post.RegistrationPostIntent
 import com.captures2024.soongan.feature.home.state.registration_post.RegistrationPostSideEffect
 import com.captures2024.soongan.feature.home.state.registration_post.RegistrationPostUIState
@@ -14,6 +15,7 @@ internal class RegistrationPostViewModel
 @Inject
 constructor(
     private val analyticsHelper: AnalyticsHelper,
+    private val registerPostUseCase: RegisterPostUseCase,
     savedStateHandle: SavedStateHandle,
 ) : BaseViewModel<RegistrationPostUIState, RegistrationPostSideEffect, RegistrationPostIntent>(savedStateHandle) {
 
@@ -108,7 +110,7 @@ constructor(
         }
     }
 
-    private fun handleOnClickSubmitRemote(intent: RegistrationPostIntent.OnClickSubmitRemote) {
+    private suspend fun handleOnClickSubmitRemote(intent: RegistrationPostIntent.OnClickSubmitRemote) {
         analyticsHelper.d(message = "handleOnClickSubmitRemote - intent: $intent")
 
         val submitData = currentState
@@ -123,6 +125,18 @@ constructor(
             return
         }
 
-        TODO("Submit Remote")
+        val result = registerPostUseCase(
+            params = RegisterPostUseCase.Params(
+                weeklyContestRound = 1,
+                subject = submitData.title,
+                imageFile = submitData.currentMedia.toString(),
+            )
+        ).getOrNull() ?: TODO("fail case")
+
+        when (result) {
+            true -> postSideEffect(RegistrationPostSideEffect.NavigateToPost)
+
+            false -> TODO("fail case")
+        }
     }
 }
