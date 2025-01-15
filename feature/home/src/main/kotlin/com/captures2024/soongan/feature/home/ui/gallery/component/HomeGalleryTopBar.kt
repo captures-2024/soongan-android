@@ -1,7 +1,6 @@
-package com.captures2024.soongan.feature.home.ui.gallery
+package com.captures2024.soongan.feature.home.ui.gallery.component
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,10 +10,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.staggeredgrid.LazyStaggeredGridState
 import androidx.compose.foundation.lazy.staggeredgrid.rememberLazyStaggeredGridState
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,29 +21,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
+import com.captures2024.soongan.core.designsystem.component.SoonGanIconButton
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFilterLike
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFilterNew
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFilterOld
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillFillter
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillLeftArrow
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.home.R
-import com.captures2024.soongan.core.designsystem.component.SoonGanIconButton
-import com.captures2024.soongan.core.designsystem.theme.SGColor
-import com.captures2024.soongan.feature.home.utils.GalleryPhotoSortFilter
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun HomeGalleryTopBar(
     modifier: Modifier = Modifier,
     lazyStaggeredGridState: LazyStaggeredGridState = rememberLazyStaggeredGridState(),
-    isShowBottomSheet: Boolean,
-    sortOrder: GalleryPhotoSortFilter,
     onBackPressed: () -> Unit = {},
     onClickFilter: () -> Unit = {},
-    onClickSortFilter: (GalleryPhotoSortFilter) -> Unit = {},
-    onBottomModalDismissRequest: () -> Unit = {}
 ) {
     var scrolledY = 0f
     var previousOffset = 0
@@ -110,41 +97,6 @@ internal fun HomeGalleryTopBar(
                 )
             )
         }
-
-        if (isShowBottomSheet) {
-            ModalBottomSheet(
-                onDismissRequest = onBottomModalDismissRequest,
-                containerColor = Color.White,
-            ) {
-                Column(
-                    modifier = Modifier.padding(
-                        horizontal = 20.dp,
-                        vertical = 20.dp
-                    )
-                ) {
-                    HomeGalleryFilterItem(
-                        text = stringResource(id = R.string.filter_likes),
-                        icon = MyIconPack.IconFilterLike,
-                        selected = sortOrder == GalleryPhotoSortFilter.LIKES,
-                        onClickItem = { onClickSortFilter(GalleryPhotoSortFilter.LIKES) }
-                    )
-                    HorizontalDivider(color = SGColor.primaryA.copy(alpha = 0.3f))
-                    HomeGalleryFilterItem(
-                        text = stringResource(id = R.string.filter_oldest),
-                        icon = MyIconPack.IconFilterOld,
-                        selected = sortOrder == GalleryPhotoSortFilter.OLDEST,
-                        onClickItem = { onClickSortFilter(GalleryPhotoSortFilter.OLDEST) }
-                    )
-                    HorizontalDivider(color = SGColor.primaryA.copy(alpha = 0.3f))
-                    HomeGalleryFilterItem(
-                        text = stringResource(id = R.string.filter_newest),
-                        icon = MyIconPack.IconFilterNew,
-                        selected = sortOrder == GalleryPhotoSortFilter.NEWEST,
-                        onClickItem = { onClickSortFilter(GalleryPhotoSortFilter.NEWEST) }
-                    )
-                }
-            }
-        }
     }
 }
 
@@ -152,8 +104,5 @@ internal fun HomeGalleryTopBar(
 @DevicePreviews
 @Composable
 private fun HomeGalleryTopBarPreview() {
-    HomeGalleryTopBar(
-        isShowBottomSheet = false,
-        sortOrder = GalleryPhotoSortFilter.LIKES
-    )
+    HomeGalleryTopBar()
 }

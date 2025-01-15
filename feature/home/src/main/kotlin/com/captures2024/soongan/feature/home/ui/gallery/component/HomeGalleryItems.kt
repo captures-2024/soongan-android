@@ -1,4 +1,4 @@
-package com.captures2024.soongan.feature.home.ui.gallery
+package com.captures2024.soongan.feature.home.ui.gallery.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -12,15 +12,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import coil.request.ImageRequest
 import com.captures2024.soongan.core.designsystem.component.shimmerBrush
 import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.theme.dropShadow
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.model.UserPost
+import com.captures2024.soongan.core.model.dto.GalleryPostDto
 
 @Composable
 internal fun HomeGallerySkeletonItem(
@@ -44,16 +43,14 @@ internal fun HomeGallerySkeletonItem(
 @Composable
 internal fun HomeGalleryImageItem(
     modifier: Modifier = Modifier,
-    item: UserPost.PhotoPost,
-    onClick: (UserPost.PhotoPost) -> Unit = {},
+    item: GalleryPostDto,
+    onClick: (GalleryPostDto) -> Unit = {},
 ) {
     val showShimmer = remember { mutableStateOf(true) }
 
     AsyncImage(
-        model = ImageRequest.Builder(LocalContext.current)
-            .data(item.url)
-            .build(),
-        contentDescription = item.title,
+        model = item.imageUrl,
+        contentDescription = null,
         modifier = modifier
             .background(shimmerBrush(targetValue = 1300f, showShimmer = showShimmer.value))
             .width(190.dp)
@@ -86,10 +83,6 @@ private fun HomeGallerySkeletonItemPreview() {
 @Composable
 private fun HomeGalleryImageItemPreview() {
     HomeGalleryImageItem(
-        item = UserPost.PhotoPost(
-            id = 0,
-            url = "",
-            title = ""
-        )
+        item = GalleryPostDto()
     )
 }

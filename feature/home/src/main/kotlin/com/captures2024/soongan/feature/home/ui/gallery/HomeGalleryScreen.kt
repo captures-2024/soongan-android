@@ -13,7 +13,11 @@ import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
 import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.foundation.lazy.staggeredgrid.rememberLazyStaggeredGridState
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
+import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults.Indicator
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -23,25 +27,66 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.captures2024.soongan.core.design.R
+import com.captures2024.soongan.core.designsystem.component.SoonGanIconButton
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillTopArrow
-import com.captures2024.soongan.core.designsystem.util.DevicePreviews
-import com.captures2024.soongan.core.model.UserPost
-import com.captures2024.soongan.feature.home.state.home_gallery.HomeGalleryUIState
-import com.captures2024.soongan.core.designsystem.component.SoonGanIconButton
 import com.captures2024.soongan.core.designsystem.theme.SGColor
-import com.captures2024.soongan.feature.home.utils.GalleryPhotoSortFilter
+import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.model.dto.GalleryPostDto
+import com.captures2024.soongan.feature.home.state.home_gallery.HomeGalleryUIState
+import com.captures2024.soongan.feature.home.ui.gallery.component.HomeGalleryImageItem
+import com.captures2024.soongan.feature.home.ui.gallery.component.HomeGalleryTopBar
+import com.captures2024.soongan.feature.home.utils.PaginationStatus
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun HomeGalleryScreen(
-    modifier: Modifier = Modifier,
     uiState: HomeGalleryUIState,
+    modifier: Modifier = Modifier,
     onBackPressed: () -> Unit = {},
-    onClickPost: (UserPost.PhotoPost) -> Unit = {},
+    onRefresh: () -> Unit = {},
+    onLoadNextPage: () -> Unit = {},
+    onClickPost: (GalleryPostDto) -> Unit = {},
     onClickFilter: () -> Unit = {},
-    onClickSortFilter: (GalleryPhotoSortFilter) -> Unit = {},
-    onBottomModalDismissRequest: () -> Unit = {}
+) {
+    val pullToRefreshState = rememberPullToRefreshState()
+
+    PullToRefreshBox(
+        isRefreshing = uiState.isRefreshing,
+        onRefresh = onRefresh,
+        modifier = modifier,
+        state = pullToRefreshState,
+        indicator = {
+            Indicator(
+                modifier = Modifier.align(Alignment.TopCenter),
+                isRefreshing = uiState.isRefreshing,
+                containerColor = SGColor.white,
+                color = SGColor.black,
+                state = pullToRefreshState
+            )
+        }
+    ) {
+        HomeGalleryScreen(
+            posts = uiState.posts,
+            paginationStatus = uiState.paginationStatus,
+            onBackPressed = onBackPressed,
+            onLoadNextPage = onLoadNextPage,
+            onClickPost = onClickPost,
+            onClickFilter = onClickFilter,
+        )
+    }
+}
+
+@Composable
+private fun HomeGalleryScreen(
+    posts: List<GalleryPostDto>,
+    paginationStatus: PaginationStatus,
+    onBackPressed: () -> Unit,
+    onLoadNextPage: () -> Unit,
+    onClickPost: (GalleryPostDto) -> Unit,
+    onClickFilter: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     val lazyStaggeredGridState = rememberLazyStaggeredGridState()
     val coroutineScope = rememberCoroutineScope()
@@ -63,26 +108,18 @@ internal fun HomeGalleryScreen(
     ) {
         item(span = StaggeredGridItemSpan.FullLine) {
             HomeGalleryTopBar(
-                isShowBottomSheet = uiState.isShowBottomSheet,
-                sortOrder = uiState.sortOrder,
                 onBackPressed = onBackPressed,
                 onClickFilter = onClickFilter,
-                onClickSortFilter = onClickSortFilter,
-                onBottomModalDismissRequest = onBottomModalDismissRequest
             )
         }
         items(
-            items = uiState.photoList,
-            key = { it.id }
+            items = posts,
+            key = { it.postId }
         ) {
-            when (val item = it) {
-                is UserPost.SkeletonPost -> HomeGallerySkeletonItem(item = item)
-
-                is UserPost.PhotoPost -> HomeGalleryImageItem(
-                    item = item,
-                    onClick = onClickPost
-                )
-            }
+            HomeGalleryImageItem(
+                item = it,
+                onClick = onClickPost
+            )
         }
     }
 
