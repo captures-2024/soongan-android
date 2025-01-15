@@ -18,17 +18,16 @@ import com.captures2024.soongan.core.designsystem.component.shimmerBrush
 import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.theme.dropShadow
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
-import com.captures2024.soongan.core.model.UserPost
 import com.captures2024.soongan.core.model.dto.GalleryPostDto
 
 @Composable
 internal fun HomeGallerySkeletonItem(
     modifier: Modifier = Modifier,
-    item: UserPost.SkeletonPost
+    height: Int = 200,
 ) = Box(
     modifier = modifier
         .width(190.dp)
-        .height(item.height.dp)
+        .height(height.dp)
         .dropShadow(
             shape = RoundedCornerShape(0.dp),
             color = SGColor.black.copy(alpha = 0.2f),
@@ -38,7 +37,6 @@ internal fun HomeGallerySkeletonItem(
         .background(SGColor.gray400)
         .background(brush = shimmerBrush(targetValue = 1300f))
 )
-
 
 @Composable
 internal fun HomeGalleryImageItem(
@@ -54,7 +52,7 @@ internal fun HomeGalleryImageItem(
         modifier = modifier
             .background(shimmerBrush(targetValue = 1300f, showShimmer = showShimmer.value))
             .width(190.dp)
-            .heightIn(min = 100.dp)
+            .heightIn(min = 100.dp, max = 300.dp)
             .dropShadow(
                 shape = RoundedCornerShape(0.dp),
                 color = SGColor.black.copy(alpha = 0.2f),
@@ -74,9 +72,7 @@ internal fun HomeGalleryImageItem(
 @DevicePreviews
 @Composable
 private fun HomeGallerySkeletonItemPreview() {
-    HomeGallerySkeletonItem(
-        item = UserPost.SkeletonPost(id = 1)
-    )
+    HomeGallerySkeletonItem()
 }
 
 @DevicePreviews

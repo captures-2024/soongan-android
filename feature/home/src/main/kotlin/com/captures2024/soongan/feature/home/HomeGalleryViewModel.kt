@@ -10,6 +10,7 @@ import com.captures2024.soongan.feature.home.state.home_gallery.HomeGallerySideE
 import com.captures2024.soongan.feature.home.state.home_gallery.HomeGalleryUIState
 import com.captures2024.soongan.feature.home.utils.PaginationStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 @HiltViewModel
@@ -76,7 +77,11 @@ constructor(
             )
         ) return@launch
 
-        setUpLoading(isInitPage = (page == 0), isRefreshing = isRefreshing)
+        val isInitPage = (page == 0)
+
+        setUpLoading(isInitPage = isInitPage, isRefreshing = isRefreshing)
+
+        delay(2_000)
 
         getGalleryUseCase(
             params = GetGalleryUseCase.Params(
@@ -104,7 +109,6 @@ constructor(
                 copy(
                     isRefreshing = false,
                     paginationStatus = PaginationStatus.ERROR
-
                 )
             }
         }
@@ -112,6 +116,7 @@ constructor(
         analyticsHelper.d(
             logVariable = arrayOf(
                 LogElementArgument("pagingStatus", "${currentState.paginationStatus}"),
+                LogElementArgument("posts", "${currentState.posts}"),
                 LogElementArgument("page", "${currentState.nextPage}"),
                 LogElementArgument("haspage", "${currentState.hasNextPage}"),
             ),
@@ -150,17 +155,9 @@ constructor(
 //        postSideEffect(HomeGallerySideEffect.NavigateToHomePost(intent.post))
     }
 
-    private fun initMockUpPost() {
-        reduce {
-            copy(
-//                galleryInfo = samplePhotos
-            )
-        }
-    }
-
     companion object {
         private const val TAG = "HomeGalleryVM"
 
-        private const val PAGE_SIZE = 10
+        private const val PAGE_SIZE = 20
     }
 }
