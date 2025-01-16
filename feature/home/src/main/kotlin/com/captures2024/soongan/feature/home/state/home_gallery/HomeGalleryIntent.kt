@@ -2,18 +2,25 @@ package com.captures2024.soongan.feature.home.state.home_gallery
 
 import com.captures2024.soongan.core.common.base.UIIntent
 import com.captures2024.soongan.core.model.UserPost
-import com.captures2024.soongan.feature.home.utils.GalleryPhotoSortFilter
+import com.captures2024.soongan.core.model.dto.GalleryPostDto
+import com.captures2024.soongan.feature.home.utils.PostOrderType
 
 internal sealed interface HomeGalleryIntent : UIIntent {
 
+    data object Init: HomeGalleryIntent
+
+    data object RefreshGallery: HomeGalleryIntent
+
+    data object LoadNextPage: HomeGalleryIntent
+
     data class OnClickPost(
-        val post: UserPost.PhotoPost
+        val post: GalleryPostDto
     ) : HomeGalleryIntent
 
     data object OnClickFilter : HomeGalleryIntent
 
     data class OnClickSortFilter(
-        val selectedSortFilter: GalleryPhotoSortFilter
+        val postOrderType: PostOrderType
     ) : HomeGalleryIntent
 
     data object OnBottomModalDismissRequest : HomeGalleryIntent
