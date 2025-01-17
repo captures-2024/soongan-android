@@ -1,4 +1,4 @@
-package com.captures2024.soongan.feature.home.utils
+package com.captures2024.soongan.core.model.utils
 
 enum class PaginationStatus {
     LOADING, // loading first page
