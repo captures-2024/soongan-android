@@ -1,6 +1,7 @@
 package com.captures2024.soongan.core.data.repository
 
 import com.captures2024.soongan.core.model.dto.GalleryDto
+import com.captures2024.soongan.core.model.dto.MyGalleryDto
 import com.captures2024.soongan.core.model.dto.PostInfoDto
 
 interface WeeklyContestRepository {
@@ -17,4 +18,9 @@ interface WeeklyContestRepository {
         subject: String,
         imageFile: String
     ): PostInfoDto
+
+    suspend fun getMyGalleryInfo(
+        page: Int,
+        pageSize: Int,
+    ): MyGalleryDto
 }

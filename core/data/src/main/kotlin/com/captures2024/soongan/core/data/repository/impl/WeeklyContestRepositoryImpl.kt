@@ -3,13 +3,14 @@ package com.captures2024.soongan.core.data.repository.impl
 import com.captures2024.soongan.core.data.remote.WeeklyContestDataSource
 import com.captures2024.soongan.core.data.repository.WeeklyContestRepository
 import com.captures2024.soongan.core.model.dto.GalleryDto
+import com.captures2024.soongan.core.model.dto.MyGalleryDto
 import com.captures2024.soongan.core.model.dto.PostInfoDto
 import javax.inject.Inject
 
 class WeeklyContestRepositoryImpl
 @Inject
 constructor(
-    private val weeklyContestDataSource: WeeklyContestDataSource
+    private val weeklyContestDataSource: WeeklyContestDataSource,
 ) : WeeklyContestRepository {
 
     override suspend fun getGalleryInfo(
@@ -31,7 +32,7 @@ constructor(
     override suspend fun registerPost(
         weeklyContestRound: Int,
         subject: String,
-        imageFile: String
+        imageFile: String,
     ): PostInfoDto {
         val postInfoDto = weeklyContestDataSource.registerPost(
             weeklyContestRound = weeklyContestRound,
@@ -40,5 +41,14 @@ constructor(
         )
 
         return postInfoDto ?: throw NullPointerException("postInfoDto is null")
+    }
+
+    override suspend fun getMyGalleryInfo(page: Int, pageSize: Int): MyGalleryDto {
+        val myGalleryInfo = weeklyContestDataSource.getMyGalleryInfo(
+            page = page,
+            pageSize = pageSize
+        )
+
+        return myGalleryInfo ?: throw java.lang.NullPointerException("MygalleryDto is null")
     }
 }
