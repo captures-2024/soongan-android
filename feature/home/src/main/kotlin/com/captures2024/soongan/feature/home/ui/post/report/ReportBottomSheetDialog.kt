@@ -1,4 +1,4 @@
-package com.captures2024.soongan.feature.home.ui.post.common.report
+package com.captures2024.soongan.feature.home.ui.post.report
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -29,10 +29,10 @@ import com.captures2024.soongan.feature.home.utils.ReportType
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun ReportBottomSheetDialog(
-    modifier: Modifier = Modifier,
+    closeSheet: () -> Unit,
     reportState: PhotoDetailModalState.Open.ReportOpen,
     onClickReport: (ReportType) -> Unit,
-    closeSheet: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     

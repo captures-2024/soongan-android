@@ -37,20 +37,16 @@ import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillLeftArrow
 import com.captures2024.soongan.core.designsystem.theme.dropShadow
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
-import com.captures2024.soongan.core.model.UserPost
 import com.captures2024.soongan.core.designsystem.component.SoonGanIconButton
 import com.captures2024.soongan.core.designsystem.theme.SGColor
+import com.captures2024.soongan.core.model.dto.PostInfoDto
 import com.captures2024.soongan.core.viewmodel.home.HomePostViewModel
 
 @Composable
 internal fun HomePostScreen(
-    modifier: Modifier = Modifier,
+    intent: (HomePostViewModel.Intent) -> Unit,
     uiState: HomePostViewModel.State,
-    onBackPressed: () -> Unit = {},
-    onClickPhoto: () -> Unit = {},
-    onClickMenu: () -> Unit = {},
-    onClickHeart: () -> Unit = {},
-    onClickComment: () -> Unit = {}
+    modifier: Modifier = Modifier,
 ) {
     val showShimmer = remember { mutableStateOf(true) }
 
@@ -69,7 +65,9 @@ internal fun HomePostScreen(
                     .padding(20.dp),
                 contentAlignment = Alignment.CenterStart
             ) {
-                SoonGanIconButton(onClick = onBackPressed) {
+                SoonGanIconButton(
+                    onClick = { intent(HomePostViewModel.Intent.OnClickBack) },
+                ) {
                     Icon(
                         imageVector = MyIconPack.IconNonFillLeftArrow,
                         contentDescription = "back",
@@ -80,9 +78,11 @@ internal fun HomePostScreen(
         },
         bottomBar = @Composable {
             HomePostScreenBottomBar(
-                onClickMenu = onClickMenu,
-                onClickHeart = onClickHeart,
-                onClickComment = onClickComment,
+                likeCount = uiState.post.likeCount,
+                commentCount = uiState.post.commentCount,
+                onClickMenu = { intent(HomePostViewModel.Intent.OnClickMenu) },
+                onClickHeart = { intent(HomePostViewModel.Intent.OnClickHeart) },
+                onClickComment = { intent(HomePostViewModel.Intent.OnClickComment) },
             )
         },
         containerColor = SGColor.transparent,
@@ -103,9 +103,9 @@ internal fun HomePostScreen(
             ) {
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
-                        .data(uiState.post.url)
+                        .data(uiState.post.imageUrl)
                         .build(),
-                    contentDescription = uiState.post.title,
+                    contentDescription = uiState.post.subject,
                     modifier = modifier
                         .background(
                             shimmerBrush(
@@ -123,7 +123,7 @@ internal fun HomePostScreen(
                             offsetY = 6.dp,
                         )
                         .clickable(
-                            onClick = onClickPhoto,
+                            onClick = { intent(HomePostViewModel.Intent.OnClickPhoto) },
                         ),
                     contentScale = ContentScale.FillWidth,
                 )
@@ -136,14 +136,14 @@ internal fun HomePostScreen(
                     .padding(bottom = 40.dp)
             ) {
                 NonScaleText(
-                    text = "무제",
+                    text = uiState.post.subject,
                     color = SGColor.primaryA,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 NonScaleText(
-                    text = "@dkddkq222",
+                    text = "@${uiState.post.registerNickname}",
                     color = SGColor.primaryA,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Medium
@@ -151,18 +151,20 @@ internal fun HomePostScreen(
             }
         }
     }
-
 }
 
 @DevicePreviews
 @Composable
 private fun HomePostScreenPreview() {
     HomePostScreen(
+        intent = {},
         uiState = HomePostViewModel.State(
-            post = UserPost.PhotoPost(
-                id = 0,
-                url = "",
-                title = "test"
+            postId = 1,
+            post = PostInfoDto(
+                postId = 1,
+                imageUrl = "",
+                subject = "무제",
+                registerNickname = "테스트닉네임"
             )
         )
     )

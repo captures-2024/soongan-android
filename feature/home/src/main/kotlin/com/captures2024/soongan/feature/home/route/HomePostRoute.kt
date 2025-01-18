@@ -9,6 +9,9 @@ import com.captures2024.soongan.core.viewmodel.home.HomePostViewModel
 import com.captures2024.soongan.feature.home.ui.post.HomePostScreen
 import com.captures2024.soongan.feature.home.ui.post.comment.HomePostCommentBottomSheetDialog
 import com.captures2024.soongan.core.viewmodel.model.HomePostBottomModalState
+import com.captures2024.soongan.feature.home.state.PhotoDetailModalState
+import com.captures2024.soongan.feature.home.ui.post.HomePostMenuBottomSheetDialog
+import com.captures2024.soongan.feature.home.ui.post.report.ReportBottomSheetDialog
 
 @Composable
 internal fun HomePostRoute(
@@ -21,19 +24,16 @@ internal fun HomePostRoute(
     LaunchedEffect(key1 = Unit) {
         homePostViewModel.sideEffect.collect { effect ->
             when (effect) {
-                is HomePostViewModel.Effect.NavigateToHomePostPhoto -> navigateToHomePostPhoto(effect.url)
+                is HomePostViewModel.Effect.NavigateToBack -> navigateToBack()
 
+                is HomePostViewModel.Effect.NavigateToHomePostPhoto -> navigateToHomePostPhoto(effect.url)
             }
         }
     }
 
     HomePostScreen(
+        intent = homePostViewModel::intent,
         uiState = uiState,
-        onBackPressed = navigateToBack,
-        onClickPhoto = { homePostViewModel.intent(HomePostViewModel.Intent.OnClickPhoto) },
-        onClickMenu = { homePostViewModel.intent(HomePostViewModel.Intent.OnClickMenu) },
-        onClickHeart = { homePostViewModel.intent(HomePostViewModel.Intent.OnClickHeart) },
-        onClickComment = { homePostViewModel.intent(HomePostViewModel.Intent.OnClickComment) },
     )
 
     when (uiState.isOpenModal) {
@@ -43,10 +43,19 @@ internal fun HomePostRoute(
             onCommentValueChanged = { homePostViewModel.intent(HomePostViewModel.Intent.OnCommentValueChanged(it)) }
         )
 
-        HomePostBottomModalState.OPEN_REPORT -> {
+        HomePostBottomModalState.OPEN_MENU -> HomePostMenuBottomSheetDialog(
+            closeSheet = { homePostViewModel.intent(HomePostViewModel.Intent.OnClosedModal) },
+            onClickEdit = { homePostViewModel.intent(HomePostViewModel.Intent.OnClickEditPost) },
+            onClickDelete = { homePostViewModel.intent(HomePostViewModel.Intent.OnClickDeletePost) },
+            onClickReport = { homePostViewModel.intent(HomePostViewModel.Intent.OnClickReportPost) },
+        )
 
-        }
+        HomePostBottomModalState.OPEN_REPORT -> ReportBottomSheetDialog(
+            closeSheet = { homePostViewModel.intent(HomePostViewModel.Intent.OnClosedModal) },
+            reportState = PhotoDetailModalState.Open.ReportOpen(),
+            onClickReport = { TODO("onClickReport Not impl yet") }
+        )
 
-        else -> Unit
+        HomePostBottomModalState.CLOSED -> Unit
     }
 }

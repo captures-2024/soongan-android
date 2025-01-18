@@ -41,9 +41,7 @@ internal fun HomeRoute(
             when (effect) {
                 is HomeViewModel.Effect.NavigateToRegistrationPost -> navigateToRegistrationPost()
 
-                is HomeViewModel.Effect.NavigateToHomePost -> {
-//                    navigateToMyPost(effect.myPost)
-                }
+                is HomeViewModel.Effect.NavigateToHomePost -> navigateToPost(effect.postInfo.postId)
 
                 is HomeViewModel.Effect.NavigateToHomeGallery -> navigateToGallery()
             }
