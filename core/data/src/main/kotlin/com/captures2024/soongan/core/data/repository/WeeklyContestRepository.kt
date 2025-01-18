@@ -17,4 +17,8 @@ interface WeeklyContestRepository {
         subject: String,
         imageFile: String
     ): PostInfoDto
+
+    suspend fun getPostInfo(
+        postId: Int,
+    ): PostInfoDto
 }

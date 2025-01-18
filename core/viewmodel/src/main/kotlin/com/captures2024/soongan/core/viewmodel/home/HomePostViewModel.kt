@@ -7,6 +7,7 @@ import com.captures2024.soongan.core.common.base.BaseViewModel
 import com.captures2024.soongan.core.common.base.UIIntent
 import com.captures2024.soongan.core.common.base.UISideEffect
 import com.captures2024.soongan.core.common.base.UIState
+import com.captures2024.soongan.core.domain.usecase.weekly.contests.GetPostInfoUseCase
 import com.captures2024.soongan.core.model.dto.PostInfoDto
 import com.captures2024.soongan.core.navigator.screen.main.home.HomePostNavigator
 import com.captures2024.soongan.core.viewmodel.model.HomePostBottomModalState
@@ -18,7 +19,8 @@ import javax.inject.Inject
 class HomePostViewModel
 @Inject
 constructor(
-    savedStateHandle: SavedStateHandle
+    private val getPostInfoUseCase: GetPostInfoUseCase,
+    savedStateHandle: SavedStateHandle,
 ) : BaseViewModel<HomePostViewModel.State, HomePostViewModel.Effect, HomePostViewModel.Intent>(savedStateHandle) {
 
     data class State(
@@ -118,19 +120,17 @@ constructor(
     }
 
     private suspend fun handleInit() {
-        delay(200)
+        val postInfo = getPostInfoUseCase(currentState.postId).getOrNull()
+
+        if (postInfo == null) {
+            postSideEffect(Effect.NavigateToBack)
+            return
+        }
 
         reduce {
             copy(
-                postId = 6,
-                post = PostInfoDto(
-                    postId = 6,
-                    imageUrl = "https://storage.googleapis.com/soongan-dev-bucket/52/weekly/1/soongan_image-1736689106951.jpg",
-                    subject = "무제",
-                    registerNickname = "intexy12",
-                    likeCount = 0,
-                    commentCount = 0
-                ),
+                postId = postInfo.postId,
+                post = postInfo,
                 isLoading = false,
             )
         }
