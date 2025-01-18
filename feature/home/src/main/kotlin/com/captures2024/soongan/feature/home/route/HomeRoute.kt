@@ -22,7 +22,7 @@ import com.captures2024.soongan.feature.home.ui.home.HomeScreenBottomSheet
 @Composable
 internal fun HomeRoute(
     navigateToRegistrationPost: () -> Unit,
-    navigateToPost: (PostInfoDto) -> Unit,
+    navigateToPost: (Int) -> Unit,
     navigateToGallery: () -> Unit,
     homeViewModel: HomeViewModel = hiltViewModel()
 ) {

@@ -3,7 +3,6 @@ package com.captures2024.soongan.feature.main.route
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.util.trace
 import androidx.navigation.NavDestination
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -11,16 +10,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
-import com.captures2024.soongan.core.android.helper.NetworkMonitor
+import com.captures2024.soongan.core.navigator.screen.main.awards.navigateToAwards
+import com.captures2024.soongan.core.navigator.screen.main.feed.navigateToFeed
+import com.captures2024.soongan.core.navigator.screen.main.home.navigateToHome
+import com.captures2024.soongan.core.navigator.screen.main.profile.navigateToProfile
 import com.captures2024.soongan.feature.main.navigation.TopLevelDestination
-import com.captures2024.soongan.feature.main.navigation.navigateToAwards
-import com.captures2024.soongan.feature.main.navigation.navigateToFeed
-import com.captures2024.soongan.feature.main.navigation.navigateToHome
-import com.captures2024.soongan.feature.main.navigation.navigateToProfile
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
 
 @Composable
 internal fun rememberMainRouteState(
@@ -68,5 +62,4 @@ internal class MainRouteState(
             }
         }
     }
-
 }

@@ -18,7 +18,7 @@ fun NavGraphBuilder.home(
     navigateToBack: () -> Unit,
     navigateToRegistrationPost: () -> Unit,
     navigateToGallery: () -> Unit,
-    navigateToPost: (PostInfoDto) -> Unit,
+    navigateToPost: (Int) -> Unit,
     navigateToPostPhoto: (String) -> Unit
 ) {
     composable<HomeNavigator> {
