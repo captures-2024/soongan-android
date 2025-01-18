@@ -6,7 +6,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.captures2024.soongan.core.model.UserPost
 import com.captures2024.soongan.feature.home.HomeGalleryViewModel
 import com.captures2024.soongan.feature.home.state.home_gallery.HomeGalleryIntent
 import com.captures2024.soongan.feature.home.state.home_gallery.HomeGallerySideEffect
@@ -17,7 +16,8 @@ import com.captures2024.soongan.feature.home.ui.gallery.HomeGalleryScreen
 @Composable
 internal fun HomeGalleryRoute(
     navigateToBack: () -> Unit,
-    navigateToPost: (UserPost.PhotoPost) -> Unit,
+    navigateToPost: (Int) -> Unit,
+    navigateToRegistrationPost: () -> Unit,
     homeGalleryViewModel: HomeGalleryViewModel = hiltViewModel(),
 ) {
     val uiState by homeGalleryViewModel.state.collectAsStateWithLifecycle()
@@ -25,7 +25,9 @@ internal fun HomeGalleryRoute(
     LaunchedEffect(key1 = Unit) {
         homeGalleryViewModel.sideEffect.collect { effect ->
             when (effect) {
-                is HomeGallerySideEffect.NavigateToHomePost -> navigateToPost(effect.post)
+                is HomeGallerySideEffect.NavigateToHomePost -> navigateToPost(effect.postId)
+
+                is HomeGallerySideEffect.NavigateToRegistrationPost -> navigateToRegistrationPost()
             }
         }
     }
@@ -37,6 +39,7 @@ internal fun HomeGalleryRoute(
         onLoadNextPage = { homeGalleryViewModel.intent(HomeGalleryIntent.LoadNextPage) },
         onClickPost = { homeGalleryViewModel.intent(HomeGalleryIntent.OnClickPost(it)) },
         onClickFilter = { homeGalleryViewModel.intent(HomeGalleryIntent.OnClickFilter) },
+        onClickRegistrationText = { homeGalleryViewModel.intent(HomeGalleryIntent.OnClickRegistrationText) }
     )
 
     if (uiState.isShowBottomSheet) {

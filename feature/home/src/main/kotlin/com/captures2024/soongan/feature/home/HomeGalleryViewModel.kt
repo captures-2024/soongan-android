@@ -5,10 +5,10 @@ import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.analytics.utils.LogElementArgument
 import com.captures2024.soongan.core.common.base.BaseViewModel
 import com.captures2024.soongan.core.domain.usecase.weekly.contests.GetGalleryUseCase
+import com.captures2024.soongan.core.model.utils.PaginationStatus
 import com.captures2024.soongan.feature.home.state.home_gallery.HomeGalleryIntent
 import com.captures2024.soongan.feature.home.state.home_gallery.HomeGallerySideEffect
 import com.captures2024.soongan.feature.home.state.home_gallery.HomeGalleryUIState
-import com.captures2024.soongan.feature.home.utils.PaginationStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import javax.inject.Inject
@@ -46,9 +46,15 @@ constructor(
 
             is HomeGalleryIntent.OnClickFilter -> onClickFilter()
 
-            is HomeGalleryIntent.OnClickPost -> onClickPost(intent)
+            is HomeGalleryIntent.OnClickPost -> postSideEffect(
+                HomeGallerySideEffect.NavigateToHomePost(
+                    intent.postId
+                )
+            )
 
             is HomeGalleryIntent.OnClickSortFilter -> onClickSortFilter(intent)
+
+            is HomeGalleryIntent.OnClickRegistrationText -> postSideEffect(HomeGallerySideEffect.NavigateToRegistrationPost)
         }
     }
 
@@ -149,10 +155,6 @@ constructor(
         }
 
         fetchPostPage(page = 0)
-    }
-
-    private fun onClickPost(intent: HomeGalleryIntent.OnClickPost) {
-//        postSideEffect(HomeGallerySideEffect.NavigateToHomePost(intent.post))
     }
 
     companion object {
