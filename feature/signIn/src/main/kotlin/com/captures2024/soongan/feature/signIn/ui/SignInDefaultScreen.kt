@@ -24,6 +24,8 @@ import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconLogoApple
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconLogoGoogle
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconLogoKakao
+import com.captures2024.soongan.core.designsystem.theme.PretendardFontFamily
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.signIn.R
 
@@ -45,49 +47,53 @@ internal fun SignInDefaultScreen(
                 contentScale = ContentScale.FillBounds,
             )
             .padding(all = 16.dp),
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.SpaceAround,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         NonScaleText(
             text = stringResource(id = R.string.logo_text),
             color = Color(0xFFF5F5F5),
-            fontSize = 60.sp,
-            fontWeight = FontWeight.Medium
+            fontSize = 96.sp,
+            fontWeight = FontWeight.Medium,
+            fontFamily = PretendardFontFamily,
         )
-        Spacer(modifier = Modifier.height(32.dp))
+//        Spacer(modifier = Modifier.height(32.dp))
 //        SocialSignInButton(
 //            text = stringResource(id = R.string.sign_in_text_apple),
 //            icon = MyIconPack.IconLogoApple,
 //            onClick = onClickAppleSignIn
 //        )
-        Spacer(modifier = Modifier.height(16.dp))
-        SocialSignInButton(
-            text = stringResource(id = R.string.sign_in_text_google),
-            icon = MyIconPack.IconLogoGoogle,
-            onClick = onClickGoogleSignIn
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        SocialSignInButton(
-            text = stringResource(id = R.string.sign_in_text_kakao),
-            icon = MyIconPack.IconLogoKakao,
-            onClick = onClickKakaoSignIn
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        TermsText(
-            onClickTermsOfUse = onClickTermsOfUse,
-            onClickPrivacyPolicy = onClickToPrivacyPolicy
-        )
-        Spacer(modifier = Modifier.height(24.dp))
-        NonScaleText(
-            text = stringResource(id = R.string.gesture_looking),
-            modifier = Modifier
-                .clickable(
-                    onClick = onClickGuestMode
-                ),
-            color = Color(0xFFF5F5F5),
-            fontSize = 14.sp,
-            fontWeight = FontWeight.SemiBold
-        )
+//        Spacer(modifier = Modifier.height(16.dp))
+//        SocialSignInButton(
+//            text = stringResource(id = R.string.sign_in_text_google),
+//            icon = MyIconPack.IconLogoGoogle,
+//            onClick = onClickGoogleSignIn
+//        )
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Spacer(modifier = Modifier.height(16.dp))
+            SocialSignInButton(
+                text = stringResource(id = R.string.sign_in_text_kakao),
+                icon = MyIconPack.IconLogoKakao,
+                backgroundColor = Color(0xFFFEE500),
+                onClick = onClickKakaoSignIn,
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            TermsText(
+                onClickTermsOfUse = onClickTermsOfUse,
+                onClickPrivacyPolicy = onClickToPrivacyPolicy
+            )
+            Spacer(modifier = Modifier.height(24.dp))
+            NonScaleText(
+                text = stringResource(id = R.string.gesture_looking),
+                modifier = Modifier
+                    .clickable(
+                        onClick = onClickGuestMode
+                    ),
+                color = SGColor.primaryB,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.SemiBold
+            )
+        }
     }
 }
 
