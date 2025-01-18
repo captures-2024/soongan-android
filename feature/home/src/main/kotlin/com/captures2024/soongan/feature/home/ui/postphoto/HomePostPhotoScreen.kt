@@ -30,9 +30,9 @@ import com.captures2024.soongan.core.designsystem.component.ZoomableBox
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillLeftArrow
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
-import com.captures2024.soongan.feature.home.state.postphoto.HomePostPhotoUIState
 import com.captures2024.soongan.core.designsystem.component.SoonGanIconButton
 import com.captures2024.soongan.core.designsystem.theme.SGColor
+import com.captures2024.soongan.core.viewmodel.home.HomePostPhotoViewModel
 import kotlinx.coroutines.delay
 
 private const val DEFAULT_DURATION: Long = 1L * 1L * 1000L
@@ -40,7 +40,7 @@ private const val DEFAULT_DURATION: Long = 1L * 1L * 1000L
 @Composable
 internal fun HomePostPhotoScreen(
     modifier: Modifier = Modifier,
-    uiState: HomePostPhotoUIState,
+    uiState: HomePostPhotoViewModel.State,
     onBackPressed: () -> Unit = {}
 ) {
     val context = LocalContext.current
@@ -123,7 +123,7 @@ internal fun HomePostPhotoScreen(
 @Composable
 private fun HomePostPhotoScreenPreview() {
     HomePostPhotoScreen(
-        uiState = HomePostPhotoUIState(
+        uiState = HomePostPhotoViewModel.State(
             url = ""
         )
     )

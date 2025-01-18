@@ -12,7 +12,7 @@ import com.captures2024.soongan.core.navigator.screen.sign.NicknameNavigator
 import com.captures2024.soongan.core.navigator.screen.sign.PrivacyPolicyNavigator
 import com.captures2024.soongan.core.navigator.screen.sign.SignInNavigator
 import com.captures2024.soongan.core.navigator.screen.sign.TermsOfUseNavigator
-import com.captures2024.soongan.core.viewmodel.SignViewModel
+import com.captures2024.soongan.core.viewmodel.sign.SignViewModel
 import com.captures2024.soongan.feature.privacypolicy.navigation.privacyPolicy
 import com.captures2024.soongan.feature.signIn.navigation.signIn
 import com.captures2024.soongan.feature.signUp.navigation.signUp

@@ -15,9 +15,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.captures2024.soongan.core.design.R
 import com.captures2024.soongan.core.designsystem.util.sgBottomBarPadding
 import com.captures2024.soongan.core.model.dto.PostInfoDto
-import com.captures2024.soongan.feature.home.HomeViewModel
-import com.captures2024.soongan.feature.home.state.home.HomeIntent
-import com.captures2024.soongan.feature.home.state.home.HomeSideEffect
+import com.captures2024.soongan.core.viewmodel.home.HomeViewModel
 import com.captures2024.soongan.feature.home.ui.home.HomeScreen
 import com.captures2024.soongan.feature.home.ui.home.HomeScreenBottomSheet
 
@@ -41,32 +39,32 @@ internal fun HomeRoute(
     LaunchedEffect(key1 = Unit) {
         homeViewModel.sideEffect.collect { effect ->
             when (effect) {
-                is HomeSideEffect.NavigateToRegistrationPost -> navigateToRegistrationPost()
+                is HomeViewModel.Effect.NavigateToRegistrationPost -> navigateToRegistrationPost()
 
-                is HomeSideEffect.NavigateToHomePost -> {
+                is HomeViewModel.Effect.NavigateToHomePost -> {
 //                    navigateToMyPost(effect.myPost)
                 }
 
-                is HomeSideEffect.NavigateToHomeGallery -> navigateToGallery()
+                is HomeViewModel.Effect.NavigateToHomeGallery -> navigateToGallery()
             }
         }
     }
 
     LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
-        homeViewModel.intent(HomeIntent.Init)
+        homeViewModel.intent(HomeViewModel.Intent.Init)
     }
 
     HomeScreen(
         uiState = uiState,
         modifier = modifier,
-        onClickPlus = { homeViewModel.intent(HomeIntent.OnClickPlus) },
-        onClickPost = { homeViewModel.intent(HomeIntent.OnClickPost(it)) },
-        onToggleWeeklyDaily = { homeViewModel.intent(HomeIntent.OnToggleWeeklyDaily) },
-        onClickInfo = { homeViewModel.intent(HomeIntent.OnClickInfo) },
-        onClickRightArrow = { homeViewModel.intent(HomeIntent.OnClickRightArrow) },
+        onClickPlus = { homeViewModel.intent(HomeViewModel.Intent.OnClickPlus) },
+        onClickPost = { homeViewModel.intent(HomeViewModel.Intent.OnClickPost(it)) },
+        onToggleWeeklyDaily = { homeViewModel.intent(HomeViewModel.Intent.OnToggleWeeklyDaily) },
+        onClickInfo = { homeViewModel.intent(HomeViewModel.Intent.OnClickInfo) },
+        onClickRightArrow = { homeViewModel.intent(HomeViewModel.Intent.OnClickRightArrow) },
     )
 
     if (uiState.isOpenBottomSheet) {
-        HomeScreenBottomSheet { homeViewModel.intent(HomeIntent.OnCloseBottomSheet) }
+        HomeScreenBottomSheet { homeViewModel.intent(HomeViewModel.Intent.OnCloseBottomSheet) }
     }
 }

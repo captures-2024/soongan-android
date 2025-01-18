@@ -5,7 +5,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.captures2024.soongan.feature.home.HomePostPhotoViewModel
+import com.captures2024.soongan.core.viewmodel.home.HomePostPhotoViewModel
 import com.captures2024.soongan.feature.home.ui.postphoto.HomePostPhotoScreen
 
 @Composable

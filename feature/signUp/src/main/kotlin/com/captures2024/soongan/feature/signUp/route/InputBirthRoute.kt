@@ -4,8 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.captures2024.soongan.core.viewmodel.SignViewModel
-import com.captures2024.soongan.core.viewmodel.intent.SignIntent
+import com.captures2024.soongan.core.viewmodel.sign.SignViewModel
 import com.captures2024.soongan.feature.signUp.BirthViewModel
 import com.captures2024.soongan.feature.signUp.state.birth.BirthIntent
 import com.captures2024.soongan.feature.signUp.state.birth.BirthSideEffect
@@ -26,7 +25,7 @@ internal fun InputBirthRoute(
 
                 is BirthSideEffect.NavigateToMain ->
                     signViewModel.intent(
-                        SignIntent.SuccessPathBirth(
+                        SignViewModel.Intent.SuccessPathBirth(
                             nickname = it.nickname,
                             birthYear = it.birthYear,
                         )

@@ -43,11 +43,11 @@ import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillTop
 import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.model.dto.GalleryPostDto
-import com.captures2024.soongan.feature.home.state.home_gallery.HomeGalleryUIState
+import com.captures2024.soongan.core.viewmodel.home.HomeGalleryViewModel
 import com.captures2024.soongan.feature.home.ui.gallery.component.HomeGalleryImageItem
 import com.captures2024.soongan.feature.home.ui.gallery.component.HomeGallerySkeletonItem
 import com.captures2024.soongan.feature.home.ui.gallery.component.HomeGalleryTopBar
-import com.captures2024.soongan.feature.home.utils.PaginationStatus
+import com.captures2024.soongan.core.viewmodel.model.PaginationStatus
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
@@ -55,7 +55,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun HomeGalleryScreen(
-    uiState: HomeGalleryUIState,
+    uiState: HomeGalleryViewModel.State,
     modifier: Modifier = Modifier,
     onBackPressed: () -> Unit = {},
     onRefresh: () -> Unit = {},
@@ -260,6 +260,6 @@ private fun HomeGalleryScreen(
 @Composable
 private fun HomeGalleryScreenPreview() {
     HomeGalleryScreen(
-        uiState = HomeGalleryUIState()
+        uiState = HomeGalleryViewModel.State()
     )
 }

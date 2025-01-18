@@ -38,14 +38,14 @@ import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillLef
 import com.captures2024.soongan.core.designsystem.theme.dropShadow
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.model.UserPost
-import com.captures2024.soongan.feature.home.state.post.HomePostUIState
 import com.captures2024.soongan.core.designsystem.component.SoonGanIconButton
 import com.captures2024.soongan.core.designsystem.theme.SGColor
+import com.captures2024.soongan.core.viewmodel.home.HomePostViewModel
 
 @Composable
 internal fun HomePostScreen(
     modifier: Modifier = Modifier,
-    uiState: HomePostUIState,
+    uiState: HomePostViewModel.State,
     onBackPressed: () -> Unit = {},
     onClickPhoto: () -> Unit = {},
     onClickMenu: () -> Unit = {},
@@ -158,7 +158,7 @@ internal fun HomePostScreen(
 @Composable
 private fun HomePostScreenPreview() {
     HomePostScreen(
-        uiState = HomePostUIState(
+        uiState = HomePostViewModel.State(
             post = UserPost.PhotoPost(
                 id = 0,
                 url = "",

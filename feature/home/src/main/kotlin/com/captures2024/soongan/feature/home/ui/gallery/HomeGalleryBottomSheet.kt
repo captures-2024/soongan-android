@@ -33,14 +33,16 @@ import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFilterLike
 import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.viewmodel.home.HomeGalleryViewModel
 import com.captures2024.soongan.feature.home.R
-import com.captures2024.soongan.feature.home.state.home_gallery.HomeGalleryUIState
-import com.captures2024.soongan.feature.home.utils.PostOrderType
+import com.captures2024.soongan.core.viewmodel.model.PostOrderType
+import com.captures2024.soongan.feature.home.utils.getIcon
+import com.captures2024.soongan.feature.home.utils.getTextId
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun HomeGalleryBottomSheet(
-    uiState: HomeGalleryUIState,
+    uiState: HomeGalleryViewModel.State,
     modifier: Modifier = Modifier,
     sheetState: SheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
     onDismissRequest: () -> Unit = {},
@@ -62,8 +64,8 @@ internal fun HomeGalleryBottomSheet(
                 if (idx != 0) HorizontalDivider(color = SGColor.primaryA.copy(alpha = 0.3f))
 
                 HomeGalleryFilterItem(
-                    text = stringResource(id = postOrderType.textId),
-                    icon = postOrderType.icon,
+                    text = stringResource(id = postOrderType.getTextId()),
+                    icon = postOrderType.getIcon(),
                     selected = uiState.postOrderType == postOrderType,
                     onClickItem = { onClickItem(postOrderType) }
                 )
@@ -129,7 +131,7 @@ private fun HomeGalleryBottomSheetPreview() {
     )
 
     HomeGalleryBottomSheet(
-        uiState = HomeGalleryUIState(),
+        uiState = HomeGalleryViewModel.State(),
         sheetState = sheetState,
     )
 }
