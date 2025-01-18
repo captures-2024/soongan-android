@@ -8,8 +8,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavOptions
+import androidx.navigation.navOptions
 import com.captures2024.soongan.core.android.utils.LocalAnalyticsHelper
-import com.captures2024.soongan.core.model.UserPost
+import com.captures2024.soongan.core.navigator.screen.main.home.RegistrationPostNavigator
 import com.captures2024.soongan.feature.home.RegistrationPostViewModel
 import com.captures2024.soongan.feature.home.state.registration_post.RegistrationPostIntent
 import com.captures2024.soongan.feature.home.state.registration_post.RegistrationPostSideEffect
@@ -19,7 +21,7 @@ import com.captures2024.soongan.feature.home.ui.registration_post.SubmitBottomSh
 @Composable
 internal fun RegistrationPostRoute(
     navigateToBack: () -> Unit,
-    navigateToPost: (UserPost.PhotoPost) -> Unit,
+    navigateToPost: (Int, NavOptions?) -> Unit,
     registrationPostViewModel: RegistrationPostViewModel = hiltViewModel()
 ) {
     val analyticsHelper = LocalAnalyticsHelper.current
@@ -42,9 +44,12 @@ internal fun RegistrationPostRoute(
 
                 is RegistrationPostSideEffect.NavigateToBack -> navigateToBack()
 
-                is RegistrationPostSideEffect.NavigateToPost -> {
-                    TODO("NavigateToPost using navigateToPost")
-                }
+                is RegistrationPostSideEffect.NavigateToPost -> navigateToPost(
+                    sideEffect.postId,
+                    navOptions {
+                        popUpTo(0)
+                    },
+                )
             }
         }
     }

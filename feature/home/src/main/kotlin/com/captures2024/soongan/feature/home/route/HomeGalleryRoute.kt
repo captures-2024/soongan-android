@@ -6,7 +6,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.captures2024.soongan.core.model.UserPost
+import androidx.navigation.NavOptions
 import com.captures2024.soongan.core.viewmodel.home.HomeGalleryViewModel
 import com.captures2024.soongan.feature.home.ui.gallery.HomeGalleryBottomSheet
 import com.captures2024.soongan.feature.home.ui.gallery.HomeGalleryScreen
@@ -15,7 +15,7 @@ import com.captures2024.soongan.feature.home.ui.gallery.HomeGalleryScreen
 @Composable
 internal fun HomeGalleryRoute(
     navigateToBack: () -> Unit,
-    navigateToPost: (UserPost.PhotoPost) -> Unit,
+    navigateToPost: (Int, NavOptions?) -> Unit,
     homeGalleryViewModel: HomeGalleryViewModel = hiltViewModel(),
 ) {
     val uiState by homeGalleryViewModel.state.collectAsStateWithLifecycle()
@@ -23,7 +23,7 @@ internal fun HomeGalleryRoute(
     LaunchedEffect(key1 = Unit) {
         homeGalleryViewModel.sideEffect.collect { effect ->
             when (effect) {
-                is HomeGalleryViewModel.Effect.NavigateToHomePost -> navigateToPost(effect.post)
+                is HomeGalleryViewModel.Effect.NavigateToHomePost -> navigateToPost(effect.postId, null)
             }
         }
     }

@@ -10,14 +10,14 @@ constructor(
     private val weeklyContestRepository: WeeklyContestRepository
 ) {
 
-    suspend operator fun invoke(params: Params): Result<Boolean> = runSuspendCatching {
+    suspend operator fun invoke(params: Params): Result<Int> = runSuspendCatching {
         val result = weeklyContestRepository.registerPost(
             weeklyContestRound = params.weeklyContestRound,
             subject = params.subject,
             imageFile = params.imageFile,
         )
 
-        return@runSuspendCatching result.subject == params.subject
+        return@runSuspendCatching result.postId
     }
 
 

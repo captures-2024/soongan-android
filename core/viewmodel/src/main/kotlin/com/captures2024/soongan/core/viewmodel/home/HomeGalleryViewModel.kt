@@ -47,7 +47,7 @@ constructor(
     sealed interface Effect : UISideEffect {
 
         data class NavigateToHomePost(
-            val post: UserPost.PhotoPost,
+            val postId: Int,
         ) : Effect
     }
 
@@ -206,7 +206,7 @@ constructor(
     }
 
     private fun onClickPost(intent: Intent.OnClickPost) {
-//        postSideEffect(HomeGallerySideEffect.NavigateToHomePost(intent.post))
+        postSideEffect(HomeGalleryViewModel.Effect.NavigateToHomePost(intent.post.postId))
     }
 
     companion object {

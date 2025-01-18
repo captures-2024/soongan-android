@@ -12,6 +12,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavOptions
 import com.captures2024.soongan.core.design.R
 import com.captures2024.soongan.core.designsystem.util.sgBottomBarPadding
 import com.captures2024.soongan.core.model.dto.PostInfoDto
@@ -22,7 +23,7 @@ import com.captures2024.soongan.feature.home.ui.home.HomeScreenBottomSheet
 @Composable
 internal fun HomeRoute(
     navigateToRegistrationPost: () -> Unit,
-    navigateToPost: (Int) -> Unit,
+    navigateToPost: (Int, NavOptions?) -> Unit,
     navigateToGallery: () -> Unit,
     homeViewModel: HomeViewModel = hiltViewModel()
 ) {
@@ -41,7 +42,7 @@ internal fun HomeRoute(
             when (effect) {
                 is HomeViewModel.Effect.NavigateToRegistrationPost -> navigateToRegistrationPost()
 
-                is HomeViewModel.Effect.NavigateToHomePost -> navigateToPost(effect.postInfo.postId)
+                is HomeViewModel.Effect.NavigateToHomePost -> navigateToPost(effect.postInfo.postId, null)
 
                 is HomeViewModel.Effect.NavigateToHomeGallery -> navigateToGallery()
             }

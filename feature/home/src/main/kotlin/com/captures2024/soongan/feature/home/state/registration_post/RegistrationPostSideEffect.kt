@@ -8,5 +8,7 @@ internal sealed interface RegistrationPostSideEffect : UISideEffect {
 
     data object NavigateToBack : RegistrationPostSideEffect
 
-    data object NavigateToPost : RegistrationPostSideEffect
+    data class NavigateToPost(
+        val postId: Int,
+    ) : RegistrationPostSideEffect
 }

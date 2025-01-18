@@ -131,12 +131,13 @@ constructor(
                 subject = submitData.title,
                 imageFile = submitData.currentMedia.toString(),
             )
-        ).getOrNull() ?: TODO("fail case")
+        ).getOrNull() ?: -1
 
-        when (result) {
-            true -> postSideEffect(RegistrationPostSideEffect.NavigateToPost)
-
-            false -> TODO("fail case")
+        if (result == -1) {
+            analyticsHelper.d(message = "handleOnClickSubmitRemote - result: $result")
+            return
         }
+
+        postSideEffect(RegistrationPostSideEffect.NavigateToPost(result))
     }
 }

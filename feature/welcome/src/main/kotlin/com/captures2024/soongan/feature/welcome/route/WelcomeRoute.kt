@@ -23,7 +23,7 @@ internal fun WelcomeRoute(
             when (it) {
                 is WelcomeSideEffect.NavigateToHome -> {
                     val navOptions = navOptions {
-                        popUpTo<WelcomeNavigator>()
+                        popUpTo(0)
                     }
                     navigateToHome(navOptions)
                 }
