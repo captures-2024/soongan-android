@@ -8,12 +8,13 @@ import com.captures2024.soongan.core.common.base.UIIntent
 import com.captures2024.soongan.core.common.base.UISideEffect
 import com.captures2024.soongan.core.common.base.UIState
 import com.captures2024.soongan.core.domain.usecase.fcm.InitFcmUseCase
+import com.captures2024.soongan.core.domain.usecase.members.GetCurrentMemberFlow
+import com.captures2024.soongan.core.domain.usecase.members.GetGuestModeFlowUseCase
 import com.captures2024.soongan.core.domain.usecase.members.GetMemberInfoUseCase
-import com.captures2024.soongan.core.domain.usecase.token.GetAllTokenUseCase
+import com.captures2024.soongan.core.domain.usecase.token.ClearAllTokenUseCase
 import com.captures2024.soongan.core.model.dto.UserInfoDto
 import com.captures2024.soongan.core.viewmodel.model.AppRootRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,59 +22,64 @@ class AppRootViewModel
 @Inject
 constructor(
     private val analyticsHelper: AnalyticsHelper,
+    private val getCurrentMemberFlow: GetCurrentMemberFlow,
     private val initFcmUseCase: InitFcmUseCase,
-    private val getAllTokenUseCase: GetAllTokenUseCase,
     private val getMemberInfoUseCase: GetMemberInfoUseCase,
+    private val getGuestModeFlowUseCase: GetGuestModeFlowUseCase,
+    private val clearAllTokenUseCase: ClearAllTokenUseCase,
     savedStateHandle: SavedStateHandle,
 ) : BaseViewModel<AppRootViewModel.State, AppRootViewModel.Effect, AppRootViewModel.Intent>(savedStateHandle) {
 
     data class State(
-        val isLoading: Boolean = false,
-        val rootRouteState: AppRootRoute = AppRootRoute.LANDING,
-        private val memberInfo: UserInfoDto = UserInfoDto.defaultBuilder(),
+        val isInitialized: Boolean = false,
+        val isGuestMode: Boolean = false,
+        private val currentMember: UserInfoDto? = null
     ) : UIState {
 
+        val rootRouteState: AppRootRoute
+            get() = when (isInitialized) {
+                // 앱 진입 성공
+                true -> when (isGuestMode) {
+                    // 게스트 모드 진입
+                    true -> AppRootRoute.MAIN
+
+                    // 게스트 모드 미진입
+                    false -> when (currentMember) {
+                        // 유저 데이터 미존재
+                        null -> AppRootRoute.SIGN
+
+                        // 유저 데이터 존재
+                        else -> when {
+                            // 유저 데이터 닉네임 && 생년 미존재
+                            currentMember.nickname != null && currentMember.birthYear != null -> AppRootRoute.MAIN
+
+                            // 유저 데이터 닉네임 && 생년 존재
+                            else -> AppRootRoute.SIGN
+                        }
+                    }
+                }
+
+                // 앱 진입 실패
+                false -> AppRootRoute.LANDING
+            }
+
         override fun toLoggingElements(): Array<LogElementArgument> = arrayOf(
-            LogElementArgument("isLoading", isLoading.toString()),
-            LogElementArgument("rootRouteState", rootRouteState.toString()),
-            LogElementArgument("memberInfo", memberInfo.toString()),
-        )
-
-        fun isGuestMode(): Boolean = memberInfo.email.isEmpty()
-
-        fun getNickname(): String = memberInfo.nickname ?: ""
-
-        fun patchMemberInfo(
-            nickname: String,
-            birthYear: Int,
-        ): UserInfoDto = memberInfo.copy(
-            nickname = nickname,
-            birthYear = birthYear,
+            LogElementArgument("isInitialized", isInitialized.toString()),
+            LogElementArgument("currentMember", currentMember.toString()),
         )
     }
 
     sealed interface Effect : UISideEffect {
 
-        data object FailedRemoteSyncData : Effect
-
-        data class SuccessRemoteSyncData(
-            val nickname: String?,
-            val birthYear: Int?,
-        ) : Effect
     }
 
     sealed interface Intent : UIIntent {
 
-        data object FetchFCMToken : Intent
+        data object Init : Intent
+    }
 
-        data object SuccessSign : Intent
-
-        data object NavigateToMain : Intent
-
-        data class PatchMemberInfo(
-            val nickname: String,
-            val birthYear: Int,
-        ) : Intent
+    init {
+        intent(Intent.Init)
     }
 
     override fun createInitialState(savedStateHandle: SavedStateHandle): State {
@@ -86,100 +92,45 @@ constructor(
 
     override suspend fun handleIntent(intent: Intent) {
         when (intent) {
-            is Intent.FetchFCMToken -> handleFetchFCMToken()
-
-            is Intent.SuccessSign -> handleSuccessSign()
-
-            is Intent.NavigateToMain -> handleNavigateToMain()
-
-            is Intent.PatchMemberInfo -> handlePatchMemberInfo(intent)
+            is Intent.Init -> handleInit()
         }
     }
 
-    private suspend fun handleFetchFCMToken() {
-        fetchRemoteFcmToken()
-    }
+    private suspend fun handleInit() {
+        launch { collectCurrentMember() }
+        launch { collectGuestMode() }
 
-    private suspend fun handleSuccessSign() {
-        syncAllData()
-    }
+        fetchRemoteFCMToken()
+        fetchRemoteMemberInfo()
 
-    private fun handleNavigateToMain() {
         reduce {
             copy(
-                rootRouteState = AppRootRoute.MAIN,
+                isInitialized = true,
             )
         }
     }
 
-    private fun handlePatchMemberInfo(intent: Intent.PatchMemberInfo) {
-        reduce {
-            copy(
-                memberInfo = currentState.patchMemberInfo(
-                    nickname = intent.nickname,
-                    birthYear = intent.birthYear,
+    private suspend fun collectCurrentMember() {
+        getCurrentMemberFlow().collect { info ->
+            reduce {
+                copy(
+                    currentMember = info,
                 )
-            )
-        }
-
-        handleNavigateToMain()
-    }
-
-    private suspend fun syncAllData() = launch(Dispatchers.IO) {
-        val tokenResult = getAllTokenUseCase().getOrNull()
-
-        if (tokenResult == null || tokenResult.first.isEmpty() || tokenResult.second.isEmpty()) {
-            // 저장된 토큰 불러오기 실패, 토큰이 빈 경우
-            postSideEffect(Effect.FailedRemoteSyncData)
-
-            return@launch
-        }
-
-        val memberInfo = getMemberInfoUseCase().getOrNull()
-
-        if (memberInfo == null) {
-            // 토큰으로 조회되는 멤버가 없는 경우
-            postSideEffect(Effect.FailedRemoteSyncData)
-            return@launch
-        }
-
-        reduce {
-            copy(
-                memberInfo = memberInfo,
-            )
-        }
-
-        val isNeedRegisterNickname = memberInfo.nickname == null
-        val isNeedRegisterBirth = memberInfo.birthYear == null
-
-        postSideEffect(
-            Effect.SuccessRemoteSyncData(
-                nickname = memberInfo.nickname,
-                birthYear = memberInfo.birthYear,
-            )
-        )
-
-        if (!isNeedRegisterNickname && !isNeedRegisterBirth) {
-            fetchRootRoute(routeState = AppRootRoute.MAIN)
-        } else {
-            fetchRootRoute(routeState = AppRootRoute.SIGN)
+            }
         }
     }
 
-    private fun fetchRootRoute(routeState: AppRootRoute) {
-        reduce {
-            copy(
-                rootRouteState = routeState,
-            )
+    private suspend fun collectGuestMode() {
+        getGuestModeFlowUseCase().collect { isGuestMode ->
+            reduce {
+                copy(
+                    isGuestMode = isGuestMode,
+                )
+            }
         }
-
-        analyticsHelper.d(
-            LogElementArgument("routeState", "routeState = $routeState"),
-            message = "fin fetchRootRoute",
-        )
     }
 
-    private suspend fun fetchRemoteFcmToken() = launch(Dispatchers.IO) {
+    private suspend fun fetchRemoteFCMToken() {
         val result = initFcmUseCase().getOrNull()
 
         val logMessage = when (result) {
@@ -192,7 +143,13 @@ constructor(
             LogElementArgument("result about init fcm", "result = $result"),
             message = logMessage,
         )
+    }
 
-        fetchRootRoute(AppRootRoute.SIGN)
+    private suspend fun fetchRemoteMemberInfo() {
+        val result = getMemberInfoUseCase().getOrNull()
+
+        if (result == null) {
+            clearAllTokenUseCase()
+        }
     }
 }

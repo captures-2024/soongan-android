@@ -28,10 +28,10 @@ internal fun AppRoute(
                 )
             },
             appMainRoute = @Composable {
-                AppMainRoute(
-                    isGuestMode = uiState.isGuestMode(),
-                    nickname = uiState.getNickname()
-                )
+//                AppMainRoute(
+//                    isGuestMode = uiState.isGuestMode(),
+//                    nickname = uiState.getNickname()
+//                )
             },
         )
     }

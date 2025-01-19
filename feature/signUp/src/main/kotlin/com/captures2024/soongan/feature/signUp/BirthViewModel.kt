@@ -80,44 +80,12 @@ constructor(
         val birthYear = currentState.birthYear.toInt()
 
         launch {
-            val isPatched = patchBirthYearUseCase(birthYear = birthYear).getOrNull()
+            patchBirthYearUseCase(birthYear = birthYear).getOrNull()
 
-            if (isPatched == null) {
-                reduce {
-                    copy(
-                        isLoading = false,
-                    )
-                }
-
-                return@launch
-            }
-
-            when (isPatched) {
-                true -> {
-                    reduce {
-                        copy(
-                            isLoading = false,
-                        )
-                    }
-
-                    postSideEffect(
-                        sideEffect = BirthSideEffect.NavigateToMain(
-                            nickname = currentState.nickname,
-                            birthYear = birthYear,
-                        )
-                    )
-                    return@launch
-                }
-
-                false -> {
-                    reduce {
-                        copy(
-                            isLoading = false,
-                        )
-                    }
-
-                    return@launch
-                }
+            reduce {
+                copy(
+                    isLoading = false,
+                )
             }
         }
     }

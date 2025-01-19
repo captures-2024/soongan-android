@@ -43,11 +43,7 @@ internal fun SignInRoute(
                     }
                 }
 
-                is SignViewModel.Effect.PatchInfo,
-                is SignViewModel.Effect.NavigateToMain,
-                is SignViewModel.Effect.GoogleSignIn,
-                is SignViewModel.Effect.KakaoSignIn,
-                is SignViewModel.Effect.SuccessSocialSign -> Unit
+                is SignViewModel.Effect.KakaoSignIn -> Unit
             }
         }
     }
@@ -56,7 +52,7 @@ internal fun SignInRoute(
         true -> SignInLoadingScreen()
 
         false -> SignInDefaultScreen(
-            onClickGoogleSignIn = { signViewModel.intent(SignViewModel.Intent.OnClickSignGoogle) },
+            onClickGoogleSignIn = { TODO("onClickGoogleSignIn Not impl yet") },
             onClickKakaoSignIn = { signViewModel.intent(SignViewModel.Intent.OnClickSignKakao) },
             onClickTermsOfUse = { signViewModel.intent(SignViewModel.Intent.OnClickTermsOfUse) },
             onClickGuestMode = { signViewModel.intent(SignViewModel.Intent.OnClickGuestMode) },

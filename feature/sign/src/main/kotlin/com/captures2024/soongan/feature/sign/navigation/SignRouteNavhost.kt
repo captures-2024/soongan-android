@@ -45,7 +45,6 @@ internal fun SignRouteNavHost(
         signUp(
             navigateToBack = navController::popBackStack,
             navigateToBirth = navController::navigateToBirth,
-            signViewModel = signViewModel,
         )
     }
 }
