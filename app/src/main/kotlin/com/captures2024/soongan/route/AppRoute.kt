@@ -4,6 +4,9 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.CircularProgressIndicator
@@ -73,7 +76,13 @@ private fun AppLoading(visible: Pair<Boolean, Long>) {
     ) {
         Box(
             Modifier
-                .fillMaxSize(),
+                .fillMaxSize()
+                .background(SGColor.transparent)
+                .clickable(
+                    indication = null,
+                    interactionSource = remember { MutableInteractionSource() },
+                    onClick = {},
+                ),
             contentAlignment = Alignment.Center
         ) {
             CircularProgressIndicator(

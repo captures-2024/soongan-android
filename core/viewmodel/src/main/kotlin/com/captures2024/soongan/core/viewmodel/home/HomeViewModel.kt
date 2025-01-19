@@ -3,13 +3,16 @@ package com.captures2024.soongan.core.viewmodel.home
 import androidx.lifecycle.SavedStateHandle
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.analytics.utils.LogElementArgument
-import com.captures2024.soongan.core.common.base.BaseViewModel
 import com.captures2024.soongan.core.common.base.UIIntent
 import com.captures2024.soongan.core.common.base.UISideEffect
 import com.captures2024.soongan.core.common.base.UIState
 import com.captures2024.soongan.core.domain.usecase.home.GetHomeUseCase
+import com.captures2024.soongan.core.domain.usecase.loading.ClearLoadingUseCase
+import com.captures2024.soongan.core.domain.usecase.loading.HideLoadingUseCase
+import com.captures2024.soongan.core.domain.usecase.loading.ShowLoadingUseCase
 import com.captures2024.soongan.core.model.dto.ContestInfoDto
 import com.captures2024.soongan.core.model.dto.PostInfoDto
+import com.captures2024.soongan.core.viewmodel.NewBaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -17,10 +20,19 @@ import javax.inject.Inject
 class HomeViewModel
 @Inject
 constructor(
-    private val analyticsHelper: AnalyticsHelper,
     private val getHomeUseCase: GetHomeUseCase,
+    analyticsHelper: AnalyticsHelper,
+    showLoadingUseCase: ShowLoadingUseCase,
+    hideLoadingUseCase: HideLoadingUseCase,
+    clearLoadingUseCase: ClearLoadingUseCase,
     savedStateHandle: SavedStateHandle
-) : BaseViewModel<HomeViewModel.State, HomeViewModel.Effect, HomeViewModel.Intent>(savedStateHandle) {
+) : NewBaseViewModel<HomeViewModel.State, HomeViewModel.Effect, HomeViewModel.Intent>(
+    analyticsHelper = analyticsHelper,
+    showLoadingUseCase = showLoadingUseCase,
+    hideLoadingUseCase = hideLoadingUseCase,
+    clearLoadingUseCase = clearLoadingUseCase,
+    savedStateHandle = savedStateHandle,
+) {
 
     data class State(
         val isLoading: Boolean = false,
@@ -81,21 +93,21 @@ constructor(
         analyticsHelper.e(throwable = throwable)
     }
 
-    override suspend fun handleIntent(intent: Intent) {
+    override fun handleIntent(intent: Intent) {
         when (intent) {
-            is Intent.Init -> handleInit()
+            is Intent.Init -> loadingLaunch { handleInit() }
 
-            is Intent.OnClickPlus -> onClickPlus()
+            is Intent.OnClickPlus -> handleOnClickPlus()
 
             is Intent.OnClickPost -> handleOnClickPost(intent)
 
-            is Intent.OnToggleWeeklyDaily -> onToggleWeeklyDaily()
+            is Intent.OnToggleWeeklyDaily -> handleOnToggleWeeklyDaily()
 
-            is Intent.OnClickInfo -> onClickInfo()
+            is Intent.OnClickInfo -> handleOnClickInfo()
 
-            is Intent.OnClickRightArrow -> onClickRightArrow()
+            is Intent.OnClickRightArrow -> handleOnClickRightArrow()
 
-            is Intent.OnCloseBottomSheet -> onCloseBottomSheet()
+            is Intent.OnCloseBottomSheet -> handleOnCloseBottomSheet()
         }
     }
 
@@ -117,7 +129,7 @@ constructor(
         }
     }
 
-    private fun onClickPlus() {
+    private fun handleOnClickPlus() {
         postSideEffect(Effect.NavigateToRegistrationPost)
     }
 
@@ -125,7 +137,7 @@ constructor(
         postSideEffect(Effect.NavigateToHomePost(intent.postInfo))
     }
 
-    private fun onToggleWeeklyDaily() {
+    private fun handleOnToggleWeeklyDaily() {
         reduce {
             copy(
                 isWeeklySelected = !isWeeklySelected
@@ -133,7 +145,7 @@ constructor(
         }
     }
 
-    private fun onClickInfo() {
+    private fun handleOnClickInfo() {
         reduce {
             copy(
                 isOpenBottomSheet = true
@@ -141,11 +153,11 @@ constructor(
         }
     }
 
-    private fun onClickRightArrow() {
+    private fun handleOnClickRightArrow() {
         postSideEffect(Effect.NavigateToHomeGallery)
     }
 
-    private fun onCloseBottomSheet() {
+    private fun handleOnCloseBottomSheet() {
         reduce {
             copy(
                 isOpenBottomSheet = false

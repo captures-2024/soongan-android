@@ -2,12 +2,16 @@ package com.captures2024.soongan.core.viewmodel.home
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.toRoute
+import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.analytics.utils.LogElementArgument
-import com.captures2024.soongan.core.common.base.BaseViewModel
 import com.captures2024.soongan.core.common.base.UIIntent
 import com.captures2024.soongan.core.common.base.UISideEffect
 import com.captures2024.soongan.core.common.base.UIState
+import com.captures2024.soongan.core.domain.usecase.loading.ClearLoadingUseCase
+import com.captures2024.soongan.core.domain.usecase.loading.HideLoadingUseCase
+import com.captures2024.soongan.core.domain.usecase.loading.ShowLoadingUseCase
 import com.captures2024.soongan.core.navigator.screen.main.home.HomePostPhotoNavigator
+import com.captures2024.soongan.core.viewmodel.NewBaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -15,8 +19,18 @@ import javax.inject.Inject
 class HomePostPhotoViewModel
 @Inject
 constructor(
+    analyticsHelper: AnalyticsHelper,
+    showLoadingUseCase: ShowLoadingUseCase,
+    hideLoadingUseCase: HideLoadingUseCase,
+    clearLoadingUseCase: ClearLoadingUseCase,
     savedStateHandle: SavedStateHandle
-) : BaseViewModel<HomePostPhotoViewModel.State, HomePostPhotoViewModel.Effect, HomePostPhotoViewModel.Intent>(savedStateHandle) {
+) : NewBaseViewModel<HomePostPhotoViewModel.State, HomePostPhotoViewModel.Effect, HomePostPhotoViewModel.Intent>(
+    analyticsHelper = analyticsHelper,
+    showLoadingUseCase = showLoadingUseCase,
+    hideLoadingUseCase = hideLoadingUseCase,
+    clearLoadingUseCase = clearLoadingUseCase,
+    savedStateHandle = savedStateHandle,
+) {
 
     data class State(
         val url: String,
@@ -31,13 +45,9 @@ constructor(
         )
     }
 
-    sealed interface Effect : UISideEffect {
+    sealed interface Effect : UISideEffect
 
-    }
-
-    sealed interface Intent : UIIntent {
-
-    }
+    sealed interface Intent : UIIntent
 
     override fun createInitialState(savedStateHandle: SavedStateHandle): State {
         val info = savedStateHandle.toRoute<HomePostPhotoNavigator>()
@@ -49,11 +59,7 @@ constructor(
         TODO("Not yet implemented")
     }
 
-    override suspend fun handleIntent(intent: Intent) {
+    override fun handleIntent(intent: Intent) {
         TODO("Not yet implemented")
-    }
-
-    companion object {
-        private const val TAG = "HomePostVM"
     }
 }
