@@ -31,6 +31,8 @@ import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 
 @Composable
 internal fun HomePostScreenBottomBar(
+    likeCount: Int,
+    commentCount: Int,
     modifier: Modifier = Modifier,
     onClickMenu: () -> Unit = {},
     onClickHeart: () -> Unit = {},
@@ -85,32 +87,34 @@ internal fun HomePostScreenBottomBar(
             )
             Spacer(modifier = Modifier.width(8.dp))
             NonScaleText(
-                text = "1.2m",
+                text = likeCount.toString(),
                 color = SGColor.primaryA,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Light
             )
-            Spacer(modifier = Modifier.width(31.dp))
-            Icon(
-                imageVector = MyIconPack.IconNonFillComment,
-                contentDescription = "comment",
-                tint = SGColor.primaryA,
-                modifier = Modifier
-                    .size(
-                        width = 24.dp,
-                        height = 24.dp
-                    )
-                    .clickable(
-                        onClick = onClickComment
-                    ),
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            NonScaleText(
-                text = "1.2m",
-                color = SGColor.primaryA,
-                fontSize = 12.sp,
-                fontWeight = FontWeight.Light
-            )
+
+            // TODO 댓글 1차 MVP 스펙아웃
+//            Spacer(modifier = Modifier.width(31.dp))
+//            Icon(
+//                imageVector = MyIconPack.IconNonFillComment,
+//                contentDescription = "comment",
+//                tint = SGColor.primaryA,
+//                modifier = Modifier
+//                    .size(
+//                        width = 24.dp,
+//                        height = 24.dp
+//                    )
+//                    .clickable(
+//                        onClick = onClickComment
+//                    ),
+//            )
+//            Spacer(modifier = Modifier.width(8.dp))
+//            NonScaleText(
+//                text = commentCount.toString(),
+//                color = SGColor.primaryA,
+//                fontSize = 12.sp,
+//                fontWeight = FontWeight.Light
+//            )
             Spacer(modifier = Modifier.width(15.dp))
         }
     }
@@ -119,5 +123,8 @@ internal fun HomePostScreenBottomBar(
 @DevicePreviews
 @Composable
 private fun HomePostScreenBottomBarPreview() {
-    HomePostScreenBottomBar()
+    HomePostScreenBottomBar(
+        likeCount = 0,
+        commentCount = 0,
+    )
 }

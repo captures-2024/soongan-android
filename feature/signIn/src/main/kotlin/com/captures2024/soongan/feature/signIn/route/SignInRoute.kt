@@ -5,9 +5,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.captures2024.soongan.core.android.utils.LocalAnalyticsHelper
-import com.captures2024.soongan.core.viewmodel.SignViewModel
-import com.captures2024.soongan.core.viewmodel.effect.SignSideEffect
-import com.captures2024.soongan.core.viewmodel.intent.SignIntent
+import com.captures2024.soongan.core.viewmodel.sign.SignViewModel
 import com.captures2024.soongan.feature.signIn.ui.SignInDefaultScreen
 import com.captures2024.soongan.feature.signIn.ui.SignInLoadingScreen
 
@@ -26,11 +24,11 @@ internal fun SignInRoute(
         signViewModel.sideEffect.collect {
             analyticsHelper.d(message = "Collected sideEffect = $it")
             when (it) {
-                is SignSideEffect.NavigateToTermsOfUse -> navigateToTermsOfUse()
+                is SignViewModel.Effect.NavigateToTermsOfUse -> navigateToTermsOfUse()
 
-                is SignSideEffect.NavigateToPrivacyPolicy -> navigateToPrivacyPolicy()
+                is SignViewModel.Effect.NavigateToPrivacyPolicy -> navigateToPrivacyPolicy()
 
-                is SignSideEffect.NavigateToSignUp -> {
+                is SignViewModel.Effect.NavigateToSignUp -> {
                     val nickname = it.nickname
 
                     if (nickname == null) {
@@ -45,11 +43,11 @@ internal fun SignInRoute(
                     }
                 }
 
-                is SignSideEffect.PatchInfo,
-                is SignSideEffect.NavigateToMain,
-                is SignSideEffect.GoogleSignIn,
-                is SignSideEffect.KakaoSignIn,
-                is SignSideEffect.SuccessSocialSign -> Unit
+                is SignViewModel.Effect.PatchInfo,
+                is SignViewModel.Effect.NavigateToMain,
+                is SignViewModel.Effect.GoogleSignIn,
+                is SignViewModel.Effect.KakaoSignIn,
+                is SignViewModel.Effect.SuccessSocialSign -> Unit
             }
         }
     }
@@ -58,12 +56,11 @@ internal fun SignInRoute(
         true -> SignInLoadingScreen()
 
         false -> SignInDefaultScreen(
-            onClickGoogleSignIn = { signViewModel.intent(SignIntent.OnClickSignGoogle) },
-            onClickKakaoSignIn = { signViewModel.intent(SignIntent.OnClickSignKakao) },
-            onClickTermsOfUse = { signViewModel.intent(SignIntent.OnClickTermsOfUse) },
-            onClickGuestMode = { signViewModel.intent(SignIntent.OnClickGuestMode) },
-            onClickToPrivacyPolicy = { signViewModel.intent(SignIntent.OnClickPrivacyPolicy) }
+            onClickGoogleSignIn = { signViewModel.intent(SignViewModel.Intent.OnClickSignGoogle) },
+            onClickKakaoSignIn = { signViewModel.intent(SignViewModel.Intent.OnClickSignKakao) },
+            onClickTermsOfUse = { signViewModel.intent(SignViewModel.Intent.OnClickTermsOfUse) },
+            onClickGuestMode = { signViewModel.intent(SignViewModel.Intent.OnClickGuestMode) },
+            onClickToPrivacyPolicy = { signViewModel.intent(SignViewModel.Intent.OnClickPrivacyPolicy) }
         )
     }
-
 }

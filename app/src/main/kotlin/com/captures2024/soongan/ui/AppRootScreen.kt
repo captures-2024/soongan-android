@@ -7,12 +7,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.captures2024.soongan.core.designsystem.theme.SoonGanTheme
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
-import com.captures2024.soongan.core.viewmodel.state.AppRootUIState
-import com.captures2024.soongan.core.viewmodel.utils.AppRootRoute
+import com.captures2024.soongan.core.viewmodel.AppRootViewModel
+import com.captures2024.soongan.core.viewmodel.model.AppRootRoute
 
 @Composable
 internal fun AppRootScreen(
-    uiState: AppRootUIState,
+    uiState: AppRootViewModel.State,
     appLandingRoute: @Composable () -> Unit,
     appSignRoute: @Composable () -> Unit,
     appMainRoute: @Composable () -> Unit,
@@ -36,7 +36,7 @@ internal fun AppRootScreen(
 private fun PreviewAppRootScreen() {
     SoonGanTheme {
         AppRootScreen(
-            uiState = AppRootUIState(),
+            uiState = AppRootViewModel.State(),
             appLandingRoute = {},
             appSignRoute = {},
             appMainRoute = {},

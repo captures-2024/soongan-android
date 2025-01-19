@@ -19,7 +19,7 @@ fun NavGraphBuilder.profile(
     navigateToBack: () -> Unit,
     navigateToEditProfile: () -> Unit,
     navigateToNotification: () -> Unit,
-    navigateToHomePost: (postInfo: PostInfoDto) -> Unit,
+    navigateToHomePost: (Int) -> Unit,
 ) {
     navigation<ProfileRootNavigator>(
         startDestination = ProfileRootNavigator.ProfileNavigator

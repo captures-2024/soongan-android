@@ -6,10 +6,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.captures2024.soongan.core.model.UserPost
-import com.captures2024.soongan.feature.home.HomeGalleryViewModel
-import com.captures2024.soongan.feature.home.state.home_gallery.HomeGalleryIntent
-import com.captures2024.soongan.feature.home.state.home_gallery.HomeGallerySideEffect
+import androidx.navigation.NavOptions
+import com.captures2024.soongan.core.viewmodel.home.HomeGalleryViewModel
 import com.captures2024.soongan.feature.home.ui.gallery.HomeGalleryBottomSheet
 import com.captures2024.soongan.feature.home.ui.gallery.HomeGalleryScreen
 
@@ -17,7 +15,7 @@ import com.captures2024.soongan.feature.home.ui.gallery.HomeGalleryScreen
 @Composable
 internal fun HomeGalleryRoute(
     navigateToBack: () -> Unit,
-    navigateToPost: (UserPost.PhotoPost) -> Unit,
+    navigateToPost: (Int, NavOptions?) -> Unit,
     homeGalleryViewModel: HomeGalleryViewModel = hiltViewModel(),
 ) {
     val uiState by homeGalleryViewModel.state.collectAsStateWithLifecycle()
@@ -25,7 +23,7 @@ internal fun HomeGalleryRoute(
     LaunchedEffect(key1 = Unit) {
         homeGalleryViewModel.sideEffect.collect { effect ->
             when (effect) {
-                is HomeGallerySideEffect.NavigateToHomePost -> navigateToPost(effect.post)
+                is HomeGalleryViewModel.Effect.NavigateToHomePost -> navigateToPost(effect.postId, null)
             }
         }
     }
@@ -33,17 +31,17 @@ internal fun HomeGalleryRoute(
     HomeGalleryScreen(
         uiState = uiState,
         onBackPressed = navigateToBack,
-        onRefresh = { homeGalleryViewModel.intent(HomeGalleryIntent.RefreshGallery) },
-        onLoadNextPage = { homeGalleryViewModel.intent(HomeGalleryIntent.LoadNextPage) },
-        onClickPost = { homeGalleryViewModel.intent(HomeGalleryIntent.OnClickPost(it)) },
-        onClickFilter = { homeGalleryViewModel.intent(HomeGalleryIntent.OnClickFilter) },
+        onRefresh = { homeGalleryViewModel.intent(HomeGalleryViewModel.Intent.RefreshGallery) },
+        onLoadNextPage = { homeGalleryViewModel.intent(HomeGalleryViewModel.Intent.LoadNextPage) },
+        onClickPost = { homeGalleryViewModel.intent(HomeGalleryViewModel.Intent.OnClickPost(it)) },
+        onClickFilter = { homeGalleryViewModel.intent(HomeGalleryViewModel.Intent.OnClickFilter) },
     )
 
     if (uiState.isShowBottomSheet) {
         HomeGalleryBottomSheet(
             uiState = uiState,
-            onDismissRequest = { homeGalleryViewModel.intent(HomeGalleryIntent.OnBottomModalDismissRequest) },
-            onClickItem = { homeGalleryViewModel.intent(HomeGalleryIntent.OnClickSortFilter(it)) },
+            onDismissRequest = { homeGalleryViewModel.intent(HomeGalleryViewModel.Intent.OnBottomModalDismissRequest) },
+            onClickItem = { homeGalleryViewModel.intent(HomeGalleryViewModel.Intent.OnClickSortFilter(it)) },
         )
     }
 }

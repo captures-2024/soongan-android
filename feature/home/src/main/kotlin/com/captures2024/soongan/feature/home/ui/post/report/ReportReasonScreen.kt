@@ -1,4 +1,4 @@
-package com.captures2024.soongan.feature.home.ui.post.common.report
+package com.captures2024.soongan.feature.home.ui.post.report
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background

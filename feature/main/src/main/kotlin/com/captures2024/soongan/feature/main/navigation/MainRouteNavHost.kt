@@ -7,21 +7,15 @@ import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
-import androidx.navigation.NavOptions
 import androidx.navigation.compose.NavHost
-import com.captures2024.soongan.core.model.UserPost
-import com.captures2024.soongan.core.model.UserProfile
-import com.captures2024.soongan.core.model.dto.PostInfoDto
-import com.captures2024.soongan.core.navigator.screen.main.awards.AwardsNavigator
-import com.captures2024.soongan.core.navigator.screen.main.feed.FeedNavigator
-import com.captures2024.soongan.core.navigator.screen.main.home.HomeGalleryNavigator
 import com.captures2024.soongan.core.navigator.screen.main.home.HomeNavigator
-import com.captures2024.soongan.core.navigator.screen.main.home.HomePostNavigator
-import com.captures2024.soongan.core.navigator.screen.main.home.HomePostPhotoNavigator
-import com.captures2024.soongan.core.navigator.screen.main.home.RegistrationPostNavigator
-import com.captures2024.soongan.core.navigator.screen.main.profile.NotificationNavigator
-import com.captures2024.soongan.core.navigator.screen.main.profile.ProfileRootNavigator
+import com.captures2024.soongan.core.navigator.screen.main.home.navigateToHome
+import com.captures2024.soongan.core.navigator.screen.main.home.navigateToHomeGallery
+import com.captures2024.soongan.core.navigator.screen.main.home.navigateToHomePost
+import com.captures2024.soongan.core.navigator.screen.main.home.navigateToHomePostPhoto
+import com.captures2024.soongan.core.navigator.screen.main.home.navigateToRegistrationPost
+import com.captures2024.soongan.core.navigator.screen.main.profile.navigateToEditProfile
+import com.captures2024.soongan.core.navigator.screen.main.profile.navigateToNotification
 import com.captures2024.soongan.core.navigator.screen.main.welcome.WelcomeNavigator
 import com.captures2024.soongan.feature.awards.navigation.awards
 import com.captures2024.soongan.feature.feed.navigation.feed
@@ -74,66 +68,3 @@ internal fun MainRouteNavHost(
         )
     }
 }
-
-internal fun NavController.navigateToHome() = navigate(HomeNavigator)
-internal fun NavController.navigateToHome(navOptions: NavOptions) =
-    navigate(HomeNavigator, navOptions)
-
-internal fun NavController.navigateToRegistrationPost() = navigate(RegistrationPostNavigator)
-internal fun NavController.navigateToRegistrationPost(navOptions: NavOptions) = navigate(
-    RegistrationPostNavigator, navOptions
-)
-
-internal fun NavController.navigateToHomeGallery() = navigate(HomeGalleryNavigator)
-internal fun NavController.navigateToHomeGallery(navOptions: NavOptions) =
-    navigate(HomeGalleryNavigator, navOptions)
-
-internal fun NavController.navigateToHomePost(
-    post: PostInfoDto,
-) = navigate(
-    HomePostNavigator(
-        id = post.postId,
-        url = post.imageUrl,
-    ),
-)
-
-internal fun NavController.navigateToHomePost(
-    post: PostInfoDto,
-    navOptions: NavOptions,
-) = navigate(
-    HomePostNavigator(
-        id = post.postId,
-        url = post.imageUrl,
-    ),
-    navOptions = navOptions
-)
-
-internal fun NavController.navigateToHomePostPhoto(url: String) =
-    navigate(HomePostPhotoNavigator(url))
-
-internal fun NavController.navigateToHomePostPhoto(
-    url: String,
-    navOptions: NavOptions,
-) = navigate(HomePostPhotoNavigator(url), navOptions)
-
-internal fun NavController.navigateToFeed() = navigate(FeedNavigator)
-internal fun NavController.navigateToFeed(navOptions: NavOptions) =
-    navigate(FeedNavigator, navOptions)
-
-internal fun NavController.navigateToAwards() = navigate(AwardsNavigator)
-internal fun NavController.navigateToAwards(navOptions: NavOptions) =
-    navigate(AwardsNavigator, navOptions)
-
-internal fun NavController.navigateToProfile() = navigate(ProfileRootNavigator)
-internal fun NavController.navigateToProfile(navOptions: NavOptions) =
-    navigate(ProfileRootNavigator, navOptions)
-
-internal fun NavController.navigateToEditProfile() =
-    navigate(ProfileRootNavigator.EditNavigator)
-
-internal fun NavController.navigateToEditProfile(navOptions: NavOptions) =
-    navigate(ProfileRootNavigator.EditNavigator, navOptions)
-
-internal fun NavController.navigateToNotification() = navigate(NotificationNavigator)
-internal fun NavController.navigateToNotification(navOptions: NavOptions) =
-    navigate(NotificationNavigator, navOptions)

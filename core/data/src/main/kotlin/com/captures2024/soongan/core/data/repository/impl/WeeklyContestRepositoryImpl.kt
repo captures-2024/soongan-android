@@ -4,12 +4,13 @@ import com.captures2024.soongan.core.data.remote.WeeklyContestDataSource
 import com.captures2024.soongan.core.data.repository.WeeklyContestRepository
 import com.captures2024.soongan.core.model.dto.GalleryDto
 import com.captures2024.soongan.core.model.dto.PostInfoDto
+import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 class WeeklyContestRepositoryImpl
 @Inject
 constructor(
-    private val weeklyContestDataSource: WeeklyContestDataSource
+    private val weeklyContestDataSource: WeeklyContestDataSource,
 ) : WeeklyContestRepository {
 
     override suspend fun getGalleryInfo(
@@ -40,5 +41,20 @@ constructor(
         )
 
         return postInfoDto ?: throw NullPointerException("postInfoDto is null")
+    }
+
+    override suspend fun getPostInfo(postId: Int): PostInfoDto {
+        // TODO using weeklyContestDataSource
+
+        delay(200)
+
+        return PostInfoDto(
+            postId = 6,
+            imageUrl = "https://storage.googleapis.com/soongan-dev-bucket/52/weekly/1/soongan_image-1736689106951.jpg",
+            subject = "무제",
+            registerNickname = "intexy12",
+            likeCount = 0,
+            commentCount = 0
+        )
     }
 }
