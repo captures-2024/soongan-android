@@ -2,7 +2,6 @@ package com.captures2024.soongan.feature.profile
 
 import androidx.lifecycle.SavedStateHandle
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
-import com.captures2024.soongan.core.analytics.utils.LogElementArgument
 import com.captures2024.soongan.core.common.base.BaseViewModel
 import com.captures2024.soongan.core.domain.usecase.members.GetMemberInfoUseCase
 import com.captures2024.soongan.core.domain.usecase.members.IsVerifiedNicknameUseCase
@@ -104,7 +103,13 @@ constructor(
 
             EditI.OnClickEditButton -> onClickEditButton()
 
-            EditI.OnClickProfileImage -> postSideEffect(EditSE.OpenMediaPicker)
+            EditI.OnClickProfileImage -> onClickProfileImage()
+
+            EditI.OnClickDefaultProfileImage -> onClickDefaultProfileImage()
+
+            EditI.OpenPhotoPicker -> openPhotoPicker()
+
+            EditI.OnCloseEditBottomSheet -> onCloseEditBottomSheet()
 
             is EditI.OnProfileImageChanged -> onProfileImageChanged(intent)
 
@@ -247,6 +252,41 @@ constructor(
 
 
     /** Handle EditScreen **/
+    private fun onClickProfileImage() {
+        reduce {
+            copy(
+                isOpenProfileImageBottomSheet = true
+            )
+        }
+    }
+
+    private fun onClickDefaultProfileImage() {
+        reduce {
+            copy(
+                editingState = editingState.copy(
+                    editingProfile = editingState.editingProfile.copy(
+                        profileImageUrl = null
+                    )
+                )
+            )
+        }
+        onCloseEditBottomSheet()
+        updateEditableState()
+    }
+
+    private fun openPhotoPicker() {
+        onCloseEditBottomSheet()
+        postSideEffect(EditSE.OpenMediaPicker)
+    }
+
+    private fun onCloseEditBottomSheet() {
+        reduce {
+            copy(
+                isOpenProfileImageBottomSheet = false
+            )
+        }
+    }
+
     private fun onProfileImageChanged(intent: EditI.OnProfileImageChanged) {
         reduce {
             copy(

@@ -18,6 +18,7 @@ internal data class ProfileUIState(
     val hasNextPage: Boolean = false,
     val hasNotification: Boolean = false,
     val isOpenBottomSheet: Boolean = false,
+    val isOpenProfileImageBottomSheet: Boolean = false,
 ) : UIState {
 
     override fun toLoggingElements(): Array<LogElementArgument> = arrayOf(
@@ -31,6 +32,7 @@ internal data class ProfileUIState(
         LogElementArgument("hasNextPage", hasNextPage.toString()),
         LogElementArgument("hasNotification", hasNotification.toString()),
         LogElementArgument("isOpenBottomSheet", isOpenBottomSheet.toString()),
+        LogElementArgument("isOpenProfileImageBottomSheet", isOpenProfileImageBottomSheet.toString()),
     )
 }
 

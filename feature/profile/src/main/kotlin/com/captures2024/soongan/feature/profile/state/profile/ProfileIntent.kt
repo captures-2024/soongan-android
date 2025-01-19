@@ -1,8 +1,6 @@
 package com.captures2024.soongan.feature.profile.state.profile
 
 import com.captures2024.soongan.core.common.base.UIIntent
-import com.captures2024.soongan.core.model.UserPost
-import com.captures2024.soongan.core.model.dto.GalleryPostDto
 
 internal sealed interface ProfileIntent : UIIntent {
 
@@ -48,6 +46,12 @@ internal sealed interface ProfileIntent : UIIntent {
         data object OnBackPressed : EditI
 
         data object OnClickProfileImage : EditI
+
+        data object OnClickDefaultProfileImage : EditI
+
+        data object OpenPhotoPicker : EditI
+
+        data object OnCloseEditBottomSheet : EditI
 
         data class OnProfileImageChanged(
             val newProfileImage: String,
