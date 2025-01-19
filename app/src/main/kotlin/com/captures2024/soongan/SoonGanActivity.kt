@@ -117,8 +117,6 @@ class SoonGanActivity : ComponentActivity(), KakaoLoginCallback {
             throwable = error,
             message = "onFailureKakaoLogin",
         )
-
-        signViewModel.intent(SignViewModel.Intent.FailedSignKakao)
     }
 
     private fun signInKakao() {

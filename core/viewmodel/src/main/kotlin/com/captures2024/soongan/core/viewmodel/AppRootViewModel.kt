@@ -3,11 +3,14 @@ package com.captures2024.soongan.core.viewmodel
 import androidx.lifecycle.SavedStateHandle
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.analytics.utils.LogElementArgument
-import com.captures2024.soongan.core.common.base.BaseViewModel
 import com.captures2024.soongan.core.common.base.UIIntent
 import com.captures2024.soongan.core.common.base.UISideEffect
 import com.captures2024.soongan.core.common.base.UIState
 import com.captures2024.soongan.core.domain.usecase.fcm.InitFcmUseCase
+import com.captures2024.soongan.core.domain.usecase.loading.ClearLoadingUseCase
+import com.captures2024.soongan.core.domain.usecase.loading.GetLoadingFlowUseCase
+import com.captures2024.soongan.core.domain.usecase.loading.HideLoadingUseCase
+import com.captures2024.soongan.core.domain.usecase.loading.ShowLoadingUseCase
 import com.captures2024.soongan.core.domain.usecase.members.GetCurrentMemberFlow
 import com.captures2024.soongan.core.domain.usecase.members.GetGuestModeFlowUseCase
 import com.captures2024.soongan.core.domain.usecase.members.GetMemberInfoUseCase
@@ -21,19 +24,30 @@ import javax.inject.Inject
 class AppRootViewModel
 @Inject
 constructor(
-    private val analyticsHelper: AnalyticsHelper,
     private val getCurrentMemberFlow: GetCurrentMemberFlow,
     private val initFcmUseCase: InitFcmUseCase,
     private val getMemberInfoUseCase: GetMemberInfoUseCase,
     private val getGuestModeFlowUseCase: GetGuestModeFlowUseCase,
     private val clearAllTokenUseCase: ClearAllTokenUseCase,
+    private val getLoadingFlowUseCase: GetLoadingFlowUseCase,
+    analyticsHelper: AnalyticsHelper,
+    showLoadingUseCase: ShowLoadingUseCase,
+    hideLoadingUseCase: HideLoadingUseCase,
+    clearLoadingUseCase: ClearLoadingUseCase,
     savedStateHandle: SavedStateHandle,
-) : BaseViewModel<AppRootViewModel.State, AppRootViewModel.Effect, AppRootViewModel.Intent>(savedStateHandle) {
+) : NewBaseViewModel<AppRootViewModel.State, AppRootViewModel.Effect, AppRootViewModel.Intent>(
+    analyticsHelper = analyticsHelper,
+    showLoadingUseCase = showLoadingUseCase,
+    hideLoadingUseCase = hideLoadingUseCase,
+    clearLoadingUseCase = clearLoadingUseCase,
+    savedStateHandle = savedStateHandle,
+) {
 
     data class State(
         val isInitialized: Boolean = false,
         val isGuestMode: Boolean = false,
-        val currentMember: UserInfoDto? = null
+        val currentMember: UserInfoDto? = null,
+        val isLoading: Pair<Boolean, Long> = false to System.currentTimeMillis(),
     ) : UIState {
 
         val rootRouteState: AppRootRoute
@@ -69,9 +83,7 @@ constructor(
         )
     }
 
-    sealed interface Effect : UISideEffect {
-
-    }
+    sealed interface Effect : UISideEffect
 
     sealed interface Intent : UIIntent {
 
@@ -90,15 +102,16 @@ constructor(
         analyticsHelper.e(throwable = throwable)
     }
 
-    override suspend fun handleIntent(intent: Intent) {
+    override fun handleIntent(intent: Intent) {
         when (intent) {
-            is Intent.Init -> handleInit()
+            is Intent.Init -> launch { handleInit() }
         }
     }
 
     private suspend fun handleInit() {
         launch { collectCurrentMember() }
         launch { collectGuestMode() }
+        launch { collectLoading() }
 
         fetchRemoteFCMToken()
         fetchRemoteMemberInfo()
@@ -127,6 +140,12 @@ constructor(
                     isGuestMode = isGuestMode,
                 )
             }
+        }
+    }
+
+    private suspend fun collectLoading() {
+        getLoadingFlowUseCase().collect {
+            reduce { copy(isLoading = it to System.currentTimeMillis()) }
         }
     }
 

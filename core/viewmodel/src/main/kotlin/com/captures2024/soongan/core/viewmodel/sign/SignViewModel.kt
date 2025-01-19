@@ -3,14 +3,17 @@ package com.captures2024.soongan.core.viewmodel.sign
 import androidx.lifecycle.SavedStateHandle
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.analytics.utils.LogElementArgument
-import com.captures2024.soongan.core.common.base.BaseViewModel
 import com.captures2024.soongan.core.common.base.UIIntent
 import com.captures2024.soongan.core.common.base.UISideEffect
 import com.captures2024.soongan.core.common.base.UIState
 import com.captures2024.soongan.core.domain.usecase.auth.SigningKakaoUseCase
 import com.captures2024.soongan.core.domain.usecase.fcm.GetFcmUseCase
+import com.captures2024.soongan.core.domain.usecase.loading.ClearLoadingUseCase
+import com.captures2024.soongan.core.domain.usecase.loading.HideLoadingUseCase
+import com.captures2024.soongan.core.domain.usecase.loading.ShowLoadingUseCase
 import com.captures2024.soongan.core.domain.usecase.members.GetMemberInfoUseCase
 import com.captures2024.soongan.core.domain.usecase.members.SetGuestModeUseCase
+import com.captures2024.soongan.core.viewmodel.NewBaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -18,13 +21,22 @@ import javax.inject.Inject
 class SignViewModel
 @Inject
 constructor(
-    private val analyticsHelper: AnalyticsHelper,
     private val getFcmUseCase: GetFcmUseCase,
     private val signingKakaoUseCase: SigningKakaoUseCase,
     private val setGuestModeUseCase: SetGuestModeUseCase,
     private val getMemberInfoUseCase: GetMemberInfoUseCase,
+    analyticsHelper: AnalyticsHelper,
+    showLoadingUseCase: ShowLoadingUseCase,
+    hideLoadingUseCase: HideLoadingUseCase,
+    clearLoadingUseCase: ClearLoadingUseCase,
     savedStateHandle: SavedStateHandle,
-) : BaseViewModel<SignViewModel.State, SignViewModel.Effect, SignViewModel.Intent>(savedStateHandle) {
+) : NewBaseViewModel<SignViewModel.State, SignViewModel.Effect, SignViewModel.Intent>(
+    analyticsHelper = analyticsHelper,
+    showLoadingUseCase = showLoadingUseCase,
+    hideLoadingUseCase = hideLoadingUseCase,
+    clearLoadingUseCase = clearLoadingUseCase,
+    savedStateHandle = savedStateHandle,
+) {
 
     data class State(
         val isLoading: Boolean = false,
@@ -71,11 +83,6 @@ constructor(
         data object OnClickPrivacyPolicy : Intent
 
         /**
-         * 사용자가 카카오 로그인 과정을 취소했을 때 발생하는 인텐트
-         */
-        data object CanceledSignKakao : Intent
-
-        /**
          * 카카오 로그인이 성공적으로 완료되었을 때 발생하는 인텐트
          *
          * @property accessToken 카카오로부터 받은 access 토큰
@@ -85,11 +92,6 @@ constructor(
             val accessToken: String,
             val refreshToken: String,
         ) : Intent
-
-        /**
-         * 카카오 로그인 시도가 실패했을 때 발생하는 인텐트
-         */
-        data object FailedSignKakao : Intent
     }
 
     override fun createInitialState(savedStateHandle: SavedStateHandle): State = State()
@@ -101,19 +103,15 @@ constructor(
         )
     }
 
-    override suspend fun handleIntent(intent: Intent) {
+    override fun handleIntent(intent: Intent) {
         when (intent) {
             is Intent.OnClickGuestMode -> launch { handleOnClickGuestMode() }
 
-            is Intent.OnClickSignKakao -> handleOnClickSignKakao()
+            is Intent.OnClickSignKakao -> loadingLaunch { handleOnClickSignKakao() }
 
             is Intent.OnClickPrivacyPolicy -> handleOnClickPrivacyPolicy()
 
             is Intent.OnClickTermsOfUse -> handleOnClickTermsOfUse()
-
-            is Intent.CanceledSignKakao -> handleCanceledSignKakao()
-
-            is Intent.FailedSignKakao -> handleFailedSignKakao()
 
             is Intent.CompleteSignKakao -> launch { handleCompleteSignKakao(intent) }
         }
@@ -124,10 +122,6 @@ constructor(
     }
 
     private fun handleOnClickSignKakao() {
-        reduce {
-            copy(isLoading = true)
-        }
-
         postSideEffect(Effect.KakaoSignIn)
     }
 
@@ -139,28 +133,8 @@ constructor(
         postSideEffect(Effect.NavigateToTermsOfUse)
     }
 
-    private fun handleCanceledSignKakao() {
-        canceledSignIn()
-    }
-
-    private fun handleFailedSignKakao() {
-        failedSignIn()
-    }
-
     private suspend fun handleCompleteSignKakao(intent: Intent.CompleteSignKakao) {
         kakaoSignIn(token = intent.accessToken)
-    }
-
-    private fun canceledSignIn() {
-        reduce {
-            copy(isLoading = false)
-        }
-    }
-
-    private fun failedSignIn() {
-        reduce {
-            copy(isLoading = false)
-        }
     }
 
     private suspend fun kakaoSignIn(token: String) {
@@ -182,13 +156,11 @@ constructor(
 
                 if (infoDto == null) {
                     analyticsHelper.d(message = "kakaoSignIn - infoDto is null")
-                    failedSignIn()
                 }
             }
 
             else -> {
                 analyticsHelper.d(message = "kakaoSignIn - result: $result")
-                failedSignIn()
             }
         }
     }
