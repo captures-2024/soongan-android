@@ -22,7 +22,7 @@ import com.captures2024.soongan.core.designsystem.component.gallery.SoonGanGalle
 import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.model.dto.GalleryPostDto
-import com.captures2024.soongan.core.model.utils.PaginationStatus
+import com.captures2024.soongan.core.viewmodel.model.PaginationStatus
 import com.captures2024.soongan.feature.profile.R
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -68,10 +68,10 @@ internal fun ProfileScreenBody(
 private fun ProfileScreenBody(
     myPosts: List<GalleryPostDto>,
     paginationStatus: PaginationStatus,
+    onLoadNextPage: () -> Unit,
+    onClickMyPost: (Int) -> Unit,
+    onClickRegistrationText: () -> Unit,
     modifier: Modifier = Modifier,
-    onLoadNextPage: () -> Unit = {},
-    onClickMyPost: (Int) -> Unit = {},
-    onClickRegistrationText: () -> Unit = {},
 ) {
     val lazyStaggeredGridState = rememberLazyStaggeredGridState()
 
@@ -126,9 +126,8 @@ private fun ProfileScreenBody(
     }
 }
 
-
 @DevicePreviews
 @Composable
 private fun ProfileScreenBodyPreview() {
-    ProfileScreenBody(myPosts = emptyList(), paginationStatus = PaginationStatus.EMPTY)
+    ProfileScreenBody(myPosts = emptyList(), paginationStatus = PaginationStatus.EMPTY, isRefreshing = false)
 }

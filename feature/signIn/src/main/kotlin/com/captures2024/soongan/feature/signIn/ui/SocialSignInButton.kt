@@ -3,7 +3,6 @@ package com.captures2024.soongan.feature.signIn.ui
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -20,12 +19,14 @@ import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconLogoApple
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconLogoGoogle
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconLogoKakao
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 
 @Composable
 internal fun SocialSignInButton(
     text: String,
     icon: ImageVector? = null,
+    backgroundColor: Color = SGColor.primaryB,
     onClick: () -> Unit
 ) {
     Button(
@@ -33,7 +34,7 @@ internal fun SocialSignInButton(
             .fillMaxWidth()
             .heightIn(min = 52.dp),
         shape = RoundedCornerShape(size = 10.dp),
-        colors = ButtonDefaults.buttonColors(Color(0xFFF5F5F5)),
+        colors = ButtonDefaults.buttonColors(backgroundColor),
         onClick = onClick
     ) {
         icon?.let {
@@ -50,7 +51,6 @@ internal fun SocialSignInButton(
             color = Color.Black,
             textAlign = TextAlign.Center,
         )
-
     }
 }
 

@@ -1,64 +1,117 @@
-package com.captures2024.soongan.feature.home
+package com.captures2024.soongan.core.viewmodel.home
 
 import androidx.lifecycle.SavedStateHandle
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.analytics.utils.LogElementArgument
 import com.captures2024.soongan.core.common.base.BaseViewModel
+import com.captures2024.soongan.core.common.base.UIIntent
+import com.captures2024.soongan.core.common.base.UISideEffect
+import com.captures2024.soongan.core.common.base.UIState
 import com.captures2024.soongan.core.domain.usecase.weekly.contests.GetGalleryUseCase
-import com.captures2024.soongan.core.model.utils.PaginationStatus
-import com.captures2024.soongan.feature.home.state.home_gallery.HomeGalleryIntent
-import com.captures2024.soongan.feature.home.state.home_gallery.HomeGallerySideEffect
-import com.captures2024.soongan.feature.home.state.home_gallery.HomeGalleryUIState
+import com.captures2024.soongan.core.model.dto.GalleryPostDto
+import com.captures2024.soongan.core.viewmodel.model.PaginationStatus
+import com.captures2024.soongan.core.viewmodel.model.PostOrderType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 @HiltViewModel
-internal class HomeGalleryViewModel
+class HomeGalleryViewModel
 @Inject
 constructor(
     private val analyticsHelper: AnalyticsHelper,
     private val getGalleryUseCase: GetGalleryUseCase,
     savedStateHandle: SavedStateHandle,
-) : BaseViewModel<HomeGalleryUIState, HomeGallerySideEffect, HomeGalleryIntent>(savedStateHandle) {
+) : BaseViewModel<HomeGalleryViewModel.State, HomeGalleryViewModel.Effect, HomeGalleryViewModel.Intent>(savedStateHandle) {
 
-    init {
-        intent(HomeGalleryIntent.Init)
+    data class State(
+        val isLoading: Boolean = false,
+        val isShowBottomSheet: Boolean = false,
+        val isRefreshing: Boolean = false,
+        val postOrderType: PostOrderType = PostOrderType.MOST_LIKED,
+        val paginationStatus: PaginationStatus = PaginationStatus.INACTIVE,
+        val posts: List<GalleryPostDto> = emptyList(),
+        val nextPage: Int = 0,
+        val hasNextPage: Boolean = false,
+    ) : UIState {
+        override fun toLoggingElements(): Array<LogElementArgument> = arrayOf(
+            LogElementArgument("isLoading", isLoading.toString()),
+            LogElementArgument("isShowBottomSheet", isShowBottomSheet.toString()),
+            LogElementArgument("postOrderType", postOrderType.toString()),
+            LogElementArgument("paginationStatus", paginationStatus.toString()),
+            LogElementArgument("posts", posts.toString()),
+        )
     }
 
-    override fun createInitialState(savedStateHandle: SavedStateHandle): HomeGalleryUIState {
-        return HomeGalleryUIState()
+    sealed interface Effect : UISideEffect {
+
+        data class NavigateToHomePost(
+            val postId: Int,
+        ) : Effect
+
+        data object NavigateToRegistrationPost: Effect
+    }
+
+    sealed interface Intent : UIIntent {
+
+        data object Init : Intent
+
+        data object RefreshGallery : Intent
+
+        data object LoadNextPage : Intent
+
+        data class OnClickPost(
+            val postId: Int
+        ) : Intent
+
+        data object OnClickFilter : Intent
+
+        data class OnClickSortFilter(
+            val postOrderType: PostOrderType
+        ) : Intent
+
+        data object OnBottomModalDismissRequest : Intent
+
+        data object OnClickRegistrationText : Intent
+    }
+
+
+    init {
+        intent(Intent.Init)
+    }
+
+    override fun createInitialState(savedStateHandle: SavedStateHandle): State {
+        return State()
     }
 
     override fun handleClientException(throwable: Throwable) {
         analyticsHelper.e(throwable = throwable)
     }
 
-    override suspend fun handleIntent(intent: HomeGalleryIntent) {
+    override suspend fun handleIntent(intent: Intent) {
         when (intent) {
-            is HomeGalleryIntent.Init -> fetchPostPage(page = 0)
+            is Intent.Init -> fetchPostPage(page = 0)
 
-            is HomeGalleryIntent.RefreshGallery -> fetchPostPage(page = 0, isRefreshing = true)
+            is Intent.RefreshGallery -> fetchPostPage(page = 0, isRefreshing = true)
 
-            is HomeGalleryIntent.LoadNextPage -> fetchPostPage(page = currentState.nextPage)
+            is Intent.LoadNextPage -> fetchPostPage(page = currentState.nextPage)
 
-            is HomeGalleryIntent.OnBottomModalDismissRequest -> onBottomModalDismissRequest()
+            is Intent.OnBottomModalDismissRequest -> onBottomModalDismissRequest()
 
-            is HomeGalleryIntent.OnClickFilter -> onClickFilter()
+            is Intent.OnClickFilter -> onClickFilter()
 
-            is HomeGalleryIntent.OnClickPost -> postSideEffect(
-                HomeGallerySideEffect.NavigateToHomePost(
-                    intent.postId
-                )
-            )
+            is Intent.OnClickPost -> onClickPost(intent)
 
-            is HomeGalleryIntent.OnClickSortFilter -> onClickSortFilter(intent)
+            is Intent.OnClickSortFilter -> onClickSortFilter(intent)
 
-            is HomeGalleryIntent.OnClickRegistrationText -> postSideEffect(HomeGallerySideEffect.NavigateToRegistrationPost)
+            is Intent.OnClickRegistrationText -> postSideEffect(Effect.NavigateToRegistrationPost)
         }
     }
 
-    private fun setUpLoading(isInitPage: Boolean, isRefreshing: Boolean) {
+    private fun setUpLoading(
+        isInitPage: Boolean,
+        isRefreshing: Boolean,
+    ) {
         if (isInitPage) {
             reduce {
                 copy(
@@ -146,7 +199,7 @@ constructor(
         }
     }
 
-    private suspend fun onClickSortFilter(intent: HomeGalleryIntent.OnClickSortFilter) = launch {
+    private suspend fun onClickSortFilter(intent: Intent.OnClickSortFilter) = launch {
         reduce {
             copy(
                 isShowBottomSheet = false,
@@ -155,6 +208,10 @@ constructor(
         }
 
         fetchPostPage(page = 0)
+    }
+
+    private fun onClickPost(intent: Intent.OnClickPost) {
+        postSideEffect(HomeGalleryViewModel.Effect.NavigateToHomePost(intent.postId))
     }
 
     companion object {

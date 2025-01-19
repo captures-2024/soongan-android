@@ -24,15 +24,15 @@ import com.captures2024.soongan.core.designsystem.component.gallery.SoonGanGalle
 import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.model.dto.GalleryPostDto
-import com.captures2024.soongan.core.model.utils.PaginationStatus
 import com.captures2024.soongan.feature.home.R
-import com.captures2024.soongan.feature.home.state.home_gallery.HomeGalleryUIState
+import com.captures2024.soongan.core.viewmodel.home.HomeGalleryViewModel
 import com.captures2024.soongan.feature.home.ui.gallery.component.HomeGalleryTopBar
+import com.captures2024.soongan.core.viewmodel.model.PaginationStatus
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun HomeGalleryScreen(
-    uiState: HomeGalleryUIState,
+    uiState: HomeGalleryViewModel.State,
     modifier: Modifier = Modifier,
     onBackPressed: () -> Unit = {},
     onClickFilter: () -> Unit = {},
@@ -74,12 +74,12 @@ internal fun HomeGalleryScreen(
 private fun HomeGalleryScreen(
     posts: List<GalleryPostDto>,
     paginationStatus: PaginationStatus,
+    onBackPressed: () -> Unit,
+    onClickFilter: () -> Unit,
+    onLoadNextPage: () -> Unit,
+    onClickPost: (Int) -> Unit,
+    onClickRegistrationText: () -> Unit,
     modifier: Modifier = Modifier,
-    onBackPressed: () -> Unit = {},
-    onClickFilter: () -> Unit = {},
-    onLoadNextPage: () -> Unit = {},
-    onClickPost: (Int) -> Unit = {},
-    onClickRegistrationText: () -> Unit = {},
 ) {
     val lazyStaggeredGridState = rememberLazyStaggeredGridState()
 
@@ -149,7 +149,6 @@ private fun HomeGalleryScreen(
 @Composable
 private fun HomeGalleryScreenPreview() {
     HomeGalleryScreen(
-        posts = HomeGalleryUIState().posts,
-        paginationStatus = PaginationStatus.EMPTY
+        uiState = HomeGalleryViewModel.State()
     )
 }

@@ -23,4 +23,8 @@ interface WeeklyContestRepository {
         page: Int,
         pageSize: Int,
     ): MyGalleryDto
+
+    suspend fun getPostInfo(
+        postId: Int,
+    ): PostInfoDto
 }

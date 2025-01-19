@@ -23,13 +23,13 @@ import com.captures2024.soongan.core.designsystem.theme.dropShadow
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.model.dto.ContestInfoDto
 import com.captures2024.soongan.core.model.dto.PostInfoDto
-import com.captures2024.soongan.feature.home.state.home.HomeUIState
+import com.captures2024.soongan.core.viewmodel.home.HomeViewModel
 import com.captures2024.soongan.feature.home.ui.home.component.ContestPeriodText
 import com.captures2024.soongan.feature.home.ui.home.component.HomePeriodToggleButton
 
 @Composable
 internal fun HomeScreen(
-    uiState: HomeUIState,
+    uiState: HomeViewModel.State,
     modifier: Modifier = Modifier,
     onClickPlus: () -> Unit = {},
     onClickPost: (PostInfoDto) -> Unit = {},
@@ -126,7 +126,7 @@ private fun HomeScreenPreview() {
 
     HomeScreen(
         modifier = modifier,
-        uiState = HomeUIState(
+        uiState = HomeViewModel.State(
             contestInfo = ContestInfoDto(
                 subject = stringResource(com.captures2024.soongan.feature.home.R.string.home_top_bar_topic_example),
                 startAt = "2024.05.10",
@@ -148,7 +148,7 @@ private fun HomeScreenMultiPostPreview() {
 
     HomeScreen(
         modifier = modifier,
-        uiState = HomeUIState(
+        uiState = HomeViewModel.State(
             contestInfo = ContestInfoDto(
                 subject = stringResource(com.captures2024.soongan.feature.home.R.string.home_top_bar_topic_example),
                 startAt = "2024.05.10",

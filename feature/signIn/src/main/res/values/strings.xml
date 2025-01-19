@@ -1,7 +1,7 @@
 <resources>
 
     <!-- SignInDefaultScreen -->
-    <string name="logo_text">SoonGan</string>
+    <string name="logo_text">순간</string>
     <string name="sign_in_text_apple">Apple로 로그인</string>
     <string name="sign_in_text_google">Google로 로그인</string>
     <string name="sign_in_text_kakao">Kakao로 로그인</string>

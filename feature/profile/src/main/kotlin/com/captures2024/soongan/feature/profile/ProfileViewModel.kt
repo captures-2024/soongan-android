@@ -8,7 +8,7 @@ import com.captures2024.soongan.core.domain.usecase.members.IsVerifiedNicknameUs
 import com.captures2024.soongan.core.domain.usecase.members.PatchProfileUseCase
 import com.captures2024.soongan.core.domain.usecase.weekly.contests.GetMyGalleryUseCase
 import com.captures2024.soongan.core.model.UserProfile
-import com.captures2024.soongan.core.model.utils.PaginationStatus
+import com.captures2024.soongan.core.viewmodel.model.PaginationStatus
 import com.captures2024.soongan.feature.profile.state.profile.EditingState
 import com.captures2024.soongan.feature.profile.state.profile.ProfileIntent
 import com.captures2024.soongan.feature.profile.state.profile.ProfileIntent.BottomSheetI

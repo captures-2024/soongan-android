@@ -1,10 +1,11 @@
-package com.captures2024.soongan.feature.home.ui.post.common.report
+package com.captures2024.soongan.feature.home.ui.post.report
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
@@ -29,17 +30,17 @@ import com.captures2024.soongan.feature.home.utils.ReportType
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun ReportBottomSheetDialog(
-    modifier: Modifier = Modifier,
+    closeSheet: () -> Unit,
     reportState: PhotoDetailModalState.Open.ReportOpen,
     onClickReport: (ReportType) -> Unit,
-    closeSheet: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
-    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = false)
     
     ModalBottomSheet(
         modifier = modifier
-            .height(
-                when (reportState.reportType) {
+            .heightIn(
+                min = when (reportState.reportType) {
                     ReportType.NONE, ReportType.FINISH -> 448.dp
                     else -> 263.dp
                 }

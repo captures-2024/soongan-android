@@ -5,12 +5,13 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.captures2024.soongan.feature.home.HomePostViewModel
-import com.captures2024.soongan.feature.home.state.post.HomePostIntent
-import com.captures2024.soongan.feature.home.state.post.HomePostSideEffect
+import com.captures2024.soongan.core.viewmodel.home.HomePostViewModel
 import com.captures2024.soongan.feature.home.ui.post.HomePostScreen
 import com.captures2024.soongan.feature.home.ui.post.comment.HomePostCommentBottomSheetDialog
-import com.captures2024.soongan.feature.home.utils.HomePostBottomModal
+import com.captures2024.soongan.core.viewmodel.model.HomePostBottomModalState
+import com.captures2024.soongan.feature.home.state.PhotoDetailModalState
+import com.captures2024.soongan.feature.home.ui.post.HomePostMenuBottomSheetDialog
+import com.captures2024.soongan.feature.home.ui.post.report.ReportBottomSheetDialog
 
 @Composable
 internal fun HomePostRoute(
@@ -23,32 +24,38 @@ internal fun HomePostRoute(
     LaunchedEffect(key1 = Unit) {
         homePostViewModel.sideEffect.collect { effect ->
             when (effect) {
-                is HomePostSideEffect.NavigateToHomePostPhoto -> navigateToHomePostPhoto(effect.url)
+                is HomePostViewModel.Effect.NavigateToBack -> navigateToBack()
 
+                is HomePostViewModel.Effect.NavigateToHomePostPhoto -> navigateToHomePostPhoto(effect.url)
             }
         }
     }
 
     HomePostScreen(
+        intent = homePostViewModel::intent,
         uiState = uiState,
-        onBackPressed = navigateToBack,
-        onClickPhoto = { homePostViewModel.intent(HomePostIntent.OnClickPhoto) },
-        onClickMenu = { homePostViewModel.intent(HomePostIntent.OnClickMenu) },
-        onClickHeart = { homePostViewModel.intent(HomePostIntent.OnClickHeart) },
-        onClickComment = { homePostViewModel.intent(HomePostIntent.OnClickComment) },
     )
 
     when (uiState.isOpenModal) {
-        HomePostBottomModal.OPEN_COMMENT -> HomePostCommentBottomSheetDialog(
+        HomePostBottomModalState.OPEN_COMMENT -> HomePostCommentBottomSheetDialog(
             comment = uiState.inWritingComment,
-            closeSheet = { homePostViewModel.intent(HomePostIntent.OnClosedModal) },
-            onCommentValueChanged = { homePostViewModel.intent(HomePostIntent.OnCommentValueChanged(it)) }
+            closeSheet = { homePostViewModel.intent(HomePostViewModel.Intent.OnClosedModal) },
+            onCommentValueChanged = { homePostViewModel.intent(HomePostViewModel.Intent.OnCommentValueChanged(it)) }
         )
 
-        HomePostBottomModal.OPEN_REPORT -> {
+        HomePostBottomModalState.OPEN_MENU -> HomePostMenuBottomSheetDialog(
+            closeSheet = { homePostViewModel.intent(HomePostViewModel.Intent.OnClosedModal) },
+            onClickEdit = { homePostViewModel.intent(HomePostViewModel.Intent.OnClickEditPost) },
+            onClickDelete = { homePostViewModel.intent(HomePostViewModel.Intent.OnClickDeletePost) },
+            onClickReport = { homePostViewModel.intent(HomePostViewModel.Intent.OnClickReportPost) },
+        )
 
-        }
+        HomePostBottomModalState.OPEN_REPORT -> ReportBottomSheetDialog(
+            closeSheet = { homePostViewModel.intent(HomePostViewModel.Intent.OnClosedModal) },
+            reportState = PhotoDetailModalState.Open.ReportOpen(),
+            onClickReport = { TODO("onClickReport Not impl yet") }
+        )
 
-        else -> Unit
+        HomePostBottomModalState.CLOSED -> Unit
     }
 }

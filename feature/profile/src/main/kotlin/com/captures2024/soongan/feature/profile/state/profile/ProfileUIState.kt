@@ -5,7 +5,7 @@ import com.captures2024.soongan.core.common.Validation
 import com.captures2024.soongan.core.common.base.UIState
 import com.captures2024.soongan.core.model.UserProfile
 import com.captures2024.soongan.core.model.dto.GalleryPostDto
-import com.captures2024.soongan.core.model.utils.PaginationStatus
+import com.captures2024.soongan.core.viewmodel.model.PaginationStatus
 
 internal data class ProfileUIState(
     val isLoading: Boolean = false,
