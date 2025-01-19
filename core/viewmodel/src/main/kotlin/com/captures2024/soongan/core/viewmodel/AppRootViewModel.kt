@@ -33,7 +33,7 @@ constructor(
     data class State(
         val isInitialized: Boolean = false,
         val isGuestMode: Boolean = false,
-        private val currentMember: UserInfoDto? = null
+        val currentMember: UserInfoDto? = null
     ) : UIState {
 
         val rootRouteState: AppRootRoute
