@@ -19,7 +19,8 @@ fun NavGraphBuilder.profile(
     navigateToBack: () -> Unit,
     navigateToEditProfile: () -> Unit,
     navigateToNotification: () -> Unit,
-    navigateToHomePost: (postInfo: PostInfoDto) -> Unit,
+    navigateToHomePost: (postInfo: PostInfoDto) -> Unit, // postInfo -> Int
+    navigateToRegistrationPost: () -> Unit,
 ) {
     navigation<ProfileRootNavigator>(
         startDestination = ProfileRootNavigator.ProfileNavigator
@@ -34,6 +35,7 @@ fun NavGraphBuilder.profile(
                 navigateToEditProfile = navigateToEditProfile,
                 navigateToNotification = navigateToNotification,
                 navigateToHomePost = { TODO() },
+                navigateToRegistrationPost = navigateToRegistrationPost,
                 profileViewModel = profileViewModel,
             )
         }

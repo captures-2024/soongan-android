@@ -34,7 +34,8 @@ internal fun HomeRoute(
         .fillMaxSize()
         .paint(
             painter = painterResource(id = R.drawable.background_home_gallery),
-            contentScale = ContentScale.Crop
+            contentScale = ContentScale.FillBounds,
+            alpha = 0.8f
         )
         .sgBottomBarPadding()
 

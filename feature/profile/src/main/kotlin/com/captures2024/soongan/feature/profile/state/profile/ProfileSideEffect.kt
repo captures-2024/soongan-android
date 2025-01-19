@@ -1,7 +1,6 @@
 package com.captures2024.soongan.feature.profile.state.profile
 
 import com.captures2024.soongan.core.common.base.UISideEffect
-import com.captures2024.soongan.core.model.UserPost
 
 internal sealed interface ProfileSideEffect : UISideEffect {
 
@@ -11,8 +10,10 @@ internal sealed interface ProfileSideEffect : UISideEffect {
         data object NavigateToNotification : ProfileSE
 
         data class NavigateToHomePost(
-            val userPhoto: UserPost.PhotoPost,
+            val postId: Int,
         ) : ProfileSE
+
+        data object NavigateToRegistrationPost : ProfileSE
     }
 
     // Profile Menu Bottom Sheet - SideEffect

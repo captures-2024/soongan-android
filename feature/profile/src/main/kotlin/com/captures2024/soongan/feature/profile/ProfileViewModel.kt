@@ -2,11 +2,14 @@ package com.captures2024.soongan.feature.profile
 
 import androidx.lifecycle.SavedStateHandle
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
+import com.captures2024.soongan.core.analytics.utils.LogElementArgument
 import com.captures2024.soongan.core.common.base.BaseViewModel
 import com.captures2024.soongan.core.domain.usecase.members.GetMemberInfoUseCase
 import com.captures2024.soongan.core.domain.usecase.members.IsVerifiedNicknameUseCase
 import com.captures2024.soongan.core.domain.usecase.members.PatchProfileUseCase
+import com.captures2024.soongan.core.domain.usecase.weekly.contests.GetMyGalleryUseCase
 import com.captures2024.soongan.core.model.UserProfile
+import com.captures2024.soongan.core.model.utils.PaginationStatus
 import com.captures2024.soongan.feature.profile.state.profile.EditingState
 import com.captures2024.soongan.feature.profile.state.profile.ProfileIntent
 import com.captures2024.soongan.feature.profile.state.profile.ProfileIntent.BottomSheetI
@@ -27,6 +30,7 @@ internal class ProfileViewModel
 constructor(
     private val analyticsHelper: AnalyticsHelper,
     private val getMemberInfoUseCase: GetMemberInfoUseCase,
+    private val getMyGalleryUseCase: GetMyGalleryUseCase,
     private val patchProfileUseCase: PatchProfileUseCase,
     private val isVerifiedNicknameUseCase: IsVerifiedNicknameUseCase,
     savedStateHandle: SavedStateHandle,
@@ -60,13 +64,19 @@ constructor(
 
     private suspend fun handleProfileIntent(intent: ProfileI) {
         when (intent) {
-            ProfileI.Init -> fetchUserProfile()
+            ProfileI.Init -> initSyncData()
+
+            ProfileI.RefreshMyGallery -> fetchProfileGallery(page = 0, isRefreshing = true)
+
+            ProfileI.LoadNextPage -> fetchProfileGallery(page = currentState.nextPage)
 
             ProfileI.OnClickMenu -> onClickMenu()
 
             ProfileI.OnClickNotification -> onClickNotification()
 
-            is ProfileI.OnClickPhoto -> postSideEffect(ProfileSE.NavigateToHomePost(intent.userPhoto))
+            is ProfileI.OnClickPhoto -> postSideEffect(ProfileSE.NavigateToHomePost(intent.postId))
+
+            ProfileI.OnClickRegistrationText -> postSideEffect(ProfileSE.NavigateToRegistrationPost)
         }
     }
 
@@ -106,6 +116,11 @@ constructor(
 
 
     /** Handle ProfileScreen **/
+    private suspend fun initSyncData() = launch {
+        fetchUserProfile()
+        fetchProfileGallery(page = 0)
+    }
+
     private suspend fun fetchUserProfile() = launch {
         val memberInfo = getMemberInfoUseCase().getOrNull()
 
@@ -124,6 +139,69 @@ constructor(
             }
         }
     }
+
+    private fun setUpLoading(isInitPage: Boolean, isRefreshing: Boolean) {
+        if (isInitPage) {
+            reduce {
+                copy(
+                    isRefreshing = isRefreshing,
+                    paginationStatus = PaginationStatus.LOADING,
+                    myPosts = emptyList()
+                )
+            }
+        } else {
+            reduce {
+                copy(
+                    paginationStatus = PaginationStatus.PAGINATING,
+                )
+            }
+        }
+    }
+
+    private suspend fun fetchProfileGallery(page: Int, isRefreshing: Boolean = false) = launch {
+        if (currentState.paginationStatus in listOf(
+                PaginationStatus.LOADING,
+                PaginationStatus.PAGINATING,
+            )
+        ) return@launch
+
+        val isInitPage = (page == 0)
+
+        setUpLoading(isInitPage = isInitPage, isRefreshing = isRefreshing)
+
+        delay(1_500)
+
+        getMyGalleryUseCase(
+            params = GetMyGalleryUseCase.Params(
+                page = page,
+                pageSize = PAGE_SIZE,
+            )
+        ).onSuccess { myGalleryDto ->
+            analyticsHelper.d(message = "fetch my gallery dto is ${myGalleryDto.posts}")
+            reduce {
+                copy(
+                    isRefreshing = false,
+                    paginationStatus = when {
+                        !myGalleryDto.hasNext -> PaginationStatus.EXHAUST
+                        myGalleryDto.posts.isEmpty() -> PaginationStatus.EMPTY
+                        else -> PaginationStatus.INACTIVE
+                    },
+                    myPosts = myPosts + myGalleryDto.posts,
+                    nextPage = page + 1,
+                    hasNextPage = myGalleryDto.hasNext
+                )
+            }
+        }.onFailure {
+            analyticsHelper.d(message = "fetch my gallery dto is failed")
+            reduce {
+                copy(
+                    isRefreshing = false,
+                    paginationStatus = PaginationStatus.ERROR
+                )
+            }
+        }
+    }
+
 
     private fun onClickMenu() {
         reduce {
@@ -273,5 +351,9 @@ constructor(
 //                Toast.makeText(context, "not statusCode 200", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    companion object {
+        private const val PAGE_SIZE = 20
     }
 }

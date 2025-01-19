@@ -8,7 +8,6 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.captures2024.soongan.core.designsystem.util.sgBottomBarPadding
-import com.captures2024.soongan.core.model.UserPost
 import com.captures2024.soongan.feature.profile.ProfileViewModel
 import com.captures2024.soongan.feature.profile.state.profile.ProfileIntent.BottomSheetI
 import com.captures2024.soongan.feature.profile.state.profile.ProfileIntent.ProfileI
@@ -21,9 +20,10 @@ import com.captures2024.soongan.feature.profile.ui.profile.ProfileScreen
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun ProfileRoute(
-    navigateToEditProfile: () -> Unit,
     navigateToNotification: () -> Unit,
-    navigateToHomePost: (userPhoto: UserPost.PhotoPost) -> Unit,
+    navigateToHomePost: (Int) -> Unit,
+    navigateToRegistrationPost: () -> Unit,
+    navigateToEditProfile: () -> Unit,
     profileViewModel: ProfileViewModel = hiltViewModel(),
 ) {
     val uiState by profileViewModel.state.collectAsStateWithLifecycle()
@@ -33,7 +33,9 @@ internal fun ProfileRoute(
             when (sideEffect) {
                 is ProfileSE.NavigateToNotification -> navigateToNotification()
 
-                is ProfileSE.NavigateToHomePost -> navigateToHomePost(sideEffect.userPhoto)
+                is ProfileSE.NavigateToHomePost -> navigateToHomePost(sideEffect.postId)
+
+                is ProfileSE.NavigateToRegistrationPost -> navigateToRegistrationPost()
 
                 is BottomSheetSE.NavigateToEditProfile -> navigateToEditProfile()
 
@@ -47,7 +49,10 @@ internal fun ProfileRoute(
         modifier = Modifier.sgBottomBarPadding(),
         onClickNotification = { profileViewModel.intent(ProfileI.OnClickNotification) },
         onClickMenu = { profileViewModel.intent(ProfileI.OnClickMenu) },
-        onClickUserPhoto = { profileViewModel.intent(ProfileI.OnClickPhoto(it)) }
+        onRefresh = { profileViewModel.intent(ProfileI.RefreshMyGallery) },
+        onLoadNextPage = { profileViewModel.intent(ProfileI.LoadNextPage) },
+        onClickMyPost = { profileViewModel.intent(ProfileI.OnClickPhoto(it)) },
+        onClickRegistrationText = { profileViewModel.intent(ProfileI.OnClickRegistrationText) },
     )
 
     if (uiState.isOpenBottomSheet) {

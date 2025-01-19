@@ -10,8 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.NavHost
-import com.captures2024.soongan.core.model.UserPost
-import com.captures2024.soongan.core.model.UserProfile
 import com.captures2024.soongan.core.model.dto.PostInfoDto
 import com.captures2024.soongan.core.navigator.screen.main.awards.AwardsNavigator
 import com.captures2024.soongan.core.navigator.screen.main.feed.FeedNavigator
@@ -70,7 +68,8 @@ internal fun MainRouteNavHost(
             navigateToBack = navController::popBackStack,
             navigateToEditProfile = navController::navigateToEditProfile,
             navigateToNotification = navController::navigateToNotification,
-            navigateToHomePost = navController::navigateToHomePost
+            navigateToHomePost = navController::navigateToHomePost,
+            navigateToRegistrationPost = navController::navigateToRegistrationPost
         )
     }
 }

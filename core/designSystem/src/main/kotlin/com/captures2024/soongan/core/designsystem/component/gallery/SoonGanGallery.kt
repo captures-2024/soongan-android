@@ -45,7 +45,7 @@ fun SoonGanGallery(
     lazyStaggeredGridState: LazyStaggeredGridState = rememberLazyStaggeredGridState(),
     hasNextPage: Boolean = false,
     onLoadNextPage: () -> Unit = {},
-    content: LazyStaggeredGridScope.() -> Unit
+    content: LazyStaggeredGridScope.() -> Unit,
 ) {
     val shouldLoadMore = remember {
         derivedStateOf {
@@ -68,12 +68,12 @@ fun SoonGanGallery(
     }
 
     LazyVerticalStaggeredGrid(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxSize()
             .background(color = SGColor.primaryB)
             .paint(
                 painter = painterResource(id = R.drawable.background_home_gallery),
-                contentScale = ContentScale.Crop,
+                contentScale = ContentScale.FillBounds,
                 alpha = 0.8f
             ),
         state = lazyStaggeredGridState,

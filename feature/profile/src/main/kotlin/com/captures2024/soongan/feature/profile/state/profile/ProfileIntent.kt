@@ -2,6 +2,7 @@ package com.captures2024.soongan.feature.profile.state.profile
 
 import com.captures2024.soongan.core.common.base.UIIntent
 import com.captures2024.soongan.core.model.UserPost
+import com.captures2024.soongan.core.model.dto.GalleryPostDto
 
 internal sealed interface ProfileIntent : UIIntent {
 
@@ -10,7 +11,13 @@ internal sealed interface ProfileIntent : UIIntent {
 
         data object Init : ProfileI
 
-        data class OnClickPhoto(val userPhoto: UserPost.PhotoPost) : ProfileI
+        data object RefreshMyGallery : ProfileI
+
+        data object LoadNextPage : ProfileI
+
+        data class OnClickPhoto(val postId: Int) : ProfileI
+
+        data object OnClickRegistrationText : ProfileI
 
         data object OnClickNotification : ProfileI
 

@@ -3,15 +3,19 @@ package com.captures2024.soongan.feature.profile.state.profile
 import com.captures2024.soongan.core.analytics.utils.LogElementArgument
 import com.captures2024.soongan.core.common.Validation
 import com.captures2024.soongan.core.common.base.UIState
-import com.captures2024.soongan.core.model.UserPost
 import com.captures2024.soongan.core.model.UserProfile
-import com.captures2024.soongan.core.model.mock.samplePhotos
+import com.captures2024.soongan.core.model.dto.GalleryPostDto
+import com.captures2024.soongan.core.model.utils.PaginationStatus
 
 internal data class ProfileUIState(
     val isLoading: Boolean = false,
     val userProfile: UserProfile = UserProfile(),
     val editingState: EditingState = EditingState(),
-    val userPosts: List<UserPost.PhotoPost> = samplePhotos.map { it as UserPost.PhotoPost },
+    val isRefreshing: Boolean = false,
+    val paginationStatus: PaginationStatus = PaginationStatus.INACTIVE,
+    val myPosts: List<GalleryPostDto> = emptyList(),
+    val nextPage: Int = 0,
+    val hasNextPage: Boolean = false,
     val hasNotification: Boolean = false,
     val isOpenBottomSheet: Boolean = false,
 ) : UIState {
@@ -20,7 +24,11 @@ internal data class ProfileUIState(
         LogElementArgument("isLoading", isLoading.toString()),
         LogElementArgument("userProfile", userProfile.toString()),
         LogElementArgument("editingState", editingState.toString()),
-        LogElementArgument("userPosts", userPosts.toString()),
+        LogElementArgument("isRefreshing", isRefreshing.toString()),
+        LogElementArgument("paginationStatus", paginationStatus.toString()),
+        LogElementArgument("myPosts", myPosts.toString()),
+        LogElementArgument("nextPage", nextPage.toString()),
+        LogElementArgument("hasNextPage", hasNextPage.toString()),
         LogElementArgument("hasNotification", hasNotification.toString()),
         LogElementArgument("isOpenBottomSheet", isOpenBottomSheet.toString()),
     )
