@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class GetMyGalleryResponse(
-    @SerialName("posts")
+    @SerialName("postInfo")
     val posts: List<GetMyGalleryPostInfoResponse>,
     @SerialName("pageInfo")
     val pageInfo: GetGalleryPageInfoResponse,

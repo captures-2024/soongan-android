@@ -35,7 +35,7 @@ interface WeeklyContestService {
     ): Response<BaseResponse<RegisterPostResponse>>
 
     @Headers("Authorization: true")
-    @GET("weekly/contests/posts/my-history")
+    @GET("weekly/contests/posts/my-hisotry")
     suspend fun getMyGalleryInfo(
         @Query("page") page: Int,
         @Query("pageSize") pageSize: Int,
