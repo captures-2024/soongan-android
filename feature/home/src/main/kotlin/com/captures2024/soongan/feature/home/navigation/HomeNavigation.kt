@@ -3,7 +3,6 @@ package com.captures2024.soongan.feature.home.navigation
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-import com.captures2024.soongan.core.model.dto.PostInfoDto
 import com.captures2024.soongan.core.navigator.screen.main.home.HomeGalleryNavigator
 import com.captures2024.soongan.core.navigator.screen.main.home.HomeNavigator
 import com.captures2024.soongan.core.navigator.screen.main.home.HomePostNavigator
@@ -20,7 +19,7 @@ fun NavGraphBuilder.home(
     navigateToRegistrationPost: () -> Unit,
     navigateToGallery: () -> Unit,
     navigateToPost: (Int, NavOptions?) -> Unit,
-    navigateToPostPhoto: (String) -> Unit
+    navigateToPostPhoto: (String) -> Unit,
 ) {
     composable<HomeNavigator> {
         HomeRoute(
@@ -39,6 +38,7 @@ fun NavGraphBuilder.home(
         HomeGalleryRoute(
             navigateToBack = navigateToBack,
             navigateToPost = navigateToPost,
+            navigateToRegistrationPost = navigateToRegistrationPost,
         )
     }
     composable<HomePostNavigator> {

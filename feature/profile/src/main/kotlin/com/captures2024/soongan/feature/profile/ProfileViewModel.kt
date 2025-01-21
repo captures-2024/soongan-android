@@ -6,7 +6,9 @@ import com.captures2024.soongan.core.common.base.BaseViewModel
 import com.captures2024.soongan.core.domain.usecase.members.GetMemberInfoUseCase
 import com.captures2024.soongan.core.domain.usecase.members.IsVerifiedNicknameUseCase
 import com.captures2024.soongan.core.domain.usecase.members.PatchProfileUseCase
+import com.captures2024.soongan.core.domain.usecase.weekly.contests.GetMyGalleryUseCase
 import com.captures2024.soongan.core.model.UserProfile
+import com.captures2024.soongan.core.viewmodel.model.PaginationStatus
 import com.captures2024.soongan.feature.profile.state.profile.EditingState
 import com.captures2024.soongan.feature.profile.state.profile.ProfileIntent
 import com.captures2024.soongan.feature.profile.state.profile.ProfileIntent.BottomSheetI
@@ -27,6 +29,7 @@ internal class ProfileViewModel
 constructor(
     private val analyticsHelper: AnalyticsHelper,
     private val getMemberInfoUseCase: GetMemberInfoUseCase,
+    private val getMyGalleryUseCase: GetMyGalleryUseCase,
     private val patchProfileUseCase: PatchProfileUseCase,
     private val isVerifiedNicknameUseCase: IsVerifiedNicknameUseCase,
     savedStateHandle: SavedStateHandle,
@@ -58,15 +61,21 @@ constructor(
         }
     }
 
-    private suspend fun handleProfileIntent(intent: ProfileI) {
+    private fun handleProfileIntent(intent: ProfileI) {
         when (intent) {
-            ProfileI.Init -> fetchUserProfile()
+            ProfileI.Init -> initSyncData()
+
+            ProfileI.RefreshMyGallery -> fetchProfileGallery(page = 0, isRefreshing = true)
+
+            ProfileI.LoadNextPage -> fetchProfileGallery(page = currentState.nextPage)
 
             ProfileI.OnClickMenu -> onClickMenu()
 
             ProfileI.OnClickNotification -> onClickNotification()
 
-            is ProfileI.OnClickPhoto -> postSideEffect(ProfileSE.NavigateToHomePost(intent.userPhoto))
+            is ProfileI.OnClickPhoto -> postSideEffect(ProfileSE.NavigateToHomePost(intent.postId))
+
+            ProfileI.OnClickRegistrationText -> postSideEffect(ProfileSE.NavigateToRegistrationPost)
         }
     }
 
@@ -94,7 +103,13 @@ constructor(
 
             EditI.OnClickEditButton -> onClickEditButton()
 
-            EditI.OnClickProfileImage -> postSideEffect(EditSE.OpenMediaPicker)
+            EditI.OnClickProfileImage -> onClickProfileImage()
+
+            EditI.OnClickDefaultProfileImage -> onClickDefaultProfileImage()
+
+            EditI.OpenPhotoPicker -> openPhotoPicker()
+
+            EditI.OnCloseEditBottomSheet -> onCloseEditBottomSheet()
 
             is EditI.OnProfileImageChanged -> onProfileImageChanged(intent)
 
@@ -106,7 +121,12 @@ constructor(
 
 
     /** Handle ProfileScreen **/
-    private suspend fun fetchUserProfile() = launch {
+    private fun initSyncData() {
+        fetchUserProfile()
+        fetchProfileGallery(page = 0)
+    }
+
+    private fun fetchUserProfile() = launch {
         val memberInfo = getMemberInfoUseCase().getOrNull()
 
         memberInfo?.let {
@@ -120,6 +140,77 @@ constructor(
                 copy(
                     userProfile = userProfile,
                     editingState = EditingState(userProfile)
+                )
+            }
+        }
+    }
+
+    private fun setUpLoading(isInitPage: Boolean, isRefreshing: Boolean) {
+        if (isInitPage) {
+            reduce {
+                copy(
+                    isRefreshing = isRefreshing,
+                    paginationStatus = PaginationStatus.LOADING,
+                    myPosts = emptyList()
+                )
+            }
+        } else {
+            reduce {
+                copy(
+                    paginationStatus = PaginationStatus.PAGINATING,
+                )
+            }
+        }
+    }
+
+    private fun fetchProfileGallery(page: Int, isRefreshing: Boolean = false) {
+        when (currentState.paginationStatus) {
+            PaginationStatus.LOADING, PaginationStatus.PAGINATING -> return
+
+            else -> Unit
+
+        }
+
+        val isInitPage = (page == 0)
+
+        setUpLoading(isInitPage = isInitPage, isRefreshing = isRefreshing)
+
+        launch {
+            delay(1_500)
+
+            val myGalleryDto = getMyGalleryUseCase(
+                params = GetMyGalleryUseCase.Params(
+                    page = page,
+                    pageSize = PAGE_SIZE,
+                )
+            ).getOrNull()
+
+
+            if (myGalleryDto == null) {
+                analyticsHelper.d(message = "myGalleryDto is null")
+
+                reduce {
+                    copy(
+                        isRefreshing = false,
+                        paginationStatus = PaginationStatus.ERROR
+                    )
+                }
+
+                return@launch
+            }
+
+            analyticsHelper.d(message = "myGalleryDto is ${myGalleryDto.posts}")
+            reduce {
+                copy(
+                    isRefreshing = false,
+                    paginationStatus = when {
+                        !myGalleryDto.hasNext -> PaginationStatus.EXHAUST
+                        myGalleryDto.posts.isEmpty() -> PaginationStatus.EMPTY
+                        else -> PaginationStatus.INACTIVE
+                    },
+                    myPosts = myPosts + myGalleryDto.posts,
+                    nextPage = page + 1,
+                    hasNextPage = myGalleryDto.hasNext
                 )
             }
         }
@@ -169,6 +260,41 @@ constructor(
 
 
     /** Handle EditScreen **/
+    private fun onClickProfileImage() {
+        reduce {
+            copy(
+                isOpenProfileImageBottomSheet = true
+            )
+        }
+    }
+
+    private fun onClickDefaultProfileImage() {
+        reduce {
+            copy(
+                editingState = editingState.copy(
+                    editingProfile = editingState.editingProfile.copy(
+                        profileImageUrl = null
+                    )
+                )
+            )
+        }
+        onCloseEditBottomSheet()
+        updateEditableState()
+    }
+
+    private fun openPhotoPicker() {
+        onCloseEditBottomSheet()
+        postSideEffect(EditSE.OpenMediaPicker)
+    }
+
+    private fun onCloseEditBottomSheet() {
+        reduce {
+            copy(
+                isOpenProfileImageBottomSheet = false
+            )
+        }
+    }
+
     private fun onProfileImageChanged(intent: EditI.OnProfileImageChanged) {
         reduce {
             copy(
@@ -273,5 +399,9 @@ constructor(
 //                Toast.makeText(context, "not statusCode 200", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    companion object {
+        private const val PAGE_SIZE = 20
     }
 }

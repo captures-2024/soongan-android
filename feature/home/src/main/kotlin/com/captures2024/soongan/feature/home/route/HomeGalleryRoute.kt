@@ -16,6 +16,7 @@ import com.captures2024.soongan.feature.home.ui.gallery.HomeGalleryScreen
 internal fun HomeGalleryRoute(
     navigateToBack: () -> Unit,
     navigateToPost: (Int, NavOptions?) -> Unit,
+    navigateToRegistrationPost: () -> Unit,
     homeGalleryViewModel: HomeGalleryViewModel = hiltViewModel(),
 ) {
     val uiState by homeGalleryViewModel.state.collectAsStateWithLifecycle()
@@ -24,6 +25,8 @@ internal fun HomeGalleryRoute(
         homeGalleryViewModel.sideEffect.collect { effect ->
             when (effect) {
                 is HomeGalleryViewModel.Effect.NavigateToHomePost -> navigateToPost(effect.postId, null)
+
+                is HomeGalleryViewModel.Effect.NavigateToRegistrationPost -> navigateToRegistrationPost()
             }
         }
     }
@@ -35,6 +38,7 @@ internal fun HomeGalleryRoute(
         onLoadNextPage = { homeGalleryViewModel.intent(HomeGalleryViewModel.Intent.LoadNextPage) },
         onClickPost = { homeGalleryViewModel.intent(HomeGalleryViewModel.Intent.OnClickPost(it)) },
         onClickFilter = { homeGalleryViewModel.intent(HomeGalleryViewModel.Intent.OnClickFilter) },
+        onClickRegistrationText = { homeGalleryViewModel.intent(HomeGalleryViewModel.Intent.OnClickRegistrationText) }
     )
 
     if (uiState.isShowBottomSheet) {

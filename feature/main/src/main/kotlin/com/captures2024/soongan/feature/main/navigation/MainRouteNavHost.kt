@@ -64,7 +64,8 @@ internal fun MainRouteNavHost(
             navigateToBack = navController::popBackStack,
             navigateToEditProfile = navController::navigateToEditProfile,
             navigateToNotification = navController::navigateToNotification,
-            navigateToHomePost = navController::navigateToHomePost
+            navigateToHomePost = navController::navigateToHomePost,
+            navigateToRegistrationPost = navController::navigateToRegistrationPost
         )
     }
 }

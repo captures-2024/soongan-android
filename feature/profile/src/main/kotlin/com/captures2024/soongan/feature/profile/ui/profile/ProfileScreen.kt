@@ -10,7 +10,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.captures2024.soongan.core.designsystem.component.HeightSpacer
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
-import com.captures2024.soongan.core.model.UserPost
 import com.captures2024.soongan.feature.profile.state.profile.ProfileUIState
 
 @Composable
@@ -19,7 +18,10 @@ internal fun ProfileScreen(
     modifier: Modifier = Modifier,
     onClickNotification: () -> Unit = {},
     onClickMenu: () -> Unit = {},
-    onClickUserPhoto: (UserPost.PhotoPost) -> Unit = {},
+    onRefresh: () -> Unit = {},
+    onLoadNextPage: () -> Unit = {},
+    onClickMyPost: (Int) -> Unit = {},
+    onClickRegistrationText: () -> Unit = {},
 ) {
     Column(
         modifier = modifier
@@ -35,8 +37,13 @@ internal fun ProfileScreen(
         )
         HeightSpacer(28.dp)
         ProfileScreenBody(
-            userPhotos = uiState.userPosts,
-            onClickUserPhoto = onClickUserPhoto
+            myPosts = uiState.myPosts,
+            paginationStatus = uiState.paginationStatus,
+            isRefreshing = uiState.isRefreshing,
+            onRefresh = onRefresh,
+            onLoadNextPage = onLoadNextPage,
+            onClickMyPost = onClickMyPost,
+            onClickRegistrationText = onClickRegistrationText,
         )
     }
 }

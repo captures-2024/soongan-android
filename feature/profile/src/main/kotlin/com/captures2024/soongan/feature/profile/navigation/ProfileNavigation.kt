@@ -6,7 +6,6 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.captures2024.soongan.core.model.dto.PostInfoDto
 import com.captures2024.soongan.core.navigator.screen.main.profile.NotificationNavigator
 import com.captures2024.soongan.core.navigator.screen.main.profile.ProfileRootNavigator
 import com.captures2024.soongan.feature.profile.ProfileViewModel
@@ -20,6 +19,7 @@ fun NavGraphBuilder.profile(
     navigateToEditProfile: () -> Unit,
     navigateToNotification: () -> Unit,
     navigateToHomePost: (Int) -> Unit,
+    navigateToRegistrationPost: () -> Unit,
 ) {
     navigation<ProfileRootNavigator>(
         startDestination = ProfileRootNavigator.ProfileNavigator
@@ -34,6 +34,7 @@ fun NavGraphBuilder.profile(
                 navigateToEditProfile = navigateToEditProfile,
                 navigateToNotification = navigateToNotification,
                 navigateToHomePost = { TODO() },
+                navigateToRegistrationPost = navigateToRegistrationPost,
                 profileViewModel = profileViewModel,
             )
         }
