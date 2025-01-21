@@ -61,7 +61,7 @@ constructor(
         }
     }
 
-    private suspend fun handleProfileIntent(intent: ProfileI) {
+    private fun handleProfileIntent(intent: ProfileI) {
         when (intent) {
             ProfileI.Init -> initSyncData()
 
@@ -121,12 +121,12 @@ constructor(
 
 
     /** Handle ProfileScreen **/
-    private suspend fun initSyncData() = launch {
+    private fun initSyncData() {
         fetchUserProfile()
         fetchProfileGallery(page = 0)
     }
 
-    private suspend fun fetchUserProfile() = launch {
+    private fun fetchUserProfile() = launch {
         val memberInfo = getMemberInfoUseCase().getOrNull()
 
         memberInfo?.let {
@@ -163,26 +163,43 @@ constructor(
         }
     }
 
-    private suspend fun fetchProfileGallery(page: Int, isRefreshing: Boolean = false) = launch {
-        if (currentState.paginationStatus in listOf(
-                PaginationStatus.LOADING,
-                PaginationStatus.PAGINATING,
-            )
-        ) return@launch
+    private fun fetchProfileGallery(page: Int, isRefreshing: Boolean = false) {
+        when (currentState.paginationStatus) {
+            PaginationStatus.LOADING, PaginationStatus.PAGINATING -> return
+
+            else -> Unit
+
+        }
 
         val isInitPage = (page == 0)
 
         setUpLoading(isInitPage = isInitPage, isRefreshing = isRefreshing)
 
-        delay(1_500)
+        launch {
+            delay(1_500)
 
-        getMyGalleryUseCase(
-            params = GetMyGalleryUseCase.Params(
-                page = page,
-                pageSize = PAGE_SIZE,
-            )
-        ).onSuccess { myGalleryDto ->
-            analyticsHelper.d(message = "fetch my gallery dto is ${myGalleryDto.posts}")
+            val myGalleryDto = getMyGalleryUseCase(
+                params = GetMyGalleryUseCase.Params(
+                    page = page,
+                    pageSize = PAGE_SIZE,
+                )
+            ).getOrNull()
+
+
+            if (myGalleryDto == null) {
+                analyticsHelper.d(message = "myGalleryDto is null")
+
+                reduce {
+                    copy(
+                        isRefreshing = false,
+                        paginationStatus = PaginationStatus.ERROR
+                    )
+                }
+
+                return@launch
+            }
+
+            analyticsHelper.d(message = "myGalleryDto is ${myGalleryDto.posts}")
             reduce {
                 copy(
                     isRefreshing = false,
@@ -196,17 +213,8 @@ constructor(
                     hasNextPage = myGalleryDto.hasNext
                 )
             }
-        }.onFailure {
-            analyticsHelper.d(message = "fetch my gallery dto is failed")
-            reduce {
-                copy(
-                    isRefreshing = false,
-                    paginationStatus = PaginationStatus.ERROR
-                )
-            }
         }
     }
-
 
     private fun onClickMenu() {
         reduce {

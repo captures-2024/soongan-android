@@ -22,7 +22,9 @@ constructor(
     private val analyticsHelper: AnalyticsHelper,
     private val getGalleryUseCase: GetGalleryUseCase,
     savedStateHandle: SavedStateHandle,
-) : BaseViewModel<HomeGalleryViewModel.State, HomeGalleryViewModel.Effect, HomeGalleryViewModel.Intent>(savedStateHandle) {
+) : BaseViewModel<HomeGalleryViewModel.State, HomeGalleryViewModel.Effect, HomeGalleryViewModel.Intent>(
+    savedStateHandle
+) {
 
     data class State(
         val isLoading: Boolean = false,
@@ -49,7 +51,7 @@ constructor(
             val postId: Int,
         ) : Effect
 
-        data object NavigateToRegistrationPost: Effect
+        data object NavigateToRegistrationPost : Effect
     }
 
     sealed interface Intent : UIIntent {
@@ -61,13 +63,13 @@ constructor(
         data object LoadNextPage : Intent
 
         data class OnClickPost(
-            val postId: Int
+            val postId: Int,
         ) : Intent
 
         data object OnClickFilter : Intent
 
         data class OnClickSortFilter(
-            val postOrderType: PostOrderType
+            val postOrderType: PostOrderType,
         ) : Intent
 
         data object OnBottomModalDismissRequest : Intent
@@ -129,27 +131,45 @@ constructor(
         }
     }
 
-    private suspend fun fetchPostPage(page: Int = 0, isRefreshing: Boolean = false) = launch {
-        if (currentState.paginationStatus in listOf(
-                PaginationStatus.LOADING,
-                PaginationStatus.PAGINATING,
-            )
-        ) return@launch
+    private fun fetchPostPage(page: Int = 0, isRefreshing: Boolean = false) {
+        when (currentState.paginationStatus) {
+            PaginationStatus.LOADING, PaginationStatus.PAGINATING -> return
+
+            else -> Unit
+        }
 
         val isInitPage = (page == 0)
 
         setUpLoading(isInitPage = isInitPage, isRefreshing = isRefreshing)
 
-        delay(2_000)
+        launch {
+            delay(2_000)
 
-        getGalleryUseCase(
-            params = GetGalleryUseCase.Params(
-                round = null,
-                orderType = currentState.postOrderType.name,
-                page = page,
-                pageSize = PAGE_SIZE,
-            )
-        ).onSuccess { galleryDto ->
+            val galleryDto = getGalleryUseCase(
+                params = GetGalleryUseCase.Params(
+                    round = null,
+                    orderType = currentState.postOrderType.name,
+                    page = page,
+                    pageSize = PAGE_SIZE,
+                )
+            ).getOrNull()
+
+
+            if (galleryDto == null) {
+                analyticsHelper.d(message = "galleryDto is null")
+
+                reduce {
+                    copy(
+                        isRefreshing = false,
+                        paginationStatus = PaginationStatus.ERROR
+                    )
+                }
+
+                return@launch
+            }
+
+            analyticsHelper.d(message = "galleryDto is ${galleryDto.posts}")
+
             reduce {
                 copy(
                     isRefreshing = false,
@@ -163,25 +183,10 @@ constructor(
                     hasNextPage = galleryDto.hasNext
                 )
             }
-        }.onFailure {
-            reduce {
-                copy(
-                    isRefreshing = false,
-                    paginationStatus = PaginationStatus.ERROR
-                )
-            }
-        }
 
-        analyticsHelper.d(
-            logVariable = arrayOf(
-                LogElementArgument("pagingStatus", "${currentState.paginationStatus}"),
-                LogElementArgument("posts", "${currentState.posts}"),
-                LogElementArgument("page", "${currentState.nextPage}"),
-                LogElementArgument("haspage", "${currentState.hasNextPage}"),
-            ),
-            message = "fetch post Page"
-        )
+        }
     }
+
 
     private fun onBottomModalDismissRequest() {
         reduce {
@@ -199,7 +204,7 @@ constructor(
         }
     }
 
-    private suspend fun onClickSortFilter(intent: Intent.OnClickSortFilter) = launch {
+    private fun onClickSortFilter(intent: Intent.OnClickSortFilter) = launch {
         reduce {
             copy(
                 isShowBottomSheet = false,
