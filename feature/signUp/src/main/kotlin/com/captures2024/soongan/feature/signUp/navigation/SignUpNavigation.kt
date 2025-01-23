@@ -11,7 +11,6 @@ import com.captures2024.soongan.feature.signUp.route.InputNicknameRoute
 fun NavGraphBuilder.signUp(
     navigateToBack: () -> Unit,
     navigateToBirth: (String) -> Unit,
-    signViewModel: SignViewModel,
 ) {
     composable<NicknameNavigator> {
         InputNicknameRoute(
@@ -22,7 +21,6 @@ fun NavGraphBuilder.signUp(
     composable<BirthNavigator> {
         InputBirthRoute(
             navigateToBack = navigateToBack,
-            signViewModel = signViewModel,
         )
     }
 }

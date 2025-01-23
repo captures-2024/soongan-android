@@ -2,17 +2,20 @@ package com.captures2024.soongan.core.viewmodel.home
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.toRoute
+import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.analytics.utils.LogElementArgument
-import com.captures2024.soongan.core.common.base.BaseViewModel
 import com.captures2024.soongan.core.common.base.UIIntent
 import com.captures2024.soongan.core.common.base.UISideEffect
 import com.captures2024.soongan.core.common.base.UIState
+import com.captures2024.soongan.core.domain.usecase.loading.ClearLoadingUseCase
+import com.captures2024.soongan.core.domain.usecase.loading.HideLoadingUseCase
+import com.captures2024.soongan.core.domain.usecase.loading.ShowLoadingUseCase
 import com.captures2024.soongan.core.domain.usecase.weekly.contests.GetPostInfoUseCase
 import com.captures2024.soongan.core.model.dto.PostInfoDto
 import com.captures2024.soongan.core.navigator.screen.main.home.HomePostNavigator
+import com.captures2024.soongan.core.viewmodel.NewBaseViewModel
 import com.captures2024.soongan.core.viewmodel.model.HomePostBottomModalState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,19 +23,27 @@ class HomePostViewModel
 @Inject
 constructor(
     private val getPostInfoUseCase: GetPostInfoUseCase,
+    analyticsHelper: AnalyticsHelper,
+    showLoadingUseCase: ShowLoadingUseCase,
+    hideLoadingUseCase: HideLoadingUseCase,
+    clearLoadingUseCase: ClearLoadingUseCase,
     savedStateHandle: SavedStateHandle,
-) : BaseViewModel<HomePostViewModel.State, HomePostViewModel.Effect, HomePostViewModel.Intent>(savedStateHandle) {
+) : NewBaseViewModel<HomePostViewModel.State, HomePostViewModel.Effect, HomePostViewModel.Intent>(
+    analyticsHelper = analyticsHelper,
+    showLoadingUseCase = showLoadingUseCase,
+    hideLoadingUseCase = hideLoadingUseCase,
+    clearLoadingUseCase = clearLoadingUseCase,
+    savedStateHandle = savedStateHandle,
+) {
 
     data class State(
         val postId: Int,
         val post: PostInfoDto = PostInfoDto(),
-        val isLoading: Boolean = false,
         val isOpenModal: HomePostBottomModalState = HomePostBottomModalState.CLOSED,
         val inWritingComment: String = "",
     ) : UIState {
 
         override fun toLoggingElements(): Array<LogElementArgument> = arrayOf(
-            LogElementArgument("isLoading", isLoading.toString()),
             LogElementArgument("postId", postId.toString()),
             LogElementArgument("post", post.toString()),
             LogElementArgument("isOpenModal", isOpenModal.toString()),
@@ -83,19 +94,16 @@ constructor(
     override fun createInitialState(savedStateHandle: SavedStateHandle): State {
         val info = savedStateHandle.toRoute<HomePostNavigator>()
 
-        return State(
-            postId = info.id,
-            isLoading = true,
-        )
+        return State(postId = info.id)
     }
 
     override fun handleClientException(throwable: Throwable) {
 //        Timber.tag(TAG).e(throwable)
     }
 
-    override suspend fun handleIntent(intent: Intent) {
+    override fun handleIntent(intent: Intent) {
         when (intent) {
-            is Intent.Init -> handleInit()
+            is Intent.Init -> loadingLaunch { handleInit() }
 
             is Intent.OnClickBack -> handleOnClickBack()
 
@@ -109,7 +117,7 @@ constructor(
 
             is Intent.OnClosedModal -> handleOnClosedModal()
 
-            is Intent.OnCommentValueChanged -> handleOnCommentValueChanged(intent.inWritingComment)
+            is Intent.OnCommentValueChanged -> handleOnCommentValueChanged(intent)
 
             is Intent.OnClickDeletePost -> handleOnClickDeletePost()
 
@@ -131,7 +139,6 @@ constructor(
             copy(
                 postId = postInfo.postId,
                 post = postInfo,
-                isLoading = false,
             )
         }
     }
@@ -161,8 +168,7 @@ constructor(
     }
 
     private fun handleOnClickPhoto() {
-        // TODO 1차 MVP 스펙아웃
-//        postSideEffect(Effect.NavigateToHomePostPhoto(currentState.post.url))
+        postSideEffect(Effect.NavigateToHomePostPhoto(currentState.post.imageUrl))
     }
 
     private fun handleOnClosedModal() {
@@ -173,10 +179,10 @@ constructor(
         }
     }
 
-    private fun handleOnCommentValueChanged(inWritingComment: String) {
+    private fun handleOnCommentValueChanged(intent: Intent.OnCommentValueChanged) {
         reduce {
             copy(
-                inWritingComment = inWritingComment,
+                inWritingComment = intent.inWritingComment,
             )
         }
     }

@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.captures2024.soongan.core.viewmodel.sign.SignViewModel
 import com.captures2024.soongan.feature.signUp.BirthViewModel
 import com.captures2024.soongan.feature.signUp.state.birth.BirthIntent
 import com.captures2024.soongan.feature.signUp.state.birth.BirthSideEffect
@@ -13,7 +12,6 @@ import com.captures2024.soongan.feature.signUp.ui.InputBirthScreen
 @Composable
 internal fun InputBirthRoute(
     navigateToBack: () -> Unit,
-    signViewModel: SignViewModel,
     birthViewModel: BirthViewModel = hiltViewModel(),
 ) {
     val uiState = birthViewModel.state.collectAsStateWithLifecycle()
@@ -22,14 +20,6 @@ internal fun InputBirthRoute(
         birthViewModel.sideEffect.collect {
             when (it) {
                 is BirthSideEffect.NavigateToBack -> navigateToBack()
-
-                is BirthSideEffect.NavigateToMain ->
-                    signViewModel.intent(
-                        SignViewModel.Intent.SuccessPathBirth(
-                            nickname = it.nickname,
-                            birthYear = it.birthYear,
-                        )
-                    )
             }
         }
     }

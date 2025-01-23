@@ -13,5 +13,7 @@ dependencies {
     implementation(projects.core.data)
     implementation(projects.core.model)
 
+    implementation(libs.kotlin.coroutines)
+    implementation(libs.kotlin.datetime)
     implementation(libs.javax.inject)
 }

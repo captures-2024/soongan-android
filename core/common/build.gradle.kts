@@ -13,4 +13,5 @@ dependencies {
     implementation(projects.core.analytics)
 
     implementation(libs.android.compose.runtime)
+    implementation(libs.javax.inject)
 }
