@@ -14,12 +14,8 @@ internal sealed interface ProfileSideEffect : UISideEffect {
         ) : ProfileSE
 
         data object NavigateToRegistrationPost : ProfileSE
-    }
 
-    // Profile Menu Bottom Sheet - SideEffect
-    sealed interface BottomSheetSE : ProfileSideEffect {
-
-        data object NavigateToEditProfile : BottomSheetSE
+        data object NavigateToEditProfile : ProfileSE
     }
 
     // Edit Screen - SideEffect

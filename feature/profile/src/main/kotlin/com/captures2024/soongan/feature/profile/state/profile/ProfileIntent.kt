@@ -1,6 +1,8 @@
 package com.captures2024.soongan.feature.profile.state.profile
 
 import com.captures2024.soongan.core.common.base.UIIntent
+import com.captures2024.soongan.feature.profile.ProfileBtmShtDepthStatus
+import com.captures2024.soongan.feature.profile.ProfileBtmShtMenuItem
 
 internal sealed interface ProfileIntent : UIIntent {
 
@@ -20,24 +22,12 @@ internal sealed interface ProfileIntent : UIIntent {
         data object OnClickNotification : ProfileI
 
         data object OnClickMenu : ProfileI
-    }
 
-    // Profile Menu Bottom Sheet - Intent
-    sealed interface BottomSheetI : ProfileIntent {
+        data class OnMenuItemClicked(
+            val menuItem: ProfileBtmShtMenuItem,
+            ) : ProfileI
 
-        data object OnClickEdit : BottomSheetI
-
-        data object OnClickNotificationSetting : BottomSheetI
-
-        data object OnClickTermsAndPolicy : BottomSheetI
-
-        data object OnClickFAQ : BottomSheetI
-
-        data object OnClickWithdraw : BottomSheetI
-
-        data object OnClickSignOut : BottomSheetI
-
-        data object OnCloseBottomSheet : BottomSheetI
+        data object OnCloseBottomSheet : ProfileI
     }
 
     // Edit Screen - Intent

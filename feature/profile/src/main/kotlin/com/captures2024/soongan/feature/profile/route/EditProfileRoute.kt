@@ -10,9 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.captures2024.soongan.feature.profile.ProfileViewModel
-import com.captures2024.soongan.feature.profile.state.profile.ProfileIntent.BottomSheetI
 import com.captures2024.soongan.feature.profile.state.profile.ProfileIntent.EditI
-import com.captures2024.soongan.feature.profile.state.profile.ProfileSideEffect.BottomSheetSE
 import com.captures2024.soongan.feature.profile.state.profile.ProfileSideEffect.EditSE
 import com.captures2024.soongan.feature.profile.state.profile.ProfileSideEffect.ProfileSE
 import com.captures2024.soongan.feature.profile.ui.edit.EditProfileBottomSheet
@@ -46,7 +44,7 @@ internal fun EditProfileRoute(
                     )
                 }
 
-                is ProfileSE, is BottomSheetSE -> Unit
+                is ProfileSE -> Unit
             }
         }
     }

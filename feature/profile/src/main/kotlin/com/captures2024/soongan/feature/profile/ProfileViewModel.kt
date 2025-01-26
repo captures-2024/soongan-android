@@ -11,11 +11,9 @@ import com.captures2024.soongan.core.model.UserProfile
 import com.captures2024.soongan.core.viewmodel.model.PaginationStatus
 import com.captures2024.soongan.feature.profile.state.profile.EditingState
 import com.captures2024.soongan.feature.profile.state.profile.ProfileIntent
-import com.captures2024.soongan.feature.profile.state.profile.ProfileIntent.BottomSheetI
 import com.captures2024.soongan.feature.profile.state.profile.ProfileIntent.EditI
 import com.captures2024.soongan.feature.profile.state.profile.ProfileIntent.ProfileI
 import com.captures2024.soongan.feature.profile.state.profile.ProfileSideEffect
-import com.captures2024.soongan.feature.profile.state.profile.ProfileSideEffect.BottomSheetSE
 import com.captures2024.soongan.feature.profile.state.profile.ProfileSideEffect.EditSE
 import com.captures2024.soongan.feature.profile.state.profile.ProfileSideEffect.ProfileSE
 import com.captures2024.soongan.feature.profile.state.profile.ProfileUIState
@@ -55,8 +53,6 @@ constructor(
         when (intent) {
             is ProfileI -> handleProfileIntent(intent)
 
-            is BottomSheetI -> handleBottomSheetIntent(intent)
-
             is EditI -> handleEditIntent(intent)
         }
     }
@@ -69,31 +65,17 @@ constructor(
 
             ProfileI.LoadNextPage -> fetchProfileGallery(page = currentState.nextPage)
 
-            ProfileI.OnClickMenu -> onClickMenu()
+            ProfileI.OnClickMenu -> reduce { copy(isOpenBottomSheet = true) }
 
             ProfileI.OnClickNotification -> onClickNotification()
 
             is ProfileI.OnClickPhoto -> postSideEffect(ProfileSE.NavigateToHomePost(intent.postId))
 
             ProfileI.OnClickRegistrationText -> postSideEffect(ProfileSE.NavigateToRegistrationPost)
-        }
-    }
 
-    private fun handleBottomSheetIntent(intent: BottomSheetI) {
-        when (intent) {
-            BottomSheetI.OnClickEdit -> onClickEdit()
+            ProfileI.OnCloseBottomSheet -> reduce { copy(isOpenBottomSheet = false) }
 
-            BottomSheetI.OnClickFAQ -> TODO()
-
-            BottomSheetI.OnClickNotificationSetting -> TODO()
-
-            BottomSheetI.OnClickSignOut -> TODO()
-
-            BottomSheetI.OnClickTermsAndPolicy -> TODO()
-
-            BottomSheetI.OnClickWithdraw -> TODO()
-
-            BottomSheetI.OnCloseBottomSheet -> onCloseBottomSheet()
+            is ProfileI.OnMenuItemClicked -> onMenuItemClicked(intent)
         }
     }
 
@@ -103,7 +85,7 @@ constructor(
 
             EditI.OnClickEditButton -> onClickEditButton()
 
-            EditI.OnClickProfileImage -> onClickProfileImage()
+            EditI.OnClickProfileImage -> reduce { copy(isOpenProfileImageBottomSheet = true) }
 
             EditI.OnClickDefaultProfileImage -> onClickDefaultProfileImage()
 
@@ -216,12 +198,6 @@ constructor(
         }
     }
 
-    private fun onClickMenu() {
-        reduce {
-            copy(isOpenBottomSheet = true)
-        }
-    }
-
     private fun onClickNotification() {
         reduce {
             copy(hasNotification = false)
@@ -230,9 +206,8 @@ constructor(
         postSideEffect(ProfileSE.NavigateToNotification)
     }
 
-
-    /** Handle ProfileMenuBottomSheet **/
-    private fun onClickEdit() {
+    private fun onMenuItemClicked(intent : ProfileI.OnMenuItemClicked) {
+        intent.menuItem
         reduce {
             copy(
                 editingState = EditingState(editingProfile = currentState.userProfile),
@@ -240,7 +215,7 @@ constructor(
             )
         }
 
-        postSideEffect(BottomSheetSE.NavigateToEditProfile)
+        postSideEffect(ProfileSE.NavigateToEditProfile)
 
         launch {
             delay(100)
@@ -252,22 +227,8 @@ constructor(
         }
     }
 
-    private fun onCloseBottomSheet() {
-        reduce {
-            copy(isOpenBottomSheet = false)
-        }
-    }
-
 
     /** Handle EditScreen **/
-    private fun onClickProfileImage() {
-        reduce {
-            copy(
-                isOpenProfileImageBottomSheet = true
-            )
-        }
-    }
-
     private fun onClickDefaultProfileImage() {
         reduce {
             copy(

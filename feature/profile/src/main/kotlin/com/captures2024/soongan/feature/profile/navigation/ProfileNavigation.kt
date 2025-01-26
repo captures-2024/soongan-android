@@ -35,7 +35,7 @@ fun NavGraphBuilder.profile(
                 navigateToNotification = navigateToNotification,
                 navigateToHomePost = { TODO() },
                 navigateToRegistrationPost = navigateToRegistrationPost,
-                profileViewModel = profileViewModel,
+                profileVM = profileViewModel,
             )
         }
         composable<ProfileRootNavigator.EditNavigator> { backStackEntry ->
