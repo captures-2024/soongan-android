@@ -20,6 +20,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
@@ -94,7 +95,7 @@ fun SoonGanGalleryEmptyItem(
             fontSize = 12.sp,
             fontWeight = FontWeight.Normal,
             fontFamily = NanumSquareNeoFontFamily,
-            letterSpacing = (-0.5).sp,
+            letterSpacing = (-5).em,
             lineHeight = 12.sp
         )
         Box(
@@ -142,7 +143,11 @@ fun SoonGanGalleryErrorItem(
     ) {
         NonScaleText(
             text = errorText,
-            fontSize = 20.sp
+            fontSize = 12.sp,
+            fontWeight = FontWeight.Normal,
+            fontFamily = NanumSquareNeoFontFamily,
+            letterSpacing = (-5).em,
+            lineHeight = 12.sp
         )
     }
 }

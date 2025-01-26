@@ -21,6 +21,7 @@ import com.captures2024.soongan.core.common.Validation
 import com.captures2024.soongan.core.designsystem.component.HeightSpacer
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.viewmodel.model.profile.EditingState
+import com.captures2024.soongan.feature.profile.R
 import com.captures2024.soongan.feature.profile.ui.edit.component.EditProfileButton
 import com.captures2024.soongan.feature.profile.ui.edit.component.MiniAddIcon
 import com.captures2024.soongan.feature.profile.ui.edit.component.ProfileOutlinedTextField
@@ -86,7 +87,7 @@ internal fun EditProfileScreenBody(
         )
         HeightSpacer(130.dp)
         EditProfileButton(
-            text = "수정하기",
+            text = stringResource(R.string.edit_complete_button_text),
             onClick = onClickEdit,
             enabled = uiState.isEditable && !uiState.isDuplicatedNickname && isValidNickname && isValidIntroduction
         )

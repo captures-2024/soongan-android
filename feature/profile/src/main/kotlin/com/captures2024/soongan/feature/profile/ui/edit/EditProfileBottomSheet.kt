@@ -20,13 +20,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
 import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.feature.profile.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -47,12 +50,12 @@ internal fun EditProfileBottomSheet(
             modifier = Modifier.padding(horizontal = 24.dp)
         ) {
             BottomSheetRow(
-                itemText = "갤러리에서 사진 선택",
+                itemText = stringResource(R.string.edit_profile_btmsht_select_photo_in_gallery_text),
                 onClick = openPhotoPicker
             )
             HorizontalDivider(color = SGColor.primaryA.copy(alpha = 0.3f))
             BottomSheetRow(
-                itemText = "기본 프로필로 돌아가기",
+                itemText = stringResource(R.string.edit_profile_btmsht_default_profile_image_text),
                 onClick = onClickDefaultProfileImage
             )
         }
@@ -85,7 +88,7 @@ private fun BottomSheetRow(
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
             fontFamily = NanumSquareNeoFontFamily,
-            letterSpacing = (-0.5).sp,
+            letterSpacing = (-5).em,
             lineHeight = 20.sp
         )
     }

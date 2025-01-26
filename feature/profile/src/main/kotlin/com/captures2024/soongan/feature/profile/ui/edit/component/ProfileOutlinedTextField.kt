@@ -11,14 +11,21 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
+import com.captures2024.soongan.core.designsystem.component.HeightSpacer
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
+import com.captures2024.soongan.core.designsystem.component.nonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
 import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
@@ -34,6 +41,8 @@ internal fun ProfileOutlinedTextField(
     hint: String = "",
     maxInputLength: Int = 20,
 ) {
+    val focusManager = LocalFocusManager.current
+
     Column(modifier = modifier) {
         Box(modifier = modifier.padding(start = 12.dp)) {
             NonScaleText(
@@ -44,6 +53,7 @@ internal fun ProfileOutlinedTextField(
                 letterSpacing = 0.sp
             )
         }
+        HeightSpacer(4.dp)
         BasicTextField(
             value = value,
             onValueChange = { newValue ->
@@ -51,13 +61,21 @@ internal fun ProfileOutlinedTextField(
             },
             modifier = Modifier
                 .fillMaxWidth()
-                .height(40.dp)
+                .height(48.dp)
                 .clip(RoundedCornerShape(8.dp))
                 .border(
                     width = 1.dp,
                     color = if (isInvalid) SGColor.negative else SGColor.primaryA.copy(alpha = 0.3f),
                     shape = RoundedCornerShape(8.dp)
                 ),
+            textStyle = nonScaleTextStyle(
+                fontSize = 18.sp,
+                fontFamily = NanumSquareNeoFontFamily,
+                fontWeight = FontWeight.Normal,
+                letterSPacing = (-5).em,
+            ),
+            keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
+            keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
             decorationBox = { innerTextField ->
                 Box(
                     modifier = Modifier
@@ -68,18 +86,19 @@ internal fun ProfileOutlinedTextField(
                     if (value.isEmpty()) {
                         NonScaleText(
                             text = placeholder,
-                            fontSize = 16.sp,
+                            fontSize = 18.sp,
                             color = SGColor.primaryA.copy(alpha = 0.3f),
-                            fontWeight = FontWeight.Bold,
+                            fontWeight = FontWeight.Normal,
                             fontFamily = NanumSquareNeoFontFamily,
-                            letterSpacing = 0.sp,
-                            lineHeight = 16.sp
+                            letterSpacing = (-5).em,
+                            lineHeight = 24.sp
                         )
                     }
                     innerTextField()
                 }
             }
         )
+        HeightSpacer(4.dp)
         Row(
             modifier = modifier
                 .fillMaxWidth()
@@ -91,14 +110,16 @@ internal fun ProfileOutlinedTextField(
                 fontSize = 8.sp,
                 color = SGColor.negative,
                 fontWeight = FontWeight.Normal,
-                letterSpacing = 0.sp
+                letterSpacing = 0.sp,
+                lineHeight = 8.sp
             )
             NonScaleText(
                 text = "${value.length}/$maxInputLength",
                 fontSize = 8.sp,
                 color = if (value.length <= maxInputLength) SGColor.black else SGColor.negative,
                 fontWeight = FontWeight.Normal,
-                letterSpacing = 0.sp
+                letterSpacing = 0.sp,
+                lineHeight = 8.sp
             )
         }
     }

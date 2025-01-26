@@ -3,6 +3,11 @@
 <!--  ProfileScreen  -->
     <string name="profile_tab_gallery_title">갤러리</string>
 
+<!--  ProfileScreenBody  -->
+    <string name="profile_gallery_error_text">참가한 내역을 불러올 수 없어요.</string>
+    <string name="profile_gallery_empty_text">아직 참가한 내역이 없어요.</string>
+    <string name="profile_gallery_registration_text">참가하러 가기</string>
+
 <!--  ProfileMenuBottomSheet  -->
     <string name="profile_menu_bottom_sheet_edit_title">프로필 편집</string>
     <string name="profile_menu_bottom_sheet_notification_title">푸시 알림 설정</string>
@@ -24,12 +29,34 @@
     <string name="input_nickname_placeholder">닉네임을 입력해주세요</string>
     <string name="input_nickname_fail_duplication_hint_text">닉네임이 중복되었습니다.</string>
     <string name="input_nickname_fail_regex_hint_text">특수문자는 제거해주세요</string>
-    <string name="input_nickname_fail_length_hint_text">3-10자리 숫자, 영문, 한글로 입력해주세요</string>
+    <string name="input_nickname_fail_length_hint_text">3–10자리 숫자, 영문, 한글로 입력해주세요</string>
 
     <string name="input_introduction_detail_title">자기소개를 입력해주세요</string>
     <string name="input_introduction_placeholder">본인을 소개해주세요</string>
     <string name="input_introduction_fail_length_hint_text">20자리 이하의 자기소개를 입력해주세요</string>
-    <string name="profile_gallery_error_text">참가한 내역을 불러올 수 없어요.</string>
-    <string name="profile_gallery_empty_text">아직 참가한 내역이 없어요.</string>
-    <string name="profile_gallery_registration_text">참가하러 가기</string>
+
+    <string name="edit_complete_button_text">수정완료</string>
+
+<!--  EditProfileBottomSheet  -->
+    <string name="edit_profile_btmsht_select_photo_in_gallery_text">갤러리에서 사진 선택</string>
+    <string name="edit_profile_btmsht_default_profile_image_text">기본 프로필로 돌아가기</string>
+
+<!--  ProfileBottomSheetMenuItems  -->
+    <string name="bottomSheet_item_title_push_notification_setting">푸시 알림 설정</string>
+    <string name="bottomSheet_item_title_withdraw">회원탈퇴</string>
+    <string name="bottomSheet_item_title_sign_out">로그아웃</string>
+    <string name="bottomSheet_item_title_error">에러</string>
+
+    <string name="bottomSheet_item_withdraw_description_1">정말 회원탈퇴를 하실 건가요?</string>
+    <string name="bottomSheet_item_withdraw_description_2">회원탈퇴를 위해 아래 입력창에</string>
+    <string name="bottomSheet_item_withdraw_description_3">\'회원탈퇴\'를 입력해주세요</string>
+    <string name="bottomSheet_item_withdraw_done_description">회원탈퇴가 완료되었습니다.</string>
+    <string name="bottomSheet_item_sign_out_description">정말 로그아웃 하실 건가요?</string>
+    <string name="bottomSheet_item_sign_out_done_description">로그아웃이 완료됐습니다.</string>
+    <string name="bottomSheet_item_done_description_last">또 만나길 바랄게요!</string>
+    <string name="bottomSheet_item_error_description_1">해당 요청이 처리되지 않았습니다.</string>
+    <string name="bottomSheet_item_error_description_2">다시 시도해주세요.</string>
+
+    <string name="bottomSheet_item_check_button_text">완료</string>
+    <string name="bottomSheet_item_done_button_text">확인</string>
 </resources>

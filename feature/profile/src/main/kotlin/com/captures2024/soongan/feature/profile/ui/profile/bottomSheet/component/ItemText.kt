@@ -13,6 +13,6 @@ internal fun ItemText(text: String) = NonScaleText(
     fontSize = 16.sp,
     fontWeight = FontWeight.Normal,
     fontFamily = NanumSquareNeoFontFamily,
-    letterSpacing = (-0.05).em,
+    letterSpacing = (-5).em,
     lineHeight = 24.sp
 )

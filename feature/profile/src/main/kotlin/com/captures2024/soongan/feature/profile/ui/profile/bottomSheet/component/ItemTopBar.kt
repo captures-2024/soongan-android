@@ -18,6 +18,7 @@ import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillLeftArrow
 import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
 import com.captures2024.soongan.core.designsystem.theme.SGColor
+import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 
 @Composable
 internal fun ItemTopBar(
@@ -55,4 +56,10 @@ internal fun ItemTopBar(
         }
         HorizontalDivider(color = SGColor.primaryA.copy(alpha = 0.12f))
     }
+}
+
+@DevicePreviews
+@Composable
+private fun ItemTopBarPreview() {
+    ItemTopBar(itemTitle = "회원탈퇴", hasBackIcon = true)
 }

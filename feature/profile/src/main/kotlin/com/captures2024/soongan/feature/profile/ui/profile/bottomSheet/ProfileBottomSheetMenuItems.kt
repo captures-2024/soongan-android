@@ -37,6 +37,7 @@ import com.captures2024.soongan.core.viewmodel.model.profile.ProfileBtmShtCheckT
 import com.captures2024.soongan.core.viewmodel.model.profile.ProfileBtmShtMenuItem
 import com.captures2024.soongan.core.viewmodel.model.profile.PushSettingState
 import com.captures2024.soongan.core.viewmodel.model.profile.PushSettingType
+import com.captures2024.soongan.feature.profile.R
 import com.captures2024.soongan.feature.profile.ui.profile.bottomSheet.component.ItemText
 import com.captures2024.soongan.feature.profile.ui.profile.bottomSheet.component.ItemTopBar
 import com.captures2024.soongan.feature.profile.ui.profile.bottomSheet.component.MenuItemTextField
@@ -45,14 +46,12 @@ import com.captures2024.soongan.feature.profile.utils.detailTextId
 import com.captures2024.soongan.feature.profile.utils.icon
 import com.captures2024.soongan.feature.profile.utils.textId
 
-private const val WITHDRAW_CHECK_KEY = "회원탈퇴"
-
 @Composable
 internal fun IdleItem(
     modifier: Modifier = Modifier,
     onClickMenuItem: (ProfileBtmShtMenuItem) -> Unit = {},
 ) {
-    Column(modifier = modifier.padding()) {
+    Column(modifier = modifier) {
         ProfileBtmShtMenuItem.entries.forEachIndexed { idx, item ->
             ProfileMenuRow(
                 item = item,
@@ -60,7 +59,10 @@ internal fun IdleItem(
                 modifier = Modifier.padding(horizontal = 24.dp),
             )
             if (idx != ProfileBtmShtMenuItem.entries.lastIndex) {
-                HorizontalDivider(color = SGColor.primaryA.copy(alpha = 0.3f))
+                HorizontalDivider(
+                    modifier = Modifier.padding(horizontal = 24.dp),
+                    color = SGColor.primaryA.copy(alpha = 0.3f)
+                )
             }
         }
     }
@@ -75,7 +77,7 @@ internal fun PushItem(
 ) {
     Column(modifier = modifier) {
         ItemTopBar(
-            itemTitle = "푸시 알림 설정",
+            itemTitle = stringResource(R.string.bottomSheet_item_title_push_notification_setting),
             hasBackIcon = true,
             onBackPressed = onBackPressed
         )
@@ -87,7 +89,10 @@ internal fun PushItem(
                 onCheckedChange = { onSwitch(type) }
             )
             if (idx != PushSettingType.entries.lastIndex) {
-                HorizontalDivider(color = SGColor.primaryA.copy(alpha = 0.3f))
+                HorizontalDivider(
+                    modifier = Modifier.padding(horizontal = 24.dp),
+                    color = SGColor.primaryA.copy(alpha = 0.3f)
+                )
             }
         }
     }
@@ -103,26 +108,26 @@ internal fun WithDrawCheckItem(
 
     Column(modifier = modifier) {
         ItemTopBar(
-            itemTitle = "회원탈퇴",
+            itemTitle = stringResource(R.string.bottomSheet_item_title_withdraw),
             hasBackIcon = true,
             onBackPressed = onBackPressed
         )
         ItemContentBox {
-            ItemText("정말 회원탈퇴를 하실 건가요?")
+            ItemText(stringResource(R.string.bottomSheet_item_withdraw_description_1))
             ItemText("")
-            ItemText("회원탈퇴를 위해 아래 입력창에")
-            ItemText("'회원탈퇴'를 입력해주세요")
+            ItemText(stringResource(R.string.bottomSheet_item_withdraw_description_2))
+            ItemText(stringResource(R.string.bottomSheet_item_withdraw_description_3))
             HeightSpacer(32.dp)
             MenuItemTextField(
                 value = input.value,
                 onValueChange = { input.value = it },
-                placeholder = "회원탈퇴"
+                placeholder = stringResource(R.string.bottomSheet_item_title_withdraw)
             )
         }
         ItemButton(
             onClick = { onClick(ProfileBtmShtCheckType.WITHDRAW) },
-            text = "완료",
-            enabled = input.value == WITHDRAW_CHECK_KEY
+            text = stringResource(R.string.bottomSheet_item_check_button_text),
+            enabled = input.value == stringResource(R.string.bottomSheet_item_title_withdraw)
         )
     }
 }
@@ -133,15 +138,15 @@ internal fun WithDrawDoneItem(
     onClick: () -> Unit = {},
 ) {
     Column(modifier = modifier) {
-        ItemTopBar(itemTitle = "회원탈퇴")
+        ItemTopBar(itemTitle = stringResource(R.string.bottomSheet_item_title_withdraw))
         ItemContentBox {
-            ItemText("회원탈퇴가 완료되었습니다.")
-            ItemText("또 만나길 바랄게요!")
+            ItemText(stringResource(R.string.bottomSheet_item_withdraw_done_description))
+            ItemText(stringResource(R.string.bottomSheet_item_done_description_last))
         }
         HeightSpacer(40.dp)
         ItemButton(
             onClick = onClick,
-            text = "확인"
+            text = stringResource(R.string.bottomSheet_item_done_button_text)
         )
     }
 }
@@ -154,16 +159,16 @@ internal fun SignOutCheckItem(
 ) {
     Column(modifier = modifier) {
         ItemTopBar(
-            itemTitle = "로그아웃",
+            itemTitle = stringResource(R.string.bottomSheet_item_title_sign_out),
             hasBackIcon = true,
             onBackPressed = onBackPressed
         )
         ItemContentBox {
-            ItemText("정말 로그아웃 하실 건가요?")
+            ItemText(stringResource(R.string.bottomSheet_item_sign_out_description))
         }
         ItemButton(
             onClick = { onClick(ProfileBtmShtCheckType.SIGN_OUT) },
-            text = "로그아웃"
+            text = stringResource(R.string.bottomSheet_item_title_sign_out)
         )
     }
 }
@@ -174,14 +179,14 @@ internal fun SignOutDoneItem(
     onClick: () -> Unit = {},
 ) {
     Column(modifier = modifier) {
-        ItemTopBar(itemTitle = "로그아웃")
+        ItemTopBar(itemTitle = stringResource(R.string.bottomSheet_item_title_sign_out))
         ItemContentBox {
-            ItemText("로그아웃이 완료됐습니다.")
-            ItemText("또 만나길 바랄게요!")
+            ItemText(stringResource(R.string.bottomSheet_item_sign_out_done_description))
+            ItemText(stringResource(R.string.bottomSheet_item_done_description_last))
         }
         ItemButton(
             onClick = onClick,
-            text = "확인"
+            text = stringResource(R.string.bottomSheet_item_done_button_text)
         )
     }
 }
@@ -192,12 +197,12 @@ internal fun ErrorItem(
     onClick: () -> Unit = {},
 ) {
     Column(modifier = modifier) {
-        ItemTopBar(itemTitle = "에러")
+        ItemTopBar(itemTitle = stringResource(R.string.bottomSheet_item_title_error))
         ItemContentBox {
-            ItemText(text = "해당 요청이 처리되지 않았습니다.")
-            ItemText(text = "다시 시도해주세요.")
+            ItemText(text = stringResource(R.string.bottomSheet_item_error_description_1))
+            ItemText(text = stringResource(R.string.bottomSheet_item_error_description_2))
         }
-        ItemButton(onClick = onClick, text = "확인")
+        ItemButton(onClick = onClick, text = stringResource(R.string.bottomSheet_item_done_button_text))
     }
 }
 
@@ -213,7 +218,7 @@ private fun ProfileMenuRow(
         modifier = modifier
             .fillMaxWidth()
             .height(56.dp)
-            .padding(horizontal = 16.dp)
+            .padding(horizontal = 18.dp)
             .clickable(
                 onClick = { onClick(item) },
                 interactionSource = interactionSource,
@@ -228,8 +233,8 @@ private fun ProfileMenuRow(
             color = item.color(),
             fontWeight = FontWeight.Bold,
             fontFamily = NanumSquareNeoFontFamily,
-            letterSpacing = 0.sp,
-            lineHeight = 24.sp
+            letterSpacing = (-5).em,
+            lineHeight = 20.sp
         )
         Box(
             modifier = Modifier.size(24.dp),
@@ -255,7 +260,7 @@ private fun PushToggleRow(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .height(80.dp)
+            .padding(vertical = 20.dp)
             .padding(start = 40.dp, end = 24.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
@@ -266,22 +271,26 @@ private fun PushToggleRow(
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold,
                 fontFamily = NanumSquareNeoFontFamily,
-                letterSpacing = (-0.05).em,
+                letterSpacing = (-5).em,
                 lineHeight = 20.sp
             )
-            NonScaleText(
-                text = detailText,
-                fontSize = 12.sp,
-                color = SGColor.primaryA.copy(alpha = 0.6f),
-                fontWeight = FontWeight.Normal,
-                fontFamily = NanumSquareNeoFontFamily,
-                letterSpacing = 0.sp,
-                lineHeight = 12.sp
-            )
+            if (detailText.isNotEmpty()) {
+                HeightSpacer(8.dp)
+                NonScaleText(
+                    text = detailText,
+                    fontSize = 12.sp,
+                    color = SGColor.primaryA.copy(alpha = 0.6f),
+                    fontWeight = FontWeight.Normal,
+                    fontFamily = NanumSquareNeoFontFamily,
+                    letterSpacing = (-5).em,
+                    lineHeight = 12.sp
+                )
+            }
         }
         Switch(
             checked = checked,
             onCheckedChange = onCheckedChange,
+            modifier = Modifier.size(height = 28.dp, width = 48.dp),
             colors = SwitchDefaults.colors(
                 checkedThumbColor = SGColor.white,
                 checkedTrackColor = SGColor.accent,

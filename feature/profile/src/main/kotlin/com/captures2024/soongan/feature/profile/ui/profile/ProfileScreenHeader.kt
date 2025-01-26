@@ -20,6 +20,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.captures2024.soongan.core.designsystem.component.HeightSpacer
@@ -81,7 +82,7 @@ private fun ProfileCard(
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Medium,
                 fontFamily = PoppinsFontFamily,
-                letterSpacing = (-0.5).sp,
+                letterSpacing = (-5).em,
                 lineHeight = 20.sp
             )
             HeightSpacer(8.dp)
@@ -90,7 +91,7 @@ private fun ProfileCard(
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Normal,
                 fontFamily = NanumSquareNeoFontFamily,
-                letterSpacing = (-0.5).sp,
+                letterSpacing = (-5).em,
                 lineHeight = 12.sp
             )
         }
