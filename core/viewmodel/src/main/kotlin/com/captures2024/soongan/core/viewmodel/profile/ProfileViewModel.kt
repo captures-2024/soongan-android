@@ -1,28 +1,27 @@
-package com.captures2024.soongan.feature.profile
+package com.captures2024.soongan.core.viewmodel.profile
 
 import androidx.lifecycle.SavedStateHandle
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
+import com.captures2024.soongan.core.analytics.utils.LogElementArgument
 import com.captures2024.soongan.core.common.base.BaseViewModel
+import com.captures2024.soongan.core.common.base.UIIntent
+import com.captures2024.soongan.core.common.base.UISideEffect
+import com.captures2024.soongan.core.common.base.UIState
 import com.captures2024.soongan.core.domain.usecase.members.GetMemberInfoUseCase
 import com.captures2024.soongan.core.domain.usecase.members.IsVerifiedNicknameUseCase
 import com.captures2024.soongan.core.domain.usecase.members.PatchProfileUseCase
 import com.captures2024.soongan.core.domain.usecase.weekly.contests.GetMyGalleryUseCase
 import com.captures2024.soongan.core.model.UserProfile
+import com.captures2024.soongan.core.model.dto.GalleryPostDto
 import com.captures2024.soongan.core.viewmodel.model.PaginationStatus
-import com.captures2024.soongan.feature.profile.state.profile.EditingState
-import com.captures2024.soongan.feature.profile.state.profile.ProfileIntent
-import com.captures2024.soongan.feature.profile.state.profile.ProfileIntent.EditI
-import com.captures2024.soongan.feature.profile.state.profile.ProfileIntent.ProfileI
-import com.captures2024.soongan.feature.profile.state.profile.ProfileSideEffect
-import com.captures2024.soongan.feature.profile.state.profile.ProfileSideEffect.EditSE
-import com.captures2024.soongan.feature.profile.state.profile.ProfileSideEffect.ProfileSE
-import com.captures2024.soongan.feature.profile.state.profile.ProfileUIState
+import com.captures2024.soongan.core.viewmodel.model.profile.EditingState
+import com.captures2024.soongan.core.viewmodel.model.profile.ProfileBtmShtMenuItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 @HiltViewModel
-internal class ProfileViewModel
+class ProfileViewModel
 @Inject
 constructor(
     private val analyticsHelper: AnalyticsHelper,
@@ -31,14 +30,119 @@ constructor(
     private val patchProfileUseCase: PatchProfileUseCase,
     private val isVerifiedNicknameUseCase: IsVerifiedNicknameUseCase,
     savedStateHandle: SavedStateHandle,
-) : BaseViewModel<ProfileUIState, ProfileSideEffect, ProfileIntent>(savedStateHandle = savedStateHandle) {
+) : BaseViewModel<ProfileViewModel.State, ProfileViewModel.Effect, ProfileViewModel.Intent>(savedStateHandle = savedStateHandle) {
 
-    init {
-        intent(ProfileI.Init)
+    data class State(
+        val isLoading: Boolean = false,
+        val userProfile: UserProfile = UserProfile(),
+        val editingState: EditingState = EditingState(),
+        val isRefreshing: Boolean = false,
+        val paginationStatus: PaginationStatus = PaginationStatus.INACTIVE,
+        val myPosts: List<GalleryPostDto> = emptyList(),
+        val nextPage: Int = 0,
+        val hasNextPage: Boolean = false,
+        val hasNotification: Boolean = false,
+        val isOpenBottomSheet: Boolean = false,
+        val isOpenProfileImageBottomSheet: Boolean = false,
+    ) : UIState {
+
+        override fun toLoggingElements(): Array<LogElementArgument> = arrayOf(
+            LogElementArgument("isLoading", isLoading.toString()),
+            LogElementArgument("userProfile", userProfile.toString()),
+            LogElementArgument("editingState", editingState.toString()),
+            LogElementArgument("isRefreshing", isRefreshing.toString()),
+            LogElementArgument("paginationStatus", paginationStatus.toString()),
+            LogElementArgument("myPosts", myPosts.toString()),
+            LogElementArgument("nextPage", nextPage.toString()),
+            LogElementArgument("hasNextPage", hasNextPage.toString()),
+            LogElementArgument("hasNotification", hasNotification.toString()),
+            LogElementArgument("isOpenBottomSheet", isOpenBottomSheet.toString()),
+            LogElementArgument("isOpenProfileImageBottomSheet", isOpenProfileImageBottomSheet.toString()),
+        )
     }
 
-    override fun createInitialState(savedStateHandle: SavedStateHandle): ProfileUIState {
-        return ProfileUIState()
+    sealed interface Effect : UISideEffect {
+
+        sealed interface Profile : Effect {
+
+            data object NavigateToNotification : Profile
+
+            data class NavigateToHomePost(
+                val postId: Int,
+            ) : Profile
+
+            data object NavigateToRegistrationPost : Profile
+
+            data object NavigateToEditProfile : Profile
+        }
+
+        sealed interface Edit : Effect {
+
+            data object NavigateToBack : Edit
+
+            data object OpenMediaPicker : Edit
+        }
+    }
+
+    sealed interface Intent : UIIntent {
+
+        sealed interface Profile : Intent {
+
+            data object Init : Profile
+
+            data object RefreshMyGallery : Profile
+
+            data object LoadNextPage : Profile
+
+            data class OnClickPhoto(val postId: Int) : Profile
+
+            data object OnClickRegistrationText : Profile
+
+            data object OnClickNotification : Profile
+
+            data object OnClickMenu : Profile
+
+            data class OnMenuItemClicked(
+                val menuItem: ProfileBtmShtMenuItem,
+            ) : Profile
+
+            data object OnCloseBottomSheet : Profile
+        }
+
+        sealed interface Edit : Intent {
+
+            data object OnBackPressed : Edit
+
+            data object OnClickProfileImage : Edit
+
+            data object OnClickDefaultProfileImage : Edit
+
+            data object OpenPhotoPicker : Edit
+
+            data object OnCloseEditBottomSheet : Edit
+
+            data class OnProfileImageChanged(
+                val newProfileImage: String,
+            ) : Edit
+
+            data class OnNicknameChanged(
+                val newNickname: String,
+            ) : Edit
+
+            data class OnIntroductionChanged(
+                val newIntroduction: String,
+            ) : Edit
+
+            data object OnClickEditButton : Edit
+        }
+    }
+
+    init {
+        intent(Intent.Profile.Init)
+    }
+
+    override fun createInitialState(savedStateHandle: SavedStateHandle): State {
+        return State()
     }
 
     override fun handleClientException(throwable: Throwable) {
@@ -49,55 +153,55 @@ constructor(
         )
     }
 
-    override suspend fun handleIntent(intent: ProfileIntent) {
+    override suspend fun handleIntent(intent: Intent) {
         when (intent) {
-            is ProfileI -> handleProfileIntent(intent)
+            is Intent.Profile -> handleProfileIntent(intent)
 
-            is EditI -> handleEditIntent(intent)
+            is Intent.Edit -> handleEditIntent(intent)
         }
     }
 
-    private fun handleProfileIntent(intent: ProfileI) {
+    private fun handleProfileIntent(intent: Intent.Profile) {
         when (intent) {
-            ProfileI.Init -> initSyncData()
+            Intent.Profile.Init -> initSyncData()
 
-            ProfileI.RefreshMyGallery -> fetchProfileGallery(page = 0, isRefreshing = true)
+            Intent.Profile.RefreshMyGallery -> fetchProfileGallery(page = 0, isRefreshing = true)
 
-            ProfileI.LoadNextPage -> fetchProfileGallery(page = currentState.nextPage)
+            Intent.Profile.LoadNextPage -> fetchProfileGallery(page = currentState.nextPage)
 
-            ProfileI.OnClickMenu -> reduce { copy(isOpenBottomSheet = true) }
+            Intent.Profile.OnClickMenu -> reduce { copy(isOpenBottomSheet = true) }
 
-            ProfileI.OnClickNotification -> onClickNotification()
+            Intent.Profile.OnClickNotification -> onClickNotification()
 
-            is ProfileI.OnClickPhoto -> postSideEffect(ProfileSE.NavigateToHomePost(intent.postId))
+            is Intent.Profile.OnClickPhoto -> postSideEffect(Effect.Profile.NavigateToHomePost(intent.postId))
 
-            ProfileI.OnClickRegistrationText -> postSideEffect(ProfileSE.NavigateToRegistrationPost)
+            Intent.Profile.OnClickRegistrationText -> postSideEffect(Effect.Profile.NavigateToRegistrationPost)
 
-            ProfileI.OnCloseBottomSheet -> reduce { copy(isOpenBottomSheet = false) }
+            Intent.Profile.OnCloseBottomSheet -> reduce { copy(isOpenBottomSheet = false) }
 
-            is ProfileI.OnMenuItemClicked -> onMenuItemClicked(intent)
+            is Intent.Profile.OnMenuItemClicked -> onMenuItemClicked(intent)
         }
     }
 
-    private fun handleEditIntent(intent: EditI) {
+    private fun handleEditIntent(intent: Intent.Edit) {
         when (intent) {
-            EditI.OnBackPressed -> postSideEffect(EditSE.NavigateToBack)
+            Intent.Edit.OnBackPressed -> postSideEffect(Effect.Edit.NavigateToBack)
 
-            EditI.OnClickEditButton -> onClickEditButton()
+            Intent.Edit.OnClickEditButton -> onClickEditButton()
 
-            EditI.OnClickProfileImage -> reduce { copy(isOpenProfileImageBottomSheet = true) }
+            Intent.Edit.OnClickProfileImage -> reduce { copy(isOpenProfileImageBottomSheet = true) }
 
-            EditI.OnClickDefaultProfileImage -> onClickDefaultProfileImage()
+            Intent.Edit.OnClickDefaultProfileImage -> onClickDefaultProfileImage()
 
-            EditI.OpenPhotoPicker -> openPhotoPicker()
+            Intent.Edit.OpenPhotoPicker -> openPhotoPicker()
 
-            EditI.OnCloseEditBottomSheet -> onCloseEditBottomSheet()
+            Intent.Edit.OnCloseEditBottomSheet -> onCloseEditBottomSheet()
 
-            is EditI.OnProfileImageChanged -> onProfileImageChanged(intent)
+            is Intent.Edit.OnProfileImageChanged -> onProfileImageChanged(intent)
 
-            is EditI.OnNicknameChanged -> onNicknameChanged(intent)
+            is Intent.Edit.OnNicknameChanged -> onNicknameChanged(intent)
 
-            is EditI.OnIntroductionChanged -> onIntroductionChanged(intent)
+            is Intent.Edit.OnIntroductionChanged -> onIntroductionChanged(intent)
         }
     }
 
@@ -203,10 +307,10 @@ constructor(
             copy(hasNotification = false)
         }
 
-        postSideEffect(ProfileSE.NavigateToNotification)
+        postSideEffect(Effect.Profile.NavigateToNotification)
     }
 
-    private fun onMenuItemClicked(intent : ProfileI.OnMenuItemClicked) {
+    private fun onMenuItemClicked(intent : Intent.Profile.OnMenuItemClicked) {
         intent.menuItem
         reduce {
             copy(
@@ -215,7 +319,7 @@ constructor(
             )
         }
 
-        postSideEffect(ProfileSE.NavigateToEditProfile)
+        postSideEffect(Effect.Profile.NavigateToEditProfile)
 
         launch {
             delay(100)
@@ -245,7 +349,7 @@ constructor(
 
     private fun openPhotoPicker() {
         onCloseEditBottomSheet()
-        postSideEffect(EditSE.OpenMediaPicker)
+        postSideEffect(Effect.Edit.OpenMediaPicker)
     }
 
     private fun onCloseEditBottomSheet() {
@@ -256,7 +360,7 @@ constructor(
         }
     }
 
-    private fun onProfileImageChanged(intent: EditI.OnProfileImageChanged) {
+    private fun onProfileImageChanged(intent: Intent.Edit.OnProfileImageChanged) {
         reduce {
             copy(
                 editingState = editingState.copy(
@@ -270,7 +374,7 @@ constructor(
         updateEditableState()
     }
 
-    private fun onNicknameChanged(intent: EditI.OnNicknameChanged) {
+    private fun onNicknameChanged(intent: Intent.Edit.OnNicknameChanged) {
         reduce {
             copy(
                 editingState = editingState.copy(
@@ -285,7 +389,7 @@ constructor(
         updateEditableState()
     }
 
-    private fun onIntroductionChanged(intent: EditI.OnIntroductionChanged) {
+    private fun onIntroductionChanged(intent: Intent.Edit.OnIntroductionChanged) {
         reduce {
             copy(
                 editingState = editingState.copy(
@@ -334,7 +438,7 @@ constructor(
 
                 analyticsHelper.d(message = "Patch Profile result : $isPatchedProfile")
 
-                postSideEffect(EditSE.NavigateToBack)
+                postSideEffect(Effect.Edit.NavigateToBack)
             }
 
             false -> {

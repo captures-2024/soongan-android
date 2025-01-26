@@ -9,10 +9,9 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.captures2024.soongan.feature.profile.ProfileViewModel
-import com.captures2024.soongan.feature.profile.state.profile.ProfileIntent.EditI
-import com.captures2024.soongan.feature.profile.state.profile.ProfileSideEffect.EditSE
-import com.captures2024.soongan.feature.profile.state.profile.ProfileSideEffect.ProfileSE
+import com.captures2024.soongan.core.viewmodel.profile.ProfileViewModel
+import com.captures2024.soongan.core.viewmodel.profile.ProfileViewModel.Intent
+import com.captures2024.soongan.core.viewmodel.profile.ProfileViewModel.Effect
 import com.captures2024.soongan.feature.profile.ui.edit.EditProfileBottomSheet
 import com.captures2024.soongan.feature.profile.ui.edit.EditProfileScreen
 
@@ -27,16 +26,16 @@ internal fun EditProfileRoute(
     val pickMedia =
         rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
             uri?.let {
-                profileViewModel.intent(EditI.OnProfileImageChanged(it.toString()))
+                profileViewModel.intent(Intent.Edit.OnProfileImageChanged(it.toString()))
             }
         }
 
     LaunchedEffect(Unit) {
         profileViewModel.sideEffect.collect { sideEffect ->
             when (sideEffect) {
-                EditSE.NavigateToBack -> navigateToBack()
+                Effect.Edit.NavigateToBack -> navigateToBack()
 
-                EditSE.OpenMediaPicker -> {
+                Effect.Edit.OpenMediaPicker -> {
                     pickMedia.launch(
                         PickVisualMediaRequest(
                             ActivityResultContracts.PickVisualMedia.ImageOnly
@@ -44,25 +43,25 @@ internal fun EditProfileRoute(
                     )
                 }
 
-                is ProfileSE -> Unit
+                is Effect.Profile -> Unit
             }
         }
     }
 
     EditProfileScreen(
         uiState = uiState.editingState,
-        onBackPressed = { profileViewModel.intent(EditI.OnBackPressed) },
-        onClickProfileImage = { profileViewModel.intent(EditI.OnClickProfileImage) },
-        onNicknameChanged = { profileViewModel.intent(EditI.OnNicknameChanged(it)) },
-        onIntroductionChanged = { profileViewModel.intent(EditI.OnIntroductionChanged(it)) },
-        onClickEditButton = { profileViewModel.intent(EditI.OnClickEditButton) }
+        onBackPressed = { profileViewModel.intent(Intent.Edit.OnBackPressed) },
+        onClickProfileImage = { profileViewModel.intent(Intent.Edit.OnClickProfileImage) },
+        onNicknameChanged = { profileViewModel.intent(Intent.Edit.OnNicknameChanged(it)) },
+        onIntroductionChanged = { profileViewModel.intent(Intent.Edit.OnIntroductionChanged(it)) },
+        onClickEditButton = { profileViewModel.intent(Intent.Edit.OnClickEditButton) }
     )
 
     if (uiState.isOpenProfileImageBottomSheet) {
         EditProfileBottomSheet(
-            closeSheet = { profileViewModel.intent(EditI.OnCloseEditBottomSheet) },
-            onClickDefaultProfileImage = { profileViewModel.intent(EditI.OnClickDefaultProfileImage) },
-            openPhotoPicker = { profileViewModel.intent(EditI.OpenPhotoPicker) }
+            closeSheet = { profileViewModel.intent(Intent.Edit.OnCloseEditBottomSheet) },
+            onClickDefaultProfileImage = { profileViewModel.intent(Intent.Edit.OnClickDefaultProfileImage) },
+            openPhotoPicker = { profileViewModel.intent(Intent.Edit.OpenPhotoPicker) }
         )
     }
 }

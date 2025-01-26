@@ -31,15 +31,27 @@ import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
 import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
-import com.captures2024.soongan.feature.profile.navigation.ProfileMenuItem
+import com.captures2024.soongan.core.viewmodel.model.profile.ProfileBtmShtCheckType
+import com.captures2024.soongan.core.viewmodel.model.profile.ProfileBtmShtDepthStatus
+import com.captures2024.soongan.core.viewmodel.model.profile.ProfileBtmShtMenuItem
+import com.captures2024.soongan.core.viewmodel.model.profile.PushSettingType
+import com.captures2024.soongan.core.viewmodel.profile.ProfileBtmShtViewModel
+import com.captures2024.soongan.feature.profile.utils.color
+import com.captures2024.soongan.feature.profile.utils.icon
+import com.captures2024.soongan.feature.profile.utils.textId
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun ProfileMenuBottomSheet(
+    uiState: ProfileBtmShtViewModel.State,
     modifier: Modifier = Modifier,
     sheetState: SheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
     closeSheet: () -> Unit = {},
-    onClickMenuItem: (ProfileMenuItem) -> Unit = {},
+    onClickMenuItem: (ProfileBtmShtMenuItem) -> Unit = {},
+    onBackIdle: () -> Unit = {},
+    onCheckProcess: (type: ProfileBtmShtCheckType) -> Unit = {},
+    onDoneProcess: () -> Unit = {},
+    onPushSettingChanged: (PushSettingType) -> Unit = {},
 ) {
     ModalBottomSheet(
         onDismissRequest = closeSheet,
@@ -50,14 +62,30 @@ internal fun ProfileMenuBottomSheet(
         Column(
             modifier = Modifier.padding(horizontal = 24.dp)
         ) {
-            ProfileMenuItem.entries.forEachIndexed { idx, item ->
-                ProfileMenuRow(
-                    item = item,
-                    onClick = onClickMenuItem
-                )
-                if (idx != ProfileMenuItem.entries.lastIndex) {
-                    HorizontalDivider(color = SGColor.primaryA.copy(alpha = 0.3f))
+            when (uiState.depthStatus) {
+                ProfileBtmShtDepthStatus.Idle -> {
+                    ProfileBtmShtMenuItem.entries.forEachIndexed { idx, item ->
+                        ProfileMenuRow(
+                            item = item,
+                            onClick = onClickMenuItem
+                        )
+                        if (idx != ProfileBtmShtMenuItem.entries.lastIndex) {
+                            HorizontalDivider(color = SGColor.primaryA.copy(alpha = 0.3f))
+                        }
+                    }
                 }
+
+                ProfileBtmShtDepthStatus.Push -> NonScaleText("push 알림 설정", 24.sp)
+
+                ProfileBtmShtDepthStatus.Withdraw.Check -> NonScaleText("회원 탈퇴 ?", 24.sp)
+
+                ProfileBtmShtDepthStatus.Withdraw.Done -> NonScaleText("회원 탈퇴 o", 24.sp)
+
+                ProfileBtmShtDepthStatus.SignOut.Check -> NonScaleText("로그 아웃 ?", 24.sp)
+
+                ProfileBtmShtDepthStatus.SignOut.Done -> NonScaleText("로그 아웃 o", 24.sp)
+
+                ProfileBtmShtDepthStatus.Error -> NonScaleText("다시 시도해 주세요.", 24.sp)
             }
         }
     }
@@ -66,8 +94,8 @@ internal fun ProfileMenuBottomSheet(
 @Composable
 private fun ProfileMenuRow(
     modifier: Modifier = Modifier,
-    item: ProfileMenuItem,
-    onClick: (ProfileMenuItem) -> Unit = {},
+    item: ProfileBtmShtMenuItem,
+    onClick: (ProfileBtmShtMenuItem) -> Unit = {},
 ) {
     val interactionSource = remember { MutableInteractionSource() }
 
@@ -85,9 +113,9 @@ private fun ProfileMenuRow(
         verticalAlignment = Alignment.CenterVertically
     ) {
         NonScaleText(
-            text = stringResource(item.titleRes),
+            text = stringResource(item.textId()),
             fontSize = 16.sp,
-            color = item.color,
+            color = item.color(),
             fontWeight = FontWeight.Bold,
             fontFamily = NanumSquareNeoFontFamily,
             letterSpacing = 0.sp,
@@ -98,9 +126,9 @@ private fun ProfileMenuRow(
             contentAlignment = Alignment.Center
         ) {
             Icon(
-                imageVector = item.icon,
-                contentDescription = stringResource(item.titleRes),
-                tint = item.color
+                imageVector = item.icon(),
+                contentDescription = stringResource(item.textId()),
+                tint = item.color()
             )
         }
     }
@@ -117,5 +145,5 @@ private fun ProfileMenuBottomSheetPreview() {
         skipHiddenState = false
     )
 
-    ProfileMenuBottomSheet(sheetState = sheetState)
+    ProfileMenuBottomSheet(uiState = ProfileBtmShtViewModel.State(), sheetState = sheetState)
 }

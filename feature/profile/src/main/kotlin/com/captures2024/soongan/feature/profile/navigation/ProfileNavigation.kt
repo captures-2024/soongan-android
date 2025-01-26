@@ -8,7 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.captures2024.soongan.core.navigator.screen.main.profile.NotificationNavigator
 import com.captures2024.soongan.core.navigator.screen.main.profile.ProfileRootNavigator
-import com.captures2024.soongan.feature.profile.ProfileViewModel
+import com.captures2024.soongan.core.viewmodel.profile.ProfileViewModel
 import com.captures2024.soongan.feature.profile.route.EditProfileRoute
 import com.captures2024.soongan.feature.profile.route.NotificationRoute
 import com.captures2024.soongan.feature.profile.route.ProfileRoute

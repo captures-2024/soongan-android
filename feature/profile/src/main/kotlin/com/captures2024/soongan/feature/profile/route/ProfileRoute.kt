@@ -8,14 +8,15 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.captures2024.soongan.core.designsystem.util.sgBottomBarPadding
-import com.captures2024.soongan.feature.profile.ProfileBtmShtViewModel
-import com.captures2024.soongan.feature.profile.ProfileBtmShtMenuItem
-import com.captures2024.soongan.feature.profile.ProfileViewModel
-import com.captures2024.soongan.feature.profile.state.profile.ProfileIntent.ProfileI
-import com.captures2024.soongan.feature.profile.state.profile.ProfileSideEffect.EditSE
-import com.captures2024.soongan.feature.profile.state.profile.ProfileSideEffect.ProfileSE
+import com.captures2024.soongan.core.viewmodel.model.profile.ProfileBtmShtMenuItem
+import com.captures2024.soongan.core.viewmodel.profile.ProfileBtmShtViewModel
+import com.captures2024.soongan.core.viewmodel.profile.ProfileViewModel
+import com.captures2024.soongan.core.viewmodel.profile.ProfileViewModel.Effect
+import com.captures2024.soongan.core.viewmodel.profile.ProfileViewModel.Intent
 import com.captures2024.soongan.feature.profile.ui.profile.ProfileMenuBottomSheet
 import com.captures2024.soongan.feature.profile.ui.profile.ProfileScreen
+import com.captures2024.soongan.core.viewmodel.profile.ProfileBtmShtViewModel.Effect as BtmShtEffect
+import com.captures2024.soongan.core.viewmodel.profile.ProfileBtmShtViewModel.Intent as BtmShtIntent
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -33,15 +34,15 @@ internal fun ProfileRoute(
     LaunchedEffect(Unit) {
         profileVM.sideEffect.collect { sideEffect ->
             when (sideEffect) {
-                is ProfileSE.NavigateToNotification -> navigateToNotification()
+                is Effect.Profile.NavigateToNotification -> navigateToNotification()
 
-                is ProfileSE.NavigateToHomePost -> navigateToHomePost(sideEffect.postId)
+                is Effect.Profile.NavigateToHomePost -> navigateToHomePost(sideEffect.postId)
 
-                is ProfileSE.NavigateToRegistrationPost -> navigateToRegistrationPost()
+                is Effect.Profile.NavigateToRegistrationPost -> navigateToRegistrationPost()
 
-                is ProfileSE.NavigateToEditProfile -> navigateToEditProfile()
+                is Effect.Profile.NavigateToEditProfile -> navigateToEditProfile()
 
-                is EditSE -> Unit
+                is Effect.Edit -> Unit
             }
         }
     }
@@ -49,13 +50,12 @@ internal fun ProfileRoute(
     LaunchedEffect(Unit) {
         profileBtmShtVM.sideEffect.collect { sideEffect ->
             when (sideEffect) {
-                is ProfileBtmShtViewModel.Effect.CloseBottomSheet ->
-                    profileVM.intent(ProfileI.OnCloseBottomSheet)
+                is BtmShtEffect.CloseBottomSheet -> profileVM.intent(Intent.Profile.OnCloseBottomSheet)
 
-                is ProfileBtmShtViewModel.Effect.SendRequestNavigateToEditProfile ->
-                    profileVM.intent(ProfileI.OnMenuItemClicked(menuItem = ProfileBtmShtMenuItem.EDIT))
+                is BtmShtEffect.SendRequestNavigateToEditProfile ->
+                    profileVM.intent(Intent.Profile.OnMenuItemClicked(menuItem = ProfileBtmShtMenuItem.EDIT))
 
-                is ProfileBtmShtViewModel.Effect.NavigateToHome -> TODO()
+                is BtmShtEffect.NavigateToHome -> TODO()
             }
         }
     }
@@ -63,29 +63,23 @@ internal fun ProfileRoute(
     ProfileScreen(
         uiState = uiState,
         modifier = Modifier.sgBottomBarPadding(),
-        onClickNotification = { profileVM.intent(ProfileI.OnClickNotification) },
-        onClickMenu = { profileVM.intent(ProfileI.OnClickMenu) },
-        onRefresh = { profileVM.intent(ProfileI.RefreshMyGallery) },
-        onLoadNextPage = { profileVM.intent(ProfileI.LoadNextPage) },
-        onClickMyPost = { profileVM.intent(ProfileI.OnClickPhoto(it)) },
-        onClickRegistrationText = { profileVM.intent(ProfileI.OnClickRegistrationText) },
+        onClickNotification = { profileVM.intent(Intent.Profile.OnClickNotification) },
+        onClickMenu = { profileVM.intent(Intent.Profile.OnClickMenu) },
+        onRefresh = { profileVM.intent(Intent.Profile.RefreshMyGallery) },
+        onLoadNextPage = { profileVM.intent(Intent.Profile.LoadNextPage) },
+        onClickMyPost = { profileVM.intent(Intent.Profile.OnClickPhoto(it)) },
+        onClickRegistrationText = { profileVM.intent(Intent.Profile.OnClickRegistrationText) },
     )
 
     if (uiState.isOpenBottomSheet) {
         ProfileMenuBottomSheet(
             uiState = btmShtUiState,
-            closeSheet =
-            { profileBtmShtVM.intent(ProfileBtmShtViewModel.Intent.OnCloseBottomSheet) },
-            onClickMenuItem =
-            { profileBtmShtVM.intent(ProfileBtmShtViewModel.Intent.OnClickMenuItem(it)) },
-            onBackIdle =
-            { profileBtmShtVM.intent(ProfileBtmShtViewModel.Intent.OnBackIdle) },
-            onCheckProcess =
-            { profileBtmShtVM.intent(ProfileBtmShtViewModel.Intent.OnCheckProcess(it)) },
-            onDoneProcess =
-            { profileBtmShtVM.intent(ProfileBtmShtViewModel.Intent.OnDoneProcess) },
-            onPushSettingChanged =
-            { profileBtmShtVM.intent(ProfileBtmShtViewModel.Intent.OnPushSettingChanged(it)) },
+            closeSheet = { profileBtmShtVM.intent(BtmShtIntent.OnCloseBottomSheet) },
+            onClickMenuItem = { profileBtmShtVM.intent(BtmShtIntent.OnClickMenuItem(it)) },
+            onBackIdle = { profileBtmShtVM.intent(BtmShtIntent.OnBackIdle) },
+            onCheckProcess = { profileBtmShtVM.intent(BtmShtIntent.OnCheckProcess(it)) },
+            onDoneProcess = { profileBtmShtVM.intent(BtmShtIntent.OnDoneProcess) },
+            onPushSettingChanged = { profileBtmShtVM.intent(BtmShtIntent.OnPushSettingChanged(it)) },
         )
     }
 }

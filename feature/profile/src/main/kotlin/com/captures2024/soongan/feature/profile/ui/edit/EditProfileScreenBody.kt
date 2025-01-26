@@ -20,7 +20,7 @@ import coil.compose.AsyncImage
 import com.captures2024.soongan.core.common.Validation
 import com.captures2024.soongan.core.designsystem.component.HeightSpacer
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
-import com.captures2024.soongan.feature.profile.state.profile.EditingState
+import com.captures2024.soongan.core.viewmodel.model.profile.EditingState
 import com.captures2024.soongan.feature.profile.ui.edit.component.EditProfileButton
 import com.captures2024.soongan.feature.profile.ui.edit.component.MiniAddIcon
 import com.captures2024.soongan.feature.profile.ui.edit.component.ProfileOutlinedTextField
