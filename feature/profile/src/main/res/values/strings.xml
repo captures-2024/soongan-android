@@ -5,7 +5,7 @@
 
 <!--  ProfileMenuBottomSheet  -->
     <string name="profile_menu_bottom_sheet_edit_title">프로필 편집</string>
-    <string name="profile_menu_bottom_sheet_notification_title">알림 설정</string>
+    <string name="profile_menu_bottom_sheet_notification_title">푸시 알림 설정</string>
     <string name="profile_menu_bottom_sheet_temp_and_policy_title">약관 및 정책</string>
     <string name="profile_menu_bottom_sheet_faq_title">FAQ</string>
     <string name="profile_menu_bottom_sheet_withdraw_title">회원탈퇴</string>

@@ -8,7 +8,7 @@ import com.captures2024.soongan.core.common.base.UIIntent
 import com.captures2024.soongan.core.common.base.UISideEffect
 import com.captures2024.soongan.core.common.base.UIState
 import com.captures2024.soongan.core.viewmodel.model.profile.ProfileBtmShtCheckType
-import com.captures2024.soongan.core.viewmodel.model.profile.ProfileBtmShtDepthStatus
+import com.captures2024.soongan.core.viewmodel.model.profile.ProfileBtmShtDepthState
 import com.captures2024.soongan.core.viewmodel.model.profile.ProfileBtmShtMenuItem
 import com.captures2024.soongan.core.viewmodel.model.profile.PushSettingState
 import com.captures2024.soongan.core.viewmodel.model.profile.PushSettingType
@@ -28,7 +28,7 @@ constructor(
 
     data class State(
         val isLoading: Boolean = false,
-        val depthStatus: ProfileBtmShtDepthStatus = ProfileBtmShtDepthStatus.Idle,
+        val depthStatus: ProfileBtmShtDepthState = ProfileBtmShtDepthState.Idle,
         val pushSettings: PushSettingState = PushSettingState(),
     ) : UIState {
 
@@ -83,7 +83,7 @@ constructor(
         when (intent) {
             is Intent.OnClickMenuItem -> handleClickContentItem(intent)
 
-            is Intent.OnBackIdle -> reduce { copy(depthStatus = ProfileBtmShtDepthStatus.Idle) }
+            is Intent.OnBackIdle -> reduce { copy(depthStatus = ProfileBtmShtDepthState.Idle) }
 
             is Intent.OnCheckProcess -> onCheckProcess(intent)
 
@@ -101,13 +101,13 @@ constructor(
 
             ProfileBtmShtMenuItem.FAQ -> TODO()
 
-            ProfileBtmShtMenuItem.PUSH -> reduce { copy(depthStatus = ProfileBtmShtDepthStatus.Push) }
+            ProfileBtmShtMenuItem.PUSH -> reduce { copy(depthStatus = ProfileBtmShtDepthState.Push) }
 
             ProfileBtmShtMenuItem.TERMS_AND_POLICY -> TODO()
 
-            ProfileBtmShtMenuItem.SIGN_OUT -> reduce { copy(depthStatus = ProfileBtmShtDepthStatus.SignOut.Check) }
+            ProfileBtmShtMenuItem.SIGN_OUT -> reduce { copy(depthStatus = ProfileBtmShtDepthState.SignOut.Check) }
 
-            ProfileBtmShtMenuItem.WITHDRAW -> reduce { copy(depthStatus = ProfileBtmShtDepthStatus.Withdraw.Check) }
+            ProfileBtmShtMenuItem.WITHDRAW -> reduce { copy(depthStatus = ProfileBtmShtDepthState.Withdraw.Check) }
         }
     }
 
@@ -119,7 +119,7 @@ constructor(
 //                    reduce { copy(depthStatus = ProfileBtmShtDepthStatus.Error) }
 
 
-                reduce { copy(depthStatus = ProfileBtmShtDepthStatus.SignOut.Done) }
+                reduce { copy(depthStatus = ProfileBtmShtDepthState.SignOut.Done) }
             }
 
             ProfileBtmShtCheckType.WITHDRAW -> {
@@ -128,7 +128,7 @@ constructor(
 //                    reduce { copy(depthStatus = ProfileBtmShtDepthStatus.Error) }
 
 
-                reduce { copy(depthStatus = ProfileBtmShtDepthStatus.Withdraw.Done) }
+                reduce { copy(depthStatus = ProfileBtmShtDepthState.Withdraw.Done) }
             }
         }
     }
@@ -146,7 +146,7 @@ constructor(
 
         reduce {
             copy(
-                depthStatus = ProfileBtmShtDepthStatus.Idle
+                depthStatus = ProfileBtmShtDepthState.Idle
             )
         }
     }

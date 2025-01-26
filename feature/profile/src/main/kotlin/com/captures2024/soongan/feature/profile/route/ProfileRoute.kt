@@ -13,7 +13,7 @@ import com.captures2024.soongan.core.viewmodel.profile.ProfileBtmShtViewModel
 import com.captures2024.soongan.core.viewmodel.profile.ProfileViewModel
 import com.captures2024.soongan.core.viewmodel.profile.ProfileViewModel.Effect
 import com.captures2024.soongan.core.viewmodel.profile.ProfileViewModel.Intent
-import com.captures2024.soongan.feature.profile.ui.profile.ProfileMenuBottomSheet
+import com.captures2024.soongan.feature.profile.ui.profile.bottomSheet.ProfileBottomSheet
 import com.captures2024.soongan.feature.profile.ui.profile.ProfileScreen
 import com.captures2024.soongan.core.viewmodel.profile.ProfileBtmShtViewModel.Effect as BtmShtEffect
 import com.captures2024.soongan.core.viewmodel.profile.ProfileBtmShtViewModel.Intent as BtmShtIntent
@@ -72,7 +72,7 @@ internal fun ProfileRoute(
     )
 
     if (uiState.isOpenBottomSheet) {
-        ProfileMenuBottomSheet(
+        ProfileBottomSheet(
             uiState = btmShtUiState,
             closeSheet = { profileBtmShtVM.intent(BtmShtIntent.OnCloseBottomSheet) },
             onClickMenuItem = { profileBtmShtVM.intent(BtmShtIntent.OnClickMenuItem(it)) },

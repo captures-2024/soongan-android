@@ -22,7 +22,7 @@ fun ProfileBtmShtMenuItem.textId() =
     }
 
 fun ProfileBtmShtMenuItem.color() =
-    if (this == ProfileBtmShtMenuItem.WITHDRAW) SGColor.negative else SGColor.black
+    if (this == ProfileBtmShtMenuItem.SIGN_OUT) SGColor.negative else SGColor.black
 
 fun ProfileBtmShtMenuItem.icon() =
     when (this) {
