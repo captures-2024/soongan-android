@@ -19,7 +19,7 @@ interface MembersRepository {
     suspend fun patchProfile(
         nickname: String?,
         selfIntroduction: String?,
-        profileImage: String?
+        profileImage: String?,
     ): UserInfoDto
 
     suspend fun patchBirthYear(birthYear: Int): UserInfoDto
@@ -27,4 +27,6 @@ interface MembersRepository {
     suspend fun getMemberInfo(): UserInfoDto
 
     suspend fun isVerifiedNickname(nickname: String): ResultConditionDto
+
+    suspend fun clearCurrentMember()
 }

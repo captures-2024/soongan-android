@@ -92,4 +92,6 @@ constructor(
             analyticsHelper.d(message = "isVerifiedNickname - resultConditionDto: $resultConditionDto")
         } ?: throw NullPointerException("resultConditionDto is null")
     }
+
+    override suspend fun clearCurrentMember() = _currentMember.emit(null)
 }

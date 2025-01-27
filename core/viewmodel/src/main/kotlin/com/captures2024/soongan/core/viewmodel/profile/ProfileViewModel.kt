@@ -7,6 +7,7 @@ import com.captures2024.soongan.core.common.base.BaseViewModel
 import com.captures2024.soongan.core.common.base.UIIntent
 import com.captures2024.soongan.core.common.base.UISideEffect
 import com.captures2024.soongan.core.common.base.UIState
+import com.captures2024.soongan.core.domain.usecase.members.ClearCurrentMemberUseCase
 import com.captures2024.soongan.core.domain.usecase.members.GetCurrentMemberFlowUseCase
 import com.captures2024.soongan.core.domain.usecase.weekly.contests.GetMyGalleryUseCase
 import com.captures2024.soongan.core.model.dto.GalleryPostDto
@@ -22,6 +23,7 @@ constructor(
     private val analyticsHelper: AnalyticsHelper,
     private val getCurrentMemberFlowUseCase: GetCurrentMemberFlowUseCase,
     private val getMyGalleryUseCase: GetMyGalleryUseCase,
+    private val clearCurrentMemberUseCase: ClearCurrentMemberUseCase,
     savedStateHandle: SavedStateHandle,
 ) : BaseViewModel<ProfileViewModel.State, ProfileViewModel.Effect, ProfileViewModel.Intent>(
     savedStateHandle = savedStateHandle
@@ -63,8 +65,6 @@ constructor(
         data object NavigateToRegistrationPost : Effect
 
         data object NavigateToEditProfile : Effect
-
-        data object NavigateToHome : Effect
     }
 
     sealed interface Intent : UIIntent {
@@ -90,7 +90,6 @@ constructor(
 
     init {
         intent(Intent.Init)
-        analyticsHelper.d(message = "posts: ${currentState.myPosts}")
     }
 
     override fun createInitialState(savedStateHandle: SavedStateHandle): State {
@@ -237,7 +236,7 @@ constructor(
 
             ProfileBottomSheetOutType.TERMS_AND_POLICY -> TODO("navigate Terms_And_Policy")
 
-            ProfileBottomSheetOutType.DONE_BUTTON -> postSideEffect(Effect.NavigateToHome)
+            ProfileBottomSheetOutType.DONE_STATUS -> launch { clearCurrentMemberUseCase() }
 
             ProfileBottomSheetOutType.OUT_OF_AREA -> Unit
         }

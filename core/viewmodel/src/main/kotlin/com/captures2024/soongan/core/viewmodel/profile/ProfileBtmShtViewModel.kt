@@ -7,6 +7,8 @@ import com.captures2024.soongan.core.common.base.BaseViewModel
 import com.captures2024.soongan.core.common.base.UIIntent
 import com.captures2024.soongan.core.common.base.UISideEffect
 import com.captures2024.soongan.core.common.base.UIState
+import com.captures2024.soongan.core.domain.usecase.auth.SignOutSocialPlatformUseCase
+import com.captures2024.soongan.core.domain.usecase.auth.WithdrawMemberUseCase
 import com.captures2024.soongan.core.viewmodel.model.profile.ProfileBtmShtCheckType
 import com.captures2024.soongan.core.viewmodel.model.profile.ProfileBtmShtDepthState
 import com.captures2024.soongan.core.viewmodel.model.profile.ProfileBtmShtMenuItem
@@ -20,7 +22,8 @@ class ProfileBtmShtViewModel
 @Inject
 constructor(
     private val analyticsHelper: AnalyticsHelper,
-
+    private val signOutUseCase: SignOutSocialPlatformUseCase,
+    private val withdrawUseCase: WithdrawMemberUseCase,
     savedStateHandle: SavedStateHandle,
 ) : BaseViewModel<ProfileBtmShtViewModel.State, ProfileBtmShtViewModel.Effect, ProfileBtmShtViewModel.Intent>(
     savedStateHandle = savedStateHandle
@@ -85,7 +88,7 @@ constructor(
 
             is Intent.OnCheckProcess -> onCheckProcess(intent)
 
-            is Intent.OnDoneProcess -> outOfBottomSheet(outType = ProfileBottomSheetOutType.DONE_BUTTON)
+            is Intent.OnDoneProcess -> outOfBottomSheet(outType = ProfileBottomSheetOutType.DONE_STATUS)
 
             is Intent.OnPushSettingChanged -> onPushSettingChanged(intent)
 
@@ -109,22 +112,28 @@ constructor(
         }
     }
 
-    private fun onCheckProcess(intent: Intent.OnCheckProcess) {
+    private suspend fun onCheckProcess(intent: Intent.OnCheckProcess) {
         when (intent.type) {
             ProfileBtmShtCheckType.SIGN_OUT -> {
-                // 로그 아웃 useCase
-//                if(result == null)
-//                    reduce { copy(depthStatus = ProfileBtmShtDepthStatus.Error) }
+                val result = signOutUseCase().getOrNull()
+                analyticsHelper.d(message = "signOut result = $result")
 
+                if (result != true) {
+                    reduce { copy(depthStatus = ProfileBtmShtDepthState.Error) }
+                    return
+                }
 
                 reduce { copy(depthStatus = ProfileBtmShtDepthState.SignOut.Done) }
             }
 
             ProfileBtmShtCheckType.WITHDRAW -> {
-                // 회원 탈퇴 useCase
-//                if(result == null)
-//                    reduce { copy(depthStatus = ProfileBtmShtDepthStatus.Error) }
+                val result = withdrawUseCase().getOrNull()
+                analyticsHelper.d(message = "withDraw result = $result")
 
+                if (result != true) {
+                    reduce { copy(depthStatus = ProfileBtmShtDepthState.Error) }
+                    return
+                }
 
                 reduce { copy(depthStatus = ProfileBtmShtDepthState.Withdraw.Done) }
             }
@@ -150,11 +159,17 @@ constructor(
             ProfileBottomSheetOutType.TERMS_AND_POLICY ->
                 postSideEffect(Effect.OutOfBottomSheet(outType = ProfileBottomSheetOutType.TERMS_AND_POLICY))
 
-            ProfileBottomSheetOutType.DONE_BUTTON ->
-                postSideEffect(Effect.OutOfBottomSheet(outType = ProfileBottomSheetOutType.DONE_BUTTON))
+            ProfileBottomSheetOutType.DONE_STATUS ->
+                postSideEffect(Effect.OutOfBottomSheet(outType = ProfileBottomSheetOutType.DONE_STATUS))
 
             ProfileBottomSheetOutType.OUT_OF_AREA ->
-                postSideEffect(Effect.OutOfBottomSheet(outType = ProfileBottomSheetOutType.OUT_OF_AREA))
+                when (currentState.depthStatus) {
+                    ProfileBtmShtDepthState.SignOut.Done, ProfileBtmShtDepthState.Withdraw.Done ->
+                        postSideEffect(Effect.OutOfBottomSheet(outType = ProfileBottomSheetOutType.DONE_STATUS))
+
+                    else ->
+                        postSideEffect(Effect.OutOfBottomSheet(outType = ProfileBottomSheetOutType.OUT_OF_AREA))
+                }
         }
 
         reduce {
@@ -166,5 +181,5 @@ constructor(
 }
 
 enum class ProfileBottomSheetOutType {
-    EDIT, FAQ, TERMS_AND_POLICY, DONE_BUTTON, OUT_OF_AREA
+    EDIT, FAQ, TERMS_AND_POLICY, DONE_STATUS, OUT_OF_AREA
 }

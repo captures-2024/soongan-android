@@ -65,7 +65,6 @@ internal fun MainRouteNavHost(
             navigateToNotification = navController::navigateToNotification,
             navigateToHomePost = navController::navigateToHomePost,
             navigateToRegistrationPost = navController::navigateToRegistrationPost,
-            navigateToHome = navController::navigateToHome
         )
     }
 }
