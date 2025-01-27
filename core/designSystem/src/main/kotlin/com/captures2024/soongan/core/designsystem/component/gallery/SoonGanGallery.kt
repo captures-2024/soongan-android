@@ -43,6 +43,7 @@ import kotlinx.coroutines.launch
 fun SoonGanGallery(
     modifier: Modifier = Modifier,
     lazyStaggeredGridState: LazyStaggeredGridState = rememberLazyStaggeredGridState(),
+    isInitPage: Boolean = true,
     hasNextPage: Boolean = false,
     onLoadNextPage: () -> Unit = {},
     content: LazyStaggeredGridScope.() -> Unit,
@@ -56,7 +57,7 @@ fun SoonGanGallery(
         }
     }
 
-    if (hasNextPage) {
+    if (!isInitPage && hasNextPage) {
         LaunchedEffect(lazyStaggeredGridState) {
             snapshotFlow { shouldLoadMore.value }
                 .distinctUntilChanged()
@@ -68,7 +69,7 @@ fun SoonGanGallery(
     }
 
     LazyVerticalStaggeredGrid(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(color = SGColor.primaryB)
             .paint(

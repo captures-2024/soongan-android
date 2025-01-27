@@ -29,19 +29,18 @@ import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
 import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.viewmodel.profile.ProfileEditViewModel
 import com.captures2024.soongan.feature.profile.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun EditProfileBottomSheet(
+    intent: (ProfileEditViewModel.Intent) -> Unit,
     modifier: Modifier = Modifier,
     sheetState: SheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
-    closeSheet: () -> Unit = {},
-    onClickDefaultProfileImage: () -> Unit = {},
-    openPhotoPicker: () -> Unit = {},
 ) {
     ModalBottomSheet(
-        onDismissRequest = closeSheet,
+        onDismissRequest = { intent(ProfileEditViewModel.Intent.OnCloseEditBottomSheet) },
         modifier = modifier.fillMaxWidth(),
         sheetState = sheetState,
         containerColor = Color.White
@@ -51,12 +50,12 @@ internal fun EditProfileBottomSheet(
         ) {
             BottomSheetRow(
                 itemText = stringResource(R.string.edit_profile_btmsht_select_photo_in_gallery_text),
-                onClick = openPhotoPicker
+                onClick = { intent(ProfileEditViewModel.Intent.OpenPhotoPicker) }
             )
             HorizontalDivider(color = SGColor.primaryA.copy(alpha = 0.3f))
             BottomSheetRow(
                 itemText = stringResource(R.string.edit_profile_btmsht_default_profile_image_text),
-                onClick = onClickDefaultProfileImage
+                onClick = { intent(ProfileEditViewModel.Intent.OnChangeDefaultProfileImage) }
             )
         }
     }
@@ -106,5 +105,8 @@ private fun EditProfileBottomSheetPreview() {
         skipHiddenState = false
     )
 
-    EditProfileBottomSheet(sheetState = sheetState)
+    EditProfileBottomSheet(
+        intent = {},
+        sheetState = sheetState
+    )
 }

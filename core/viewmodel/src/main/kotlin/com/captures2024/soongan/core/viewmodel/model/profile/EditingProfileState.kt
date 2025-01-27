@@ -1,7 +1,6 @@
 package com.captures2024.soongan.core.viewmodel.model.profile
 
 import com.captures2024.soongan.core.common.Validation
-import com.captures2024.soongan.core.model.UserProfile
 
 data class EditingState(
     val editingProfile: UserProfile = UserProfile(),

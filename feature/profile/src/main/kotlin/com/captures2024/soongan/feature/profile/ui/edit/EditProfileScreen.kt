@@ -11,16 +11,13 @@ import androidx.compose.ui.unit.dp
 import com.captures2024.soongan.core.designsystem.component.HeightSpacer
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.viewmodel.model.profile.EditingState
+import com.captures2024.soongan.core.viewmodel.profile.ProfileEditViewModel
 
 @Composable
 internal fun EditProfileScreen(
     uiState: EditingState,
+    intent: (ProfileEditViewModel.Intent) -> Unit,
     modifier: Modifier = Modifier,
-    onBackPressed: () -> Unit = {},
-    onClickProfileImage: () -> Unit = {},
-    onNicknameChanged: (String) -> Unit = {},
-    onIntroductionChanged: (String) -> Unit = {},
-    onClickEditButton: () -> Unit = {},
 ) {
     Column(
         modifier = modifier
@@ -29,15 +26,15 @@ internal fun EditProfileScreen(
             .padding(horizontal = 20.dp)
     ) {
         EditProfileScreenHeader(
-            onBackPressed = onBackPressed
+            onBackPressed = { intent(ProfileEditViewModel.Intent.OnBackPressed) }
         )
         HeightSpacer(8.dp)
         EditProfileScreenBody(
             uiState = uiState,
-            onClickProfileImage = onClickProfileImage,
-            onNicknameChanged = onNicknameChanged,
-            onIntroductionChanged = onIntroductionChanged,
-            onClickEdit = onClickEditButton
+            onClickProfileImage = { intent(ProfileEditViewModel.Intent.OnClickProfileImage) },
+            onNicknameChanged = { intent(ProfileEditViewModel.Intent.OnNicknameChanged(it)) },
+            onIntroductionChanged = { intent(ProfileEditViewModel.Intent.OnIntroductionChanged(it)) },
+            onClickEdit = { intent(ProfileEditViewModel.Intent.OnClickEditButton) }
         )
     }
 }
@@ -46,6 +43,7 @@ internal fun EditProfileScreen(
 @Composable
 private fun EditProfileScreenPreview() {
     EditProfileScreen(
-        uiState = EditingState()
+        uiState = EditingState(),
+        intent = {}
     )
 }

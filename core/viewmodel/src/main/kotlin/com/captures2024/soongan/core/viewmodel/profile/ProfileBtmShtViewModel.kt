@@ -40,11 +40,9 @@ constructor(
     }
 
     sealed interface Effect : UISideEffect {
-        data object SendRequestNavigateToEditProfile : Effect
-
-        data object CloseBottomSheet : Effect
-
-        data object NavigateToHome : Effect
+        data class OutOfBottomSheet(
+            val outType: ProfileBottomSheetOutType,
+        ) : Effect
     }
 
     sealed interface Intent : UIIntent {
@@ -87,23 +85,23 @@ constructor(
 
             is Intent.OnCheckProcess -> onCheckProcess(intent)
 
-            is Intent.OnDoneProcess -> postSideEffect(Effect.NavigateToHome)
+            is Intent.OnDoneProcess -> outOfBottomSheet(outType = ProfileBottomSheetOutType.DONE_BUTTON)
 
             is Intent.OnPushSettingChanged -> onPushSettingChanged(intent)
 
-            is Intent.OnCloseBottomSheet -> onCloseBottomSheet()
+            is Intent.OnCloseBottomSheet -> outOfBottomSheet(outType = ProfileBottomSheetOutType.OUT_OF_AREA)
         }
     }
 
-    private fun handleClickContentItem(intent: Intent.OnClickMenuItem) {
+    private fun handleClickContentItem(intent: Intent.OnClickMenuItem) = launch {
         when (intent.item) {
-            ProfileBtmShtMenuItem.EDIT -> postSideEffect(Effect.SendRequestNavigateToEditProfile)
+            ProfileBtmShtMenuItem.EDIT -> outOfBottomSheet(outType = ProfileBottomSheetOutType.EDIT)
 
-            ProfileBtmShtMenuItem.FAQ -> TODO()
+            ProfileBtmShtMenuItem.FAQ -> outOfBottomSheet(outType = ProfileBottomSheetOutType.FAQ)
 
             ProfileBtmShtMenuItem.PUSH -> reduce { copy(depthStatus = ProfileBtmShtDepthState.Push) }
 
-            ProfileBtmShtMenuItem.TERMS_AND_POLICY -> TODO()
+            ProfileBtmShtMenuItem.TERMS_AND_POLICY -> outOfBottomSheet(outType = ProfileBottomSheetOutType.TERMS_AND_POLICY)
 
             ProfileBtmShtMenuItem.SIGN_OUT -> reduce { copy(depthStatus = ProfileBtmShtDepthState.SignOut.Check) }
 
@@ -114,7 +112,7 @@ constructor(
     private fun onCheckProcess(intent: Intent.OnCheckProcess) {
         when (intent.type) {
             ProfileBtmShtCheckType.SIGN_OUT -> {
-                // 로그아웃 useCase
+                // 로그 아웃 useCase
 //                if(result == null)
 //                    reduce { copy(depthStatus = ProfileBtmShtDepthStatus.Error) }
 
@@ -123,7 +121,7 @@ constructor(
             }
 
             ProfileBtmShtCheckType.WITHDRAW -> {
-                // 회원탈퇴 useCase
+                // 회원 탈퇴 useCase
 //                if(result == null)
 //                    reduce { copy(depthStatus = ProfileBtmShtDepthStatus.Error) }
 
@@ -141,8 +139,23 @@ constructor(
         }
     }
 
-    private fun onCloseBottomSheet() {
-        postSideEffect(Effect.CloseBottomSheet)
+    private fun outOfBottomSheet(outType: ProfileBottomSheetOutType) {
+        when (outType) {
+            ProfileBottomSheetOutType.EDIT ->
+                postSideEffect(Effect.OutOfBottomSheet(outType = ProfileBottomSheetOutType.EDIT))
+
+            ProfileBottomSheetOutType.FAQ ->
+                postSideEffect(Effect.OutOfBottomSheet(outType = ProfileBottomSheetOutType.FAQ))
+
+            ProfileBottomSheetOutType.TERMS_AND_POLICY ->
+                postSideEffect(Effect.OutOfBottomSheet(outType = ProfileBottomSheetOutType.TERMS_AND_POLICY))
+
+            ProfileBottomSheetOutType.DONE_BUTTON ->
+                postSideEffect(Effect.OutOfBottomSheet(outType = ProfileBottomSheetOutType.DONE_BUTTON))
+
+            ProfileBottomSheetOutType.OUT_OF_AREA ->
+                postSideEffect(Effect.OutOfBottomSheet(outType = ProfileBottomSheetOutType.OUT_OF_AREA))
+        }
 
         reduce {
             copy(
@@ -150,4 +163,8 @@ constructor(
             )
         }
     }
+}
+
+enum class ProfileBottomSheetOutType {
+    EDIT, FAQ, TERMS_AND_POLICY, DONE_BUTTON, OUT_OF_AREA
 }

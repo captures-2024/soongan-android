@@ -33,7 +33,7 @@ import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillMen
 import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
 import com.captures2024.soongan.core.designsystem.theme.PoppinsFontFamily
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
-import com.captures2024.soongan.core.model.UserProfile
+import com.captures2024.soongan.core.viewmodel.model.profile.UserProfile
 import com.captures2024.soongan.core.design.R as RDesign
 
 @Composable

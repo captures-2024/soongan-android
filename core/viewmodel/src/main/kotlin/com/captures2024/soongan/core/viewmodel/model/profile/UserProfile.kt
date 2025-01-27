@@ -1,4 +1,4 @@
-package com.captures2024.soongan.core.model
+package com.captures2024.soongan.core.viewmodel.model.profile
 
 data class UserProfile(
     val nickname: String = "user1",
