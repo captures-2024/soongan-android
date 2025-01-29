@@ -17,14 +17,14 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.viewmodel.model.profile.ProfileBtmShtDepthState
-import com.captures2024.soongan.core.viewmodel.profile.ProfileBottomSheetOutType
+import com.captures2024.soongan.core.viewmodel.model.profile.ProfileBtmShtOutType
 import com.captures2024.soongan.core.viewmodel.profile.ProfileBtmShtViewModel
 import com.captures2024.soongan.core.viewmodel.profile.ProfileBtmShtViewModel.Effect
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun ProfileBottomSheet(
-    closeSheet: (ProfileBottomSheetOutType) -> Unit,
+    closeSheet: (ProfileBtmShtOutType) -> Unit,
     modifier: Modifier = Modifier,
     profileBtmShtViewModel: ProfileBtmShtViewModel = hiltViewModel(),
 ) {

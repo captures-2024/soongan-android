@@ -12,6 +12,7 @@ import com.captures2024.soongan.core.domain.usecase.members.GetCurrentMemberFlow
 import com.captures2024.soongan.core.domain.usecase.weekly.contests.GetMyGalleryUseCase
 import com.captures2024.soongan.core.model.dto.GalleryPostDto
 import com.captures2024.soongan.core.viewmodel.model.PaginationStatus
+import com.captures2024.soongan.core.viewmodel.model.profile.ProfileBtmShtOutType
 import com.captures2024.soongan.core.viewmodel.model.profile.UserProfile
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -84,7 +85,7 @@ constructor(
         data object OnClickMenu : Intent
 
         data class OnCloseBottomSheet(
-            val outType: ProfileBottomSheetOutType,
+            val outType: ProfileBtmShtOutType,
         ) : Intent
     }
 
@@ -230,15 +231,15 @@ constructor(
         }
 
         when (intent.outType) {
-            ProfileBottomSheetOutType.EDIT -> postSideEffect(Effect.NavigateToEditProfile)
+            ProfileBtmShtOutType.EDIT -> postSideEffect(Effect.NavigateToEditProfile)
 
-            ProfileBottomSheetOutType.FAQ -> TODO("navigate FAQ")
+            ProfileBtmShtOutType.FAQ -> TODO("navigate FAQ")
 
-            ProfileBottomSheetOutType.TERMS_AND_POLICY -> TODO("navigate Terms_And_Policy")
+            ProfileBtmShtOutType.TERMS_AND_POLICY -> TODO("navigate Terms_And_Policy")
 
-            ProfileBottomSheetOutType.DONE_STATUS -> launch { clearCurrentMemberUseCase() }
+            ProfileBtmShtOutType.DONE_STATUS -> launch { clearCurrentMemberUseCase() }
 
-            ProfileBottomSheetOutType.OUT_OF_AREA -> Unit
+            ProfileBtmShtOutType.OUT_OF_AREA -> Unit
         }
     }
 

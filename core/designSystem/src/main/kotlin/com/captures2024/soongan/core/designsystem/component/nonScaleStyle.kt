@@ -33,14 +33,14 @@ fun nonScaleTextStyle(
     fontSize: TextUnit,
     fontFamily: FontFamily = PretendardFontFamily,
     fontWeight: FontWeight = FontWeight(500),
-    letterSPacing: TextUnit,
+    letterSpacing: TextUnit,
     color: Color = Color(0xFF000000),
     textDecoration: TextDecoration? = null,
 ) = TextStyle(
     fontSize = fontSize.nonScaleSp,
     fontFamily = fontFamily,
     fontWeight = fontWeight,
-    letterSpacing = normalizeLetterSpacing(fontSize, letterSPacing).nonScaleSp,
+    letterSpacing = normalizeLetterSpacing(fontSize, letterSpacing).nonScaleSp,
     color = color,
     textDecoration = textDecoration,
 )

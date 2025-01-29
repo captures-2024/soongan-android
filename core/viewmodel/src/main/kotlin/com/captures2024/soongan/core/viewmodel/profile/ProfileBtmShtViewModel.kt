@@ -9,6 +9,7 @@ import com.captures2024.soongan.core.common.base.UISideEffect
 import com.captures2024.soongan.core.common.base.UIState
 import com.captures2024.soongan.core.domain.usecase.auth.SignOutSocialPlatformUseCase
 import com.captures2024.soongan.core.domain.usecase.auth.WithdrawMemberUseCase
+import com.captures2024.soongan.core.viewmodel.model.profile.ProfileBtmShtOutType
 import com.captures2024.soongan.core.viewmodel.model.profile.ProfileBtmShtCheckType
 import com.captures2024.soongan.core.viewmodel.model.profile.ProfileBtmShtDepthState
 import com.captures2024.soongan.core.viewmodel.model.profile.ProfileBtmShtMenuItem
@@ -44,7 +45,7 @@ constructor(
 
     sealed interface Effect : UISideEffect {
         data class OutOfBottomSheet(
-            val outType: ProfileBottomSheetOutType,
+            val outType: ProfileBtmShtOutType,
         ) : Effect
     }
 
@@ -88,23 +89,23 @@ constructor(
 
             is Intent.OnCheckProcess -> onCheckProcess(intent)
 
-            is Intent.OnDoneProcess -> outOfBottomSheet(outType = ProfileBottomSheetOutType.DONE_STATUS)
+            is Intent.OnDoneProcess -> outOfBottomSheet(outType = ProfileBtmShtOutType.DONE_STATUS)
 
             is Intent.OnPushSettingChanged -> onPushSettingChanged(intent)
 
-            is Intent.OnCloseBottomSheet -> outOfBottomSheet(outType = ProfileBottomSheetOutType.OUT_OF_AREA)
+            is Intent.OnCloseBottomSheet -> outOfBottomSheet(outType = ProfileBtmShtOutType.OUT_OF_AREA)
         }
     }
 
     private fun handleClickContentItem(intent: Intent.OnClickMenuItem) = launch {
         when (intent.item) {
-            ProfileBtmShtMenuItem.EDIT -> outOfBottomSheet(outType = ProfileBottomSheetOutType.EDIT)
+            ProfileBtmShtMenuItem.EDIT -> outOfBottomSheet(outType = ProfileBtmShtOutType.EDIT)
 
-            ProfileBtmShtMenuItem.FAQ -> outOfBottomSheet(outType = ProfileBottomSheetOutType.FAQ)
+            ProfileBtmShtMenuItem.FAQ -> outOfBottomSheet(outType = ProfileBtmShtOutType.FAQ)
 
             ProfileBtmShtMenuItem.PUSH -> reduce { copy(depthStatus = ProfileBtmShtDepthState.Push) }
 
-            ProfileBtmShtMenuItem.TERMS_AND_POLICY -> outOfBottomSheet(outType = ProfileBottomSheetOutType.TERMS_AND_POLICY)
+            ProfileBtmShtMenuItem.TERMS_AND_POLICY -> outOfBottomSheet(outType = ProfileBtmShtOutType.TERMS_AND_POLICY)
 
             ProfileBtmShtMenuItem.SIGN_OUT -> reduce { copy(depthStatus = ProfileBtmShtDepthState.SignOut.Check) }
 
@@ -148,27 +149,27 @@ constructor(
         }
     }
 
-    private fun outOfBottomSheet(outType: ProfileBottomSheetOutType) {
+    private fun outOfBottomSheet(outType: ProfileBtmShtOutType) {
         when (outType) {
-            ProfileBottomSheetOutType.EDIT ->
-                postSideEffect(Effect.OutOfBottomSheet(outType = ProfileBottomSheetOutType.EDIT))
+            ProfileBtmShtOutType.EDIT ->
+                postSideEffect(Effect.OutOfBottomSheet(outType = ProfileBtmShtOutType.EDIT))
 
-            ProfileBottomSheetOutType.FAQ ->
-                postSideEffect(Effect.OutOfBottomSheet(outType = ProfileBottomSheetOutType.FAQ))
+            ProfileBtmShtOutType.FAQ ->
+                postSideEffect(Effect.OutOfBottomSheet(outType = ProfileBtmShtOutType.FAQ))
 
-            ProfileBottomSheetOutType.TERMS_AND_POLICY ->
-                postSideEffect(Effect.OutOfBottomSheet(outType = ProfileBottomSheetOutType.TERMS_AND_POLICY))
+            ProfileBtmShtOutType.TERMS_AND_POLICY ->
+                postSideEffect(Effect.OutOfBottomSheet(outType = ProfileBtmShtOutType.TERMS_AND_POLICY))
 
-            ProfileBottomSheetOutType.DONE_STATUS ->
-                postSideEffect(Effect.OutOfBottomSheet(outType = ProfileBottomSheetOutType.DONE_STATUS))
+            ProfileBtmShtOutType.DONE_STATUS ->
+                postSideEffect(Effect.OutOfBottomSheet(outType = ProfileBtmShtOutType.DONE_STATUS))
 
-            ProfileBottomSheetOutType.OUT_OF_AREA ->
+            ProfileBtmShtOutType.OUT_OF_AREA ->
                 when (currentState.depthStatus) {
                     ProfileBtmShtDepthState.SignOut.Done, ProfileBtmShtDepthState.Withdraw.Done ->
-                        postSideEffect(Effect.OutOfBottomSheet(outType = ProfileBottomSheetOutType.DONE_STATUS))
+                        postSideEffect(Effect.OutOfBottomSheet(outType = ProfileBtmShtOutType.DONE_STATUS))
 
                     else ->
-                        postSideEffect(Effect.OutOfBottomSheet(outType = ProfileBottomSheetOutType.OUT_OF_AREA))
+                        postSideEffect(Effect.OutOfBottomSheet(outType = ProfileBtmShtOutType.OUT_OF_AREA))
                 }
         }
 
@@ -180,6 +181,3 @@ constructor(
     }
 }
 
-enum class ProfileBottomSheetOutType {
-    EDIT, FAQ, TERMS_AND_POLICY, DONE_STATUS, OUT_OF_AREA
-}

@@ -10,8 +10,8 @@ import com.captures2024.soongan.core.common.base.UIState
 import com.captures2024.soongan.core.domain.usecase.members.GetCurrentMemberFlowUseCase
 import com.captures2024.soongan.core.domain.usecase.members.IsVerifiedNicknameUseCase
 import com.captures2024.soongan.core.domain.usecase.members.PatchProfileUseCase
+import com.captures2024.soongan.core.viewmodel.model.profile.EditingProfileState
 import com.captures2024.soongan.core.viewmodel.model.profile.UserProfile
-import com.captures2024.soongan.core.viewmodel.model.profile.EditingState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -31,7 +31,7 @@ constructor(
     data class State(
         val isLoading: Boolean = false,
         val userProfile: UserProfile = UserProfile(),
-        val editingState: EditingState = EditingState(),
+        val editingState: EditingProfileState = EditingProfileState(),
         val isOpenBottomSheet: Boolean = false,
     ) : UIState {
 

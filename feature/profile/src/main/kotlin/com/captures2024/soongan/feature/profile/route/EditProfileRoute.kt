@@ -45,7 +45,7 @@ internal fun EditProfileRoute(
     }
 
     EditProfileScreen(
-        uiState = uiState.editingState,
+        editingState = uiState.editingState,
         intent = profileEditViewModel::intent,
     )
 

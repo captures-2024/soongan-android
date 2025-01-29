@@ -10,12 +10,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.captures2024.soongan.core.designsystem.component.HeightSpacer
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
-import com.captures2024.soongan.core.viewmodel.model.profile.EditingState
+import com.captures2024.soongan.core.viewmodel.model.profile.EditingProfileState
 import com.captures2024.soongan.core.viewmodel.profile.ProfileEditViewModel
 
 @Composable
 internal fun EditProfileScreen(
-    uiState: EditingState,
+    editingState: EditingProfileState,
     intent: (ProfileEditViewModel.Intent) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -30,7 +30,7 @@ internal fun EditProfileScreen(
         )
         HeightSpacer(8.dp)
         EditProfileScreenBody(
-            uiState = uiState,
+            editingState = editingState,
             onClickProfileImage = { intent(ProfileEditViewModel.Intent.OnClickProfileImage) },
             onNicknameChanged = { intent(ProfileEditViewModel.Intent.OnNicknameChanged(it)) },
             onIntroductionChanged = { intent(ProfileEditViewModel.Intent.OnIntroductionChanged(it)) },
@@ -43,7 +43,7 @@ internal fun EditProfileScreen(
 @Composable
 private fun EditProfileScreenPreview() {
     EditProfileScreen(
-        uiState = EditingState(),
+        editingState = EditingProfileState(),
         intent = {}
     )
 }

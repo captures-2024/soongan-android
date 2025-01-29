@@ -2,7 +2,7 @@ package com.captures2024.soongan.core.viewmodel.model.profile
 
 import com.captures2024.soongan.core.common.Validation
 
-data class EditingState(
+data class EditingProfileState(
     val editingProfile: UserProfile = UserProfile(),
     val isEditable: Boolean = false,
     val isDuplicatedNickname: Boolean = false,

@@ -54,7 +54,7 @@ internal fun MenuItemTextField(
             fontSize = 18.sp,
             fontFamily = NanumSquareNeoFontFamily,
             fontWeight = FontWeight.Normal,
-            letterSPacing = (-5).em,
+            letterSpacing = (-5).em,
         ),
         keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
         keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
