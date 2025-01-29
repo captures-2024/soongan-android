@@ -9,6 +9,7 @@ internal data class RegistrationPostUIState(
     val currentMedia: Uri? = null,
     val title: String = "",
     val isOpenSubmitBottomSheet: Boolean = false,
+    val showBackDialog: Boolean = false,
 ) : UIState {
 
     override fun toLoggingElements(): Array<LogElementArgument> = arrayOf(
@@ -16,5 +17,6 @@ internal data class RegistrationPostUIState(
         LogElementArgument("currentMedia", currentMedia.toString()),
         LogElementArgument("title", title),
         LogElementArgument("isOpenSubmitBottomSheet", isOpenSubmitBottomSheet.toString()),
+        LogElementArgument("showBackDialog", showBackDialog.toString()),
     )
 }

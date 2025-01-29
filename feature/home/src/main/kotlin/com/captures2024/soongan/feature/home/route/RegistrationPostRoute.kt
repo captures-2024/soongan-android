@@ -1,5 +1,6 @@
 package com.captures2024.soongan.feature.home.route
 
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -11,7 +12,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavOptions
 import androidx.navigation.navOptions
 import com.captures2024.soongan.core.android.utils.LocalAnalyticsHelper
-import com.captures2024.soongan.core.navigator.screen.main.home.RegistrationPostNavigator
+import com.captures2024.soongan.core.designsystem.component.SGDoubleButtonDialog
 import com.captures2024.soongan.feature.home.RegistrationPostViewModel
 import com.captures2024.soongan.feature.home.state.registration_post.RegistrationPostIntent
 import com.captures2024.soongan.feature.home.state.registration_post.RegistrationPostSideEffect
@@ -54,13 +55,17 @@ internal fun RegistrationPostRoute(
         }
     }
 
+    BackHandler {
+        registrationPostViewModel.intent(RegistrationPostIntent.OnClickBack)
+    }
+
     LaunchedEffect(Unit) {
         registrationPostViewModel.intent(RegistrationPostIntent.Init)
     }
 
     RegistrationPostScreen(
         uiState = uiState,
-        onBackPressed = navigateToBack,
+        onBackPressed = { registrationPostViewModel.intent(RegistrationPostIntent.OnClickBack) },
         onTitleValueChanged = { registrationPostViewModel.intent(RegistrationPostIntent.OnTitleValueChanged(it)) },
         onClickSubmit = { registrationPostViewModel.intent(RegistrationPostIntent.OnClickSubmit) },
     )
@@ -70,6 +75,17 @@ internal fun RegistrationPostRoute(
             uiState = uiState,
             onClickConfirm = { registrationPostViewModel.intent(RegistrationPostIntent.OnClickSubmitRemote) },
             closeSheet = { registrationPostViewModel.intent(RegistrationPostIntent.OnClickCloseBottomSheet) }
+        )
+    }
+
+    if (uiState.showBackDialog) {
+        SGDoubleButtonDialog(
+            content = "정말 작품 등록을\n하지 않으시겠어요?",
+            confirmContent = "네",
+            onClickConfirm = { registrationPostViewModel.intent(RegistrationPostIntent.OnClickBackDialogConfirm) },
+            cancelContent = "아니오",
+            onClickCancel = { registrationPostViewModel.intent(RegistrationPostIntent.OnClickBackDialogCancel) },
+            onDismissRequest = { registrationPostViewModel.intent(RegistrationPostIntent.OnClickBackDialogCancel) },
         )
     }
 }

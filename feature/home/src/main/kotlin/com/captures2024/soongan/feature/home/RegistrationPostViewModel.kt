@@ -39,11 +39,17 @@ constructor(
 
             is RegistrationPostIntent.OnTitleValueChanged -> handleOnTitleValueChanged(intent)
 
+            is RegistrationPostIntent.OnClickBack -> handleOnClickBack()
+
             is RegistrationPostIntent.OnClickSubmit -> handleOnClickSubmit(intent)
 
             is RegistrationPostIntent.OnClickCloseBottomSheet -> handleOnClickCloseBottomSheet(intent)
 
             is RegistrationPostIntent.OnClickSubmitRemote -> handleOnClickSubmitRemote(intent)
+
+            is RegistrationPostIntent.OnClickBackDialogCancel -> handleOnClickBackDialogCancel()
+
+            is RegistrationPostIntent.OnClickBackDialogConfirm -> handleOnClickBackDialogConfirm()
         }
     }
 
@@ -79,6 +85,14 @@ constructor(
 
         reduce {
             copy(title = newValue)
+        }
+    }
+
+    private fun handleOnClickBack() {
+        reduce {
+            copy(
+                showBackDialog = true,
+            )
         }
     }
 
@@ -139,5 +153,23 @@ constructor(
         }
 
         postSideEffect(RegistrationPostSideEffect.NavigateToPost(result))
+    }
+
+    private fun handleOnClickBackDialogCancel() {
+        reduce {
+            copy(
+                showBackDialog = false,
+            )
+        }
+    }
+
+    private fun handleOnClickBackDialogConfirm() {
+        reduce {
+            copy(
+                showBackDialog = false,
+            )
+        }
+
+        postSideEffect(RegistrationPostSideEffect.NavigateToBack)
     }
 }
