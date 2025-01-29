@@ -61,6 +61,7 @@ internal fun HomeGalleryScreen(
         HomeGalleryScreen(
             posts = uiState.posts,
             paginationStatus = uiState.paginationStatus,
+            isInitPage = (uiState.nextPage == 0),
             onBackPressed = onBackPressed,
             onLoadNextPage = onLoadNextPage,
             onClickPost = onClickPost,
@@ -74,6 +75,7 @@ internal fun HomeGalleryScreen(
 private fun HomeGalleryScreen(
     posts: List<GalleryPostDto>,
     paginationStatus: PaginationStatus,
+    isInitPage: Boolean,
     onBackPressed: () -> Unit,
     onClickFilter: () -> Unit,
     onLoadNextPage: () -> Unit,
@@ -90,6 +92,7 @@ private fun HomeGalleryScreen(
         SoonGanGallery(
             modifier = modifier,
             lazyStaggeredGridState = lazyStaggeredGridState,
+            isInitPage = isInitPage,
             hasNextPage = (paginationStatus != PaginationStatus.EXHAUST),
             onLoadNextPage = onLoadNextPage
         ) {

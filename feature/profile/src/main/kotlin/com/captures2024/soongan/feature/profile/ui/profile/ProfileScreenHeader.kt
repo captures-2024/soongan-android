@@ -20,6 +20,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.captures2024.soongan.core.designsystem.component.HeightSpacer
@@ -32,7 +33,7 @@ import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillMen
 import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
 import com.captures2024.soongan.core.designsystem.theme.PoppinsFontFamily
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
-import com.captures2024.soongan.core.model.UserProfile
+import com.captures2024.soongan.core.viewmodel.model.profile.UserProfile
 import com.captures2024.soongan.core.design.R as RDesign
 
 @Composable
@@ -81,7 +82,7 @@ private fun ProfileCard(
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Medium,
                 fontFamily = PoppinsFontFamily,
-                letterSpacing = (-0.5).sp,
+                letterSpacing = (-5).em,
                 lineHeight = 20.sp
             )
             HeightSpacer(8.dp)
@@ -90,7 +91,7 @@ private fun ProfileCard(
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Normal,
                 fontFamily = NanumSquareNeoFontFamily,
-                letterSpacing = (-0.5).sp,
+                letterSpacing = (-5).em,
                 lineHeight = 12.sp
             )
         }

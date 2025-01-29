@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.theme.PretendardFontFamily
 import com.captures2024.soongan.core.designsystem.util.nonScaleSp
+import com.captures2024.soongan.core.designsystem.util.normalizeLetterSpacing
 
 @Composable
 fun NonScaleText(
@@ -45,7 +46,7 @@ fun NonScaleText(
     fontStyle = fontStyle,
     fontWeight = fontWeight,
     fontFamily = fontFamily,
-    letterSpacing = letterSpacing.nonScaleSp,
+    letterSpacing = normalizeLetterSpacing(fontSize, letterSpacing).nonScaleSp,
     textDecoration = textDecoration,
     textAlign = textAlign,
     lineHeight = lineHeight.nonScaleSp,

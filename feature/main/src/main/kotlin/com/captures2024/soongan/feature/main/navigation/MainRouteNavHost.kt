@@ -60,12 +60,11 @@ internal fun MainRouteNavHost(
         feed()
         awards()
         profile(
-            navController = navController,
             navigateToBack = navController::popBackStack,
             navigateToEditProfile = navController::navigateToEditProfile,
             navigateToNotification = navController::navigateToNotification,
             navigateToHomePost = navController::navigateToHomePost,
-            navigateToRegistrationPost = navController::navigateToRegistrationPost
+            navigateToRegistrationPost = navController::navigateToRegistrationPost,
         )
     }
 }

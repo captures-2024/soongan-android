@@ -5,7 +5,7 @@ import com.captures2024.soongan.core.model.dto.UserInfoDto
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
-class GetCurrentMemberFlow
+class GetCurrentMemberFlowUseCase
 @Inject
 constructor(
     private val repository: MembersRepository,

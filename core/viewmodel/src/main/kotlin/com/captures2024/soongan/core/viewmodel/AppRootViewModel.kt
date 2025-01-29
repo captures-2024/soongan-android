@@ -11,7 +11,7 @@ import com.captures2024.soongan.core.domain.usecase.loading.ClearLoadingUseCase
 import com.captures2024.soongan.core.domain.usecase.loading.GetLoadingFlowUseCase
 import com.captures2024.soongan.core.domain.usecase.loading.HideLoadingUseCase
 import com.captures2024.soongan.core.domain.usecase.loading.ShowLoadingUseCase
-import com.captures2024.soongan.core.domain.usecase.members.GetCurrentMemberFlow
+import com.captures2024.soongan.core.domain.usecase.members.GetCurrentMemberFlowUseCase
 import com.captures2024.soongan.core.domain.usecase.members.GetGuestModeFlowUseCase
 import com.captures2024.soongan.core.domain.usecase.members.GetMemberInfoUseCase
 import com.captures2024.soongan.core.domain.usecase.token.ClearAllTokenUseCase
@@ -24,7 +24,7 @@ import javax.inject.Inject
 class AppRootViewModel
 @Inject
 constructor(
-    private val getCurrentMemberFlow: GetCurrentMemberFlow,
+    private val getCurrentMemberFlowUseCase: GetCurrentMemberFlowUseCase,
     private val initFcmUseCase: InitFcmUseCase,
     private val getMemberInfoUseCase: GetMemberInfoUseCase,
     private val getGuestModeFlowUseCase: GetGuestModeFlowUseCase,
@@ -124,7 +124,7 @@ constructor(
     }
 
     private suspend fun collectCurrentMember() {
-        getCurrentMemberFlow().collect { info ->
+        getCurrentMemberFlowUseCase().collect { info ->
             reduce {
                 copy(
                     currentMember = info,

@@ -10,18 +10,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.captures2024.soongan.core.designsystem.component.HeightSpacer
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
-import com.captures2024.soongan.feature.profile.state.profile.ProfileUIState
+import com.captures2024.soongan.core.viewmodel.profile.ProfileViewModel
 
 @Composable
 internal fun ProfileScreen(
-    uiState: ProfileUIState,
+    uiState: ProfileViewModel.State,
+    intent: (ProfileViewModel.Intent) -> Unit,
     modifier: Modifier = Modifier,
-    onClickNotification: () -> Unit = {},
-    onClickMenu: () -> Unit = {},
-    onRefresh: () -> Unit = {},
-    onLoadNextPage: () -> Unit = {},
-    onClickMyPost: (Int) -> Unit = {},
-    onClickRegistrationText: () -> Unit = {},
 ) {
     Column(
         modifier = modifier
@@ -32,18 +27,18 @@ internal fun ProfileScreen(
         ProfileScreenHeader(
             userProfile = uiState.userProfile,
             modifier = Modifier.padding(start = 20.dp, end = 16.dp),
-            onClickNotification = onClickNotification,
-            onClickMenu = onClickMenu
+            onClickNotification = { intent(ProfileViewModel.Intent.OnClickNotification) },
+            onClickMenu = { intent(ProfileViewModel.Intent.OnClickMenu) }
         )
         HeightSpacer(28.dp)
         ProfileScreenBody(
             myPosts = uiState.myPosts,
             paginationStatus = uiState.paginationStatus,
             isRefreshing = uiState.isRefreshing,
-            onRefresh = onRefresh,
-            onLoadNextPage = onLoadNextPage,
-            onClickMyPost = onClickMyPost,
-            onClickRegistrationText = onClickRegistrationText,
+            onRefresh = { intent(ProfileViewModel.Intent.RefreshMyGallery) },
+            onLoadNextPage = { intent(ProfileViewModel.Intent.LoadNextPage) },
+            onClickPhoto = { intent(ProfileViewModel.Intent.OnClickPhoto(it)) },
+            onClickRegistrationText = { intent(ProfileViewModel.Intent.OnClickRegistrationText) },
         )
     }
 }
@@ -51,5 +46,5 @@ internal fun ProfileScreen(
 @DevicePreviews
 @Composable
 private fun ProfileScreenPreview() {
-    ProfileScreen(uiState = ProfileUIState())
+    ProfileScreen(uiState = ProfileViewModel.State(), intent = {})
 }
