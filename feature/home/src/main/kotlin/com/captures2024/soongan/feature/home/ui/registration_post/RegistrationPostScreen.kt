@@ -29,12 +29,12 @@ import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
 import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.theme.dropShadow
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.viewmodel.post.RegistrationPostViewModel
 import com.captures2024.soongan.feature.home.R
-import com.captures2024.soongan.feature.home.state.registration_post.RegistrationPostUIState
 
 @Composable
 internal fun RegistrationPostScreen(
-    uiState: RegistrationPostUIState,
+    uiState: RegistrationPostViewModel.State,
     modifier: Modifier = Modifier,
     onBackPressed: () -> Unit = {},
     onTitleValueChanged: (String) -> Unit = {},
@@ -113,6 +113,6 @@ internal fun RegistrationPostScreen(
 @Composable
 private fun RegistrationPostScreenPreview() {
     RegistrationPostScreen(
-        uiState = RegistrationPostUIState(),
+        uiState = RegistrationPostViewModel.State(),
     )
 }
