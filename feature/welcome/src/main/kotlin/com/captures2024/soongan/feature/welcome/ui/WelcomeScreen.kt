@@ -21,11 +21,11 @@ import com.captures2024.soongan.core.design.R
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
-import com.captures2024.soongan.feature.welcome.state.WelcomeUIState
+import com.captures2024.soongan.core.viewmodel.welcome.WelcomeViewModel
 
 @Composable
 internal fun WelcomeScreen(
-    uiState: WelcomeUIState,
+    uiState: WelcomeViewModel.State,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -60,6 +60,6 @@ internal fun WelcomeScreen(
 @Composable
 private fun WelcomeScreenPreview() {
     WelcomeScreen(
-        uiState = WelcomeUIState("테스트"),
+        uiState = WelcomeViewModel.State("테스트"),
     )
 }

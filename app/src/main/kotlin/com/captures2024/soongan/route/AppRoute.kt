@@ -47,10 +47,7 @@ internal fun AppRoute(
                 )
             },
             appMainRoute = @Composable {
-                AppMainRoute(
-                    isGuestMode = uiState.isGuestMode,
-                    nickname = uiState.currentMember?.nickname ?: "Guest"
-                )
+                AppMainRoute(isGuestMode = uiState.isGuestMode)
             },
         )
 
@@ -111,11 +108,9 @@ private fun AppSignRoute(
 @Composable
 private fun AppMainRoute(
     isGuestMode: Boolean,
-    nickname: String,
 ) {
     MainRoute(
         isGuestMode = isGuestMode,
-        nickname = nickname
     )
 }
 

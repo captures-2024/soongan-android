@@ -4,16 +4,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavOptions
-import androidx.navigation.navOptions
-import com.captures2024.soongan.core.navigator.screen.main.welcome.WelcomeNavigator
-import com.captures2024.soongan.feature.welcome.WelcomeViewModel
-import com.captures2024.soongan.feature.welcome.state.WelcomeSideEffect
+import com.captures2024.soongan.core.viewmodel.welcome.WelcomeViewModel
 import com.captures2024.soongan.feature.welcome.ui.WelcomeScreen
 
 @Composable
 internal fun WelcomeRoute(
-    navigateToHome: (NavOptions) -> Unit,
+    navigateToHome: () -> Unit,
     welcomeViewModel: WelcomeViewModel = hiltViewModel(),
 ) {
     val uiState = welcomeViewModel.state.collectAsStateWithLifecycle()
@@ -21,12 +17,7 @@ internal fun WelcomeRoute(
     LaunchedEffect(Unit) {
         welcomeViewModel.sideEffect.collect {
             when (it) {
-                is WelcomeSideEffect.NavigateToHome -> {
-                    val navOptions = navOptions {
-                        popUpTo(0)
-                    }
-                    navigateToHome(navOptions)
-                }
+                is WelcomeViewModel.Effect.NavigateToHome -> navigateToHome()
             }
         }
     }
