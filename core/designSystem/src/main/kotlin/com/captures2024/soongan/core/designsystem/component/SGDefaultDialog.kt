@@ -193,7 +193,10 @@ fun SGDoubleButtonDialog(
 @Composable
 private fun SGSingleButtonDialogPreview() {
     SoonGanTheme {
-        Box(Modifier.fillMaxSize()) {
+        Box(
+            Modifier.fillMaxSize()
+                .background(SGColor.white)
+        ) {
             SGSingleButtonDialog(
                 content = "해당 기능은\n로그인이 필요한 기능입니다.",
                 confirmContent = "확인",
@@ -208,7 +211,10 @@ private fun SGSingleButtonDialogPreview() {
 @Composable
 private fun SGDoubleButtonDialogPreview() {
     SoonGanTheme {
-        Box(Modifier.fillMaxSize()) {
+        Box(
+            Modifier.fillMaxSize()
+                .background(SGColor.white)
+        ) {
             SGDoubleButtonDialog(
                 content = "정말 댓글을\n삭제하시겠습니까?",
                 confirmContent = "삭제",

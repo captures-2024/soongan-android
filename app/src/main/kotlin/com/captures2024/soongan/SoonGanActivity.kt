@@ -44,7 +44,8 @@ class SoonGanActivity : ComponentActivity(), KakaoLoginCallback {
         analyticsHelper.d(message = "entry onCreate")
 
         setContent {
-            val darkTheme = isSystemInDarkTheme()
+//            val darkTheme = isSystemInDarkTheme()
+            val darkTheme = false
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 requestPermissions(arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 1)
