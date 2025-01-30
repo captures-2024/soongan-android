@@ -18,14 +18,22 @@ import com.captures2024.soongan.feature.main.navigation.TopLevelDestination
 
 @Composable
 internal fun rememberMainRouteState(
+    isGuestMode: Boolean,
     navController: NavHostController = rememberNavController(),
-): MainRouteState = remember(navController) {
-    MainRouteState(navController = navController)
+): MainRouteState = remember(
+    isGuestMode,
+    navController,
+) {
+    MainRouteState(
+        isGuestMode = isGuestMode,
+        navController = navController,
+    )
 }
 
 
 @Stable
 internal class MainRouteState(
+    val isGuestMode: Boolean,
     val navController: NavHostController,
 ) {
     val currentDestination: NavDestination?

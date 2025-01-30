@@ -12,11 +12,7 @@ import com.captures2024.soongan.feature.main.navigation.TopLevelDestination
 import com.captures2024.soongan.feature.main.route.MainRouteState
 
 @Composable
-internal fun MainScreen(
-    isGuestMode: Boolean,
-    routeState: MainRouteState,
-    nickname: String,
-) = Scaffold(
+internal fun MainScreen(routeState: MainRouteState) = Scaffold(
     modifier = Modifier.navigationBarsPadding(),
     bottomBar = {
         val isNotViewBottomBar = isNotViewBottomBar(
@@ -36,9 +32,7 @@ internal fun MainScreen(
 ) { innerPadding ->
     MainRouteNavHost(
         modifier = Modifier.padding(top = innerPadding.calculateTopPadding()),
-        isGuestMode = isGuestMode,
         routeState = routeState,
-        nickname = nickname,
     )
 }
 

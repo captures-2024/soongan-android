@@ -7,7 +7,9 @@ import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
+import androidx.navigation.navOptions
 import com.captures2024.soongan.core.navigator.screen.main.home.HomeNavigator
 import com.captures2024.soongan.core.navigator.screen.main.home.navigateToHome
 import com.captures2024.soongan.core.navigator.screen.main.home.navigateToHomeGallery
@@ -26,21 +28,17 @@ import com.captures2024.soongan.feature.welcome.navigation.welcome
 
 @Composable
 internal fun MainRouteNavHost(
-    modifier: Modifier = Modifier,
-    isGuestMode: Boolean,
     routeState: MainRouteState,
-    nickname: String,
+    modifier: Modifier = Modifier,
 ) {
     val navController = routeState.navController
 
     NavHost(
         modifier = modifier,
         navController = navController,
-        startDestination = when (isGuestMode) {
+        startDestination = when (routeState.isGuestMode) {
             true -> HomeNavigator
-            false -> WelcomeNavigator(
-                nickname = nickname,
-            )
+            false -> WelcomeNavigator
         },
         enterTransition = { fadeIn() + scaleIn(initialScale = 0.9f) },
         exitTransition = { ExitTransition.None },
@@ -48,7 +46,15 @@ internal fun MainRouteNavHost(
         popExitTransition = { fadeOut() + scaleOut(targetScale = 0.5f) }
     ) {
         welcome(
-            navigateToHome = navController::navigateToHome,
+            navigateToHome = {
+                val navOptions = navOptions {
+                    popUpTo(navController.graph.findStartDestination().id)
+                    launchSingleTop = true
+                    restoreState = true
+                }
+
+                navController.navigateToHome(navOptions)
+            },
         )
         home(
             navigateToBack = navController::popBackStack,
