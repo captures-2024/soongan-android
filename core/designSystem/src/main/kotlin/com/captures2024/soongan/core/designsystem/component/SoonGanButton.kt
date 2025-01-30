@@ -16,7 +16,7 @@ fun SoonGanButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     content: @Composable RowScope.() -> Unit,
-    ) {
+) {
     Button(
         onClick = onClick,
         modifier = modifier.height(48.dp),

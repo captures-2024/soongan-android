@@ -81,10 +81,6 @@ constructor(
         data object OnClickRightArrow : Intent
     }
 
-    init {
-        intent(Intent.Init)
-    }
-
     override fun createInitialState(savedStateHandle: SavedStateHandle): State {
         return State()
     }

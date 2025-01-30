@@ -26,7 +26,7 @@ internal fun SoonGanBottomBar(
             val selected = currentDestination.isTopLevelDestinationInHierarchy(destination)
             SoonGanNavigationBarItem(
                 selected = selected,
-                onClick = { onNavigateToDestination(destination) },
+                onClick = { if (!selected) { onNavigateToDestination(destination) } },
                 icon = {
                     Icon(
                         imageVector = destination.unselectedIcon,

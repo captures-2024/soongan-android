@@ -16,9 +16,15 @@ internal sealed interface RegistrationPostIntent : UIIntent {
         val newValue: String,
     ) : RegistrationPostIntent
 
+    data object OnClickBack : RegistrationPostIntent
+
     data object OnClickSubmit : RegistrationPostIntent
 
     data object OnClickCloseBottomSheet : RegistrationPostIntent
 
     data object OnClickSubmitRemote : RegistrationPostIntent
+
+    data object OnClickBackDialogConfirm : RegistrationPostIntent
+
+    data object OnClickBackDialogCancel : RegistrationPostIntent
 }

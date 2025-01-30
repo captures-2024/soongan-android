@@ -27,13 +27,13 @@ import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
 import com.captures2024.soongan.core.designsystem.theme.PretendardFontFamily
 import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.viewmodel.post.RegistrationPostViewModel
 import com.captures2024.soongan.feature.home.R
-import com.captures2024.soongan.feature.home.state.registration_post.RegistrationPostUIState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun SubmitBottomSheetDialog(
-    uiState: RegistrationPostUIState,
+    uiState: RegistrationPostViewModel.State,
     modifier: Modifier = Modifier,
     onClickConfirm: () -> Unit = {},
     closeSheet: () -> Unit = {},
@@ -109,6 +109,6 @@ internal fun SubmitBottomSheetDialog(
 @Composable
 private fun SubmitBottomSheetDialogPreview() {
     SubmitBottomSheetDialog(
-        uiState = RegistrationPostUIState()
+        uiState = RegistrationPostViewModel.State()
     )
 }
