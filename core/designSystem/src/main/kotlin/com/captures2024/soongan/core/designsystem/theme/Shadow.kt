@@ -69,11 +69,11 @@ fun Modifier.dropShadow(
 
 fun Modifier.innerShadow(
     shape: Shape,
-    color: Color,
-    blur: Dp,
-    offsetY: Dp,
-    offsetX: Dp,
-    spread: Dp,
+    color: Color = Color.Black.copy(0.25f),
+    blur: Dp = 4.dp,
+    offsetY: Dp = 4.dp,
+    offsetX: Dp = 0.dp,
+    spread: Dp = 0.dp,
 ) = drawWithContent {
     drawContent()
 
