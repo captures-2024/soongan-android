@@ -20,7 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.captures2024.soongan.core.designsystem.component.SoonGanBackground
+import com.captures2024.soongan.core.designsystem.component.background.SGBackground
 import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.viewmodel.AppRootViewModel
 import com.captures2024.soongan.core.viewmodel.sign.SignViewModel
@@ -37,7 +37,7 @@ internal fun AppRoute(
 ) {
     val uiState by appRootViewModel.state.collectAsStateWithLifecycle()
 
-    SoonGanBackground {
+    SGBackground {
         AppRootScreen(
             uiState = uiState,
             appLandingRoute = @Composable { AppLandingRoute() },

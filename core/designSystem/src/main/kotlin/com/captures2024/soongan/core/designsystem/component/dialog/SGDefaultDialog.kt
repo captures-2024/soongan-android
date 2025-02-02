@@ -34,7 +34,7 @@ import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.Logo
 import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
 import com.captures2024.soongan.core.designsystem.theme.SGColor
-import com.captures2024.soongan.core.designsystem.theme.SoonGanTheme
+import com.captures2024.soongan.core.designsystem.theme.SGTheme
 
 @Composable
 fun SGSingleButtonDialog(
@@ -180,7 +180,7 @@ fun SGDoubleButtonDialog(
 @Preview
 @Composable
 private fun SGSingleButtonDialogPreview() {
-    SoonGanTheme {
+    SGTheme {
         Box(
             Modifier.fillMaxSize()
                 .background(SGColor.white)
@@ -198,7 +198,7 @@ private fun SGSingleButtonDialogPreview() {
 @Preview
 @Composable
 private fun SGDoubleButtonDialogPreview() {
-    SoonGanTheme {
+    SGTheme {
         Box(
             Modifier.fillMaxSize()
                 .background(SGColor.white)

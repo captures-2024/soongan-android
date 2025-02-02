@@ -231,7 +231,7 @@ data object SGTypography {
 @Preview
 @Composable
 private fun PreviewTypoPretendard() {
-    SoonGanTheme {
+    SGTheme {
         Column(
             modifier = Modifier.fillMaxSize()
                 .background(SGColor.white)
@@ -316,7 +316,7 @@ private fun PreviewTypoPretendard() {
 @Preview
 @Composable
 private fun PreviewTypoNanumSquareNeo() {
-    SoonGanTheme {
+    SGTheme {
         Column(
             modifier = Modifier.fillMaxSize()
                 .background(SGColor.white)
@@ -401,7 +401,7 @@ private fun PreviewTypoNanumSquareNeo() {
 @Preview
 @Composable
 private fun PreviewTypoPoppins() {
-    SoonGanTheme {
+    SGTheme {
         Column(
             modifier = Modifier.fillMaxSize()
                 .background(SGColor.white)

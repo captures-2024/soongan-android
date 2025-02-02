@@ -9,8 +9,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.TextUnit
 import com.captures2024.soongan.core.designsystem.theme.PretendardFontFamily
-import com.captures2024.soongan.core.designsystem.util.nonScaleSp
-import com.captures2024.soongan.core.designsystem.util.normalizeLetterSpacing
+import com.captures2024.soongan.core.designsystem.util.extension.nonScaleSp
+import com.captures2024.soongan.core.designsystem.util.extension.normalizeLetterSpacing
 
 @Composable
 fun nonScaleSpanStyle(

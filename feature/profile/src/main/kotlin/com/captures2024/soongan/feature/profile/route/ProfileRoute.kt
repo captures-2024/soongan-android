@@ -6,7 +6,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.captures2024.soongan.core.designsystem.util.sgBottomBarPadding
+import com.captures2024.soongan.core.designsystem.util.extension.sgBottomBarPadding
 import com.captures2024.soongan.core.viewmodel.profile.ProfileViewModel
 import com.captures2024.soongan.feature.profile.ui.profile.ProfileScreen
 import com.captures2024.soongan.feature.profile.ui.profile.bottomSheet.ProfileBottomSheet

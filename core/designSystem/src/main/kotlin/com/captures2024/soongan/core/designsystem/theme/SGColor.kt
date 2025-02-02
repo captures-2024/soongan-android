@@ -22,7 +22,7 @@ object SGColor {
     val gray200 = Color(0xFFC1C1C1)
     val gray100 = Color(0xFFDBDBDB)
 
-    val buttonDisableGray =  Color(0xFFBBBBBB)
+    val buttonDisableGray = Color(0xFFBBBBBB)
 
     val black = Color(0xFF000000)
     val white = Color(0xFFFFFFFF)

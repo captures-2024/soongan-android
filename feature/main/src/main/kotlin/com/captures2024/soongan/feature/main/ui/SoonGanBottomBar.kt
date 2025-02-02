@@ -7,8 +7,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
-import com.captures2024.soongan.core.designsystem.component.SoonGanNavigationBar
-import com.captures2024.soongan.core.designsystem.component.SoonGanNavigationBarItem
+import com.captures2024.soongan.core.designsystem.component.navigation.SoonGanNavigationBar
+import com.captures2024.soongan.core.designsystem.component.navigation.SoonGanNavigationBarItem
 import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.feature.main.navigation.TopLevelDestination
 

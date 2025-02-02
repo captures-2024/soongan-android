@@ -1,4 +1,4 @@
-package com.captures2024.soongan.core.designsystem.component
+package com.captures2024.soongan.core.designsystem.component.background
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.LocalAbsoluteTonalElevation
@@ -12,23 +12,25 @@ import androidx.compose.ui.unit.dp
 import com.captures2024.soongan.core.designsystem.theme.LocalBackgroundTheme
 import com.captures2024.soongan.core.designsystem.theme.SGColor
 
-/**
- * The main background for the app.
- * Uses [LocalBackgroundTheme] to set the color and tonal elevation of a [Surface].
- *
- * @param modifier Modifier to be applied to the background.
- * @param content The background content.
- */
 @Composable
-fun SoonGanBackground(
+fun SGBackground(
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit,
 ) {
     val color = LocalBackgroundTheme.current.color
     val tonalElevation = LocalBackgroundTheme.current.tonalElevation
+
     Surface(
-        color = if (color == Color.Unspecified) SGColor.transparent else color,
-        tonalElevation = if (tonalElevation == Dp.Unspecified) 0.dp else tonalElevation,
+        color = when (color) {
+            Color.Unspecified -> SGColor.transparent
+
+            else -> color
+        },
+        tonalElevation = when (tonalElevation) {
+            Dp.Unspecified -> 0.dp
+
+            else -> tonalElevation
+        },
         modifier = modifier.fillMaxSize(),
     ) {
         CompositionLocalProvider(LocalAbsoluteTonalElevation provides 0.dp) {

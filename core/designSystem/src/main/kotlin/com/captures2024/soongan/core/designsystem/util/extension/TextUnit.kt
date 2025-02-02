@@ -1,4 +1,4 @@
-package com.captures2024.soongan.core.designsystem.util
+package com.captures2024.soongan.core.designsystem.util.extension
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalDensity

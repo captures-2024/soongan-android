@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.captures2024.soongan.core.designsystem.theme.SGColor
-import com.captures2024.soongan.core.designsystem.theme.SoonGanTheme
+import com.captures2024.soongan.core.designsystem.theme.SGTheme
 import com.captures2024.soongan.core.designsystem.theme.dropShadow
 import com.captures2024.soongan.core.designsystem.theme.innerShadow
 
@@ -88,7 +88,7 @@ fun SGButtonType2(
 @Preview
 @Composable
 private fun PreviewSGButtonType1_enable() {
-    SoonGanTheme {
+    SGTheme {
         Box(
             modifier = Modifier.fillMaxSize()
                 .background(SGColor.white)
@@ -108,7 +108,7 @@ private fun PreviewSGButtonType1_enable() {
 @Preview
 @Composable
 private fun PreviewSGButtonType1_disable() {
-    SoonGanTheme {
+    SGTheme {
         Box(
             modifier = Modifier.fillMaxSize()
                 .background(SGColor.white)
@@ -129,7 +129,7 @@ private fun PreviewSGButtonType1_disable() {
 @Preview
 @Composable
 private fun PreviewSGButtonType2_enable() {
-    SoonGanTheme {
+    SGTheme {
         Box(
             modifier = Modifier.fillMaxSize()
                 .background(SGColor.white)
@@ -149,7 +149,7 @@ private fun PreviewSGButtonType2_enable() {
 @Preview
 @Composable
 private fun PreviewSGButtonType2_disable() {
-    SoonGanTheme {
+    SGTheme {
         Box(
             modifier = Modifier.fillMaxSize()
                 .background(SGColor.white)

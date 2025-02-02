@@ -8,8 +8,8 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.TextUnit
-import com.captures2024.soongan.core.designsystem.util.nonScaleSp
-import com.captures2024.soongan.core.designsystem.util.normalizeLetterSpacing
+import com.captures2024.soongan.core.designsystem.util.extension.nonScaleSp
+import com.captures2024.soongan.core.designsystem.util.extension.normalizeLetterSpacing
 
 @Stable
 fun SGSpanStyle(

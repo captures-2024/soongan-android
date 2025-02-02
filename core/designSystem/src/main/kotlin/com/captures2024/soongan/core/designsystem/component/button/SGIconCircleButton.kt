@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillCircleQuestion
 import com.captures2024.soongan.core.designsystem.theme.SGColor
-import com.captures2024.soongan.core.designsystem.theme.SoonGanTheme
+import com.captures2024.soongan.core.designsystem.theme.SGTheme
 import com.captures2024.soongan.core.designsystem.theme.dropShadow
 import com.captures2024.soongan.core.designsystem.theme.innerShadow
 
@@ -101,7 +101,7 @@ fun SGIconCircleButton(
 @Preview
 @Composable
 private fun PreviewSGIconButton() {
-    SoonGanTheme {
+    SGTheme {
         Box(
             modifier = Modifier.fillMaxSize()
                 .background(SGColor.white)

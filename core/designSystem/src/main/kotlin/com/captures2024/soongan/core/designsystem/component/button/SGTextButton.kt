@@ -16,7 +16,7 @@ import com.captures2024.soongan.core.designsystem.component.text.SGNonScaleTextS
 import com.captures2024.soongan.core.designsystem.component.text.SGText
 import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.theme.SGTypography
-import com.captures2024.soongan.core.designsystem.theme.SoonGanTheme
+import com.captures2024.soongan.core.designsystem.theme.SGTheme
 
 @Composable
 fun SGTextButtonType1(
@@ -77,7 +77,7 @@ fun SGTextButtonType2(
 @Preview
 @Composable
 private fun PreviewSGTextButtonType1_disable() {
-    SoonGanTheme {
+    SGTheme {
         Box(
             modifier = Modifier.fillMaxSize()
                 .background(SGColor.white)
@@ -97,7 +97,7 @@ private fun PreviewSGTextButtonType1_disable() {
 @Preview
 @Composable
 private fun PreviewSGTextButtonType1_enable() {
-    SoonGanTheme {
+    SGTheme {
         Box(
             modifier = Modifier.fillMaxSize()
                 .background(SGColor.white)
@@ -117,7 +117,7 @@ private fun PreviewSGTextButtonType1_enable() {
 @Preview
 @Composable
 private fun PreviewSGTextButtonType2_disable() {
-    SoonGanTheme {
+    SGTheme {
         Box(
             modifier = Modifier.fillMaxSize()
                 .background(SGColor.white)
@@ -137,7 +137,7 @@ private fun PreviewSGTextButtonType2_disable() {
 @Preview
 @Composable
 private fun PreviewSGTextButtonType2_enable() {
-    SoonGanTheme {
+    SGTheme {
         Box(
             modifier = Modifier.fillMaxSize()
                 .background(SGColor.white)
