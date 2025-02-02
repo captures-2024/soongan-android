@@ -15,11 +15,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
+import com.captures2024.soongan.core.designsystem.component.text.SGNonScaleTextStyle
+import com.captures2024.soongan.core.designsystem.component.text.SGText
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconLogoApple
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconLogoGoogle
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconLogoKakao
 import com.captures2024.soongan.core.designsystem.theme.SGColor
+import com.captures2024.soongan.core.designsystem.theme.SGTypography
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 
 @Composable
@@ -43,13 +46,18 @@ internal fun SocialSignInButton(
                 contentDescription = "",
             )
         }
-        NonScaleText(
-            modifier = Modifier.fillMaxWidth(),
+
+        SGText(
             text = text,
-            fontSize = 18.sp,
-            fontWeight = FontWeight.SemiBold,
-            color = Color.Black,
-            textAlign = TextAlign.Center,
+            style = SGNonScaleTextStyle(
+                color = SGColor.primaryA,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.SemiBold,
+                lineHeight = 24.sp,
+                fontFamily = SGTypography.pretendard,
+                textAlign = TextAlign.Center,
+            ),
+            modifier = Modifier.fillMaxWidth()
         )
     }
 }

@@ -105,7 +105,7 @@ constructor(
 
     override fun handleIntent(intent: Intent) {
         when (intent) {
-            is Intent.OnClickGuestMode -> launch { handleOnClickGuestMode() }
+            is Intent.OnClickGuestMode -> handleOnClickGuestMode()
 
             is Intent.OnClickSignKakao -> loadingLaunch { handleOnClickSignKakao() }
 
@@ -117,7 +117,7 @@ constructor(
         }
     }
 
-    private suspend fun handleOnClickGuestMode() {
+    private fun handleOnClickGuestMode() {
         setGuestModeUseCase(isGuestMode = true)
     }
 

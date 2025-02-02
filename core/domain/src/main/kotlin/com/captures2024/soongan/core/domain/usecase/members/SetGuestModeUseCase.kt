@@ -10,7 +10,5 @@ constructor(
     private val repository: MembersRepository,
 ) {
 
-    suspend operator fun invoke(isGuestMode: Boolean) = runSuspendCatching {
-        repository.setGuestMode(isGuestMode)
-    }
+    operator fun invoke(isGuestMode: Boolean) = repository.setGuestMode(isGuestMode)
 }
