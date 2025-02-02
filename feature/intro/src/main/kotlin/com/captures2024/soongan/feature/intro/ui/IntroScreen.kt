@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.captures2024.soongan.core.designsystem.theme.SGColor
-import com.captures2024.soongan.core.designsystem.theme.SoonGanTheme
+import com.captures2024.soongan.core.designsystem.theme.SGTheme
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 
 @Composable
@@ -23,7 +23,7 @@ internal fun IntroScreen(
 @DevicePreviews
 @Composable
 private fun PreviewIntroScreen() {
-    SoonGanTheme {
+    SGTheme {
         IntroScreen()
     }
 }

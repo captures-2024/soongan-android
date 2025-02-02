@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.captures2024.soongan.core.designsystem.theme.SoonGanTheme
+import com.captures2024.soongan.core.designsystem.theme.SGTheme
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.viewmodel.AppRootViewModel
 import com.captures2024.soongan.core.viewmodel.model.AppRootRoute
@@ -34,7 +34,7 @@ internal fun AppRootScreen(
 @DevicePreviews
 @Composable
 private fun PreviewAppRootScreen() {
-    SoonGanTheme {
+    SGTheme {
         AppRootScreen(
             uiState = AppRootViewModel.State(),
             appLandingRoute = {},

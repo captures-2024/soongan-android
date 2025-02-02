@@ -1,4 +1,4 @@
-package com.captures2024.soongan.core.designsystem.component
+package com.captures2024.soongan.core.designsystem.component.navigation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.RowScope
@@ -27,16 +27,20 @@ fun RowScope.SoonGanNavigationBarItem(
     NavigationBarItem(
         selected = selected,
         onClick = onClick,
-        icon = if (selected) selectedIcon else icon,
+        icon = when (selected) {
+            true -> selectedIcon
+
+            false -> icon
+        },
         modifier = modifier,
         enabled = enabled,
         label = label,
         alwaysShowLabel = alwaysShowLabel,
         colors = NavigationBarItemDefaults.colors(
-            selectedIconColor = SoonGanNavigationDefaults.navigationSelectedItemColor(),
-            unselectedIconColor = SoonGanNavigationDefaults.navigationContentColor(),
-            selectedTextColor = SoonGanNavigationDefaults.navigationSelectedItemColor(),
-            unselectedTextColor = SoonGanNavigationDefaults.navigationContentColor(),
+            selectedIconColor = SGNavigationDefaults.navigationSelectedItemColor(),
+            unselectedIconColor = SGNavigationDefaults.navigationContentColor(),
+            selectedTextColor = SGNavigationDefaults.navigationSelectedItemColor(),
+            unselectedTextColor = SGNavigationDefaults.navigationContentColor(),
             indicatorColor = SGColor.transparent,
         ),
     )
@@ -59,13 +63,13 @@ fun SoonGanNavigationBar(
                 ),
             ),
         containerColor = SGColor.white,
-        contentColor = SoonGanNavigationDefaults.navigationContentColor(),
+        contentColor = SGNavigationDefaults.navigationContentColor(),
         tonalElevation = 0.dp,
         content = content,
     )
 }
 
-object SoonGanNavigationDefaults {
+object SGNavigationDefaults {
     @Composable
     fun navigationContentColor() = SGColor.primaryB
 

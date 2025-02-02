@@ -35,7 +35,7 @@ import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillTop
 import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
 import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
-import com.captures2024.soongan.core.designsystem.util.nonScaleSp
+import com.captures2024.soongan.core.designsystem.util.extension.nonScaleSp
 
 @Composable
 fun CommentInputTextField(

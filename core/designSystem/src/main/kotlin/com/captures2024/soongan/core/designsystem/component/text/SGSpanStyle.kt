@@ -1,46 +1,46 @@
-package com.captures2024.soongan.core.designsystem.component
+package com.captures2024.soongan.core.designsystem.component.text
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.TextUnit
-import com.captures2024.soongan.core.designsystem.theme.PretendardFontFamily
 import com.captures2024.soongan.core.designsystem.util.extension.nonScaleSp
 import com.captures2024.soongan.core.designsystem.util.extension.normalizeLetterSpacing
 
-@Composable
-fun nonScaleSpanStyle(
+@Stable
+fun SGSpanStyle(
+    color: Color,
     fontSize: TextUnit,
-    fontFamily: FontFamily = PretendardFontFamily,
-    fontWeight: FontWeight = FontWeight(500),
-    color: Color = Color(0xFF000000),
+    fontWeight: FontWeight,
+    fontFamily: FontFamily,
+    letterSpacing: TextUnit = TextUnit.Unspecified,
     textDecoration: TextDecoration? = null,
-) = SpanStyle(
-    fontSize = fontSize.nonScaleSp,
-    fontFamily = fontFamily,
-    fontWeight = fontWeight,
+): SpanStyle = SpanStyle(
     color = color,
+    fontSize = fontSize,
+    fontWeight = fontWeight,
+    fontFamily = fontFamily,
+    letterSpacing = letterSpacing,
     textDecoration = textDecoration,
 )
 
-
 @Composable
-fun nonScaleTextStyle(
+fun SGNonScaleSpanStyle(
+    color: Color,
     fontSize: TextUnit,
-    fontFamily: FontFamily = PretendardFontFamily,
-    fontWeight: FontWeight = FontWeight(500),
-    letterSpacing: TextUnit,
-    color: Color = Color(0xFF000000),
+    fontWeight: FontWeight,
+    fontFamily: FontFamily,
+    letterSpacing: TextUnit = TextUnit.Unspecified,
     textDecoration: TextDecoration? = null,
-) = TextStyle(
-    fontSize = fontSize.nonScaleSp,
-    fontFamily = fontFamily,
-    fontWeight = fontWeight,
-    letterSpacing = normalizeLetterSpacing(fontSize, letterSpacing).nonScaleSp,
+): SpanStyle = SGSpanStyle(
     color = color,
+    fontSize = fontSize.nonScaleSp,
+    fontWeight = fontWeight,
+    fontFamily = fontFamily,
+    letterSpacing = normalizeLetterSpacing(fontSize, letterSpacing).nonScaleSp,
     textDecoration = textDecoration,
 )

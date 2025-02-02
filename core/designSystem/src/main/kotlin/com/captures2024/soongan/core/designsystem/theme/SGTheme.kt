@@ -15,7 +15,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun SoonGanTheme(
+fun SGTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit,
 ) {
@@ -31,10 +31,10 @@ fun SoonGanTheme(
 
     // Gradient colors
     val gradientColors = when {
-        supportsDynamicTheming() -> GradientColors(
+        supportsDynamicTheming() -> SGGradientColors(
             container = colorScheme.surfaceColorAtElevation(2.dp),
         )
-        else -> GradientColors(
+        else -> SGGradientColors(
             top = colorScheme.inverseOnSurface,
             bottom = colorScheme.primaryContainer,
             container = colorScheme.surface,
@@ -42,7 +42,7 @@ fun SoonGanTheme(
     }
 
     // Background theme
-    val defaultBackgroundTheme = BackgroundTheme(
+    val defaultBackgroundTheme = SGBackgroundTheme(
         color = colorScheme.surface,
         tonalElevation = 2.dp,
     )

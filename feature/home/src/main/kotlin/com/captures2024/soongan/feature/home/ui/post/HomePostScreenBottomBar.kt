@@ -22,9 +22,8 @@ import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFillHeart
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillComment
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillMenu
-import com.captures2024.soongan.core.designsystem.theme.Dimensions
+import com.captures2024.soongan.core.designsystem.theme.SGDimension
 import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.theme.dropShadow
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
@@ -41,7 +40,7 @@ internal fun HomePostScreenBottomBar(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .height(Dimensions.bottomBarHeight)
+            .height(SGDimension.bottomBarHeight)
             .dropShadow(
                 shape = RoundedCornerShape(0.dp),
                 color = SGColor.black.copy(alpha = 0.3f),
