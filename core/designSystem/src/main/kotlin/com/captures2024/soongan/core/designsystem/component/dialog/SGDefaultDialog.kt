@@ -1,4 +1,4 @@
-package com.captures2024.soongan.core.designsystem.component
+package com.captures2024.soongan.core.designsystem.component.dialog
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -28,6 +28,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.captures2024.soongan.core.designsystem.component.NonScaleText
+import com.captures2024.soongan.core.designsystem.component.SoonGanButton
+import com.captures2024.soongan.core.designsystem.component.button.SGTextButtonType2
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.Logo
 import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
@@ -79,18 +82,11 @@ fun SGSingleButtonDialog(
                 textAlign = TextAlign.Center,
             )
 
-            SoonGanButton(
-                onClick = onClickConfirm,
+            SGTextButtonType2(
+                text = confirmContent,
                 modifier = Modifier.fillMaxWidth(),
-            ) {
-                NonScaleText(
-                    text = confirmContent,
-                    fontSize = 14.sp,
-                    fontFamily = NanumSquareNeoFontFamily,
-                    fontWeight = FontWeight.Bold,
-                    color = SGColor.black,
-                )
-            }
+                onClick = onClickConfirm,
+            )
         }
     }
 }
@@ -172,18 +168,11 @@ fun SGDoubleButtonDialog(
                     )
                 }
 
-                SoonGanButton(
+                SGTextButtonType2(
+                    text = confirmContent,
+                    modifier = Modifier.weight(1f),
                     onClick = onClickConfirm,
-                    modifier = Modifier.weight(1f)
-                ) {
-                    NonScaleText(
-                        text = confirmContent,
-                        fontSize = 14.sp,
-                        fontFamily = NanumSquareNeoFontFamily,
-                        fontWeight = FontWeight.Bold,
-                        color = SGColor.black,
-                    )
-                }
+                )
             }
         }
     }
