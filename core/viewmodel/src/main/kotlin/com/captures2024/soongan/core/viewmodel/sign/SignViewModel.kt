@@ -157,6 +157,8 @@ constructor(
                 if (infoDto == null) {
                     analyticsHelper.d(message = "kakaoSignIn - infoDto is null")
                 }
+
+                postSideEffect(Effect.NavigateToSignUp(infoDto?.nickname))
             }
 
             else -> {

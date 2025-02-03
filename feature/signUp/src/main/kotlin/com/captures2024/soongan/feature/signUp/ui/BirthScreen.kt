@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -32,13 +34,13 @@ import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.theme.SGTheme
 import com.captures2024.soongan.core.designsystem.theme.SGTypography
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
-import com.captures2024.soongan.core.viewmodel.sign.NicknameViewModel
+import com.captures2024.soongan.core.viewmodel.sign.BirthViewModel
 import com.captures2024.soongan.feature.signUp.R
 
 @Composable
-internal fun NicknameScreen(
-    intent: (NicknameViewModel.Intent) -> Unit,
-    state: NicknameViewModel.State,
+internal fun BirthScreen(
+    intent: (BirthViewModel.Intent) -> Unit,
+    state: BirthViewModel.State,
     modifier: Modifier = Modifier,
 ) {
     val windowInfo = LocalWindowInfo.current
@@ -47,17 +49,17 @@ internal fun NicknameScreen(
     Scaffold(
         modifier = modifier.fillMaxSize(),
         topBar = @Composable {
-            SignUpTopBar { intent(NicknameViewModel.Intent.OnClickBack) }
+            SignUpTopBar(onClickBack = { intent(BirthViewModel.Intent.OnClickBack) })
         },
         bottomBar = @Composable {
             SignUpBottomBar(
                 modifier = Modifier.imePadding(),
-                title = stringResource(id = R.string.btn_nickname_input_title),
+                title = stringResource(id = R.string.input_birth_year_button_title),
                 enabled = when (state.isValid) {
-                    Validation.NicknameValidState.Success -> true
+                    Validation.BirthYearValidState.Success -> true
                     else -> false
                 },
-                onClick = { intent(NicknameViewModel.Intent.OnClickConfirm) }
+                onClick = { intent(BirthViewModel.Intent.OnClickConfirm) },
             )
         },
         containerColor = SGColor.primaryA,
@@ -66,17 +68,49 @@ internal fun NicknameScreen(
             modifier = Modifier
                 .padding(paddingValues)
                 .fillMaxSize()
-                .padding(40.dp),
-            verticalArrangement = Arrangement.Center,
+                .padding(40.dp)
+                .verticalScroll(rememberScrollState()),
         ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+            ) {
+                SGText(
+                    text = stringResource(id = R.string.input_birth_year_nickname_title),
+                    style = SGNonScaleTextStyle(
+                        color = SGColor.hintGray,
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Medium,
+                        lineHeight = 16.sp,
+                        fontFamily = SGTypography.pretendard,
+                    )
+                )
+
+                HeightSpacer(4.dp)
+
+                SGText(
+                    text = state.nickname,
+                    style = SGNonScaleTextStyle(
+                        color = SGColor.primaryB,
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Medium,
+                        lineHeight = 24.sp,
+                        fontFamily = SGTypography.pretendard,
+                    )
+                )
+            }
+
+            HeightSpacer(36.dp)
+
             Row {
                 WidthSpacer(12.dp)
                 SGText(
-                    text = stringResource(id = R.string.input_nickname_input_title),
+                    text = stringResource(id = R.string.input_birth_year_title),
                     style = SGNonScaleTextStyle(
                         color = SGColor.primaryB,
                         fontSize = 16.sp,
-                        fontWeight = FontWeight.SemiBold,
+                        fontWeight = FontWeight.Medium,
                         lineHeight = 24.sp,
                         fontFamily = SGTypography.pretendard,
                     )
@@ -86,7 +120,7 @@ internal fun NicknameScreen(
             HeightSpacer(4.dp)
 
             SGTextFieldTypeForm(
-                value = state.nickname,
+                value = state.birthYear,
                 textStyle = SGNonScaleTextStyle(
                     color = SGColor.primaryA,
                     fontSize = 18.sp,
@@ -95,15 +129,15 @@ internal fun NicknameScreen(
                     fontFamily = SGTypography.pretendard,
                     letterSpacing = 0.em,
                 ),
-                onValueChange = { intent(NicknameViewModel.Intent.OnNicknameValueChanged(it)) },
-                hint = stringResource(id = R.string.input_nickname_input_form_hint_text),
+                onValueChange = { intent(BirthViewModel.Intent.OnBirthValueChanged(it)) },
+                hint = stringResource(id = R.string.input_birth_year_input_form_hint_text),
                 modifier = Modifier
                     .fillMaxWidth()
                     .focusRequester(focusRequester),
-                state = when {
-                    state.isDuplicatedNickname || state.isValid == Validation.NicknameValidState.Regex -> SGTextFieldFormState.Error
-                    state.isValid == Validation.NicknameValidState.Success -> SGTextFieldFormState.Success
-                    else -> SGTextFieldFormState.Default
+                state = when (state.isValid) {
+                    Validation.BirthYearValidState.Regex -> SGTextFieldFormState.Error
+                    Validation.BirthYearValidState.Success -> SGTextFieldFormState.Success
+                    Validation.BirthYearValidState.Length -> SGTextFieldFormState.Default
                 },
             )
 
@@ -115,27 +149,15 @@ internal fun NicknameScreen(
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 SGText(
-                    text = when {
-                        state.isDuplicatedNickname -> stringResource(id = R.string.input_nickname_fail_duplication_hint_text)
-                        state.isValid == Validation.NicknameValidState.Regex -> stringResource(id = R.string.input_nickname_fail_regex_hint_text)
-                        else -> stringResource(id = R.string.input_nickname_default_hint_text)
+                    text = when (state.isValid) {
+                        Validation.BirthYearValidState.Regex -> stringResource(id = R.string.input_birth_fail_hint_text)
+                        else -> stringResource(id = R.string.input_birth_default_hint_text)
                     },
                     style = SGNonScaleTextStyle(
-                        color = when {
-                            state.isDuplicatedNickname || state.isValid == Validation.NicknameValidState.Regex -> SGColor.negative
+                        color =  when (state.isValid) {
+                            Validation.BirthYearValidState.Regex -> SGColor.negative
                             else -> SGColor.hintGray
                         },
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Medium,
-                        lineHeight = 16.sp,
-                        fontFamily = SGTypography.pretendard,
-                    )
-                )
-
-                SGText(
-                    text = "${state.nickname.length}/${state.maxNicknameLength}",
-                    style = SGNonScaleTextStyle(
-                        color = SGColor.hintGray,
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Medium,
                         lineHeight = 16.sp,
@@ -157,11 +179,13 @@ internal fun NicknameScreen(
 
 @DevicePreviews
 @Composable
-private fun PreviewNicknameScreen() {
+private fun PreviewBirthScreen() {
     SGTheme {
-        NicknameScreen(
+        BirthScreen(
             intent = {},
-            state = NicknameViewModel.State()
+            state = BirthViewModel.State(
+                nickname = "test",
+            )
         )
     }
 }

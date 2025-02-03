@@ -9,7 +9,7 @@ import com.captures2024.soongan.core.viewmodel.sign.NicknameViewModel
 import com.captures2024.soongan.feature.signUp.ui.NicknameScreen
 
 @Composable
-internal fun InputNicknameRoute(
+internal fun NicknameRoute(
     navigateToBack: () -> Unit,
     navigateToBirth: (String) -> Unit,
     nicknameViewModel: NicknameViewModel = hiltViewModel(),
