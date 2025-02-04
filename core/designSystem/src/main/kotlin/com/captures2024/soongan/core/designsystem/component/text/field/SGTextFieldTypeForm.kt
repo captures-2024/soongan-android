@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.TextFieldDefaults
@@ -46,6 +48,8 @@ fun SGTextFieldTypeForm(
     hint: String,
     modifier: Modifier = Modifier,
     state: SGTextFieldFormState = SGTextFieldFormState.Default,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val backgroundShape = RoundedCornerShape(8.dp)
@@ -67,6 +71,8 @@ fun SGTextFieldTypeForm(
                 shape = backgroundShape,
             ),
         singleLine = true,
+        keyboardOptions = keyboardOptions,
+        keyboardActions = keyboardActions,
         decorationBox = {
             TextFieldDefaults.DecorationBox(
                 value = value,
