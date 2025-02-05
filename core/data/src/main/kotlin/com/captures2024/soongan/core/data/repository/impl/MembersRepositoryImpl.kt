@@ -25,8 +25,8 @@ constructor(
     override val isGuestMode: StateFlow<Boolean>
         get() = _isGuestMode.asStateFlow()
 
-    override suspend fun setGuestMode(isGuestMode: Boolean) {
-        _isGuestMode.emit(isGuestMode)
+    override fun setGuestMode(isGuestMode: Boolean) {
+        _isGuestMode.value = isGuestMode
     }
 
     override suspend fun patchProfile(

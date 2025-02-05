@@ -12,6 +12,9 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.nonScaleSpanStyle
+import com.captures2024.soongan.core.designsystem.component.text.SGNonScaleSpanStyle
+import com.captures2024.soongan.core.designsystem.theme.SGColor
+import com.captures2024.soongan.core.designsystem.theme.SGTypography
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.signIn.R
 
@@ -22,52 +25,57 @@ internal fun TermsText(
 ) {
     val text = buildAnnotatedString {
         withStyle(
-            style = nonScaleSpanStyle(
+            style = SGNonScaleSpanStyle(
+                color = SGColor.primaryB,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Medium,
-                color = Color.White
+                fontFamily = SGTypography.pretendard,
             )
         ) {
             append(stringResource(id = R.string.terms_text_first))
         }
         pushStringAnnotation(tag = "termsOfUse", annotation = "termsOfUse")
         withStyle(
-            style = nonScaleSpanStyle(
+            style = SGNonScaleSpanStyle(
+                color = SGColor.primaryB,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Medium,
+                fontFamily = SGTypography.pretendard,
                 textDecoration = TextDecoration.Underline,
-                color = Color.White
             )
         ) {
             append(stringResource(id = R.string.terms_of_use))
         }
         pop()
         withStyle(
-            style = nonScaleSpanStyle(
+            style = SGNonScaleSpanStyle(
+                color = SGColor.primaryB,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Medium,
-                color = Color.White
+                fontFamily = SGTypography.pretendard,
             )
         ) {
             append(stringResource(id = R.string.terms_text_second))
         }
         pushStringAnnotation(tag = "privacyPolicy", annotation = "privacyPolicy")
         withStyle(
-            style = nonScaleSpanStyle(
+            style = SGNonScaleSpanStyle(
+                color = SGColor.primaryB,
                 fontSize = 12.sp,
-                color = Color.White,
                 fontWeight = FontWeight.Medium,
-                textDecoration = TextDecoration.Underline
+                fontFamily = SGTypography.pretendard,
+                textDecoration = TextDecoration.Underline,
             )
         ) {
             append(stringResource(id = R.string.privacy_policy))
         }
         pop()
         withStyle(
-            style = nonScaleSpanStyle(
+            style = SGNonScaleSpanStyle(
+                color = SGColor.primaryB,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Medium,
-                color = Color.White
+                fontFamily = SGTypography.pretendard,
             )
         ) {
             append(stringResource(id = R.string.terms_text_third))

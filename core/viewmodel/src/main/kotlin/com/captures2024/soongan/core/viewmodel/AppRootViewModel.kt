@@ -64,10 +64,10 @@ constructor(
 
                         // 유저 데이터 존재
                         else -> when {
-                            // 유저 데이터 닉네임 && 생년 미존재
+                            // 유저 데이터 닉네임 && 생년 존재
                             currentMember.nickname != null && currentMember.birthYear != null -> AppRootRoute.MAIN
 
-                            // 유저 데이터 닉네임 && 생년 존재
+                            // 유저 데이터 닉네임 && 생년 미존재
                             else -> AppRootRoute.SIGN
                         }
                     }

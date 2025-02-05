@@ -10,7 +10,7 @@ interface MembersRepository {
 
     val isGuestMode: StateFlow<Boolean>
 
-    suspend fun setGuestMode(isGuestMode: Boolean)
+    fun setGuestMode(isGuestMode: Boolean)
 
     /**
      * Update user profile info
