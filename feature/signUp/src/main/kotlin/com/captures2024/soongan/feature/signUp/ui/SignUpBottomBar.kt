@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -16,17 +17,21 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.captures2024.soongan.core.designsystem.component.HeightSpacer
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
+import com.captures2024.soongan.core.designsystem.component.text.SGNonScaleTextStyle
+import com.captures2024.soongan.core.designsystem.component.text.SGText
 import com.captures2024.soongan.core.designsystem.theme.SGColor
+import com.captures2024.soongan.core.designsystem.theme.SGTypography
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.signUp.R
 
 @Composable
 internal fun SignUpBottomBar(
-    modifier: Modifier = Modifier,
     title: String,
     enabled: Boolean,
-    onClick: () -> Unit = {}
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
 ) {
     Column(
         modifier = modifier
@@ -39,31 +44,41 @@ internal fun SignUpBottomBar(
             ),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        NonScaleText(
+        SGText(
             text = title,
-            color = SGColor.primaryB,
-            fontSize = 12.sp,
-            fontWeight = FontWeight.Medium
+            style = SGNonScaleTextStyle(
+                color = SGColor.hintGray,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Medium,
+                lineHeight = 16.sp,
+                fontFamily = SGTypography.pretendard,
+            )
         )
-        Spacer(modifier = Modifier.height(12.dp))
+
+        HeightSpacer(12.dp)
+
         Button(
             modifier = Modifier
-                .fillMaxWidth(0.9f)
-                .height(48.dp),
+                .fillMaxWidth()
+                .heightIn(min = 48.dp),
             onClick = onClick,
             enabled = enabled,
-            shape = RoundedCornerShape(12.dp),
+            shape = RoundedCornerShape(8.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = SGColor.positive,
                 contentColor = SGColor.primaryB,
                 disabledContainerColor = SGColor.gray300,
             ),
         ) {
-            NonScaleText(
+            SGText(
                 text = stringResource(id = R.string.btn_next_text),
-                color = SGColor.white,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold
+                style = SGNonScaleTextStyle(
+                    color = SGColor.primaryB,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    lineHeight = 24.sp,
+                    fontFamily = SGTypography.pretendard,
+                )
             )
         }
     }
@@ -73,16 +88,20 @@ internal fun SignUpBottomBar(
 @Composable
 private fun SignUpBottomBarNegativePreview() {
     SignUpBottomBar(
-        title = "다음이 마지막 단계입니다!",
+        title = stringResource(id = R.string.btn_nickname_input_title),
         enabled = false
-    )
+    ) {
+
+    }
 }
 
 @DevicePreviews
 @Composable
 private fun SignUpBottomBarPositivePreview() {
     SignUpBottomBar(
-        title = "다음이 마지막 단계입니다!",
+        title = stringResource(id = R.string.btn_nickname_input_title),
         enabled = true
-    )
+    ) {
+
+    }
 }
