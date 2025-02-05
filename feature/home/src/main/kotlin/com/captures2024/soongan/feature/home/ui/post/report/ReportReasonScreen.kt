@@ -13,19 +13,19 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.HeightSpacer
 import com.captures2024.soongan.core.designsystem.component.NonScaleText
+import com.captures2024.soongan.core.designsystem.component.text.SGNonScaleTextStyle
+import com.captures2024.soongan.core.designsystem.component.text.SGText
+import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
 import com.captures2024.soongan.core.designsystem.theme.PretendardFontFamily
 import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
@@ -33,20 +33,21 @@ import com.captures2024.soongan.feature.home.R
 
 @Composable
 internal fun ReportReasonScreen(
+    reason: String,
     modifier: Modifier = Modifier,
-    onClickSubmit: (String) -> Unit
+    onReasonChanged: (String) -> Unit = {},
+    onClickSubmit: () -> Unit = {},
 ) {
-    var reason by remember { mutableStateOf("") }
     val isEnabled = reason.isNotEmpty()
 
     Column(modifier = modifier) {
         ReportReasonInput(
             text = reason,
-            onTextChange = { reason = it }
+            onTextChange = onReasonChanged
         )
         HeightSpacer(48.dp)
         ReportButton(
-            onClickSubmit = { onClickSubmit(reason) },
+            onClickSubmit = onClickSubmit,
             enabled = isEnabled
         )
     }
@@ -56,7 +57,7 @@ internal fun ReportReasonScreen(
 private fun ReportReasonInput(
     text: String,
     onTextChange: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Box(
         modifier = modifier
@@ -98,10 +99,16 @@ private fun ReportReasonInput(
                         )
                 ) {
                     if (text.isEmpty()) {
-                        Text(
+                        SGText(
                             text = stringResource(R.string.report_reason_input_text),
-                            fontSize = 16.sp,
-                            color = SGColor.primaryA.copy(alpha = 0.3f),
+                            style = SGNonScaleTextStyle(
+                                color = SGColor.primaryA.copy(alpha = 0.3f),
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Normal,
+                                lineHeight = 20.sp,
+                                fontFamily = NanumSquareNeoFontFamily,
+                                letterSpacing = (-5).em,
+                            )
                         )
                     }
                     innerTextField()
@@ -127,7 +134,7 @@ private fun ReportReasonInput(
 private fun ReportButton(
     modifier: Modifier = Modifier,
     onClickSubmit: () -> Unit,
-    enabled: Boolean
+    enabled: Boolean,
 ) {
     Box(
         modifier = modifier
@@ -159,7 +166,5 @@ private fun ReportButton(
 @DevicePreviews
 @Composable
 private fun ReportReasonScreenPreview() {
-    Column {
-        ReportReasonScreen { }
-    }
+    ReportReasonScreen(reason = "")
 }

@@ -47,6 +47,7 @@ internal fun HomePostMenuBottomSheetDialog(
             .heightIn(min = 240.dp),
         onDismissRequest = closeSheet,
         sheetState = sheetState,
+        containerColor = SGColor.white
     ) {
         Column(
             modifier = Modifier.fillMaxWidth()

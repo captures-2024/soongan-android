@@ -5,19 +5,18 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.captures2024.soongan.core.model.utils.ReportTargetType
 import com.captures2024.soongan.core.viewmodel.home.HomePostViewModel
+import com.captures2024.soongan.core.viewmodel.model.HomePostBottomModalState
+import com.captures2024.soongan.feature.home.ui.post.HomePostMenuBottomSheetDialog
 import com.captures2024.soongan.feature.home.ui.post.HomePostScreen
 import com.captures2024.soongan.feature.home.ui.post.comment.HomePostCommentBottomSheetDialog
-import com.captures2024.soongan.core.viewmodel.model.HomePostBottomModalState
-import com.captures2024.soongan.feature.home.state.PhotoDetailModalState
-import com.captures2024.soongan.feature.home.ui.post.HomePostMenuBottomSheetDialog
-import com.captures2024.soongan.feature.home.ui.post.report.ReportBottomSheetDialog
 
 @Composable
 internal fun HomePostRoute(
     navigateToBack: () -> Unit,
     navigateToHomePostPhoto: (String) -> Unit,
-    homePostViewModel: HomePostViewModel = hiltViewModel()
+    homePostViewModel: HomePostViewModel = hiltViewModel(),
 ) {
     val uiState by homePostViewModel.state.collectAsStateWithLifecycle()
 
@@ -50,10 +49,10 @@ internal fun HomePostRoute(
             onClickReport = { homePostViewModel.intent(HomePostViewModel.Intent.OnClickReportPost) },
         )
 
-        HomePostBottomModalState.OPEN_REPORT -> ReportBottomSheetDialog(
+        HomePostBottomModalState.OPEN_REPORT -> ReportRoute(
+            targetId = uiState.postId.toLong(),
+            targetType = ReportTargetType.WEEKLY_POST,
             closeSheet = { homePostViewModel.intent(HomePostViewModel.Intent.OnClosedModal) },
-            reportState = PhotoDetailModalState.Open.ReportOpen(),
-            onClickReport = { TODO("onClickReport Not impl yet") }
         )
 
         HomePostBottomModalState.CLOSED -> Unit

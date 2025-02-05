@@ -2,13 +2,14 @@ package com.captures2024.soongan.feature.home.ui.post.report
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,47 +23,44 @@ import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
 import com.captures2024.soongan.core.designsystem.theme.PretendardFontFamily
 import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.model.utils.ReportTargetType
 import com.captures2024.soongan.feature.home.R
-import com.captures2024.soongan.feature.home.utils.ReportType
 
 @Composable
-internal fun ReportConfirmScreen(
+internal fun ReportDoneScreen(
+    targetType: ReportTargetType,
     modifier: Modifier = Modifier,
-    reportType: ReportType,
-    onClickSubmit: () -> Unit
+    onClickConfirm: () -> Unit
 ) {
-    val detailReport = stringResource(
-        id = when (reportType) {
-            ReportType.INAPPROPRIATE_IMAGE_OR_LANGUAGE -> R.string.report_inappropriate_image_or_language_text
-            ReportType.HATE_SPEECH -> R.string.report_hate_speech_text
-            ReportType.COPYRIGHT_INFRINGEMENT -> R.string.report_copyright_infringement_text
-            ReportType.SPAM -> R.string.report_spam_text
-            ReportType.PROMOTION -> R.string.report_promotion_text
-            ReportType.OTHER -> R.string.report_other_text
-            ReportType.NONE, ReportType.FINISH -> R.string.report_empty_text
-        }
-    )
-    val text = "${stringResource(id = R.string.report_prefix_text)} $detailReport${stringResource(id = R.string.report_suffix_text)}"
+    val targetTypeText = when(targetType) {
+        ReportTargetType.COMMENT -> "댓글"
+        else -> "게시글"
+    }
+    val text = "${stringResource(id = R.string.report_finish_text1)}$targetTypeText${stringResource(R.string.report_finish_text2)}".trimIndent()
 
     Column(
         modifier = modifier
-            .fillMaxWidth()
-            .wrapContentHeight()
             .padding(horizontal = 20.dp)
-            .padding(top = 40.dp, bottom = 28.dp)
+            .padding(top = 40.dp, bottom = 28.dp),
+        verticalArrangement = Arrangement.Center
     ) {
-        NonScaleText(
-            text = text,
-            color = SGColor.primaryA,
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Bold,
-            lineHeight = 24.sp,
-            fontFamily = NanumSquareNeoFontFamily,
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 20.dp)
-        )
-        Spacer(modifier = Modifier.weight(1f))
+                .padding(horizontal = 20.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            NonScaleText(
+                text = text,
+                color = SGColor.primaryA,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold,
+                lineHeight = 24.sp,
+                fontFamily = NanumSquareNeoFontFamily,
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
+        Spacer(modifier = Modifier.height(48.dp))
         Box(
             modifier = Modifier
                 .height(40.dp)
@@ -72,12 +70,12 @@ internal fun ReportConfirmScreen(
                     shape = RoundedCornerShape(8.dp)
                 )
                 .clickable {
-                    onClickSubmit()
+                    onClickConfirm()
                 },
             contentAlignment = Alignment.Center
         ) {
             NonScaleText(
-                text = stringResource(id = R.string.report_submit_text),
+                text = stringResource(id = R.string.report_confirm_text),
                 color = SGColor.primaryB,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Medium,
@@ -90,12 +88,6 @@ internal fun ReportConfirmScreen(
 
 @DevicePreviews
 @Composable
-private fun PostReportDetailScreenPreview() {
-    Box(modifier = Modifier.background(SGColor.white)) {
-        ReportConfirmScreen(
-            reportType = ReportType.INAPPROPRIATE_IMAGE_OR_LANGUAGE
-        ) {
-
-        }
-    }
+private fun PostReportFinishScreenPreview() {
+    ReportDoneScreen(targetType = ReportTargetType.WEEKLY_POST) {}
 }
