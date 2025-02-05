@@ -28,10 +28,10 @@
     <string name="home_post_comment_bottom_sheet_dialog_title">댓글</string>
     <string name="home_post_comment_bottom_sheet_dialog_input_hint">댓글이 들어갈 공간입니다.</string>
 
-<!--  ReportBottomSheetDialog  -->
+<!--  sheetTopBar  -->
     <string name="report_title_text">신고</string>
 
-<!--  ReportConfirmScreen  -->
+<!--  ReportCheckScreen  -->
     <string name="report_inappropriate_image_or_language_text">부적절한 사진 게시 및 언행</string>
     <string name="report_hate_speech_text">욕설, 혐오, 비하 등이 포함된 표현</string>
     <string name="report_copyright_infringement_text">도용, 초상권, 저작권 등 타인의 권리 침해</string>
@@ -40,15 +40,21 @@
     <string name="report_other_text">기타</string>
     <string name="report_empty_text"/>
     <string name="report_prefix_text">이 게시물을</string>
-    <string name="report_suffix_text">로 정말 신고하시겠습니까?</string>
-    <string name="report_submit_text">신고 제출</string>
+    <string name="report_suffix_text">(으)로\n정말 신고하겠습니까 ?</string>
+    <string name="report_submit_text">확인</string>
+    <string name="report_reason_submit_text">신고 제출</string>
 
 <!--  ReportReasonScreen  -->
     <string name="report_reason_input_text">신고 사유를 입력해주세요</string>
 
-<!--  ReportCompleteScreen  -->
+<!--  ReportErrorScreen  -->
+    <string name="report_error_text">신고 제출이 실패하였습니다.\n잠시 후 다시 시도해 주세요.</string>
+
+<!--  ReportDoneScreen  -->
+    <string name="report_target_type_comment">댓글</string>
+    <string name="report_target_type_post">게시글</string>
     <string name="report_finish_text1">신고가 완료됐습니다.\n\n해당 </string>
-    <string name="report_finish_text2">은 숨김처리 되었습니다.\n\n3일 이내로 검토 후 조치가 이뤄질 예정입니다.\n결과가 나오면 알림으로 알려드리겠습니다.\n감사합니다.</string>
+    <string name="report_finish_text2">은 숨김처리 되었습니다.\n\n3일 이내로 검토 후 조치가 이뤄질 예정입니다.\n결과가 나오면 알림으로 알려드리겠습니다.</string>
     <string name="report_confirm_text">확인</string>
 
 <!-- RegistrationPostScreen   -->
@@ -65,6 +71,5 @@
     <string name="report_type_spam">게시물 도배</string>
     <string name="report_type_promotional_content">홍보용 사진 혹은 댓글 게시</string>
     <string name="report_type_other">기타</string>
-
 
 </resources>

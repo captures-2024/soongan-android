@@ -42,7 +42,9 @@ constructor(
 
     sealed interface Effect : UISideEffect {
 
-        data object NavigateToDone : Effect
+        data class NavigateToDone(
+            val hasExtraMessage: Boolean,
+        ) : Effect
     }
 
     sealed interface Intent : UIIntent {
@@ -113,6 +115,13 @@ constructor(
             return
         }
 
-        postSideEffect(Effect.NavigateToDone)
+        val hasExtraMessage =
+            when(currentState.reportType) {
+                ReportType.COPYRIGHT_OR_PRIVACY_VIOLATION, ReportType.OTHER -> true
+
+                else -> false
+            }
+
+        postSideEffect(Effect.NavigateToDone(hasExtraMessage = hasExtraMessage))
     }
 }

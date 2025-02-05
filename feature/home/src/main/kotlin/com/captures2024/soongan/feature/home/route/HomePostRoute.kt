@@ -1,5 +1,6 @@
 package com.captures2024.soongan.feature.home.route
 
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -12,6 +13,7 @@ import com.captures2024.soongan.feature.home.ui.post.HomePostMenuBottomSheetDial
 import com.captures2024.soongan.feature.home.ui.post.HomePostScreen
 import com.captures2024.soongan.feature.home.ui.post.comment.HomePostCommentBottomSheetDialog
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun HomePostRoute(
     navigateToBack: () -> Unit,

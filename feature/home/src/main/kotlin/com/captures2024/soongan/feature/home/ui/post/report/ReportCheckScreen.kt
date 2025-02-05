@@ -13,7 +13,8 @@ import com.captures2024.soongan.feature.home.state.ReportRouteState
 @Composable
 internal fun ReportCheckScreen(
     reportRouteState: ReportRouteState,
-    navigateToDone: () -> Unit,
+    navigateToBack: () -> Unit,
+    navigateToDone: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
     reportCheckViewModel: ReportCheckViewModel = hiltViewModel(),
 ) {
@@ -22,7 +23,7 @@ internal fun ReportCheckScreen(
     LaunchedEffect(Unit) {
         reportCheckViewModel.sideEffect.collect { sideEffect ->
             when (sideEffect) {
-                ReportCheckViewModel.Effect.NavigateToDone -> navigateToDone()
+                is ReportCheckViewModel.Effect.NavigateToDone -> navigateToDone(sideEffect.hasExtraMessage)
             }
         }
     }
@@ -36,22 +37,28 @@ internal fun ReportCheckScreen(
         )
     }
 
-    when (uiState.reportType) {
-        ReportType.COPYRIGHT_OR_PRIVACY_VIOLATION, ReportType.OTHER -> {
-            ReportReasonScreen(
-                reason = uiState.reason,
-                modifier = modifier,
-                onReasonChanged = { reportCheckViewModel.intent(ReportCheckViewModel.Intent.OnReasonChanged(it)) },
-                onClickSubmit = { onClickSubmit() }
-            )
-        }
+    if(uiState.isError) {
+        ReportErrorScreen(
+            onClickButton = navigateToBack
+        )
+    } else {
+        when (uiState.reportType) {
+            ReportType.COPYRIGHT_OR_PRIVACY_VIOLATION, ReportType.OTHER -> {
+                ReportReasonScreen(
+                    reason = uiState.reason,
+                    modifier = modifier,
+                    onReasonChanged = { reportCheckViewModel.intent(ReportCheckViewModel.Intent.OnReasonChanged(it)) },
+                    onClickSubmit = { onClickSubmit() }
+                )
+            }
 
-        else -> {
-            ReportNoReasonScreen(
-                reportType = uiState.reportType,
-                modifier = modifier,
-                onClickSubmit = { onClickSubmit() }
-            )
+            else -> {
+                ReportNoReasonScreen(
+                    reportType = uiState.reportType,
+                    modifier = modifier,
+                    onClickSubmit = { onClickSubmit() }
+                )
+            }
         }
     }
 }

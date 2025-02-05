@@ -14,5 +14,7 @@ sealed interface ReportNavigator {
     ) : ReportNavigator
 
     @Serializable
-    data object Done: ReportNavigator
+    data class Done(
+        val hasExtraMessage: Boolean,
+    ): ReportNavigator
 }

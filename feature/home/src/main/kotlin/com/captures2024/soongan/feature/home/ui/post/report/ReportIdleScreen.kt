@@ -12,8 +12,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.captures2024.soongan.core.designsystem.component.HeightSpacer
-import com.captures2024.soongan.core.designsystem.component.WidthSpacer
 import com.captures2024.soongan.core.designsystem.component.text.SGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.component.text.SGText
 import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
@@ -30,43 +28,45 @@ internal fun ReportIdleScreen(
     val lastIdx = ReportType.entries.lastIndex
 
     Column(
-        modifier = modifier.padding(horizontal = 20.dp)
+        modifier = modifier
+            .padding(horizontal = 20.dp)
+            .padding(bottom = 12.dp)
     ) {
-        HeightSpacer(16.dp)
         ReportType.entries.forEachIndexed { idx, type ->
             PostReportDefaultBody(
                 text = stringResource(id = type.getTextId()),
-                isVisibleDivider = (idx != lastIdx)
-            ) {
-                navigateToCheck(type)
-            }
+                isVisibleDivider = (idx != lastIdx),
+                onClick = { navigateToCheck(type) }
+            )
         }
-        HeightSpacer(16.dp)
     }
 }
 
 @Composable
 private fun PostReportDefaultBody(
     text: String,
+    modifier: Modifier = Modifier,
     isVisibleDivider: Boolean = true,
     onClick: () -> Unit = {},
 ) {
-    HeightSpacer(16.dp)
-    Row {
-        WidthSpacer(20.dp)
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick)
+            .padding(horizontal = 20.dp)
+    ) {
         SGText(
             text = text,
             style = SGNonScaleTextStyle(
                 color = SGColor.primaryA,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold,
-                lineHeight = 24.sp,
+                lineHeight = 20.sp,
                 fontFamily = NanumSquareNeoFontFamily,
             ),
-            modifier = Modifier.clickable(onClick = onClick)
+            modifier = Modifier.padding(vertical = 20.dp)
         )
     }
-    HeightSpacer(16.dp)
     if (isVisibleDivider) {
         HorizontalDivider(
             modifier = Modifier.fillMaxWidth(),

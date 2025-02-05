@@ -10,6 +10,7 @@ import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
@@ -20,10 +21,10 @@ import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillLef
 import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
 import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.feature.home.R
 
 @Composable
-internal fun SheetTopBar(
-    title: String,
+internal fun ReportTopBar(
     modifier: Modifier = Modifier,
     hasBackIcon: Boolean = false,
     onBackPressed: () -> Unit = {},
@@ -47,7 +48,7 @@ internal fun SheetTopBar(
                 }
             }
             SGText(
-                text = title,
+                text = stringResource(id = R.string.report_title_text),
                 SGNonScaleTextStyle(
                     color = SGColor.primaryA,
                     fontSize = 16.sp,
@@ -65,5 +66,5 @@ internal fun SheetTopBar(
 @DevicePreviews
 @Composable
 private fun ItemTopBarPreview() {
-    SheetTopBar(title = "신고", hasBackIcon = true)
+    ReportTopBar(hasBackIcon = true)
 }
