@@ -47,7 +47,8 @@
     <string name="report_reason_input_text">신고 사유를 입력해주세요</string>
 
 <!--  ReportCompleteScreen  -->
-    <string name="report_finish_text">신고가 완료됐습니다.\n\n해당 게시물은 숨김처리 되었습니다.\n\n3일 이내로 검토 후 조치가 이뤄질 예정입니다.\n결과가 나오면 알림으로 알려드리겠습니다.\n감사합니다.</string>
+    <string name="report_finish_text1">신고가 완료됐습니다.\n\n해당 </string>
+    <string name="report_finish_text2">은 숨김처리 되었습니다.\n\n3일 이내로 검토 후 조치가 이뤄질 예정입니다.\n결과가 나오면 알림으로 알려드리겠습니다.\n감사합니다.</string>
     <string name="report_confirm_text">확인</string>
 
 <!-- RegistrationPostScreen   -->
@@ -58,6 +59,12 @@
     <string name="submit_bottom_sheet_title">제목 확인</string>
     <string name="submit_bottom_sheet_content">(으)로 작품을 제출할까요?</string>
     <string name="submit_bottom_sheet_confirm_button_title">완료</string>
+    <string name="report_type_inappropriate_photo_or_behavior">부적절한 사진 게시 및 언행</string>
+    <string name="report_type_profanity_hate_speech">욕설, 혐오, 비하 등이 포함된 표현</string>
+    <string name="report_type_copyright_or_privacy_violation">도용, 초상권, 저작권 등 타인의 권리 침해</string>
+    <string name="report_type_spam">게시물 도배</string>
+    <string name="report_type_promotional_content">홍보용 사진 혹은 댓글 게시</string>
+    <string name="report_type_other">기타</string>
 
-    
+
 </resources>
