@@ -34,7 +34,7 @@ internal fun ReportDoneScreen(
         else -> stringResource(R.string.report_target_type_post)
     }
     val doneMessage =
-        "${stringResource(id = R.string.report_finish_text1)}$targetTypeText${stringResource(R.string.report_finish_text2)}".trimIndent()
+        "${stringResource(id = R.string.report_done_text1)}$targetTypeText${stringResource(R.string.report_done_text2)}".trimIndent()
 
     Column(
         modifier = modifier
@@ -61,7 +61,7 @@ internal fun ReportDoneScreen(
             )
             if (hasExtraMessage) {
                 SGText(
-                    text = "\n신고 내용의 구체적인 확인이 더 필요한 경우\n이메일로 연락드릴 예정입니다.",
+                    text = stringResource(R.string.report_done_extra_text),
                     SGNonScaleTextStyle(
                         color = SGColor.primaryA,
                         fontSize = 16.sp,
@@ -74,7 +74,7 @@ internal fun ReportDoneScreen(
                 )
             }
             SGText(
-                text = "\n감사합니다.",
+                text = stringResource(R.string.report_done_thanks_text),
                 SGNonScaleTextStyle(
                     color = SGColor.primaryA,
                     fontSize = 16.sp,

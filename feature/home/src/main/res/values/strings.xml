@@ -53,9 +53,11 @@
 <!--  ReportDoneScreen  -->
     <string name="report_target_type_comment">댓글</string>
     <string name="report_target_type_post">게시글</string>
-    <string name="report_finish_text1">신고가 완료됐습니다.\n\n해당 </string>
-    <string name="report_finish_text2">은 숨김처리 되었습니다.\n\n3일 이내로 검토 후 조치가 이뤄질 예정입니다.\n결과가 나오면 알림으로 알려드리겠습니다.</string>
+    <string name="report_done_text1">신고가 완료됐습니다.\n\n해당 </string>
+    <string name="report_done_text2">은 숨김처리 되었습니다.\n\n3일 이내로 검토 후 조치가 이뤄질 예정입니다.\n결과가 나오면 알림으로 알려드리겠습니다.</string>
     <string name="report_confirm_text">확인</string>
+    <string name="report_done_extra_text">\n신고 내용의 구체적인 확인이 더 필요한 경우\n이메일로 연락드릴 예정입니다.</string>
+    <string name="report_done_thanks_text">\n감사합니다.</string>
 
 <!-- RegistrationPostScreen   -->
     <string name="registration_post_button_title">제출하기</string>
