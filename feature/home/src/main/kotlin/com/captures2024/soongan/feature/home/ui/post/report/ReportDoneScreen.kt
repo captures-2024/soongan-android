@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.SoonGanButton
-import com.captures2024.soongan.core.designsystem.component.text.SGNonScaleTextStyle
+import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.component.text.SGText
 import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
 import com.captures2024.soongan.core.designsystem.theme.PretendardFontFamily
@@ -49,7 +49,7 @@ internal fun ReportDoneScreen(
         ) {
             SGText(
                 text = doneMessage,
-                SGNonScaleTextStyle(
+                getSGNonScaleTextStyle(
                     color = SGColor.primaryA,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Normal,
@@ -62,7 +62,7 @@ internal fun ReportDoneScreen(
             if (hasExtraMessage) {
                 SGText(
                     text = stringResource(R.string.report_done_extra_text),
-                    SGNonScaleTextStyle(
+                    getSGNonScaleTextStyle(
                         color = SGColor.primaryA,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Normal,
@@ -75,7 +75,7 @@ internal fun ReportDoneScreen(
             }
             SGText(
                 text = stringResource(R.string.report_done_thanks_text),
-                SGNonScaleTextStyle(
+                getSGNonScaleTextStyle(
                     color = SGColor.primaryA,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Normal,
@@ -91,7 +91,7 @@ internal fun ReportDoneScreen(
         ) {
             SGText(
                 text = stringResource(id = R.string.report_confirm_text),
-                style = SGNonScaleTextStyle(
+                style = getSGNonScaleTextStyle(
                     color = SGColor.primaryA,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Normal,

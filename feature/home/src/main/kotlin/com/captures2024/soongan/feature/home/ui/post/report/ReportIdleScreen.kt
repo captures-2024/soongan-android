@@ -12,7 +12,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.captures2024.soongan.core.designsystem.component.text.SGNonScaleTextStyle
+import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.component.text.SGText
 import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
 import com.captures2024.soongan.core.designsystem.theme.SGColor
@@ -57,7 +57,7 @@ private fun PostReportDefaultBody(
     ) {
         SGText(
             text = text,
-            style = SGNonScaleTextStyle(
+            style = getSGNonScaleTextStyle(
                 color = SGColor.primaryA,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold,

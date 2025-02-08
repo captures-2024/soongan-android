@@ -24,7 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import com.captures2024.soongan.core.designsystem.component.text.SGNonScaleTextStyle
+import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.component.text.SGText
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFillCheck
@@ -139,7 +139,7 @@ private fun PreviewSGTextFieldTypeForm_hint() {
         ) {
             SGTextFieldTypeForm(
                 value = "",
-                textStyle = SGNonScaleTextStyle(
+                textStyle = getSGNonScaleTextStyle(
                     color = SGColor.primaryA,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Normal,
@@ -166,7 +166,7 @@ private fun PreviewSGTextFieldTypeForm_default() {
         ) {
             SGTextFieldTypeForm(
                 value = "텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트",
-                textStyle = SGNonScaleTextStyle(
+                textStyle = getSGNonScaleTextStyle(
                     color = SGColor.primaryA,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Normal,
@@ -194,7 +194,7 @@ private fun PreviewSGTextFieldTypeForm_success() {
         ) {
             SGTextFieldTypeForm(
                 value = "텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트",
-                textStyle = SGNonScaleTextStyle(
+                textStyle = getSGNonScaleTextStyle(
                     color = SGColor.primaryA,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Normal,
@@ -222,7 +222,7 @@ private fun PreviewSGTextFieldTypeForm_error() {
         ) {
             SGTextFieldTypeForm(
                 value = "텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트",
-                textStyle = SGNonScaleTextStyle(
+                textStyle = getSGNonScaleTextStyle(
                     color = SGColor.primaryA,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Normal,

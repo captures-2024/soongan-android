@@ -13,7 +13,7 @@ import com.captures2024.soongan.core.designsystem.util.extension.nonScaleSp
 import com.captures2024.soongan.core.designsystem.util.extension.normalizeLetterSpacing
 
 @Stable
-fun SGTextStyle(
+fun getSGTextStyle(
     color: Color,
     fontSize: TextUnit,
     fontWeight: FontWeight,
@@ -34,7 +34,7 @@ fun SGTextStyle(
 )
 
 @Composable
-fun SGNonScaleTextStyle(
+fun getSGNonScaleTextStyle(
     color: Color,
     fontSize: TextUnit,
     fontWeight: FontWeight,
@@ -43,7 +43,7 @@ fun SGNonScaleTextStyle(
     letterSpacing: TextUnit = TextUnit.Unspecified,
     textDecoration: TextDecoration? = null,
     textAlign: TextAlign = TextAlign.Unspecified,
-): TextStyle = SGTextStyle(
+): TextStyle = getSGTextStyle(
     color = color,
     fontSize = fontSize.nonScaleSp,
     fontWeight = fontWeight,

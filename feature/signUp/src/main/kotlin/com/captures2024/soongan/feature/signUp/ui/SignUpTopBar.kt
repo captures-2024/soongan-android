@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.WidthSpacer
 import com.captures2024.soongan.core.designsystem.component.button.SGIconButton
-import com.captures2024.soongan.core.designsystem.component.text.SGNonScaleTextStyle
+import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.component.text.SGText
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillBackArrow
@@ -44,7 +44,7 @@ internal fun SignUpTopBar(
         WidthSpacer(16.dp)
         SGText(
             text = stringResource(id = R.string.sign_up_text),
-            style = SGNonScaleTextStyle(
+            style = getSGNonScaleTextStyle(
                 color = SGColor.primaryB,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Medium,

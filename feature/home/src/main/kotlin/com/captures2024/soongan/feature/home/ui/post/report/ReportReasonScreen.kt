@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.HeightSpacer
 import com.captures2024.soongan.core.designsystem.component.SoonGanButton
-import com.captures2024.soongan.core.designsystem.component.text.SGNonScaleTextStyle
+import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.component.text.SGText
 import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
 import com.captures2024.soongan.core.designsystem.theme.SGColor
@@ -41,7 +41,7 @@ internal fun ReportReasonScreen(
         ) {
             SGText(
                 text = stringResource(R.string.report_reason_submit_text),
-                style = SGNonScaleTextStyle(
+                style = getSGNonScaleTextStyle(
                     color = if(isEnabled) SGColor.primaryA else SGColor.white,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Normal,

@@ -17,8 +17,8 @@ import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.HeightSpacer
 import com.captures2024.soongan.core.designsystem.component.SoonGanButton
-import com.captures2024.soongan.core.designsystem.component.text.SGNonScaleSpanStyle
-import com.captures2024.soongan.core.designsystem.component.text.SGNonScaleTextStyle
+import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleSpanStyle
+import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.component.text.SGText
 import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
 import com.captures2024.soongan.core.designsystem.theme.PretendardFontFamily
@@ -34,7 +34,7 @@ internal fun ReportNoReasonScreen(
     modifier: Modifier = Modifier,
     onClickSubmit: () -> Unit = {},
 ) {
-    val commonTextStyle = SGNonScaleSpanStyle(
+    val commonTextStyle = getSGNonScaleSpanStyle(
         color = SGColor.primaryA,
         fontSize = 16.sp,
         fontWeight = FontWeight.Normal,
@@ -78,7 +78,7 @@ internal fun ReportNoReasonScreen(
         ) {
             SGText(
                 text = stringResource(id = R.string.report_submit_text),
-                SGNonScaleTextStyle(
+                getSGNonScaleTextStyle(
                     color = SGColor.primaryA,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Normal,

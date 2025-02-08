@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.common.Validation
 import com.captures2024.soongan.core.designsystem.component.HeightSpacer
 import com.captures2024.soongan.core.designsystem.component.WidthSpacer
-import com.captures2024.soongan.core.designsystem.component.text.SGNonScaleTextStyle
+import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.component.text.SGText
 import com.captures2024.soongan.core.designsystem.component.text.field.SGTextFieldFormState
 import com.captures2024.soongan.core.designsystem.component.text.field.SGTextFieldTypeForm
@@ -80,7 +80,7 @@ internal fun BirthScreen(
             ) {
                 SGText(
                     text = stringResource(id = R.string.input_birth_year_nickname_title),
-                    style = SGNonScaleTextStyle(
+                    style = getSGNonScaleTextStyle(
                         color = SGColor.hintGray,
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Medium,
@@ -93,7 +93,7 @@ internal fun BirthScreen(
 
                 SGText(
                     text = state.nickname,
-                    style = SGNonScaleTextStyle(
+                    style = getSGNonScaleTextStyle(
                         color = SGColor.primaryB,
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Medium,
@@ -109,7 +109,7 @@ internal fun BirthScreen(
                 WidthSpacer(12.dp)
                 SGText(
                     text = stringResource(id = R.string.input_birth_year_title),
-                    style = SGNonScaleTextStyle(
+                    style = getSGNonScaleTextStyle(
                         color = SGColor.primaryB,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Medium,
@@ -123,7 +123,7 @@ internal fun BirthScreen(
 
             SGTextFieldTypeForm(
                 value = state.birthYear,
-                textStyle = SGNonScaleTextStyle(
+                textStyle = getSGNonScaleTextStyle(
                     color = SGColor.primaryA,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Medium,
@@ -158,7 +158,7 @@ internal fun BirthScreen(
                         Validation.BirthYearValidState.Regex -> stringResource(id = R.string.input_birth_fail_hint_text)
                         else -> stringResource(id = R.string.input_birth_default_hint_text)
                     },
-                    style = SGNonScaleTextStyle(
+                    style = getSGNonScaleTextStyle(
                         color =  when (state.isValid) {
                             Validation.BirthYearValidState.Regex -> SGColor.negative
                             else -> SGColor.hintGray

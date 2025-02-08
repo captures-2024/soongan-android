@@ -70,7 +70,9 @@ internal fun EditProfileScreenBody(
             },
             maxInputLength = 10,
         )
+
         HeightSpacer(36.dp)
+
         ProfileOutlinedTextField(
             value = editingState.editingProfile.selfIntroduction,
             onValueChange = onIntroductionChanged,

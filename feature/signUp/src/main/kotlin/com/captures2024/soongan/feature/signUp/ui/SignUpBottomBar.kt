@@ -2,7 +2,6 @@ package com.captures2024.soongan.feature.signUp.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
@@ -18,8 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.HeightSpacer
-import com.captures2024.soongan.core.designsystem.component.NonScaleText
-import com.captures2024.soongan.core.designsystem.component.text.SGNonScaleTextStyle
+import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.component.text.SGText
 import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.theme.SGTypography
@@ -46,7 +44,7 @@ internal fun SignUpBottomBar(
     ) {
         SGText(
             text = title,
-            style = SGNonScaleTextStyle(
+            style = getSGNonScaleTextStyle(
                 color = SGColor.hintGray,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Medium,
@@ -72,7 +70,7 @@ internal fun SignUpBottomBar(
         ) {
             SGText(
                 text = stringResource(id = R.string.btn_next_text),
-                style = SGNonScaleTextStyle(
+                style = getSGNonScaleTextStyle(
                     color = SGColor.primaryB,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.SemiBold,

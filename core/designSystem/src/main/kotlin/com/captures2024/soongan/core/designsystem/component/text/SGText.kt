@@ -8,6 +8,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -40,6 +41,23 @@ fun SGText(
     minLines = minLines,
 )
 
+@Composable
+fun SGText(
+    annotatedString: AnnotatedString,
+    modifier: Modifier = Modifier,
+    overflow: TextOverflow = TextOverflow.Clip,
+    softWrap: Boolean = true,
+    maxLines: Int = Int.MAX_VALUE,
+    minLines: Int = 1,
+) = Text(
+    text = annotatedString,
+    modifier = modifier,
+    overflow = overflow,
+    softWrap = softWrap,
+    maxLines = maxLines,
+    minLines = minLines,
+)
+
 @Preview
 @Composable
 private fun PreviewSGText() {
@@ -52,7 +70,7 @@ private fun PreviewSGText() {
         ) {
             SGText(
                 text = "test",
-                style = SGTextStyle(
+                style = getSGTextStyle(
                     color = SGColor.black,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Normal,
