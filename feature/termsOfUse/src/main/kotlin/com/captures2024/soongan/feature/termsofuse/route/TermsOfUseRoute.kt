@@ -1,31 +1,41 @@
 package com.captures2024.soongan.feature.termsofuse.route
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.captures2024.soongan.core.viewmodel.sign.TermsOfUseViewModel
 import com.captures2024.soongan.feature.termsofuse.ui.TermsOfUseScreen
-import com.captures2024.soongan.feature.termsofuse.TermsOfUseViewModel
-import com.captures2024.soongan.feature.termsofuse.state.TermsOfUseIntent
-import com.captures2024.soongan.feature.termsofuse.state.TermsOfUseSideEffect
 
 @Composable
 internal fun TermsOfUseRoute(
     navigateToBack: () -> Unit,
-    termsOfUseViewModel: TermsOfUseViewModel = hiltViewModel()
+    viewModel: TermsOfUseViewModel = hiltViewModel(),
 ) {
-    val uiState by termsOfUseViewModel.state.collectAsStateWithLifecycle()
+    val uiState by viewModel.state.collectAsState()
+
+    val context = LocalContext.current
+
+    val openBrowser = {
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(uiState.url))
+        context.startActivity(browserIntent)
+    }
 
     LaunchedEffect(Unit) {
-        termsOfUseViewModel.sideEffect.collect {
-            when (it) {
-                is TermsOfUseSideEffect.NavigateToBack -> navigateToBack()
+        viewModel.sideEffect.collect { effect ->
+            when (effect) {
+                is TermsOfUseViewModel.Effect.NavigateToBack -> navigateToBack()
+
+                is TermsOfUseViewModel.Effect.NavigateToTerms -> openBrowser()
             }
         }
     }
 
     TermsOfUseScreen(
-        onClickBack = { termsOfUseViewModel.intent(TermsOfUseIntent.OnClickBack) }
+        intent = viewModel::intent,
     )
 }

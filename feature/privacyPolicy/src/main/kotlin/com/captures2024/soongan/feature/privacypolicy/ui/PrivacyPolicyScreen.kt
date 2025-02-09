@@ -1,39 +1,61 @@
 package com.captures2024.soongan.feature.privacypolicy.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
+import androidx.compose.ui.unit.sp
+import com.captures2024.soongan.core.designsystem.component.button.SGTextButtonType2
+import com.captures2024.soongan.core.designsystem.component.text.SGText
+import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
+import com.captures2024.soongan.core.designsystem.theme.SGColor
+import com.captures2024.soongan.core.designsystem.theme.SGTypography
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.viewmodel.sign.PrivacyPolicyViewModel
 
 @Composable
 internal fun PrivacyPolicyScreen(
+    intent: (PrivacyPolicyViewModel.Intent) -> Unit,
     modifier: Modifier = Modifier,
-    onClickBack: () -> Unit,
 ) {
-    Scaffold(
-        modifier = modifier.fillMaxSize(),
-        topBar = {
-            PrivacyPolicyTopBarScreen(onClickBack = onClickBack)
-        },
-    ) { paddingValues ->
+    Column(
+        modifier = modifier.fillMaxSize()
+            .background(SGColor.white)
+    ) {
+        PrivacyPolicyTopBarScreen(onClickBack = { intent(PrivacyPolicyViewModel.Intent.OnClickBack) })
+
         Box(
-            modifier = Modifier
-                .padding(paddingValues)
-                .fillMaxSize()
-                .background(Color.Black),
-            contentAlignment = Alignment.Center
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center,
         ) {
-            Text(
-                text = "PrivacyPolicyScreen",
-                color = Color.White
-            )
+            Column(
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                SGText(
+                    text = "자동으로 개인정보 보호정책 약관이 열립니다.",
+                    style = getSGNonScaleTextStyle(
+                        color = SGColor.primaryA,
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Normal,
+                        lineHeight = 14.sp,
+                        fontFamily = SGTypography.nanumSquareNeo,
+                        letterSpacing = 0.em,
+                    )
+                )
+
+                SGTextButtonType2(
+                    text = "수동으로 열기",
+                    onClick = { intent(PrivacyPolicyViewModel.Intent.OnClickTerms) },
+                )
+            }
         }
     }
 }
@@ -42,6 +64,6 @@ internal fun PrivacyPolicyScreen(
 @Composable
 private fun PrivacyPolicyScreenPreview() {
     PrivacyPolicyScreen(
-        onClickBack = {}
+        intent = {},
     )
 }

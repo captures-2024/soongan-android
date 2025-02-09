@@ -1,24 +1,22 @@
 package com.captures2024.soongan.feature.privacypolicy.ui
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.WidthSpacer
+import com.captures2024.soongan.core.designsystem.component.button.SGIconCircleButton
 import com.captures2024.soongan.core.designsystem.component.text.SGText
 import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
+import com.captures2024.soongan.core.designsystem.icon.MyIconPack
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillLeftArrow
 import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.theme.SGTypography
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
@@ -32,26 +30,27 @@ internal fun PrivacyPolicyTopBarScreen(
         modifier = modifier
             .fillMaxWidth()
             .height(60.dp)
-            .background(Color.Black),
+            .background(SGColor.white),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         WidthSpacer(8.dp)
 
-        Icon(
-            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-            contentDescription = "",
-            tint = Color.White,
-            modifier = Modifier.clickable(onClick = onClickBack)
+        SGIconCircleButton(
+            imageVector = MyIconPack.IconNonFillLeftArrow,
+            contentDescription = "back",
+            iconWidth = 20.dp,
+            iconHeight = 16.dp,
+            onClick = onClickBack,
         )
 
-        WidthSpacer(8.dp)
+        WidthSpacer(32.dp)
 
         SGText(
-            text = "PrivacyPolicyTopBarScreen",
+            text = "개인정보 보호정책",
             style = getSGNonScaleTextStyle(
-                color = SGColor.white,
+                color = SGColor.primaryA,
                 fontSize = 18.sp,
-                fontWeight = FontWeight.Normal,
+                fontWeight = FontWeight.Bold,
                 lineHeight = 18.sp,
                 fontFamily = SGTypography.nanumSquareNeo,
                 letterSpacing = 0.em,
