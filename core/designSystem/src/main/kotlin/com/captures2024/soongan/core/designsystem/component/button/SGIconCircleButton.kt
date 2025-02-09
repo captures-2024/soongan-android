@@ -32,6 +32,7 @@ import com.captures2024.soongan.core.designsystem.theme.innerShadow
 @Composable
 fun SGIconCircleButton(
     onClick: () -> Unit,
+    modifier: Modifier = Modifier,
     content: @Composable BoxScope.() -> Unit
 ) {
     val backgroundShape = CircleShape
@@ -40,7 +41,7 @@ fun SGIconCircleButton(
     val pressed by interactionSource.collectIsPressedAsState()
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .size(44.dp)
             .let {
                 return@let when (pressed) {
@@ -85,12 +86,16 @@ fun SGIconCircleButton(
 fun SGIconCircleButton(
     imageVector: ImageVector,
     contentDescription: String?,
+    modifier: Modifier = Modifier,
     color: Color = SGColor.primaryA,
     iconWidth: Dp = 20.dp,
     iconHeight: Dp = 20.dp,
     onClick: () -> Unit,
 ) {
-    SGIconCircleButton(onClick = onClick) {
+    SGIconCircleButton(
+        modifier = modifier,
+        onClick = onClick,
+    ) {
         Icon(
             imageVector = imageVector,
             contentDescription = contentDescription,

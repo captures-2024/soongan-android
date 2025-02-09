@@ -17,16 +17,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.HeightSpacer
-import com.captures2024.soongan.core.designsystem.component.NonScaleText
-import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
+import com.captures2024.soongan.core.designsystem.component.text.SGText
+import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.theme.SGColor
+import com.captures2024.soongan.core.designsystem.theme.SGTypography
 import com.captures2024.soongan.core.designsystem.theme.dropShadow
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 
@@ -39,20 +39,22 @@ internal fun TitleInputEditText(
 ) {
     val focusManager = LocalFocusManager.current
 
+    val commonStyle = getSGNonScaleTextStyle(
+        color = SGColor.primaryA,
+        fontSize = 18.sp,
+        fontWeight = FontWeight.Bold,
+        lineHeight = 22.sp,
+        fontFamily = SGTypography.nanumSquareNeo,
+        letterSpacing = (-5).em,
+    )
+
     Column(horizontalAlignment = Alignment.End) {
         BasicTextField(
             value = value,
             onValueChange = onValueChange,
             modifier = Modifier.width(289.dp)
                 .height(40.dp),
-            textStyle = TextStyle(
-                textAlign = TextAlign.Center,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold,
-                fontFamily = NanumSquareNeoFontFamily,
-                lineHeight = 16.sp,
-                color = SGColor.primaryA,
-            ),
+            textStyle = commonStyle,
             decorationBox = { innerTextField ->
                 Box(
                     modifier = Modifier.fillMaxSize()
@@ -73,13 +75,9 @@ internal fun TitleInputEditText(
                     innerTextField()
 
                     if (value.isEmpty()) {
-                        NonScaleText(
+                        SGText(
                             text = "제목을 입력해주세요.",
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Bold,
-                            fontFamily = NanumSquareNeoFontFamily,
-                            lineHeight = 16.sp,
-                            color = SGColor.primaryA.copy(alpha = 0.3f)
+                            style = commonStyle.copy(color = SGColor.buttonDisableGray),
                         )
                     }
                 }
@@ -91,17 +89,22 @@ internal fun TitleInputEditText(
                 }
             )
         )
+
         HeightSpacer(8.dp)
+
         Row(
             modifier = Modifier.padding(end = 4.dp),
         ) {
-            NonScaleText(
+            SGText(
                 text = "${value.length}/$MAX_INPUT_LENGTH",
-                fontSize = 8.sp,
-                fontWeight = FontWeight.Normal,
-                fontFamily = NanumSquareNeoFontFamily,
-                lineHeight = 8.sp,
-                color = SGColor.black,
+                style = getSGNonScaleTextStyle(
+                    color = SGColor.primaryA,
+                    fontSize = 8.sp,
+                    fontWeight = FontWeight.Normal,
+                    lineHeight = 8.sp,
+                    fontFamily = SGTypography.nanumSquareNeo,
+                    letterSpacing = 0.em,
+                ),
             )
         }
     }

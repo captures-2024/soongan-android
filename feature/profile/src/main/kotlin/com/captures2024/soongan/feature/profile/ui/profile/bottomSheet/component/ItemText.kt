@@ -4,15 +4,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import com.captures2024.soongan.core.designsystem.component.NonScaleText
-import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
+import com.captures2024.soongan.core.designsystem.component.text.SGText
+import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
+import com.captures2024.soongan.core.designsystem.theme.SGColor
+import com.captures2024.soongan.core.designsystem.theme.SGTypography
 
 @Composable
-internal fun ItemText(text: String) = NonScaleText(
+internal fun ItemText(text: String) = SGText(
     text = text,
-    fontSize = 16.sp,
-    fontWeight = FontWeight.Normal,
-    fontFamily = NanumSquareNeoFontFamily,
-    letterSpacing = (-5).em,
-    lineHeight = 24.sp
+    style = getSGNonScaleTextStyle(
+        color = SGColor.black,
+        fontSize = 16.sp,
+        fontWeight = FontWeight.Normal,
+        lineHeight = 24.sp,
+        fontFamily = SGTypography.nanumSquareNeo,
+        letterSpacing = (-5).em,
+    ),
 )

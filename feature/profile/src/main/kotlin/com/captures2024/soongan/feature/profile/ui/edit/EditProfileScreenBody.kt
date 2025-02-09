@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -19,10 +20,11 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.captures2024.soongan.core.common.Validation
 import com.captures2024.soongan.core.designsystem.component.HeightSpacer
+import com.captures2024.soongan.core.designsystem.component.WeightSpacer
+import com.captures2024.soongan.core.designsystem.component.button.SGTextButtonType2
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.viewmodel.model.profile.EditingProfileState
 import com.captures2024.soongan.feature.profile.R
-import com.captures2024.soongan.feature.profile.ui.edit.component.EditProfileButton
 import com.captures2024.soongan.feature.profile.ui.edit.component.MiniAddIcon
 import com.captures2024.soongan.feature.profile.ui.edit.component.ProfileOutlinedTextField
 import com.captures2024.soongan.core.design.R as RDesign
@@ -87,12 +89,17 @@ internal fun EditProfileScreenBody(
             },
             maxInputLength = 20,
         )
-        HeightSpacer(130.dp)
-        EditProfileButton(
+
+        WeightSpacer(1f)
+
+        SGTextButtonType2(
             text = stringResource(R.string.edit_complete_button_text),
+            modifier = Modifier.widthIn(min = 120.dp),
+            enabled = editingState.isEditable && !editingState.isDuplicatedNickname && isValidNickname && isValidIntroduction,
             onClick = onClickEdit,
-            enabled = editingState.isEditable && !editingState.isDuplicatedNickname && isValidNickname && isValidIntroduction
         )
+
+        WeightSpacer(1f)
     }
 }
 

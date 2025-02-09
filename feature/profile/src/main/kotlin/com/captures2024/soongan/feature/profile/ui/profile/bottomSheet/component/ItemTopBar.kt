@@ -13,11 +13,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import com.captures2024.soongan.core.designsystem.component.NonScaleText
+import com.captures2024.soongan.core.designsystem.component.text.SGText
+import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillLeftArrow
-import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
 import com.captures2024.soongan.core.designsystem.theme.SGColor
+import com.captures2024.soongan.core.designsystem.theme.SGTypography
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 
 @Composable
@@ -45,15 +46,20 @@ internal fun ItemTopBar(
                     )
                 }
             }
-            NonScaleText(
+
+            SGText(
                 text = itemTitle,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold,
-                fontFamily = NanumSquareNeoFontFamily,
-                letterSpacing = (-5).em,
-                lineHeight = 20.sp
+                style = getSGNonScaleTextStyle(
+                    color = SGColor.primaryA,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    lineHeight = 20.sp,
+                    fontFamily = SGTypography.nanumSquareNeo,
+                    letterSpacing = (-5).em,
+                ),
             )
         }
+
         HorizontalDivider(color = SGColor.primaryA.copy(alpha = 0.12f))
     }
 }

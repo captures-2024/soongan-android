@@ -3,9 +3,7 @@ package com.captures2024.soongan.feature.welcome.ui
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -15,11 +13,15 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.design.R
-import com.captures2024.soongan.core.designsystem.component.NonScaleText
+import com.captures2024.soongan.core.designsystem.component.text.SGText
+import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.theme.SGColor
+import com.captures2024.soongan.core.designsystem.theme.SGTypography
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.viewmodel.welcome.WelcomeViewModel
 
@@ -28,6 +30,13 @@ internal fun WelcomeScreen(
     uiState: WelcomeViewModel.State,
     modifier: Modifier = Modifier,
 ) {
+    val sb = StringBuilder()
+        .append(stringResource(id = com.captures2024.soongan.feature.welcome.R.string.welcome_text))
+        .append("\n")
+        .append("\n")
+        .append(uiState.nickname)
+        .append(stringResource(id = com.captures2024.soongan.feature.welcome.R.string.nickname_unit_text))
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -40,18 +49,17 @@ internal fun WelcomeScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        NonScaleText(
-            text = stringResource(id = com.captures2024.soongan.feature.welcome.R.string.welcome_text),
-            color = SGColor.white,
-            fontSize = 36.sp,
-            fontWeight = FontWeight.SemiBold,
-        )
-        Spacer(modifier = Modifier.height(44.dp))
-        NonScaleText(
-            text =uiState.nickname + stringResource(id = com.captures2024.soongan.feature.welcome.R.string.nickname_unit_text),
-            color = SGColor.white,
-            fontSize = 36.sp,
-            fontWeight = FontWeight.SemiBold,
+        SGText(
+            text = sb.toString(),
+            style = getSGNonScaleTextStyle(
+                color = SGColor.primaryB,
+                fontSize = 36.sp,
+                fontWeight = FontWeight.SemiBold,
+                lineHeight = 44.sp,
+                fontFamily = SGTypography.pretendard,
+                letterSpacing = 0.em,
+                textAlign = TextAlign.Center,
+            ),
         )
     }
 }

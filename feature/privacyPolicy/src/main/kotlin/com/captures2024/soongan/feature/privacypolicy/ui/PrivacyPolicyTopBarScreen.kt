@@ -3,10 +3,8 @@ package com.captures2024.soongan.feature.privacypolicy.ui
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
@@ -16,8 +14,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import com.captures2024.soongan.core.designsystem.component.NonScaleText
+import com.captures2024.soongan.core.designsystem.component.WidthSpacer
+import com.captures2024.soongan.core.designsystem.component.text.SGText
+import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
+import com.captures2024.soongan.core.designsystem.theme.SGColor
+import com.captures2024.soongan.core.designsystem.theme.SGTypography
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 
 @Composable
@@ -32,19 +35,27 @@ internal fun PrivacyPolicyTopBarScreen(
             .background(Color.Black),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Spacer(modifier = Modifier.width(8.dp))
+        WidthSpacer(8.dp)
+
         Icon(
             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
             contentDescription = "",
             tint = Color.White,
             modifier = Modifier.clickable(onClick = onClickBack)
         )
-        Spacer(modifier = Modifier.width(8.dp))
-        NonScaleText(
+
+        WidthSpacer(8.dp)
+
+        SGText(
             text = "PrivacyPolicyTopBarScreen",
-            color = Color.White,
-            fontSize = 18.sp,
-            fontWeight = FontWeight(500)
+            style = getSGNonScaleTextStyle(
+                color = SGColor.white,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Normal,
+                lineHeight = 18.sp,
+                fontFamily = SGTypography.nanumSquareNeo,
+                letterSpacing = 0.em,
+            )
         )
     }
 }

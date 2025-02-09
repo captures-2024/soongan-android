@@ -4,7 +4,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -16,9 +15,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.captures2024.soongan.core.designsystem.component.NonScaleText
-import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
+import com.captures2024.soongan.core.designsystem.component.WidthSpacer
+import com.captures2024.soongan.core.designsystem.component.text.SGText
+import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.theme.SGColor
+import com.captures2024.soongan.core.designsystem.theme.SGTypography
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 
 @Composable
@@ -46,23 +47,29 @@ internal fun HomePostNestedCommentOpenScreen(
                 modifier = Modifier.padding(top = 16.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Spacer(modifier = Modifier.width(44.dp))
-                Spacer(modifier = Modifier.width(4.dp))
+                WidthSpacer(44.dp)
+
+                WidthSpacer(4.dp)
+
                 HorizontalDivider(
                     modifier = Modifier.width(27.dp),
                     color = SGColor.primaryA.copy(alpha = 0.9f)
                 )
-                Spacer(modifier = Modifier.width(8.dp))
-                NonScaleText(
+
+                WidthSpacer(8.dp)
+
+                SGText(
                     text = "답글 숨기기",
-                    color = SGColor.primaryA.copy(alpha = 0.9f),
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Bold,
-                    lineHeight = 16.sp,
-                    fontFamily = NanumSquareNeoFontFamily,
+                    style = getSGNonScaleTextStyle(
+                        color = SGColor.primaryA.copy(alpha = 0.9f),
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Bold,
+                        lineHeight = 16.sp,
+                        fontFamily = SGTypography.nanumSquareNeo,
+                    ),
                     modifier = Modifier.clickable(
-                        onClick = onClick
-                    )
+                        onClick = onClick,
+                    ),
                 )
             }
         }

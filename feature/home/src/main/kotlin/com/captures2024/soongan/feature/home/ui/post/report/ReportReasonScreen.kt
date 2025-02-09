@@ -6,15 +6,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.HeightSpacer
-import com.captures2024.soongan.core.designsystem.component.SoonGanButton
-import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
-import com.captures2024.soongan.core.designsystem.component.text.SGText
-import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
-import com.captures2024.soongan.core.designsystem.theme.SGColor
+import com.captures2024.soongan.core.designsystem.component.button.SGTextButtonType2
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.home.R
 import com.captures2024.soongan.feature.home.ui.post.report.component.ReportReasonTextField
@@ -34,23 +28,13 @@ internal fun ReportReasonScreen(
             onTextChange = onReasonChanged
         )
         HeightSpacer(48.dp)
-        SoonGanButton(
-            onClick = onClickSubmit,
+
+        SGTextButtonType2(
+            text = stringResource(R.string.report_reason_submit_text),
             modifier = Modifier.fillMaxWidth(),
-            enabled = isEnabled
-        ) {
-            SGText(
-                text = stringResource(R.string.report_reason_submit_text),
-                style = getSGNonScaleTextStyle(
-                    color = if(isEnabled) SGColor.primaryA else SGColor.white,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Normal,
-                    lineHeight = 20.sp,
-                    fontFamily = NanumSquareNeoFontFamily,
-                    letterSpacing = 0.sp
-                )
-            )
-        }
+            enabled = isEnabled,
+            onClick = onClickSubmit,
+        )
     }
 }
 

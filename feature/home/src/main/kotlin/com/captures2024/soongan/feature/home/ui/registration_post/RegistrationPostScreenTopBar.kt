@@ -1,22 +1,24 @@
 package com.captures2024.soongan.feature.home.ui.registration_post
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import com.captures2024.soongan.core.designsystem.component.NonScaleText
-import com.captures2024.soongan.core.designsystem.component.SoonGanIconButton
+import com.captures2024.soongan.core.designsystem.component.button.SGIconCircleButton
+import com.captures2024.soongan.core.designsystem.component.text.SGText
+import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillLeftArrow
-import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
 import com.captures2024.soongan.core.designsystem.theme.SGColor
+import com.captures2024.soongan.core.designsystem.theme.SGTypography
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 
 @Composable
@@ -36,22 +38,56 @@ internal fun RegistrationPostScreenTopBar(
                 .padding(horizontal = 20.dp),
             contentAlignment = Alignment.CenterStart
         ) {
-            SoonGanIconButton(onClick = onBackPressed) {
-                Icon(
-                    imageVector = MyIconPack.IconNonFillLeftArrow,
-                    contentDescription = "back",
-                    tint = SGColor.primaryA
-                )
-            }
+            SGIconCircleButton(
+                imageVector = MyIconPack.IconNonFillLeftArrow,
+                contentDescription = "back",
+                color = SGColor.primaryA,
+                iconWidth = 20.dp,
+                iconHeight = 16.dp,
+                onClick = onBackPressed,
+            )
         }
-        NonScaleText(
-            text = "주간 | 평화",
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center,
-            fontFamily = NanumSquareNeoFontFamily,
-            color = SGColor.primaryA,
-        )
+
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(4.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            SGText(
+                text = "1회차",
+                style = getSGNonScaleTextStyle(
+                    color = SGColor.primaryA,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    lineHeight = 20.sp,
+                    fontFamily = SGTypography.nanumSquareNeo,
+                    letterSpacing = 0.em,
+                ),
+            )
+
+            SGText(
+                text = "|",
+                style = getSGNonScaleTextStyle(
+                    color = SGColor.primaryA,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Medium,
+                    lineHeight = 20.sp,
+                    fontFamily = SGTypography.poppins,
+                    letterSpacing = 0.em,
+                ),
+            )
+
+            SGText(
+                text = "평화",
+                style = getSGNonScaleTextStyle(
+                    color = SGColor.primaryA,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    lineHeight = 20.sp,
+                    fontFamily = SGTypography.nanumSquareNeo,
+                    letterSpacing = 0.em,
+                ),
+            )
+        }
     }
 }
 

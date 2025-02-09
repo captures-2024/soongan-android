@@ -22,7 +22,6 @@ import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillInfo
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillRightArrow
-import com.captures2024.soongan.core.designsystem.component.SoonGanIconButton
 import com.captures2024.soongan.core.designsystem.component.button.SGIconCircleButton
 import com.captures2024.soongan.core.designsystem.component.text.SGText
 import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle

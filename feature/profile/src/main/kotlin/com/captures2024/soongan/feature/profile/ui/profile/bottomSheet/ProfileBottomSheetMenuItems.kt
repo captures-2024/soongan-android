@@ -28,10 +28,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.HeightSpacer
-import com.captures2024.soongan.core.designsystem.component.NonScaleText
-import com.captures2024.soongan.core.designsystem.component.SoonGanButton
-import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
+import com.captures2024.soongan.core.designsystem.component.button.SGTextButtonType2
+import com.captures2024.soongan.core.designsystem.component.text.SGText
+import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.theme.SGColor
+import com.captures2024.soongan.core.designsystem.theme.SGTypography
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.viewmodel.model.profile.ProfileBtmShtCheckType
 import com.captures2024.soongan.core.viewmodel.model.profile.ProfileBtmShtMenuItem
@@ -227,15 +228,18 @@ private fun ProfileMenuRow(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        NonScaleText(
+        SGText(
             text = stringResource(item.textId()),
-            fontSize = 16.sp,
-            color = item.color(),
-            fontWeight = FontWeight.Bold,
-            fontFamily = NanumSquareNeoFontFamily,
-            letterSpacing = (-5).em,
-            lineHeight = 20.sp
+            style = getSGNonScaleTextStyle(
+                color = item.color(),
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold,
+                lineHeight = 20.sp,
+                fontFamily = SGTypography.nanumSquareNeo,
+                letterSpacing = (-5).em,
+            ),
         )
+
         Box(
             modifier = Modifier.size(24.dp),
             contentAlignment = Alignment.Center
@@ -265,28 +269,36 @@ private fun PushToggleRow(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Column {
-            NonScaleText(
+        Column(
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            SGText(
                 text = text,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold,
-                fontFamily = NanumSquareNeoFontFamily,
-                letterSpacing = (-5).em,
-                lineHeight = 20.sp
-            )
-            if (detailText.isNotEmpty()) {
-                HeightSpacer(8.dp)
-                NonScaleText(
-                    text = detailText,
-                    fontSize = 12.sp,
-                    color = SGColor.primaryA.copy(alpha = 0.6f),
-                    fontWeight = FontWeight.Normal,
-                    fontFamily = NanumSquareNeoFontFamily,
+                style = getSGNonScaleTextStyle(
+                    color = SGColor.primaryA,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    lineHeight = 20.sp,
+                    fontFamily = SGTypography.nanumSquareNeo,
                     letterSpacing = (-5).em,
-                    lineHeight = 12.sp
+                ),
+            )
+
+            if (detailText.isNotEmpty()) {
+                SGText(
+                    text = detailText,
+                    style = getSGNonScaleTextStyle(
+                        color = SGColor.tempNotificationBody,
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Normal,
+                        lineHeight = 12.sp,
+                        fontFamily = SGTypography.nanumSquareNeo,
+                        letterSpacing = 0.em,
+                    ),
                 )
             }
         }
+
         Switch(
             checked = checked,
             onCheckedChange = onCheckedChange,
@@ -324,16 +336,15 @@ private fun ItemButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
 ) {
-    SoonGanButton(
-        onClick = onClick,
+    SGTextButtonType2(
+        text = text,
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = 20.dp)
             .padding(bottom = 28.dp),
-        enabled = enabled
-    ) {
-        ItemText(text = text)
-    }
+        enabled = enabled,
+        onClick = onClick,
+    )
 }
 
 
