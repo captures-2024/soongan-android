@@ -22,20 +22,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
+import com.captures2024.soongan.core.designsystem.component.text.SGText
+import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillTopArrow
-import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
 import com.captures2024.soongan.core.designsystem.theme.SGColor
+import com.captures2024.soongan.core.designsystem.theme.SGTypography
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
-import com.captures2024.soongan.core.designsystem.util.extension.nonScaleSp
 
 @Composable
 fun CommentInputTextField(
@@ -93,6 +93,17 @@ private fun CommentInputBasicTextField(
     ),
     singleLine: Boolean = true,
 ) {
+    val commonStyle = getSGNonScaleTextStyle(
+        color = SGColor.primaryA,
+        fontSize = 14.sp,
+        fontWeight = FontWeight.Normal,
+        lineHeight = 14.sp,
+        fontFamily = SGTypography.nanumSquareNeo,
+        letterSpacing = 0.em,
+    )
+
+    val hintStyle = commonStyle.copy(color = SGColor.buttonDisableGray)
+
     BasicTextField(
         modifier = Modifier
             .heightIn(min = 40.dp)
@@ -106,13 +117,7 @@ private fun CommentInputBasicTextField(
         singleLine = singleLine,
         visualTransformation = VisualTransformation.None,
 //        maxLines = 1,
-        textStyle = TextStyle(
-            fontFamily = NanumSquareNeoFontFamily,
-            fontWeight = FontWeight.Normal,
-            fontStyle = FontStyle.Normal,
-            fontSize = 14.sp.nonScaleSp,
-            lineHeight = 14.sp.nonScaleSp,
-        ),
+        textStyle = commonStyle,
         interactionSource = interactionSource,
         decorationBox = @Composable { innerTextField ->
             Box(
@@ -133,13 +138,9 @@ private fun CommentInputBasicTextField(
             ) {
                 when (value.isEmpty()) {
                     true -> if (hint != null) {
-                        NonScaleText(
+                        SGText(
                             text = hint,
-                            color = SGColor.primaryA.copy(alpha = 0.3f),
-                            fontSize = 14.sp,
-                            lineHeight = 14.sp,
-                            fontWeight = FontWeight.Normal,
-                            fontFamily = NanumSquareNeoFontFamily,
+                            style = hintStyle,
                         )
                     }
 

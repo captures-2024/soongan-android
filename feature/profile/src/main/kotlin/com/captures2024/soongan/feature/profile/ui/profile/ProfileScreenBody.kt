@@ -13,12 +13,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import com.captures2024.soongan.core.designsystem.component.gallery.SoonGanGallery
-import com.captures2024.soongan.core.designsystem.component.gallery.SoonGanGalleryEmptyItem
-import com.captures2024.soongan.core.designsystem.component.gallery.SoonGanGalleryErrorItem
-import com.captures2024.soongan.core.designsystem.component.gallery.SoonGanGalleryImageItem
-import com.captures2024.soongan.core.designsystem.component.gallery.SoonGanGalleryPaginatingItem
-import com.captures2024.soongan.core.designsystem.component.gallery.SoonGanGallerySkeletonItem
+import com.captures2024.soongan.core.designsystem.component.gallery.SGGallery
+import com.captures2024.soongan.core.designsystem.component.gallery.SGGalleryEmptyItem
+import com.captures2024.soongan.core.designsystem.component.gallery.SGGalleryErrorItem
+import com.captures2024.soongan.core.designsystem.component.gallery.SGGalleryImageItem
+import com.captures2024.soongan.core.designsystem.component.gallery.SGGalleryPaginatingItem
+import com.captures2024.soongan.core.designsystem.component.gallery.SGGallerySkeletonItem
 import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.model.dto.GalleryPostDto
@@ -79,20 +79,20 @@ private fun ProfileScreenBody(
         modifier = modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        SoonGanGallery(
+        SGGallery(
             lazyStaggeredGridState = lazyStaggeredGridState,
             hasNextPage = (paginationStatus != PaginationStatus.EXHAUST),
             onLoadNextPage = onLoadNextPage
         ) {
             when (paginationStatus) {
                 PaginationStatus.LOADING -> items(listOf(258, 192, 275, 268, 275, 192)) { height ->
-                    SoonGanGallerySkeletonItem(height = height)
+                    SGGallerySkeletonItem(height = height)
                 }
 
                 PaginationStatus.EMPTY -> Unit
 
                 else -> items(items = myPosts, key = { it.postId }) {
-                    SoonGanGalleryImageItem(
+                    SGGalleryImageItem(
                         imageUrl = it.imageUrl,
                         onClick = { onClickPhoto(it.postId) }
                     )
@@ -101,19 +101,19 @@ private fun ProfileScreenBody(
 
             if (paginationStatus == PaginationStatus.PAGINATING) {
                 item(span = StaggeredGridItemSpan.FullLine) {
-                    SoonGanGalleryPaginatingItem()
+                    SGGalleryPaginatingItem()
                 }
             }
 
             if (paginationStatus == PaginationStatus.ERROR && myPosts.isNotEmpty()) {
                 item(span = StaggeredGridItemSpan.FullLine) {
-                    SoonGanGalleryErrorItem(errorText = stringResource(R.string.profile_gallery_error_text))
+                    SGGalleryErrorItem(errorText = stringResource(R.string.profile_gallery_error_text))
                 }
             }
         }
 
         if (paginationStatus == PaginationStatus.EMPTY) {
-            SoonGanGalleryEmptyItem(
+            SGGalleryEmptyItem(
                 emptyText = stringResource(R.string.profile_gallery_empty_text),
                 registrationText = stringResource(R.string.profile_gallery_registration_text),
                 onClickRegistrationText = onClickRegistrationText
@@ -121,7 +121,7 @@ private fun ProfileScreenBody(
         }
 
         if (paginationStatus == PaginationStatus.ERROR && myPosts.isEmpty()) {
-            SoonGanGalleryErrorItem(errorText = stringResource(R.string.profile_gallery_error_text))
+            SGGalleryErrorItem(errorText = stringResource(R.string.profile_gallery_error_text))
         }
     }
 }

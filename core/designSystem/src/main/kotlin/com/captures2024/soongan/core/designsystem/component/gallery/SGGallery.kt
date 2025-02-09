@@ -40,7 +40,7 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 
 @Composable
-fun SoonGanGallery(
+fun SGGallery(
     modifier: Modifier = Modifier,
     lazyStaggeredGridState: LazyStaggeredGridState = rememberLazyStaggeredGridState(),
     isInitPage: Boolean = true,
@@ -134,8 +134,8 @@ private fun ScrollToTopIcon(
 
 @Preview
 @Composable
-private fun SoonGanGalleryPreview() {
-    SoonGanGallery {
+private fun SGGalleryPreview() {
+    SGGallery {
         item(span = StaggeredGridItemSpan.FullLine) {
             Text("preview test")
         }

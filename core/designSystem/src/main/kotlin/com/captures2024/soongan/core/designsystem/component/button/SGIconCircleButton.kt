@@ -20,6 +20,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillCircleQuestion
@@ -85,13 +86,18 @@ fun SGIconCircleButton(
     imageVector: ImageVector,
     contentDescription: String?,
     color: Color = SGColor.primaryA,
+    iconWidth: Dp = 20.dp,
+    iconHeight: Dp = 20.dp,
     onClick: () -> Unit,
 ) {
     SGIconCircleButton(onClick = onClick) {
         Icon(
             imageVector = imageVector,
             contentDescription = contentDescription,
-            modifier = Modifier.size(20.dp),
+            modifier = Modifier.size(
+                width = iconWidth,
+                height = iconHeight,
+            ),
             tint = color,
         )
     }
