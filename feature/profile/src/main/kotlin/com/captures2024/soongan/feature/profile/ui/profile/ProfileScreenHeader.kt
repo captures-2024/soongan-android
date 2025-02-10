@@ -24,14 +24,15 @@ import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.captures2024.soongan.core.designsystem.component.HeightSpacer
-import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.component.WeightSpacer
 import com.captures2024.soongan.core.designsystem.component.WidthSpacer
+import com.captures2024.soongan.core.designsystem.component.text.SGText
+import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillBell
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillMenu
-import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
-import com.captures2024.soongan.core.designsystem.theme.PoppinsFontFamily
+import com.captures2024.soongan.core.designsystem.theme.SGColor
+import com.captures2024.soongan.core.designsystem.theme.SGTypography
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.viewmodel.model.profile.UserProfile
 import com.captures2024.soongan.core.design.R as RDesign
@@ -77,22 +78,30 @@ private fun ProfileCard(
         )
         WidthSpacer(16.dp)
         Column {
-            NonScaleText(
+            SGText(
                 text = userProfile.nickname,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Medium,
-                fontFamily = PoppinsFontFamily,
-                letterSpacing = (-5).em,
-                lineHeight = 20.sp
+                style = getSGNonScaleTextStyle(
+                    color = SGColor.primaryA,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Medium,
+                    lineHeight = 20.sp,
+                    fontFamily = SGTypography.poppins,
+                    letterSpacing = (-5).em,
+                )
             )
+
             HeightSpacer(8.dp)
-            NonScaleText(
+
+            SGText(
                 text = userProfile.selfIntroduction,
-                fontSize = 12.sp,
-                fontWeight = FontWeight.Normal,
-                fontFamily = NanumSquareNeoFontFamily,
-                letterSpacing = (-5).em,
-                lineHeight = 12.sp
+                style = getSGNonScaleTextStyle(
+                    color = SGColor.primaryA,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Normal,
+                    lineHeight = 12.sp,
+                    fontFamily = SGTypography.nanumSquareNeo,
+                    letterSpacing = (-5).em,
+                )
             )
         }
     }

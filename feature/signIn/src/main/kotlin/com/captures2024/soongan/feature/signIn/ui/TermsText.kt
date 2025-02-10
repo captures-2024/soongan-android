@@ -4,15 +4,13 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.sp
-import com.captures2024.soongan.core.designsystem.component.nonScaleSpanStyle
-import com.captures2024.soongan.core.designsystem.component.text.SGNonScaleSpanStyle
+import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleSpanStyle
 import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.theme.SGTypography
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
@@ -25,7 +23,7 @@ internal fun TermsText(
 ) {
     val text = buildAnnotatedString {
         withStyle(
-            style = SGNonScaleSpanStyle(
+            style = getSGNonScaleSpanStyle(
                 color = SGColor.primaryB,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Medium,
@@ -36,7 +34,7 @@ internal fun TermsText(
         }
         pushStringAnnotation(tag = "termsOfUse", annotation = "termsOfUse")
         withStyle(
-            style = SGNonScaleSpanStyle(
+            style = getSGNonScaleSpanStyle(
                 color = SGColor.primaryB,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Medium,
@@ -48,7 +46,7 @@ internal fun TermsText(
         }
         pop()
         withStyle(
-            style = SGNonScaleSpanStyle(
+            style = getSGNonScaleSpanStyle(
                 color = SGColor.primaryB,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Medium,
@@ -59,7 +57,7 @@ internal fun TermsText(
         }
         pushStringAnnotation(tag = "privacyPolicy", annotation = "privacyPolicy")
         withStyle(
-            style = SGNonScaleSpanStyle(
+            style = getSGNonScaleSpanStyle(
                 color = SGColor.primaryB,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Medium,
@@ -71,7 +69,7 @@ internal fun TermsText(
         }
         pop()
         withStyle(
-            style = SGNonScaleSpanStyle(
+            style = getSGNonScaleSpanStyle(
                 color = SGColor.primaryB,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Medium,

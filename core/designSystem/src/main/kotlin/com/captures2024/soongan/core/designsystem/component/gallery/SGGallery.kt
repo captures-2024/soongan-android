@@ -8,14 +8,12 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.staggeredgrid.LazyStaggeredGridScope
 import androidx.compose.foundation.lazy.staggeredgrid.LazyStaggeredGridState
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
 import androidx.compose.foundation.lazy.staggeredgrid.rememberLazyStaggeredGridState
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -31,7 +29,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.captures2024.soongan.core.design.R
-import com.captures2024.soongan.core.designsystem.component.SoonGanIconButton
+import com.captures2024.soongan.core.designsystem.component.button.SGIconCircleButton
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillTopArrow
 import com.captures2024.soongan.core.designsystem.theme.SGColor
@@ -40,7 +38,7 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 
 @Composable
-fun SoonGanGallery(
+fun SGGallery(
     modifier: Modifier = Modifier,
     lazyStaggeredGridState: LazyStaggeredGridState = rememberLazyStaggeredGridState(),
     isInitPage: Boolean = true,
@@ -106,36 +104,30 @@ private fun ScrollToTopIcon(
         verticalArrangement = Arrangement.Bottom,
         horizontalAlignment = Alignment.End
     ) {
-        SoonGanIconButton(
+        SGIconCircleButton(
+            imageVector = MyIconPack.IconNonFillTopArrow,
+            contentDescription = "icon that scrolls up to the top",
             modifier = Modifier.offset(
                 y = when (lazyStaggeredGridState.firstVisibleItemIndex) {
                     0 -> 100.dp
                     else -> 0.dp
                 }
             ),
+            iconWidth = 20.dp,
+            iconHeight = 16.dp,
             onClick = {
                 coroutineScope.launch {
                     lazyStaggeredGridState.animateScrollToItem(index = 0)
                 }
             }
-        ) {
-            Icon(
-                imageVector = MyIconPack.IconNonFillTopArrow,
-                contentDescription = "icon that scrolls up to the top",
-                tint = SGColor.primaryA,
-                modifier = Modifier.size(
-                    width = 20.dp,
-                    height = 16.dp
-                )
-            )
-        }
+        )
     }
 }
 
 @Preview
 @Composable
-private fun SoonGanGalleryPreview() {
-    SoonGanGallery {
+private fun SGGalleryPreview() {
+    SGGallery {
         item(span = StaggeredGridItemSpan.FullLine) {
             Text("preview test")
         }

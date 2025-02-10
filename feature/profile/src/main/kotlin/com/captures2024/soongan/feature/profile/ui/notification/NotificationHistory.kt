@@ -20,12 +20,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.HeightSpacer
-import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.component.WidthSpacer
-import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
+import com.captures2024.soongan.core.designsystem.component.text.SGText
+import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.theme.SGColor
+import com.captures2024.soongan.core.designsystem.theme.SGTypography
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.model.UserNotification
 import com.captures2024.soongan.core.model.mock.mockNotifications
@@ -65,13 +67,16 @@ private fun EmptyNotificationHistory(modifier: Modifier = Modifier) {
         modifier = modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        NonScaleText(
-            stringResource(R.string.non_exist_notification_message),
-            fontSize = 24.sp,
-            color = SGColor.primaryA,
-            fontWeight = FontWeight.Bold,
-            fontFamily = NanumSquareNeoFontFamily,
-            lineHeight = 16.sp
+        SGText(
+            text = stringResource(R.string.non_exist_notification_message),
+            style = getSGNonScaleTextStyle(
+                color = SGColor.primaryA,
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
+                lineHeight = 16.sp,
+                fontFamily = SGTypography.nanumSquareNeo,
+                letterSpacing = 0.em,
+            )
         )
     }
 }
@@ -91,6 +96,7 @@ private fun NotificationHistoryContent(
             .clickable(onClick = onClick)
     ) {
         HeightSpacer(20.dp)
+
         Row(
             modifier = Modifier.padding(start = 12.dp),
             verticalAlignment = Alignment.CenterVertically
@@ -99,41 +105,57 @@ private fun NotificationHistoryContent(
                 modifier = Modifier
                     .size(8.dp)
                     .clip(CircleShape)
-                    .background(color = if (isRead) SGColor.white else SGColor.accent)
+                    .background(color = if (isRead) SGColor.transparent else SGColor.accent)
             )
+
             WidthSpacer(12.dp)
-            NonScaleText(
+
+            SGText(
                 text = title,
-                fontSize = 16.sp,
-                color = SGColor.primaryA,
-                fontWeight = FontWeight.Bold,
-                fontFamily = NanumSquareNeoFontFamily,
-                lineHeight = 16.sp
+                style = getSGNonScaleTextStyle(
+                    color = SGColor.primaryA,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    lineHeight = 16.sp,
+                    fontFamily = SGTypography.nanumSquareNeo,
+                    letterSpacing = (-5).em,
+                )
             )
         }
 
         HeightSpacer(8.dp)
-        NonScaleText(
+
+        SGText(
             text = body,
-            fontSize = 12.sp,
+            style = getSGNonScaleTextStyle(
+                color = SGColor.tempNotificationBody,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Bold,
+                lineHeight = 20.sp,
+                fontFamily = SGTypography.nanumSquareNeo,
+                letterSpacing = (-5).em,
+            ),
             modifier = Modifier.padding(horizontal = 32.dp),
-            color = SGColor.primaryA.copy(alpha = 0.6f),
-            fontWeight = FontWeight.Bold,
-            fontFamily = NanumSquareNeoFontFamily,
-            lineHeight = 20.sp
         )
+
         HeightSpacer(8.dp)
-        NonScaleText(
+
+        SGText(
             text = receiveAt,
-            fontSize = 12.sp,
+            style = getSGNonScaleTextStyle(
+                color = SGColor.tempNotificationBody,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Normal,
+                lineHeight = 20.sp,
+                fontFamily = SGTypography.nanumSquareNeo,
+                letterSpacing = (-5).em,
+            ),
             modifier = Modifier.padding(horizontal = 32.dp),
-            color = SGColor.primaryA.copy(alpha = 0.6f),
-            fontWeight = FontWeight.Normal,
-            fontFamily = NanumSquareNeoFontFamily,
-            lineHeight = 12.sp
         )
+
         HeightSpacer(20.dp)
     }
+
     HorizontalDivider(modifier = Modifier.padding(horizontal = 20.dp))
 }
 

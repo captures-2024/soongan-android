@@ -30,7 +30,7 @@ import com.captures2024.soongan.core.designsystem.component.ZoomableBox
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillLeftArrow
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
-import com.captures2024.soongan.core.designsystem.component.SoonGanIconButton
+import com.captures2024.soongan.core.designsystem.component.button.SGIconCircleButton
 import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.viewmodel.home.HomePostPhotoViewModel
 import kotlinx.coroutines.delay
@@ -103,17 +103,13 @@ internal fun HomePostPhotoScreen(
             contentAlignment = Alignment.CenterStart
         ) {
             if (currentTimerValue <= 0) {
-                SoonGanIconButton(onClick = onBackPressed) {
-                    Icon(
-                        imageVector = MyIconPack.IconNonFillLeftArrow,
-                        contentDescription = "back",
-                        tint = SGColor.primaryA,
-                        modifier = Modifier.size(
-                            width = 20.dp,
-                            height = 16.dp
-                        )
-                    )
-                }
+                SGIconCircleButton(
+                    imageVector = MyIconPack.IconNonFillLeftArrow,
+                    contentDescription = "back",
+                    iconWidth = 20.dp,
+                    iconHeight = 16.dp,
+                    onClick = onBackPressed,
+                )
             }
         }
     }

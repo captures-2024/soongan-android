@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.common.Validation
 import com.captures2024.soongan.core.designsystem.component.HeightSpacer
 import com.captures2024.soongan.core.designsystem.component.WidthSpacer
-import com.captures2024.soongan.core.designsystem.component.text.SGNonScaleTextStyle
+import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.component.text.SGText
 import com.captures2024.soongan.core.designsystem.component.text.field.SGTextFieldFormState
 import com.captures2024.soongan.core.designsystem.component.text.field.SGTextFieldTypeForm
@@ -73,7 +73,7 @@ internal fun NicknameScreen(
                 WidthSpacer(12.dp)
                 SGText(
                     text = stringResource(id = R.string.input_nickname_input_title),
-                    style = SGNonScaleTextStyle(
+                    style = getSGNonScaleTextStyle(
                         color = SGColor.primaryB,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.SemiBold,
@@ -87,7 +87,7 @@ internal fun NicknameScreen(
 
             SGTextFieldTypeForm(
                 value = state.nickname,
-                textStyle = SGNonScaleTextStyle(
+                textStyle = getSGNonScaleTextStyle(
                     color = SGColor.primaryA,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Medium,
@@ -120,7 +120,7 @@ internal fun NicknameScreen(
                         state.isValid == Validation.NicknameValidState.Regex -> stringResource(id = R.string.input_nickname_fail_regex_hint_text)
                         else -> stringResource(id = R.string.input_nickname_default_hint_text)
                     },
-                    style = SGNonScaleTextStyle(
+                    style = getSGNonScaleTextStyle(
                         color = when {
                             state.isDuplicatedNickname || state.isValid == Validation.NicknameValidState.Regex -> SGColor.negative
                             else -> SGColor.hintGray
@@ -134,7 +134,7 @@ internal fun NicknameScreen(
 
                 SGText(
                     text = "${state.nickname.length}/${state.maxNicknameLength}",
-                    style = SGNonScaleTextStyle(
+                    style = getSGNonScaleTextStyle(
                         color = SGColor.hintGray,
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Medium,

@@ -12,7 +12,7 @@ import com.captures2024.soongan.core.designsystem.util.extension.nonScaleSp
 import com.captures2024.soongan.core.designsystem.util.extension.normalizeLetterSpacing
 
 @Stable
-fun SGSpanStyle(
+fun getSGSpanStyle(
     color: Color,
     fontSize: TextUnit,
     fontWeight: FontWeight,
@@ -29,14 +29,14 @@ fun SGSpanStyle(
 )
 
 @Composable
-fun SGNonScaleSpanStyle(
+fun getSGNonScaleSpanStyle(
     color: Color,
     fontSize: TextUnit,
     fontWeight: FontWeight,
     fontFamily: FontFamily,
     letterSpacing: TextUnit = TextUnit.Unspecified,
     textDecoration: TextDecoration? = null,
-): SpanStyle = SGSpanStyle(
+): SpanStyle = getSGSpanStyle(
     color = color,
     fontSize = fontSize.nonScaleSp,
     fontWeight = fontWeight,

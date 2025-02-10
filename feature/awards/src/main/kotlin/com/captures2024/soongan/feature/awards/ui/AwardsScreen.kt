@@ -8,8 +8,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.captures2024.soongan.core.designsystem.component.NonScaleText
+import com.captures2024.soongan.core.designsystem.component.text.SGText
+import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.theme.SGColor
+import com.captures2024.soongan.core.designsystem.theme.SGTypography
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 
 @Composable
@@ -21,11 +23,15 @@ internal fun AwardsScreen(
             .background(SGColor.primaryB),
         contentAlignment = Alignment.Center,
     ) {
-        NonScaleText(
+        SGText(
             text = "awards",
-            color = SGColor.black,
-            fontSize = 36.sp,
-            fontWeight = FontWeight.Bold,
+            style = getSGNonScaleTextStyle(
+                color = SGColor.black,
+                fontSize = 36.sp,
+                fontWeight = FontWeight.Bold,
+                lineHeight = 36.sp,
+                fontFamily = SGTypography.nanumSquareNeo,
+            )
         )
     }
 }

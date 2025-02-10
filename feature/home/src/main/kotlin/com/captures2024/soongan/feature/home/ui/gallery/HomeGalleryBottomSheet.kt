@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -28,10 +28,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.captures2024.soongan.core.designsystem.component.NonScaleText
+import com.captures2024.soongan.core.designsystem.component.text.SGText
+import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFilterLike
 import com.captures2024.soongan.core.designsystem.theme.SGColor
+import com.captures2024.soongan.core.designsystem.theme.SGTypography
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.viewmodel.home.HomeGalleryViewModel
 import com.captures2024.soongan.feature.home.R
@@ -76,10 +78,10 @@ internal fun HomeGalleryBottomSheet(
 
 @Composable
 private fun HomeGalleryFilterItem(
-    modifier: Modifier = Modifier,
     text: String,
     icon: ImageVector,
     selected: Boolean,
+    modifier: Modifier = Modifier,
     onClickItem: () -> Unit = {},
 ) {
     Box(
@@ -90,23 +92,28 @@ private fun HomeGalleryFilterItem(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(56.dp)
-                .padding(horizontal = 19.dp),
+                .heightIn(min = 56.dp)
+                .padding(horizontal = 20.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            NonScaleText(
+            SGText(
                 text = text,
-                fontSize = 18.sp,
-                fontWeight = FontWeight.SemiBold,
-                color = when (selected) {
-                    true -> SGColor.primaryA
+                style = getSGNonScaleTextStyle(
+                    color = when (selected) {
+                        true -> SGColor.primaryA
 
-                    false -> SGColor.primaryA.copy(alpha = 0.3f)
-                }
+                        false -> SGColor.primaryA.copy(alpha = 0.3f)
+                    },
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    lineHeight = 24.sp,
+                    fontFamily = SGTypography.nanumSquareNeo,
+                )
             )
+
             Icon(
-                modifier = Modifier.size(26.dp),
+                modifier = Modifier.size(24.dp),
                 imageVector = icon,
                 contentDescription = text,
                 tint = when (selected) {

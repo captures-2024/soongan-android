@@ -5,16 +5,12 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -27,18 +23,22 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.captures2024.soongan.core.design.R
-import com.captures2024.soongan.core.designsystem.component.NonScaleText
+import com.captures2024.soongan.core.designsystem.component.HeightSpacer
 import com.captures2024.soongan.core.designsystem.component.shimmerBrush
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillLeftArrow
 import com.captures2024.soongan.core.designsystem.theme.dropShadow
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
-import com.captures2024.soongan.core.designsystem.component.SoonGanIconButton
+import com.captures2024.soongan.core.designsystem.component.button.SGIconCircleButton
+import com.captures2024.soongan.core.designsystem.component.text.SGText
+import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.theme.SGColor
+import com.captures2024.soongan.core.designsystem.theme.SGTypography
 import com.captures2024.soongan.core.model.dto.PostInfoDto
 import com.captures2024.soongan.core.viewmodel.home.HomePostViewModel
 
@@ -65,15 +65,14 @@ internal fun HomePostScreen(
                     .padding(20.dp),
                 contentAlignment = Alignment.CenterStart
             ) {
-                SoonGanIconButton(
+                SGIconCircleButton(
+                    imageVector = MyIconPack.IconNonFillLeftArrow,
+                    contentDescription = "back",
+                    iconWidth = 20.dp,
+                    iconHeight = 16.dp,
+                    color = SGColor.primaryA,
                     onClick = { intent(HomePostViewModel.Intent.OnClickBack) },
-                ) {
-                    Icon(
-                        imageVector = MyIconPack.IconNonFillLeftArrow,
-                        contentDescription = "back",
-                        tint = SGColor.primaryA
-                    )
-                }
+                )
             }
         },
         bottomBar = @Composable {
@@ -107,14 +106,14 @@ internal fun HomePostScreen(
                         .build(),
                     contentDescription = uiState.post.subject,
                     modifier = modifier
+                        .width(360.dp)
+                        .height(460.dp)
                         .background(
-                            shimmerBrush(
+                            brush = shimmerBrush(
                                 targetValue = 1300f,
                                 showShimmer = showShimmer.value
-                            )
+                            ),
                         )
-                        .widthIn(max = 360.dp)
-                        .heightIn(max = 460.dp)
                         .dropShadow(
                             shape = RoundedCornerShape(0.dp),
                             color = SGColor.black.copy(alpha = 0.3f),
@@ -125,7 +124,7 @@ internal fun HomePostScreen(
                         .clickable(
                             onClick = { intent(HomePostViewModel.Intent.OnClickPhoto) },
                         ),
-                    contentScale = ContentScale.FillWidth,
+                    contentScale = ContentScale.Crop,
                 )
             }
 
@@ -135,18 +134,30 @@ internal fun HomePostScreen(
                     .padding(horizontal = 16.dp)
                     .padding(bottom = 40.dp)
             ) {
-                NonScaleText(
+                SGText(
                     text = uiState.post.subject,
-                    color = SGColor.primaryA,
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold
+                    style = getSGNonScaleTextStyle(
+                        color = SGColor.primaryA,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold,
+                        lineHeight = 24.sp,
+                        fontFamily = SGTypography.nanumSquareNeo,
+                        letterSpacing = 0.em,
+                    )
                 )
-                Spacer(modifier = Modifier.height(8.dp))
-                NonScaleText(
+
+                HeightSpacer(8.dp)
+
+                SGText(
                     text = "@${uiState.post.registerNickname}",
-                    color = SGColor.primaryA,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Medium
+                    style = getSGNonScaleTextStyle(
+                        color = SGColor.primaryA,
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Normal,
+                        lineHeight = 16.sp,
+                        fontFamily = SGTypography.poppins,
+                        letterSpacing = (-2).em,
+                    )
                 )
             }
         }

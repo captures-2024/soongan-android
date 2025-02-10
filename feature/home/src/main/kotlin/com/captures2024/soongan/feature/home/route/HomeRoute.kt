@@ -58,7 +58,6 @@ internal fun HomeRoute(
         modifier = modifier,
         onClickPlus = { homeViewModel.intent(HomeViewModel.Intent.OnClickPlus) },
         onClickPost = { homeViewModel.intent(HomeViewModel.Intent.OnClickPost(it)) },
-        onToggleWeeklyDaily = { homeViewModel.intent(HomeViewModel.Intent.OnToggleWeeklyDaily) },
         onClickInfo = { homeViewModel.intent(HomeViewModel.Intent.OnClickInfo) },
         onClickRightArrow = { homeViewModel.intent(HomeViewModel.Intent.OnClickRightArrow) },
     )

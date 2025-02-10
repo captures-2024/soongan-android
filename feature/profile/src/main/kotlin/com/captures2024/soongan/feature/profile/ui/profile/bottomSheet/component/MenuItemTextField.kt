@@ -20,10 +20,10 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import com.captures2024.soongan.core.designsystem.component.NonScaleText
-import com.captures2024.soongan.core.designsystem.component.nonScaleTextStyle
-import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
+import com.captures2024.soongan.core.designsystem.component.text.SGText
+import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.theme.SGColor
+import com.captures2024.soongan.core.designsystem.theme.SGTypography
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 
 @Composable
@@ -35,6 +35,15 @@ internal fun MenuItemTextField(
     maxInputLength: Int = 20,
 ) {
     val focusManager = LocalFocusManager.current
+
+    val contentStyle = getSGNonScaleTextStyle(
+        color = SGColor.primaryA,
+        fontSize = 18.sp,
+        fontWeight = FontWeight.Normal,
+        lineHeight = 24.sp,
+        fontFamily = SGTypography.nanumSquareNeo,
+        letterSpacing = (-5).em,
+    )
 
     BasicTextField(
         value = value,
@@ -50,12 +59,7 @@ internal fun MenuItemTextField(
                 color = SGColor.primaryA,
                 shape = RoundedCornerShape(8.dp)
             ),
-        textStyle = nonScaleTextStyle(
-            fontSize = 18.sp,
-            fontFamily = NanumSquareNeoFontFamily,
-            fontWeight = FontWeight.Normal,
-            letterSpacing = (-5).em,
-        ),
+        textStyle = contentStyle,
         keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
         keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
         decorationBox = { innerTextField ->
@@ -66,14 +70,9 @@ internal fun MenuItemTextField(
                 contentAlignment = Alignment.CenterStart
             ) {
                 if (value.isEmpty()) {
-                    NonScaleText(
+                    SGText(
                         text = placeholder,
-                        fontSize = 18.sp,
-                        color = SGColor.primaryA.copy(alpha = 0.3f),
-                        fontWeight = FontWeight.Normal,
-                        fontFamily = NanumSquareNeoFontFamily,
-                        letterSpacing = (-0.05).em,
-                        lineHeight = 24.sp
+                        style = contentStyle.copy(color = SGColor.buttonDisableGray),
                     )
                 }
                 innerTextField()

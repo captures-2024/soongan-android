@@ -16,7 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import com.captures2024.soongan.core.designsystem.component.text.SGNonScaleTextStyle
+import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.theme.SGTheme
 import com.captures2024.soongan.core.designsystem.theme.SGTypography
@@ -58,7 +58,7 @@ private fun PreviewSGTextField() {
         ) {
             SGTextField(
                 value = "test",
-                textStyle = SGNonScaleTextStyle(
+                textStyle = getSGNonScaleTextStyle(
                     color = SGColor.primaryA,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Normal,

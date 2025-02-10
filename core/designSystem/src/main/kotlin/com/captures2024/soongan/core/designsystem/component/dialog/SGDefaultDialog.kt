@@ -25,11 +25,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.component.button.SGTextButtonType2
+import com.captures2024.soongan.core.designsystem.component.text.SGText
+import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.Logo
 import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
@@ -71,14 +73,17 @@ fun SGSingleButtonDialog(
                     .height(50.1f.dp)
             )
 
-            NonScaleText(
+            SGText(
                 text = content,
-                fontSize = 16.sp,
-                fontFamily = NanumSquareNeoFontFamily,
-                fontWeight = FontWeight.Bold,
-                color = SGColor.black,
-                lineHeight = 24.sp,
-                textAlign = TextAlign.Center,
+                style = getSGNonScaleTextStyle(
+                    color = SGColor.black,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    lineHeight = 24.sp,
+                    fontFamily = NanumSquareNeoFontFamily,
+                    letterSpacing = 0.em,
+                    textAlign = TextAlign.Center,
+                )
             )
 
             SGTextButtonType2(
@@ -127,14 +132,17 @@ fun SGDoubleButtonDialog(
                     .height(50.1f.dp)
             )
 
-            NonScaleText(
+            SGText(
                 text = content,
-                fontSize = 16.sp,
-                fontFamily = NanumSquareNeoFontFamily,
-                fontWeight = FontWeight.Bold,
-                color = SGColor.black,
-                lineHeight = 24.sp,
-                textAlign = TextAlign.Center,
+                style = getSGNonScaleTextStyle(
+                    color = SGColor.black,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    lineHeight = 24.sp,
+                    fontFamily = NanumSquareNeoFontFamily,
+                    letterSpacing = 0.em,
+                    textAlign = TextAlign.Center,
+                )
             )
 
             Row(
@@ -158,12 +166,16 @@ fun SGDoubleButtonDialog(
                         disabledContentColor = SGColor.white
                     ),
                 ) {
-                    NonScaleText(
+                    SGText(
                         text = cancelContent,
-                        fontSize = 14.sp,
-                        fontFamily = NanumSquareNeoFontFamily,
-                        fontWeight = FontWeight.Bold,
-                        color = SGColor.black,
+                        style = getSGNonScaleTextStyle(
+                            color = SGColor.black,
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Bold,
+                            lineHeight = 20.sp,
+                            fontFamily = NanumSquareNeoFontFamily,
+                            letterSpacing = 0.em,
+                        )
                     )
                 }
 

@@ -14,7 +14,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import com.captures2024.soongan.core.designsystem.component.text.SGNonScaleTextStyle
+import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.component.text.SGText
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillLeftArrow
@@ -49,7 +49,7 @@ internal fun ReportTopBar(
             }
             SGText(
                 text = stringResource(id = R.string.report_title_text),
-                SGNonScaleTextStyle(
+                getSGNonScaleTextStyle(
                     color = SGColor.primaryA,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,

@@ -19,11 +19,15 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import com.captures2024.soongan.core.designsystem.component.NonScaleText
+import com.captures2024.soongan.core.designsystem.component.HeightSpacer
+import com.captures2024.soongan.core.designsystem.component.text.SGText
+import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillPlus
 import com.captures2024.soongan.core.designsystem.theme.SGColor
+import com.captures2024.soongan.core.designsystem.theme.SGTypography
 import com.captures2024.soongan.core.designsystem.theme.dropShadow
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.home.R
@@ -62,7 +66,7 @@ internal fun HomeExhibitButton(
                     },
                 ),
             verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Icon(
                 imageVector = MyIconPack.IconNonFillPlus,
@@ -76,31 +80,43 @@ internal fun HomeExhibitButton(
                         }
                     ),
                 tint = when {
-                    exhibitCount< MAX_EXHIBIT_CNT -> SGColor.black
+                    exhibitCount < MAX_EXHIBIT_CNT -> SGColor.primaryA
                     else -> SGColor.white
                 },
             )
+
             if (exhibitCount == 0) {
-                Spacer(modifier = Modifier.height(8.dp))
-                NonScaleText(
+                HeightSpacer(16.dp)
+
+                SGText(
                     text = stringResource(id = R.string.exhibit),
-                    fontSize = 14.sp,
-                    color = SGColor.primaryA,
+                    style = getSGNonScaleTextStyle(
+                        color = SGColor.primaryA,
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Normal,
+                        lineHeight = 16.sp,
+                        fontFamily = SGTypography.nanumSquareNeo,
+                        letterSpacing = 0.em,
+                    ),
                 )
             }
         }
+
         if (exhibitCount > 0) {
-            Box(
-                modifier = Modifier.fillMaxSize()
-            ) {
-                NonScaleText(
+            Box(modifier = Modifier.fillMaxSize()) {
+                SGText(
                     text = "$exhibitCount/$MAX_EXHIBIT_CNT",
-                    color = when (exhibitCount) {
-                        MAX_EXHIBIT_CNT -> SGColor.white
-                        else -> SGColor.primaryA
-                    },
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Normal,
+                    style = getSGNonScaleTextStyle(
+                        color = when (exhibitCount) {
+                            MAX_EXHIBIT_CNT -> SGColor.white
+                            else -> SGColor.primaryA
+                        },
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Normal,
+                        lineHeight = 14.sp,
+                        fontFamily = SGTypography.poppins,
+                        letterSpacing = 0.em,
+                    ),
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
                         .padding(bottom = 24.dp),

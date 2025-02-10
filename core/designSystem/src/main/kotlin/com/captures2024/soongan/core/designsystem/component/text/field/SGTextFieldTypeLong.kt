@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,7 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import com.captures2024.soongan.core.designsystem.component.text.SGNonScaleTextStyle
+import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.component.text.SGText
 import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.theme.SGTheme
@@ -89,7 +88,7 @@ private fun PreviewSGTextFieldTypeLong_hint() {
         ) {
             SGTextFieldTypeLong(
                 value = value,
-                textStyle = SGNonScaleTextStyle(
+                textStyle = getSGNonScaleTextStyle(
                     color = SGColor.primaryA,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Normal,
@@ -100,7 +99,7 @@ private fun PreviewSGTextFieldTypeLong_hint() {
                 onValueChange = {},
                 hint = "텍스트를 입력해주세요",
                 placeholderText = "${value.length}/$maxSize",
-                placeholderStyle = SGNonScaleTextStyle(
+                placeholderStyle = getSGNonScaleTextStyle(
                     color = SGColor.primaryA,
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Normal,
@@ -129,7 +128,7 @@ private fun PreviewSGTextFieldTypeLong_default() {
         ) {
             SGTextFieldTypeLong(
                 value = value,
-                textStyle = SGNonScaleTextStyle(
+                textStyle = getSGNonScaleTextStyle(
                     color = SGColor.primaryA,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Normal,
@@ -140,7 +139,7 @@ private fun PreviewSGTextFieldTypeLong_default() {
                 onValueChange = {},
                 hint = "텍스트를 입력해주세요",
                 placeholderText = "${value.length}/$maxSize",
-                placeholderStyle = SGNonScaleTextStyle(
+                placeholderStyle = getSGNonScaleTextStyle(
                     color = SGColor.primaryA,
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Normal,

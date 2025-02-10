@@ -20,15 +20,17 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import com.captures2024.soongan.core.designsystem.component.NonScaleText
 import com.captures2024.soongan.core.designsystem.component.WidthSpacer
+import com.captures2024.soongan.core.designsystem.component.text.SGText
+import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillEdit
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillPaperDelete
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillReport
-import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
 import com.captures2024.soongan.core.designsystem.theme.SGColor
+import com.captures2024.soongan.core.designsystem.theme.SGTypography
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -117,16 +119,21 @@ private fun DialogItemComponent(
                 .padding(horizontal = 16.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            NonScaleText(
+            SGText(
                 text = text,
-                color = color,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold,
-                lineHeight = 24.sp,
-                fontFamily = NanumSquareNeoFontFamily,
-                modifier = Modifier.weight(0.9f)
+                style = getSGNonScaleTextStyle(
+                    color = color,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    lineHeight = 24.sp,
+                    fontFamily = SGTypography.nanumSquareNeo,
+                    letterSpacing = 0.em,
+                ),
+                modifier = Modifier.weight(0.9f),
             )
+
             WidthSpacer(4.dp)
+
             Icon(
                 imageVector = icon,
                 contentDescription = "back",
@@ -134,6 +141,7 @@ private fun DialogItemComponent(
                 modifier = Modifier.size(24.dp)
             )
         }
+
         if (isVisibleDivider) {
             HorizontalDivider(
                 modifier = Modifier.fillMaxWidth(),

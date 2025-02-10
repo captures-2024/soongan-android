@@ -33,13 +33,17 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Velocity
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.captures2024.soongan.core.designsystem.component.CommentInputTextField
-import com.captures2024.soongan.core.designsystem.component.NonScaleText
-import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
+import com.captures2024.soongan.core.designsystem.component.HeightSpacer
+import com.captures2024.soongan.core.designsystem.component.WidthSpacer
+import com.captures2024.soongan.core.designsystem.component.text.SGText
+import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.theme.SGColor
+import com.captures2024.soongan.core.designsystem.theme.SGTypography
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.model.UserPost
 import com.captures2024.soongan.core.model.mock.samplePhotos
@@ -75,6 +79,7 @@ internal fun HomePostCommentBottomSheetDialog(
             .height(600.dp),
         onDismissRequest = closeSheet,
         sheetState = sheetState,
+        containerColor = SGColor.white,
     ) {
         Scaffold(
             modifier = modifier
@@ -85,15 +90,20 @@ internal fun HomePostCommentBottomSheetDialog(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    NonScaleText(
+                    SGText(
                         text = stringResource(id = R.string.home_post_comment_bottom_sheet_dialog_title),
-                        color = SGColor.black,
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Bold,
-                        lineHeight = 24.sp,
-                        fontFamily = NanumSquareNeoFontFamily
+                        style = getSGNonScaleTextStyle(
+                            color = SGColor.primaryA,
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold,
+                            lineHeight = 24.sp,
+                            fontFamily = SGTypography.nanumSquareNeo,
+                            letterSpacing = 0.em,
+                        )
                     )
-                    Spacer(modifier = Modifier.height(8.dp))
+
+                    HeightSpacer(8.dp)
+
                     HorizontalDivider(
                         color = SGColor.primaryA.copy(alpha = 0.3f),
                         thickness = 1.dp
@@ -119,9 +129,11 @@ internal fun HomePostCommentBottomSheetDialog(
                         modifier = Modifier
                             .size(36.dp, 36.dp)
                             .clip(CircleShape),
-                        contentScale = ContentScale.FillWidth,
+                        contentScale = ContentScale.Crop,
                     )
-                    Spacer(modifier = Modifier.width(8.dp))
+
+                    WidthSpacer(8.dp)
+
                     CommentInputTextField(
                         modifier = Modifier.fillMaxWidth(),
                         value = comment,
@@ -129,7 +141,8 @@ internal fun HomePostCommentBottomSheetDialog(
                         hint = stringResource(id = R.string.home_post_comment_bottom_sheet_dialog_input_hint),
                     )
                 }
-            }
+            },
+            containerColor = SGColor.white
         ) { paddingValues ->
             LazyColumn(
                 modifier = Modifier

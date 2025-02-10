@@ -14,6 +14,8 @@ object SGColor {
     val tempPrimaryC = Color(0xFFBEBEBE)
     val tempPrimaryD = Color(0xFFD9D9D9)
 
+    val tempNotificationBody = Color(0xFF555555)
+
     val gray700 = Color(0xFF3F3F3F)
     val gray600 = Color(0xFF595959)
     val gray500 = Color(0xFF737373)

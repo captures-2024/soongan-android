@@ -19,10 +19,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.captures2024.soongan.core.designsystem.component.NonScaleText
+import com.captures2024.soongan.core.designsystem.component.text.SGText
+import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.Logo
 import com.captures2024.soongan.core.designsystem.theme.SGColor
+import com.captures2024.soongan.core.designsystem.theme.SGTypography
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.feature.home.R
 
@@ -31,9 +33,7 @@ internal fun HomeScreenTopBar(
     subject: String,
     modifier: Modifier = Modifier,
 ) {
-    Box(
-        modifier = modifier
-    ) {
+    Box(modifier = modifier) {
         Box(
             modifier = Modifier.offset(
                 x = (-20).dp,
@@ -47,22 +47,27 @@ internal fun HomeScreenTopBar(
             ) {
                 drawCircle(
                     color = SGColor.accent,
-                    radius = size.width / 2
+                    radius = size.width / 2,
                 )
             }
         }
+
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.SpaceBetween,
         ) {
-            NonScaleText(
+            SGText(
                 text = subject,
-                fontSize = 42.sp,
-                fontWeight = FontWeight.ExtraBold,
-                color = SGColor.primaryA,
-                modifier = Modifier.padding(start = 4.dp)
+                style = getSGNonScaleTextStyle(
+                    color = SGColor.primaryA,
+                    fontSize = 42.sp,
+                    fontWeight = FontWeight.ExtraBold,
+                    lineHeight = 40.sp,
+                    fontFamily = SGTypography.nanumSquareNeo,
+                )
             )
+
             Image(
                 imageVector = MyIconPack.Logo,
                 contentDescription = "logo",
@@ -77,7 +82,11 @@ internal fun HomeScreenTopBar(
 @DevicePreviews
 @Composable
 private fun HomeScreenTopBarPreview() {
-    Box(modifier = Modifier.background(SGColor.white)) {
+    Box(
+        modifier = Modifier
+            .background(SGColor.white)
+            .padding(30.dp)
+    ) {
         HomeScreenTopBar(
             subject = stringResource(R.string.home_top_bar_topic_example),
         )

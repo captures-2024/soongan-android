@@ -25,9 +25,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import com.captures2024.soongan.core.designsystem.component.NonScaleText
-import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
+import com.captures2024.soongan.core.designsystem.component.text.SGText
+import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.theme.SGColor
+import com.captures2024.soongan.core.designsystem.theme.SGTypography
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.viewmodel.profile.ProfileEditViewModel
 import com.captures2024.soongan.feature.profile.R
@@ -52,7 +53,9 @@ internal fun EditProfileBottomSheet(
                 itemText = stringResource(R.string.edit_profile_btmsht_select_photo_in_gallery_text),
                 onClick = { intent(ProfileEditViewModel.Intent.OpenPhotoPicker) }
             )
+
             HorizontalDivider(color = SGColor.primaryA.copy(alpha = 0.3f))
+
             BottomSheetRow(
                 itemText = stringResource(R.string.edit_profile_btmsht_default_profile_image_text),
                 onClick = { intent(ProfileEditViewModel.Intent.OnChangeDefaultProfileImage) }
@@ -82,13 +85,16 @@ private fun BottomSheetRow(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        NonScaleText(
+        SGText(
             text = itemText,
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Bold,
-            fontFamily = NanumSquareNeoFontFamily,
-            letterSpacing = (-5).em,
-            lineHeight = 20.sp
+            style = getSGNonScaleTextStyle(
+                color = SGColor.primaryA,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold,
+                lineHeight = 20.sp,
+                fontFamily = SGTypography.nanumSquareNeo,
+                letterSpacing = (-5).em,
+            )
         )
     }
 }

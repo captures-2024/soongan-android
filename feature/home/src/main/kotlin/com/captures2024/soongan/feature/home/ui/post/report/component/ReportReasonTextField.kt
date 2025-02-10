@@ -21,7 +21,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import com.captures2024.soongan.core.designsystem.component.text.SGNonScaleTextStyle
+import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.component.text.SGText
 import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
 import com.captures2024.soongan.core.designsystem.theme.SGColor
@@ -62,7 +62,7 @@ internal fun ReportReasonTextField(
                     onTextChange(newText)
                 }
             },
-            textStyle = SGNonScaleTextStyle(
+            textStyle = getSGNonScaleTextStyle(
                 color = SGColor.primaryA,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Normal,
@@ -84,7 +84,7 @@ internal fun ReportReasonTextField(
                     if (text.isEmpty()) {
                         SGText(
                             text = stringResource(R.string.report_reason_input_text),
-                            style = SGNonScaleTextStyle(
+                            style = getSGNonScaleTextStyle(
                                 color = SGColor.primaryA.copy(alpha = 0.3f),
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.Normal,
@@ -101,7 +101,7 @@ internal fun ReportReasonTextField(
 
         SGText(
             text = "${text.length}/200",
-            style = SGNonScaleTextStyle(
+            style = getSGNonScaleTextStyle(
                 color = when (text.length < 200) {
                     true -> SGColor.primaryA
                     false -> SGColor.negative

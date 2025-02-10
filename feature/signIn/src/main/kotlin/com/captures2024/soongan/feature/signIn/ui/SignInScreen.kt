@@ -22,7 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.HeightSpacer
-import com.captures2024.soongan.core.designsystem.component.text.SGNonScaleTextStyle
+import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.component.text.SGText
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconLogoKakao
@@ -54,7 +54,7 @@ internal fun SignInScreen(
         ) {
             SGText(
                 text = stringResource(id = R.string.logo_text),
-                style = SGNonScaleTextStyle(
+                style = getSGNonScaleTextStyle(
                     color = SGColor.primaryB,
                     fontSize = 96.sp,
                     fontWeight = FontWeight.Medium,
@@ -87,7 +87,7 @@ internal fun SignInScreen(
             HeightSpacer(24.dp)
             SGText(
                 text = stringResource(id = R.string.gesture_looking),
-                style = SGNonScaleTextStyle(
+                style = getSGNonScaleTextStyle(
                     color = SGColor.primaryB,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.SemiBold,

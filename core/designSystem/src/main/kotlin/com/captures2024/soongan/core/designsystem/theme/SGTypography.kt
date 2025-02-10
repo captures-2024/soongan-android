@@ -228,6 +228,7 @@ data object SGTypography {
     }
 }
 
+@Suppress("DEPRECATION")
 @Preview
 @Composable
 private fun PreviewTypoPretendard() {
@@ -313,6 +314,7 @@ private fun PreviewTypoPretendard() {
     }
 }
 
+@Suppress("DEPRECATION")
 @Preview
 @Composable
 private fun PreviewTypoNanumSquareNeo() {
@@ -398,6 +400,7 @@ private fun PreviewTypoNanumSquareNeo() {
     }
 }
 
+@Suppress("DEPRECATION")
 @Preview
 @Composable
 private fun PreviewTypoPoppins() {
