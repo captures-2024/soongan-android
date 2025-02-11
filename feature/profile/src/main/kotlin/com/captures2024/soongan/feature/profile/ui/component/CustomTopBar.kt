@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,6 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
+import com.captures2024.soongan.core.designsystem.component.button.SGIconButton
 import com.captures2024.soongan.core.designsystem.component.text.SGText
 import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
@@ -38,13 +38,11 @@ internal fun CustomTopBar(
             .padding(horizontal = 20.dp, vertical = 16.dp),
         contentAlignment = Alignment.CenterStart
     ) {
-        IconButton(
-            onClick = onBackPressed,
-            modifier = Modifier.size(height = 20.dp, width = 16.dp)
-        ) {
+        SGIconButton(onClick = onBackPressed) {
             Icon(
                 MyIconPack.IconNonFillLeftArrow,
-                contentDescription = "back pressed"
+                contentDescription = "back pressed",
+                modifier = Modifier.size(height = 20.dp, width = 16.dp)
             )
         }
         Row(

@@ -4,8 +4,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -13,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
+import com.captures2024.soongan.core.designsystem.component.button.SGIconButton
 import com.captures2024.soongan.core.designsystem.component.text.SGText
 import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
@@ -36,17 +35,13 @@ internal fun ItemTopBar(
             contentAlignment = Alignment.Center
         ) {
             if (hasBackIcon) {
-                IconButton(
+                SGIconButton(
+                    imageVector = MyIconPack.IconNonFillLeftArrow,
+                    contentDescription = MyIconPack.IconNonFillLeftArrow.name,
                     onClick = onBackPressed,
                     modifier = Modifier.align(Alignment.CenterStart)
-                ) {
-                    Icon(
-                        imageVector = MyIconPack.IconNonFillLeftArrow,
-                        contentDescription = MyIconPack.IconNonFillLeftArrow.name
-                    )
-                }
+                )
             }
-
             SGText(
                 text = itemTitle,
                 style = getSGNonScaleTextStyle(
