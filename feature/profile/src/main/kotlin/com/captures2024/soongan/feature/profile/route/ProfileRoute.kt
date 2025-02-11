@@ -17,6 +17,7 @@ internal fun ProfileRoute(
     navigateToHomePost: (Int) -> Unit,
     navigateToRegistrationPost: () -> Unit,
     navigateToEditProfile: () -> Unit,
+    navigateToFAQ: () -> Unit,
     profileViewModel: ProfileViewModel = hiltViewModel(),
 ) {
     val uiState by profileViewModel.state.collectAsStateWithLifecycle()
@@ -31,6 +32,8 @@ internal fun ProfileRoute(
                 ProfileViewModel.Effect.NavigateToRegistrationPost -> navigateToRegistrationPost()
 
                 ProfileViewModel.Effect.NavigateToEditProfile -> navigateToEditProfile()
+
+                ProfileViewModel.Effect.NavigateToFAQ -> navigateToFAQ()
             }
         }
     }

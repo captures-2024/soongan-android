@@ -17,6 +17,7 @@ fun NavGraphBuilder.profile(
     navigateToNotification: () -> Unit,
     navigateToHomePost: (Int) -> Unit,
     navigateToRegistrationPost: () -> Unit,
+    navigateToFAQ: () -> Unit,
 ) {
     composable<ProfileNavigator> {
         ProfileRoute(
@@ -24,6 +25,7 @@ fun NavGraphBuilder.profile(
             navigateToNotification = navigateToNotification,
             navigateToHomePost = { TODO() },
             navigateToRegistrationPost = navigateToRegistrationPost,
+            navigateToFAQ = navigateToFAQ
         )
     }
     composable<ProfileEditNavigator> {

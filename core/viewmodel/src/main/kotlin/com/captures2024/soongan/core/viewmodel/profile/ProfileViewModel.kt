@@ -66,6 +66,8 @@ constructor(
         data object NavigateToRegistrationPost : Effect
 
         data object NavigateToEditProfile : Effect
+
+        data object NavigateToFAQ : Effect
     }
 
     sealed interface Intent : UIIntent {
@@ -233,7 +235,7 @@ constructor(
         when (intent.outType) {
             ProfileBtmShtOutType.EDIT -> postSideEffect(Effect.NavigateToEditProfile)
 
-            ProfileBtmShtOutType.FAQ -> TODO("navigate FAQ")
+            ProfileBtmShtOutType.FAQ -> postSideEffect(Effect.NavigateToFAQ)
 
             ProfileBtmShtOutType.TERMS_AND_POLICY -> TODO("navigate Terms_And_Policy")
 

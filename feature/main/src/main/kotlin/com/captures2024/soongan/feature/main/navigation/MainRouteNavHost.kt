@@ -17,6 +17,7 @@ import com.captures2024.soongan.core.navigator.screen.main.home.navigateToHomePo
 import com.captures2024.soongan.core.navigator.screen.main.home.navigateToHomePostPhoto
 import com.captures2024.soongan.core.navigator.screen.main.home.navigateToRegistrationPost
 import com.captures2024.soongan.core.navigator.screen.main.profile.navigateToEditProfile
+import com.captures2024.soongan.core.navigator.screen.main.profile.navigateToFAQ
 import com.captures2024.soongan.core.navigator.screen.main.profile.navigateToNotification
 import com.captures2024.soongan.core.navigator.screen.main.welcome.WelcomeNavigator
 import com.captures2024.soongan.feature.awards.navigation.awards
@@ -71,6 +72,7 @@ internal fun MainRouteNavHost(
             navigateToNotification = navController::navigateToNotification,
             navigateToHomePost = navController::navigateToHomePost,
             navigateToRegistrationPost = navController::navigateToRegistrationPost,
+            navigateToFAQ = navController::navigateToFAQ
         )
     }
 }
