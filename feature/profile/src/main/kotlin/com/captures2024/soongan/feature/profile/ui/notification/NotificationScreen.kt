@@ -5,10 +5,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.model.UserNotification
 import com.captures2024.soongan.core.model.mock.mockNotifications
+import com.captures2024.soongan.feature.profile.ui.component.CustomTopBar
 
 @Composable
 internal fun NotificationScreen(
@@ -19,9 +20,9 @@ internal fun NotificationScreen(
     Scaffold(
         modifier = modifier.fillMaxSize(),
         topBar = {
-            NotificationTopBar(onBackPressed = onBackPressed)
+            CustomTopBar(text = "알림", onBackPressed = onBackPressed)
         },
-        containerColor = Color.White
+        containerColor = SGColor.white
     ) { paddingValues ->
         NotificationBody(
             modifier = modifier.padding(paddingValues),

@@ -1,5 +1,6 @@
-package com.captures2024.soongan.feature.profile.ui.notification
+package com.captures2024.soongan.feature.profile.ui.component
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -25,13 +26,15 @@ import com.captures2024.soongan.core.designsystem.theme.SGTypography
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 
 @Composable
-internal fun NotificationTopBar(
+internal fun CustomTopBar(
+    text: String,
     modifier: Modifier = Modifier,
     onBackPressed: () -> Unit,
 ) {
     Box(
         modifier = modifier
             .fillMaxWidth()
+            .background(color = SGColor.white)
             .padding(horizontal = 20.dp, vertical = 16.dp),
         contentAlignment = Alignment.CenterStart
     ) {
@@ -52,7 +55,7 @@ internal fun NotificationTopBar(
             horizontalArrangement = Arrangement.Center
         ) {
             SGText(
-                text = "알림",
+                text = text,
                 style = getSGNonScaleTextStyle(
                     color = SGColor.primaryA,
                     fontSize = 16.sp,
@@ -68,6 +71,6 @@ internal fun NotificationTopBar(
 
 @DevicePreviews
 @Composable
-private fun NotificationTopBarPreview() {
-    NotificationTopBar { }
+private fun CustomTopBarPreview() {
+    CustomTopBar(text = "알림") { }
 }
