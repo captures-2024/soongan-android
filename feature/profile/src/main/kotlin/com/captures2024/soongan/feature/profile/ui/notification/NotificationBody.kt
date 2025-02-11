@@ -47,7 +47,8 @@ internal fun NotificationBody(
             modifier = modifier,
         )
         HorizontalPager(
-            state = pagerState
+            state = pagerState,
+            userScrollEnabled = false,
         ) { page ->
             when (page) {
                 /* 알림 api 구현 이후, notifications filtering 고려 */
