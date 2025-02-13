@@ -23,10 +23,11 @@ import com.captures2024.soongan.core.designsystem.theme.SGTheme
 @Composable
 fun SGIconButton(
     onClick: () -> Unit,
+    modifier: Modifier = Modifier,
     content: @Composable BoxScope.() -> Unit
 ) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .size(40.dp)
             .clickable(
                 onClick = onClick,
@@ -40,10 +41,11 @@ fun SGIconButton(
 fun SGIconButton(
     imageVector: ImageVector,
     contentDescription: String?,
+    modifier: Modifier = Modifier,
     color: Color = SGColor.primaryA,
     onClick: () -> Unit,
 ) {
-    SGIconButton(onClick = onClick) {
+    SGIconButton(onClick = onClick, modifier = modifier) {
         Icon(
             imageVector = imageVector,
             contentDescription = contentDescription,
