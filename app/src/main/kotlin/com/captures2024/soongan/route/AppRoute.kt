@@ -39,6 +39,7 @@ internal fun AppRoute(
 
     SGBackground {
         AppRootScreen(
+            intent = appRootViewModel::intent,
             uiState = uiState,
             appLandingRoute = @Composable { AppLandingRoute() },
             appSignRoute = @Composable {
