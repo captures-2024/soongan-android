@@ -24,6 +24,7 @@ internal fun ReportRoute(
     targetId: Long,
     targetType: ReportTargetType,
     closeSheet: () -> Unit,
+    reportPost: () -> Unit,
     modifier: Modifier = Modifier,
     sheetState: SheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
 ) {
@@ -45,7 +46,7 @@ internal fun ReportRoute(
             ReportRouteNavHost(
                 reportRouteState = reportRouteState,
                 modifier = Modifier.fillMaxWidth(),
-                closeSheet = closeSheet
+                reportPost = reportPost
             )
         }
     }
@@ -66,6 +67,7 @@ private fun PostReportBottomSheetDialogPreview() {
         sheetState = sheetState,
         targetId = 0,
         targetType = ReportTargetType.WEEKLY_POST,
-        closeSheet = {}
+        closeSheet = {},
+        reportPost = {}
     )
 }

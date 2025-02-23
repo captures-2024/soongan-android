@@ -59,8 +59,8 @@ constructor(
         delay(200)
 
         return PostInfoDto(
-            postId = 6,
-            imageUrl = "https://storage.googleapis.com/soongan-dev-bucket/52/weekly/1/soongan_image-1736689106951.jpg",
+            postId = 1,
+            imageUrl = "https://storage.googleapis.com/soongan-dev-bkt/2/weekly/1/soongan_image-1739873705023.jpg",
             subject = "무제",
             registerNickname = "intexy12",
             likeCount = 0,
