@@ -6,6 +6,8 @@ import com.captures2024.soongan.core.analytics.utils.LogElementArgument
 import com.captures2024.soongan.core.common.base.UIIntent
 import com.captures2024.soongan.core.common.base.UISideEffect
 import com.captures2024.soongan.core.common.base.UIState
+import com.captures2024.soongan.core.domain.usecase.dialog.GetIsShowGuestModeDialogFlowUseCase
+import com.captures2024.soongan.core.domain.usecase.dialog.SetIsShowGuestModeDialogFlowUseCase
 import com.captures2024.soongan.core.domain.usecase.fcm.InitFcmUseCase
 import com.captures2024.soongan.core.domain.usecase.loading.ClearLoadingUseCase
 import com.captures2024.soongan.core.domain.usecase.loading.GetLoadingFlowUseCase
@@ -13,7 +15,9 @@ import com.captures2024.soongan.core.domain.usecase.loading.HideLoadingUseCase
 import com.captures2024.soongan.core.domain.usecase.loading.ShowLoadingUseCase
 import com.captures2024.soongan.core.domain.usecase.members.GetCurrentMemberFlowUseCase
 import com.captures2024.soongan.core.domain.usecase.members.GetGuestModeFlowUseCase
+import com.captures2024.soongan.core.domain.usecase.members.GetIsCurrentGuestModeUseCase
 import com.captures2024.soongan.core.domain.usecase.members.GetMemberInfoUseCase
+import com.captures2024.soongan.core.domain.usecase.members.SetGuestModeUseCase
 import com.captures2024.soongan.core.domain.usecase.token.ClearAllTokenUseCase
 import com.captures2024.soongan.core.model.dto.UserInfoDto
 import com.captures2024.soongan.core.viewmodel.model.AppRootRoute
@@ -28,18 +32,24 @@ constructor(
     private val initFcmUseCase: InitFcmUseCase,
     private val getMemberInfoUseCase: GetMemberInfoUseCase,
     private val getGuestModeFlowUseCase: GetGuestModeFlowUseCase,
+    private val setGuestModeUseCase: SetGuestModeUseCase,
     private val clearAllTokenUseCase: ClearAllTokenUseCase,
     private val getLoadingFlowUseCase: GetLoadingFlowUseCase,
+    private val getIsShowGuestModeDialogFlowUseCase: GetIsShowGuestModeDialogFlowUseCase,
     analyticsHelper: AnalyticsHelper,
     showLoadingUseCase: ShowLoadingUseCase,
     hideLoadingUseCase: HideLoadingUseCase,
     clearLoadingUseCase: ClearLoadingUseCase,
+    getIsCurrentGuestModeUseCase: GetIsCurrentGuestModeUseCase,
+    setIsShowGuestModeDialogFlowUseCase: SetIsShowGuestModeDialogFlowUseCase,
     savedStateHandle: SavedStateHandle,
 ) : NewBaseViewModel<AppRootViewModel.State, AppRootViewModel.Effect, AppRootViewModel.Intent>(
     analyticsHelper = analyticsHelper,
     showLoadingUseCase = showLoadingUseCase,
     hideLoadingUseCase = hideLoadingUseCase,
     clearLoadingUseCase = clearLoadingUseCase,
+    getIsCurrentGuestModeUseCase = getIsCurrentGuestModeUseCase,
+    setIsShowGuestModeDialogFlowUseCase = setIsShowGuestModeDialogFlowUseCase,
     savedStateHandle = savedStateHandle,
 ) {
 
@@ -48,6 +58,7 @@ constructor(
         val isGuestMode: Boolean = false,
         val currentMember: UserInfoDto? = null,
         val isLoading: Pair<Boolean, Long> = false to System.currentTimeMillis(),
+        val isShowGuestModeDialog: Boolean = false,
     ) : UIState {
 
         val rootRouteState: AppRootRoute
@@ -88,6 +99,8 @@ constructor(
     sealed interface Intent : UIIntent {
 
         data object Init : Intent
+
+        data object OnClickConfirmGuestModeDialog : Intent
     }
 
     init {
@@ -105,6 +118,8 @@ constructor(
     override fun handleIntent(intent: Intent) {
         when (intent) {
             is Intent.Init -> launch { handleInit() }
+
+            is Intent.OnClickConfirmGuestModeDialog -> loadingLaunch { handleOnClickConfirmGuestModeDialog() }
         }
     }
 
@@ -112,6 +127,7 @@ constructor(
         launch { collectCurrentMember() }
         launch { collectGuestMode() }
         launch { collectLoading() }
+        launch { collectGuestModeDialog() }
 
         fetchRemoteFCMToken()
         fetchRemoteMemberInfo()
@@ -121,6 +137,11 @@ constructor(
                 isInitialized = true,
             )
         }
+    }
+
+    private fun handleOnClickConfirmGuestModeDialog() {
+        dismissGuestModeDialog()
+        setGuestModeUseCase(false)
     }
 
     private suspend fun collectCurrentMember() {
@@ -146,6 +167,16 @@ constructor(
     private suspend fun collectLoading() {
         getLoadingFlowUseCase().collect {
             reduce { copy(isLoading = it to System.currentTimeMillis()) }
+        }
+    }
+
+    private suspend fun collectGuestModeDialog() {
+        getIsShowGuestModeDialogFlowUseCase().collect { condition ->
+            reduce {
+                copy(
+                    isShowGuestModeDialog = condition,
+                )
+            }
         }
     }
 

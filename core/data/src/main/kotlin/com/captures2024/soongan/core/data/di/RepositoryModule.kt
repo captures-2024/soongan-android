@@ -1,6 +1,7 @@
 package com.captures2024.soongan.core.data.di
 
 import com.captures2024.soongan.core.data.repository.AuthRepository
+import com.captures2024.soongan.core.data.repository.DialogRepository
 import com.captures2024.soongan.core.data.repository.FcmRepository
 import com.captures2024.soongan.core.data.repository.HomeRepository
 import com.captures2024.soongan.core.data.repository.LoadingRepository
@@ -9,6 +10,7 @@ import com.captures2024.soongan.core.data.repository.ReportRepository
 import com.captures2024.soongan.core.data.repository.TokenRepository
 import com.captures2024.soongan.core.data.repository.WeeklyContestRepository
 import com.captures2024.soongan.core.data.repository.impl.AuthRepositoryImpl
+import com.captures2024.soongan.core.data.repository.impl.DialogRepositoryImpl
 import com.captures2024.soongan.core.data.repository.impl.FcmRepositoryImpl
 import com.captures2024.soongan.core.data.repository.impl.HomeRepositoryImpl
 import com.captures2024.soongan.core.data.repository.impl.LoadingRepositoryImpl
@@ -58,4 +60,7 @@ abstract class RepositoryModule {
     @Singleton
     abstract fun bindReportRepository(reportRepositoryImpl: ReportRepositoryImpl): ReportRepository
 
+    @Binds
+    @Singleton
+    abstract fun bindDialogRepository(dialogRepositoryImpl: DialogRepositoryImpl): DialogRepository
 }
