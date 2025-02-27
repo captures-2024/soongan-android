@@ -1,6 +1,5 @@
 package com.captures2024.soongan.feature.home.route
 
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -11,11 +10,11 @@ import com.captures2024.soongan.core.viewmodel.home.HomePostViewModel
 import com.captures2024.soongan.core.viewmodel.home.HomePostViewModel.Effect
 import com.captures2024.soongan.core.viewmodel.home.HomePostViewModel.Intent
 import com.captures2024.soongan.core.viewmodel.model.HomePostBottomModalState
+import com.captures2024.soongan.feature.home.state.rememberReportRouteState
 import com.captures2024.soongan.feature.home.ui.post.HomePostMenuBottomSheetDialog
 import com.captures2024.soongan.feature.home.ui.post.HomePostScreen
 import com.captures2024.soongan.feature.home.ui.post.comment.HomePostCommentBottomSheetDialog
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun HomePostRoute(
     navigateToBack: () -> Unit,
@@ -24,6 +23,11 @@ internal fun HomePostRoute(
     homePostViewModel: HomePostViewModel = hiltViewModel(),
 ) {
     val uiState by homePostViewModel.state.collectAsStateWithLifecycle()
+
+    val reportRouteState = rememberReportRouteState(
+        targetId = uiState.postId.toLong(),
+        targetType = ReportTargetType.WEEKLY_POST
+    )
 
     LaunchedEffect(key1 = Unit) {
         homePostViewModel.sideEffect.collect { effect ->
@@ -57,8 +61,7 @@ internal fun HomePostRoute(
         )
 
         HomePostBottomModalState.OPEN_REPORT -> ReportRoute(
-            targetId = uiState.postId.toLong(),
-            targetType = ReportTargetType.WEEKLY_POST,
+            reportRouteState = reportRouteState,
             closeSheet = { homePostViewModel.intent(Intent.OnClosedModal) },
             reportPost = { homePostViewModel.intent(Intent.OnReportPost(uiState.postId)) }
         )

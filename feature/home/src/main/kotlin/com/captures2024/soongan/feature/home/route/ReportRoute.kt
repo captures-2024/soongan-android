@@ -14,6 +14,7 @@ import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.model.utils.ReportTargetType
 import com.captures2024.soongan.feature.home.navigation.ReportRouteNavHost
+import com.captures2024.soongan.feature.home.state.ReportRouteState
 import com.captures2024.soongan.feature.home.state.rememberReportRouteState
 import com.captures2024.soongan.feature.home.ui.post.report.component.CustomDragHandle
 import com.captures2024.soongan.feature.home.ui.post.report.component.ReportTopBar
@@ -21,18 +22,20 @@ import com.captures2024.soongan.feature.home.ui.post.report.component.ReportTopB
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun ReportRoute(
-    targetId: Long,
-    targetType: ReportTargetType,
+    reportRouteState: ReportRouteState,
     closeSheet: () -> Unit,
     reportPost: () -> Unit,
     modifier: Modifier = Modifier,
-    sheetState: SheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
 ) {
-    val reportRouteState = rememberReportRouteState(targetId = targetId, targetType = targetType)
+    reportRouteState.ManageDisableDismissState()
+    val sheetState = rememberModalBottomSheetState(
+        skipPartiallyExpanded = true,
+        confirmValueChange = { !reportRouteState.disableDismissState.value }
+    )
 
     ModalBottomSheet(
         modifier = modifier,
-        onDismissRequest = closeSheet,
+        onDismissRequest = { closeSheet() },
         sheetState = sheetState,
         containerColor = SGColor.white,
         dragHandle = @Composable { CustomDragHandle() }
@@ -64,9 +67,7 @@ private fun PostReportBottomSheetDialogPreview() {
     )
 
     ReportRoute(
-        sheetState = sheetState,
-        targetId = 0,
-        targetType = ReportTargetType.WEEKLY_POST,
+        reportRouteState = rememberReportRouteState(0, ReportTargetType.WEEKLY_POST),
         closeSheet = {},
         reportPost = {}
     )
