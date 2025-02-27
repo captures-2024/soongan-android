@@ -7,9 +7,11 @@ import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.common.base.UIIntent
 import com.captures2024.soongan.core.common.base.UISideEffect
 import com.captures2024.soongan.core.common.base.UIState
+import com.captures2024.soongan.core.domain.usecase.dialog.SetIsShowGuestModeDialogFlowUseCase
 import com.captures2024.soongan.core.domain.usecase.loading.ClearLoadingUseCase
 import com.captures2024.soongan.core.domain.usecase.loading.HideLoadingUseCase
 import com.captures2024.soongan.core.domain.usecase.loading.ShowLoadingUseCase
+import com.captures2024.soongan.core.domain.usecase.members.GetIsCurrentGuestModeUseCase
 import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
@@ -21,7 +23,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
@@ -31,6 +32,8 @@ abstract class NewBaseViewModel<S: UIState, SE: UISideEffect, I: UIIntent>(
     private val showLoadingUseCase: ShowLoadingUseCase,
     private val hideLoadingUseCase: HideLoadingUseCase,
     private val clearLoadingUseCase: ClearLoadingUseCase,
+    private val getIsCurrentGuestModeUseCase: GetIsCurrentGuestModeUseCase,
+    private val setIsShowGuestModeDialogFlowUseCase: SetIsShowGuestModeDialogFlowUseCase,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
     private val simpleName: String?
@@ -69,6 +72,16 @@ abstract class NewBaseViewModel<S: UIState, SE: UISideEffect, I: UIIntent>(
 
     protected fun clearLoading() {
         clearLoadingUseCase(simpleName ?: "")
+    }
+
+    protected fun isGuestMode(): Boolean = getIsCurrentGuestModeUseCase()
+
+    protected fun showGuestModeDialog() {
+        setIsShowGuestModeDialogFlowUseCase(true)
+    }
+
+    protected fun dismissGuestModeDialog() {
+        setIsShowGuestModeDialogFlowUseCase(false)
     }
 
     protected fun launch(

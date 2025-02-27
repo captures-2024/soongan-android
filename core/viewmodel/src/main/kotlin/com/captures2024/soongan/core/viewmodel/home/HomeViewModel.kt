@@ -6,10 +6,12 @@ import com.captures2024.soongan.core.analytics.utils.LogElementArgument
 import com.captures2024.soongan.core.common.base.UIIntent
 import com.captures2024.soongan.core.common.base.UISideEffect
 import com.captures2024.soongan.core.common.base.UIState
+import com.captures2024.soongan.core.domain.usecase.dialog.SetIsShowGuestModeDialogFlowUseCase
 import com.captures2024.soongan.core.domain.usecase.home.GetHomeUseCase
 import com.captures2024.soongan.core.domain.usecase.loading.ClearLoadingUseCase
 import com.captures2024.soongan.core.domain.usecase.loading.HideLoadingUseCase
 import com.captures2024.soongan.core.domain.usecase.loading.ShowLoadingUseCase
+import com.captures2024.soongan.core.domain.usecase.members.GetIsCurrentGuestModeUseCase
 import com.captures2024.soongan.core.model.dto.ContestInfoDto
 import com.captures2024.soongan.core.model.dto.PostInfoDto
 import com.captures2024.soongan.core.viewmodel.NewBaseViewModel
@@ -25,12 +27,16 @@ constructor(
     showLoadingUseCase: ShowLoadingUseCase,
     hideLoadingUseCase: HideLoadingUseCase,
     clearLoadingUseCase: ClearLoadingUseCase,
+    getIsCurrentGuestModeUseCase: GetIsCurrentGuestModeUseCase,
+    setIsShowGuestModeDialogFlowUseCase: SetIsShowGuestModeDialogFlowUseCase,
     savedStateHandle: SavedStateHandle
 ) : NewBaseViewModel<HomeViewModel.State, HomeViewModel.Effect, HomeViewModel.Intent>(
     analyticsHelper = analyticsHelper,
     showLoadingUseCase = showLoadingUseCase,
     hideLoadingUseCase = hideLoadingUseCase,
     clearLoadingUseCase = clearLoadingUseCase,
+    getIsCurrentGuestModeUseCase = getIsCurrentGuestModeUseCase,
+    setIsShowGuestModeDialogFlowUseCase = setIsShowGuestModeDialogFlowUseCase,
     savedStateHandle = savedStateHandle,
 ) {
 
@@ -126,7 +132,11 @@ constructor(
     }
 
     private fun handleOnClickPlus() {
-        postSideEffect(Effect.NavigateToRegistrationPost)
+        when (isGuestMode()) {
+            true -> showGuestModeDialog()
+
+            false -> postSideEffect(Effect.NavigateToRegistrationPost)
+        }
     }
 
     private fun handleOnClickPost(intent: Intent.OnClickPost) {
