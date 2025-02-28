@@ -11,6 +11,7 @@ class RetrofitConventionPlugin : BaseConventionPlugin({
     dependencies {
         implementation(libs.retrofit)
         implementation(libs.retrofit.kotlin.serialization.converter)
+        implementation(libs.converter.scalars)
         implementation(libs.kotlin.serialization.json)
     }
 })
