@@ -31,13 +31,11 @@ constructor(
     }
 
     override suspend fun registerPost(
-        weeklyContestRound: Int,
-        subject: String,
+        title: String,
         imageFile: String,
     ): PostInfoDto {
         val postInfoDto = weeklyContestDataSource.registerPost(
-            weeklyContestRound = weeklyContestRound,
-            subject = subject,
+            title = title,
             imageFile = imageFile,
         )
 

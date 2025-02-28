@@ -207,8 +207,7 @@ constructor(
 
         val result = registerPostUseCase(
             params = RegisterPostUseCase.Params(
-                weeklyContestRound = 1,
-                subject = submitData.title,
+                title = submitData.title,
                 imageFile = submitData.currentMedia.toString(),
             )
         ).getOrNull() ?: -1
