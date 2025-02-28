@@ -8,8 +8,8 @@ import com.captures2024.soongan.core.common.base.UIIntent
 import com.captures2024.soongan.core.common.base.UISideEffect
 import com.captures2024.soongan.core.common.base.UIState
 import com.captures2024.soongan.core.domain.usecase.members.GetCurrentMemberFlowUseCase
-import com.captures2024.soongan.core.domain.usecase.members.IsVerifiedNicknameUseCase
 import com.captures2024.soongan.core.domain.usecase.members.PatchProfileUseCase
+import com.captures2024.soongan.core.model.exception.NetworkExceptionWrapper
 import com.captures2024.soongan.core.viewmodel.model.profile.EditingProfileState
 import com.captures2024.soongan.core.viewmodel.model.profile.UserProfile
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,7 +22,6 @@ constructor(
     private val analyticsHelper: AnalyticsHelper,
     private val getCurrentMemberFlowUseCase: GetCurrentMemberFlowUseCase,
     private val patchProfileUseCase: PatchProfileUseCase,
-    private val isVerifiedNicknameUseCase: IsVerifiedNicknameUseCase,
     savedStateHandle: SavedStateHandle,
 ) : BaseViewModel<ProfileEditViewModel.State, ProfileEditViewModel.Effect, ProfileEditViewModel.Intent>(
     savedStateHandle = savedStateHandle
@@ -122,6 +121,9 @@ constructor(
 
     private suspend fun initSet() {
         getCurrentMemberFlowUseCase().collect { currentMember ->
+
+            analyticsHelper.d(message = "currentMember Update? - currentMember: $currentMember")
+
             val userProfile = UserProfile(
                 nickname = currentMember?.nickname ?: "user1",
                 selfIntroduction = currentMember?.selfIntroduction ?: "본인을 소개해주세요",
@@ -219,53 +221,40 @@ constructor(
         }
     }
 
-    private fun onClickEditButton() = launch {
+    private suspend fun onClickEditButton() {
         val editedProfile = currentState.editingState.editingProfile
-        val isAllowNickname = isVerifiedNicknameUseCase(editedProfile.nickname).getOrNull()
 
-        analyticsHelper.d(message = "isAllowNickname : $isAllowNickname")
+        try {
+            val isPatchedProfile = patchProfileUseCase(
+                nickname = editedProfile.nickname,
+                selfIntroduction = editedProfile.selfIntroduction,
+                profileImageUrl = editedProfile.profileImageUrl,
+                isDefaultProfileImage = (editedProfile.profileImageUrl == null),
+            ).getOrThrow()
 
-        when (isAllowNickname) {
-            true -> {
-                val isPatchedProfile = patchProfileUseCase(
-                    nickname = editedProfile.nickname,
-                    selfIntroduction = editedProfile.selfIntroduction,
-                    profileImage = editedProfile.profileImageUrl,
-                ).onSuccess {
-                    reduce {
-                        copy(
-                            userProfile = editedProfile,
-                            isOpenBottomSheet = false
-                        )
-                    }
-                }
+            analyticsHelper.d(message = "Patch Profile result : $isPatchedProfile")
 
-                analyticsHelper.d(message = "Patch Profile result : $isPatchedProfile")
+            reduce { copy(isOpenBottomSheet = false) }
 
-                postSideEffect(Effect.NavigateToBack)
+            postSideEffect(Effect.NavigateToBack)
+
+        } catch (e: NetworkExceptionWrapper) {
+            reduce {
+                copy(
+                    editingState = editingState.copy(
+                        isEditable = false
+                    )
+                )
             }
 
-            false -> {
+            if (e.statusCode == 704) {
                 reduce {
                     copy(
                         editingState = editingState.copy(
-                            isEditable = false,
                             isDuplicatedNickname = true
                         )
                     )
                 }
-            }
-
-            null -> {
-                reduce {
-                    copy(
-                        editingState = editingState.copy(
-                            isEditable = false
-                        )
-                    )
-                }
-
-//                Toast.makeText(context, "not statusCode 200", Toast.LENGTH_SHORT).show()
             }
         }
     }

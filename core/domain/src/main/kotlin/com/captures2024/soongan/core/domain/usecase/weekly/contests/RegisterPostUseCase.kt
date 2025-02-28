@@ -12,8 +12,7 @@ constructor(
 
     suspend operator fun invoke(params: Params): Result<Int> = runSuspendCatching {
         val result = weeklyContestRepository.registerPost(
-            weeklyContestRound = params.weeklyContestRound,
-            subject = params.subject,
+            title = params.title,
             imageFile = params.imageFile,
         )
 
@@ -22,8 +21,7 @@ constructor(
 
 
     data class Params(
-        val weeklyContestRound: Int,
-        val subject: String,
+        val title: String,
         val imageFile: String,
     )
 }
