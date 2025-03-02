@@ -19,7 +19,8 @@ interface MembersRepository {
     suspend fun patchProfile(
         nickname: String?,
         selfIntroduction: String?,
-        profileImage: String?,
+        profileImageUrl: String?,
+        isDefaultProfileImage: Boolean,
     ): UserInfoDto
 
     suspend fun patchBirthYear(birthYear: Int): UserInfoDto

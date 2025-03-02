@@ -64,11 +64,15 @@ constructor(
         data class NavigateToHomePostPhoto(
             val url: String,
         ) : Effect
+
+        data class HidePostAfterReport(
+            val postId: Int,
+        ) : Effect
     }
 
     sealed interface Intent : UIIntent {
 
-        data object Init: Intent
+        data object Init : Intent
 
         data object OnClickBack : Intent
 
@@ -91,6 +95,10 @@ constructor(
         data object OnClickDeletePost : Intent
 
         data object OnClickReportPost : Intent
+
+        data class OnReportPost(
+            val postId: Int,
+        ) : Intent
     }
 
     init {
@@ -104,7 +112,7 @@ constructor(
     }
 
     override fun handleClientException(throwable: Throwable) {
-//        Timber.tag(TAG).e(throwable)
+        analyticsHelper.e(throwable = throwable)
     }
 
     override fun handleIntent(intent: Intent) {
@@ -130,23 +138,27 @@ constructor(
             is Intent.OnClickEditPost -> handleOnClickEditPost()
 
             is Intent.OnClickReportPost -> handleOnClickReportPost()
+
+            is Intent.OnReportPost ->
+                postSideEffect(Effect.HidePostAfterReport(intent.postId))
         }
     }
 
     private suspend fun handleInit() {
-        val postInfo = getPostInfoUseCase(currentState.postId).getOrNull()
-
-        if (postInfo == null) {
-            postSideEffect(Effect.NavigateToBack)
-            return
-        }
-
-        reduce {
-            copy(
-                postId = postInfo.postId,
-                post = postInfo,
-            )
-        }
+        return
+//        val postInfo = getPostInfoUseCase(currentState.postId).getOrNull()
+//
+//        if (postInfo == null) {
+//            postSideEffect(Effect.NavigateToBack)
+//            return
+//        }
+//
+//        reduce {
+//            copy(
+//                postId = postInfo.postId,
+//                post = postInfo,
+//            )
+//        }
     }
 
     private fun handleOnClickBack() {
@@ -207,9 +219,5 @@ constructor(
                 isOpenModal = HomePostBottomModalState.OPEN_REPORT,
             )
         }
-    }
-
-    companion object {
-        private const val TAG = "HomePostVM"
     }
 }

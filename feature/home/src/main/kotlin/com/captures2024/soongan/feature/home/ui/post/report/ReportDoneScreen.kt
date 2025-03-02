@@ -1,5 +1,6 @@
 package com.captures2024.soongan.feature.home.ui.post.report
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -34,6 +35,8 @@ internal fun ReportDoneScreen(
     }
     val doneMessage =
         "${stringResource(id = R.string.report_done_text1)}$targetTypeText${stringResource(R.string.report_done_text2)}".trimIndent()
+
+    BackHandler(enabled = true, onBack = {})
 
     Column(
         modifier = modifier

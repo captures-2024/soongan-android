@@ -8,7 +8,8 @@ interface MembersDataSource {
     suspend fun patchProfile(
         nickname: String? = null,
         selfIntroduction: String? = null,
-        profileImage: String? = null
+        profileImageUrl: String? = null,
+        isDefaultProfileImage: Boolean = false,
     ): UserInfoDto?
 
     suspend fun patchBirthYear(
