@@ -8,7 +8,6 @@ plugins {
 gradlePlugin {
     val conventionPluginClasses = listOf(
         "android.application" to "AndroidApplication",
-        "android.application.compose" to "AndroidApplicationCompose",
         "android.library" to "AndroidLibrary",
         "android.library.compose" to "AndroidLibraryCompose",
         "android.feature" to "AndroidFeature",
