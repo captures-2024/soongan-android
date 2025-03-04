@@ -8,6 +8,7 @@ import com.captures2024.soongan.core.model.network.response.weekly.contests.GetG
 import com.captures2024.soongan.core.model.network.response.weekly.contests.GetGalleryResponse
 import com.captures2024.soongan.core.model.network.response.weekly.contests.GetMyGalleryPostInfoResponse
 import com.captures2024.soongan.core.model.network.response.weekly.contests.GetMyGalleryResponse
+import com.captures2024.soongan.core.model.network.response.weekly.contests.GetPostInfoResponse
 import com.captures2024.soongan.core.model.network.response.weekly.contests.RegisterPostResponse
 
 fun GetGalleryResponse.toGalleryDto(): GalleryDto = GalleryDto(
@@ -34,7 +35,18 @@ fun GetMyGalleryPostInfoResponse.toGalleryPostDto(): GalleryPostDto = GalleryPos
 
 fun RegisterPostResponse.toPostInfoDto(): PostInfoDto = PostInfoDto(
     postId = this.postId,
-    subject = this.subject,
+    title = this.title,
     imageUrl = this.imageUrl,
-    registerNickname = this.registerNickname,
+    nickname = this.registerNickname,
+)
+
+fun GetPostInfoResponse.toPostInfoDto(): PostInfoDto = PostInfoDto(
+    memberId = this.memberId,
+    postId = this.postId,
+    title = this.title,
+    imageUrl = this.imageUrl,
+    nickname = this.nickname,
+    likeCount =this.likeCount,
+    isLiked = this.isLiked,
+    commentCount = this.commentCount
 )

@@ -14,7 +14,7 @@ import com.captures2024.soongan.feature.profile.ui.profile.bottomSheet.ProfileBo
 @Composable
 internal fun ProfileRoute(
     navigateToNotification: () -> Unit,
-    navigateToHomePost: (Int) -> Unit,
+    navigateToHomePost: (Long) -> Unit,
     navigateToRegistrationPost: () -> Unit,
     navigateToEditProfile: () -> Unit,
     navigateToFAQ: () -> Unit,

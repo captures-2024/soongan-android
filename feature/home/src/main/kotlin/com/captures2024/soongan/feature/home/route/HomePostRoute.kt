@@ -19,13 +19,13 @@ import com.captures2024.soongan.feature.home.ui.post.comment.HomePostCommentBott
 internal fun HomePostRoute(
     navigateToBack: () -> Unit,
     navigateToHomePostPhoto: (String) -> Unit,
-    setReportedPostId: (postId: Int) -> Unit,
+    setReportedPostId: (postId: Long) -> Unit,
     homePostViewModel: HomePostViewModel = hiltViewModel(),
 ) {
     val uiState by homePostViewModel.state.collectAsStateWithLifecycle()
 
     val reportRouteState = rememberReportRouteState(
-        targetId = uiState.postId.toLong(),
+        targetId = uiState.postId,
         targetType = ReportTargetType.WEEKLY_POST
     )
 

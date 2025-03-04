@@ -18,6 +18,10 @@ interface WeeklyContestDataSource {
         imageFile: String,
     ): PostInfoDto?
 
+    suspend fun getPostInfo(
+        postId: Long,
+    ): PostInfoDto?
+
     suspend fun getMyGalleryInfo(
         page: Int,
         pageSize: Int,

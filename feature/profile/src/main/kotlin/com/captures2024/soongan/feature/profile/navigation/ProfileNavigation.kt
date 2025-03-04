@@ -15,7 +15,7 @@ fun NavGraphBuilder.profile(
     navigateToBack: () -> Unit,
     navigateToEditProfile: () -> Unit,
     navigateToNotification: () -> Unit,
-    navigateToHomePost: (Int) -> Unit,
+    navigateToHomePost: (Long) -> Unit,
     navigateToRegistrationPost: () -> Unit,
     navigateToFAQ: () -> Unit,
 ) {

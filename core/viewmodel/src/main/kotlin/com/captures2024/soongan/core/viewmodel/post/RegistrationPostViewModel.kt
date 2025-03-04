@@ -60,7 +60,7 @@ constructor(
         data object NavigateToBack : Effect
 
         data class NavigateToPost(
-            val postId: Int,
+            val postId: Long,
         ) : Effect
     }
 
@@ -210,9 +210,9 @@ constructor(
                 title = submitData.title,
                 imageFile = submitData.currentMedia.toString(),
             )
-        ).getOrNull() ?: -1
+        ).getOrNull() ?: -1L
 
-        if (result == -1) {
+        if (result == -1L) {
             analyticsHelper.d(message = "handleOnClickSubmitRemote - result: $result")
             return
         }

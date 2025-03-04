@@ -4,13 +4,21 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class RegisterPostResponse(
+data class GetPostInfoResponse(
+    @SerialName("memberId")
+    val memberId: Long?,
     @SerialName("postId")
     val postId: Long,
     @SerialName("title")
     val title: String,
     @SerialName("imageUrl")
     val imageUrl: String,
-    @SerialName("registerNickname")
-    val registerNickname: String,
+    @SerialName("nickname")
+    val nickname: String,
+    @SerialName("likeCount")
+    val likeCount: Int,
+    @SerialName("isLiked")
+    val isLiked: Boolean,
+    @SerialName("commentCount")
+    val commentCount: Int,
 )

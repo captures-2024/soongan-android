@@ -43,7 +43,7 @@ constructor(
 ) {
 
     data class State(
-        val postId: Int,
+        val postId: Long,
         val post: PostInfoDto = PostInfoDto(),
         val isOpenModal: HomePostBottomModalState = HomePostBottomModalState.CLOSED,
         val inWritingComment: String = "",
@@ -53,7 +53,7 @@ constructor(
             LogElementArgument("postId", postId.toString()),
             LogElementArgument("post", post.toString()),
             LogElementArgument("isOpenModal", isOpenModal.toString()),
-            LogElementArgument("inWritingComment", inWritingComment.toString()),
+            LogElementArgument("inWritingComment", inWritingComment),
         )
     }
 
@@ -66,7 +66,7 @@ constructor(
         ) : Effect
 
         data class HidePostAfterReport(
-            val postId: Int,
+            val postId: Long,
         ) : Effect
     }
 
@@ -97,7 +97,7 @@ constructor(
         data object OnClickReportPost : Intent
 
         data class OnReportPost(
-            val postId: Int,
+            val postId: Long,
         ) : Intent
     }
 
@@ -145,20 +145,19 @@ constructor(
     }
 
     private suspend fun handleInit() {
-        return
-//        val postInfo = getPostInfoUseCase(currentState.postId).getOrNull()
-//
-//        if (postInfo == null) {
-//            postSideEffect(Effect.NavigateToBack)
-//            return
-//        }
-//
-//        reduce {
-//            copy(
-//                postId = postInfo.postId,
-//                post = postInfo,
-//            )
-//        }
+        val postInfo = getPostInfoUseCase(currentState.postId).getOrNull()
+
+        if (postInfo == null) {
+            postSideEffect(Effect.NavigateToBack)
+            return
+        }
+
+        reduce {
+            copy(
+                postId = postInfo.postId,
+                post = postInfo,
+            )
+        }
     }
 
     private fun handleOnClickBack() {

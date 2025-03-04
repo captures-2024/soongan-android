@@ -11,7 +11,7 @@ constructor(
     private val weeklyContestRepository: WeeklyContestRepository
 ) {
 
-    suspend operator fun invoke(postId: Int): Result<PostInfoDto> = runSuspendCatching {
+    suspend operator fun invoke(postId: Long): Result<PostInfoDto> = runSuspendCatching {
         return@runSuspendCatching weeklyContestRepository.getPostInfo(postId)
     }
 }
