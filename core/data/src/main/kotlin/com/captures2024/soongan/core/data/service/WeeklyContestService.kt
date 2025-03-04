@@ -17,7 +17,6 @@ import retrofit2.http.Query
 
 interface WeeklyContestService {
 
-    @Headers("Authorization: true")
     @GET("weekly/contests/posts")
     suspend fun getGalleryInfo(
         @Query("round") round: Int?,
