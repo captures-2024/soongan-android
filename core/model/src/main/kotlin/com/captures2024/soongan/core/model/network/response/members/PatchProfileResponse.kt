@@ -9,6 +9,6 @@ data class PatchProfileResponse(
     val nickname: String? = null,
     @SerialName("selfIntroduction")
     val selfIntroduction: String? = null,
-    @SerialName("profileImageUrl")
-    val profileImageUrl: String? = null,
+    @SerialName("profileImage")
+    val profileImage: String? = null
 )

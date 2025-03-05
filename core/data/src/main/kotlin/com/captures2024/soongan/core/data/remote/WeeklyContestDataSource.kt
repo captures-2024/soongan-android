@@ -14,7 +14,8 @@ interface WeeklyContestDataSource {
     ): GalleryDto?
 
     suspend fun registerPost(
-        title: String,
+        weeklyContestRound: Int,
+        subject: String,
         imageFile: String,
     ): PostInfoDto?
 

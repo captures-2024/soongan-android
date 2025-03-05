@@ -91,11 +91,8 @@ constructor(
         data object OnBottomModalDismissRequest : Intent
 
         data object OnClickRegistrationText : Intent
-
-        data class HidePost(
-            val postId: Int,
-        ) : Intent
     }
+
 
     init {
         intent(Intent.Init)
@@ -126,8 +123,6 @@ constructor(
             is Intent.OnClickSortFilter -> loadingLaunch { handleOnClickSortFilter(intent) }
 
             is Intent.OnClickRegistrationText -> handleOnClickRegistrationText()
-
-            is Intent.HidePost -> handleHidePost(intent)
         }
     }
 
@@ -204,8 +199,7 @@ constructor(
     ) {
         when (currentState.paginationStatus) {
             PaginationStatus.LOADING,
-            PaginationStatus.PAGINATING,
-            -> return
+            PaginationStatus.PAGINATING -> return
 
             else -> Unit
         }
@@ -260,18 +254,6 @@ constructor(
 
     private fun handleOnClickRegistrationText() {
         postSideEffect(Effect.NavigateToRegistrationPost)
-    }
-
-    private fun handleHidePost(intent: Intent.HidePost) {
-        val tempPosts = currentState.posts.toMutableList()
-
-        tempPosts.removeAll { it.postId == intent.postId }
-
-        reduce {
-            copy(posts = tempPosts.toList())
-        }
-
-        analyticsHelper.d(message = "reported post, postId : ${intent.postId}")
     }
 
     companion object {

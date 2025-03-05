@@ -6,6 +6,7 @@ import com.captures2024.soongan.core.data.remote.MembersDataSource
 import com.captures2024.soongan.core.data.service.MembersService
 import com.captures2024.soongan.core.data.utils.safeAPICall
 import com.captures2024.soongan.core.data.utils.toImageMultiPart
+import com.captures2024.soongan.core.data.utils.toTextRequestBody
 import com.captures2024.soongan.core.model.dto.ResultConditionDto
 import com.captures2024.soongan.core.model.dto.UserInfoDto
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -21,14 +22,12 @@ constructor(
     override suspend fun patchProfile(
         nickname: String?,
         selfIntroduction: String?,
-        profileImageUrl: String?,
-        isDefaultProfileImage: Boolean,
+        profileImage: String?,
     ): UserInfoDto? = safeAPICall {
         service.patchProfile(
-            nickname = nickname,
-            selfIntroduction = selfIntroduction,
-            profileImageUrl = profileImageUrl.toImageMultiPart(context, "profileImage"),
-            isDefaultProfileImage = isDefaultProfileImage
+            nickname = nickname.toTextRequestBody(),
+            selfIntroduction = selfIntroduction.toTextRequestBody(),
+            profileImage = profileImage.toImageMultiPart(context, "profileImage"),
         )
     }.body?.responseData?.toUserInfoDto()
 

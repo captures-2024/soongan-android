@@ -1,5 +1,6 @@
 package com.captures2024.soongan.feature.home.route
 
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -7,36 +8,26 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.captures2024.soongan.core.model.utils.ReportTargetType
 import com.captures2024.soongan.core.viewmodel.home.HomePostViewModel
-import com.captures2024.soongan.core.viewmodel.home.HomePostViewModel.Effect
-import com.captures2024.soongan.core.viewmodel.home.HomePostViewModel.Intent
 import com.captures2024.soongan.core.viewmodel.model.HomePostBottomModalState
-import com.captures2024.soongan.feature.home.state.rememberReportRouteState
 import com.captures2024.soongan.feature.home.ui.post.HomePostMenuBottomSheetDialog
 import com.captures2024.soongan.feature.home.ui.post.HomePostScreen
 import com.captures2024.soongan.feature.home.ui.post.comment.HomePostCommentBottomSheetDialog
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun HomePostRoute(
     navigateToBack: () -> Unit,
     navigateToHomePostPhoto: (String) -> Unit,
-    setReportedPostId: (postId: Int) -> Unit,
     homePostViewModel: HomePostViewModel = hiltViewModel(),
 ) {
     val uiState by homePostViewModel.state.collectAsStateWithLifecycle()
 
-    val reportRouteState = rememberReportRouteState(
-        targetId = uiState.postId.toLong(),
-        targetType = ReportTargetType.WEEKLY_POST
-    )
-
     LaunchedEffect(key1 = Unit) {
         homePostViewModel.sideEffect.collect { effect ->
             when (effect) {
-                is Effect.NavigateToBack -> navigateToBack()
+                is HomePostViewModel.Effect.NavigateToBack -> navigateToBack()
 
-                is Effect.NavigateToHomePostPhoto -> navigateToHomePostPhoto(effect.url)
-
-                is Effect.HidePostAfterReport -> setReportedPostId(effect.postId)
+                is HomePostViewModel.Effect.NavigateToHomePostPhoto -> navigateToHomePostPhoto(effect.url)
             }
         }
     }
@@ -49,21 +40,21 @@ internal fun HomePostRoute(
     when (uiState.isOpenModal) {
         HomePostBottomModalState.OPEN_COMMENT -> HomePostCommentBottomSheetDialog(
             comment = uiState.inWritingComment,
-            closeSheet = { homePostViewModel.intent(Intent.OnClosedModal) },
-            onCommentValueChanged = { homePostViewModel.intent(Intent.OnCommentValueChanged(it)) }
+            closeSheet = { homePostViewModel.intent(HomePostViewModel.Intent.OnClosedModal) },
+            onCommentValueChanged = { homePostViewModel.intent(HomePostViewModel.Intent.OnCommentValueChanged(it)) }
         )
 
         HomePostBottomModalState.OPEN_MENU -> HomePostMenuBottomSheetDialog(
-            closeSheet = { homePostViewModel.intent(Intent.OnClosedModal) },
-            onClickEdit = { homePostViewModel.intent(Intent.OnClickEditPost) },
-            onClickDelete = { homePostViewModel.intent(Intent.OnClickDeletePost) },
-            onClickReport = { homePostViewModel.intent(Intent.OnClickReportPost) },
+            closeSheet = { homePostViewModel.intent(HomePostViewModel.Intent.OnClosedModal) },
+            onClickEdit = { homePostViewModel.intent(HomePostViewModel.Intent.OnClickEditPost) },
+            onClickDelete = { homePostViewModel.intent(HomePostViewModel.Intent.OnClickDeletePost) },
+            onClickReport = { homePostViewModel.intent(HomePostViewModel.Intent.OnClickReportPost) },
         )
 
         HomePostBottomModalState.OPEN_REPORT -> ReportRoute(
-            reportRouteState = reportRouteState,
-            closeSheet = { homePostViewModel.intent(Intent.OnClosedModal) },
-            reportPost = { homePostViewModel.intent(Intent.OnReportPost(uiState.postId)) }
+            targetId = uiState.postId.toLong(),
+            targetType = ReportTargetType.WEEKLY_POST,
+            closeSheet = { homePostViewModel.intent(HomePostViewModel.Intent.OnClosedModal) },
         )
 
         HomePostBottomModalState.CLOSED -> Unit

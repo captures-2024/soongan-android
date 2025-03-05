@@ -19,7 +19,7 @@ import com.captures2024.soongan.feature.home.ui.post.report.ReportIdleScreen
 internal fun ReportRouteNavHost(
     reportRouteState: ReportRouteState,
     modifier: Modifier = Modifier,
-    reportPost: () -> Unit,
+    closeSheet: () -> Unit,
 ) {
     NavHost(
         modifier = modifier,
@@ -55,7 +55,7 @@ internal fun ReportRouteNavHost(
             ReportDoneScreen(
                 targetType = reportRouteState.targetType,
                 hasExtraMessage = hasExtraMessage,
-                onClickConfirm = reportPost
+                onClickConfirm = closeSheet
             )
         }
     }

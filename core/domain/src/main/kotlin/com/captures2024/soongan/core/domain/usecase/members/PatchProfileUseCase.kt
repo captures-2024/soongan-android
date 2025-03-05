@@ -13,16 +13,14 @@ constructor(
     suspend operator fun invoke(
         nickname: String? = null,
         selfIntroduction: String? = null,
-        profileImageUrl: String? = null,
-        isDefaultProfileImage: Boolean = false,
+        profileImage: String? = null,
     ): Result<Boolean> = runSuspendCatching {
         val userInfoDto = membersRepository.patchProfile(
             nickname = nickname,
             selfIntroduction = selfIntroduction,
-            profileImageUrl = profileImageUrl,
-            isDefaultProfileImage = isDefaultProfileImage,
+            profileImage = profileImage,
         )
 
-        return@runSuspendCatching (nickname == userInfoDto.nickname && selfIntroduction == userInfoDto.selfIntroduction && profileImageUrl == userInfoDto.profileImageUrl)
+        return@runSuspendCatching (nickname == userInfoDto.nickname && selfIntroduction == userInfoDto.selfIntroduction && profileImage == userInfoDto.profileImageUrl)
     }
 }

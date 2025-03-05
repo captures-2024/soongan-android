@@ -20,8 +20,6 @@ fun NavGraphBuilder.home(
     navigateToGallery: () -> Unit,
     navigateToPost: (Int, NavOptions?) -> Unit,
     navigateToPostPhoto: (String) -> Unit,
-    setReportedPostId: (postId: Int) -> Unit,
-    getReportedPostId: () -> Int,
 ) {
     composable<HomeNavigator> {
         HomeRoute(
@@ -41,14 +39,12 @@ fun NavGraphBuilder.home(
             navigateToBack = navigateToBack,
             navigateToPost = navigateToPost,
             navigateToRegistrationPost = navigateToRegistrationPost,
-            getReportedPostId = getReportedPostId,
         )
     }
     composable<HomePostNavigator> {
         HomePostRoute(
             navigateToBack = navigateToBack,
-            navigateToHomePostPhoto = navigateToPostPhoto,
-            setReportedPostId = setReportedPostId,
+            navigateToHomePostPhoto = navigateToPostPhoto
         )
     }
     composable<HomePostPhotoNavigator> {

@@ -5,13 +5,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavOptions
 import com.captures2024.soongan.core.viewmodel.home.HomeGalleryViewModel
-import com.captures2024.soongan.core.viewmodel.home.HomeGalleryViewModel.Effect
-import com.captures2024.soongan.core.viewmodel.home.HomeGalleryViewModel.Intent
 import com.captures2024.soongan.feature.home.ui.gallery.HomeGalleryBottomSheet
 import com.captures2024.soongan.feature.home.ui.gallery.HomeGalleryScreen
 
@@ -21,7 +17,6 @@ internal fun HomeGalleryRoute(
     navigateToBack: () -> Unit,
     navigateToPost: (Int, NavOptions?) -> Unit,
     navigateToRegistrationPost: () -> Unit,
-    getReportedPostId: () -> Int,
     homeGalleryViewModel: HomeGalleryViewModel = hiltViewModel(),
 ) {
     val uiState by homeGalleryViewModel.state.collectAsStateWithLifecycle()
@@ -29,36 +24,28 @@ internal fun HomeGalleryRoute(
     LaunchedEffect(key1 = Unit) {
         homeGalleryViewModel.sideEffect.collect { effect ->
             when (effect) {
-                is Effect.NavigateToHomePost -> navigateToPost(effect.postId, null)
+                is HomeGalleryViewModel.Effect.NavigateToHomePost -> navigateToPost(effect.postId, null)
 
-                is Effect.NavigateToRegistrationPost -> navigateToRegistrationPost()
+                is HomeGalleryViewModel.Effect.NavigateToRegistrationPost -> navigateToRegistrationPost()
             }
-        }
-    }
-
-    LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
-        val postId = getReportedPostId()
-
-        if (postId != -1) {
-            homeGalleryViewModel.intent(Intent.HidePost(postId))
         }
     }
 
     HomeGalleryScreen(
         uiState = uiState,
         onBackPressed = navigateToBack,
-        onRefresh = { homeGalleryViewModel.intent(Intent.RefreshGallery) },
-        onLoadNextPage = { homeGalleryViewModel.intent(Intent.LoadNextPage) },
-        onClickPost = { homeGalleryViewModel.intent(Intent.OnClickPost(it)) },
-        onClickFilter = { homeGalleryViewModel.intent(Intent.OnClickFilter) },
-        onClickRegistrationText = { homeGalleryViewModel.intent(Intent.OnClickRegistrationText) }
+        onRefresh = { homeGalleryViewModel.intent(HomeGalleryViewModel.Intent.RefreshGallery) },
+        onLoadNextPage = { homeGalleryViewModel.intent(HomeGalleryViewModel.Intent.LoadNextPage) },
+        onClickPost = { homeGalleryViewModel.intent(HomeGalleryViewModel.Intent.OnClickPost(it)) },
+        onClickFilter = { homeGalleryViewModel.intent(HomeGalleryViewModel.Intent.OnClickFilter) },
+        onClickRegistrationText = { homeGalleryViewModel.intent(HomeGalleryViewModel.Intent.OnClickRegistrationText) }
     )
 
     if (uiState.isShowBottomSheet) {
         HomeGalleryBottomSheet(
             uiState = uiState,
-            onDismissRequest = { homeGalleryViewModel.intent(Intent.OnBottomModalDismissRequest) },
-            onClickItem = { homeGalleryViewModel.intent(Intent.OnClickSortFilter(it)) },
+            onDismissRequest = { homeGalleryViewModel.intent(HomeGalleryViewModel.Intent.OnBottomModalDismissRequest) },
+            onClickItem = { homeGalleryViewModel.intent(HomeGalleryViewModel.Intent.OnClickSortFilter(it)) },
         )
     }
 }

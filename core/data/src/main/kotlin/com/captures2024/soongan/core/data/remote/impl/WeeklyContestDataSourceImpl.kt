@@ -8,6 +8,7 @@ import com.captures2024.soongan.core.data.remote.WeeklyContestDataSource
 import com.captures2024.soongan.core.data.service.WeeklyContestService
 import com.captures2024.soongan.core.data.utils.safeAPICall
 import com.captures2024.soongan.core.data.utils.toImageMultiPart
+import com.captures2024.soongan.core.data.utils.toTextRequestBody
 import com.captures2024.soongan.core.model.dto.GalleryDto
 import com.captures2024.soongan.core.model.dto.MyGalleryDto
 import com.captures2024.soongan.core.model.dto.PostInfoDto
@@ -35,11 +36,13 @@ constructor(
     }.body?.responseData?.toGalleryDto()
 
     override suspend fun registerPost(
-        title: String,
+        weeklyContestRound: Int,
+        subject: String,
         imageFile: String,
     ): PostInfoDto? = safeAPICall {
         service.registerPost(
-            title = title,
+            weeklyContestRound = weeklyContestRound.toString().toTextRequestBody(),
+            subject = subject.toTextRequestBody(),
             imageFile = imageFile.toImageMultiPart(context, "imageFile"),
         )
     }.body?.responseData?.toPostInfoDto()

@@ -34,7 +34,7 @@ constructor(
         if (
             targetId != reportInfo.targetId
             || targetType.name != reportInfo.targetType
-            || reportType.name != reportInfo.reportType
+//            || reportType.name != reportInfo.reportType
             || reason != reportInfo.reason
         ) {
             return ResultConditionDto(result = false)

@@ -10,7 +10,7 @@ fun PatchProfileResponse.toUserInfoDto(): UserInfoDto = UserInfoDto(
     email = "",
     nickname = this.nickname,
     selfIntroduction = this.selfIntroduction,
-    profileImageUrl = this.profileImageUrl,
+    profileImageUrl = this.profileImage,
 )
 
 fun PatchBirthYearResponse.toUserInfoDto(): UserInfoDto = UserInfoDto(

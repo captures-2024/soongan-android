@@ -14,7 +14,6 @@ import com.captures2024.soongan.core.designsystem.theme.SGColor
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
 import com.captures2024.soongan.core.model.utils.ReportTargetType
 import com.captures2024.soongan.feature.home.navigation.ReportRouteNavHost
-import com.captures2024.soongan.feature.home.state.ReportRouteState
 import com.captures2024.soongan.feature.home.state.rememberReportRouteState
 import com.captures2024.soongan.feature.home.ui.post.report.component.CustomDragHandle
 import com.captures2024.soongan.feature.home.ui.post.report.component.ReportTopBar
@@ -22,20 +21,17 @@ import com.captures2024.soongan.feature.home.ui.post.report.component.ReportTopB
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun ReportRoute(
-    reportRouteState: ReportRouteState,
+    targetId: Long,
+    targetType: ReportTargetType,
     closeSheet: () -> Unit,
-    reportPost: () -> Unit,
     modifier: Modifier = Modifier,
+    sheetState: SheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
 ) {
-    reportRouteState.ManageDisableDismissState()
-    val sheetState = rememberModalBottomSheetState(
-        skipPartiallyExpanded = true,
-        confirmValueChange = { !reportRouteState.disableDismissState.value }
-    )
+    val reportRouteState = rememberReportRouteState(targetId = targetId, targetType = targetType)
 
     ModalBottomSheet(
         modifier = modifier,
-        onDismissRequest = { closeSheet() },
+        onDismissRequest = closeSheet,
         sheetState = sheetState,
         containerColor = SGColor.white,
         dragHandle = @Composable { CustomDragHandle() }
@@ -49,7 +45,7 @@ internal fun ReportRoute(
             ReportRouteNavHost(
                 reportRouteState = reportRouteState,
                 modifier = Modifier.fillMaxWidth(),
-                reportPost = reportPost
+                closeSheet = closeSheet
             )
         }
     }
@@ -67,8 +63,9 @@ private fun PostReportBottomSheetDialogPreview() {
     )
 
     ReportRoute(
-        reportRouteState = rememberReportRouteState(0, ReportTargetType.WEEKLY_POST),
-        closeSheet = {},
-        reportPost = {}
+        sheetState = sheetState,
+        targetId = 0,
+        targetType = ReportTargetType.WEEKLY_POST,
+        closeSheet = {}
     )
 }

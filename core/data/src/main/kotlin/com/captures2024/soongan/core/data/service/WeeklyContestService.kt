@@ -5,6 +5,7 @@ import com.captures2024.soongan.core.model.network.response.weekly.contests.GetG
 import com.captures2024.soongan.core.model.network.response.weekly.contests.GetMyGalleryResponse
 import com.captures2024.soongan.core.model.network.response.weekly.contests.RegisterPostResponse
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -28,8 +29,8 @@ interface WeeklyContestService {
     @Multipart
     @POST("weekly/contests/posts")
     suspend fun registerPost(
-//        @Part("weeklyContestRound") weeklyContestRound: Int?,
-        @Part("title") title: String?,
+        @Part("weeklyContestRound") weeklyContestRound: RequestBody?,
+        @Part("subject") subject: RequestBody?,
         @Part imageFile: MultipartBody.Part?,
     ): Response<BaseResponse<RegisterPostResponse>>
 

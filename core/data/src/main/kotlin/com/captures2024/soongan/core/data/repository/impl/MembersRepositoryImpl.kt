@@ -32,22 +32,20 @@ constructor(
     override suspend fun patchProfile(
         nickname: String?,
         selfIntroduction: String?,
-        profileImageUrl: String?,
-        isDefaultProfileImage: Boolean,
+        profileImage: String?
     ): UserInfoDto {
         val userInfoDto = membersDataSource.patchProfile(
             nickname = nickname,
             selfIntroduction = selfIntroduction,
-            profileImageUrl = profileImageUrl,
-            isDefaultProfileImage = isDefaultProfileImage,
+            profileImage = profileImage,
         )
 
         _currentMember.emit(
             _currentMember.value?.let { currentMember ->
                 return@let currentMember.copy(
-                    nickname = userInfoDto?.nickname,
-                    selfIntroduction = userInfoDto?.selfIntroduction,
-                    profileImageUrl = userInfoDto?.profileImageUrl,
+                    nickname = userInfoDto?.nickname ?: currentMember.nickname,
+                    selfIntroduction = userInfoDto?.selfIntroduction ?: currentMember.selfIntroduction,
+                    profileImageUrl = userInfoDto?.profileImageUrl ?: currentMember.profileImageUrl,
                 )
             }
         )

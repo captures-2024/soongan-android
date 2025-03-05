@@ -1,9 +1,7 @@
 package com.captures2024.soongan.feature.home.state
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.Stable
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavHostController
@@ -17,13 +15,11 @@ import com.captures2024.soongan.core.navigator.screen.main.report.ReportNavigato
 internal fun rememberReportRouteState(
     targetId: Long,
     targetType: ReportTargetType,
-    disableDismissState: MutableState<Boolean> = mutableStateOf(false),
     navController: NavHostController = rememberNavController(),
 ): ReportRouteState = remember(Unit) {
     ReportRouteState(
         targetId = targetId,
         targetType = targetType,
-        disableDismissState = disableDismissState,
         navController = navController,
     )
 }
@@ -33,7 +29,6 @@ internal fun rememberReportRouteState(
 internal class ReportRouteState(
     val targetId: Long,
     val targetType: ReportTargetType,
-    val disableDismissState: MutableState<Boolean>,
     val navController: NavHostController,
 ) {
     val isCheckRoute: Boolean
@@ -41,14 +36,6 @@ internal class ReportRouteState(
         get() = navController.currentBackStackEntryAsState().value?.destination?.hasRoute(
             ReportNavigator.Check::class
         ) ?: false
-
-    @Composable
-    fun ManageDisableDismissState() {
-        navController.currentBackStackEntryAsState().value?.destination?.run {
-            disableDismissState.value =
-                hasRoute(ReportNavigator.Check::class) || hasRoute(ReportNavigator.Done::class)
-        }
-    }
 
     fun popBackStack() = navController.popBackStack()
 

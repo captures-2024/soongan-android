@@ -1,8 +1,6 @@
 package com.captures2024.soongan.core.data.utils
 
-import com.captures2024.soongan.core.model.exception.ExceptionResponse
 import com.captures2024.soongan.core.model.exception.NetworkExceptionWrapper
-import kotlinx.serialization.json.Json
 import retrofit2.HttpException
 import retrofit2.Response
 import java.net.UnknownHostException
@@ -24,13 +22,11 @@ internal suspend fun <T> safeAPICall(
         false -> {
             // Fail Response
             val errorBody = response.errorBody()?.string() ?: "UNKNOWN_ERROR"
+
             val exception = Exception(errorBody)
 
-            val json = Json { ignoreUnknownKeys = true }
-            val exceptionResponse = json.decodeFromString<ExceptionResponse>(errorBody)
-
             throw NetworkExceptionWrapper(
-                statusCode = exceptionResponse.statusCode,
+                statusCode = response.code(),
                 message = exception.message,
                 cause = exception,
             )

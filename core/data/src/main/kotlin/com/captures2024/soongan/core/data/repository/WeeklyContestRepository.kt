@@ -14,7 +14,8 @@ interface WeeklyContestRepository {
     ): GalleryDto
 
     suspend fun registerPost(
-        title: String,
+        weeklyContestRound: Int,
+        subject: String,
         imageFile: String
     ): PostInfoDto
 

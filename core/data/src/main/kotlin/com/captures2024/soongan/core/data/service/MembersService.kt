@@ -5,6 +5,7 @@ import com.captures2024.soongan.core.model.network.response.members.GetMemberInf
 import com.captures2024.soongan.core.model.network.response.members.PatchBirthYearResponse
 import com.captures2024.soongan.core.model.network.response.members.PatchProfileResponse
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -19,10 +20,9 @@ interface MembersService {
     @Multipart
     @PATCH("members/profile")
     suspend fun patchProfile(
-        @Part("nickname") nickname: String?,
-        @Part("selfIntroduction") selfIntroduction: String?,
-        @Part profileImageUrl: MultipartBody.Part?,
-        @Part("isDefaultProfileImage") isDefaultProfileImage: Boolean,
+        @Part("nickname") nickname: RequestBody?,
+        @Part("selfIntroduction") selfIntroduction: RequestBody?,
+        @Part profileImage: MultipartBody.Part?,
     ): Response<BaseResponse<PatchProfileResponse>>
 
     @Headers("Authorization: true")
