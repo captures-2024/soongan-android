@@ -125,4 +125,12 @@ abstract class NewBaseViewModel<S: UIState, SE: UISideEffect, I: UIIntent>(
         analyticsHelper.i(message = "[$simpleName] postSideEffect: $sideEffect")
         launch { _sideEffect.emit(sideEffect) }
     }
+
+    protected fun blockGuestModeLogic(block: () -> Unit) {
+        when (isGuestMode()) {
+            true -> showGuestModeDialog()
+
+            false -> block()
+        }
+    }
 }

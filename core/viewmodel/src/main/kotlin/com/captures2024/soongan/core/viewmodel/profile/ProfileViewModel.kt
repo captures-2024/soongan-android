@@ -3,14 +3,19 @@ package com.captures2024.soongan.core.viewmodel.profile
 import androidx.lifecycle.SavedStateHandle
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.analytics.utils.LogElementArgument
-import com.captures2024.soongan.core.common.base.BaseViewModel
 import com.captures2024.soongan.core.common.base.UIIntent
 import com.captures2024.soongan.core.common.base.UISideEffect
 import com.captures2024.soongan.core.common.base.UIState
+import com.captures2024.soongan.core.domain.usecase.dialog.SetIsShowGuestModeDialogFlowUseCase
+import com.captures2024.soongan.core.domain.usecase.loading.ClearLoadingUseCase
+import com.captures2024.soongan.core.domain.usecase.loading.HideLoadingUseCase
+import com.captures2024.soongan.core.domain.usecase.loading.ShowLoadingUseCase
 import com.captures2024.soongan.core.domain.usecase.members.ClearCurrentMemberUseCase
 import com.captures2024.soongan.core.domain.usecase.members.GetCurrentMemberFlowUseCase
+import com.captures2024.soongan.core.domain.usecase.members.GetIsCurrentGuestModeUseCase
 import com.captures2024.soongan.core.domain.usecase.weekly.contests.GetMyGalleryUseCase
 import com.captures2024.soongan.core.model.dto.GalleryPostDto
+import com.captures2024.soongan.core.viewmodel.NewBaseViewModel
 import com.captures2024.soongan.core.viewmodel.model.PaginationStatus
 import com.captures2024.soongan.core.viewmodel.model.profile.ProfileBtmShtOutType
 import com.captures2024.soongan.core.viewmodel.model.profile.UserProfile
@@ -21,12 +26,23 @@ import javax.inject.Inject
 class ProfileViewModel
 @Inject
 constructor(
-    private val analyticsHelper: AnalyticsHelper,
     private val getCurrentMemberFlowUseCase: GetCurrentMemberFlowUseCase,
     private val getMyGalleryUseCase: GetMyGalleryUseCase,
     private val clearCurrentMemberUseCase: ClearCurrentMemberUseCase,
+    analyticsHelper: AnalyticsHelper,
+    showLoadingUseCase: ShowLoadingUseCase,
+    hideLoadingUseCase: HideLoadingUseCase,
+    clearLoadingUseCase: ClearLoadingUseCase,
+    getIsCurrentGuestModeUseCase: GetIsCurrentGuestModeUseCase,
+    setIsShowGuestModeDialogFlowUseCase: SetIsShowGuestModeDialogFlowUseCase,
     savedStateHandle: SavedStateHandle,
-) : BaseViewModel<ProfileViewModel.State, ProfileViewModel.Effect, ProfileViewModel.Intent>(
+) : NewBaseViewModel<ProfileViewModel.State, ProfileViewModel.Effect, ProfileViewModel.Intent>(
+    analyticsHelper = analyticsHelper,
+    showLoadingUseCase = showLoadingUseCase,
+    hideLoadingUseCase = hideLoadingUseCase,
+    clearLoadingUseCase = clearLoadingUseCase,
+    getIsCurrentGuestModeUseCase = getIsCurrentGuestModeUseCase,
+    setIsShowGuestModeDialogFlowUseCase = setIsShowGuestModeDialogFlowUseCase,
     savedStateHandle = savedStateHandle
 ) {
 
@@ -78,7 +94,9 @@ constructor(
 
         data object LoadNextPage : Intent
 
-        data class OnClickPhoto(val postId: Int) : Intent
+        data class OnClickPhoto(
+            val postId: Int,
+        ) : Intent
 
         data object OnClickRegistrationText : Intent
 
@@ -107,36 +125,80 @@ constructor(
         )
     }
 
-    override suspend fun handleIntent(intent: Intent) {
+    override fun handleIntent(intent: Intent) {
         when (intent) {
-            Intent.Init -> initSyncData()
-
-            Intent.RefreshMyGallery -> fetchProfileGallery(page = 0, isRefreshing = true)
-
-            Intent.LoadNextPage -> fetchProfileGallery(page = currentState.nextPage)
-
-            Intent.OnClickMenu -> reduce { copy(isOpenBottomSheet = true) }
-
-            Intent.OnClickNotification -> onClickNotification()
-
-            is Intent.OnClickPhoto -> postSideEffect(Effect.NavigateToHomePost(intent.postId))
-
-            Intent.OnClickRegistrationText -> postSideEffect(Effect.NavigateToRegistrationPost)
-
-            is Intent.OnCloseBottomSheet -> onCloseBottomSheet(intent)
+            is Intent.Init -> handleInit()
+            is Intent.RefreshMyGallery -> launch { handleRefreshMyGallery() }
+            is Intent.LoadNextPage -> launch { handleLoadNextPage() }
+            is Intent.OnClickMenu -> handleOnClickMenu()
+            is Intent.OnClickNotification -> handleOnClickNotification()
+            is Intent.OnClickPhoto -> handleOnClickPhoto(intent)
+            is Intent.OnClickRegistrationText -> handleOnClickRegistrationText()
+            is Intent.OnCloseBottomSheet -> handleOnCloseBottomSheet(intent)
         }
     }
 
-    private fun initSyncData() {
-        launch {
-            fetchUserProfile()
-        }
-        launch {
-            fetchProfileGallery(page = 0)
+    private fun handleInit() {
+        launch { collectUserProfile() }
+        launch { fetchProfileGallery(page = 0) }
+    }
+
+    private suspend fun handleRefreshMyGallery() {
+        fetchProfileGallery(
+            page = 0,
+            isRefreshing = true,
+        )
+    }
+
+    private suspend fun handleLoadNextPage() {
+        fetchProfileGallery(page = currentState.nextPage)
+    }
+
+    private fun handleOnClickMenu() {
+        reduce {
+            copy(
+                isOpenBottomSheet = true,
+            )
         }
     }
 
-    private suspend fun fetchUserProfile() {
+    private fun handleOnClickNotification() {
+        reduce {
+            copy(hasNotification = false)
+        }
+
+        postSideEffect(Effect.NavigateToNotification)
+    }
+
+    private fun handleOnClickRegistrationText() {
+        postSideEffect(Effect.NavigateToRegistrationPost)
+    }
+
+    private fun handleOnClickPhoto(intent: Intent.OnClickPhoto) {
+        postSideEffect(Effect.NavigateToHomePost(intent.postId))
+    }
+
+    private fun handleOnCloseBottomSheet(intent: Intent.OnCloseBottomSheet) {
+        reduce {
+            copy(
+                isOpenBottomSheet = false
+            )
+        }
+
+        when (intent.outType) {
+            ProfileBtmShtOutType.EDIT -> postSideEffect(Effect.NavigateToEditProfile)
+
+            ProfileBtmShtOutType.FAQ -> postSideEffect(Effect.NavigateToFAQ)
+
+            ProfileBtmShtOutType.TERMS_AND_POLICY -> TODO("navigate Terms_And_Policy")
+
+            ProfileBtmShtOutType.DONE_STATUS -> launch { clearCurrentMemberUseCase() }
+
+            ProfileBtmShtOutType.OUT_OF_AREA -> Unit
+        }
+    }
+
+    private suspend fun collectUserProfile() {
         getCurrentMemberFlowUseCase().collect { currentMember ->
             reduce {
                 copy(
@@ -168,80 +230,57 @@ constructor(
         }
     }
 
-    private fun fetchProfileGallery(page: Int, isRefreshing: Boolean = false) {
+    private suspend fun fetchProfileGallery(
+        page: Int,
+        isRefreshing: Boolean = false
+    ) {
         when (currentState.paginationStatus) {
             PaginationStatus.LOADING, PaginationStatus.PAGINATING -> return
 
             else -> Unit
         }
 
-        val isInitPage = (page == 0)
+        val isInitPage: Boolean = (page == 0)
 
-        setUpLoading(isInitPage = isInitPage, isRefreshing = isRefreshing)
+        setUpLoading(
+            isInitPage = isInitPage,
+            isRefreshing = isRefreshing,
+        )
 
-        launch {
-            val myGalleryDto = getMyGalleryUseCase(
-                params = GetMyGalleryUseCase.Params(
-                    page = page,
-                    pageSize = PAGE_SIZE,
-                )
-            ).getOrNull()
+        val myGalleryDto = getMyGalleryUseCase(
+            params = GetMyGalleryUseCase.Params(
+                page = page,
+                pageSize = PAGE_SIZE,
+            )
+        ).getOrNull()
 
-            if (myGalleryDto == null) {
-                analyticsHelper.d(message = "myGalleryDto is null")
+        if (myGalleryDto == null) {
+            analyticsHelper.d(message = "myGalleryDto is null")
 
-                reduce {
-                    copy(
-                        isRefreshing = false,
-                        paginationStatus = PaginationStatus.ERROR
-                    )
-                }
-
-                return@launch
-            }
-
-            analyticsHelper.d(message = "myGalleryDto is ${myGalleryDto.posts}")
             reduce {
                 copy(
                     isRefreshing = false,
-                    paginationStatus = when {
-                        !myGalleryDto.hasNext -> PaginationStatus.EXHAUST
-                        myGalleryDto.posts.isEmpty() -> PaginationStatus.EMPTY
-                        else -> PaginationStatus.INACTIVE
-                    },
-                    myPosts = myPosts + myGalleryDto.posts,
-                    nextPage = page + 1,
-                    hasNextPage = myGalleryDto.hasNext
+                    paginationStatus = PaginationStatus.ERROR
                 )
             }
-        }
-    }
 
-    private fun onClickNotification() {
-        reduce {
-            copy(hasNotification = false)
+            return
         }
 
-        postSideEffect(Effect.NavigateToNotification)
-    }
+        analyticsHelper.d(message = "myGalleryDto is ${myGalleryDto.posts}")
 
-    private fun onCloseBottomSheet(intent: Intent.OnCloseBottomSheet) {
         reduce {
             copy(
-                isOpenBottomSheet = false
+                isRefreshing = false,
+                paginationStatus = when {
+                    !myGalleryDto.hasNext -> PaginationStatus.EXHAUST
+                    myGalleryDto.posts.isEmpty() -> PaginationStatus.EMPTY
+                    else -> PaginationStatus.INACTIVE
+                },
+                myPosts = myPosts + myGalleryDto.posts,
+                nextPage = page + 1,
+                hasNextPage = myGalleryDto.hasNext
             )
-        }
-
-        when (intent.outType) {
-            ProfileBtmShtOutType.EDIT -> postSideEffect(Effect.NavigateToEditProfile)
-
-            ProfileBtmShtOutType.FAQ -> postSideEffect(Effect.NavigateToFAQ)
-
-            ProfileBtmShtOutType.TERMS_AND_POLICY -> TODO("navigate Terms_And_Policy")
-
-            ProfileBtmShtOutType.DONE_STATUS -> launch { clearCurrentMemberUseCase() }
-
-            ProfileBtmShtOutType.OUT_OF_AREA -> Unit
         }
     }
 
