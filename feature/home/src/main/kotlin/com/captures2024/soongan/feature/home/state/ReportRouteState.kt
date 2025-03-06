@@ -19,7 +19,7 @@ internal fun rememberReportRouteState(
     targetType: ReportTargetType,
     disableDismissState: MutableState<Boolean> = mutableStateOf(false),
     navController: NavHostController = rememberNavController(),
-): ReportRouteState = remember(Unit) {
+): ReportRouteState = remember(navController) {
     ReportRouteState(
         targetId = targetId,
         targetType = targetType,
