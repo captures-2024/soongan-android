@@ -186,7 +186,7 @@ constructor(
         }
 
         when (intent.outType) {
-            ProfileBtmShtOutType.EDIT -> postSideEffect(Effect.NavigateToEditProfile)
+            ProfileBtmShtOutType.EDIT -> blockGuestModeLogic { postSideEffect(Effect.NavigateToEditProfile) }
 
             ProfileBtmShtOutType.FAQ -> postSideEffect(Effect.NavigateToFAQ)
 
