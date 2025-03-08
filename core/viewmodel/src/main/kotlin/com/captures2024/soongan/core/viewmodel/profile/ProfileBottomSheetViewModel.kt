@@ -3,12 +3,17 @@ package com.captures2024.soongan.core.viewmodel.profile
 import androidx.lifecycle.SavedStateHandle
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.analytics.utils.LogElementArgument
-import com.captures2024.soongan.core.common.base.BaseViewModel
 import com.captures2024.soongan.core.common.base.UIIntent
 import com.captures2024.soongan.core.common.base.UISideEffect
 import com.captures2024.soongan.core.common.base.UIState
 import com.captures2024.soongan.core.domain.usecase.auth.SignOutSocialPlatformUseCase
 import com.captures2024.soongan.core.domain.usecase.auth.WithdrawMemberUseCase
+import com.captures2024.soongan.core.domain.usecase.dialog.SetIsShowGuestModeDialogFlowUseCase
+import com.captures2024.soongan.core.domain.usecase.loading.ClearLoadingUseCase
+import com.captures2024.soongan.core.domain.usecase.loading.HideLoadingUseCase
+import com.captures2024.soongan.core.domain.usecase.loading.ShowLoadingUseCase
+import com.captures2024.soongan.core.domain.usecase.members.GetIsCurrentGuestModeUseCase
+import com.captures2024.soongan.core.viewmodel.NewBaseViewModel
 import com.captures2024.soongan.core.viewmodel.model.profile.ProfileBtmShtOutType
 import com.captures2024.soongan.core.viewmodel.model.profile.ProfileBtmShtCheckType
 import com.captures2024.soongan.core.viewmodel.model.profile.ProfileBtmShtDepthState
@@ -19,14 +24,25 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class ProfileBtmShtViewModel
+class ProfileBottomSheetViewModel
 @Inject
 constructor(
-    private val analyticsHelper: AnalyticsHelper,
     private val signOutUseCase: SignOutSocialPlatformUseCase,
     private val withdrawUseCase: WithdrawMemberUseCase,
+    analyticsHelper: AnalyticsHelper,
+    showLoadingUseCase: ShowLoadingUseCase,
+    hideLoadingUseCase: HideLoadingUseCase,
+    clearLoadingUseCase: ClearLoadingUseCase,
+    getIsCurrentGuestModeUseCase: GetIsCurrentGuestModeUseCase,
+    setIsShowGuestModeDialogFlowUseCase: SetIsShowGuestModeDialogFlowUseCase,
     savedStateHandle: SavedStateHandle,
-) : BaseViewModel<ProfileBtmShtViewModel.State, ProfileBtmShtViewModel.Effect, ProfileBtmShtViewModel.Intent>(
+) : NewBaseViewModel<ProfileBottomSheetViewModel.State, ProfileBottomSheetViewModel.Effect, ProfileBottomSheetViewModel.Intent>(
+    analyticsHelper = analyticsHelper,
+    showLoadingUseCase = showLoadingUseCase,
+    hideLoadingUseCase = hideLoadingUseCase,
+    clearLoadingUseCase = clearLoadingUseCase,
+    getIsCurrentGuestModeUseCase = getIsCurrentGuestModeUseCase,
+    setIsShowGuestModeDialogFlowUseCase = setIsShowGuestModeDialogFlowUseCase,
     savedStateHandle = savedStateHandle
 ) {
 
@@ -81,23 +97,18 @@ constructor(
         )
     }
 
-    override suspend fun handleIntent(intent: Intent) {
+    override fun handleIntent(intent: Intent) {
         when (intent) {
-            is Intent.OnClickMenuItem -> handleClickContentItem(intent)
-
-            is Intent.OnBackIdle -> reduce { copy(depthStatus = ProfileBtmShtDepthState.Idle) }
-
-            is Intent.OnCheckProcess -> onCheckProcess(intent)
-
-            is Intent.OnDoneProcess -> outOfBottomSheet(outType = ProfileBtmShtOutType.DONE_STATUS)
-
-            is Intent.OnPushSettingChanged -> onPushSettingChanged(intent)
-
-            is Intent.OnCloseBottomSheet -> outOfBottomSheet(outType = ProfileBtmShtOutType.OUT_OF_AREA)
+            is Intent.OnClickMenuItem -> handleOnClickMenuItem(intent)
+            is Intent.OnBackIdle -> handleOnBackIdle()
+            is Intent.OnCheckProcess -> loadingLaunch { handleOnCheckProcess(intent) }
+            is Intent.OnDoneProcess -> handleOnDoneProcess()
+            is Intent.OnPushSettingChanged -> handleOnPushSettingChanged(intent)
+            is Intent.OnCloseBottomSheet -> handleOnCloseBottomSheet()
         }
     }
 
-    private fun handleClickContentItem(intent: Intent.OnClickMenuItem) = launch {
+    private fun handleOnClickMenuItem(intent: Intent.OnClickMenuItem) {
         when (intent.item) {
             ProfileBtmShtMenuItem.EDIT -> outOfBottomSheet(outType = ProfileBtmShtOutType.EDIT)
 
@@ -113,7 +124,11 @@ constructor(
         }
     }
 
-    private suspend fun onCheckProcess(intent: Intent.OnCheckProcess) {
+    private fun handleOnBackIdle() {
+        reduce { copy(depthStatus = ProfileBtmShtDepthState.Idle) }
+    }
+
+    private suspend fun handleOnCheckProcess(intent: Intent.OnCheckProcess) {
         when (intent.type) {
             ProfileBtmShtCheckType.SIGN_OUT -> {
                 val result = signOutUseCase().getOrNull()
@@ -141,7 +156,11 @@ constructor(
         }
     }
 
-    private fun onPushSettingChanged(intent: Intent.OnPushSettingChanged) {
+    private fun handleOnDoneProcess() {
+        outOfBottomSheet(outType = ProfileBtmShtOutType.DONE_STATUS)
+    }
+
+    private fun handleOnPushSettingChanged(intent: Intent.OnPushSettingChanged) {
         val pushSettings = currentState.pushSettings
 
         reduce {
@@ -149,29 +168,25 @@ constructor(
         }
     }
 
+    private fun handleOnCloseBottomSheet() {
+        outOfBottomSheet(outType = ProfileBtmShtOutType.OUT_OF_AREA)
+    }
+
     private fun outOfBottomSheet(outType: ProfileBtmShtOutType) {
-        when (outType) {
-            ProfileBtmShtOutType.EDIT ->
-                postSideEffect(Effect.OutOfBottomSheet(outType = ProfileBtmShtOutType.EDIT))
+        postSideEffect(
+            Effect.OutOfBottomSheet(
+                outType = when (outType) {
+                    ProfileBtmShtOutType.OUT_OF_AREA -> when (currentState.depthStatus) {
+                        ProfileBtmShtDepthState.SignOut.Done,
+                        ProfileBtmShtDepthState.Withdraw.Done -> ProfileBtmShtOutType.DONE_STATUS
 
-            ProfileBtmShtOutType.FAQ ->
-                postSideEffect(Effect.OutOfBottomSheet(outType = ProfileBtmShtOutType.FAQ))
+                        else -> ProfileBtmShtOutType.OUT_OF_AREA
+                    }
 
-            ProfileBtmShtOutType.TERMS_AND_POLICY ->
-                postSideEffect(Effect.OutOfBottomSheet(outType = ProfileBtmShtOutType.TERMS_AND_POLICY))
-
-            ProfileBtmShtOutType.DONE_STATUS ->
-                postSideEffect(Effect.OutOfBottomSheet(outType = ProfileBtmShtOutType.DONE_STATUS))
-
-            ProfileBtmShtOutType.OUT_OF_AREA ->
-                when (currentState.depthStatus) {
-                    ProfileBtmShtDepthState.SignOut.Done, ProfileBtmShtDepthState.Withdraw.Done ->
-                        postSideEffect(Effect.OutOfBottomSheet(outType = ProfileBtmShtOutType.DONE_STATUS))
-
-                    else ->
-                        postSideEffect(Effect.OutOfBottomSheet(outType = ProfileBtmShtOutType.OUT_OF_AREA))
+                    else -> outType
                 }
-        }
+            )
+        )
 
         reduce {
             copy(

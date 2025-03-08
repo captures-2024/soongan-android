@@ -2,7 +2,6 @@ import com.captures2024.soongan.plugin.implementation
 
 plugins {
     alias(libs.plugins.captures2024.soongan.android.application)
-    alias(libs.plugins.captures2024.soongan.android.application.compose)
     alias(libs.plugins.captures2024.soongan.android.hilt)
     alias(libs.plugins.captures2024.soongan.google.auth)
     alias(libs.plugins.captures2024.soongan.google.firebase)
@@ -16,10 +15,6 @@ android {
     namespace = "com.captures2024.soongan"
 
     defaultConfig {
-        applicationId = "com.captures2024.soongan"
-        versionCode = libs.versions.versionCode.get().toInt()
-        versionName = libs.versions.appVersion.get()
-
         val properties = loadProperties()
 
         val kakaoApiKey = DefaultKeyValue.isAllowedBaseUrl(properties["kakaoApiKey"] as? String)

@@ -99,7 +99,7 @@ constructor(
         when (intent) {
             is Intent.Init -> loadingLaunch { handleInit() }
 
-            is Intent.OnClickPlus -> handleOnClickPlus()
+            is Intent.OnClickPlus -> blockGuestModeLogic { handleOnClickPlus() }
 
             is Intent.OnClickPost -> handleOnClickPost(intent)
 
@@ -132,11 +132,7 @@ constructor(
     }
 
     private fun handleOnClickPlus() {
-        when (isGuestMode()) {
-            true -> showGuestModeDialog()
-
-            false -> postSideEffect(Effect.NavigateToRegistrationPost)
-        }
+        postSideEffect(Effect.NavigateToRegistrationPost)
     }
 
     private fun handleOnClickPost(intent: Intent.OnClickPost) {
