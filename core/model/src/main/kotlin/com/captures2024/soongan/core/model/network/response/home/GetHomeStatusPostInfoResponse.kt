@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class GetHomeStatusPostInfoResponse(
     @SerialName("postId")
-    val postId: Int,
+    val postId: Long,
     @SerialName("imageUrl")
     val imageUrl: String,
     @SerialName("likeCount")

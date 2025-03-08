@@ -104,7 +104,7 @@ internal fun HomePostScreen(
                     model = ImageRequest.Builder(LocalContext.current)
                         .data(uiState.post.imageUrl)
                         .build(),
-                    contentDescription = uiState.post.subject,
+                    contentDescription = uiState.post.title,
                     modifier = modifier
                         .width(360.dp)
                         .height(460.dp)
@@ -135,7 +135,7 @@ internal fun HomePostScreen(
                     .padding(bottom = 40.dp)
             ) {
                 SGText(
-                    text = uiState.post.subject,
+                    text = uiState.post.title,
                     style = getSGNonScaleTextStyle(
                         color = SGColor.primaryA,
                         fontSize = 20.sp,
@@ -149,7 +149,7 @@ internal fun HomePostScreen(
                 HeightSpacer(8.dp)
 
                 SGText(
-                    text = "@${uiState.post.registerNickname}",
+                    text = "@${uiState.post.nickname}",
                     style = getSGNonScaleTextStyle(
                         color = SGColor.primaryA,
                         fontSize = 14.sp,
@@ -174,8 +174,8 @@ private fun HomePostScreenPreview() {
             post = PostInfoDto(
                 postId = 1,
                 imageUrl = "",
-                subject = "무제",
-                registerNickname = "테스트닉네임"
+                title = "무제",
+                nickname = "테스트닉네임"
             )
         )
     )

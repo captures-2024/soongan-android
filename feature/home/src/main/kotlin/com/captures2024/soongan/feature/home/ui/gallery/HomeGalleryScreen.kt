@@ -38,7 +38,7 @@ internal fun HomeGalleryScreen(
     onClickFilter: () -> Unit = {},
     onRefresh: () -> Unit = {},
     onLoadNextPage: () -> Unit = {},
-    onClickPost: (Int) -> Unit = {},
+    onClickPost: (Long) -> Unit = {},
     onClickRegistrationText: () -> Unit = {},
 ) {
     val pullToRefreshState = rememberPullToRefreshState()
@@ -79,7 +79,7 @@ private fun HomeGalleryScreen(
     onBackPressed: () -> Unit,
     onClickFilter: () -> Unit,
     onLoadNextPage: () -> Unit,
-    onClickPost: (Int) -> Unit,
+    onClickPost: (Long) -> Unit,
     onClickRegistrationText: () -> Unit,
     modifier: Modifier = Modifier,
 ) {

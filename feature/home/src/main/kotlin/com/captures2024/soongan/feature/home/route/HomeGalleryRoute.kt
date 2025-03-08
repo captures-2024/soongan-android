@@ -19,9 +19,9 @@ import com.captures2024.soongan.feature.home.ui.gallery.HomeGalleryScreen
 @Composable
 internal fun HomeGalleryRoute(
     navigateToBack: () -> Unit,
-    navigateToPost: (Int, NavOptions?) -> Unit,
+    navigateToPost: (Long, NavOptions?) -> Unit,
     navigateToRegistrationPost: () -> Unit,
-    getReportedPostId: () -> Int,
+    getReportedPostId: () -> Long,
     homeGalleryViewModel: HomeGalleryViewModel = hiltViewModel(),
 ) {
     val uiState by homeGalleryViewModel.state.collectAsStateWithLifecycle()
@@ -39,7 +39,7 @@ internal fun HomeGalleryRoute(
     LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
         val postId = getReportedPostId()
 
-        if (postId != -1) {
+        if (postId != -1L) {
             homeGalleryViewModel.intent(Intent.HidePost(postId))
         }
     }

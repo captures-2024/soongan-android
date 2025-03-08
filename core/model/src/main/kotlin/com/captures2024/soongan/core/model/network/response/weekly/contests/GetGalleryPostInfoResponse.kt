@@ -10,7 +10,7 @@ data class GetGalleryPostInfoResponse(
     @SerialName("profileImageUrl")
     val profileImageUrl: String,
     @SerialName("postId")
-    val postId: Int,
+    val postId: Long,
     @SerialName("imageUrl")
     val imageUrl: String,
 )

@@ -34,7 +34,7 @@ internal fun ProfileScreenBody(
     modifier: Modifier = Modifier,
     onRefresh: () -> Unit = {},
     onLoadNextPage: () -> Unit = {},
-    onClickPhoto: (Int) -> Unit = {},
+    onClickPhoto: (Long) -> Unit = {},
     onClickRegistrationText: () -> Unit = {},
 ) {
     val pullToRefreshState = rememberPullToRefreshState()
@@ -69,7 +69,7 @@ private fun ProfileScreenBody(
     myPosts: List<GalleryPostDto>,
     paginationStatus: PaginationStatus,
     onLoadNextPage: () -> Unit,
-    onClickPhoto: (Int) -> Unit,
+    onClickPhoto: (Long) -> Unit,
     onClickRegistrationText: () -> Unit,
     modifier: Modifier = Modifier,
 ) {

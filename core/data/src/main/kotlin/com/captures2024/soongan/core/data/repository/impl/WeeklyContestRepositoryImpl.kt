@@ -42,27 +42,20 @@ constructor(
         return postInfoDto ?: throw NullPointerException("postInfoDto is null")
     }
 
+    override suspend fun getPostInfo(postId: Long): PostInfoDto {
+        val postInfoDto = weeklyContestDataSource.getPostInfo(
+            postId = postId
+        )
+
+        return postInfoDto ?: throw java.lang.NullPointerException("postInfoDto is null")
+    }
+
     override suspend fun getMyGalleryInfo(page: Int, pageSize: Int): MyGalleryDto {
         val myGalleryInfo = weeklyContestDataSource.getMyGalleryInfo(
             page = page,
             pageSize = pageSize
         )
 
-        return myGalleryInfo ?: throw java.lang.NullPointerException("MygalleryDto is null")
-    }
-
-    override suspend fun getPostInfo(postId: Int): PostInfoDto {
-        // TODO using weeklyContestDataSource
-
-        delay(200)
-
-        return PostInfoDto(
-            postId = 1,
-            imageUrl = "https://storage.googleapis.com/soongan-dev-bkt/2/weekly/1/soongan_image-1739873705023.jpg",
-            subject = "무제",
-            registerNickname = "intexy12",
-            likeCount = 0,
-            commentCount = 0
-        )
+        return myGalleryInfo ?: throw java.lang.NullPointerException("myGalleryDto is null")
     }
 }

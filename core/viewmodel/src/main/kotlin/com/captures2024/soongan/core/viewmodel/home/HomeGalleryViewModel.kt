@@ -64,7 +64,7 @@ constructor(
     sealed interface Effect : UISideEffect {
 
         data class NavigateToHomePost(
-            val postId: Int,
+            val postId: Long,
         ) : Effect
 
         data object NavigateToRegistrationPost : Effect
@@ -79,7 +79,7 @@ constructor(
         data object LoadNextPage : Intent
 
         data class OnClickPost(
-            val postId: Int,
+            val postId: Long,
         ) : Intent
 
         data object OnClickFilter : Intent
@@ -93,7 +93,7 @@ constructor(
         data object OnClickRegistrationText : Intent
 
         data class HidePost(
-            val postId: Int,
+            val postId: Long,
         ) : Intent
     }
 

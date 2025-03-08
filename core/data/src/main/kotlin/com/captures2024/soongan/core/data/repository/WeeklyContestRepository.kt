@@ -18,12 +18,12 @@ interface WeeklyContestRepository {
         imageFile: String
     ): PostInfoDto
 
+    suspend fun getPostInfo(
+        postId: Long,
+    ):  PostInfoDto
+
     suspend fun getMyGalleryInfo(
         page: Int,
         pageSize: Int,
     ): MyGalleryDto
-
-    suspend fun getPostInfo(
-        postId: Int,
-    ): PostInfoDto
 }

@@ -76,7 +76,7 @@ constructor(
         data object NavigateToNotification : Effect
 
         data class NavigateToHomePost(
-            val postId: Int,
+            val postId: Long,
         ) : Effect
 
         data object NavigateToRegistrationPost : Effect
@@ -95,7 +95,7 @@ constructor(
         data object LoadNextPage : Intent
 
         data class OnClickPhoto(
-            val postId: Int,
+            val postId: Long,
         ) : Intent
 
         data object OnClickRegistrationText : Intent

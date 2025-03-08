@@ -19,7 +19,7 @@ data class GetMyGalleryPostInfoResponse(
     @SerialName("subject")
     val subject: String,
     @SerialName("postId")
-    val postId: Int,
+    val postId: Long,
     @SerialName("imageUrl")
     val imageUrl: String,
     @SerialName("likeCount")

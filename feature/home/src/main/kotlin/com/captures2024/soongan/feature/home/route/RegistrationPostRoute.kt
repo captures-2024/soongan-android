@@ -20,7 +20,7 @@ import com.captures2024.soongan.feature.home.ui.registration_post.SubmitBottomSh
 @Composable
 internal fun RegistrationPostRoute(
     navigateToBack: () -> Unit,
-    navigateToPost: (Int, NavOptions?) -> Unit,
+    navigateToPost: (Long, NavOptions?) -> Unit,
     registrationPostViewModel: RegistrationPostViewModel = hiltViewModel()
 ) {
     val analyticsHelper = LocalAnalyticsHelper.current

@@ -20,6 +20,7 @@ constructor(
     @ApplicationContext private val context: Context,
     private val service: WeeklyContestService,
 ) : WeeklyContestDataSource {
+
     override suspend fun getGalleryInfo(
         round: Int?,
         orderType: String,
@@ -41,6 +42,14 @@ constructor(
         service.registerPost(
             title = title,
             imageFile = imageFile.toImageMultiPart(context, "imageFile"),
+        )
+    }.body?.responseData?.toPostInfoDto()
+
+    override suspend fun getPostInfo(
+        postId: Long,
+    ): PostInfoDto? = safeAPICall {
+        service.getPostInfo(
+            postId = postId
         )
     }.body?.responseData?.toPostInfoDto()
 

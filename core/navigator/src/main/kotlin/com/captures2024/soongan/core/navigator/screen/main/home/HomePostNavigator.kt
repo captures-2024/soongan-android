@@ -6,13 +6,13 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class HomePostNavigator(
-    val id: Int,
+    val id: Long,
 )
 
-fun NavController.navigateToHomePost(id: Int) = navigate(HomePostNavigator(id = id))
+fun NavController.navigateToHomePost(id: Long) = navigate(HomePostNavigator(id = id))
 
 fun NavController.navigateToHomePost(
-    id: Int,
+    id: Long,
     navOptions: NavOptions?,
 ) = navigate(
     route = HomePostNavigator(
