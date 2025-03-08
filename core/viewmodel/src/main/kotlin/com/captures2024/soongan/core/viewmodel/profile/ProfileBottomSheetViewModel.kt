@@ -176,20 +176,14 @@ constructor(
         postSideEffect(
             Effect.OutOfBottomSheet(
                 outType = when (outType) {
-                    ProfileBtmShtOutType.EDIT -> ProfileBtmShtOutType.EDIT
-
-                    ProfileBtmShtOutType.FAQ -> ProfileBtmShtOutType.FAQ
-
-                    ProfileBtmShtOutType.TERMS_AND_POLICY -> ProfileBtmShtOutType.TERMS_AND_POLICY
-
-                    ProfileBtmShtOutType.DONE_STATUS -> ProfileBtmShtOutType.DONE_STATUS
-
                     ProfileBtmShtOutType.OUT_OF_AREA -> when (currentState.depthStatus) {
                         ProfileBtmShtDepthState.SignOut.Done,
                         ProfileBtmShtDepthState.Withdraw.Done -> ProfileBtmShtOutType.DONE_STATUS
 
                         else -> ProfileBtmShtOutType.OUT_OF_AREA
                     }
+
+                    else -> outType
                 }
             )
         )

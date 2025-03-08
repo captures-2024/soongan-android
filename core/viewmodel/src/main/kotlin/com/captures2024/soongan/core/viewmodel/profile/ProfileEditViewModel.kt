@@ -27,7 +27,6 @@ class ProfileEditViewModel
 constructor(
     private val getCurrentMemberFlowUseCase: GetCurrentMemberFlowUseCase,
     private val patchProfileUseCase: PatchProfileUseCase,
-    private val isVerifiedNicknameUseCase: IsVerifiedNicknameUseCase,
     analyticsHelper: AnalyticsHelper,
     showLoadingUseCase: ShowLoadingUseCase,
     hideLoadingUseCase: HideLoadingUseCase,
