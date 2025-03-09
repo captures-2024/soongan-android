@@ -8,8 +8,8 @@ interface ReportDataSource {
 
     suspend fun postReport(
         targetId: Long,
-        targetType : ReportTargetType,
+        targetType: ReportTargetType,
         reportType: ReportType,
-        reason: String?
+        reason: String?,
     ): ReportInfoDto?
 }

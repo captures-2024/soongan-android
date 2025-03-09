@@ -31,7 +31,7 @@ constructor(
             round = round,
             orderType = orderType,
             page = page,
-            pageSize = pageSize
+            pageSize = pageSize,
         )
     }.body?.responseData?.toGalleryDto()
 
@@ -49,7 +49,7 @@ constructor(
         postId: Long,
     ): PostInfoDto? = safeAPICall {
         service.getPostInfo(
-            postId = postId
+            postId = postId,
         )
     }.body?.responseData?.toPostInfoDto()
 
@@ -59,7 +59,7 @@ constructor(
     ): MyGalleryDto? = safeAPICall {
         service.getMyGalleryInfo(
             page = page,
-            pageSize = pageSize
+            pageSize = pageSize,
         )
     }.body?.responseData?.toMyGalleryDto()
 }

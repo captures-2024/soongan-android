@@ -27,8 +27,8 @@ constructor(
                 targetId = targetId,
                 targetType = targetType.name,
                 reportType = reportType.name,
-                reason = reason
-            )
+                reason = reason,
+            ),
         )
     }.body?.responseData?.toReportInfoDto()
 }

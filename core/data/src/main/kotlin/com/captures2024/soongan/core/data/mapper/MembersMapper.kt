@@ -5,7 +5,6 @@ import com.captures2024.soongan.core.model.network.response.members.GetMemberInf
 import com.captures2024.soongan.core.model.network.response.members.PatchBirthYearResponse
 import com.captures2024.soongan.core.model.network.response.members.PatchProfileResponse
 
-
 fun PatchProfileResponse.toUserInfoDto(): UserInfoDto = UserInfoDto(
     email = "",
     nickname = this.nickname,

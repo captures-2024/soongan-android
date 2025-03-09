@@ -40,5 +40,4 @@ object ServiceModule {
     @Singleton
     @Provides
     internal fun provideReportService(retrofit: Retrofit): ReportService = retrofit.create(ReportService::class.java)
-
 }

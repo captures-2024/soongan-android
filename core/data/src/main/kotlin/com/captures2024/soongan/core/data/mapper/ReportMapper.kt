@@ -10,5 +10,5 @@ fun PostReportResponse.toReportInfoDto(): ReportInfoDto = ReportInfoDto(
     targetId = targetId,
     targetType = targetType,
     reportType = reportType,
-    reason = reason
+    reason = reason,
 )
