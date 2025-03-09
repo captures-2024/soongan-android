@@ -29,7 +29,7 @@ internal fun nonScaleAnnotatedTitle(
             fontWeight = FontWeight.Bold,
             fontFamily = SGTypography.nanumSquareNeo,
             letterSpacing = (-5).em,
-        )
+        ),
     ) {
         append(title)
     }
@@ -41,7 +41,7 @@ internal fun nonScaleAnnotatedTitle(
             fontWeight = FontWeight.Bold,
             fontFamily = SGTypography.nanumSquareNeo,
             letterSpacing = (0).em,
-        )
+        ),
     ) {
         append("$count")
     }

@@ -68,9 +68,9 @@ internal fun TitleInputEditText(
                         )
                         .background(
                             color = SGColor.white,
-                            shape = RoundedCornerShape(4.dp)
+                            shape = RoundedCornerShape(4.dp),
                         ),
-                    contentAlignment = Alignment.Center
+                    contentAlignment = Alignment.Center,
                 ) {
                     innerTextField()
 
@@ -86,8 +86,8 @@ internal fun TitleInputEditText(
             keyboardActions = KeyboardActions(
                 onDone = {
                     focusManager.clearFocus()
-                }
-            )
+                },
+            ),
         )
 
         HeightSpacer(8.dp)
@@ -115,7 +115,7 @@ internal fun TitleInputEditText(
 private fun TitleInputEditTextPreview() {
     TitleInputEditText(
         value = "어쩌구저쩌어쩌구저쩌어쩌구저쩌",
-        onValueChange = {}
+        onValueChange = {},
     )
 }
 
@@ -124,6 +124,6 @@ private fun TitleInputEditTextPreview() {
 private fun TitleInputEditTextEmptyPreview() {
     TitleInputEditText(
         value = "",
-        onValueChange = {}
+        onValueChange = {},
     )
 }

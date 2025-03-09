@@ -28,7 +28,6 @@ internal fun rememberReportRouteState(
     )
 }
 
-
 @Stable
 internal class ReportRouteState(
     val targetId: Long,
@@ -38,9 +37,10 @@ internal class ReportRouteState(
 ) {
     val isCheckRoute: Boolean
         @Composable
-        get() = navController.currentBackStackEntryAsState().value?.destination?.hasRoute(
-            ReportNavigator.Check::class
-        ) ?: false
+        get() = navController.currentBackStackEntryAsState().value
+            ?.destination
+            ?.hasRoute(ReportNavigator.Check::class)
+            ?: false
 
     @Composable
     fun ManageDisableDismissState() {

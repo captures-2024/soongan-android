@@ -60,7 +60,7 @@ internal fun SignInScreen(
                     fontWeight = FontWeight.Medium,
                     lineHeight = 112.sp,
                     fontFamily = SGTypography.pretendard,
-                )
+                ),
             )
         }
 
@@ -108,4 +108,3 @@ private fun PreviewSignInScreen() {
         intent = {},
     )
 }
-

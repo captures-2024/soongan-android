@@ -45,11 +45,11 @@ internal fun EditProfileScreenBody(
 
     Column(
         modifier = modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         ProfileBox(
             profileImage = editingState.editingProfile.profileImageUrl,
-            onClick = onClickProfileImage
+            onClick = onClickProfileImage,
         )
         HeightSpacer(44.dp)
         ProfileOutlinedTextField(
@@ -117,8 +117,8 @@ private fun ProfileBox(
             .clickable(
                 onClick = onClick,
                 interactionSource = interactionSource,
-                indication = null
-            )
+                indication = null,
+            ),
     ) {
         AsyncImage(
             model = profileImage,
@@ -128,7 +128,7 @@ private fun ProfileBox(
                 .clip(CircleShape),
             contentScale = ContentScale.Crop,
             placeholder = painterResource(RDesign.drawable.ic_border_profile),
-            error = painterResource(RDesign.drawable.ic_border_profile)
+            error = painterResource(RDesign.drawable.ic_border_profile),
         )
         Box(modifier = Modifier.align(Alignment.BottomEnd)) {
             MiniAddIcon()
@@ -140,6 +140,6 @@ private fun ProfileBox(
 @Composable
 private fun EditProfileScreenBodyPreview() {
     EditProfileScreenBody(
-        editingState = EditingProfileState()
+        editingState = EditingProfileState(),
     )
 }

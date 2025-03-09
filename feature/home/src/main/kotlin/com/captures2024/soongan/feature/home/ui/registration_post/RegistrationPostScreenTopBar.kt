@@ -30,13 +30,13 @@ internal fun RegistrationPostScreenTopBar(
         modifier = modifier
             .fillMaxWidth()
             .padding(vertical = 14.dp),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp),
-            contentAlignment = Alignment.CenterStart
+            contentAlignment = Alignment.CenterStart,
         ) {
             SGIconCircleButton(
                 imageVector = MyIconPack.IconNonFillLeftArrow,
@@ -96,4 +96,3 @@ internal fun RegistrationPostScreenTopBar(
 private fun RegistrationPostScreenTopBarPreview() {
     RegistrationPostScreenTopBar()
 }
-

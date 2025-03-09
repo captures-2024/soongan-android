@@ -37,13 +37,13 @@ internal fun HomeScreenTopBar(
         Box(
             modifier = Modifier.offset(
                 x = (-20).dp,
-                y = (-10).dp
-            )
+                y = (-10).dp,
+            ),
         ) {
             Canvas(
                 modifier = Modifier
                     .size(40.dp)
-                    .align(Alignment.Center)
+                    .align(Alignment.Center),
             ) {
                 drawCircle(
                     color = SGColor.accent,
@@ -65,7 +65,7 @@ internal fun HomeScreenTopBar(
                     fontWeight = FontWeight.ExtraBold,
                     lineHeight = 40.sp,
                     fontFamily = SGTypography.nanumSquareNeo,
-                )
+                ),
             )
 
             Image(
@@ -73,7 +73,7 @@ internal fun HomeScreenTopBar(
                 contentDescription = "logo",
                 modifier = Modifier
                     .width(33.1f.dp)
-                    .height(50.1f.dp)
+                    .height(50.1f.dp),
             )
         }
     }
@@ -85,7 +85,7 @@ private fun HomeScreenTopBarPreview() {
     Box(
         modifier = Modifier
             .background(SGColor.white)
-            .padding(30.dp)
+            .padding(30.dp),
     ) {
         HomeScreenTopBar(
             subject = stringResource(R.string.home_top_bar_topic_example),

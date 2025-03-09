@@ -30,7 +30,7 @@ internal fun ReportErrorScreen(
             .fillMaxWidth()
             .wrapContentHeight()
             .padding(horizontal = 20.dp)
-            .padding(top = 40.dp, bottom = 28.dp)
+            .padding(top = 40.dp, bottom = 28.dp),
     ) {
         SGText(
             text = stringResource(R.string.report_error_text),

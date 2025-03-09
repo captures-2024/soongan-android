@@ -22,11 +22,11 @@ internal fun NotificationScreen(
         topBar = {
             CustomTopBar(text = "알림", onBackPressed = onBackPressed)
         },
-        containerColor = SGColor.white
+        containerColor = SGColor.white,
     ) { paddingValues ->
         NotificationBody(
             modifier = modifier.padding(paddingValues),
-            notifications = allNotifications
+            notifications = allNotifications,
         )
     }
 }

@@ -25,7 +25,7 @@ import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 @Composable
 internal fun HomePostNestedCommentOpenScreen(
     modifier: Modifier = Modifier,
-    onClick: () -> Unit = {}
+    onClick: () -> Unit = {},
 ) {
     Row(
         modifier = modifier
@@ -35,17 +35,17 @@ internal fun HomePostNestedCommentOpenScreen(
                 start = 52.dp,
                 top = 16.dp,
             ),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Column {
             Column(
-                verticalArrangement = Arrangement.spacedBy(20.dp)
+                verticalArrangement = Arrangement.spacedBy(20.dp),
             ) {
                 HomePostCommentScreen()
             }
             Row(
                 modifier = Modifier.padding(top = 16.dp),
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 WidthSpacer(44.dp)
 
@@ -53,7 +53,7 @@ internal fun HomePostNestedCommentOpenScreen(
 
                 HorizontalDivider(
                     modifier = Modifier.width(27.dp),
-                    color = SGColor.primaryA.copy(alpha = 0.9f)
+                    color = SGColor.primaryA.copy(alpha = 0.9f),
                 )
 
                 WidthSpacer(8.dp)

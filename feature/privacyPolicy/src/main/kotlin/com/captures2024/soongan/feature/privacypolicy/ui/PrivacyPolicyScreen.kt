@@ -27,7 +27,7 @@ internal fun PrivacyPolicyScreen(
 ) {
     Column(
         modifier = modifier.fillMaxSize()
-            .background(SGColor.white)
+            .background(SGColor.white),
     ) {
         PrivacyPolicyTopBarScreen(onClickBack = { intent(PrivacyPolicyViewModel.Intent.OnClickBack) })
 
@@ -48,7 +48,7 @@ internal fun PrivacyPolicyScreen(
                         lineHeight = 14.sp,
                         fontFamily = SGTypography.nanumSquareNeo,
                         letterSpacing = 0.em,
-                    )
+                    ),
                 )
 
                 SGTextButtonType2(

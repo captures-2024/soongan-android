@@ -8,6 +8,6 @@ import com.captures2024.soongan.feature.awards.ui.AwardsScreen
 @Composable
 internal fun AwardsRoute() {
     AwardsScreen(
-        modifier = Modifier.sgBottomBarPadding()
+        modifier = Modifier.sgBottomBarPadding(),
     )
 }

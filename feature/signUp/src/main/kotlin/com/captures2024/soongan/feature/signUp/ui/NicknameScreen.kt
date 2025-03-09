@@ -57,7 +57,7 @@ internal fun NicknameScreen(
                     Validation.NicknameValidState.Success -> true
                     else -> false
                 },
-                onClick = { intent(NicknameViewModel.Intent.OnClickConfirm) }
+                onClick = { intent(NicknameViewModel.Intent.OnClickConfirm) },
             )
         },
         containerColor = SGColor.primaryA,
@@ -79,7 +79,7 @@ internal fun NicknameScreen(
                         fontWeight = FontWeight.SemiBold,
                         lineHeight = 24.sp,
                         fontFamily = SGTypography.pretendard,
-                    )
+                    ),
                 )
             }
 
@@ -129,7 +129,7 @@ internal fun NicknameScreen(
                         fontWeight = FontWeight.Medium,
                         lineHeight = 16.sp,
                         fontFamily = SGTypography.pretendard,
-                    )
+                    ),
                 )
 
                 SGText(
@@ -140,7 +140,7 @@ internal fun NicknameScreen(
                         fontWeight = FontWeight.Medium,
                         lineHeight = 16.sp,
                         fontFamily = SGTypography.pretendard,
-                    )
+                    ),
                 )
             }
         }
@@ -161,7 +161,7 @@ private fun PreviewNicknameScreen() {
     SGTheme {
         NicknameScreen(
             intent = {},
-            state = NicknameViewModel.State()
+            state = NicknameViewModel.State(),
         )
     }
 }

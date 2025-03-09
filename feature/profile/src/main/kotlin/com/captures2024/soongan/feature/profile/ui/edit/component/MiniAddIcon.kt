@@ -24,13 +24,13 @@ internal fun MiniAddIcon(modifier: Modifier = Modifier) {
             .clip(CircleShape)
             .background(color = Color.Black)
             .border(width = 1.dp, color = Color.White, shape = CircleShape),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Icon(
             imageVector = MyIconPack.IconNonFillPlus,
             contentDescription = MyIconPack.IconNonFillPlus.name,
             modifier = Modifier.size(22.dp),
-            tint = Color.White
+            tint = Color.White,
         )
     }
 }

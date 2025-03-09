@@ -54,9 +54,9 @@ internal fun HomeGalleryScreen(
                 isRefreshing = uiState.isRefreshing,
                 containerColor = SGColor.white,
                 color = SGColor.black,
-                state = pullToRefreshState
+                state = pullToRefreshState,
             )
-        }
+        },
     ) {
         HomeGalleryScreen(
             posts = uiState.posts,
@@ -87,14 +87,14 @@ private fun HomeGalleryScreen(
 
     Box(
         modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         SGGallery(
             modifier = modifier,
             lazyStaggeredGridState = lazyStaggeredGridState,
             isInitPage = isInitPage,
             hasNextPage = (paginationStatus != PaginationStatus.EXHAUST),
-            onLoadNextPage = onLoadNextPage
+            onLoadNextPage = onLoadNextPage,
         ) {
             item(span = StaggeredGridItemSpan.FullLine) {
                 HomeGalleryTopBar(
@@ -112,7 +112,7 @@ private fun HomeGalleryScreen(
                 else -> items(items = posts, key = { it.postId }) {
                     SGGalleryImageItem(
                         imageUrl = it.imageUrl,
-                        onClick = { onClickPost(it.postId) }
+                        onClick = { onClickPost(it.postId) },
                     )
                 }
             }
@@ -135,7 +135,7 @@ private fun HomeGalleryScreen(
                 emptyText = stringResource(R.string.home_gallery_empty_text),
                 registrationText = stringResource(R.string.home_gallery_registration_text),
                 modifier = modifier.padding(top = 100.dp), // HomeGalleryTopBar height
-                onClickRegistrationText = onClickRegistrationText
+                onClickRegistrationText = onClickRegistrationText,
             )
         }
 
@@ -152,6 +152,6 @@ private fun HomeGalleryScreen(
 @Composable
 private fun HomeGalleryScreenPreview() {
     HomeGalleryScreen(
-        uiState = HomeGalleryViewModel.State()
+        uiState = HomeGalleryViewModel.State(),
     )
 }

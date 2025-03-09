@@ -36,13 +36,13 @@ internal fun CustomTopBar(
             .fillMaxWidth()
             .background(color = SGColor.white)
             .padding(horizontal = 20.dp, vertical = 16.dp),
-        contentAlignment = Alignment.CenterStart
+        contentAlignment = Alignment.CenterStart,
     ) {
         SGIconButton(onClick = onBackPressed) {
             Icon(
                 MyIconPack.IconNonFillLeftArrow,
                 contentDescription = "back pressed",
-                modifier = Modifier.size(height = 20.dp, width = 16.dp)
+                modifier = Modifier.size(height = 20.dp, width = 16.dp),
             )
         }
         Row(
@@ -50,7 +50,7 @@ internal fun CustomTopBar(
                 .fillMaxWidth()
                 .height(24.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
+            horizontalArrangement = Arrangement.Center,
         ) {
             SGText(
                 text = text,
@@ -61,7 +61,7 @@ internal fun CustomTopBar(
                     lineHeight = 20.sp,
                     fontFamily = SGTypography.nanumSquareNeo,
                     letterSpacing = 0.em,
-                )
+                ),
             )
         }
     }

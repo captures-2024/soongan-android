@@ -23,10 +23,10 @@ internal fun EditProfileScreen(
         modifier = modifier
             .fillMaxSize()
             .background(color = Color.White)
-            .padding(horizontal = 20.dp)
+            .padding(horizontal = 20.dp),
     ) {
         EditProfileScreenHeader(
-            onBackPressed = { intent(ProfileEditViewModel.Intent.OnBackPressed) }
+            onBackPressed = { intent(ProfileEditViewModel.Intent.OnBackPressed) },
         )
         HeightSpacer(8.dp)
         EditProfileScreenBody(
@@ -34,7 +34,7 @@ internal fun EditProfileScreen(
             onClickProfileImage = { intent(ProfileEditViewModel.Intent.OnClickProfileImage) },
             onNicknameChanged = { intent(ProfileEditViewModel.Intent.OnNicknameChanged(it)) },
             onIntroductionChanged = { intent(ProfileEditViewModel.Intent.OnIntroductionChanged(it)) },
-            onClickEdit = { intent(ProfileEditViewModel.Intent.OnClickEditButton) }
+            onClickEdit = { intent(ProfileEditViewModel.Intent.OnClickEditButton) },
         )
     }
 }
@@ -44,6 +44,6 @@ internal fun EditProfileScreen(
 private fun EditProfileScreenPreview() {
     EditProfileScreen(
         editingState = EditingProfileState(),
-        intent = {}
+        intent = {},
     )
 }

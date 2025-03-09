@@ -53,8 +53,7 @@ fun NavGraphBuilder.home(
     }
     composable<HomePostPhotoNavigator> {
         HomePostPhotoRoute(
-            navigateToBack = navigateToBack
+            navigateToBack = navigateToBack,
         )
     }
 }
-

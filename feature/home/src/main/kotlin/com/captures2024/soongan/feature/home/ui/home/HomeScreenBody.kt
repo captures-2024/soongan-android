@@ -119,7 +119,7 @@ private fun MyPostPhoto(
                     color = SGColor.white,
                     shape = commonShape,
                 )
-                .clickable { onClick() }
+                .clickable { onClick() },
         )
 
         HeightSpacer(8.dp)
@@ -154,12 +154,12 @@ private fun InteractionIconBox(
 ) {
     Row(
         modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
             imageVector = imageVector,
             contentDescription = contentDescription,
-            modifier = Modifier.size(12.dp)
+            modifier = Modifier.size(12.dp),
         )
 
         WidthSpacer(4.dp)
@@ -173,11 +173,10 @@ private fun InteractionIconBox(
                 lineHeight = 12.sp,
                 fontFamily = SGTypography.poppins,
                 letterSpacing = (-2).em,
-            )
+            ),
         )
     }
 }
-
 
 @DevicePreviews
 @Composable

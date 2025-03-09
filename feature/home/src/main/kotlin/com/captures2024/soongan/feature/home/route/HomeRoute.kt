@@ -24,7 +24,7 @@ internal fun HomeRoute(
     navigateToRegistrationPost: () -> Unit,
     navigateToPost: (Long, NavOptions?) -> Unit,
     navigateToGallery: () -> Unit,
-    homeViewModel: HomeViewModel = hiltViewModel()
+    homeViewModel: HomeViewModel = hiltViewModel(),
 ) {
     val uiState by homeViewModel.state.collectAsStateWithLifecycle()
 
@@ -33,7 +33,7 @@ internal fun HomeRoute(
         .paint(
             painter = painterResource(id = R.drawable.background_home_gallery),
             contentScale = ContentScale.FillBounds,
-            alpha = 0.8f
+            alpha = 0.8f,
         )
         .sgBottomBarPadding()
 

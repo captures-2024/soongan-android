@@ -33,11 +33,11 @@ import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 @Composable
 internal fun HomePostScreenBottomBar(
     likeCount: Int,
-    commentCount: Int,
+//    commentCount: Int,
     modifier: Modifier = Modifier,
     onClickMenu: () -> Unit = {},
     onClickHeart: () -> Unit = {},
-    onClickComment: () -> Unit = {}
+//    onClickComment: () -> Unit = {},
 ) {
     Row(
         modifier = modifier
@@ -48,19 +48,19 @@ internal fun HomePostScreenBottomBar(
                 color = SGColor.black.copy(alpha = 0.3f),
                 blur = 4.dp,
                 offsetX = 0.dp,
-                offsetY = (-2).dp
+                offsetY = (-2).dp,
             )
             .background(color = SGColor.white)
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
+        horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         Box(
-            modifier =  Modifier.size(
+            modifier = Modifier.size(
                 width = 24.dp,
-                height = 24.dp
+                height = 24.dp,
             ),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
         ) {
             Icon(
                 imageVector = MyIconPack.IconNonFillMenu,
@@ -68,10 +68,10 @@ internal fun HomePostScreenBottomBar(
                 tint = SGColor.primaryA,
                 modifier = Modifier.size(
                     width = 4.dp,
-                    height = 20.dp
+                    height = 20.dp,
                 ).clickable(
-                    onClick = onClickMenu
-                )
+                    onClick = onClickMenu,
+                ),
             )
         }
         Row {
@@ -81,10 +81,10 @@ internal fun HomePostScreenBottomBar(
                 tint = SGColor.primaryA,
                 modifier = Modifier.size(
                     width = 24.dp,
-                    height = 21.dp
+                    height = 21.dp,
                 ).clickable(
-                    onClick = onClickHeart
-                )
+                    onClick = onClickHeart,
+                ),
             )
 
             WidthSpacer(8.dp)
@@ -98,7 +98,7 @@ internal fun HomePostScreenBottomBar(
                     lineHeight = 12.sp,
                     fontFamily = SGTypography.poppins,
                     letterSpacing = (-2).em,
-                )
+                ),
             )
 
             // TODO 댓글 1차 MVP 스펙아웃
@@ -133,6 +133,5 @@ internal fun HomePostScreenBottomBar(
 private fun HomePostScreenBottomBarPreview() {
     HomePostScreenBottomBar(
         likeCount = 0,
-        commentCount = 0,
     )
 }

@@ -31,14 +31,14 @@ internal fun SignRouteNavHost(
         enterTransition = { EnterTransition.None },
         exitTransition = { ExitTransition.None },
         popEnterTransition = { EnterTransition.None },
-        popExitTransition = { ExitTransition.None }
+        popExitTransition = { ExitTransition.None },
     ) {
         signIn(
             signViewModel = signViewModel,
             navigateToNickname = navController::navigateToNickname,
             navigateToBirth = navController::navigateToBirth,
             navigateToTermsOfUse = navController::navigateToTermsOfUse,
-            navigateToPrivacyPolicy = navController::navigateToPrivacyPolicy
+            navigateToPrivacyPolicy = navController::navigateToPrivacyPolicy,
         )
         termsOfUse(navigateToBack = navController::popBackStack)
         privacyPolicy(navigateToBack = navController::popBackStack)

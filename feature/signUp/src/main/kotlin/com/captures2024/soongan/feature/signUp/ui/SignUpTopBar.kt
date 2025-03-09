@@ -50,7 +50,7 @@ internal fun SignUpTopBar(
                 fontWeight = FontWeight.Medium,
                 lineHeight = 32.sp,
                 fontFamily = SGTypography.pretendard,
-            )
+            ),
         )
     }
 }

@@ -31,7 +31,7 @@ internal fun FeedScreen(
                 fontWeight = FontWeight.Bold,
                 lineHeight = 36.sp,
                 fontFamily = SGTypography.nanumSquareNeo,
-            )
+            ),
         )
     }
 }

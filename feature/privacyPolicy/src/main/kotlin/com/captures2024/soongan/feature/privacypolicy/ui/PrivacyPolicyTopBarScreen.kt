@@ -54,7 +54,7 @@ internal fun PrivacyPolicyTopBarScreen(
                 lineHeight = 18.sp,
                 fontFamily = SGTypography.nanumSquareNeo,
                 letterSpacing = 0.em,
-            )
+            ),
         )
     }
 }

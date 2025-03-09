@@ -109,7 +109,6 @@ internal fun HomeGalleryTopBar(
     }
 }
 
-
 @DevicePreviews
 @Composable
 private fun HomeGalleryTopBarPreview() {

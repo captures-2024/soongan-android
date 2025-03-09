@@ -86,7 +86,7 @@ internal fun BirthScreen(
                         fontWeight = FontWeight.Medium,
                         lineHeight = 16.sp,
                         fontFamily = SGTypography.pretendard,
-                    )
+                    ),
                 )
 
                 HeightSpacer(4.dp)
@@ -99,7 +99,7 @@ internal fun BirthScreen(
                         fontWeight = FontWeight.Medium,
                         lineHeight = 24.sp,
                         fontFamily = SGTypography.pretendard,
-                    )
+                    ),
                 )
             }
 
@@ -115,7 +115,7 @@ internal fun BirthScreen(
                         fontWeight = FontWeight.Medium,
                         lineHeight = 24.sp,
                         fontFamily = SGTypography.pretendard,
-                    )
+                    ),
                 )
             }
 
@@ -142,7 +142,7 @@ internal fun BirthScreen(
                     Validation.BirthYearValidState.Length -> SGTextFieldFormState.Default
                 },
                 keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Number
+                    keyboardType = KeyboardType.Number,
                 ),
             )
 
@@ -159,7 +159,7 @@ internal fun BirthScreen(
                         else -> stringResource(id = R.string.input_birth_default_hint_text)
                     },
                     style = getSGNonScaleTextStyle(
-                        color =  when (state.isValid) {
+                        color = when (state.isValid) {
                             Validation.BirthYearValidState.Regex -> SGColor.negative
                             else -> SGColor.hintGray
                         },
@@ -167,7 +167,7 @@ internal fun BirthScreen(
                         fontWeight = FontWeight.Medium,
                         lineHeight = 16.sp,
                         fontFamily = SGTypography.pretendard,
-                    )
+                    ),
                 )
             }
         }
@@ -190,7 +190,7 @@ private fun PreviewBirthScreen() {
             intent = {},
             state = BirthViewModel.State(
                 nickname = "test",
-            )
+            ),
         )
     }
 }

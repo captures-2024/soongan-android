@@ -45,7 +45,7 @@ internal fun ProfileRoute(
     ProfileScreen(
         uiState = uiState,
         intent = profileViewModel::intent,
-        modifier = Modifier.sgBottomBarPadding()
+        modifier = Modifier.sgBottomBarPadding(),
     )
 
     if (uiState.isOpenBottomSheet) {

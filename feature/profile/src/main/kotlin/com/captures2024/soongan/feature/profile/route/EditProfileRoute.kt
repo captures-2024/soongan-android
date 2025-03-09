@@ -36,8 +36,8 @@ internal fun EditProfileRoute(
                 ProfileEditViewModel.Effect.OpenMediaPicker -> {
                     pickMedia.launch(
                         PickVisualMediaRequest(
-                            ActivityResultContracts.PickVisualMedia.ImageOnly
-                        )
+                            ActivityResultContracts.PickVisualMedia.ImageOnly,
+                        ),
                     )
                 }
             }

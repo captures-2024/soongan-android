@@ -36,7 +36,7 @@ internal fun HomeScreen(
                 vertical = 40.dp,
                 horizontal = 16.dp,
             ),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         HomeScreenTopBar(
             subject = uiState.contestInfo.subject,
@@ -62,7 +62,7 @@ internal fun HomeScreen(
 
         HomeScreenFooter(
             onClickInfo = onClickInfo,
-            onClickRightArrow = onClickRightArrow
+            onClickRightArrow = onClickRightArrow,
         )
     }
 }
@@ -107,7 +107,7 @@ private fun HomeScreenPreview() {
                 startAt = "2024.05.10",
                 endAt = "2024.06.10",
             ),
-        )
+        ),
     )
 }
 
@@ -130,6 +130,6 @@ private fun HomeScreenMultiPostPreview() {
                 endAt = "2024.06.10",
             ),
             postList = emptyList(),
-        )
+        ),
     )
 }

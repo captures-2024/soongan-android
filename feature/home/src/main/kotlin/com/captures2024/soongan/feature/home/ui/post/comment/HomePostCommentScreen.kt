@@ -53,9 +53,9 @@ internal fun HomePostCommentScreen(
         Box(
             modifier = Modifier.size(
                 width = 20.dp,
-                height = 20.dp
+                height = 20.dp,
             ),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
         ) {
             Icon(
                 imageVector = MyIconPack.IconNonFillMenu,
@@ -64,7 +64,7 @@ internal fun HomePostCommentScreen(
                 modifier = Modifier.size(
                     width = 2.dp,
                     height = 12.dp,
-                )
+                ),
             )
         }
     }

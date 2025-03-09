@@ -24,6 +24,7 @@ import androidx.core.graphics.drawable.toBitmap
 import coil.ImageLoader
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.captures2024.soongan.core.android.utils.LocalAnalyticsHelper
 import com.captures2024.soongan.core.designsystem.ui.component.ZoomableBox
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillLeftArrow
@@ -39,8 +40,9 @@ private const val DEFAULT_DURATION: Long = 1L * 1L * 1000L
 internal fun HomePostPhotoScreen(
     modifier: Modifier = Modifier,
     uiState: HomePostPhotoViewModel.State,
-    onBackPressed: () -> Unit = {}
+    onBackPressed: () -> Unit = {},
 ) {
+    val analyticsHelper = LocalAnalyticsHelper.current
     val context = LocalContext.current
     var currentTimerValue by remember(DEFAULT_DURATION) { mutableLongStateOf(DEFAULT_DURATION) }
 
@@ -57,14 +59,14 @@ internal fun HomePostPhotoScreen(
         }
 
         val bitmap = imageLoader.execute(model).drawable?.toBitmap()
-//        Timber.tag("HomePostPhotoScreen").d("height = ${bitmap?.height}, width = ${bitmap?.width}")
+        analyticsHelper.d(message = "height = ${bitmap?.height}, width = ${bitmap?.width}")
     }
 
     Box(
         modifier = modifier
             .fillMaxSize()
             .background(SGColor.black),
-        contentAlignment = Alignment.TopStart
+        contentAlignment = Alignment.TopStart,
     ) {
         ZoomableBox(
             modifier = Modifier
@@ -76,7 +78,7 @@ internal fun HomePostPhotoScreen(
                         if (currentTimerValue > 0L) {
                             currentTimerValue -= 1000L
                         }
-                    }
+                    },
                 ),
         ) {
             AsyncImage(
@@ -87,7 +89,7 @@ internal fun HomePostPhotoScreen(
                         scaleX = scale,
                         scaleY = scale,
                         translationX = offsetX,
-                        translationY = offsetY
+                        translationY = offsetY,
                     ),
                 contentScale = ContentScale.FillWidth,
             )
@@ -98,7 +100,7 @@ internal fun HomePostPhotoScreen(
                 .fillMaxWidth()
                 .padding(20.dp)
                 .height(80.dp),
-            contentAlignment = Alignment.CenterStart
+            contentAlignment = Alignment.CenterStart,
         ) {
             if (currentTimerValue <= 0) {
                 SGIconCircleButton(
@@ -118,7 +120,7 @@ internal fun HomePostPhotoScreen(
 private fun HomePostPhotoScreenPreview() {
     HomePostPhotoScreen(
         uiState = HomePostPhotoViewModel.State(
-            url = ""
-        )
+            url = "",
+        ),
     )
 }

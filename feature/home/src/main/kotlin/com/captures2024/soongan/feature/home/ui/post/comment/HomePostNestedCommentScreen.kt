@@ -10,7 +10,7 @@ import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 
 @Composable
 internal fun HomePostNestedCommentScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     var isOpen by remember { mutableStateOf(false) }
 

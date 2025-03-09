@@ -21,7 +21,7 @@ import com.captures2024.soongan.feature.home.ui.registration_post.SubmitBottomSh
 internal fun RegistrationPostRoute(
     navigateToBack: () -> Unit,
     navigateToPost: (Long, NavOptions?) -> Unit,
-    registrationPostViewModel: RegistrationPostViewModel = hiltViewModel()
+    registrationPostViewModel: RegistrationPostViewModel = hiltViewModel(),
 ) {
     val analyticsHelper = LocalAnalyticsHelper.current
     val uiState by registrationPostViewModel.state.collectAsStateWithLifecycle()
@@ -38,7 +38,7 @@ internal fun RegistrationPostRoute(
                 is RegistrationPostViewModel.Effect.OpenMediaPicker -> pickSingleMedia.launch(
                     PickVisualMediaRequest(
                         mediaType = ActivityResultContracts.PickVisualMedia.ImageOnly,
-                    )
+                    ),
                 )
 
                 is RegistrationPostViewModel.Effect.NavigateToBack -> navigateToBack()
@@ -72,7 +72,7 @@ internal fun RegistrationPostRoute(
         SubmitBottomSheetDialog(
             uiState = uiState,
             onClickConfirm = { registrationPostViewModel.intent(RegistrationPostViewModel.Intent.OnClickSubmitRemote) },
-            closeSheet = { registrationPostViewModel.intent(RegistrationPostViewModel.Intent.OnClickCloseBottomSheet) }
+            closeSheet = { registrationPostViewModel.intent(RegistrationPostViewModel.Intent.OnClickCloseBottomSheet) },
         )
     }
 

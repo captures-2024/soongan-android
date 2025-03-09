@@ -62,12 +62,12 @@ internal fun HomePostCommentBottomSheetDialog(
             override fun onPostScroll(
                 consumed: Offset,
                 available: Offset,
-                source: NestedScrollSource
+                source: NestedScrollSource,
             ): Offset = available.copy(x = 0f)
 
             override suspend fun onPostFling(
                 consumed: Velocity,
-                available: Velocity
+                available: Velocity,
             ): Velocity = available.copy(x = 0f)
         }
     }
@@ -86,7 +86,7 @@ internal fun HomePostCommentBottomSheetDialog(
             topBar = @Composable {
                 Column(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
+                    horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     SGText(
                         text = stringResource(id = R.string.home_post_comment_bottom_sheet_dialog_title),
@@ -97,14 +97,14 @@ internal fun HomePostCommentBottomSheetDialog(
                             lineHeight = 24.sp,
                             fontFamily = SGTypography.nanumSquareNeo,
                             letterSpacing = 0.em,
-                        )
+                        ),
                     )
 
                     HeightSpacer(8.dp)
 
                     HorizontalDivider(
                         color = SGColor.primaryA.copy(alpha = 0.3f),
-                        thickness = 1.dp
+                        thickness = 1.dp,
                     )
                 }
             },
@@ -116,8 +116,8 @@ internal fun HomePostCommentBottomSheetDialog(
                             start = 12.dp,
                             end = 16.dp,
                             top = 8.dp,
-                            bottom = 8.dp
-                        )
+                            bottom = 8.dp,
+                        ),
                 ) {
                     AsyncImage(
                         model = ImageRequest.Builder(LocalContext.current)
@@ -140,14 +140,14 @@ internal fun HomePostCommentBottomSheetDialog(
                     )
                 }
             },
-            containerColor = SGColor.white
+            containerColor = SGColor.white,
         ) { paddingValues ->
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(paddingValues),
                 verticalArrangement = Arrangement.spacedBy(28.dp),
-                contentPadding = PaddingValues(top = 16.dp)
+                contentPadding = PaddingValues(top = 16.dp),
             ) {
                 items(10) {
                     HomePostCommentScreen()

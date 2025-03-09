@@ -87,7 +87,7 @@ private fun IconBox(
                 lineHeight = 16.sp,
                 fontFamily = SGTypography.nanumSquareNeo,
                 letterSpacing = 0.em,
-            )
+            ),
         )
     }
 }
@@ -98,7 +98,7 @@ private fun HomeScreenFooterPreview() {
     Surface {
         HomeScreenFooter(
             onClickInfo = {},
-            onClickRightArrow = {}
+            onClickRightArrow = {},
         )
     }
 }

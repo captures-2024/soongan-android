@@ -49,7 +49,7 @@ internal fun HomePostMenuBottomSheetDialog(
             .heightIn(min = 240.dp),
         onDismissRequest = closeSheet,
         sheetState = sheetState,
-        containerColor = SGColor.white
+        containerColor = SGColor.white,
     ) {
         Column(
             modifier = Modifier.fillMaxWidth()
@@ -112,7 +112,7 @@ private fun DialogItemComponent(
             if (isEnabled) {
                 onClick()
             }
-        }
+        },
     ) {
         Row(
             modifier = Modifier.heightIn(min = 56.dp)
@@ -138,7 +138,7 @@ private fun DialogItemComponent(
                 imageVector = icon,
                 contentDescription = "back",
                 tint = color,
-                modifier = Modifier.size(24.dp)
+                modifier = Modifier.size(24.dp),
             )
         }
 
@@ -150,7 +150,6 @@ private fun DialogItemComponent(
         }
     }
 }
-
 
 @Preview
 @Composable

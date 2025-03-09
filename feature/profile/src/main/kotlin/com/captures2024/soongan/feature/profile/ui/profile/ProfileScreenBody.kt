@@ -50,16 +50,16 @@ internal fun ProfileScreenBody(
                 isRefreshing = isRefreshing,
                 containerColor = SGColor.white,
                 color = SGColor.black,
-                state = pullToRefreshState
+                state = pullToRefreshState,
             )
-        }
+        },
     ) {
         ProfileScreenBody(
             myPosts = myPosts,
             paginationStatus = paginationStatus,
             onLoadNextPage = onLoadNextPage,
             onClickPhoto = onClickPhoto,
-            onClickRegistrationText = onClickRegistrationText
+            onClickRegistrationText = onClickRegistrationText,
         )
     }
 }
@@ -77,12 +77,12 @@ private fun ProfileScreenBody(
 
     Box(
         modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         SGGallery(
             lazyStaggeredGridState = lazyStaggeredGridState,
             hasNextPage = (paginationStatus != PaginationStatus.EXHAUST),
-            onLoadNextPage = onLoadNextPage
+            onLoadNextPage = onLoadNextPage,
         ) {
             when (paginationStatus) {
                 PaginationStatus.LOADING -> items(listOf(258, 192, 275, 268, 275, 192)) { height ->
@@ -94,7 +94,7 @@ private fun ProfileScreenBody(
                 else -> items(items = myPosts, key = { it.postId }) {
                     SGGalleryImageItem(
                         imageUrl = it.imageUrl,
-                        onClick = { onClickPhoto(it.postId) }
+                        onClick = { onClickPhoto(it.postId) },
                     )
                 }
             }
@@ -116,7 +116,7 @@ private fun ProfileScreenBody(
             SGGalleryEmptyItem(
                 emptyText = stringResource(R.string.profile_gallery_empty_text),
                 registrationText = stringResource(R.string.profile_gallery_registration_text),
-                onClickRegistrationText = onClickRegistrationText
+                onClickRegistrationText = onClickRegistrationText,
             )
         }
 

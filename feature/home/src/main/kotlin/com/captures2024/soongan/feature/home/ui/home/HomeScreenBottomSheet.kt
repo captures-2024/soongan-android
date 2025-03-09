@@ -31,7 +31,7 @@ import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 @Composable
 internal fun HomeScreenBottomSheet(
     modifier: Modifier = Modifier,
-    closeSheet: () -> Unit
+    closeSheet: () -> Unit,
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
@@ -104,7 +104,7 @@ internal fun HomeScreenBottomSheet(
                     SGText(
                         text = "작품 총 3개 출품 가능",
                         style = contentStyle,
-                        modifier = Modifier.padding(start = 16.dp)
+                        modifier = Modifier.padding(start = 16.dp),
                     )
 
                     HeightSpacer(10.dp)
@@ -119,7 +119,7 @@ internal fun HomeScreenBottomSheet(
                     SGText(
                         text = "투표: 좋아요 개수로 TOP 7 선정",
                         style = contentStyle,
-                        modifier = Modifier.padding(start = 16.dp)
+                        modifier = Modifier.padding(start = 16.dp),
                     )
 
                     HeightSpacer(4.dp)
@@ -127,7 +127,7 @@ internal fun HomeScreenBottomSheet(
                     SGText(
                         text = "기간 : 1달",
                         style = contentStyle,
-                        modifier = Modifier.padding(start = 16.dp)
+                        modifier = Modifier.padding(start = 16.dp),
                     )
 
                     HeightSpacer(4.dp)
@@ -135,7 +135,7 @@ internal fun HomeScreenBottomSheet(
                     SGText(
                         text = "매달 1일 오전 9시 ~ 다음 달 1일 00시",
                         style = contentStyle,
-                        modifier = Modifier.padding(start = 16.dp)
+                        modifier = Modifier.padding(start = 16.dp),
                     )
 
                     HeightSpacer(8.dp)
@@ -150,7 +150,7 @@ internal fun HomeScreenBottomSheet(
                     SGText(
                         text = "1. 직전 회차 참가자",
                         style = contentStyle,
-                        modifier = Modifier.padding(start = 16.dp)
+                        modifier = Modifier.padding(start = 16.dp),
                     )
 
                     HeightSpacer(4.dp)
@@ -158,7 +158,7 @@ internal fun HomeScreenBottomSheet(
                     SGText(
                         text = "2. 업로드 시간을 비교해 더 일찍 참가한 작품",
                         style = contentStyle,
-                        modifier = Modifier.padding(start = 16.dp)
+                        modifier = Modifier.padding(start = 16.dp),
                     )
 
                     HeightSpacer(8.dp)
@@ -173,7 +173,7 @@ internal fun HomeScreenBottomSheet(
                     SGText(
                         text = "최종 1위한 작품은\n앱 접속 시 나오는 화면에 배경 사진으로 사용",
                         style = contentStyle,
-                        modifier = Modifier.padding(start = 16.dp)
+                        modifier = Modifier.padding(start = 16.dp),
                     )
 
                     HeightSpacer(4.dp)
@@ -181,7 +181,7 @@ internal fun HomeScreenBottomSheet(
                     SGText(
                         text = "(차기 콘테스트 종료 시까지)",
                         style = contentStyle,
-                        modifier = Modifier.padding(start = 16.dp)
+                        modifier = Modifier.padding(start = 16.dp),
                     )
                 }
 
@@ -206,12 +206,11 @@ private fun HomeScreenBottomSheetPreview() {
             HomeScreenBottomSheet(
                 closeSheet = {},
             )
-        }
+        },
     ) {
         Box(
-            modifier = Modifier
-            .fillMaxSize()
-            .background(SGColor.black),
+            modifier = Modifier.fillMaxSize()
+                .background(SGColor.black),
         )
     }
 }

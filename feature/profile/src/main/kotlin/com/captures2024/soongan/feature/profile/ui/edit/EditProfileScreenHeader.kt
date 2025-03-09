@@ -21,7 +21,7 @@ fun EditProfileScreenHeader(
         modifier = modifier
             .fillMaxWidth()
             .padding(vertical = 20.dp),
-        contentAlignment = Alignment.CenterStart
+        contentAlignment = Alignment.CenterStart,
     ) {
         SGIconCircleButton(
             imageVector = MyIconPack.IconNonFillLeftArrow,
@@ -36,5 +36,5 @@ fun EditProfileScreenHeader(
 @DevicePreviews
 @Composable
 private fun EditProfileScreenHeaderPreview() {
-    EditProfileScreenHeader {  }
+    EditProfileScreenHeader { }
 }

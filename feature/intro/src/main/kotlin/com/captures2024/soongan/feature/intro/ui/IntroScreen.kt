@@ -15,10 +15,7 @@ internal fun IntroScreen(
 ) = Box(
     modifier = modifier.fillMaxSize()
         .background(SGColor.white),
-) {
-
-}
-
+) {}
 
 @DevicePreviews
 @Composable

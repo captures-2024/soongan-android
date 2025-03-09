@@ -17,7 +17,7 @@ internal fun MainScreen(routeState: MainRouteState) = Scaffold(
     bottomBar = {
         val isNotViewBottomBar = isNotViewBottomBar(
             currentDestination = routeState.currentDestination,
-            topLevelDestinations = routeState.topLevelDestinations
+            topLevelDestinations = routeState.topLevelDestinations,
         )
 
         if (!isNotViewBottomBar) {
@@ -28,7 +28,7 @@ internal fun MainScreen(routeState: MainRouteState) = Scaffold(
                 modifier = Modifier.testTag("SoonGanBottomBar"),
             )
         }
-    }
+    },
 ) { innerPadding ->
     MainRouteNavHost(
         modifier = Modifier.padding(top = innerPadding.calculateTopPadding()),
@@ -44,7 +44,7 @@ internal fun MainScreen(routeState: MainRouteState) = Scaffold(
  * **/
 private fun isNotViewBottomBar(
     currentDestination: NavDestination?,
-    topLevelDestinations: List<TopLevelDestination>
+    topLevelDestinations: List<TopLevelDestination>,
 ): Boolean {
     for (topLevelDestination in topLevelDestinations)
         if (currentDestination.isTopLevelDestinationInHierarchy(topLevelDestination))

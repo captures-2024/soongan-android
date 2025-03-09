@@ -14,7 +14,7 @@ import com.captures2024.soongan.feature.privacypolicy.ui.PrivacyPolicyScreen
 @Composable
 internal fun PrivacyPolicyRoute(
     navigateToBack: () -> Unit,
-    privacyPolicyViewModel: PrivacyPolicyViewModel = hiltViewModel()
+    privacyPolicyViewModel: PrivacyPolicyViewModel = hiltViewModel(),
 ) {
     val uiState by privacyPolicyViewModel.state.collectAsState()
 

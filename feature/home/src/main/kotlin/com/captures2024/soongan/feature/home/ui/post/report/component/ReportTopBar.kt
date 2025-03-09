@@ -36,14 +36,14 @@ internal fun ReportTopBar(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
                 .minimumInteractiveComponentSize(),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
         ) {
             if (hasBackIcon) {
                 SGIconButton(
                     imageVector = MyIconPack.IconNonFillLeftArrow,
                     contentDescription = MyIconPack.IconNonFillLeftArrow.name,
                     modifier = Modifier.align(Alignment.CenterStart),
-                    onClick = onBackPressed
+                    onClick = onBackPressed,
                 )
             }
             SGText(
@@ -55,7 +55,7 @@ internal fun ReportTopBar(
                     fontFamily = NanumSquareNeoFontFamily,
                     letterSpacing = (-5).em,
                     lineHeight = 20.sp,
-                )
+                ),
             )
         }
         HorizontalDivider(color = SGColor.primaryA.copy(alpha = 0.12f))

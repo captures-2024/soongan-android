@@ -15,5 +15,5 @@ internal fun CustomDragHandle(modifier: Modifier = Modifier) = Box(
     modifier
         .padding(top = 16.dp)
         .background(color = SGColor.primaryA, shape = RoundedCornerShape(50))
-        .size(width = 40.dp, height = 4.dp)
+        .size(width = 40.dp, height = 4.dp),
 )

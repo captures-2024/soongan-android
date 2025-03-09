@@ -30,13 +30,13 @@ internal fun ReportIdleScreen(
     Column(
         modifier = modifier
             .padding(horizontal = 20.dp)
-            .padding(bottom = 12.dp)
+            .padding(bottom = 12.dp),
     ) {
         ReportType.entries.forEachIndexed { idx, type ->
             PostReportDefaultBody(
                 text = stringResource(id = type.getTextId()),
                 isVisibleDivider = (idx != lastIdx),
-                onClick = { navigateToCheck(type) }
+                onClick = { navigateToCheck(type) },
             )
         }
     }
@@ -53,7 +53,7 @@ private fun PostReportDefaultBody(
         modifier = modifier
             .fillMaxWidth()
             .clickable(onClick = onClick)
-            .padding(horizontal = 20.dp)
+            .padding(horizontal = 20.dp),
     ) {
         SGText(
             text = text,
@@ -64,7 +64,7 @@ private fun PostReportDefaultBody(
                 lineHeight = 20.sp,
                 fontFamily = NanumSquareNeoFontFamily,
             ),
-            modifier = Modifier.padding(vertical = 20.dp)
+            modifier = Modifier.padding(vertical = 20.dp),
         )
     }
     if (isVisibleDivider) {

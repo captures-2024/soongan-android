@@ -14,7 +14,7 @@ fun NavGraphBuilder.signUp(
     composable<NicknameNavigator> {
         NicknameRoute(
             navigateToBack = navigateToBack,
-            navigateToBirth = navigateToBirth
+            navigateToBirth = navigateToBirth,
         )
     }
     composable<BirthNavigator> {

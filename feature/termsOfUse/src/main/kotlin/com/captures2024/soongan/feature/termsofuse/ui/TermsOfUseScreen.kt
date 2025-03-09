@@ -28,7 +28,7 @@ internal fun TermsOfUseScreen(
 ) {
     Column(
         modifier = modifier.fillMaxSize()
-            .background(SGColor.white)
+            .background(SGColor.white),
     ) {
         TermsOfUseTopBarScreen(onClickBack = { intent(TermsOfUseViewModel.Intent.OnClickBack) })
 
@@ -49,7 +49,7 @@ internal fun TermsOfUseScreen(
                         lineHeight = 14.sp,
                         fontFamily = SGTypography.nanumSquareNeo,
                         letterSpacing = 0.em,
-                    )
+                    ),
                 )
 
                 SGTextButtonType2(

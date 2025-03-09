@@ -104,7 +104,7 @@ internal fun RegistrationPostScreen(
                     lineHeight = 12.sp,
                     fontFamily = SGTypography.nanumSquareNeo,
                     letterSpacing = (-5).em,
-                )
+                ),
             )
         }
     }

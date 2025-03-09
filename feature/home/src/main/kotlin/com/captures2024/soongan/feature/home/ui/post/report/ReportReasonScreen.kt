@@ -25,7 +25,7 @@ internal fun ReportReasonScreen(
     Column(modifier = modifier.padding(horizontal = 20.dp).padding(top = 40.dp, bottom = 28.dp)) {
         ReportReasonTextField(
             text = reason,
-            onTextChange = onReasonChanged
+            onTextChange = onReasonChanged,
         )
         HeightSpacer(48.dp)
 

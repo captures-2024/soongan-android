@@ -45,11 +45,11 @@ internal fun ReportReasonTextField(
             .border(
                 border = BorderStroke(
                     width = 1.dp,
-                    color = SGColor.primaryA
+                    color = SGColor.primaryA,
                 ),
                 shape = RoundedCornerShape(8.dp),
             )
-            .height(160.dp)
+            .height(160.dp),
     ) {
         BasicTextField(
             modifier = Modifier
@@ -79,7 +79,7 @@ internal fun ReportReasonTextField(
                         .background(
                             color = SGColor.white,
                             shape = RoundedCornerShape(8.dp),
-                        )
+                        ),
                 ) {
                     if (text.isEmpty()) {
                         SGText(
@@ -91,12 +91,12 @@ internal fun ReportReasonTextField(
                                 lineHeight = 20.sp,
                                 fontFamily = NanumSquareNeoFontFamily,
                                 letterSpacing = (-5).em,
-                            )
+                            ),
                         )
                     }
                     innerTextField()
                 }
-            }
+            },
         )
 
         SGText(
@@ -110,7 +110,7 @@ internal fun ReportReasonTextField(
                 fontWeight = FontWeight.Normal,
                 lineHeight = 16.sp,
                 fontFamily = NanumSquareNeoFontFamily,
-                letterSpacing = 0.sp
+                letterSpacing = 0.sp,
             ),
             modifier = Modifier
                 .padding(8.dp)

@@ -42,7 +42,7 @@ internal fun ReportDoneScreen(
         modifier = modifier
             .padding(horizontal = 20.dp)
             .padding(bottom = 28.dp),
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
     ) {
         Column(
             modifier = Modifier
@@ -57,9 +57,9 @@ internal fun ReportDoneScreen(
                     fontWeight = FontWeight.Normal,
                     lineHeight = 24.sp,
                     fontFamily = NanumSquareNeoFontFamily,
-                    letterSpacing = (-5).em
+                    letterSpacing = (-5).em,
                 ),
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             )
             if (hasExtraMessage) {
                 SGText(
@@ -71,7 +71,7 @@ internal fun ReportDoneScreen(
                         lineHeight = 24.sp,
                         fontFamily = NanumSquareNeoFontFamily,
                         letterSpacing = (-5).em,
-                        textDecoration = TextDecoration.Underline
+                        textDecoration = TextDecoration.Underline,
                     ),
                 )
             }
@@ -83,7 +83,7 @@ internal fun ReportDoneScreen(
                     fontWeight = FontWeight.Normal,
                     lineHeight = 24.sp,
                     fontFamily = NanumSquareNeoFontFamily,
-                    letterSpacing = (-5).em
+                    letterSpacing = (-5).em,
                 ),
             )
         }

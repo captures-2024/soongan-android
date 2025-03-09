@@ -63,7 +63,7 @@ internal fun HomePostScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(20.dp),
-                contentAlignment = Alignment.CenterStart
+                contentAlignment = Alignment.CenterStart,
             ) {
                 SGIconCircleButton(
                     imageVector = MyIconPack.IconNonFillLeftArrow,
@@ -78,10 +78,10 @@ internal fun HomePostScreen(
         bottomBar = @Composable {
             HomePostScreenBottomBar(
                 likeCount = uiState.post.likeCount,
-                commentCount = uiState.post.commentCount,
+//                commentCount = uiState.post.commentCount,
                 onClickMenu = { intent(HomePostViewModel.Intent.OnClickMenu) },
                 onClickHeart = { intent(HomePostViewModel.Intent.OnClickHeart) },
-                onClickComment = { intent(HomePostViewModel.Intent.OnClickComment) },
+//                onClickComment = { intent(HomePostViewModel.Intent.OnClickComment) },
             )
         },
         containerColor = SGColor.transparent,
@@ -92,13 +92,13 @@ internal fun HomePostScreen(
                 .fillMaxSize()
                 .padding(horizontal = 16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceBetween
+            verticalArrangement = Arrangement.SpaceBetween,
         ) {
             Box(
                 modifier = Modifier
                     .width(360.dp)
                     .height(460.dp),
-                contentAlignment = Alignment.Center
+                contentAlignment = Alignment.Center,
             ) {
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
@@ -111,7 +111,7 @@ internal fun HomePostScreen(
                         .background(
                             brush = shimmerBrush(
                                 targetValue = 1300f,
-                                showShimmer = showShimmer.value
+                                showShimmer = showShimmer.value,
                             ),
                         )
                         .dropShadow(
@@ -132,7 +132,7 @@ internal fun HomePostScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp)
-                    .padding(bottom = 40.dp)
+                    .padding(bottom = 40.dp),
             ) {
                 SGText(
                     text = uiState.post.title,
@@ -143,7 +143,7 @@ internal fun HomePostScreen(
                         lineHeight = 24.sp,
                         fontFamily = SGTypography.nanumSquareNeo,
                         letterSpacing = 0.em,
-                    )
+                    ),
                 )
 
                 HeightSpacer(8.dp)
@@ -157,7 +157,7 @@ internal fun HomePostScreen(
                         lineHeight = 16.sp,
                         fontFamily = SGTypography.poppins,
                         letterSpacing = (-2).em,
-                    )
+                    ),
                 )
             }
         }
@@ -175,8 +175,8 @@ private fun HomePostScreenPreview() {
                 postId = 1,
                 imageUrl = "",
                 title = "무제",
-                nickname = "테스트닉네임"
-            )
-        )
+                nickname = "테스트닉네임",
+            ),
+        ),
     )
 }

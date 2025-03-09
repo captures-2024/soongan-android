@@ -28,11 +28,11 @@ import com.captures2024.soongan.feature.home.R
 @Composable
 internal fun SubmitBottomSheetDialogTopBar(
     modifier: Modifier = Modifier,
-    onBackPressed: () -> Unit = {}
+    onBackPressed: () -> Unit = {},
 ) {
     Column(
         modifier = Modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Box(
             modifier = modifier
@@ -43,7 +43,7 @@ internal fun SubmitBottomSheetDialogTopBar(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp),
-                contentAlignment = Alignment.CenterStart
+                contentAlignment = Alignment.CenterStart,
             ) {
                 Icon(
                     imageVector = MyIconPack.IconNonFillLeftArrow,
@@ -62,7 +62,7 @@ internal fun SubmitBottomSheetDialogTopBar(
                     lineHeight = 20.sp,
                     fontFamily = SGTypography.nanumSquareNeo,
                     letterSpacing = (-5).em,
-                )
+                ),
             )
         }
 

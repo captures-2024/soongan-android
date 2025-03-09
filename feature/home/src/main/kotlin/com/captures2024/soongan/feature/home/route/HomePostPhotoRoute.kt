@@ -11,18 +11,16 @@ import com.captures2024.soongan.feature.home.ui.postphoto.HomePostPhotoScreen
 @Composable
 internal fun HomePostPhotoRoute(
     navigateToBack: () -> Unit,
-    homePostPhotoViewModel: HomePostPhotoViewModel = hiltViewModel()
+    homePostPhotoViewModel: HomePostPhotoViewModel = hiltViewModel(),
 ) {
     val uiState by homePostPhotoViewModel.state.collectAsStateWithLifecycle()
 
     LaunchedEffect(key1 = Unit) {
-        homePostPhotoViewModel.sideEffect.collect {
-
-        }
+        homePostPhotoViewModel.sideEffect.collect {}
     }
 
     HomePostPhotoScreen(
         uiState = uiState,
-        onBackPressed = navigateToBack
+        onBackPressed = navigateToBack,
     )
 }

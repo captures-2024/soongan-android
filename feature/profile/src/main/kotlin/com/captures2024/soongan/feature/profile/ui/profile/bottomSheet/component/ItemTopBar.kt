@@ -32,14 +32,14 @@ internal fun ItemTopBar(
             modifier = Modifier
                 .fillMaxWidth()
                 .minimumInteractiveComponentSize(),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
         ) {
             if (hasBackIcon) {
                 SGIconButton(
                     imageVector = MyIconPack.IconNonFillLeftArrow,
                     contentDescription = MyIconPack.IconNonFillLeftArrow.name,
                     onClick = onBackPressed,
-                    modifier = Modifier.align(Alignment.CenterStart)
+                    modifier = Modifier.align(Alignment.CenterStart),
                 )
             }
             SGText(

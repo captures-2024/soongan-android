@@ -42,7 +42,7 @@ internal fun HomePostNestedCommentClosedScreen(
 
         HorizontalDivider(
             modifier = Modifier.width(27.dp),
-            color = SGColor.primaryA.copy(alpha = 0.9f)
+            color = SGColor.primaryA.copy(alpha = 0.9f),
         )
 
         WidthSpacer(8.dp)
@@ -61,7 +61,6 @@ internal fun HomePostNestedCommentClosedScreen(
                 onClick = onClick,
             ),
         )
-
     }
 }
 

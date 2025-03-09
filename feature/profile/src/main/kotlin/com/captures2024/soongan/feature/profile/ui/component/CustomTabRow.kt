@@ -42,14 +42,14 @@ fun CustomTabRow(
                     .tabIndicatorOffset(tabIndex, matchContentSize = false)
                     .padding(horizontal = 10.dp),
                 height = 2.dp,
-                color = SGColor.black
+                color = SGColor.black,
             )
         },
         divider = @Composable {
             HorizontalDivider(
                 modifier = Modifier.graphicsLayer(alpha = 0.4f),
                 thickness = 1.dp,
-                color = SGColor.primaryA.copy(alpha = 0.3f)
+                color = SGColor.primaryA.copy(alpha = 0.3f),
             )
         },
         tabs = @Composable {
@@ -61,10 +61,10 @@ fun CustomTabRow(
                         scope.launch {
                             pagerState.animateScrollToPage(index)
                         }
-                    }
+                    },
                 )
             }
-        }
+        },
     )
 }
 
@@ -94,10 +94,10 @@ private fun CustomTab(
                             lineHeight = 20.sp,
                             fontFamily = NanumSquareNeoFontFamily,
                             letterSpacing = (-5).em,
-                        )
+                        ),
                     )
                 }
             }
-        }
+        },
     )
 }

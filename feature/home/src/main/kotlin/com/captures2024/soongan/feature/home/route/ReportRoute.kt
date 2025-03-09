@@ -30,7 +30,7 @@ internal fun ReportRoute(
     reportRouteState.ManageDisableDismissState()
     val sheetState = rememberModalBottomSheetState(
         skipPartiallyExpanded = true,
-        confirmValueChange = { !reportRouteState.disableDismissState.value }
+        confirmValueChange = { !reportRouteState.disableDismissState.value },
     )
 
     ModalBottomSheet(
@@ -38,18 +38,18 @@ internal fun ReportRoute(
         onDismissRequest = { closeSheet() },
         sheetState = sheetState,
         containerColor = SGColor.white,
-        dragHandle = @Composable { CustomDragHandle() }
+        dragHandle = @Composable { CustomDragHandle() },
     ) {
         Column {
             ReportTopBar(
                 hasBackIcon = reportRouteState.isCheckRoute,
-                onBackPressed = reportRouteState::popBackStack
+                onBackPressed = reportRouteState::popBackStack,
             )
 
             ReportRouteNavHost(
                 reportRouteState = reportRouteState,
                 modifier = Modifier.fillMaxWidth(),
-                reportPost = reportPost
+                reportPost = reportPost,
             )
         }
     }
@@ -69,6 +69,6 @@ private fun PostReportBottomSheetDialogPreview() {
     ReportRoute(
         reportRouteState = rememberReportRouteState(0, ReportTargetType.WEEKLY_POST),
         closeSheet = {},
-        reportPost = {}
+        reportPost = {},
     )
 }

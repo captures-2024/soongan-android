@@ -38,9 +38,9 @@ internal fun SignUpBottomBar(
             .background(color = SGColor.primaryA)
             .padding(
                 horizontal = 40.dp,
-                vertical = 15.dp
+                vertical = 15.dp,
             ),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         SGText(
             text = title,
@@ -50,7 +50,7 @@ internal fun SignUpBottomBar(
                 fontWeight = FontWeight.Medium,
                 lineHeight = 16.sp,
                 fontFamily = SGTypography.pretendard,
-            )
+            ),
         )
 
         HeightSpacer(12.dp)
@@ -76,7 +76,7 @@ internal fun SignUpBottomBar(
                     fontWeight = FontWeight.SemiBold,
                     lineHeight = 24.sp,
                     fontFamily = SGTypography.pretendard,
-                )
+                ),
             )
         }
     }
@@ -87,10 +87,8 @@ internal fun SignUpBottomBar(
 private fun SignUpBottomBarNegativePreview() {
     SignUpBottomBar(
         title = stringResource(id = R.string.btn_nickname_input_title),
-        enabled = false
-    ) {
-
-    }
+        enabled = false,
+    ) {}
 }
 
 @DevicePreviews
@@ -98,8 +96,6 @@ private fun SignUpBottomBarNegativePreview() {
 private fun SignUpBottomBarPositivePreview() {
     SignUpBottomBar(
         title = stringResource(id = R.string.btn_nickname_input_title),
-        enabled = true
-    ) {
-
-    }
+        enabled = true,
+    ) {}
 }

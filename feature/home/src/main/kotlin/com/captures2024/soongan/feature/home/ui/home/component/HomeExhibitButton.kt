@@ -77,7 +77,7 @@ internal fun HomeExhibitButton(
                         when (exhibitCount) {
                             0 -> 40.dp
                             else -> 28.dp
-                        }
+                        },
                     ),
                 tint = when {
                     exhibitCount < MAX_EXHIBIT_CNT -> SGColor.primaryA
@@ -131,21 +131,21 @@ internal fun HomeExhibitButton(
 private fun HomeExhibitButtonPreview() {
     Column(
         modifier = Modifier.background(SGColor.white)
-            .padding(40.dp)
+            .padding(40.dp),
     ) {
         HomeExhibitButton(
             onClick = {},
-            exhibitCount = 0
+            exhibitCount = 0,
         )
         Spacer(modifier = Modifier.height(30.dp))
         HomeExhibitButton(
             onClick = {},
-            exhibitCount = 1
+            exhibitCount = 1,
         )
         Spacer(modifier = Modifier.height(30.dp))
         HomeExhibitButton(
             onClick = {},
-            exhibitCount = 3
+            exhibitCount = 3,
         )
     }
 }

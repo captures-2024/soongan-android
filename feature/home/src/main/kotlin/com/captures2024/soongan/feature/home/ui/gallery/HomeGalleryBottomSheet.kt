@@ -59,8 +59,8 @@ internal fun HomeGalleryBottomSheet(
         Column(
             modifier = Modifier.padding(
                 horizontal = 20.dp,
-                vertical = 20.dp
-            )
+                vertical = 20.dp,
+            ),
         ) {
             PostOrderType.entries.forEachIndexed { idx, postOrderType ->
                 if (idx != 0) HorizontalDivider(color = SGColor.primaryA.copy(alpha = 0.3f))
@@ -69,7 +69,7 @@ internal fun HomeGalleryBottomSheet(
                     text = stringResource(id = postOrderType.getTextId()),
                     icon = postOrderType.getIcon(),
                     selected = uiState.postOrderType == postOrderType,
-                    onClickItem = { onClickItem(postOrderType) }
+                    onClickItem = { onClickItem(postOrderType) },
                 )
             }
         }
@@ -87,7 +87,7 @@ private fun HomeGalleryFilterItem(
     Box(
         modifier = modifier
             .clip(RoundedCornerShape(8.dp))
-            .clickable { onClickItem() }
+            .clickable { onClickItem() },
     ) {
         Row(
             modifier = Modifier
@@ -95,7 +95,7 @@ private fun HomeGalleryFilterItem(
                 .heightIn(min = 56.dp)
                 .padding(horizontal = 20.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             SGText(
                 text = text,
@@ -109,7 +109,7 @@ private fun HomeGalleryFilterItem(
                     fontWeight = FontWeight.Bold,
                     lineHeight = 24.sp,
                     fontFamily = SGTypography.nanumSquareNeo,
-                )
+                ),
             )
 
             Icon(
@@ -120,7 +120,7 @@ private fun HomeGalleryFilterItem(
                     true -> SGColor.primaryA
 
                     false -> SGColor.primaryA.copy(alpha = 0.3f)
-                }
+                },
             )
         }
     }
@@ -134,7 +134,7 @@ private fun HomeGalleryBottomSheetPreview() {
         skipPartiallyExpanded = true,
         initialValue = SheetValue.Expanded,
         density = LocalDensity.current,
-        skipHiddenState = false
+        skipHiddenState = false,
     )
 
     HomeGalleryBottomSheet(
@@ -149,6 +149,6 @@ private fun HomeGalleryFilterItemPreview() {
     HomeGalleryFilterItem(
         text = stringResource(id = R.string.filter_likes),
         icon = MyIconPack.IconFilterLike,
-        selected = false
+        selected = false,
     )
 }

@@ -19,7 +19,7 @@ import com.captures2024.soongan.feature.signIn.R
 @Composable
 internal fun TermsText(
     onClickTermsOfUse: () -> Unit,
-    onClickPrivacyPolicy: () -> Unit
+    onClickPrivacyPolicy: () -> Unit,
 ) {
     val text = buildAnnotatedString {
         withStyle(
@@ -28,7 +28,7 @@ internal fun TermsText(
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Medium,
                 fontFamily = SGTypography.pretendard,
-            )
+            ),
         ) {
             append(stringResource(id = R.string.terms_text_first))
         }
@@ -40,7 +40,7 @@ internal fun TermsText(
                 fontWeight = FontWeight.Medium,
                 fontFamily = SGTypography.pretendard,
                 textDecoration = TextDecoration.Underline,
-            )
+            ),
         ) {
             append(stringResource(id = R.string.terms_of_use))
         }
@@ -51,7 +51,7 @@ internal fun TermsText(
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Medium,
                 fontFamily = SGTypography.pretendard,
-            )
+            ),
         ) {
             append(stringResource(id = R.string.terms_text_second))
         }
@@ -63,7 +63,7 @@ internal fun TermsText(
                 fontWeight = FontWeight.Medium,
                 fontFamily = SGTypography.pretendard,
                 textDecoration = TextDecoration.Underline,
-            )
+            ),
         ) {
             append(stringResource(id = R.string.privacy_policy))
         }
@@ -74,7 +74,7 @@ internal fun TermsText(
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Medium,
                 fontFamily = SGTypography.pretendard,
-            )
+            ),
         ) {
             append(stringResource(id = R.string.terms_text_third))
         }
@@ -87,18 +87,18 @@ internal fun TermsText(
                 text.getStringAnnotations(
                     tag = "termsOfUse",
                     start = offset,
-                    end = offset
+                    end = offset,
                 ).firstOrNull()?.let {
                     onClickTermsOfUse()
                 }
                 text.getStringAnnotations(
                     tag = "privacyPolicy",
                     start = offset,
-                    end = offset
+                    end = offset,
                 ).firstOrNull()?.let {
                     onClickPrivacyPolicy()
                 }
-            }
+            },
         )
     }
 }
@@ -108,6 +108,6 @@ internal fun TermsText(
 private fun TermsTextPreview() {
     TermsText(
         onClickTermsOfUse = {},
-        onClickPrivacyPolicy = {}
+        onClickPrivacyPolicy = {},
     )
 }

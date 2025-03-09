@@ -75,7 +75,7 @@ internal fun SubmitBottomSheetDialog(
                         fontFamily = SGTypography.nanumSquareNeo,
                         letterSpacing = (-5).em,
                     ),
-                    modifier = Modifier.padding(horizontal = 20.dp)
+                    modifier = Modifier.padding(horizontal = 20.dp),
                 )
 
                 HeightSpacer(40.dp)
@@ -95,7 +95,7 @@ internal fun SubmitBottomSheetDialog(
 private fun SubmitBottomSheetDialogPreview() {
     SubmitBottomSheetDialog(
         uiState = RegistrationPostViewModel.State(
-            title = "입력한 제목"
-        )
+            title = "입력한 제목",
+        ),
     )
 }

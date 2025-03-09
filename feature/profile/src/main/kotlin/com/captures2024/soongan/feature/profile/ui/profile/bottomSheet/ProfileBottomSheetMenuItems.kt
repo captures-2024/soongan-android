@@ -62,7 +62,7 @@ internal fun IdleItem(
             if (idx != ProfileBtmShtMenuItem.entries.lastIndex) {
                 HorizontalDivider(
                     modifier = Modifier.padding(horizontal = 24.dp),
-                    color = SGColor.primaryA.copy(alpha = 0.3f)
+                    color = SGColor.primaryA.copy(alpha = 0.3f),
                 )
             }
         }
@@ -80,19 +80,19 @@ internal fun PushItem(
         ItemTopBar(
             itemTitle = stringResource(R.string.bottomSheet_item_title_push_notification_setting),
             hasBackIcon = true,
-            onBackPressed = onBackPressed
+            onBackPressed = onBackPressed,
         )
         PushSettingType.entries.forEachIndexed { idx, type ->
             PushToggleRow(
                 text = type.textId(),
                 detailText = type.detailTextId(),
                 checked = pushSetting.getStateByType(type),
-                onCheckedChange = { onSwitch(type) }
+                onCheckedChange = { onSwitch(type) },
             )
             if (idx != PushSettingType.entries.lastIndex) {
                 HorizontalDivider(
                     modifier = Modifier.padding(horizontal = 24.dp),
-                    color = SGColor.primaryA.copy(alpha = 0.3f)
+                    color = SGColor.primaryA.copy(alpha = 0.3f),
                 )
             }
         }
@@ -111,7 +111,7 @@ internal fun WithDrawCheckItem(
         ItemTopBar(
             itemTitle = stringResource(R.string.bottomSheet_item_title_withdraw),
             hasBackIcon = true,
-            onBackPressed = onBackPressed
+            onBackPressed = onBackPressed,
         )
         ItemContentBox {
             ItemText(stringResource(R.string.bottomSheet_item_withdraw_description_1))
@@ -122,13 +122,13 @@ internal fun WithDrawCheckItem(
             MenuItemTextField(
                 value = input.value,
                 onValueChange = { input.value = it },
-                placeholder = stringResource(R.string.bottomSheet_item_title_withdraw)
+                placeholder = stringResource(R.string.bottomSheet_item_title_withdraw),
             )
         }
         ItemButton(
             onClick = { onClick(ProfileBtmShtCheckType.WITHDRAW) },
             text = stringResource(R.string.bottomSheet_item_check_button_text),
-            enabled = input.value == stringResource(R.string.bottomSheet_item_title_withdraw)
+            enabled = input.value == stringResource(R.string.bottomSheet_item_title_withdraw),
         )
     }
 }
@@ -147,7 +147,7 @@ internal fun WithDrawDoneItem(
         HeightSpacer(40.dp)
         ItemButton(
             onClick = onClick,
-            text = stringResource(R.string.bottomSheet_item_done_button_text)
+            text = stringResource(R.string.bottomSheet_item_done_button_text),
         )
     }
 }
@@ -162,14 +162,14 @@ internal fun SignOutCheckItem(
         ItemTopBar(
             itemTitle = stringResource(R.string.bottomSheet_item_title_sign_out),
             hasBackIcon = true,
-            onBackPressed = onBackPressed
+            onBackPressed = onBackPressed,
         )
         ItemContentBox {
             ItemText(stringResource(R.string.bottomSheet_item_sign_out_description))
         }
         ItemButton(
             onClick = { onClick(ProfileBtmShtCheckType.SIGN_OUT) },
-            text = stringResource(R.string.bottomSheet_item_title_sign_out)
+            text = stringResource(R.string.bottomSheet_item_title_sign_out),
         )
     }
 }
@@ -187,7 +187,7 @@ internal fun SignOutDoneItem(
         }
         ItemButton(
             onClick = onClick,
-            text = stringResource(R.string.bottomSheet_item_done_button_text)
+            text = stringResource(R.string.bottomSheet_item_done_button_text),
         )
     }
 }
@@ -223,10 +223,10 @@ private fun ProfileMenuRow(
             .clickable(
                 onClick = { onClick(item) },
                 interactionSource = interactionSource,
-                indication = null
+                indication = null,
             ),
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         SGText(
             text = stringResource(item.textId()),
@@ -242,12 +242,12 @@ private fun ProfileMenuRow(
 
         Box(
             modifier = Modifier.size(24.dp),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
         ) {
             Icon(
                 imageVector = item.icon(),
                 contentDescription = stringResource(item.textId()),
-                tint = item.color()
+                tint = item.color(),
             )
         }
     }
@@ -267,7 +267,7 @@ private fun PushToggleRow(
             .padding(vertical = 20.dp)
             .padding(start = 40.dp, end = 24.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Column(
             verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -309,8 +309,8 @@ private fun PushToggleRow(
                 checkedBorderColor = SGColor.transparent,
                 uncheckedThumbColor = SGColor.white,
                 uncheckedTrackColor = SGColor.primaryA.copy(alpha = 0.3f),
-                uncheckedBorderColor = SGColor.transparent
-            )
+                uncheckedBorderColor = SGColor.transparent,
+            ),
         )
     }
 }
@@ -346,7 +346,6 @@ private fun ItemButton(
         onClick = onClick,
     )
 }
-
 
 @DevicePreviews
 @Composable
