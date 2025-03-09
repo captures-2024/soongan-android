@@ -27,13 +27,13 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import com.captures2024.soongan.core.designsystem.component.HeightSpacer
-import com.captures2024.soongan.core.designsystem.component.WeightSpacer
-import com.captures2024.soongan.core.designsystem.component.text.SGText
-import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
-import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
-import com.captures2024.soongan.core.designsystem.theme.SGColor
-import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.designsystem.ui.component.HeightSpacer
+import com.captures2024.soongan.core.designsystem.ui.component.WeightSpacer
+import com.captures2024.soongan.core.designsystem.ui.component.text.SGText
+import com.captures2024.soongan.core.designsystem.ui.component.text.getSGNonScaleTextStyle
+import com.captures2024.soongan.core.designsystem.ui.theme.NanumSquareNeoFontFamily
+import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
+import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.feature.profile.R
 import com.captures2024.soongan.feature.profile.ui.component.CustomTabRow
 import com.captures2024.soongan.feature.profile.ui.component.CustomTopBar
@@ -56,7 +56,7 @@ internal fun FAQScreen(
     Column(modifier = modifier.fillMaxSize()) {
         CustomTopBar(
             text = stringResource(R.string.faq_topbar_title),
-            onBackPressed = navigateToBack
+            onBackPressed = navigateToBack,
         )
         CustomTabRow(
             tabs = tabs,
@@ -71,12 +71,12 @@ internal fun FAQScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .background(color = SGColor.white)
-                    .verticalScroll(state = scrollState)
+                    .verticalScroll(state = scrollState),
             ) {
                 faqCategories[page].faqs.forEach {
                     FAQItem(
                         question = stringResource(it.question),
-                        answer = stringResource(it.answer)
+                        answer = stringResource(it.answer),
                     )
                 }
                 WeightSpacer(1f)
@@ -100,7 +100,7 @@ private fun FAQItem(
                 .height(60.dp)
                 .fillMaxWidth()
                 .clickable { expanded = !expanded },
-            contentAlignment = Alignment.CenterStart
+            contentAlignment = Alignment.CenterStart,
         ) {
             SGText(
                 text = question,
@@ -114,7 +114,7 @@ private fun FAQItem(
                     letterSpacing = (-5).em,
                 ),
                 maxLines = if (!expanded) 1 else Int.MAX_VALUE,
-                overflow = if (!expanded) TextOverflow.Ellipsis else TextOverflow.Visible
+                overflow = if (!expanded) TextOverflow.Ellipsis else TextOverflow.Visible,
             )
         }
         if (expanded) {
@@ -131,7 +131,7 @@ private fun FAQItem(
                     lineHeight = 20.sp,
                     fontFamily = NanumSquareNeoFontFamily,
                     letterSpacing = (-5).em,
-                )
+                ),
             )
         }
         HorizontalDivider(thickness = 1.dp, color = SGColor.buttonDisableGray)
@@ -153,17 +153,17 @@ private fun InquiryBox(
 
     Column(
         modifier = modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         SGText(
             text = stringResource(R.string.faq_inquiry_question_message),
-            style = commonTextStyle
+            style = commonTextStyle,
         )
         HeightSpacer(12.dp)
         SGText(
             text = stringResource(R.string.faq_inquiry_text),
             modifier = Modifier.clickable(onClick = onClick),
-            style = commonTextStyle.copy(textDecoration = TextDecoration.Underline)
+            style = commonTextStyle.copy(textDecoration = TextDecoration.Underline),
         )
     }
 }

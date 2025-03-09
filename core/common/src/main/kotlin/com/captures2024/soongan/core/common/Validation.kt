@@ -40,8 +40,8 @@ object Validation {
         Success, Length
     }
 
-    fun isValidSelfIntroduction(selfIntroduction: String) : IntroductionValidState {
-        if(selfIntroduction.length !in 0..20) {
+    fun isValidSelfIntroduction(selfIntroduction: String): IntroductionValidState {
+        if (selfIntroduction.length !in 0..20) {
             return IntroductionValidState.Length
         }
 

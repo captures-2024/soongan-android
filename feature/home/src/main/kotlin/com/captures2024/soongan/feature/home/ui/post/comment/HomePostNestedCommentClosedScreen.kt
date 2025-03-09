@@ -16,12 +16,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import com.captures2024.soongan.core.designsystem.component.WidthSpacer
-import com.captures2024.soongan.core.designsystem.component.text.SGText
-import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
-import com.captures2024.soongan.core.designsystem.theme.SGColor
-import com.captures2024.soongan.core.designsystem.theme.SGTypography
-import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.designsystem.ui.component.WidthSpacer
+import com.captures2024.soongan.core.designsystem.ui.component.text.SGText
+import com.captures2024.soongan.core.designsystem.ui.component.text.getSGNonScaleTextStyle
+import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
+import com.captures2024.soongan.core.designsystem.ui.theme.SGTypography
+import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 
 @Composable
 internal fun HomePostNestedCommentClosedScreen(
@@ -42,7 +42,7 @@ internal fun HomePostNestedCommentClosedScreen(
 
         HorizontalDivider(
             modifier = Modifier.width(27.dp),
-            color = SGColor.primaryA.copy(alpha = 0.9f)
+            color = SGColor.primaryA.copy(alpha = 0.9f),
         )
 
         WidthSpacer(8.dp)
@@ -61,7 +61,6 @@ internal fun HomePostNestedCommentClosedScreen(
                 onClick = onClick,
             ),
         )
-
     }
 }
 

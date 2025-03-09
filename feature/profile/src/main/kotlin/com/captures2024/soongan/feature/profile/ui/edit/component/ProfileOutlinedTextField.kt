@@ -16,14 +16,14 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import com.captures2024.soongan.core.designsystem.component.HeightSpacer
-import com.captures2024.soongan.core.designsystem.component.text.SGText
-import com.captures2024.soongan.core.designsystem.component.text.field.SGTextFieldFormState
-import com.captures2024.soongan.core.designsystem.component.text.field.SGTextFieldTypeForm
-import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
-import com.captures2024.soongan.core.designsystem.theme.SGColor
-import com.captures2024.soongan.core.designsystem.theme.SGTypography
-import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.designsystem.ui.component.HeightSpacer
+import com.captures2024.soongan.core.designsystem.ui.component.text.SGText
+import com.captures2024.soongan.core.designsystem.ui.component.text.field.SGTextFieldFormState
+import com.captures2024.soongan.core.designsystem.ui.component.text.field.SGTextFieldTypeForm
+import com.captures2024.soongan.core.designsystem.ui.component.text.getSGNonScaleTextStyle
+import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
+import com.captures2024.soongan.core.designsystem.ui.theme.SGTypography
+import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 
 @Composable
 internal fun ProfileOutlinedTextField(
@@ -39,7 +39,6 @@ internal fun ProfileOutlinedTextField(
     val focusManager = LocalFocusManager.current
 
     Column(modifier = modifier) {
-
         Box(
             modifier = modifier.padding(start = 12.dp),
         ) {
@@ -74,7 +73,7 @@ internal fun ProfileOutlinedTextField(
             ),
             hint = placeholder,
             modifier = Modifier.fillMaxWidth(),
-            state = when(isInvalid) {
+            state = when (isInvalid) {
                 true -> SGTextFieldFormState.Error
 
                 false -> SGTextFieldFormState.Default
@@ -89,7 +88,7 @@ internal fun ProfileOutlinedTextField(
             modifier = modifier
                 .fillMaxWidth()
                 .padding(start = 12.dp, end = 4.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             SGText(
                 text = hint,
@@ -130,7 +129,7 @@ private fun ProfileOutlinedTextFieldPreview() {
         hint = "",
         maxInputLength = 20,
         detailTitle = "닉네임은 한글, 영문, 숫자만 입력해주세요",
-        placeholder = "닉네임은 한글, 영문, 숫자만 입력해주세요"
+        placeholder = "닉네임은 한글, 영문, 숫자만 입력해주세요",
     )
 }
 
@@ -144,6 +143,6 @@ private fun ProfileOutlinedTextFieldWithErrorPreview() {
         hint = "에러메시지",
         maxInputLength = 20,
         detailTitle = "닉네임은 한글, 영문, 숫자만 입력해주세요",
-        placeholder = "닉네임은 한글, 영문, 숫자만 입력해주세요"
+        placeholder = "닉네임은 한글, 영문, 숫자만 입력해주세요",
     )
 }

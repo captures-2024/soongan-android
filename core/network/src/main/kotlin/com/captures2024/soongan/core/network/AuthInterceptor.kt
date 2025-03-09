@@ -10,9 +10,13 @@ import javax.inject.Inject
 class AuthInterceptor
 @Inject
 constructor(
-    private val analyticsHelper: AnalyticsHelper,
+    analyticsHelper: AnalyticsHelper,
     private val tokenDataSource: TokenDataSource,
 ) : Interceptor {
+
+    init {
+        analyticsHelper.d(message = "init AuthInterceptor")
+    }
 
     override fun intercept(chain: Interceptor.Chain): Response = with(chain) {
         val defaultRequest = request()

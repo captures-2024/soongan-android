@@ -94,7 +94,7 @@ constructor(
     }
 
     private fun handleOnNicknameValueChanged(intent: Intent.OnNicknameValueChanged) {
-        if (intent.newValue.length !in 0 .. currentState.maxNicknameLength) {
+        if (intent.newValue.length !in 0..currentState.maxNicknameLength) {
             return
         }
 

@@ -9,7 +9,7 @@ import javax.inject.Inject
 class HomeRepositoryImpl
 @Inject
 constructor(
-    private val homeDataSource: HomeDataSource
+    private val homeDataSource: HomeDataSource,
 ) : HomeRepository {
 
     override suspend fun getHome(): Pair<ContestInfoDto, List<PostInfoDto>> {

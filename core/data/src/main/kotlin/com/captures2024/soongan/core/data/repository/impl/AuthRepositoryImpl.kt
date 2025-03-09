@@ -11,7 +11,7 @@ class AuthRepositoryImpl
 @Inject
 constructor(
     private val tokenDataSource: TokenDataSource,
-    private val authDataSource: AuthDataSource
+    private val authDataSource: AuthDataSource,
 ) : AuthRepository {
 
     override suspend fun withdrawMember(): ResultConditionDto = when (authDataSource.withdrawWithToken()) {

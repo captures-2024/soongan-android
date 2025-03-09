@@ -51,7 +51,7 @@ internal fun HomeGalleryRoute(
         onLoadNextPage = { homeGalleryViewModel.intent(Intent.LoadNextPage) },
         onClickPost = { homeGalleryViewModel.intent(Intent.OnClickPost(it)) },
         onClickFilter = { homeGalleryViewModel.intent(Intent.OnClickFilter) },
-        onClickRegistrationText = { homeGalleryViewModel.intent(Intent.OnClickRegistrationText) }
+        onClickRegistrationText = { homeGalleryViewModel.intent(Intent.OnClickRegistrationText) },
     )
 
     if (uiState.isShowBottomSheet) {

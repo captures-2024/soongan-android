@@ -20,11 +20,11 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import com.captures2024.soongan.core.designsystem.component.text.SGText
-import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
-import com.captures2024.soongan.core.designsystem.theme.SGColor
-import com.captures2024.soongan.core.designsystem.theme.SGTypography
-import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.designsystem.ui.component.text.SGText
+import com.captures2024.soongan.core.designsystem.ui.component.text.getSGNonScaleTextStyle
+import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
+import com.captures2024.soongan.core.designsystem.ui.theme.SGTypography
+import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 
 @Composable
 internal fun MenuItemTextField(
@@ -57,7 +57,7 @@ internal fun MenuItemTextField(
             .border(
                 width = 1.dp,
                 color = SGColor.primaryA,
-                shape = RoundedCornerShape(8.dp)
+                shape = RoundedCornerShape(8.dp),
             ),
         textStyle = contentStyle,
         keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
@@ -67,7 +67,7 @@ internal fun MenuItemTextField(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(start = 14.dp),
-                contentAlignment = Alignment.CenterStart
+                contentAlignment = Alignment.CenterStart,
             ) {
                 if (value.isEmpty()) {
                     SGText(
@@ -77,10 +77,9 @@ internal fun MenuItemTextField(
                 }
                 innerTextField()
             }
-        }
+        },
     )
 }
-
 
 @DevicePreviews
 @Composable
@@ -89,6 +88,6 @@ private fun ProfileOutlinedTextFieldWithErrorPreview() {
         value = "",
         onValueChange = {},
         maxInputLength = 20,
-        placeholder = "회원탈퇴"
+        placeholder = "회원탈퇴",
     )
 }

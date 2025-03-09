@@ -14,12 +14,11 @@ constructor(
     suspend operator fun invoke(params: Params): Result<MyGalleryDto> = runSuspendCatching {
         val myGalleryDto = weeklyContestRepository.getMyGalleryInfo(
             page = params.page,
-            pageSize = params.pageSize
+            pageSize = params.pageSize,
         )
 
         return@runSuspendCatching myGalleryDto
     }
-
 
     data class Params(
         val page: Int,

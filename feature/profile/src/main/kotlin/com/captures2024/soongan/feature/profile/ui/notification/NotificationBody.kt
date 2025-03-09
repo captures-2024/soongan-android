@@ -6,7 +6,7 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.core.model.UserNotification
 import com.captures2024.soongan.core.model.mock.mockNotifications
 import com.captures2024.soongan.core.model.utils.NotificationType
@@ -22,15 +22,15 @@ internal fun NotificationBody(
     val tabs = listOf(
         nonScaleAnnotatedTitle(
             title = stringResource(R.string.contest_notification_title),
-            count = 93
+            count = 93,
         ),
         nonScaleAnnotatedTitle(
             title = stringResource(R.string.user_action_notification_title),
-            count = 8
+            count = 8,
         ),
         nonScaleAnnotatedTitle(
             title = stringResource(R.string.announce_notification_title),
-            count = 8
+            count = 8,
         ),
     )
 
@@ -53,13 +53,19 @@ internal fun NotificationBody(
             when (page) {
                 /* 알림 api 구현 이후, notifications filtering 고려 */
                 // 대회 알림
-                0 -> NotificationHistory(notifications = notifications.filter { it.type == NotificationType.CONTEST })
+                0 -> NotificationHistory(
+                    notifications = notifications.filter { it.type == NotificationType.CONTEST },
+                )
 
                 // 활동 알림 + 소명 알림
-                1 -> NotificationHistory(notifications = notifications.filter { it.type == NotificationType.ACTION || it.type == NotificationType.VINDICATION })
+                1 -> NotificationHistory(
+                    notifications = notifications.filter { it.type == NotificationType.ACTION || it.type == NotificationType.VINDICATION },
+                )
 
                 // 공지 알림
-                2 -> NotificationHistory(notifications = notifications.filter { it.type == NotificationType.ANNOUNCEMENT })
+                2 -> NotificationHistory(
+                    notifications = notifications.filter { it.type == NotificationType.ANNOUNCEMENT },
+                )
             }
         }
     }

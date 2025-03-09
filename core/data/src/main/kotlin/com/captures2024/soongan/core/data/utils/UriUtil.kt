@@ -9,13 +9,16 @@ import java.io.InputStream
 import java.io.OutputStream
 
 object UriUtil {
-    fun uriToFile(context: Context, contentUri: Uri): File {
+    fun uriToFile(
+        context: Context,
+        contentUri: Uri,
+    ): File {
         val fileName = generateFileName(context, contentUri)
 
         val tempFile = File(context.cacheDir, fileName)
         tempFile.createNewFile()
 
-        try {
+        kotlin.runCatching {
             val inputStream = context.contentResolver.openInputStream(contentUri)
             val outputStream = FileOutputStream(tempFile)
 
@@ -24,8 +27,8 @@ object UriUtil {
             }
 
             outputStream.flush()
-        } catch (e: Exception) {
-            e.printStackTrace()
+        }.onFailure {
+            it.printStackTrace()
         }
 
         return tempFile

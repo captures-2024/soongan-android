@@ -17,5 +17,5 @@ sealed interface ProfileBtmShtDepthState {
         data object Done : Withdraw
     }
 
-    data object Error: ProfileBtmShtDepthState
+    data object Error : ProfileBtmShtDepthState
 }

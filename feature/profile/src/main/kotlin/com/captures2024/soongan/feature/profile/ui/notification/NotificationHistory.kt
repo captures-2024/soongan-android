@@ -22,13 +22,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import com.captures2024.soongan.core.designsystem.component.HeightSpacer
-import com.captures2024.soongan.core.designsystem.component.WidthSpacer
-import com.captures2024.soongan.core.designsystem.component.text.SGText
-import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
-import com.captures2024.soongan.core.designsystem.theme.SGColor
-import com.captures2024.soongan.core.designsystem.theme.SGTypography
-import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.designsystem.ui.component.HeightSpacer
+import com.captures2024.soongan.core.designsystem.ui.component.WidthSpacer
+import com.captures2024.soongan.core.designsystem.ui.component.text.SGText
+import com.captures2024.soongan.core.designsystem.ui.component.text.getSGNonScaleTextStyle
+import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
+import com.captures2024.soongan.core.designsystem.ui.theme.SGTypography
+import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.core.model.UserNotification
 import com.captures2024.soongan.core.model.mock.mockNotifications
 import com.captures2024.soongan.core.model.utils.NotificationType
@@ -41,7 +41,7 @@ internal fun NotificationHistory(
     onClick: () -> Unit = {},
 ) {
     Column(
-        modifier = modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize(),
     ) {
         if (notifications.isEmpty()) {
             EmptyNotificationHistory()
@@ -53,7 +53,7 @@ internal fun NotificationHistory(
                         body = it.body,
                         receiveAt = it.receiveAt,
                         isRead = it.isRead,
-                        onClick = onClick
+                        onClick = onClick,
                     )
                 }
             }
@@ -65,7 +65,7 @@ internal fun NotificationHistory(
 private fun EmptyNotificationHistory(modifier: Modifier = Modifier) {
     Box(
         modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         SGText(
             text = stringResource(R.string.non_exist_notification_message),
@@ -76,7 +76,7 @@ private fun EmptyNotificationHistory(modifier: Modifier = Modifier) {
                 lineHeight = 16.sp,
                 fontFamily = SGTypography.nanumSquareNeo,
                 letterSpacing = 0.em,
-            )
+            ),
         )
     }
 }
@@ -93,19 +93,19 @@ private fun NotificationHistoryContent(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .clickable(onClick = onClick)
+            .clickable(onClick = onClick),
     ) {
         HeightSpacer(20.dp)
 
         Row(
             modifier = Modifier.padding(start = 12.dp),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Box(
                 modifier = Modifier
                     .size(8.dp)
                     .clip(CircleShape)
-                    .background(color = if (isRead) SGColor.transparent else SGColor.accent)
+                    .background(color = if (isRead) SGColor.transparent else SGColor.accent),
             )
 
             WidthSpacer(12.dp)
@@ -119,7 +119,7 @@ private fun NotificationHistoryContent(
                     lineHeight = 16.sp,
                     fontFamily = SGTypography.nanumSquareNeo,
                     letterSpacing = (-5).em,
-                )
+                ),
             )
         }
 
@@ -158,7 +158,6 @@ private fun NotificationHistoryContent(
 
     HorizontalDivider(modifier = Modifier.padding(horizontal = 20.dp))
 }
-
 
 @DevicePreviews
 @Composable

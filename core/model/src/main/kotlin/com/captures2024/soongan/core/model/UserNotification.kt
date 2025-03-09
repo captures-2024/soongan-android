@@ -25,7 +25,7 @@ sealed class UserNotification(
         title = title,
         body = body,
         receiveAt = receiveAt,
-        isRead = isRead
+        isRead = isRead,
     )
 
     // 활동 알림
@@ -41,7 +41,7 @@ sealed class UserNotification(
         title = title,
         body = body,
         receiveAt = receiveAt,
-        isRead = isRead
+        isRead = isRead,
     )
 
     // 공지 알림
@@ -57,7 +57,7 @@ sealed class UserNotification(
         title = title,
         body = body,
         receiveAt = receiveAt,
-        isRead = isRead
+        isRead = isRead,
     )
 
     // 소명 알림
@@ -74,6 +74,6 @@ sealed class UserNotification(
         title = title,
         body = body,
         receiveAt = receiveAt,
-        isRead = isRead
+        isRead = isRead,
     )
 }

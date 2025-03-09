@@ -28,7 +28,7 @@ constructor(
             nickname = nickname,
             selfIntroduction = selfIntroduction,
             profileImageUrl = profileImageUrl.toImageMultiPart(context, "profileImage"),
-            isDefaultProfileImage = isDefaultProfileImage
+            isDefaultProfileImage = isDefaultProfileImage,
         )
     }.body?.responseData?.toUserInfoDto()
 

@@ -10,5 +10,5 @@ data class PatchProfileRequest(
     @SerialName("selfIntroduction")
     val selfIntroduction: String? = null,
     @SerialName("profileImage")
-    val profileImage: String? = null
+    val profileImage: String? = null,
 )

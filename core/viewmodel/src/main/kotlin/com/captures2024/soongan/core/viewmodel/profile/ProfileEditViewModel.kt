@@ -12,7 +12,6 @@ import com.captures2024.soongan.core.domain.usecase.loading.HideLoadingUseCase
 import com.captures2024.soongan.core.domain.usecase.loading.ShowLoadingUseCase
 import com.captures2024.soongan.core.domain.usecase.members.GetCurrentMemberFlowUseCase
 import com.captures2024.soongan.core.domain.usecase.members.GetIsCurrentGuestModeUseCase
-import com.captures2024.soongan.core.domain.usecase.members.IsVerifiedNicknameUseCase
 import com.captures2024.soongan.core.domain.usecase.members.PatchProfileUseCase
 import com.captures2024.soongan.core.model.exception.NetworkExceptionWrapper
 import com.captures2024.soongan.core.viewmodel.NewBaseViewModel
@@ -41,7 +40,7 @@ constructor(
     clearLoadingUseCase = clearLoadingUseCase,
     getIsCurrentGuestModeUseCase = getIsCurrentGuestModeUseCase,
     setIsShowGuestModeDialogFlowUseCase = setIsShowGuestModeDialogFlowUseCase,
-    savedStateHandle = savedStateHandle
+    savedStateHandle = savedStateHandle,
 ) {
 
     data class State(
@@ -65,7 +64,6 @@ constructor(
 
         data object OpenMediaPicker : Effect
     }
-
 
     sealed interface Intent : UIIntent {
 
@@ -108,7 +106,7 @@ constructor(
         analyticsHelper.e(
             throwable = throwable,
             logVariable = currentState.toLoggingElements(),
-            message = "handleClientException"
+            message = "handleClientException",
         )
     }
 
@@ -140,9 +138,9 @@ constructor(
             copy(
                 editingState = editingState.copy(
                     editingProfile = editingState.editingProfile.copy(
-                        profileImageUrl = null
-                    )
-                )
+                        profileImageUrl = null,
+                    ),
+                ),
             )
         }
 
@@ -166,13 +164,12 @@ constructor(
             reduce { copy(isOpenBottomSheet = false) }
 
             postSideEffect(Effect.NavigateToBack)
-
         } catch (e: NetworkExceptionWrapper) {
             reduce {
                 copy(
                     editingState = editingState.copy(
-                        isEditable = false
-                    )
+                        isEditable = false,
+                    ),
                 )
             }
 
@@ -180,8 +177,8 @@ constructor(
                 reduce {
                     copy(
                         editingState = editingState.copy(
-                            isDuplicatedNickname = true
-                        )
+                            isDuplicatedNickname = true,
+                        ),
                     )
                 }
             }
@@ -201,9 +198,9 @@ constructor(
             copy(
                 editingState = editingState.copy(
                     editingProfile = editingState.editingProfile.copy(
-                        selfIntroduction = intent.newIntroduction
-                    )
-                )
+                        selfIntroduction = intent.newIntroduction,
+                    ),
+                ),
             )
         }
 
@@ -215,10 +212,10 @@ constructor(
             copy(
                 editingState = editingState.copy(
                     editingProfile = editingState.editingProfile.copy(
-                        nickname = intent.newNickname
+                        nickname = intent.newNickname,
                     ),
-                    isDuplicatedNickname = false
-                )
+                    isDuplicatedNickname = false,
+                ),
             )
         }
 
@@ -230,9 +227,9 @@ constructor(
             copy(
                 editingState = editingState.copy(
                     editingProfile = editingState.editingProfile.copy(
-                        profileImageUrl = intent.newProfileImage
-                    )
-                )
+                        profileImageUrl = intent.newProfileImage,
+                    ),
+                ),
             )
         }
 
@@ -258,7 +255,7 @@ constructor(
             reduce {
                 copy(
                     userProfile = userProfile,
-                    editingState = editingState.copy(editingProfile = userProfile)
+                    editingState = editingState.copy(editingProfile = userProfile),
                 )
             }
         }
@@ -270,8 +267,8 @@ constructor(
         reduce {
             copy(
                 editingState = editingState.copy(
-                    isEditable = isEditable
-                )
+                    isEditable = isEditable,
+                ),
             )
         }
     }
@@ -279,7 +276,7 @@ constructor(
     private fun openBottomSheet() {
         reduce {
             copy(
-                isOpenBottomSheet = true
+                isOpenBottomSheet = true,
             )
         }
     }
@@ -287,7 +284,7 @@ constructor(
     private fun dismissBottomSheet() {
         reduce {
             copy(
-                isOpenBottomSheet = false
+                isOpenBottomSheet = false,
             )
         }
     }

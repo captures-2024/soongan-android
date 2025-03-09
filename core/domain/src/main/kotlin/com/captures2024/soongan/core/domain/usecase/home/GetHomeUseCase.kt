@@ -9,7 +9,7 @@ import javax.inject.Inject
 class GetHomeUseCase
 @Inject
 constructor(
-    private val homeRepository: HomeRepository
+    private val homeRepository: HomeRepository,
 ) {
 
     suspend operator fun invoke(): Result<Pair<ContestInfoDto, List<PostInfoDto>>> = runSuspendCatching {

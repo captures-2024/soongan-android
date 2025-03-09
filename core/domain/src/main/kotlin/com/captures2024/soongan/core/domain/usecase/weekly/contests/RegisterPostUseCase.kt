@@ -7,7 +7,7 @@ import javax.inject.Inject
 class RegisterPostUseCase
 @Inject
 constructor(
-    private val weeklyContestRepository: WeeklyContestRepository
+    private val weeklyContestRepository: WeeklyContestRepository,
 ) {
 
     suspend operator fun invoke(params: Params): Result<Long> = runSuspendCatching {
@@ -18,7 +18,6 @@ constructor(
 
         return@runSuspendCatching result.postId
     }
-
 
     data class Params(
         val title: String,

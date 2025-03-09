@@ -15,14 +15,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.captures2024.soongan.core.designsystem.component.gallery.SGGallery
-import com.captures2024.soongan.core.designsystem.component.gallery.SGGalleryEmptyItem
-import com.captures2024.soongan.core.designsystem.component.gallery.SGGalleryErrorItem
-import com.captures2024.soongan.core.designsystem.component.gallery.SGGalleryImageItem
-import com.captures2024.soongan.core.designsystem.component.gallery.SGGalleryPaginatingItem
-import com.captures2024.soongan.core.designsystem.component.gallery.SGGallerySkeletonItem
-import com.captures2024.soongan.core.designsystem.theme.SGColor
-import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.designsystem.ui.component.gallery.SGGallery
+import com.captures2024.soongan.core.designsystem.ui.component.gallery.SGGalleryEmptyItem
+import com.captures2024.soongan.core.designsystem.ui.component.gallery.SGGalleryErrorItem
+import com.captures2024.soongan.core.designsystem.ui.component.gallery.SGGalleryImageItem
+import com.captures2024.soongan.core.designsystem.ui.component.gallery.SGGalleryPaginatingItem
+import com.captures2024.soongan.core.designsystem.ui.component.gallery.SGGallerySkeletonItem
+import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
+import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.core.model.dto.GalleryPostDto
 import com.captures2024.soongan.feature.home.R
 import com.captures2024.soongan.core.viewmodel.home.HomeGalleryViewModel
@@ -54,9 +54,9 @@ internal fun HomeGalleryScreen(
                 isRefreshing = uiState.isRefreshing,
                 containerColor = SGColor.white,
                 color = SGColor.black,
-                state = pullToRefreshState
+                state = pullToRefreshState,
             )
-        }
+        },
     ) {
         HomeGalleryScreen(
             posts = uiState.posts,
@@ -87,14 +87,14 @@ private fun HomeGalleryScreen(
 
     Box(
         modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         SGGallery(
             modifier = modifier,
             lazyStaggeredGridState = lazyStaggeredGridState,
             isInitPage = isInitPage,
             hasNextPage = (paginationStatus != PaginationStatus.EXHAUST),
-            onLoadNextPage = onLoadNextPage
+            onLoadNextPage = onLoadNextPage,
         ) {
             item(span = StaggeredGridItemSpan.FullLine) {
                 HomeGalleryTopBar(
@@ -112,7 +112,7 @@ private fun HomeGalleryScreen(
                 else -> items(items = posts, key = { it.postId }) {
                     SGGalleryImageItem(
                         imageUrl = it.imageUrl,
-                        onClick = { onClickPost(it.postId) }
+                        onClick = { onClickPost(it.postId) },
                     )
                 }
             }
@@ -135,7 +135,7 @@ private fun HomeGalleryScreen(
                 emptyText = stringResource(R.string.home_gallery_empty_text),
                 registrationText = stringResource(R.string.home_gallery_registration_text),
                 modifier = modifier.padding(top = 100.dp), // HomeGalleryTopBar height
-                onClickRegistrationText = onClickRegistrationText
+                onClickRegistrationText = onClickRegistrationText,
             )
         }
 
@@ -152,6 +152,6 @@ private fun HomeGalleryScreen(
 @Composable
 private fun HomeGalleryScreenPreview() {
     HomeGalleryScreen(
-        uiState = HomeGalleryViewModel.State()
+        uiState = HomeGalleryViewModel.State(),
     )
 }

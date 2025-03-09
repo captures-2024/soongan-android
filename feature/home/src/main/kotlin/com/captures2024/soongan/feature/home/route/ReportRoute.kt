@@ -10,8 +10,8 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
-import com.captures2024.soongan.core.designsystem.theme.SGColor
-import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
+import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.core.model.utils.ReportTargetType
 import com.captures2024.soongan.feature.home.navigation.ReportRouteNavHost
 import com.captures2024.soongan.feature.home.state.ReportRouteState
@@ -30,7 +30,7 @@ internal fun ReportRoute(
     reportRouteState.ManageDisableDismissState()
     val sheetState = rememberModalBottomSheetState(
         skipPartiallyExpanded = true,
-        confirmValueChange = { !reportRouteState.disableDismissState.value }
+        confirmValueChange = { !reportRouteState.disableDismissState.value },
     )
 
     ModalBottomSheet(
@@ -38,18 +38,18 @@ internal fun ReportRoute(
         onDismissRequest = { closeSheet() },
         sheetState = sheetState,
         containerColor = SGColor.white,
-        dragHandle = @Composable { CustomDragHandle() }
+        dragHandle = @Composable { CustomDragHandle() },
     ) {
         Column {
             ReportTopBar(
                 hasBackIcon = reportRouteState.isCheckRoute,
-                onBackPressed = reportRouteState::popBackStack
+                onBackPressed = reportRouteState::popBackStack,
             )
 
             ReportRouteNavHost(
                 reportRouteState = reportRouteState,
                 modifier = Modifier.fillMaxWidth(),
-                reportPost = reportPost
+                reportPost = reportPost,
             )
         }
     }
@@ -69,6 +69,6 @@ private fun PostReportBottomSheetDialogPreview() {
     ReportRoute(
         reportRouteState = rememberReportRouteState(0, ReportTargetType.WEEKLY_POST),
         closeSheet = {},
-        reportPost = {}
+        reportPost = {},
     )
 }

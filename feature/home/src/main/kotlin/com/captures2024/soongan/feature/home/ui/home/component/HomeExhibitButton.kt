@@ -21,15 +21,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import com.captures2024.soongan.core.designsystem.component.HeightSpacer
-import com.captures2024.soongan.core.designsystem.component.text.SGText
-import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
+import com.captures2024.soongan.core.designsystem.ui.component.HeightSpacer
+import com.captures2024.soongan.core.designsystem.ui.component.text.SGText
+import com.captures2024.soongan.core.designsystem.ui.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillPlus
-import com.captures2024.soongan.core.designsystem.theme.SGColor
-import com.captures2024.soongan.core.designsystem.theme.SGTypography
-import com.captures2024.soongan.core.designsystem.theme.dropShadow
-import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
+import com.captures2024.soongan.core.designsystem.ui.theme.SGTypography
+import com.captures2024.soongan.core.designsystem.ui.theme.dropShadow
+import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.feature.home.R
 
 private const val MAX_EXHIBIT_CNT = 3
@@ -77,7 +77,7 @@ internal fun HomeExhibitButton(
                         when (exhibitCount) {
                             0 -> 40.dp
                             else -> 28.dp
-                        }
+                        },
                     ),
                 tint = when {
                     exhibitCount < MAX_EXHIBIT_CNT -> SGColor.primaryA
@@ -131,21 +131,21 @@ internal fun HomeExhibitButton(
 private fun HomeExhibitButtonPreview() {
     Column(
         modifier = Modifier.background(SGColor.white)
-            .padding(40.dp)
+            .padding(40.dp),
     ) {
         HomeExhibitButton(
             onClick = {},
-            exhibitCount = 0
+            exhibitCount = 0,
         )
         Spacer(modifier = Modifier.height(30.dp))
         HomeExhibitButton(
             onClick = {},
-            exhibitCount = 1
+            exhibitCount = 1,
         )
         Spacer(modifier = Modifier.height(30.dp))
         HomeExhibitButton(
             onClick = {},
-            exhibitCount = 3
+            exhibitCount = 3,
         )
     }
 }

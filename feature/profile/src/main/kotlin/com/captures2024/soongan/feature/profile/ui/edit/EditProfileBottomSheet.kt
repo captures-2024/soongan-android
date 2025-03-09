@@ -25,11 +25,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import com.captures2024.soongan.core.designsystem.component.text.SGText
-import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
-import com.captures2024.soongan.core.designsystem.theme.SGColor
-import com.captures2024.soongan.core.designsystem.theme.SGTypography
-import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.designsystem.ui.component.text.SGText
+import com.captures2024.soongan.core.designsystem.ui.component.text.getSGNonScaleTextStyle
+import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
+import com.captures2024.soongan.core.designsystem.ui.theme.SGTypography
+import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.core.viewmodel.profile.ProfileEditViewModel
 import com.captures2024.soongan.feature.profile.R
 
@@ -44,21 +44,21 @@ internal fun EditProfileBottomSheet(
         onDismissRequest = { intent(ProfileEditViewModel.Intent.OnCloseEditBottomSheet) },
         modifier = modifier.fillMaxWidth(),
         sheetState = sheetState,
-        containerColor = Color.White
+        containerColor = Color.White,
     ) {
         Column(
-            modifier = Modifier.padding(horizontal = 24.dp)
+            modifier = Modifier.padding(horizontal = 24.dp),
         ) {
             BottomSheetRow(
                 itemText = stringResource(R.string.edit_profile_btmsht_select_photo_in_gallery_text),
-                onClick = { intent(ProfileEditViewModel.Intent.OpenPhotoPicker) }
+                onClick = { intent(ProfileEditViewModel.Intent.OpenPhotoPicker) },
             )
 
             HorizontalDivider(color = SGColor.primaryA.copy(alpha = 0.3f))
 
             BottomSheetRow(
                 itemText = stringResource(R.string.edit_profile_btmsht_default_profile_image_text),
-                onClick = { intent(ProfileEditViewModel.Intent.OnChangeDefaultProfileImage) }
+                onClick = { intent(ProfileEditViewModel.Intent.OnChangeDefaultProfileImage) },
             )
         }
     }
@@ -80,10 +80,10 @@ private fun BottomSheetRow(
             .clickable(
                 onClick = onClick,
                 interactionSource = interactionSource,
-                indication = null
+                indication = null,
             ),
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         SGText(
             text = itemText,
@@ -94,11 +94,10 @@ private fun BottomSheetRow(
                 lineHeight = 20.sp,
                 fontFamily = SGTypography.nanumSquareNeo,
                 letterSpacing = (-5).em,
-            )
+            ),
         )
     }
 }
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @DevicePreviews
@@ -108,11 +107,11 @@ private fun EditProfileBottomSheetPreview() {
         skipPartiallyExpanded = true,
         initialValue = SheetValue.Expanded,
         density = LocalDensity.current,
-        skipHiddenState = false
+        skipHiddenState = false,
     )
 
     EditProfileBottomSheet(
         intent = {},
-        sheetState = sheetState
+        sheetState = sheetState,
     )
 }

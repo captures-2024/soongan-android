@@ -142,7 +142,7 @@ val mockNotifications: List<UserNotification> by lazy {
                 title = "대회 알림 title $index",
                 body = "대회 알림 content $index",
                 receiveAt = "$index 일전",
-                isRead = idx % 2 != 0
+                isRead = idx % 2 != 0,
             )
         },
         List(8) { idx ->
@@ -152,7 +152,7 @@ val mockNotifications: List<UserNotification> by lazy {
                 title = "활동 알림 title $index",
                 body = "활동 알림 content $index",
                 receiveAt = "$index 일전",
-                isRead = idx % 2 != 0
+                isRead = idx % 2 != 0,
             )
         },
         List(8) { idx ->
@@ -162,7 +162,7 @@ val mockNotifications: List<UserNotification> by lazy {
                 title = "공지 알림 title $index",
                 body = "공지 알림 content $index",
                 receiveAt = "$index 일전",
-                isRead = idx % 2 != 0
+                isRead = idx % 2 != 0,
             )
         },
         List(4) { idx ->
@@ -175,6 +175,6 @@ val mockNotifications: List<UserNotification> by lazy {
                 isRead = idx % 2 != 0,
                 completed = idx % 2 != 0,
             )
-        }
+        },
     ).flatten()
 }

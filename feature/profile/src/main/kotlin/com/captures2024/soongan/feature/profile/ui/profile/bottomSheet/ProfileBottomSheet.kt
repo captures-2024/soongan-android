@@ -14,8 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.captures2024.soongan.core.designsystem.theme.SGColor
-import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
+import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.core.viewmodel.model.profile.ProfileBtmShtDepthState
 import com.captures2024.soongan.core.viewmodel.model.profile.ProfileBtmShtOutType
 import com.captures2024.soongan.core.viewmodel.profile.ProfileBottomSheetViewModel
@@ -57,47 +57,47 @@ private fun ProfileBottomSheet(
         onDismissRequest = { intent(ProfileBottomSheetViewModel.Intent.OnCloseBottomSheet) },
         modifier = modifier.fillMaxWidth(),
         sheetState = sheetState,
-        containerColor = SGColor.white
+        containerColor = SGColor.white,
     ) {
         Column {
             when (uiState.depthStatus) {
                 ProfileBtmShtDepthState.Idle ->
                     IdleItem(
-                        onClickMenuItem = { intent(ProfileBottomSheetViewModel.Intent.OnClickMenuItem(it)) }
+                        onClickMenuItem = { intent(ProfileBottomSheetViewModel.Intent.OnClickMenuItem(it)) },
                     )
 
                 ProfileBtmShtDepthState.Push ->
                     PushItem(
                         pushSetting = uiState.pushSettings,
                         onBackPressed = { intent(ProfileBottomSheetViewModel.Intent.OnBackIdle) },
-                        onSwitch = { intent(ProfileBottomSheetViewModel.Intent.OnPushSettingChanged(it)) }
+                        onSwitch = { intent(ProfileBottomSheetViewModel.Intent.OnPushSettingChanged(it)) },
                     )
 
                 ProfileBtmShtDepthState.Withdraw.Check ->
                     WithDrawCheckItem(
                         onBackPressed = { intent(ProfileBottomSheetViewModel.Intent.OnBackIdle) },
-                        onClick = { intent(ProfileBottomSheetViewModel.Intent.OnCheckProcess(it)) }
+                        onClick = { intent(ProfileBottomSheetViewModel.Intent.OnCheckProcess(it)) },
                     )
 
                 ProfileBtmShtDepthState.Withdraw.Done ->
                     WithDrawDoneItem(
-                        onClick = { intent(ProfileBottomSheetViewModel.Intent.OnDoneProcess) }
+                        onClick = { intent(ProfileBottomSheetViewModel.Intent.OnDoneProcess) },
                     )
 
                 ProfileBtmShtDepthState.SignOut.Check ->
                     SignOutCheckItem(
                         onBackPressed = { intent(ProfileBottomSheetViewModel.Intent.OnBackIdle) },
-                        onClick = { intent(ProfileBottomSheetViewModel.Intent.OnCheckProcess(it)) }
+                        onClick = { intent(ProfileBottomSheetViewModel.Intent.OnCheckProcess(it)) },
                     )
 
                 ProfileBtmShtDepthState.SignOut.Done ->
                     SignOutDoneItem(
-                        onClick = { intent(ProfileBottomSheetViewModel.Intent.OnDoneProcess) }
+                        onClick = { intent(ProfileBottomSheetViewModel.Intent.OnDoneProcess) },
                     )
 
                 ProfileBtmShtDepthState.Error ->
                     ErrorItem(
-                        onClick = { intent(ProfileBottomSheetViewModel.Intent.OnBackIdle) }
+                        onClick = { intent(ProfileBottomSheetViewModel.Intent.OnBackIdle) },
                     )
             }
         }
@@ -112,7 +112,7 @@ private fun ProfileMenuBottomSheetPreview() {
         skipPartiallyExpanded = true,
         initialValue = SheetValue.Expanded,
         density = LocalDensity.current,
-        skipHiddenState = false
+        skipHiddenState = false,
     )
 
     ProfileBottomSheet(

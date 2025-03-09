@@ -19,15 +19,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.captures2024.soongan.core.common.Validation
-import com.captures2024.soongan.core.designsystem.component.HeightSpacer
-import com.captures2024.soongan.core.designsystem.component.WeightSpacer
-import com.captures2024.soongan.core.designsystem.component.button.SGTextButtonType2
-import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.designsystem.ui.component.HeightSpacer
+import com.captures2024.soongan.core.designsystem.ui.component.WeightSpacer
+import com.captures2024.soongan.core.designsystem.ui.component.button.SGTextButtonType2
+import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.core.viewmodel.model.profile.EditingProfileState
 import com.captures2024.soongan.feature.profile.R
 import com.captures2024.soongan.feature.profile.ui.edit.component.MiniAddIcon
 import com.captures2024.soongan.feature.profile.ui.edit.component.ProfileOutlinedTextField
-import com.captures2024.soongan.core.design.R as RDesign
+import com.captures2024.soongan.core.designsystem.ui.R as RDesign
 import com.captures2024.soongan.feature.profile.R as RProfile
 
 @Composable
@@ -45,11 +45,11 @@ internal fun EditProfileScreenBody(
 
     Column(
         modifier = modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         ProfileBox(
             profileImage = editingState.editingProfile.profileImageUrl,
-            onClick = onClickProfileImage
+            onClick = onClickProfileImage,
         )
         HeightSpacer(44.dp)
         ProfileOutlinedTextField(
@@ -117,8 +117,8 @@ private fun ProfileBox(
             .clickable(
                 onClick = onClick,
                 interactionSource = interactionSource,
-                indication = null
-            )
+                indication = null,
+            ),
     ) {
         AsyncImage(
             model = profileImage,
@@ -128,7 +128,7 @@ private fun ProfileBox(
                 .clip(CircleShape),
             contentScale = ContentScale.Crop,
             placeholder = painterResource(RDesign.drawable.ic_border_profile),
-            error = painterResource(RDesign.drawable.ic_border_profile)
+            error = painterResource(RDesign.drawable.ic_border_profile),
         )
         Box(modifier = Modifier.align(Alignment.BottomEnd)) {
             MiniAddIcon()
@@ -140,6 +140,6 @@ private fun ProfileBox(
 @Composable
 private fun EditProfileScreenBodyPreview() {
     EditProfileScreenBody(
-        editingState = EditingProfileState()
+        editingState = EditingProfileState(),
     )
 }

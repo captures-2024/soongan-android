@@ -13,14 +13,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import com.captures2024.soongan.core.designsystem.component.gallery.SGGallery
-import com.captures2024.soongan.core.designsystem.component.gallery.SGGalleryEmptyItem
-import com.captures2024.soongan.core.designsystem.component.gallery.SGGalleryErrorItem
-import com.captures2024.soongan.core.designsystem.component.gallery.SGGalleryImageItem
-import com.captures2024.soongan.core.designsystem.component.gallery.SGGalleryPaginatingItem
-import com.captures2024.soongan.core.designsystem.component.gallery.SGGallerySkeletonItem
-import com.captures2024.soongan.core.designsystem.theme.SGColor
-import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.designsystem.ui.component.gallery.SGGallery
+import com.captures2024.soongan.core.designsystem.ui.component.gallery.SGGalleryEmptyItem
+import com.captures2024.soongan.core.designsystem.ui.component.gallery.SGGalleryErrorItem
+import com.captures2024.soongan.core.designsystem.ui.component.gallery.SGGalleryImageItem
+import com.captures2024.soongan.core.designsystem.ui.component.gallery.SGGalleryPaginatingItem
+import com.captures2024.soongan.core.designsystem.ui.component.gallery.SGGallerySkeletonItem
+import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
+import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.core.model.dto.GalleryPostDto
 import com.captures2024.soongan.core.viewmodel.model.PaginationStatus
 import com.captures2024.soongan.feature.profile.R
@@ -50,16 +50,16 @@ internal fun ProfileScreenBody(
                 isRefreshing = isRefreshing,
                 containerColor = SGColor.white,
                 color = SGColor.black,
-                state = pullToRefreshState
+                state = pullToRefreshState,
             )
-        }
+        },
     ) {
         ProfileScreenBody(
             myPosts = myPosts,
             paginationStatus = paginationStatus,
             onLoadNextPage = onLoadNextPage,
             onClickPhoto = onClickPhoto,
-            onClickRegistrationText = onClickRegistrationText
+            onClickRegistrationText = onClickRegistrationText,
         )
     }
 }
@@ -77,12 +77,12 @@ private fun ProfileScreenBody(
 
     Box(
         modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         SGGallery(
             lazyStaggeredGridState = lazyStaggeredGridState,
             hasNextPage = (paginationStatus != PaginationStatus.EXHAUST),
-            onLoadNextPage = onLoadNextPage
+            onLoadNextPage = onLoadNextPage,
         ) {
             when (paginationStatus) {
                 PaginationStatus.LOADING -> items(listOf(258, 192, 275, 268, 275, 192)) { height ->
@@ -94,7 +94,7 @@ private fun ProfileScreenBody(
                 else -> items(items = myPosts, key = { it.postId }) {
                     SGGalleryImageItem(
                         imageUrl = it.imageUrl,
-                        onClick = { onClickPhoto(it.postId) }
+                        onClick = { onClickPhoto(it.postId) },
                     )
                 }
             }
@@ -116,7 +116,7 @@ private fun ProfileScreenBody(
             SGGalleryEmptyItem(
                 emptyText = stringResource(R.string.profile_gallery_empty_text),
                 registrationText = stringResource(R.string.profile_gallery_registration_text),
-                onClickRegistrationText = onClickRegistrationText
+                onClickRegistrationText = onClickRegistrationText,
             )
         }
 

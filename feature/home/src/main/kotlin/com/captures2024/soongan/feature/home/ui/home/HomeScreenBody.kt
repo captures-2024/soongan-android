@@ -24,17 +24,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.captures2024.soongan.core.designsystem.component.HeightSpacer
-import com.captures2024.soongan.core.designsystem.component.WidthSpacer
-import com.captures2024.soongan.core.designsystem.component.text.SGText
-import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFillHeart
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillComment
-import com.captures2024.soongan.core.designsystem.theme.SGColor
-import com.captures2024.soongan.core.designsystem.theme.SGTypography
-import com.captures2024.soongan.core.designsystem.theme.dropShadow
-import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.designsystem.ui.component.HeightSpacer
+import com.captures2024.soongan.core.designsystem.ui.component.WidthSpacer
+import com.captures2024.soongan.core.designsystem.ui.component.text.SGText
+import com.captures2024.soongan.core.designsystem.ui.component.text.getSGNonScaleTextStyle
+import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
+import com.captures2024.soongan.core.designsystem.ui.theme.SGTypography
+import com.captures2024.soongan.core.designsystem.ui.theme.dropShadow
+import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.core.model.dto.PostInfoDto
 import com.captures2024.soongan.feature.home.ui.home.component.HomeExhibitButton
 
@@ -119,7 +119,7 @@ private fun MyPostPhoto(
                     color = SGColor.white,
                     shape = commonShape,
                 )
-                .clickable { onClick() }
+                .clickable { onClick() },
         )
 
         HeightSpacer(8.dp)
@@ -154,12 +154,12 @@ private fun InteractionIconBox(
 ) {
     Row(
         modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
             imageVector = imageVector,
             contentDescription = contentDescription,
-            modifier = Modifier.size(12.dp)
+            modifier = Modifier.size(12.dp),
         )
 
         WidthSpacer(4.dp)
@@ -173,11 +173,10 @@ private fun InteractionIconBox(
                 lineHeight = 12.sp,
                 fontFamily = SGTypography.poppins,
                 letterSpacing = (-2).em,
-            )
+            ),
         )
     }
 }
-
 
 @DevicePreviews
 @Composable

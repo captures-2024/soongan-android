@@ -13,8 +13,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavOptions
-import com.captures2024.soongan.core.design.R
-import com.captures2024.soongan.core.designsystem.util.extension.sgBottomBarPadding
+import com.captures2024.soongan.core.designsystem.ui.R
+import com.captures2024.soongan.core.designsystem.ui.util.extension.sgBottomBarPadding
 import com.captures2024.soongan.core.viewmodel.home.HomeViewModel
 import com.captures2024.soongan.feature.home.ui.home.HomeScreen
 import com.captures2024.soongan.feature.home.ui.home.HomeScreenBottomSheet
@@ -24,7 +24,7 @@ internal fun HomeRoute(
     navigateToRegistrationPost: () -> Unit,
     navigateToPost: (Long, NavOptions?) -> Unit,
     navigateToGallery: () -> Unit,
-    homeViewModel: HomeViewModel = hiltViewModel()
+    homeViewModel: HomeViewModel = hiltViewModel(),
 ) {
     val uiState by homeViewModel.state.collectAsStateWithLifecycle()
 
@@ -33,7 +33,7 @@ internal fun HomeRoute(
         .paint(
             painter = painterResource(id = R.drawable.background_home_gallery),
             contentScale = ContentScale.FillBounds,
-            alpha = 0.8f
+            alpha = 0.8f,
         )
         .sgBottomBarPadding()
 

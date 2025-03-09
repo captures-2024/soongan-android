@@ -22,15 +22,15 @@ import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.captures2024.soongan.core.designsystem.component.HeightSpacer
-import com.captures2024.soongan.core.designsystem.component.WeightSpacer
-import com.captures2024.soongan.core.designsystem.component.button.SGTextButtonType2
-import com.captures2024.soongan.core.designsystem.component.text.SGText
-import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
-import com.captures2024.soongan.core.designsystem.theme.SGColor
-import com.captures2024.soongan.core.designsystem.theme.SGTypography
-import com.captures2024.soongan.core.designsystem.theme.dropShadow
-import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.designsystem.ui.component.HeightSpacer
+import com.captures2024.soongan.core.designsystem.ui.component.WeightSpacer
+import com.captures2024.soongan.core.designsystem.ui.component.button.SGTextButtonType2
+import com.captures2024.soongan.core.designsystem.ui.component.text.SGText
+import com.captures2024.soongan.core.designsystem.ui.component.text.getSGNonScaleTextStyle
+import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
+import com.captures2024.soongan.core.designsystem.ui.theme.SGTypography
+import com.captures2024.soongan.core.designsystem.ui.theme.dropShadow
+import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.core.viewmodel.post.RegistrationPostViewModel
 import com.captures2024.soongan.feature.home.R
 
@@ -46,7 +46,7 @@ internal fun RegistrationPostScreen(
         modifier = modifier.fillMaxSize()
             .background(color = SGColor.tempPrimaryD)
             .paint(
-                painter = painterResource(id = com.captures2024.soongan.core.design.R.drawable.background_home_gallery),
+                painter = painterResource(id = com.captures2024.soongan.core.designsystem.ui.R.drawable.background_home_gallery),
                 contentScale = ContentScale.Crop,
             ),
         topBar = @Composable {
@@ -104,7 +104,7 @@ internal fun RegistrationPostScreen(
                     lineHeight = 12.sp,
                     fontFamily = SGTypography.nanumSquareNeo,
                     letterSpacing = (-5).em,
-                )
+                ),
             )
         }
     }

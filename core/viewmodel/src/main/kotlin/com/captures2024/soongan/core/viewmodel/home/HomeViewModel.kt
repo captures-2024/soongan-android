@@ -29,7 +29,7 @@ constructor(
     clearLoadingUseCase: ClearLoadingUseCase,
     getIsCurrentGuestModeUseCase: GetIsCurrentGuestModeUseCase,
     setIsShowGuestModeDialogFlowUseCase: SetIsShowGuestModeDialogFlowUseCase,
-    savedStateHandle: SavedStateHandle
+    savedStateHandle: SavedStateHandle,
 ) : NewBaseViewModel<HomeViewModel.State, HomeViewModel.Effect, HomeViewModel.Intent>(
     analyticsHelper = analyticsHelper,
     showLoadingUseCase = showLoadingUseCase,
@@ -142,7 +142,7 @@ constructor(
     private fun handleOnToggleWeeklyDaily() {
         reduce {
             copy(
-                isWeeklySelected = !isWeeklySelected
+                isWeeklySelected = !isWeeklySelected,
             )
         }
     }
@@ -150,7 +150,7 @@ constructor(
     private fun handleOnClickInfo() {
         reduce {
             copy(
-                isOpenBottomSheet = true
+                isOpenBottomSheet = true,
             )
         }
     }
@@ -162,12 +162,8 @@ constructor(
     private fun handleOnCloseBottomSheet() {
         reduce {
             copy(
-                isOpenBottomSheet = false
+                isOpenBottomSheet = false,
             )
         }
-    }
-
-    companion object {
-        private const val TAG = "HomeVM"
     }
 }

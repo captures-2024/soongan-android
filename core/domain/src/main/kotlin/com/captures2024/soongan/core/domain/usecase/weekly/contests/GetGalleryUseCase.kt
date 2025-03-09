@@ -8,7 +8,7 @@ import javax.inject.Inject
 class GetGalleryUseCase
 @Inject
 constructor(
-    private val weeklyContestRepository: WeeklyContestRepository
+    private val weeklyContestRepository: WeeklyContestRepository,
 ) {
 
     suspend operator fun invoke(params: Params): Result<GalleryDto> = runSuspendCatching {
@@ -16,12 +16,11 @@ constructor(
             round = params.round,
             orderType = params.orderType,
             page = params.page,
-            pageSize = params.pageSize
+            pageSize = params.pageSize,
         )
 
         return@runSuspendCatching galleryDto
     }
-
 
     data class Params(
         val round: Int?,

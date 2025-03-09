@@ -7,10 +7,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.captures2024.soongan.core.designsystem.component.button.SGIconCircleButton
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillLeftArrow
-import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.designsystem.ui.component.button.SGIconCircleButton
+import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 
 @Composable
 fun EditProfileScreenHeader(
@@ -21,7 +21,7 @@ fun EditProfileScreenHeader(
         modifier = modifier
             .fillMaxWidth()
             .padding(vertical = 20.dp),
-        contentAlignment = Alignment.CenterStart
+        contentAlignment = Alignment.CenterStart,
     ) {
         SGIconCircleButton(
             imageVector = MyIconPack.IconNonFillLeftArrow,
@@ -36,5 +36,5 @@ fun EditProfileScreenHeader(
 @DevicePreviews
 @Composable
 private fun EditProfileScreenHeaderPreview() {
-    EditProfileScreenHeader {  }
+    EditProfileScreenHeader { }
 }

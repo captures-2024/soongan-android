@@ -8,6 +8,7 @@ import okhttp3.Response
 import okhttp3.Route
 import javax.inject.Inject
 
+@Suppress("UnusedPrivateProperty")
 class SoonGanAuthenticator
 @Inject
 constructor(

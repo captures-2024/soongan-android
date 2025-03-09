@@ -12,10 +12,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.captures2024.soongan.core.design.R
-import com.captures2024.soongan.core.designsystem.component.HeightSpacer
-import com.captures2024.soongan.core.designsystem.component.WeightSpacer
-import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.designsystem.ui.R
+import com.captures2024.soongan.core.designsystem.ui.component.HeightSpacer
+import com.captures2024.soongan.core.designsystem.ui.component.WeightSpacer
+import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.core.model.dto.ContestInfoDto
 import com.captures2024.soongan.core.model.dto.PostInfoDto
 import com.captures2024.soongan.core.viewmodel.home.HomeViewModel
@@ -36,7 +36,7 @@ internal fun HomeScreen(
                 vertical = 40.dp,
                 horizontal = 16.dp,
             ),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         HomeScreenTopBar(
             subject = uiState.contestInfo.subject,
@@ -62,7 +62,7 @@ internal fun HomeScreen(
 
         HomeScreenFooter(
             onClickInfo = onClickInfo,
-            onClickRightArrow = onClickRightArrow
+            onClickRightArrow = onClickRightArrow,
         )
     }
 }
@@ -107,7 +107,7 @@ private fun HomeScreenPreview() {
                 startAt = "2024.05.10",
                 endAt = "2024.06.10",
             ),
-        )
+        ),
     )
 }
 
@@ -130,6 +130,6 @@ private fun HomeScreenMultiPostPreview() {
                 endAt = "2024.06.10",
             ),
             postList = emptyList(),
-        )
+        ),
     )
 }
