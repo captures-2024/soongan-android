@@ -17,7 +17,7 @@ constructor(
             targetId = params.targetId,
             targetType = params.targetType,
             reportType = params.reportType,
-            reason = params.reason
+            reason = params.reason,
         )
 
         return@runSuspendCatching resultConditionDto.result

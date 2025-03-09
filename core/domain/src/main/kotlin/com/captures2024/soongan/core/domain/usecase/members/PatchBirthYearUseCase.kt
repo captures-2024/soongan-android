@@ -14,7 +14,7 @@ constructor(
         birthYear: Int,
     ): Result<Boolean> = runSuspendCatching {
         val userInfoDto = membersRepository.patchBirthYear(
-            birthYear = birthYear
+            birthYear = birthYear,
         )
 
         return@runSuspendCatching birthYear == userInfoDto.birthYear

@@ -13,7 +13,7 @@ constructor(
 
     suspend operator fun invoke(
         token: String,
-        fcmToken: String
+        fcmToken: String,
     ): Result<Boolean> = runSuspendCatching {
         repository.signingSocialPlatform(
             type = SocialSignType.KAKAO,
