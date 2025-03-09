@@ -7,7 +7,7 @@ import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillCir
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillFile
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillGear
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillUser
-import com.captures2024.soongan.core.designsystem.theme.SGColor
+import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.core.viewmodel.model.profile.ProfileBtmShtMenuItem
 import com.captures2024.soongan.feature.profile.R
 

@@ -17,7 +17,7 @@ import com.captures2024.soongan.core.android.utils.LocalAnalyticsHelper
 import com.captures2024.soongan.core.auth.kakao.KakaoAuthHelper
 import com.captures2024.soongan.core.auth.kakao.KakaoAuthHelperImpl
 import com.captures2024.soongan.core.auth.kakao.KakaoLoginCallback
-import com.captures2024.soongan.core.designsystem.theme.SGTheme
+import com.captures2024.soongan.core.designsystem.ui.theme.SGTheme
 import com.captures2024.soongan.core.viewmodel.AppRootViewModel
 import com.captures2024.soongan.core.viewmodel.sign.SignViewModel
 import com.captures2024.soongan.route.AppRoute

@@ -13,8 +13,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavOptions
-import com.captures2024.soongan.core.design.R
-import com.captures2024.soongan.core.designsystem.util.extension.sgBottomBarPadding
+import com.captures2024.soongan.core.designsystem.ui.R
+import com.captures2024.soongan.core.designsystem.ui.util.extension.sgBottomBarPadding
 import com.captures2024.soongan.core.viewmodel.home.HomeViewModel
 import com.captures2024.soongan.feature.home.ui.home.HomeScreen
 import com.captures2024.soongan.feature.home.ui.home.HomeScreenBottomSheet

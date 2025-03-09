@@ -12,7 +12,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavOptions
 import androidx.navigation.navOptions
 import com.captures2024.soongan.core.android.utils.LocalAnalyticsHelper
-import com.captures2024.soongan.core.designsystem.component.dialog.SGDoubleButtonDialog
+import com.captures2024.soongan.core.designsystem.ui.component.dialog.SGDoubleButtonDialog
 import com.captures2024.soongan.core.viewmodel.post.RegistrationPostViewModel
 import com.captures2024.soongan.feature.home.ui.registration_post.RegistrationPostScreen
 import com.captures2024.soongan.feature.home.ui.registration_post.SubmitBottomSheetDialog

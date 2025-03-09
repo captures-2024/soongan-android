@@ -2,7 +2,7 @@ package com.captures2024.soongan.feature.feed.route
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.captures2024.soongan.core.designsystem.util.extension.sgBottomBarPadding
+import com.captures2024.soongan.core.designsystem.ui.util.extension.sgBottomBarPadding
 import com.captures2024.soongan.feature.feed.ui.FeedScreen
 
 @Composable
