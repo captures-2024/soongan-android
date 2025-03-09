@@ -64,7 +64,8 @@ fun SGTextFieldTypeForm(
                 width = 1.dp,
                 color = when (state) {
                     SGTextFieldFormState.Default,
-                    SGTextFieldFormState.Success -> SGColor.black
+                    SGTextFieldFormState.Success,
+                    -> SGColor.black
 
                     SGTextFieldFormState.Error -> SGColor.negative
                 },
@@ -84,7 +85,8 @@ fun SGTextFieldTypeForm(
                     Icon(
                         imageVector = when (state) {
                             SGTextFieldFormState.Default,
-                            SGTextFieldFormState.Success -> MyIconPack.IconFillCheck
+                            SGTextFieldFormState.Success,
+                            -> MyIconPack.IconFillCheck
 
                             SGTextFieldFormState.Error -> MyIconPack.IconFillError
                         },
@@ -180,7 +182,6 @@ private fun PreviewSGTextFieldTypeForm_default() {
         }
     }
 }
-
 
 @Preview
 @Composable

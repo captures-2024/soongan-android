@@ -18,5 +18,5 @@ fun NavController.navigateToHomePost(
     route = HomePostNavigator(
         id = id,
     ),
-    navOptions = navOptions
+    navOptions = navOptions,
 )

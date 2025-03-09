@@ -97,10 +97,8 @@ private fun PreviewSGButtonType1_enable() {
         ) {
             SGButtonType1(
                 onClick = {},
-                modifier = Modifier.fillMaxWidth()
-            ) {
-
-            }
+                modifier = Modifier.fillMaxWidth(),
+            ) {}
         }
     }
 }
@@ -119,9 +117,7 @@ private fun PreviewSGButtonType1_disable() {
                 onClick = {},
                 modifier = Modifier.fillMaxWidth(),
                 enabled = false,
-            ) {
-
-            }
+            ) {}
         }
     }
 }
@@ -138,10 +134,8 @@ private fun PreviewSGButtonType2_enable() {
         ) {
             SGButtonType2(
                 onClick = {},
-                modifier = Modifier.fillMaxWidth()
-            ) {
-
-            }
+                modifier = Modifier.fillMaxWidth(),
+            ) {}
         }
     }
 }
@@ -160,9 +154,7 @@ private fun PreviewSGButtonType2_disable() {
                 onClick = {},
                 modifier = Modifier.fillMaxWidth(),
                 enabled = false,
-            ) {
-
-            }
+            ) {}
         }
     }
 }

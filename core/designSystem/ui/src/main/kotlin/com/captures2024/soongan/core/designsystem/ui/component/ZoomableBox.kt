@@ -15,7 +15,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.unit.IntSize
-import com.captures2024.soongan.core.designsystem.util.ZoomableBoxScope
+import com.captures2024.soongan.core.designsystem.ui.util.ZoomableBoxScope
 
 @Composable
 fun ZoomableBox(

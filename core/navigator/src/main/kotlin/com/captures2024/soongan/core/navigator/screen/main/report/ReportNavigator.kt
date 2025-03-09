@@ -16,5 +16,5 @@ sealed interface ReportNavigator {
     @Serializable
     data class Done(
         val hasExtraMessage: Boolean,
-    ): ReportNavigator
+    ) : ReportNavigator
 }

@@ -39,7 +39,7 @@ fun SGTextButtonType1(
                 lineHeight = 20.sp,
                 letterSpacing = (-5).em,
                 fontFamily = SGTypography.nanumSquareNeo,
-            )
+            ),
         )
     }
 }
@@ -69,7 +69,7 @@ fun SGTextButtonType2(
                 lineHeight = 20.sp,
                 letterSpacing = (-5).em,
                 fontFamily = SGTypography.nanumSquareNeo,
-            )
+            ),
         )
     }
 }
@@ -87,9 +87,7 @@ private fun PreviewSGTextButtonType1_disable() {
             SGTextButtonType1(
                 text = "버튼",
                 enabled = false,
-            ) {
-
-            }
+            ) {}
         }
     }
 }
@@ -107,9 +105,7 @@ private fun PreviewSGTextButtonType1_enable() {
             SGTextButtonType1(
                 text = "버튼",
                 enabled = true,
-            ) {
-
-            }
+            ) {}
         }
     }
 }
@@ -127,9 +123,7 @@ private fun PreviewSGTextButtonType2_disable() {
             SGTextButtonType2(
                 text = "버튼",
                 enabled = false,
-            ) {
-
-            }
+            ) {}
         }
     }
 }
@@ -147,9 +141,7 @@ private fun PreviewSGTextButtonType2_enable() {
             SGTextButtonType2(
                 text = "버튼",
                 enabled = true,
-            ) {
-
-            }
+            ) {}
         }
     }
 }

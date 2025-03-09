@@ -73,13 +73,13 @@ fun SGGallery(
             .paint(
                 painter = painterResource(id = R.drawable.background_home_gallery),
                 contentScale = ContentScale.FillBounds,
-                alpha = 0.8f
+                alpha = 0.8f,
             ),
         state = lazyStaggeredGridState,
         columns = StaggeredGridCells.Fixed(2),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalItemSpacing = 12.dp,
-        contentPadding = PaddingValues(8.dp)
+        contentPadding = PaddingValues(8.dp),
     ) {
         content()
     }
@@ -99,10 +99,10 @@ private fun ScrollToTopIcon(
             .fillMaxSize()
             .padding(
                 horizontal = 20.dp,
-                vertical = 36.dp
+                vertical = 36.dp,
             ),
         verticalArrangement = Arrangement.Bottom,
-        horizontalAlignment = Alignment.End
+        horizontalAlignment = Alignment.End,
     ) {
         SGIconCircleButton(
             imageVector = MyIconPack.IconNonFillTopArrow,
@@ -111,7 +111,7 @@ private fun ScrollToTopIcon(
                 y = when (lazyStaggeredGridState.firstVisibleItemIndex) {
                     0 -> 100.dp
                     else -> 0.dp
-                }
+                },
             ),
             iconWidth = 20.dp,
             iconHeight = 16.dp,
@@ -119,7 +119,7 @@ private fun ScrollToTopIcon(
                 coroutineScope.launch {
                     lazyStaggeredGridState.animateScrollToItem(index = 0)
                 }
-            }
+            },
         )
     }
 }

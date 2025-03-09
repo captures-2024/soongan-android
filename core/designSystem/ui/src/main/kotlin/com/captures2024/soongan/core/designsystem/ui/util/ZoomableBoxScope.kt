@@ -1,4 +1,4 @@
-package com.captures2024.soongan.core.designsystem.util
+package com.captures2024.soongan.core.designsystem.ui.util
 
 interface ZoomableBoxScope {
     val scale: Float

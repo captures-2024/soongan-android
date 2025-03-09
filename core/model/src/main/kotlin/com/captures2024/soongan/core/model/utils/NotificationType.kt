@@ -7,6 +7,5 @@ enum class NotificationType(
     ACTION,
     ANNOUNCEMENT,
     VINDICATION,
-    UNDEFINED
+    UNDEFINED,
 }
-

@@ -7,7 +7,7 @@ data class PushSettingState(
     val notice: Boolean = false,
 ) {
     fun getStateByType(type: PushSettingType): Boolean {
-        return when(type) {
+        return when (type) {
             PushSettingType.ALL -> all
             PushSettingType.CONTEST -> contest
             PushSettingType.ACTIVITY -> activity

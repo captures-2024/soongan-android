@@ -20,7 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.captures2024.soongan.core.designsystem.component.background.SGBackground
+import com.captures2024.soongan.core.designsystem.ui.component.background.SGBackground
 import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.core.viewmodel.AppRootViewModel
 import com.captures2024.soongan.core.viewmodel.sign.SignViewModel
@@ -81,7 +81,7 @@ private fun AppLoading(visible: Pair<Boolean, Long>) {
                     interactionSource = remember { MutableInteractionSource() },
                     onClick = {},
                 ),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
         ) {
             CircularProgressIndicator(
                 color = SGColor.primaryA,
@@ -114,4 +114,3 @@ private fun AppMainRoute(
         isGuestMode = isGuestMode,
     )
 }
-

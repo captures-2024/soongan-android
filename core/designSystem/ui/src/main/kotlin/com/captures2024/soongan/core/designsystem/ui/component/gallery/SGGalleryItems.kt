@@ -45,10 +45,10 @@ fun SGGallerySkeletonItem(
             shape = RectangleShape,
             color = SGColor.black.copy(alpha = 0.25f),
             offsetY = 4.dp,
-            blur = 4.dp
+            blur = 4.dp,
         )
         .background(SGColor.buttonDisableGray)
-        .background(brush = shimmerBrush(targetValue = 1300f))
+        .background(brush = shimmerBrush(targetValue = 1300f)),
 )
 
 @Composable
@@ -139,11 +139,11 @@ fun SGGalleryPaginatingItem(modifier: Modifier = Modifier) {
         modifier = modifier
             .fillMaxWidth()
             .height(100.dp),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         CircularProgressIndicator(
             modifier = Modifier.size(50.dp),
-            color = SGColor.black
+            color = SGColor.black,
         )
     }
 }
@@ -176,7 +176,7 @@ fun SGGalleryErrorItem(
 private fun SGGallerySkeletonItemPreview() {
     Box(
         modifier = Modifier.background(SGColor.white)
-            .padding(16.dp)
+            .padding(16.dp),
     ) {
         SGGallerySkeletonItem()
     }
@@ -187,7 +187,7 @@ private fun SGGallerySkeletonItemPreview() {
 private fun SGGalleryImageItemPreview() {
     Box(
         modifier = Modifier.background(SGColor.white)
-            .padding(16.dp)
+            .padding(16.dp),
     ) {
         SGGalleryImageItem(imageUrl = "")
     }
@@ -198,11 +198,11 @@ private fun SGGalleryImageItemPreview() {
 private fun SGGalleryEmptyItemPreview() {
     Box(
         modifier = Modifier.background(SGColor.white)
-            .padding(16.dp)
+            .padding(16.dp),
     ) {
         SGGalleryEmptyItem(
             emptyText = "아직 참가한 내역이 없어요.",
-            registrationText = "참가하러 가기"
+            registrationText = "참가하러 가기",
         )
     }
 }
@@ -212,7 +212,7 @@ private fun SGGalleryEmptyItemPreview() {
 private fun SGGalleryPaginatingItemPreview() {
     Box(
         modifier = Modifier.background(SGColor.white)
-            .padding(16.dp)
+            .padding(16.dp),
     ) {
         SGGalleryPaginatingItem()
     }
@@ -223,7 +223,7 @@ private fun SGGalleryPaginatingItemPreview() {
 private fun SGGalleryErrorItemPreview() {
     Box(
         modifier = Modifier.background(SGColor.white)
-            .padding(16.dp)
+            .padding(16.dp),
     ) {
         SGGalleryErrorItem(errorText = "게시글을 불러올 수 없어요.")
     }

@@ -23,7 +23,7 @@ constructor(
     private val postReportUseCase: PostReportUseCase,
     savedStateHandle: SavedStateHandle,
 ) : BaseViewModel<ReportCheckViewModel.State, ReportCheckViewModel.Effect, ReportCheckViewModel.Intent>(
-    savedStateHandle = savedStateHandle
+    savedStateHandle = savedStateHandle,
 ) {
 
     data class State(
@@ -74,7 +74,7 @@ constructor(
         analyticsHelper.e(
             throwable = throwable,
             logVariable = currentState.toLoggingElements(),
-            message = "handleClientException"
+            message = "handleClientException",
         )
     }
 
@@ -89,20 +89,19 @@ constructor(
     private fun onReasonChanged(intent: Intent.OnReasonChanged) {
         reduce {
             copy(
-                reason = intent.reason
+                reason = intent.reason,
             )
         }
     }
 
     private suspend fun postReport(intent: Intent.OnClickSubmitButton) {
-
         val result = postReportUseCase(
             params = PostReportUseCase.Params(
                 targetId = intent.targetId,
                 targetType = intent.targetType,
                 reportType = currentState.reportType,
                 reason = currentState.reason,
-            )
+            ),
         ).getOrNull()
 
         analyticsHelper.d(message = "report result = $result")
@@ -115,12 +114,11 @@ constructor(
             return
         }
 
-        val hasExtraMessage =
-            when(currentState.reportType) {
-                ReportType.COPYRIGHT_OR_PRIVACY_VIOLATION, ReportType.OTHER -> true
+        val hasExtraMessage = when (currentState.reportType) {
+            ReportType.COPYRIGHT_OR_PRIVACY_VIOLATION, ReportType.OTHER -> true
 
-                else -> false
-            }
+            else -> false
+        }
 
         postSideEffect(Effect.NavigateToDone(hasExtraMessage = hasExtraMessage))
     }

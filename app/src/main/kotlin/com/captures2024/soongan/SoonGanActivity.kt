@@ -68,7 +68,7 @@ class SoonGanActivity : ComponentActivity(), KakaoLoginCallback {
                 signViewModel.sideEffect.collect { sideEffect ->
                     analyticsHelper.d(
                         LogElementArgument("signInVm.sideEffect", "signInViewModel.sideEffect = $sideEffect"),
-                        message = "Collected sideEffect"
+                        message = "Collected sideEffect",
                     )
 
                     when (sideEffect) {
@@ -76,7 +76,8 @@ class SoonGanActivity : ComponentActivity(), KakaoLoginCallback {
 
                         is SignViewModel.Effect.NavigateToSignUp,
                         is SignViewModel.Effect.NavigateToPrivacyPolicy,
-                        is SignViewModel.Effect.NavigateToTermsOfUse -> Unit
+                        is SignViewModel.Effect.NavigateToTermsOfUse,
+                        -> Unit
                     }
                 }
             }
@@ -99,14 +100,14 @@ class SoonGanActivity : ComponentActivity(), KakaoLoginCallback {
         analyticsHelper.d(
             LogElementArgument("accessToken", accessToken.toString()),
             LogElementArgument("refreshToken", refreshToken.toString()),
-            message = "onSuccessKakaoLogin"
+            message = "onSuccessKakaoLogin",
         )
 
         signViewModel.intent(
             SignViewModel.Intent.CompleteSignKakao(
                 accessToken = accessToken ?: "",
                 refreshToken = refreshToken ?: "",
-            )
+            ),
         )
     }
 

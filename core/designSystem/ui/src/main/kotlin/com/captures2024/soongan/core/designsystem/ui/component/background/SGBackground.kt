@@ -1,4 +1,4 @@
-package com.captures2024.soongan.core.designsystem.component.background
+package com.captures2024.soongan.core.designsystem.ui.component.background
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.LocalAbsoluteTonalElevation

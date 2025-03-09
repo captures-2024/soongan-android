@@ -63,14 +63,14 @@ fun SGSingleButtonDialog(
                 .padding(vertical = 12.dp)
                 .padding(horizontal = 32.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceBetween
+            verticalArrangement = Arrangement.SpaceBetween,
         ) {
             Image(
                 imageVector = MyIconPack.Logo,
                 contentDescription = "logo",
                 modifier = Modifier
                     .width(33.1f.dp)
-                    .height(50.1f.dp)
+                    .height(50.1f.dp),
             )
 
             SGText(
@@ -83,7 +83,7 @@ fun SGSingleButtonDialog(
                     fontFamily = NanumSquareNeoFontFamily,
                     letterSpacing = 0.em,
                     textAlign = TextAlign.Center,
-                )
+                ),
             )
 
             SGTextButtonType2(
@@ -122,14 +122,14 @@ fun SGDoubleButtonDialog(
                 .padding(vertical = 12.dp)
                 .padding(horizontal = 32.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceBetween
+            verticalArrangement = Arrangement.SpaceBetween,
         ) {
             Image(
                 imageVector = MyIconPack.Logo,
                 contentDescription = "logo",
                 modifier = Modifier
                     .width(33.1f.dp)
-                    .height(50.1f.dp)
+                    .height(50.1f.dp),
             )
 
             SGText(
@@ -142,12 +142,12 @@ fun SGDoubleButtonDialog(
                     fontFamily = NanumSquareNeoFontFamily,
                     letterSpacing = 0.em,
                     textAlign = TextAlign.Center,
-                )
+                ),
             )
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(21.dp)
+                horizontalArrangement = Arrangement.spacedBy(21.dp),
             ) {
                 Button(
                     onClick = onClickCancel,
@@ -163,7 +163,7 @@ fun SGDoubleButtonDialog(
                         containerColor = SGColor.white,
                         contentColor = SGColor.primaryA,
                         disabledContainerColor = SGColor.primaryA.copy(alpha = 0.3f),
-                        disabledContentColor = SGColor.white
+                        disabledContentColor = SGColor.white,
                     ),
                 ) {
                     SGText(
@@ -175,7 +175,7 @@ fun SGDoubleButtonDialog(
                             lineHeight = 20.sp,
                             fontFamily = NanumSquareNeoFontFamily,
                             letterSpacing = 0.em,
-                        )
+                        ),
                     )
                 }
 
@@ -195,7 +195,7 @@ private fun SGSingleButtonDialogPreview() {
     SGTheme {
         Box(
             Modifier.fillMaxSize()
-                .background(SGColor.white)
+                .background(SGColor.white),
         ) {
             SGSingleButtonDialog(
                 content = "해당 기능은\n로그인이 필요한 기능입니다.",
@@ -213,7 +213,7 @@ private fun SGDoubleButtonDialogPreview() {
     SGTheme {
         Box(
             Modifier.fillMaxSize()
-                .background(SGColor.white)
+                .background(SGColor.white),
         ) {
             SGDoubleButtonDialog(
                 content = "정말 댓글을\n삭제하시겠습니까?",

@@ -24,7 +24,7 @@ import com.captures2024.soongan.core.designsystem.ui.theme.SGTheme
 fun SGIconButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    content: @Composable BoxScope.() -> Unit
+    content: @Composable BoxScope.() -> Unit,
 ) {
     Box(
         modifier = modifier
@@ -54,7 +54,6 @@ fun SGIconButton(
         )
     }
 }
-
 
 @Preview
 @Composable

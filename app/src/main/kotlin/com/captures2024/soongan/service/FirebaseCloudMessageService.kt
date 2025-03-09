@@ -31,14 +31,14 @@ class FirebaseCloudMessageService : FirebaseMessagingService() {
     override fun onNewToken(token: String) {
         analyticsHelper.d(
             LogElementArgument("$TAG.onNewToken", "$TAG.onNewToken = $token"),
-            message = "generate fcm token"
+            message = "generate fcm token",
         )
     }
 
     override fun onMessageReceived(message: RemoteMessage) {
         analyticsHelper.d(
             LogElementArgument("$TAG.onMessageReceived", "$TAG.onMessageReceive = $message"),
-            message = "received fcm message"
+            message = "received fcm message",
         )
 
         if (!checkGrantedPermission(android.Manifest.permission.POST_NOTIFICATIONS)) return
@@ -49,6 +49,7 @@ class FirebaseCloudMessageService : FirebaseMessagingService() {
         }
     }
 
+    @Suppress("UnusedParameter")
     private fun createPendingIntent(messageData: Map<String, String>): PendingIntent {
         // server 타입명 동기화 필요
 //        val type = getNotificationType(messageData["notificationType"])
@@ -65,7 +66,7 @@ class FirebaseCloudMessageService : FirebaseMessagingService() {
             this,
             UUID.randomUUID().hashCode(),
             intent,
-            PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
+            PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE,
         )
     }
 
@@ -85,7 +86,7 @@ class FirebaseCloudMessageService : FirebaseMessagingService() {
             .setStyle(
                 NotificationCompat.BigPictureStyle()
                     .bigPicture(bitmap)
-                    .bigLargeIcon(null as Bitmap?)
+                    .bigLargeIcon(null as Bitmap?),
             )
             .setAutoCancel(true)
             .setSound(defaultSoundUri)
@@ -97,7 +98,7 @@ class FirebaseCloudMessageService : FirebaseMessagingService() {
                 val channel = NotificationChannel(
                     CHANNEL_ID,
                     CHANNEL_NAME,
-                    NotificationManager.IMPORTANCE_HIGH
+                    NotificationManager.IMPORTANCE_HIGH,
                 ).apply { description = CHANNEL_DESCRIPTION }
 
                 createNotificationChannel(channel)

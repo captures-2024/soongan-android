@@ -32,7 +32,7 @@ fun SGTextField(
     singleLine: Boolean = false,
     maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
     minLines: Int = 1,
-    decorationBox: @Composable (innerTextField: @Composable () -> Unit) -> Unit =  @Composable { innerTextField -> innerTextField() },
+    decorationBox: @Composable (innerTextField: @Composable () -> Unit) -> Unit = @Composable { innerTextField -> innerTextField() },
 ) = BasicTextField(
     value = value,
     onValueChange = onValueChange,

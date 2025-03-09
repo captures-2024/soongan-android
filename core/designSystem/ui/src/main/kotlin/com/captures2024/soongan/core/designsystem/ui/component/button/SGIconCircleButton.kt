@@ -33,7 +33,7 @@ import com.captures2024.soongan.core.designsystem.ui.theme.innerShadow
 fun SGIconCircleButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    content: @Composable BoxScope.() -> Unit
+    content: @Composable BoxScope.() -> Unit,
 ) {
     val backgroundShape = CircleShape
 
@@ -51,7 +51,7 @@ fun SGIconCircleButton(
                         shape = backgroundShape,
                         blur = 4.dp,
                         offsetX = 0.dp,
-                        offsetY = 2.dp
+                        offsetY = 2.dp,
                     )
                 }
             }
@@ -65,7 +65,7 @@ fun SGIconCircleButton(
                         shape = backgroundShape,
                         blur = 4.dp,
                         offsetX = 2.dp,
-                        offsetY = 2.dp
+                        offsetY = 2.dp,
                     )
 
                     false -> it
@@ -107,7 +107,6 @@ fun SGIconCircleButton(
         )
     }
 }
-
 
 @Preview
 @Composable

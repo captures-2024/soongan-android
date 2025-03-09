@@ -76,7 +76,7 @@ private fun PreviewSGText() {
                     fontWeight = FontWeight.Normal,
                     lineHeight = 24.sp,
                     fontFamily = SGTypography.pretendard,
-                )
+                ),
             )
         }
     }

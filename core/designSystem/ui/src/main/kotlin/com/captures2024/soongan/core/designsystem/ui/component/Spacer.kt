@@ -18,10 +18,10 @@ fun WidthSpacer(width: Dp) = Spacer(modifier = Modifier.width(width))
 
 @Composable
 fun ColumnScope.WeightSpacer(
-    @FloatRange(from = 0.0, fromInclusive = false) weight: Float
+    @FloatRange(from = 0.0, fromInclusive = false) weight: Float,
 ) = Spacer(modifier = Modifier.weight(weight))
 
 @Composable
 fun RowScope.WeightSpacer(
-    @FloatRange(from = 0.0, fromInclusive = false) weight: Float
+    @FloatRange(from = 0.0, fromInclusive = false) weight: Float,
 ) = Spacer(modifier = Modifier.weight(weight))

@@ -36,7 +36,7 @@ internal fun AppRootScreen(
                 content = "해당 기능은\n로그인 필요한 기능입니다.",
                 confirmContent = "확인",
                 onClickConfirm = { intent(AppRootViewModel.Intent.OnClickConfirmGuestModeDialog) },
-                onDismissRequest = { intent(AppRootViewModel.Intent.OnClickConfirmGuestModeDialog) }
+                onDismissRequest = { intent(AppRootViewModel.Intent.OnClickConfirmGuestModeDialog) },
             )
         }
     }

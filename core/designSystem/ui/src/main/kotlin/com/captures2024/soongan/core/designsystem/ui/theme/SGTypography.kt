@@ -244,7 +244,7 @@ private fun PreviewTypoPretendard() {
                 style = SGTypography.h1(
                     fontFamily = SGTypography.pretendard,
                     fontWeight = FontWeight.Normal,
-                )
+                ),
             )
 
             Text(
@@ -252,7 +252,7 @@ private fun PreviewTypoPretendard() {
                 style = SGTypography.h2(
                     fontFamily = SGTypography.pretendard,
                     fontWeight = FontWeight.Normal,
-                )
+                ),
             )
 
             Text(
@@ -260,7 +260,7 @@ private fun PreviewTypoPretendard() {
                 style = SGTypography.h3(
                     fontFamily = SGTypography.pretendard,
                     fontWeight = FontWeight.Normal,
-                )
+                ),
             )
 
             Text(
@@ -268,7 +268,7 @@ private fun PreviewTypoPretendard() {
                 style = SGTypography.h4(
                     fontFamily = SGTypography.pretendard,
                     fontWeight = FontWeight.Normal,
-                )
+                ),
             )
 
             Text(
@@ -276,7 +276,7 @@ private fun PreviewTypoPretendard() {
                 style = SGTypography.h5(
                     fontFamily = SGTypography.pretendard,
                     fontWeight = FontWeight.Normal,
-                )
+                ),
             )
 
             Text(
@@ -284,7 +284,7 @@ private fun PreviewTypoPretendard() {
                 style = SGTypography.h6(
                     fontFamily = SGTypography.pretendard,
                     fontWeight = FontWeight.Normal,
-                )
+                ),
             )
 
             Text(
@@ -292,7 +292,7 @@ private fun PreviewTypoPretendard() {
                 style = SGTypography.p2(
                     fontFamily = SGTypography.pretendard,
                     fontWeight = FontWeight.Normal,
-                )
+                ),
             )
 
             Text(
@@ -300,7 +300,7 @@ private fun PreviewTypoPretendard() {
                 style = SGTypography.p3(
                     fontFamily = SGTypography.pretendard,
                     fontWeight = FontWeight.Normal,
-                )
+                ),
             )
 
             Text(
@@ -308,7 +308,7 @@ private fun PreviewTypoPretendard() {
                 style = SGTypography.small(
                     fontFamily = SGTypography.pretendard,
                     fontWeight = FontWeight.Normal,
-                )
+                ),
             )
         }
     }
@@ -330,7 +330,7 @@ private fun PreviewTypoNanumSquareNeo() {
                 style = SGTypography.h1(
                     fontFamily = SGTypography.nanumSquareNeo,
                     fontWeight = FontWeight.Normal,
-                )
+                ),
             )
 
             Text(
@@ -338,7 +338,7 @@ private fun PreviewTypoNanumSquareNeo() {
                 style = SGTypography.h2(
                     fontFamily = SGTypography.nanumSquareNeo,
                     fontWeight = FontWeight.Normal,
-                )
+                ),
             )
 
             Text(
@@ -346,7 +346,7 @@ private fun PreviewTypoNanumSquareNeo() {
                 style = SGTypography.h3(
                     fontFamily = SGTypography.nanumSquareNeo,
                     fontWeight = FontWeight.Normal,
-                )
+                ),
             )
 
             Text(
@@ -354,7 +354,7 @@ private fun PreviewTypoNanumSquareNeo() {
                 style = SGTypography.h4(
                     fontFamily = SGTypography.nanumSquareNeo,
                     fontWeight = FontWeight.Normal,
-                )
+                ),
             )
 
             Text(
@@ -362,7 +362,7 @@ private fun PreviewTypoNanumSquareNeo() {
                 style = SGTypography.h5(
                     fontFamily = SGTypography.pretendard,
                     fontWeight = FontWeight.Normal,
-                )
+                ),
             )
 
             Text(
@@ -370,7 +370,7 @@ private fun PreviewTypoNanumSquareNeo() {
                 style = SGTypography.h6(
                     fontFamily = SGTypography.nanumSquareNeo,
                     fontWeight = FontWeight.Normal,
-                )
+                ),
             )
 
             Text(
@@ -378,7 +378,7 @@ private fun PreviewTypoNanumSquareNeo() {
                 style = SGTypography.p2(
                     fontFamily = SGTypography.nanumSquareNeo,
                     fontWeight = FontWeight.Normal,
-                )
+                ),
             )
 
             Text(
@@ -386,7 +386,7 @@ private fun PreviewTypoNanumSquareNeo() {
                 style = SGTypography.p3(
                     fontFamily = SGTypography.nanumSquareNeo,
                     fontWeight = FontWeight.Normal,
-                )
+                ),
             )
 
             Text(
@@ -394,7 +394,7 @@ private fun PreviewTypoNanumSquareNeo() {
                 style = SGTypography.small(
                     fontFamily = SGTypography.nanumSquareNeo,
                     fontWeight = FontWeight.Normal,
-                )
+                ),
             )
         }
     }
@@ -416,7 +416,7 @@ private fun PreviewTypoPoppins() {
                 style = SGTypography.h1(
                     fontFamily = SGTypography.poppins,
                     fontWeight = FontWeight.Normal,
-                )
+                ),
             )
 
             Text(
@@ -424,7 +424,7 @@ private fun PreviewTypoPoppins() {
                 style = SGTypography.h2(
                     fontFamily = SGTypography.poppins,
                     fontWeight = FontWeight.Normal,
-                )
+                ),
             )
 
             Text(
@@ -432,7 +432,7 @@ private fun PreviewTypoPoppins() {
                 style = SGTypography.h3(
                     fontFamily = SGTypography.poppins,
                     fontWeight = FontWeight.Normal,
-                )
+                ),
             )
 
             Text(
@@ -440,7 +440,7 @@ private fun PreviewTypoPoppins() {
                 style = SGTypography.h4(
                     fontFamily = SGTypography.poppins,
                     fontWeight = FontWeight.Normal,
-                )
+                ),
             )
 
             Text(
@@ -448,7 +448,7 @@ private fun PreviewTypoPoppins() {
                 style = SGTypography.h5(
                     fontFamily = SGTypography.poppins,
                     fontWeight = FontWeight.Normal,
-                )
+                ),
             )
 
             Text(
@@ -456,7 +456,7 @@ private fun PreviewTypoPoppins() {
                 style = SGTypography.h6(
                     fontFamily = SGTypography.poppins,
                     fontWeight = FontWeight.Normal,
-                )
+                ),
             )
 
             Text(
@@ -464,7 +464,7 @@ private fun PreviewTypoPoppins() {
                 style = SGTypography.p2(
                     fontFamily = SGTypography.poppins,
                     fontWeight = FontWeight.Normal,
-                )
+                ),
             )
 
             Text(
@@ -472,7 +472,7 @@ private fun PreviewTypoPoppins() {
                 style = SGTypography.p3(
                     fontFamily = SGTypography.poppins,
                     fontWeight = FontWeight.Normal,
-                )
+                ),
             )
 
             Text(
@@ -480,7 +480,7 @@ private fun PreviewTypoPoppins() {
                 style = SGTypography.small(
                     fontFamily = SGTypography.poppins,
                     fontWeight = FontWeight.Normal,
-                )
+                ),
             )
         }
     }

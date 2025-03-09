@@ -50,12 +50,11 @@ fun SGTextFieldTypeLong(
             .padding(12.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-
         Box {
             SGTextField(
                 value = value,
                 textStyle = textStyle,
-                onValueChange = onValueChange
+                onValueChange = onValueChange,
             )
             if (value.isEmpty()) {
                 SGText(

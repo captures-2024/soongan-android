@@ -15,13 +15,12 @@ fun NavController.navigateToHomeGallery(navOptions: NavOptions?) = navigate(
 )
 
 fun NavController.setReportedPostId(postId: Long) {
-    this.previousBackStackEntry?.savedStateHandle?.set(savedStateHandleKey, postId)
+    this.previousBackStackEntry?.savedStateHandle?.set(SAVED_STATE_HANDLE_KEY, postId)
 
     popBackStack<HomeGalleryNavigator>(inclusive = false)
 }
 
 fun NavController.getReportedPostId(): Long =
-    this.currentBackStackEntry?.savedStateHandle?.get(savedStateHandleKey) ?: -1L
+    this.currentBackStackEntry?.savedStateHandle?.get(SAVED_STATE_HANDLE_KEY) ?: -1L
 
-
-private const val savedStateHandleKey = "reported_post_id"
+private const val SAVED_STATE_HANDLE_KEY = "reported_post_id"
