@@ -63,7 +63,7 @@ internal fun HomePostRoute(
         HomePostBottomModalState.OPEN_REPORT -> ReportRoute(
             reportRouteState = reportRouteState,
             closeSheet = { homePostViewModel.intent(Intent.OnClosedModal) },
-            reportPost = { homePostViewModel.intent(Intent.OnReportPost(uiState.postId)) }
+            reportPost = { homePostViewModel.intent(Intent.OnReportPost) }
         )
 
         HomePostBottomModalState.CLOSED -> Unit

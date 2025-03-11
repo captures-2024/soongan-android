@@ -5,7 +5,6 @@ import com.captures2024.soongan.core.data.repository.WeeklyContestRepository
 import com.captures2024.soongan.core.model.dto.GalleryDto
 import com.captures2024.soongan.core.model.dto.MyGalleryDto
 import com.captures2024.soongan.core.model.dto.PostInfoDto
-import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 class WeeklyContestRepositoryImpl
@@ -48,6 +47,19 @@ constructor(
         )
 
         return postInfoDto ?: throw java.lang.NullPointerException("postInfoDto is null")
+    }
+
+    override suspend fun deletePost(postId: Long): Boolean =
+        weeklyContestDataSource.deletePost(postId = postId)
+
+
+    override suspend fun editPostTitle(postId: Long, title: String): String {
+        val editedTitle = weeklyContestDataSource.editPostTitle(
+            postId = postId,
+            title = title
+        )
+
+        return editedTitle ?: throw java.lang.NullPointerException("editedTitle is null")
     }
 
     override suspend fun getMyGalleryInfo(page: Int, pageSize: Int): MyGalleryDto {

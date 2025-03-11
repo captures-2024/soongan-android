@@ -3,6 +3,7 @@ package com.captures2024.soongan.core.data.remote
 import com.captures2024.soongan.core.model.dto.GalleryDto
 import com.captures2024.soongan.core.model.dto.MyGalleryDto
 import com.captures2024.soongan.core.model.dto.PostInfoDto
+import com.captures2024.soongan.core.model.dto.ResultConditionDto
 
 interface WeeklyContestDataSource {
 
@@ -21,6 +22,15 @@ interface WeeklyContestDataSource {
     suspend fun getPostInfo(
         postId: Long,
     ): PostInfoDto?
+
+    suspend fun deletePost(
+        postId: Long,
+    ): Boolean
+
+    suspend fun editPostTitle(
+        postId: Long,
+        title: String,
+    ): String?
 
     suspend fun getMyGalleryInfo(
         page: Int,
