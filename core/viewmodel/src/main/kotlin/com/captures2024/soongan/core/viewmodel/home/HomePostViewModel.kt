@@ -11,12 +11,15 @@ import com.captures2024.soongan.core.domain.usecase.dialog.SetIsShowGuestModeDia
 import com.captures2024.soongan.core.domain.usecase.loading.ClearLoadingUseCase
 import com.captures2024.soongan.core.domain.usecase.loading.HideLoadingUseCase
 import com.captures2024.soongan.core.domain.usecase.loading.ShowLoadingUseCase
+import com.captures2024.soongan.core.domain.usecase.members.GetCurrentMemberFlowUseCase
 import com.captures2024.soongan.core.domain.usecase.members.GetIsCurrentGuestModeUseCase
+import com.captures2024.soongan.core.domain.usecase.weekly.contests.DeletePostUseCase
 import com.captures2024.soongan.core.domain.usecase.weekly.contests.GetPostInfoUseCase
 import com.captures2024.soongan.core.model.dto.PostInfoDto
 import com.captures2024.soongan.core.navigator.screen.main.home.HomePostNavigator
 import com.captures2024.soongan.core.viewmodel.NewBaseViewModel
 import com.captures2024.soongan.core.viewmodel.model.HomePostBottomModalState
+import com.captures2024.soongan.core.viewmodel.model.HomePostDialogModalState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -24,7 +27,9 @@ import javax.inject.Inject
 class HomePostViewModel
 @Inject
 constructor(
+    private val currentMemberFlowUseCase: GetCurrentMemberFlowUseCase,
     private val getPostInfoUseCase: GetPostInfoUseCase,
+    private val deletePostUseCase: DeletePostUseCase,
     analyticsHelper: AnalyticsHelper,
     showLoadingUseCase: ShowLoadingUseCase,
     hideLoadingUseCase: HideLoadingUseCase,
@@ -45,14 +50,18 @@ constructor(
     data class State(
         val postId: Long,
         val post: PostInfoDto = PostInfoDto(),
+        val isMyPost: Boolean = false,
         val isOpenModal: HomePostBottomModalState = HomePostBottomModalState.CLOSED,
+        val isOpenDialogModal: HomePostDialogModalState = HomePostDialogModalState.CLOSED,
         val inWritingComment: String = "",
     ) : UIState {
 
         override fun toLoggingElements(): Array<LogElementArgument> = arrayOf(
             LogElementArgument("postId", postId.toString()),
             LogElementArgument("post", post.toString()),
+            LogElementArgument("isMyPost", isMyPost.toString()),
             LogElementArgument("isOpenModal", isOpenModal.toString()),
+            LogElementArgument("isOpenDialogModal", isOpenDialogModal.toString()),
             LogElementArgument("inWritingComment", inWritingComment),
         )
     }
@@ -86,6 +95,8 @@ constructor(
 
         data object OnClosedModal : Intent
 
+        data object OnClosedDialogModal : Intent
+
         data class OnCommentValueChanged(
             val inWritingComment: String,
         ) : Intent
@@ -96,9 +107,9 @@ constructor(
 
         data object OnClickReportPost : Intent
 
-        data class OnReportPost(
-            val postId: Long,
-        ) : Intent
+        data object OnDeletePostRemote : Intent
+
+        data object OnHidePost : Intent
     }
 
     init {
@@ -117,7 +128,7 @@ constructor(
 
     override fun handleIntent(intent: Intent) {
         when (intent) {
-            is Intent.Init -> loadingLaunch { handleInit() }
+            is Intent.Init -> launch { handleInit() }
 
             is Intent.OnClickBack -> handleOnClickBack()
 
@@ -131,6 +142,8 @@ constructor(
 
             is Intent.OnClosedModal -> handleOnClosedModal()
 
+            is Intent.OnClosedDialogModal -> handleOnClosedDialogModal()
+
             is Intent.OnCommentValueChanged -> handleOnCommentValueChanged(intent)
 
             is Intent.OnClickDeletePost -> handleOnClickDeletePost()
@@ -139,8 +152,9 @@ constructor(
 
             is Intent.OnClickReportPost -> handleOnClickReportPost()
 
-            is Intent.OnReportPost ->
-                postSideEffect(Effect.HidePostAfterReport(intent.postId))
+            is Intent.OnDeletePostRemote -> loadingLaunch { handleOnDeletePostRemote() }
+
+            is Intent.OnHidePost -> hidePost()
         }
     }
 
@@ -152,11 +166,15 @@ constructor(
             return
         }
 
-        reduce {
-            copy(
-                postId = postInfo.postId,
-                post = postInfo,
-            )
+        currentMemberFlowUseCase().collect { currentMember ->
+
+            reduce {
+                copy(
+                    postId = postInfo.postId,
+                    post = postInfo,
+                    isMyPost = postInfo.nickname == currentMember?.nickname
+                )
+            }
         }
     }
 
@@ -196,6 +214,14 @@ constructor(
         }
     }
 
+    private fun handleOnClosedDialogModal() {
+        reduce {
+            copy(
+                isOpenDialogModal = HomePostDialogModalState.CLOSED
+            )
+        }
+    }
+
     private fun handleOnCommentValueChanged(intent: Intent.OnCommentValueChanged) {
         reduce {
             copy(
@@ -204,12 +230,16 @@ constructor(
         }
     }
 
-    private fun handleOnClickDeletePost() {
-        TODO("handleOnClickDeletePost Not Impl Yet")
+    private fun handleOnClickEditPost() {
+        TODO("navigate edit post")
     }
 
-    private fun handleOnClickEditPost() {
-        TODO("handleOnClickEditPost Not Impl Yet")
+    private fun handleOnClickDeletePost() {
+        reduce {
+            copy(
+                isOpenDialogModal = HomePostDialogModalState.OPEN_DELETE
+            )
+        }
     }
 
     private fun handleOnClickReportPost() {
@@ -218,5 +248,27 @@ constructor(
                 isOpenModal = HomePostBottomModalState.OPEN_REPORT,
             )
         }
+    }
+
+    private suspend fun handleOnDeletePostRemote() {
+        val result = deletePostUseCase(
+            postId = currentState.postId,
+        ).getOrNull()
+
+        analyticsHelper.d(message = "postDeleteResult: $result")
+
+        reduce {
+            copy(
+                isOpenDialogModal =
+                when (result) {
+                    true -> HomePostDialogModalState.OPEN_COMPLETE
+                    else -> HomePostDialogModalState.OPEN_FAIL
+                }
+            )
+        }
+    }
+
+    private fun hidePost() {
+        postSideEffect(Effect.HidePostAfterReport(currentState.postId))
     }
 }
