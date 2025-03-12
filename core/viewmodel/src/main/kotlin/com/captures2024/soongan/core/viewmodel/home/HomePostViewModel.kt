@@ -80,7 +80,7 @@ constructor(
             val url: String,
         ) : Effect
 
-        data class HidePostAfterReport(
+        data class NavigateToBackWithHidePost(
             val postId: Long,
         ) : Effect
     }
@@ -160,7 +160,7 @@ constructor(
 
             is Intent.OnDeletePostRemote -> loadingLaunch { handleOnDeletePostRemote() }
 
-            is Intent.OnHidePost -> hidePost()
+            is Intent.OnHidePost -> handleOnHidePost()
         }
     }
 
@@ -286,7 +286,7 @@ constructor(
         }
     }
 
-    private fun hidePost() {
-        postSideEffect(Effect.HidePostAfterReport(currentState.postId))
+    private fun handleOnHidePost() {
+        postSideEffect(Effect.NavigateToBackWithHidePost(currentState.postId))
     }
 }

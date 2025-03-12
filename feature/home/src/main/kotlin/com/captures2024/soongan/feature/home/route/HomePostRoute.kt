@@ -27,7 +27,7 @@ internal fun HomePostRoute(
     navigateToBack: () -> Unit,
     navigateToEditPost: (Long, String, String) -> Unit,
     navigateToHomePostPhoto: (String) -> Unit,
-    setReportedPostId: (Long) -> Unit,
+    navigateToBackWithHidePost: (Long) -> Unit,
     homePostViewModel: HomePostViewModel = hiltViewModel(),
 ) {
     val uiState by homePostViewModel.state.collectAsStateWithLifecycle()
@@ -46,7 +46,7 @@ internal fun HomePostRoute(
 
                 is Effect.NavigateToHomePostPhoto -> navigateToHomePostPhoto(effect.url)
 
-                is Effect.HidePostAfterReport -> setReportedPostId(effect.postId)
+                is Effect.NavigateToBackWithHidePost -> navigateToBackWithHidePost(effect.postId)
             }
         }
     }

@@ -23,8 +23,8 @@ fun NavGraphBuilder.home(
     navigateToPost: (Long, NavOptions?) -> Unit,
     navigateToEditPost: (Long, String, String) -> Unit,
     navigateToPostPhoto: (String) -> Unit,
-    setReportedPostId: (Long) -> Unit,
-    getReportedPostId: () -> Long,
+    navigateToBackWithHidePost: (Long) -> Unit,
+    getHidedPostId: () -> Long,
 ) {
     composable<HomeNavigator> {
         HomeRoute(
@@ -44,7 +44,7 @@ fun NavGraphBuilder.home(
             navigateToBack = navigateToBack,
             navigateToPost = navigateToPost,
             navigateToRegistrationPost = navigateToRegistrationPost,
-            getReportedPostId = getReportedPostId,
+            getReportedPostId = getHidedPostId,
         )
     }
     composable<HomePostNavigator> {
@@ -52,7 +52,7 @@ fun NavGraphBuilder.home(
             navigateToBack = navigateToBack,
             navigateToEditPost = navigateToEditPost,
             navigateToHomePostPhoto = navigateToPostPhoto,
-            setReportedPostId = setReportedPostId,
+            navigateToBackWithHidePost = navigateToBackWithHidePost,
         )
     }
     composable<EditPostNavigator> {
