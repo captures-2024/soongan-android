@@ -13,6 +13,7 @@ import androidx.navigation.navOptions
 import com.captures2024.soongan.core.navigator.screen.main.home.HomeNavigator
 import com.captures2024.soongan.core.navigator.screen.main.home.getReportedPostId
 import com.captures2024.soongan.core.navigator.screen.main.home.navigateToHome
+import com.captures2024.soongan.core.navigator.screen.main.home.navigateToEditPost
 import com.captures2024.soongan.core.navigator.screen.main.home.navigateToHomeGallery
 import com.captures2024.soongan.core.navigator.screen.main.home.navigateToHomePost
 import com.captures2024.soongan.core.navigator.screen.main.home.navigateToHomePostPhoto
@@ -64,10 +65,10 @@ internal fun MainRouteNavHost(
             navigateToRegistrationPost = navController::navigateToRegistrationPost,
             navigateToGallery = navController::navigateToHomeGallery,
             navigateToPost = navController::navigateToHomePost,
+            navigateToEditPost = navController::navigateToEditPost,
             navigateToPostPhoto = navController::navigateToHomePostPhoto,
             setReportedPostId = navController::setReportedPostId,
             getReportedPostId = navController::getReportedPostId,
-
         )
         feed()
         awards()

@@ -70,6 +70,12 @@ constructor(
 
         data object NavigateToBack : Effect
 
+        data class NavigateToEditPost(
+            val postId: Long,
+            val imageUrl: String,
+            val title: String,
+        ) : Effect
+
         data class NavigateToHomePostPhoto(
             val url: String,
         ) : Effect
@@ -231,7 +237,19 @@ constructor(
     }
 
     private fun handleOnClickEditPost() {
-        TODO("navigate edit post")
+        reduce {
+            copy(
+                isOpenModal = HomePostBottomModalState.CLOSED
+            )
+        }
+
+        postSideEffect(
+            Effect.NavigateToEditPost(
+                postId = currentState.postId,
+                imageUrl = currentState.post.imageUrl,
+                title = currentState.post.title
+            )
+        )
     }
 
     private fun handleOnClickDeletePost() {

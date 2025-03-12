@@ -5,9 +5,11 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import com.captures2024.soongan.core.navigator.screen.main.home.HomeGalleryNavigator
 import com.captures2024.soongan.core.navigator.screen.main.home.HomeNavigator
+import com.captures2024.soongan.core.navigator.screen.main.home.EditPostNavigator
 import com.captures2024.soongan.core.navigator.screen.main.home.HomePostNavigator
 import com.captures2024.soongan.core.navigator.screen.main.home.HomePostPhotoNavigator
 import com.captures2024.soongan.core.navigator.screen.main.home.RegistrationPostNavigator
+import com.captures2024.soongan.feature.home.route.EditPostRoute
 import com.captures2024.soongan.feature.home.route.HomeGalleryRoute
 import com.captures2024.soongan.feature.home.route.HomePostPhotoRoute
 import com.captures2024.soongan.feature.home.route.HomePostRoute
@@ -19,8 +21,9 @@ fun NavGraphBuilder.home(
     navigateToRegistrationPost: () -> Unit,
     navigateToGallery: () -> Unit,
     navigateToPost: (Long, NavOptions?) -> Unit,
+    navigateToEditPost: (Long, String, String) -> Unit,
     navigateToPostPhoto: (String) -> Unit,
-    setReportedPostId: (postId: Long) -> Unit,
+    setReportedPostId: (Long) -> Unit,
     getReportedPostId: () -> Long,
 ) {
     composable<HomeNavigator> {
@@ -47,8 +50,14 @@ fun NavGraphBuilder.home(
     composable<HomePostNavigator> {
         HomePostRoute(
             navigateToBack = navigateToBack,
+            navigateToEditPost = navigateToEditPost,
             navigateToHomePostPhoto = navigateToPostPhoto,
             setReportedPostId = setReportedPostId,
+        )
+    }
+    composable<EditPostNavigator> {
+        EditPostRoute(
+            navigateToBack = navigateToBack,
         )
     }
     composable<HomePostPhotoNavigator> {

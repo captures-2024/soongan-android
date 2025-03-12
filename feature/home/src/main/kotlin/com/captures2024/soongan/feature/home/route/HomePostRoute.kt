@@ -5,6 +5,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.captures2024.soongan.core.designsystem.component.dialog.SGDoubleButtonDialog
 import com.captures2024.soongan.core.designsystem.component.dialog.SGSingleButtonDialog
@@ -23,8 +25,9 @@ import com.captures2024.soongan.feature.home.ui.post.comment.HomePostCommentBott
 @Composable
 internal fun HomePostRoute(
     navigateToBack: () -> Unit,
+    navigateToEditPost: (Long, String, String) -> Unit,
     navigateToHomePostPhoto: (String) -> Unit,
-    setReportedPostId: (postId: Long) -> Unit,
+    setReportedPostId: (Long) -> Unit,
     homePostViewModel: HomePostViewModel = hiltViewModel(),
 ) {
     val uiState by homePostViewModel.state.collectAsStateWithLifecycle()
@@ -39,11 +42,17 @@ internal fun HomePostRoute(
             when (effect) {
                 is Effect.NavigateToBack -> navigateToBack()
 
+                is Effect.NavigateToEditPost -> navigateToEditPost(effect.postId, effect.imageUrl, effect.title)
+
                 is Effect.NavigateToHomePostPhoto -> navigateToHomePostPhoto(effect.url)
 
                 is Effect.HidePostAfterReport -> setReportedPostId(effect.postId)
             }
         }
+    }
+
+    LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
+        homePostViewModel.intent(Intent.Init)
     }
 
     HomePostScreen(
