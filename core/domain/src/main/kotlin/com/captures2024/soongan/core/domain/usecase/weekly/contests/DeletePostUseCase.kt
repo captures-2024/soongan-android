@@ -12,7 +12,7 @@ constructor(
 
     suspend operator fun invoke(postId: Long): Result<Boolean> = runSuspendCatching {
         return@runSuspendCatching weeklyContestRepository.deletePost(
-            postId = postId
+            postId = postId,
         )
     }
 }

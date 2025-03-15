@@ -15,7 +15,7 @@ class PostLikeRepositoryImpl
     ): ResultConditionDto {
         val data = dataSource.putPostLike(
             postId = postId,
-            contestType = contestType
+            contestType = contestType,
         )
 
         if (data == null) {
@@ -35,7 +35,7 @@ class PostLikeRepositoryImpl
     ): ResultConditionDto {
         val data = dataSource.deletePostLike(
             postId = postId,
-            contestType = contestType
+            contestType = contestType,
         )
 
         if (data == null) {

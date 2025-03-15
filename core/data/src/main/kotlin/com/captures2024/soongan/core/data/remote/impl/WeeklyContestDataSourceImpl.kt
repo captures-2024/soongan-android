@@ -59,11 +59,11 @@ constructor(
     ): Boolean {
         val result = safeAPICall {
             service.deletePost(
-                postId = postId
+                postId = postId,
             )
         }.body
 
-        return when(result) {
+        return when (result) {
             null -> false
             else -> true
         }
@@ -75,7 +75,7 @@ constructor(
     ): String? = safeAPICall {
         service.editPostTitle(
             postId = postId,
-            request = EditPostRequest(title = title)
+            request = EditPostRequest(title = title),
         )
     }.body?.responseData?.title
 

@@ -189,7 +189,7 @@ constructor(
                 copy(
                     postId = postInfo.postId,
                     post = postInfo,
-                    isMyPost = postInfo.nickname == currentMember?.nickname
+                    isMyPost = postInfo.nickname == currentMember?.nickname,
                 )
             }
         }
@@ -212,9 +212,9 @@ constructor(
             copy(
                 post = post.copy(
                     likeCount = if (post.isLiked) post.likeCount - 1 else post.likeCount + 1,
-                    isLiked = !post.isLiked
+                    isLiked = !post.isLiked,
                 ),
-                isLikedChanged = !isLikedChanged
+                isLikedChanged = !isLikedChanged,
             )
         }
     }
@@ -228,14 +228,14 @@ constructor(
             true -> {
                 putPostLikeUseCase(
                     postId = currentState.postId,
-                    contestType = PostLikeContestType.WEEKLY.name
+                    contestType = PostLikeContestType.WEEKLY.name,
                 )
             }
 
             false -> {
                 deletePostLikeUseCase(
                     postId = currentState.postId,
-                    contestType = PostLikeContestType.WEEKLY.name
+                    contestType = PostLikeContestType.WEEKLY.name,
                 )
             }
         }
@@ -264,7 +264,7 @@ constructor(
     private fun handleOnClosedDialogModal() {
         reduce {
             copy(
-                isOpenDialogModal = HomePostDialogModalState.CLOSED
+                isOpenDialogModal = HomePostDialogModalState.CLOSED,
             )
         }
     }
@@ -280,7 +280,7 @@ constructor(
     private fun handleOnClickEditPost() {
         reduce {
             copy(
-                isOpenModal = HomePostBottomModalState.CLOSED
+                isOpenModal = HomePostBottomModalState.CLOSED,
             )
         }
 
@@ -288,15 +288,15 @@ constructor(
             Effect.NavigateToEditPost(
                 postId = currentState.postId,
                 imageUrl = currentState.post.imageUrl,
-                title = currentState.post.title
-            )
+                title = currentState.post.title,
+            ),
         )
     }
 
     private fun handleOnClickDeletePost() {
         reduce {
             copy(
-                isOpenDialogModal = HomePostDialogModalState.OPEN_DELETE
+                isOpenDialogModal = HomePostDialogModalState.OPEN_DELETE,
             )
         }
     }
@@ -322,7 +322,7 @@ constructor(
                     true -> HomePostDialogModalState.OPEN_COMPLETE
 
                     else -> HomePostDialogModalState.OPEN_FAIL
-                }
+                },
             )
         }
     }

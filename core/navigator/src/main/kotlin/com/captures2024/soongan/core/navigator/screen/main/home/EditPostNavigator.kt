@@ -20,7 +20,7 @@ fun NavController.navigateToEditPost(
         postId = id,
         imageUrl = imageUrl,
         title = title,
-    )
+    ),
 )
 
 fun NavController.navigateToEditPost(
@@ -34,5 +34,5 @@ fun NavController.navigateToEditPost(
         imageUrl = imageUrl,
         title = title,
     ),
-    navOptions = navOptions
+    navOptions = navOptions,
 )

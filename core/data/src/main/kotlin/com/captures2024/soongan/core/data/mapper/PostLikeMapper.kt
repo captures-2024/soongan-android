@@ -5,5 +5,5 @@ import com.captures2024.soongan.core.model.network.response.like.PostLikeRespons
 
 fun PostLikeResponse.toPostLikeDto(): PostLikeDto = PostLikeDto(
     postId = postId,
-    likeCount = likeCount
+    likeCount = likeCount,
 )

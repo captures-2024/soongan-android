@@ -31,7 +31,6 @@ interface WeeklyContestRepository {
         title: String,
     ): String
 
-
     suspend fun getMyGalleryInfo(
         page: Int,
         pageSize: Int,

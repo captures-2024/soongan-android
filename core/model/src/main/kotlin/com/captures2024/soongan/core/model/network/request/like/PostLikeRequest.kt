@@ -8,5 +8,5 @@ data class PostLikeRequest(
     @SerialName("postId")
     val postId: Long,
     @SerialName("contestType")
-    val contestType: String
+    val contestType: String,
 )

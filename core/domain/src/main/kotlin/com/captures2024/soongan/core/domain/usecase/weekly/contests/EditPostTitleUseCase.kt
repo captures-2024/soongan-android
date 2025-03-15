@@ -13,7 +13,7 @@ constructor(
     suspend operator fun invoke(postId: Long, title: String): Result<String> = runSuspendCatching {
         return@runSuspendCatching weeklyContestRepository.editPostTitle(
             postId = postId,
-            title = title
+            title = title,
         )
     }
 }

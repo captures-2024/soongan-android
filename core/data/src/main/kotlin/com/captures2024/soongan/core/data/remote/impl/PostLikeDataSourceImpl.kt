@@ -18,7 +18,7 @@ class PostLikeDataSourceImpl
         contestType: String,
     ): PostLikeDto? = safeAPICall {
         postLikeService.putPostLike(
-            request = PostLikeRequest(postId = postId, contestType = contestType)
+            request = PostLikeRequest(postId = postId, contestType = contestType),
         )
     }.body?.responseData?.toPostLikeDto()
 
@@ -27,7 +27,7 @@ class PostLikeDataSourceImpl
         contestType: String,
     ): PostLikeDto? = safeAPICall {
         postLikeService.deletePostLike(
-            request = PostLikeRequest(postId = postId, contestType = contestType)
+            request = PostLikeRequest(postId = postId, contestType = contestType),
         )
     }.body?.responseData?.toPostLikeDto()
 }

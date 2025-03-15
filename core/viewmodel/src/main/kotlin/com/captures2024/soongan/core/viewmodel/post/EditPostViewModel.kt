@@ -78,7 +78,7 @@ class EditPostViewModel
             postId = data.postId,
             imageUrl = data.imageUrl,
             previousTitle = data.title,
-            title = data.title
+            title = data.title,
         )
     }
 
@@ -101,7 +101,7 @@ class EditPostViewModel
     private suspend fun handleOnClickEditRemote() {
         val result = editPostTitleUseCase(
             postId = currentState.postId,
-            title = currentState.title
+            title = currentState.title,
         ).getOrNull()
 
         analyticsHelper.d(message = "handleOnClickEditRemote - result: $result")
@@ -123,7 +123,7 @@ class EditPostViewModel
         reduce {
             copy(
                 title = newValue,
-                isEditable = (previousTitle != newValue)
+                isEditable = (previousTitle != newValue),
             )
         }
     }

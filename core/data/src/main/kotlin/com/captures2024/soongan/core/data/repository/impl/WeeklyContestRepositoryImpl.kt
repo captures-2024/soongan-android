@@ -52,11 +52,10 @@ constructor(
     override suspend fun deletePost(postId: Long): Boolean =
         weeklyContestDataSource.deletePost(postId = postId)
 
-
     override suspend fun editPostTitle(postId: Long, title: String): String {
         val editedTitle = weeklyContestDataSource.editPostTitle(
             postId = postId,
-            title = title
+            title = title,
         )
 
         return editedTitle ?: throw java.lang.NullPointerException("editedTitle is null")

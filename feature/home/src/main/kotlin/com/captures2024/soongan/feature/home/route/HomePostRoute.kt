@@ -8,9 +8,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.captures2024.soongan.core.model.utils.ReportTargetType
 import com.captures2024.soongan.core.designsystem.ui.component.dialog.SGDoubleButtonDialog
 import com.captures2024.soongan.core.designsystem.ui.component.dialog.SGSingleButtonDialog
+import com.captures2024.soongan.core.model.utils.ReportTargetType
 import com.captures2024.soongan.core.viewmodel.home.HomePostViewModel
 import com.captures2024.soongan.core.viewmodel.home.HomePostViewModel.Effect
 import com.captures2024.soongan.core.viewmodel.home.HomePostViewModel.Intent
@@ -45,7 +45,7 @@ internal fun HomePostRoute(
                 is Effect.NavigateToEditPost -> navigateToEditPost(
                     effect.postId,
                     effect.imageUrl,
-                    effect.title
+                    effect.title,
                 )
 
                 is Effect.NavigateToHomePostPhoto -> navigateToHomePostPhoto(effect.url)
@@ -80,7 +80,7 @@ internal fun HomePostRoute(
             onClickEdit = { homePostViewModel.intent(Intent.OnClickEditPost) },
             onClickDelete = { homePostViewModel.intent(Intent.OnClickDeletePost) },
             onClickReport = { homePostViewModel.intent(Intent.OnClickReportPost) },
-            isMyPost = uiState.isMyPost
+            isMyPost = uiState.isMyPost,
         )
 
         HomePostBottomModalState.OPEN_REPORT -> ReportRoute(
@@ -99,21 +99,21 @@ internal fun HomePostRoute(
             onClickConfirm = { homePostViewModel.intent(Intent.OnDeletePostRemote) },
             cancelContent = stringResource(R.string.open_dialog_modal_delete_content_cancel_msg),
             onClickCancel = { homePostViewModel.intent(Intent.OnClosedDialogModal) },
-            onDismissRequest = { homePostViewModel.intent(Intent.OnClosedDialogModal) }
+            onDismissRequest = { homePostViewModel.intent(Intent.OnClosedDialogModal) },
         )
 
         HomePostDialogModalState.OPEN_COMPLETE -> SGSingleButtonDialog(
             content = stringResource(R.string.open_dialog_modal_complete_content_msg),
             confirmContent = stringResource(R.string.open_dialog_modal_confirm_msg),
             onClickConfirm = { homePostViewModel.intent(Intent.OnHidePost) },
-            onDismissRequest = { homePostViewModel.intent(Intent.OnClosedDialogModal) }
+            onDismissRequest = { homePostViewModel.intent(Intent.OnClosedDialogModal) },
         )
 
         HomePostDialogModalState.OPEN_FAIL -> SGSingleButtonDialog(
             content = stringResource(R.string.open_dialog_modal_fail_content_msg),
             confirmContent = stringResource(R.string.open_dialog_modal_confirm_msg),
             onClickConfirm = { homePostViewModel.intent(Intent.OnClosedDialogModal) },
-            onDismissRequest = { homePostViewModel.intent(Intent.OnClosedDialogModal) }
+            onDismissRequest = { homePostViewModel.intent(Intent.OnClosedDialogModal) },
         )
 
         HomePostDialogModalState.CLOSED -> Unit

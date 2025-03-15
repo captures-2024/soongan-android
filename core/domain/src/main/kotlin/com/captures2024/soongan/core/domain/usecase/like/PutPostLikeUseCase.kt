@@ -12,7 +12,8 @@ constructor(
 
     suspend operator fun invoke(postId: Long, contestType: String): Result<Boolean> = runSuspendCatching {
         val resultConditionDto = repository.putPostLike(
-            postId = postId, contestType = contestType
+            postId = postId,
+            contestType = contestType,
         )
 
         return@runSuspendCatching resultConditionDto.result

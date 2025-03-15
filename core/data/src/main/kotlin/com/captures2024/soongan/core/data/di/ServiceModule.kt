@@ -45,5 +45,4 @@ object ServiceModule {
     @Singleton
     @Provides
     internal fun providePostLikeService(retrofit: Retrofit): PostLikeService = retrofit.create(PostLikeService::class.java)
-
 }

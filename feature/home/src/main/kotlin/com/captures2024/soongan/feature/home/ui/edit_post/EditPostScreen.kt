@@ -18,12 +18,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.captures2024.soongan.core.designsystem.component.HeightSpacer
-import com.captures2024.soongan.core.designsystem.component.WeightSpacer
-import com.captures2024.soongan.core.designsystem.component.button.SGTextButtonType2
-import com.captures2024.soongan.core.designsystem.theme.SGColor
-import com.captures2024.soongan.core.designsystem.theme.dropShadow
-import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.designsystem.ui.R
+import com.captures2024.soongan.core.designsystem.ui.component.HeightSpacer
+import com.captures2024.soongan.core.designsystem.ui.component.WeightSpacer
+import com.captures2024.soongan.core.designsystem.ui.component.button.SGTextButtonType2
+import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
+import com.captures2024.soongan.core.designsystem.ui.theme.dropShadow
+import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.core.viewmodel.post.EditPostViewModel
 import com.captures2024.soongan.feature.home.ui.registration_post.RegistrationPostScreenTopBar
 import com.captures2024.soongan.feature.home.ui.registration_post.TitleInputEditText
@@ -39,12 +40,12 @@ internal fun EditPostScreen(
             .fillMaxSize()
             .background(color = SGColor.tempPrimaryD)
             .paint(
-                painter = painterResource(id = com.captures2024.soongan.core.design.R.drawable.background_home_gallery),
+                painter = painterResource(id = R.drawable.background_home_gallery),
                 contentScale = ContentScale.Crop,
             ),
         topBar = @Composable {
             RegistrationPostScreenTopBar(
-                onBackPressed = { intent(EditPostViewModel.Intent.OnClickBack) }
+                onBackPressed = { intent(EditPostViewModel.Intent.OnClickBack) },
             )
         },
         containerColor = SGColor.transparent,
@@ -96,6 +97,6 @@ internal fun EditPostScreen(
 private fun RegistrationPostScreenPreview() {
     EditPostScreen(
         uiState = EditPostViewModel.State(),
-        intent = {}
+        intent = {},
     )
 }

@@ -8,5 +8,5 @@ data class PostLikeResponse(
     @SerialName("postId")
     val postId: Long,
     @SerialName("likeCount")
-    val likeCount: Int
+    val likeCount: Int,
 )

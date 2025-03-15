@@ -3,7 +3,6 @@ package com.captures2024.soongan.core.data.remote
 import com.captures2024.soongan.core.model.dto.GalleryDto
 import com.captures2024.soongan.core.model.dto.MyGalleryDto
 import com.captures2024.soongan.core.model.dto.PostInfoDto
-import com.captures2024.soongan.core.model.dto.ResultConditionDto
 
 interface WeeklyContestDataSource {
 
