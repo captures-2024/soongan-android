@@ -14,22 +14,22 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
-import com.captures2024.soongan.core.designsystem.component.text.SGText
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconLogoApple
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconLogoGoogle
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconLogoKakao
-import com.captures2024.soongan.core.designsystem.theme.SGColor
-import com.captures2024.soongan.core.designsystem.theme.SGTypography
-import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.designsystem.ui.component.text.SGText
+import com.captures2024.soongan.core.designsystem.ui.component.text.getSGNonScaleTextStyle
+import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
+import com.captures2024.soongan.core.designsystem.ui.theme.SGTypography
+import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 
 @Composable
 internal fun SocialSignInButton(
     text: String,
     icon: ImageVector? = null,
     backgroundColor: Color = SGColor.primaryB,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     Button(
         modifier = Modifier
@@ -37,7 +37,7 @@ internal fun SocialSignInButton(
             .heightIn(min = 52.dp),
         shape = RoundedCornerShape(size = 10.dp),
         colors = ButtonDefaults.buttonColors(backgroundColor),
-        onClick = onClick
+        onClick = onClick,
     ) {
         icon?.let {
             Image(
@@ -56,7 +56,7 @@ internal fun SocialSignInButton(
                 fontFamily = SGTypography.pretendard,
                 textAlign = TextAlign.Center,
             ),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
     }
 }
@@ -66,9 +66,7 @@ internal fun SocialSignInButton(
 private fun SocialSignInButtonPreview() {
     SocialSignInButton(
         text = "Test",
-    ) {
-
-    }
+    ) {}
 }
 
 @DevicePreviews
@@ -76,10 +74,8 @@ private fun SocialSignInButtonPreview() {
 private fun SocialSignInAppleButtonPreview() {
     SocialSignInButton(
         text = "Test",
-        icon = MyIconPack.IconLogoApple
-    ) {
-
-    }
+        icon = MyIconPack.IconLogoApple,
+    ) {}
 }
 
 @DevicePreviews
@@ -87,10 +83,8 @@ private fun SocialSignInAppleButtonPreview() {
 private fun SocialSignInGoogleButtonPreview() {
     SocialSignInButton(
         text = "Test",
-        icon = MyIconPack.IconLogoGoogle
-    ) {
-
-    }
+        icon = MyIconPack.IconLogoGoogle,
+    ) {}
 }
 
 @DevicePreviews
@@ -98,8 +92,6 @@ private fun SocialSignInGoogleButtonPreview() {
 private fun SocialSignInKakaoButtonPreview() {
     SocialSignInButton(
         text = "Test",
-        icon = MyIconPack.IconLogoKakao
-    ) {
-
-    }
+        icon = MyIconPack.IconLogoKakao,
+    ) {}
 }

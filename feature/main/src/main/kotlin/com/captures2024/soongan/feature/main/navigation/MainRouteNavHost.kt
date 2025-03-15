@@ -47,7 +47,7 @@ internal fun MainRouteNavHost(
         enterTransition = { fadeIn() + scaleIn(initialScale = 0.9f) },
         exitTransition = { ExitTransition.None },
         popEnterTransition = { fadeIn() + scaleIn(initialScale = 0.9f) },
-        popExitTransition = { fadeOut() + scaleOut(targetScale = 0.5f) }
+        popExitTransition = { fadeOut() + scaleOut(targetScale = 0.5f) },
     ) {
         welcome(
             navigateToHome = {
@@ -78,7 +78,7 @@ internal fun MainRouteNavHost(
             navigateToNotification = navController::navigateToNotification,
             navigateToHomePost = navController::navigateToHomePost,
             navigateToRegistrationPost = navController::navigateToRegistrationPost,
-            navigateToFAQ = navController::navigateToFAQ
+            navigateToFAQ = navController::navigateToFAQ,
         )
     }
 }

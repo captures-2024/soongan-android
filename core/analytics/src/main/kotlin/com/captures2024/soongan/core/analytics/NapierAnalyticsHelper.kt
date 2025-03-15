@@ -39,15 +39,15 @@ class NapierAnalyticsHelper : AnalyticsHelper() {
         val list = mutableListOf(
             LogElementArgument(
                 "fileName",
-                element.fileName ?: "null"
+                element.fileName ?: "null",
             ),
             LogElementArgument(
                 "lineNumber",
-                element.lineNumber.toString()
+                element.lineNumber.toString(),
             ),
             LogElementArgument(
                 "methodName",
-                element.methodName
+                element.methodName,
             ),
         )
 

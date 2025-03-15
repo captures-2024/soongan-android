@@ -21,14 +21,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.captures2024.soongan.core.designsystem.component.HeightSpacer
-import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
-import com.captures2024.soongan.core.designsystem.component.text.SGText
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconLogoKakao
-import com.captures2024.soongan.core.designsystem.theme.SGColor
-import com.captures2024.soongan.core.designsystem.theme.SGTypography
-import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.designsystem.ui.component.HeightSpacer
+import com.captures2024.soongan.core.designsystem.ui.component.text.SGText
+import com.captures2024.soongan.core.designsystem.ui.component.text.getSGNonScaleTextStyle
+import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
+import com.captures2024.soongan.core.designsystem.ui.theme.SGTypography
+import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.core.viewmodel.sign.SignViewModel
 import com.captures2024.soongan.feature.signIn.R
 
@@ -42,7 +42,7 @@ internal fun SignInScreen(
             .fillMaxSize()
             .background(color = Color.Black)
             .paint(
-                painter = painterResource(id = com.captures2024.soongan.core.design.R.drawable.image_background),
+                painter = painterResource(id = com.captures2024.soongan.core.designsystem.ui.R.drawable.image_background),
                 contentScale = ContentScale.FillBounds,
             )
             .padding(all = 16.dp),
@@ -60,7 +60,7 @@ internal fun SignInScreen(
                     fontWeight = FontWeight.Medium,
                     lineHeight = 112.sp,
                     fontFamily = SGTypography.pretendard,
-                )
+                ),
             )
         }
 
@@ -108,4 +108,3 @@ private fun PreviewSignInScreen() {
         intent = {},
     )
 }
-

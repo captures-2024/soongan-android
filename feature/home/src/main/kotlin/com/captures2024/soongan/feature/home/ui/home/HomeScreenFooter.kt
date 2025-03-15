@@ -5,8 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,11 +20,11 @@ import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillInfo
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillRightArrow
-import com.captures2024.soongan.core.designsystem.component.button.SGIconCircleButton
-import com.captures2024.soongan.core.designsystem.component.text.SGText
-import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
-import com.captures2024.soongan.core.designsystem.theme.SGColor
-import com.captures2024.soongan.core.designsystem.theme.SGTypography
+import com.captures2024.soongan.core.designsystem.ui.component.text.SGText
+import com.captures2024.soongan.core.designsystem.ui.component.text.getSGNonScaleTextStyle
+import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
+import com.captures2024.soongan.core.designsystem.ui.theme.SGTypography
+import com.captures2024.soongan.core.designsystem.ui.component.button.SGIconCircleButton
 import com.captures2024.soongan.feature.home.R
 
 @Composable
@@ -89,7 +87,7 @@ private fun IconBox(
                 lineHeight = 16.sp,
                 fontFamily = SGTypography.nanumSquareNeo,
                 letterSpacing = 0.em,
-            )
+            ),
         )
     }
 }
@@ -100,7 +98,7 @@ private fun HomeScreenFooterPreview() {
     Surface {
         HomeScreenFooter(
             onClickInfo = {},
-            onClickRightArrow = {}
+            onClickRightArrow = {},
         )
     }
 }

@@ -8,7 +8,7 @@ import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFilterOld
 import com.captures2024.soongan.core.viewmodel.model.PostOrderType
 import com.captures2024.soongan.feature.home.R
 
-internal fun PostOrderType.getTextId(): Int = when(this) {
+internal fun PostOrderType.getTextId(): Int = when (this) {
     PostOrderType.MOST_LIKED -> R.string.filter_likes
 
     PostOrderType.OLDEST -> R.string.filter_oldest
@@ -16,10 +16,10 @@ internal fun PostOrderType.getTextId(): Int = when(this) {
     PostOrderType.LATEST -> R.string.filter_newest
 }
 
-internal fun PostOrderType.getIcon(): ImageVector = when(this) {
+internal fun PostOrderType.getIcon(): ImageVector = when (this) {
     PostOrderType.MOST_LIKED -> MyIconPack.IconFilterLike
 
     PostOrderType.OLDEST -> MyIconPack.IconFilterOld
 
-    PostOrderType.LATEST ->MyIconPack.IconFilterNew
+    PostOrderType.LATEST -> MyIconPack.IconFilterNew
 }

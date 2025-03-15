@@ -23,7 +23,7 @@ constructor(
             round = round,
             orderType = orderType,
             page = page,
-            pageSize = pageSize
+            pageSize = pageSize,
         )
 
         return galleryInfo ?: throw java.lang.NullPointerException("galleryDto is null")
@@ -43,7 +43,7 @@ constructor(
 
     override suspend fun getPostInfo(postId: Long): PostInfoDto {
         val postInfoDto = weeklyContestDataSource.getPostInfo(
-            postId = postId
+            postId = postId,
         )
 
         return postInfoDto ?: throw java.lang.NullPointerException("postInfoDto is null")
@@ -65,7 +65,7 @@ constructor(
     override suspend fun getMyGalleryInfo(page: Int, pageSize: Int): MyGalleryDto {
         val myGalleryInfo = weeklyContestDataSource.getMyGalleryInfo(
             page = page,
-            pageSize = pageSize
+            pageSize = pageSize,
         )
 
         return myGalleryInfo ?: throw java.lang.NullPointerException("myGalleryDto is null")

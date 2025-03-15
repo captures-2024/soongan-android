@@ -22,8 +22,8 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillMenu
-import com.captures2024.soongan.core.designsystem.theme.SGColor
-import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
+import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.core.model.UserPost
 import com.captures2024.soongan.core.model.mock.samplePhotos
 
@@ -53,9 +53,9 @@ internal fun HomePostCommentScreen(
         Box(
             modifier = Modifier.size(
                 width = 20.dp,
-                height = 20.dp
+                height = 20.dp,
             ),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
         ) {
             Icon(
                 imageVector = MyIconPack.IconNonFillMenu,
@@ -64,7 +64,7 @@ internal fun HomePostCommentScreen(
                 modifier = Modifier.size(
                     width = 2.dp,
                     height = 12.dp,
-                )
+                ),
             )
         }
     }

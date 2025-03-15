@@ -27,18 +27,18 @@ import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.captures2024.soongan.core.design.R
-import com.captures2024.soongan.core.designsystem.component.HeightSpacer
-import com.captures2024.soongan.core.designsystem.component.shimmerBrush
+import com.captures2024.soongan.core.designsystem.ui.R
+import com.captures2024.soongan.core.designsystem.ui.component.HeightSpacer
+import com.captures2024.soongan.core.designsystem.ui.component.shimmerBrush
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillLeftArrow
-import com.captures2024.soongan.core.designsystem.theme.dropShadow
-import com.captures2024.soongan.core.designsystem.util.DevicePreviews
-import com.captures2024.soongan.core.designsystem.component.button.SGIconCircleButton
-import com.captures2024.soongan.core.designsystem.component.text.SGText
-import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
-import com.captures2024.soongan.core.designsystem.theme.SGColor
-import com.captures2024.soongan.core.designsystem.theme.SGTypography
+import com.captures2024.soongan.core.designsystem.ui.theme.dropShadow
+import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
+import com.captures2024.soongan.core.designsystem.ui.component.text.SGText
+import com.captures2024.soongan.core.designsystem.ui.component.text.getSGNonScaleTextStyle
+import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
+import com.captures2024.soongan.core.designsystem.ui.theme.SGTypography
+import com.captures2024.soongan.core.designsystem.ui.component.button.SGIconCircleButton
 import com.captures2024.soongan.core.model.dto.PostInfoDto
 import com.captures2024.soongan.core.viewmodel.home.HomePostViewModel
 
@@ -63,7 +63,7 @@ internal fun HomePostScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(20.dp),
-                contentAlignment = Alignment.CenterStart
+                contentAlignment = Alignment.CenterStart,
             ) {
                 SGIconCircleButton(
                     imageVector = MyIconPack.IconNonFillLeftArrow,
@@ -79,10 +79,10 @@ internal fun HomePostScreen(
             HomePostScreenBottomBar(
                 isLiked = uiState.post.isLiked,
                 likeCount = uiState.post.likeCount,
-                commentCount = uiState.post.commentCount,
+//                commentCount = uiState.post.commentCount,
                 onClickMenu = { intent(HomePostViewModel.Intent.OnClickMenu) },
                 onClickHeart = { intent(HomePostViewModel.Intent.OnClickHeart) },
-                onClickComment = { intent(HomePostViewModel.Intent.OnClickComment) },
+//                onClickComment = { intent(HomePostViewModel.Intent.OnClickComment) },
             )
         },
         containerColor = SGColor.transparent,
@@ -93,13 +93,13 @@ internal fun HomePostScreen(
                 .fillMaxSize()
                 .padding(horizontal = 16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceBetween
+            verticalArrangement = Arrangement.SpaceBetween,
         ) {
             Box(
                 modifier = Modifier
                     .width(360.dp)
                     .height(460.dp),
-                contentAlignment = Alignment.Center
+                contentAlignment = Alignment.Center,
             ) {
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
@@ -112,7 +112,7 @@ internal fun HomePostScreen(
                         .background(
                             brush = shimmerBrush(
                                 targetValue = 1300f,
-                                showShimmer = showShimmer.value
+                                showShimmer = showShimmer.value,
                             ),
                         )
                         .dropShadow(
@@ -133,7 +133,7 @@ internal fun HomePostScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp)
-                    .padding(bottom = 40.dp)
+                    .padding(bottom = 40.dp),
             ) {
                 SGText(
                     text = uiState.post.title,
@@ -144,7 +144,7 @@ internal fun HomePostScreen(
                         lineHeight = 24.sp,
                         fontFamily = SGTypography.nanumSquareNeo,
                         letterSpacing = 0.em,
-                    )
+                    ),
                 )
 
                 HeightSpacer(8.dp)
@@ -158,7 +158,7 @@ internal fun HomePostScreen(
                         lineHeight = 16.sp,
                         fontFamily = SGTypography.poppins,
                         letterSpacing = (-2).em,
-                    )
+                    ),
                 )
             }
         }
@@ -176,8 +176,8 @@ private fun HomePostScreenPreview() {
                 postId = 1,
                 imageUrl = "",
                 title = "무제",
-                nickname = "테스트닉네임"
-            )
-        )
+                nickname = "테스트닉네임",
+            ),
+        ),
     )
 }

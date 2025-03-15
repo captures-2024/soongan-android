@@ -8,8 +8,7 @@ import com.captures2024.soongan.core.model.utils.ReportType
 import javax.inject.Inject
 
 class ReportRepositoryImpl
-@Inject
-constructor(
+@Inject constructor(
     private val dataSource: ReportDataSource,
 ) : ReportRepository {
 
@@ -19,24 +18,21 @@ constructor(
         reportType: ReportType,
         reason: String?,
     ): ResultConditionDto {
-
         val reportInfo = dataSource.postReport(
             targetId = targetId,
             targetType = targetType,
             reportType = reportType,
-            reason = reason
+            reason = reason,
         )
 
         if (reportInfo == null) {
             throw NullPointerException("reportInfo is null")
         }
 
-        if (
-            targetId != reportInfo.targetId
-            || targetType.name != reportInfo.targetType
-            || reportType.name != reportInfo.reportType
-            || reason != reportInfo.reason
-        ) {
+        if (targetId != reportInfo.targetId ||
+            targetType.name != reportInfo.targetType ||
+            reportType.name != reportInfo.reportType ||
+            reason != reportInfo.reason) {
             return ResultConditionDto(result = false)
         }
 

@@ -27,7 +27,7 @@ constructor(
     clearLoadingUseCase: ClearLoadingUseCase,
     getIsCurrentGuestModeUseCase: GetIsCurrentGuestModeUseCase,
     setIsShowGuestModeDialogFlowUseCase: SetIsShowGuestModeDialogFlowUseCase,
-    savedStateHandle: SavedStateHandle
+    savedStateHandle: SavedStateHandle,
 ) : NewBaseViewModel<HomePostPhotoViewModel.State, HomePostPhotoViewModel.Effect, HomePostPhotoViewModel.Intent>(
     analyticsHelper = analyticsHelper,
     showLoadingUseCase = showLoadingUseCase,

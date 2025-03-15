@@ -15,12 +15,12 @@ interface WeeklyContestRepository {
 
     suspend fun registerPost(
         title: String,
-        imageFile: String
+        imageFile: String,
     ): PostInfoDto
 
     suspend fun getPostInfo(
         postId: Long,
-    ):  PostInfoDto
+    ): PostInfoDto
 
     suspend fun deletePost(
         postId: Long,

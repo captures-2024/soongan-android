@@ -16,14 +16,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import com.captures2024.soongan.core.designsystem.component.button.SGIconButton
-import com.captures2024.soongan.core.designsystem.component.text.SGText
-import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillLeftArrow
-import com.captures2024.soongan.core.designsystem.theme.SGColor
-import com.captures2024.soongan.core.designsystem.theme.SGTypography
-import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.designsystem.ui.component.button.SGIconButton
+import com.captures2024.soongan.core.designsystem.ui.component.text.SGText
+import com.captures2024.soongan.core.designsystem.ui.component.text.getSGNonScaleTextStyle
+import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
+import com.captures2024.soongan.core.designsystem.ui.theme.SGTypography
+import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 
 @Composable
 internal fun CustomTopBar(
@@ -36,13 +36,13 @@ internal fun CustomTopBar(
             .fillMaxWidth()
             .background(color = SGColor.white)
             .padding(horizontal = 20.dp, vertical = 16.dp),
-        contentAlignment = Alignment.CenterStart
+        contentAlignment = Alignment.CenterStart,
     ) {
         SGIconButton(onClick = onBackPressed) {
             Icon(
                 MyIconPack.IconNonFillLeftArrow,
                 contentDescription = "back pressed",
-                modifier = Modifier.size(height = 20.dp, width = 16.dp)
+                modifier = Modifier.size(height = 20.dp, width = 16.dp),
             )
         }
         Row(
@@ -50,7 +50,7 @@ internal fun CustomTopBar(
                 .fillMaxWidth()
                 .height(24.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
+            horizontalArrangement = Arrangement.Center,
         ) {
             SGText(
                 text = text,
@@ -61,7 +61,7 @@ internal fun CustomTopBar(
                     lineHeight = 20.sp,
                     fontFamily = SGTypography.nanumSquareNeo,
                     letterSpacing = 0.em,
-                )
+                ),
             )
         }
     }

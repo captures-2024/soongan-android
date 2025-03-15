@@ -32,12 +32,13 @@ internal fun ReportRouteNavHost(
         sizeTransform = {
             SizeTransform(
                 clip = true,
-                sizeAnimationSpec = { _, _ -> tween(durationMillis = 300) })
-        }
+                sizeAnimationSpec = { _, _ -> tween(durationMillis = 300) },
+            )
+        },
     ) {
         composable<ReportNavigator.Idle> {
             ReportIdleScreen(
-                navigateToCheck = reportRouteState::navigateToReportCheck
+                navigateToCheck = reportRouteState::navigateToReportCheck,
             )
         }
 
@@ -45,7 +46,7 @@ internal fun ReportRouteNavHost(
             ReportCheckScreen(
                 reportRouteState = reportRouteState,
                 navigateToBack = reportRouteState::popBackStack,
-                navigateToDone = reportRouteState::navigateToReportDone
+                navigateToDone = reportRouteState::navigateToReportDone,
             )
         }
 
@@ -55,7 +56,7 @@ internal fun ReportRouteNavHost(
             ReportDoneScreen(
                 targetType = reportRouteState.targetType,
                 hasExtraMessage = hasExtraMessage,
-                onClickConfirm = reportPost
+                onClickConfirm = reportPost,
             )
         }
     }

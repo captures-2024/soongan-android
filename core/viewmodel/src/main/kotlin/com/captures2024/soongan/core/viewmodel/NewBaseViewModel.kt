@@ -27,7 +27,7 @@ import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
 @ViewModelScoped
-abstract class NewBaseViewModel<S: UIState, SE: UISideEffect, I: UIIntent>(
+abstract class NewBaseViewModel<S : UIState, SE : UISideEffect, I : UIIntent>(
     protected val analyticsHelper: AnalyticsHelper,
     private val showLoadingUseCase: ShowLoadingUseCase,
     private val hideLoadingUseCase: HideLoadingUseCase,
@@ -87,16 +87,16 @@ abstract class NewBaseViewModel<S: UIState, SE: UISideEffect, I: UIIntent>(
     protected fun launch(
         context: CoroutineContext = EmptyCoroutineContext,
         start: CoroutineStart = CoroutineStart.DEFAULT,
-        block: suspend CoroutineScope.() -> Unit
+        block: suspend CoroutineScope.() -> Unit,
     ): Job = viewModelScope.launch(
         context = context + coroutineExceptionHandler,
         start = start,
-        block = block
+        block = block,
     )
 
     protected fun loadingLaunch(
         context: CoroutineContext = EmptyCoroutineContext,
-        block: suspend CoroutineScope.() -> Unit
+        block: suspend CoroutineScope.() -> Unit,
     ) {
         showLoading()
         launch(context) {

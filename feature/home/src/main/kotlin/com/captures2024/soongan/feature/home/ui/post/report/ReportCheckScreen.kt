@@ -32,14 +32,14 @@ internal fun ReportCheckScreen(
         reportCheckViewModel.intent(
             ReportCheckViewModel.Intent.OnClickSubmitButton(
                 targetId = reportRouteState.targetId,
-                targetType = reportRouteState.targetType
-            )
+                targetType = reportRouteState.targetType,
+            ),
         )
     }
 
-    if(uiState.isError) {
+    if (uiState.isError) {
         ReportErrorScreen(
-            onClickButton = navigateToBack
+            onClickButton = navigateToBack,
         )
     } else {
         when (uiState.reportType) {
@@ -48,7 +48,7 @@ internal fun ReportCheckScreen(
                     reason = uiState.reason,
                     modifier = modifier,
                     onReasonChanged = { reportCheckViewModel.intent(ReportCheckViewModel.Intent.OnReasonChanged(it)) },
-                    onClickSubmit = { onClickSubmit() }
+                    onClickSubmit = { onClickSubmit() },
                 )
             }
 
@@ -56,7 +56,7 @@ internal fun ReportCheckScreen(
                 ReportNoReasonScreen(
                     reportType = uiState.reportType,
                     modifier = modifier,
-                    onClickSubmit = { onClickSubmit() }
+                    onClickSubmit = { onClickSubmit() },
                 )
             }
         }

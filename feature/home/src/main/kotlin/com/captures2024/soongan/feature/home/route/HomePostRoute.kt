@@ -8,9 +8,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.captures2024.soongan.core.designsystem.component.dialog.SGDoubleButtonDialog
-import com.captures2024.soongan.core.designsystem.component.dialog.SGSingleButtonDialog
 import com.captures2024.soongan.core.model.utils.ReportTargetType
+import com.captures2024.soongan.core.designsystem.ui.component.dialog.SGDoubleButtonDialog
+import com.captures2024.soongan.core.designsystem.ui.component.dialog.SGSingleButtonDialog
 import com.captures2024.soongan.core.viewmodel.home.HomePostViewModel
 import com.captures2024.soongan.core.viewmodel.home.HomePostViewModel.Effect
 import com.captures2024.soongan.core.viewmodel.home.HomePostViewModel.Intent
@@ -34,7 +34,7 @@ internal fun HomePostRoute(
 
     val reportRouteState = rememberReportRouteState(
         targetId = uiState.postId,
-        targetType = ReportTargetType.WEEKLY_POST
+        targetType = ReportTargetType.WEEKLY_POST,
     )
 
     LaunchedEffect(key1 = Unit) {
@@ -72,7 +72,7 @@ internal fun HomePostRoute(
         HomePostBottomModalState.OPEN_COMMENT -> HomePostCommentBottomSheetDialog(
             comment = uiState.inWritingComment,
             closeSheet = { homePostViewModel.intent(Intent.OnClosedModal) },
-            onCommentValueChanged = { homePostViewModel.intent(Intent.OnCommentValueChanged(it)) }
+            onCommentValueChanged = { homePostViewModel.intent(Intent.OnCommentValueChanged(it)) },
         )
 
         HomePostBottomModalState.OPEN_MENU -> HomePostMenuBottomSheetDialog(
@@ -86,7 +86,7 @@ internal fun HomePostRoute(
         HomePostBottomModalState.OPEN_REPORT -> ReportRoute(
             reportRouteState = reportRouteState,
             closeSheet = { homePostViewModel.intent(Intent.OnClosedModal) },
-            reportPost = { homePostViewModel.intent(Intent.OnHidePost) }
+            reportPost = { homePostViewModel.intent(Intent.OnHidePost) },
         )
 
         HomePostBottomModalState.CLOSED -> Unit

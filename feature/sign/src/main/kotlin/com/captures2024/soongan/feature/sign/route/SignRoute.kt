@@ -19,7 +19,7 @@ fun SignRoute(
         SignRouteNavHost(
             navController = navController,
             signViewModel = signViewModel,
-            modifier = Modifier.padding(padding)
+            modifier = Modifier.padding(padding),
         )
     }
 }

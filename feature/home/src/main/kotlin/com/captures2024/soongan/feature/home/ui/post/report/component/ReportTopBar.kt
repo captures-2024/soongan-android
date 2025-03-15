@@ -14,14 +14,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import com.captures2024.soongan.core.designsystem.component.button.SGIconButton
-import com.captures2024.soongan.core.designsystem.component.text.SGText
-import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
+import com.captures2024.soongan.core.designsystem.ui.component.text.SGText
+import com.captures2024.soongan.core.designsystem.ui.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillLeftArrow
-import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
-import com.captures2024.soongan.core.designsystem.theme.SGColor
-import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.designsystem.ui.theme.NanumSquareNeoFontFamily
+import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
+import com.captures2024.soongan.core.designsystem.ui.component.button.SGIconButton
+import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.feature.home.R
 
 @Composable
@@ -36,14 +36,14 @@ internal fun ReportTopBar(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
                 .minimumInteractiveComponentSize(),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
         ) {
             if (hasBackIcon) {
                 SGIconButton(
                     imageVector = MyIconPack.IconNonFillLeftArrow,
                     contentDescription = MyIconPack.IconNonFillLeftArrow.name,
                     modifier = Modifier.align(Alignment.CenterStart),
-                    onClick = onBackPressed
+                    onClick = onBackPressed,
                 )
             }
             SGText(
@@ -55,7 +55,7 @@ internal fun ReportTopBar(
                     fontFamily = NanumSquareNeoFontFamily,
                     letterSpacing = (-5).em,
                     lineHeight = 20.sp,
-                )
+                ),
             )
         }
         HorizontalDivider(color = SGColor.primaryA.copy(alpha = 0.12f))

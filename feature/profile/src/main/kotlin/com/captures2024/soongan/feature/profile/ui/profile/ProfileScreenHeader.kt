@@ -23,19 +23,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.captures2024.soongan.core.designsystem.component.HeightSpacer
-import com.captures2024.soongan.core.designsystem.component.WeightSpacer
-import com.captures2024.soongan.core.designsystem.component.WidthSpacer
-import com.captures2024.soongan.core.designsystem.component.text.SGText
-import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
+import com.captures2024.soongan.core.designsystem.ui.component.HeightSpacer
+import com.captures2024.soongan.core.designsystem.ui.component.WidthSpacer
+import com.captures2024.soongan.core.designsystem.ui.component.text.SGText
+import com.captures2024.soongan.core.designsystem.ui.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillBell
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillMenu
-import com.captures2024.soongan.core.designsystem.theme.SGColor
-import com.captures2024.soongan.core.designsystem.theme.SGTypography
-import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
+import com.captures2024.soongan.core.designsystem.ui.theme.SGTypography
+import com.captures2024.soongan.core.designsystem.ui.component.WeightSpacer
+import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.core.viewmodel.model.profile.UserProfile
-import com.captures2024.soongan.core.design.R as RDesign
+import com.captures2024.soongan.core.designsystem.ui.R as RDesign
 
 @Composable
 internal fun ProfileScreenHeader(
@@ -46,16 +46,16 @@ internal fun ProfileScreenHeader(
 ) {
     Row(
         modifier = modifier
-            .fillMaxWidth()
+            .fillMaxWidth(),
     ) {
         ProfileCard(
             userProfile = userProfile,
-            modifier = Modifier.padding(top = 8.dp)
+            modifier = Modifier.padding(top = 8.dp),
         )
         WeightSpacer(1f)
         IconBox(
             onClickNotification = onClickNotification,
-            onClickMenu = onClickMenu
+            onClickMenu = onClickMenu,
         )
     }
 }
@@ -74,7 +74,7 @@ private fun ProfileCard(
                 .clip(CircleShape),
             placeholder = painterResource(RDesign.drawable.ic_border_profile),
             error = painterResource(RDesign.drawable.ic_border_profile),
-            contentScale = ContentScale.Crop
+            contentScale = ContentScale.Crop,
         )
         WidthSpacer(16.dp)
         Column {
@@ -87,7 +87,7 @@ private fun ProfileCard(
                     lineHeight = 20.sp,
                     fontFamily = SGTypography.poppins,
                     letterSpacing = (-5).em,
-                )
+                ),
             )
 
             HeightSpacer(8.dp)
@@ -101,7 +101,7 @@ private fun ProfileCard(
                     lineHeight = 12.sp,
                     fontFamily = SGTypography.nanumSquareNeo,
                     letterSpacing = (-5).em,
-                )
+                ),
             )
         }
     }
@@ -118,17 +118,17 @@ private fun IconBox(
             modifier = Modifier
                 .size(40.dp)
                 .clickable { onClickNotification() },
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
         ) {
             Badge(
                 modifier = Modifier
                     .size(8.dp)
                     .offset(x = (-6).dp, y = (-6).dp),
-                containerColor = Color(0xffFBC304)
+                containerColor = Color(0xffFBC304),
             )
             Icon(
                 imageVector = MyIconPack.IconNonFillBell,
-                contentDescription = "notification icon"
+                contentDescription = "notification icon",
             )
         }
         WidthSpacer(8.dp)
@@ -136,12 +136,12 @@ private fun IconBox(
             modifier = Modifier
                 .size(40.dp)
                 .clickable { onClickMenu() },
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
         ) {
             Icon(
                 imageVector = MyIconPack.IconNonFillMenu,
                 contentDescription = "bottom sheet menu icon",
-                modifier = Modifier.size(20.dp)
+                modifier = Modifier.size(20.dp),
             )
         }
     }
@@ -153,6 +153,6 @@ private fun ProfileScreenHeaderPreview() {
     ProfileScreenHeader(
         userProfile = UserProfile(),
         onClickNotification = {},
-        onClickMenu = {}
+        onClickMenu = {},
     )
 }

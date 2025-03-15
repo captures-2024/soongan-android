@@ -8,8 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.captures2024.soongan.core.designsystem.component.HeightSpacer
-import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.designsystem.ui.component.HeightSpacer
+import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.core.viewmodel.profile.ProfileViewModel
 
 @Composable
@@ -22,13 +22,13 @@ internal fun ProfileScreen(
         modifier = modifier
             .fillMaxSize()
             .background(color = Color.White)
-            .padding(top = 26.dp)
+            .padding(top = 26.dp),
     ) {
         ProfileScreenHeader(
             userProfile = uiState.userProfile,
             modifier = Modifier.padding(start = 20.dp, end = 16.dp),
             onClickNotification = { intent(ProfileViewModel.Intent.OnClickNotification) },
-            onClickMenu = { intent(ProfileViewModel.Intent.OnClickMenu) }
+            onClickMenu = { intent(ProfileViewModel.Intent.OnClickMenu) },
         )
         HeightSpacer(28.dp)
         ProfileScreenBody(

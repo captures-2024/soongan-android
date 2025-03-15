@@ -26,16 +26,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.common.Validation
-import com.captures2024.soongan.core.designsystem.component.HeightSpacer
-import com.captures2024.soongan.core.designsystem.component.WidthSpacer
-import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
-import com.captures2024.soongan.core.designsystem.component.text.SGText
-import com.captures2024.soongan.core.designsystem.component.text.field.SGTextFieldFormState
-import com.captures2024.soongan.core.designsystem.component.text.field.SGTextFieldTypeForm
-import com.captures2024.soongan.core.designsystem.theme.SGColor
-import com.captures2024.soongan.core.designsystem.theme.SGTheme
-import com.captures2024.soongan.core.designsystem.theme.SGTypography
-import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.designsystem.ui.component.HeightSpacer
+import com.captures2024.soongan.core.designsystem.ui.component.WidthSpacer
+import com.captures2024.soongan.core.designsystem.ui.component.text.SGText
+import com.captures2024.soongan.core.designsystem.ui.component.text.field.SGTextFieldFormState
+import com.captures2024.soongan.core.designsystem.ui.component.text.field.SGTextFieldTypeForm
+import com.captures2024.soongan.core.designsystem.ui.component.text.getSGNonScaleTextStyle
+import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
+import com.captures2024.soongan.core.designsystem.ui.theme.SGTheme
+import com.captures2024.soongan.core.designsystem.ui.theme.SGTypography
+import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.core.viewmodel.sign.BirthViewModel
 import com.captures2024.soongan.feature.signUp.R
 
@@ -86,7 +86,7 @@ internal fun BirthScreen(
                         fontWeight = FontWeight.Medium,
                         lineHeight = 16.sp,
                         fontFamily = SGTypography.pretendard,
-                    )
+                    ),
                 )
 
                 HeightSpacer(4.dp)
@@ -99,7 +99,7 @@ internal fun BirthScreen(
                         fontWeight = FontWeight.Medium,
                         lineHeight = 24.sp,
                         fontFamily = SGTypography.pretendard,
-                    )
+                    ),
                 )
             }
 
@@ -115,7 +115,7 @@ internal fun BirthScreen(
                         fontWeight = FontWeight.Medium,
                         lineHeight = 24.sp,
                         fontFamily = SGTypography.pretendard,
-                    )
+                    ),
                 )
             }
 
@@ -142,7 +142,7 @@ internal fun BirthScreen(
                     Validation.BirthYearValidState.Length -> SGTextFieldFormState.Default
                 },
                 keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Number
+                    keyboardType = KeyboardType.Number,
                 ),
             )
 
@@ -159,7 +159,7 @@ internal fun BirthScreen(
                         else -> stringResource(id = R.string.input_birth_default_hint_text)
                     },
                     style = getSGNonScaleTextStyle(
-                        color =  when (state.isValid) {
+                        color = when (state.isValid) {
                             Validation.BirthYearValidState.Regex -> SGColor.negative
                             else -> SGColor.hintGray
                         },
@@ -167,7 +167,7 @@ internal fun BirthScreen(
                         fontWeight = FontWeight.Medium,
                         lineHeight = 16.sp,
                         fontFamily = SGTypography.pretendard,
-                    )
+                    ),
                 )
             }
         }
@@ -190,7 +190,7 @@ private fun PreviewBirthScreen() {
             intent = {},
             state = BirthViewModel.State(
                 nickname = "test",
-            )
+            ),
         )
     }
 }

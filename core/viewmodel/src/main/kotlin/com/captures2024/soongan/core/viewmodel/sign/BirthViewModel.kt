@@ -97,7 +97,7 @@ constructor(
             return
         }
 
-        if (intent.newValue.length !in 0 .. currentState.maxBirthLength) {
+        if (intent.newValue.length !in 0..currentState.maxBirthLength) {
             return
         }
 

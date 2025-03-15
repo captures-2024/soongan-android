@@ -8,9 +8,9 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleSpanStyle
-import com.captures2024.soongan.core.designsystem.theme.SGColor
-import com.captures2024.soongan.core.designsystem.theme.SGTypography
+import com.captures2024.soongan.core.designsystem.ui.component.text.getSGNonScaleSpanStyle
+import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
+import com.captures2024.soongan.core.designsystem.ui.theme.SGTypography
 
 @Composable
 internal fun nonScaleAnnotatedTitle(
@@ -29,7 +29,7 @@ internal fun nonScaleAnnotatedTitle(
             fontWeight = FontWeight.Bold,
             fontFamily = SGTypography.nanumSquareNeo,
             letterSpacing = (-5).em,
-        )
+        ),
     ) {
         append(title)
     }
@@ -41,7 +41,7 @@ internal fun nonScaleAnnotatedTitle(
             fontWeight = FontWeight.Bold,
             fontFamily = SGTypography.nanumSquareNeo,
             letterSpacing = (0).em,
-        )
+        ),
     ) {
         append("$count")
     }

@@ -14,7 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillPlus
-import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 
 @Composable
 internal fun MiniAddIcon(modifier: Modifier = Modifier) {
@@ -24,13 +24,13 @@ internal fun MiniAddIcon(modifier: Modifier = Modifier) {
             .clip(CircleShape)
             .background(color = Color.Black)
             .border(width = 1.dp, color = Color.White, shape = CircleShape),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Icon(
             imageVector = MyIconPack.IconNonFillPlus,
             contentDescription = MyIconPack.IconNonFillPlus.name,
             modifier = Modifier.size(22.dp),
-            tint = Color.White
+            tint = Color.White,
         )
     }
 }

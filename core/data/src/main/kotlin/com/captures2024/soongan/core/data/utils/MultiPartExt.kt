@@ -6,7 +6,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 
-//fun String?.toTextRequestBody(): RequestBody? = this?.toRequestBody("text/plain".toMediaType())
+// fun String?.toTextRequestBody(): RequestBody? = this?.toRequestBody("text/plain".toMediaType())
 
 fun String?.toImageMultiPart(context: Context, name: String): MultipartBody.Part? {
     return this?.let {
@@ -15,7 +15,7 @@ fun String?.toImageMultiPart(context: Context, name: String): MultipartBody.Part
         MultipartBody.Part.createFormData(
             name,
             file.name,
-            file.asRequestBody("image/*".toMediaType())
+            file.asRequestBody("image/*".toMediaType()),
         )
     }
 }

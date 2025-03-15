@@ -15,23 +15,23 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import com.captures2024.soongan.core.designsystem.component.HeightSpacer
-import com.captures2024.soongan.core.designsystem.component.WidthSpacer
-import com.captures2024.soongan.core.designsystem.component.text.SGText
-import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
+import com.captures2024.soongan.core.designsystem.ui.component.HeightSpacer
+import com.captures2024.soongan.core.designsystem.ui.component.WidthSpacer
+import com.captures2024.soongan.core.designsystem.ui.component.text.SGText
+import com.captures2024.soongan.core.designsystem.ui.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillHeart
-import com.captures2024.soongan.core.designsystem.theme.SGColor
-import com.captures2024.soongan.core.designsystem.theme.SGTypography
-import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
+import com.captures2024.soongan.core.designsystem.ui.theme.SGTypography
+import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 
 @Composable
 internal fun HomePostCommentScreenBody(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier
-            .fillMaxWidth(fraction = 0.9f)
+            .fillMaxWidth(fraction = 0.9f),
     ) {
         SGText(
             text = "user1",
@@ -42,7 +42,7 @@ internal fun HomePostCommentScreenBody(
                 lineHeight = 16.sp,
                 fontFamily = SGTypography.poppins,
                 letterSpacing = 0.em,
-            )
+            ),
         )
 
         HeightSpacer(4.dp)
@@ -56,7 +56,7 @@ internal fun HomePostCommentScreenBody(
                 lineHeight = 18.sp,
                 fontFamily = SGTypography.nanumSquareNeo,
                 letterSpacing = 0.em,
-            )
+            ),
         )
 
         HeightSpacer(8.dp)
@@ -64,10 +64,10 @@ internal fun HomePostCommentScreenBody(
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Row(
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 Icon(
                     imageVector = MyIconPack.IconNonFillHeart,
@@ -75,8 +75,8 @@ internal fun HomePostCommentScreenBody(
                     tint = SGColor.primaryA.copy(alpha = 0.9f),
                     modifier = Modifier.size(
                         width = 16.dp,
-                        height = 16.dp
-                    )
+                        height = 16.dp,
+                    ),
                 )
 
                 WidthSpacer(4.dp)
@@ -90,7 +90,7 @@ internal fun HomePostCommentScreenBody(
                         lineHeight = 16.sp,
                         fontFamily = SGTypography.poppins,
                         letterSpacing = 0.em,
-                    )
+                    ),
                 )
 
                 WidthSpacer(32.dp)
@@ -104,7 +104,7 @@ internal fun HomePostCommentScreenBody(
                         lineHeight = 16.sp,
                         fontFamily = SGTypography.nanumSquareNeo,
                         letterSpacing = 0.em,
-                    )
+                    ),
                 )
             }
 
@@ -117,7 +117,7 @@ internal fun HomePostCommentScreenBody(
                     lineHeight = 16.sp,
                     fontFamily = SGTypography.nanumSquareNeo,
                     letterSpacing = 0.em,
-                )
+                ),
             )
         }
     }

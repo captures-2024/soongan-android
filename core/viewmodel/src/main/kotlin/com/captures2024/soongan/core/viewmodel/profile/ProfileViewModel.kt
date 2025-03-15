@@ -43,7 +43,7 @@ constructor(
     clearLoadingUseCase = clearLoadingUseCase,
     getIsCurrentGuestModeUseCase = getIsCurrentGuestModeUseCase,
     setIsShowGuestModeDialogFlowUseCase = setIsShowGuestModeDialogFlowUseCase,
-    savedStateHandle = savedStateHandle
+    savedStateHandle = savedStateHandle,
 ) {
 
     data class State(
@@ -121,7 +121,7 @@ constructor(
         analyticsHelper.e(
             throwable = throwable,
             logVariable = currentState.toLoggingElements(),
-            message = "handleClientException"
+            message = "handleClientException",
         )
     }
 
@@ -181,7 +181,7 @@ constructor(
     private fun handleOnCloseBottomSheet(intent: Intent.OnCloseBottomSheet) {
         reduce {
             copy(
-                isOpenBottomSheet = false
+                isOpenBottomSheet = false,
             )
         }
 
@@ -205,8 +205,8 @@ constructor(
                     userProfile = UserProfile(
                         nickname = currentMember?.nickname ?: "user1",
                         selfIntroduction = currentMember?.selfIntroduction ?: "본인을 소개해주세요",
-                        profileImageUrl = currentMember?.profileImageUrl
-                    )
+                        profileImageUrl = currentMember?.profileImageUrl,
+                    ),
                 )
             }
         }
@@ -218,7 +218,7 @@ constructor(
                 copy(
                     isRefreshing = isRefreshing,
                     paginationStatus = PaginationStatus.LOADING,
-                    myPosts = emptyList()
+                    myPosts = emptyList(),
                 )
             }
         } else {
@@ -232,7 +232,7 @@ constructor(
 
     private suspend fun fetchProfileGallery(
         page: Int,
-        isRefreshing: Boolean = false
+        isRefreshing: Boolean = false,
     ) {
         when (currentState.paginationStatus) {
             PaginationStatus.LOADING, PaginationStatus.PAGINATING -> return
@@ -251,7 +251,7 @@ constructor(
             params = GetMyGalleryUseCase.Params(
                 page = page,
                 pageSize = PAGE_SIZE,
-            )
+            ),
         ).getOrNull()
 
         if (myGalleryDto == null) {
@@ -260,7 +260,7 @@ constructor(
             reduce {
                 copy(
                     isRefreshing = false,
-                    paginationStatus = PaginationStatus.ERROR
+                    paginationStatus = PaginationStatus.ERROR,
                 )
             }
 
@@ -279,7 +279,7 @@ constructor(
                 },
                 myPosts = myPosts + myGalleryDto.posts,
                 nextPage = page + 1,
-                hasNextPage = myGalleryDto.hasNext
+                hasNextPage = myGalleryDto.hasNext,
             )
         }
     }

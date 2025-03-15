@@ -2,12 +2,13 @@ package com.captures2024.soongan.feature.profile.ui.profile
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 
+@Suppress("UnusedParameter")
 @Composable
 internal fun ProfileParticipationHistory(
     modifier: Modifier = Modifier,
-    participationHistory: List<String> = emptyList()
+    participationHistory: List<String> = emptyList(),
 ) {
     TODO("Not yet implemented")
 }

@@ -14,7 +14,7 @@ class AuthDataSourceImpl
 @Inject
 constructor(
     private val service: AuthService,
-)  : AuthDataSource {
+) : AuthDataSource {
 
     override suspend fun withdrawWithToken(): Boolean {
         val result = safeAPICall { service.withdrawWithToken() }

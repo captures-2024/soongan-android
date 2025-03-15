@@ -149,7 +149,7 @@ constructor(
     private fun handleOnBottomModalDismissRequest() {
         reduce {
             copy(
-                isShowBottomSheet = false
+                isShowBottomSheet = false,
             )
         }
     }
@@ -157,7 +157,7 @@ constructor(
     private fun handleOnClickFilter() {
         reduce {
             copy(
-                isShowBottomSheet = true
+                isShowBottomSheet = true,
             )
         }
     }
@@ -170,7 +170,7 @@ constructor(
         reduce {
             copy(
                 isShowBottomSheet = false,
-                postOrderType = intent.postOrderType
+                postOrderType = intent.postOrderType,
             )
         }
 
@@ -186,7 +186,7 @@ constructor(
                 copy(
                     isRefreshing = isRefreshing,
                     paginationStatus = PaginationStatus.LOADING,
-                    posts = emptyList()
+                    posts = emptyList(),
                 )
             }
         } else {
@@ -222,9 +222,8 @@ constructor(
                 orderType = currentState.postOrderType.name,
                 page = page,
                 pageSize = PAGE_SIZE,
-            )
+            ),
         ).getOrNull()
-
 
         if (galleryDto == null) {
             analyticsHelper.d(message = "galleryDto is null")
@@ -232,7 +231,7 @@ constructor(
             reduce {
                 copy(
                     isRefreshing = false,
-                    paginationStatus = PaginationStatus.ERROR
+                    paginationStatus = PaginationStatus.ERROR,
                 )
             }
 
@@ -253,7 +252,7 @@ constructor(
                 },
                 posts = posts + galleryDto.posts,
                 nextPage = page + 1,
-                hasNextPage = galleryDto.hasNext
+                hasNextPage = galleryDto.hasNext,
             )
         }
     }

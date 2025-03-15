@@ -44,7 +44,7 @@ constructor(
     ) : UIState {
 
         override fun toLoggingElements(): Array<LogElementArgument> = arrayOf(
-            LogElementArgument("nickname", nickname)
+            LogElementArgument("nickname", nickname),
         )
     }
 

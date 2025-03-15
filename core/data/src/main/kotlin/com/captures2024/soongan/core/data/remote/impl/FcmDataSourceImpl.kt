@@ -42,7 +42,7 @@ constructor(
             .addOnCompleteListener { task ->
                 if (!task.isSuccessful) {
                     continuation.resumeWithException(
-                        task.exception ?: IllegalStateException("Fail to load FCM token")
+                        task.exception ?: IllegalStateException("Fail to load FCM token"),
                     )
 
                     return@addOnCompleteListener

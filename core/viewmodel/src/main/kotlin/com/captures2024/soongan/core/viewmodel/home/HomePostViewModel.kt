@@ -256,7 +256,7 @@ constructor(
     private fun handleOnClosedModal() {
         reduce {
             copy(
-                isOpenModal = HomePostBottomModalState.CLOSED
+                isOpenModal = HomePostBottomModalState.CLOSED,
             )
         }
     }

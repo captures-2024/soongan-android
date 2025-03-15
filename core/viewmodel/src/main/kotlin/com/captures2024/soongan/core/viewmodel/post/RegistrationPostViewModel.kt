@@ -28,7 +28,7 @@ constructor(
     clearLoadingUseCase: ClearLoadingUseCase,
     getIsCurrentGuestModeUseCase: GetIsCurrentGuestModeUseCase,
     setIsShowGuestModeDialogFlowUseCase: SetIsShowGuestModeDialogFlowUseCase,
-    savedStateHandle: SavedStateHandle
+    savedStateHandle: SavedStateHandle,
 ) : NewBaseViewModel<RegistrationPostViewModel.State, RegistrationPostViewModel.Effect, RegistrationPostViewModel.Intent>(
     analyticsHelper = analyticsHelper,
     showLoadingUseCase = showLoadingUseCase,
@@ -95,7 +95,7 @@ constructor(
         analyticsHelper.e(
             throwable = throwable,
             logVariable = currentState.toLoggingElements(),
-            message = "handleClientException"
+            message = "handleClientException",
         )
     }
 
@@ -209,7 +209,7 @@ constructor(
             params = RegisterPostUseCase.Params(
                 title = submitData.title,
                 imageFile = submitData.currentMedia.toString(),
-            )
+            ),
         ).getOrNull() ?: -1L
 
         if (result == -1L) {
@@ -223,7 +223,7 @@ constructor(
     private fun handleOnTitleValueChanged(intent: Intent.OnTitleValueChanged) {
         val newValue = intent.newValue
 
-        if (newValue.length !in 0 .. 15) {
+        if (newValue.length !in 0..15) {
             return
         }
 

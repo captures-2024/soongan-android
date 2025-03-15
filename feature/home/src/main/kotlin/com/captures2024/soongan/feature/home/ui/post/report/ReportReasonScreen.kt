@@ -7,9 +7,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.captures2024.soongan.core.designsystem.component.HeightSpacer
-import com.captures2024.soongan.core.designsystem.component.button.SGTextButtonType2
-import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.designsystem.ui.component.HeightSpacer
+import com.captures2024.soongan.core.designsystem.ui.component.button.SGTextButtonType2
+import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.feature.home.R
 import com.captures2024.soongan.feature.home.ui.post.report.component.ReportReasonTextField
 
@@ -25,7 +25,7 @@ internal fun ReportReasonScreen(
     Column(modifier = modifier.padding(horizontal = 20.dp).padding(top = 40.dp, bottom = 28.dp)) {
         ReportReasonTextField(
             text = reason,
-            onTextChange = onReasonChanged
+            onTextChange = onReasonChanged,
         )
         HeightSpacer(48.dp)
 

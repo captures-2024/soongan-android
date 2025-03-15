@@ -4,13 +4,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -37,14 +35,14 @@ import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.captures2024.soongan.core.designsystem.component.CommentInputTextField
-import com.captures2024.soongan.core.designsystem.component.HeightSpacer
-import com.captures2024.soongan.core.designsystem.component.WidthSpacer
-import com.captures2024.soongan.core.designsystem.component.text.SGText
-import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
-import com.captures2024.soongan.core.designsystem.theme.SGColor
-import com.captures2024.soongan.core.designsystem.theme.SGTypography
-import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.designsystem.ui.component.CommentInputTextField
+import com.captures2024.soongan.core.designsystem.ui.component.HeightSpacer
+import com.captures2024.soongan.core.designsystem.ui.component.WidthSpacer
+import com.captures2024.soongan.core.designsystem.ui.component.text.SGText
+import com.captures2024.soongan.core.designsystem.ui.component.text.getSGNonScaleTextStyle
+import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
+import com.captures2024.soongan.core.designsystem.ui.theme.SGTypography
+import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.core.model.UserPost
 import com.captures2024.soongan.core.model.mock.samplePhotos
 import com.captures2024.soongan.feature.home.R
@@ -64,12 +62,12 @@ internal fun HomePostCommentBottomSheetDialog(
             override fun onPostScroll(
                 consumed: Offset,
                 available: Offset,
-                source: NestedScrollSource
+                source: NestedScrollSource,
             ): Offset = available.copy(x = 0f)
 
             override suspend fun onPostFling(
                 consumed: Velocity,
-                available: Velocity
+                available: Velocity,
             ): Velocity = available.copy(x = 0f)
         }
     }
@@ -88,7 +86,7 @@ internal fun HomePostCommentBottomSheetDialog(
             topBar = @Composable {
                 Column(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
+                    horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     SGText(
                         text = stringResource(id = R.string.home_post_comment_bottom_sheet_dialog_title),
@@ -99,14 +97,14 @@ internal fun HomePostCommentBottomSheetDialog(
                             lineHeight = 24.sp,
                             fontFamily = SGTypography.nanumSquareNeo,
                             letterSpacing = 0.em,
-                        )
+                        ),
                     )
 
                     HeightSpacer(8.dp)
 
                     HorizontalDivider(
                         color = SGColor.primaryA.copy(alpha = 0.3f),
-                        thickness = 1.dp
+                        thickness = 1.dp,
                     )
                 }
             },
@@ -118,8 +116,8 @@ internal fun HomePostCommentBottomSheetDialog(
                             start = 12.dp,
                             end = 16.dp,
                             top = 8.dp,
-                            bottom = 8.dp
-                        )
+                            bottom = 8.dp,
+                        ),
                 ) {
                     AsyncImage(
                         model = ImageRequest.Builder(LocalContext.current)
@@ -142,14 +140,14 @@ internal fun HomePostCommentBottomSheetDialog(
                     )
                 }
             },
-            containerColor = SGColor.white
+            containerColor = SGColor.white,
         ) { paddingValues ->
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(paddingValues),
                 verticalArrangement = Arrangement.spacedBy(28.dp),
-                contentPadding = PaddingValues(top = 16.dp)
+                contentPadding = PaddingValues(top = 16.dp),
             ) {
                 items(10) {
                     HomePostCommentScreen()

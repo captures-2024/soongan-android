@@ -8,12 +8,12 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.captures2024.soongan.core.designsystem.theme.SGColor
+import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
 
 @Composable
 internal fun CustomDragHandle(modifier: Modifier = Modifier) = Box(
     modifier
         .padding(top = 16.dp)
         .background(color = SGColor.primaryA, shape = RoundedCornerShape(50))
-        .size(width = 40.dp, height = 4.dp)
+        .size(width = 40.dp, height = 4.dp),
 )

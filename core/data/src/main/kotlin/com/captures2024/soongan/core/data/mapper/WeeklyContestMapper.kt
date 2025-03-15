@@ -15,22 +15,22 @@ fun GetGalleryResponse.toGalleryDto(): GalleryDto = GalleryDto(
     round = this.round,
     subject = this.subject,
     posts = this.posts.map { it.toGalleryPostDto() },
-    hasNext = this.pageInfo.hasNext
+    hasNext = this.pageInfo.hasNext,
 )
 
 fun GetMyGalleryResponse.toMyGalleryDto(): MyGalleryDto = MyGalleryDto(
     posts = this.posts.map { it.toGalleryPostDto() },
-    hasNext = this.pageInfo.hasNext
+    hasNext = this.pageInfo.hasNext,
 )
 
 fun GetGalleryPostInfoResponse.toGalleryPostDto(): GalleryPostDto = GalleryPostDto(
     postId = this.postId,
-    imageUrl = this.imageUrl
+    imageUrl = this.imageUrl,
 )
 
 fun GetMyGalleryPostInfoResponse.toGalleryPostDto(): GalleryPostDto = GalleryPostDto(
     postId = this.postId,
-    imageUrl = this.imageUrl
+    imageUrl = this.imageUrl,
 )
 
 fun RegisterPostResponse.toPostInfoDto(): PostInfoDto = PostInfoDto(
@@ -46,7 +46,7 @@ fun GetPostInfoResponse.toPostInfoDto(): PostInfoDto = PostInfoDto(
     title = this.title,
     imageUrl = this.imageUrl,
     nickname = this.nickname,
-    likeCount =this.likeCount,
+    likeCount = this.likeCount,
     isLiked = this.isLiked,
-    commentCount = this.commentCount
+    commentCount = this.commentCount,
 )

@@ -43,7 +43,7 @@ constructor(
     clearLoadingUseCase = clearLoadingUseCase,
     getIsCurrentGuestModeUseCase = getIsCurrentGuestModeUseCase,
     setIsShowGuestModeDialogFlowUseCase = setIsShowGuestModeDialogFlowUseCase,
-    savedStateHandle = savedStateHandle
+    savedStateHandle = savedStateHandle,
 ) {
 
     data class State(
@@ -93,7 +93,7 @@ constructor(
         analyticsHelper.e(
             throwable = throwable,
             logVariable = currentState.toLoggingElements(),
-            message = "handleClientException"
+            message = "handleClientException",
         )
     }
 
@@ -178,21 +178,21 @@ constructor(
                 outType = when (outType) {
                     ProfileBtmShtOutType.OUT_OF_AREA -> when (currentState.depthStatus) {
                         ProfileBtmShtDepthState.SignOut.Done,
-                        ProfileBtmShtDepthState.Withdraw.Done -> ProfileBtmShtOutType.DONE_STATUS
+                        ProfileBtmShtDepthState.Withdraw.Done,
+                        -> ProfileBtmShtOutType.DONE_STATUS
 
                         else -> ProfileBtmShtOutType.OUT_OF_AREA
                     }
 
                     else -> outType
-                }
-            )
+                },
+            ),
         )
 
         reduce {
             copy(
-                depthStatus = ProfileBtmShtDepthState.Idle
+                depthStatus = ProfileBtmShtDepthState.Idle,
             )
         }
     }
 }
-

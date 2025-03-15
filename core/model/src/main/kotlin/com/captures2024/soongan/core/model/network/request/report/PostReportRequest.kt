@@ -13,5 +13,4 @@ data class PostReportRequest(
     val reportType: String,
     @SerialName("reason")
     val reason: String? = null,
-
 )

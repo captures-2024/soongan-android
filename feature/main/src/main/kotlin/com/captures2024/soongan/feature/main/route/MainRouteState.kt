@@ -30,7 +30,6 @@ internal fun rememberMainRouteState(
     )
 }
 
-
 @Stable
 internal class MainRouteState(
     val isGuestMode: Boolean,

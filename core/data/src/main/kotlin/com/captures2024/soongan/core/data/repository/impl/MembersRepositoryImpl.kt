@@ -43,13 +43,13 @@ constructor(
         )
 
         _currentMember.emit(
-            _currentMember.value?.let { currentMember ->
+            value = _currentMember.value?.let { currentMember ->
                 return@let currentMember.copy(
                     nickname = userInfoDto?.nickname,
                     selfIntroduction = userInfoDto?.selfIntroduction,
                     profileImageUrl = userInfoDto?.profileImageUrl,
                 )
-            }
+            },
         )
 
         return userInfoDto?.also {
@@ -67,7 +67,7 @@ constructor(
                 return@let currentMember.copy(
                     birthYear = userInfoDto?.birthYear ?: currentMember.birthYear,
                 )
-            }
+            },
         )
 
         return userInfoDto?.also {

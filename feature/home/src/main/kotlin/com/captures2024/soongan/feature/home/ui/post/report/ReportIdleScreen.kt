@@ -12,11 +12,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
-import com.captures2024.soongan.core.designsystem.component.text.SGText
-import com.captures2024.soongan.core.designsystem.theme.NanumSquareNeoFontFamily
-import com.captures2024.soongan.core.designsystem.theme.SGColor
-import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.designsystem.ui.component.text.getSGNonScaleTextStyle
+import com.captures2024.soongan.core.designsystem.ui.component.text.SGText
+import com.captures2024.soongan.core.designsystem.ui.theme.NanumSquareNeoFontFamily
+import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
+import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.core.model.utils.ReportType
 import com.captures2024.soongan.feature.home.utils.getTextId
 
@@ -30,13 +30,13 @@ internal fun ReportIdleScreen(
     Column(
         modifier = modifier
             .padding(horizontal = 20.dp)
-            .padding(bottom = 12.dp)
+            .padding(bottom = 12.dp),
     ) {
         ReportType.entries.forEachIndexed { idx, type ->
             PostReportDefaultBody(
                 text = stringResource(id = type.getTextId()),
                 isVisibleDivider = (idx != lastIdx),
-                onClick = { navigateToCheck(type) }
+                onClick = { navigateToCheck(type) },
             )
         }
     }
@@ -53,7 +53,7 @@ private fun PostReportDefaultBody(
         modifier = modifier
             .fillMaxWidth()
             .clickable(onClick = onClick)
-            .padding(horizontal = 20.dp)
+            .padding(horizontal = 20.dp),
     ) {
         SGText(
             text = text,
@@ -64,7 +64,7 @@ private fun PostReportDefaultBody(
                 lineHeight = 20.sp,
                 fontFamily = NanumSquareNeoFontFamily,
             ),
-            modifier = Modifier.padding(vertical = 20.dp)
+            modifier = Modifier.padding(vertical = 20.dp),
         )
     }
     if (isVisibleDivider) {

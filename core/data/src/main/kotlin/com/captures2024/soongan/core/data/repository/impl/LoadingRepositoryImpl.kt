@@ -13,7 +13,7 @@ constructor(
     private val analyticsHelper: AnalyticsHelper,
 ) : LoadingRepository {
     private val _isLoading: MutableStateFlow<Map<String, Int>> = MutableStateFlow(emptyMap())
-    override val loadingFlow: Flow<Boolean> =  _isLoading.map { it.isNotEmpty() }
+    override val loadingFlow: Flow<Boolean> = _isLoading.map { it.isNotEmpty() }
 
     override fun showLoading(tag: String) {
         val currentMap = _isLoading.value.toMutableMap()

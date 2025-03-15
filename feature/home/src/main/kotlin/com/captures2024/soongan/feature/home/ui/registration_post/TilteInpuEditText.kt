@@ -22,13 +22,13 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import com.captures2024.soongan.core.designsystem.component.HeightSpacer
-import com.captures2024.soongan.core.designsystem.component.text.SGText
-import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
-import com.captures2024.soongan.core.designsystem.theme.SGColor
-import com.captures2024.soongan.core.designsystem.theme.SGTypography
-import com.captures2024.soongan.core.designsystem.theme.dropShadow
-import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.designsystem.ui.component.HeightSpacer
+import com.captures2024.soongan.core.designsystem.ui.component.text.SGText
+import com.captures2024.soongan.core.designsystem.ui.component.text.getSGNonScaleTextStyle
+import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
+import com.captures2024.soongan.core.designsystem.ui.theme.SGTypography
+import com.captures2024.soongan.core.designsystem.ui.theme.dropShadow
+import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 
 private const val MAX_INPUT_LENGTH = 15
 
@@ -68,9 +68,9 @@ internal fun TitleInputEditText(
                         )
                         .background(
                             color = SGColor.white,
-                            shape = RoundedCornerShape(4.dp)
+                            shape = RoundedCornerShape(4.dp),
                         ),
-                    contentAlignment = Alignment.Center
+                    contentAlignment = Alignment.Center,
                 ) {
                     innerTextField()
 
@@ -86,8 +86,8 @@ internal fun TitleInputEditText(
             keyboardActions = KeyboardActions(
                 onDone = {
                     focusManager.clearFocus()
-                }
-            )
+                },
+            ),
         )
 
         HeightSpacer(8.dp)
@@ -115,7 +115,7 @@ internal fun TitleInputEditText(
 private fun TitleInputEditTextPreview() {
     TitleInputEditText(
         value = "어쩌구저쩌어쩌구저쩌어쩌구저쩌",
-        onValueChange = {}
+        onValueChange = {},
     )
 }
 
@@ -124,6 +124,6 @@ private fun TitleInputEditTextPreview() {
 private fun TitleInputEditTextEmptyPreview() {
     TitleInputEditText(
         value = "",
-        onValueChange = {}
+        onValueChange = {},
     )
 }
