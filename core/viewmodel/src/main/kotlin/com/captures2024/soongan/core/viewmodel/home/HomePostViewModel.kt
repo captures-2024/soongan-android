@@ -8,6 +8,8 @@ import com.captures2024.soongan.core.common.base.UIIntent
 import com.captures2024.soongan.core.common.base.UISideEffect
 import com.captures2024.soongan.core.common.base.UIState
 import com.captures2024.soongan.core.domain.usecase.dialog.SetIsShowGuestModeDialogFlowUseCase
+import com.captures2024.soongan.core.domain.usecase.like.DeletePostLikeUseCase
+import com.captures2024.soongan.core.domain.usecase.like.PutPostLikeUseCase
 import com.captures2024.soongan.core.domain.usecase.loading.ClearLoadingUseCase
 import com.captures2024.soongan.core.domain.usecase.loading.HideLoadingUseCase
 import com.captures2024.soongan.core.domain.usecase.loading.ShowLoadingUseCase
@@ -20,6 +22,7 @@ import com.captures2024.soongan.core.navigator.screen.main.home.HomePostNavigato
 import com.captures2024.soongan.core.viewmodel.NewBaseViewModel
 import com.captures2024.soongan.core.viewmodel.model.HomePostBottomModalState
 import com.captures2024.soongan.core.viewmodel.model.HomePostDialogModalState
+import com.captures2024.soongan.core.viewmodel.model.PostLikeContestType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -30,6 +33,8 @@ constructor(
     private val currentMemberFlowUseCase: GetCurrentMemberFlowUseCase,
     private val getPostInfoUseCase: GetPostInfoUseCase,
     private val deletePostUseCase: DeletePostUseCase,
+    private val putPostLikeUseCase: PutPostLikeUseCase,
+    private val deletePostLikeUseCase: DeletePostLikeUseCase,
     analyticsHelper: AnalyticsHelper,
     showLoadingUseCase: ShowLoadingUseCase,
     hideLoadingUseCase: HideLoadingUseCase,
@@ -51,6 +56,7 @@ constructor(
         val postId: Long,
         val post: PostInfoDto = PostInfoDto(),
         val isMyPost: Boolean = false,
+        val isLikedChanged: Boolean = false,
         val isOpenModal: HomePostBottomModalState = HomePostBottomModalState.CLOSED,
         val isOpenDialogModal: HomePostDialogModalState = HomePostDialogModalState.CLOSED,
         val inWritingComment: String = "",
@@ -60,6 +66,7 @@ constructor(
             LogElementArgument("postId", postId.toString()),
             LogElementArgument("post", post.toString()),
             LogElementArgument("isMyPost", isMyPost.toString()),
+            LogElementArgument("isLikedChanged", isLikedChanged.toString()),
             LogElementArgument("isOpenModal", isOpenModal.toString()),
             LogElementArgument("isOpenDialogModal", isOpenDialogModal.toString()),
             LogElementArgument("inWritingComment", inWritingComment),
@@ -96,6 +103,8 @@ constructor(
         data object OnClickMenu : Intent
 
         data object OnClickHeart : Intent
+
+        data object OnClickHeartRemote : Intent
 
         data object OnClickComment : Intent
 
@@ -141,6 +150,8 @@ constructor(
             is Intent.OnClickComment -> handleOnClickComment()
 
             is Intent.OnClickHeart -> handleOnClickHeart()
+
+            is Intent.OnClickHeartRemote -> loadingLaunch { handleOnClickHeartRemote() }
 
             is Intent.OnClickMenu -> handleOnClickMenu()
 
@@ -197,7 +208,37 @@ constructor(
     }
 
     private fun handleOnClickHeart() {
-        TODO("Not Impl yet")
+        reduce {
+            copy(
+                post = post.copy(
+                    likeCount = if (post.isLiked) post.likeCount - 1 else post.likeCount + 1,
+                    isLiked = !post.isLiked
+                ),
+                isLikedChanged = !isLikedChanged
+            )
+        }
+    }
+
+    private suspend fun handleOnClickHeartRemote() {
+        if (!currentState.isLikedChanged) {
+            return
+        }
+
+        when (currentState.post.isLiked) {
+            true -> {
+                putPostLikeUseCase(
+                    postId = currentState.postId,
+                    contestType = PostLikeContestType.WEEKLY.name
+                )
+            }
+
+            false -> {
+                deletePostLikeUseCase(
+                    postId = currentState.postId,
+                    contestType = PostLikeContestType.WEEKLY.name
+                )
+            }
+        }
     }
 
     private fun handleOnClickMenu() {
@@ -277,9 +318,9 @@ constructor(
 
         reduce {
             copy(
-                isOpenDialogModal =
-                when (result) {
+                isOpenDialogModal = when (result) {
                     true -> HomePostDialogModalState.OPEN_COMPLETE
+
                     else -> HomePostDialogModalState.OPEN_FAIL
                 }
             )
