@@ -1,9 +1,10 @@
 package com.captures2024.soongan.feature.home.ui.post
 
+import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -19,25 +20,29 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.component.WidthSpacer
+import com.captures2024.soongan.core.designsystem.component.button.SGIconButton
 import com.captures2024.soongan.core.designsystem.component.text.SGText
 import com.captures2024.soongan.core.designsystem.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFillHeart
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillHeart
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillMenu
-import com.captures2024.soongan.core.designsystem.theme.SGDimension
 import com.captures2024.soongan.core.designsystem.theme.SGColor
+import com.captures2024.soongan.core.designsystem.theme.SGDimension
 import com.captures2024.soongan.core.designsystem.theme.SGTypography
 import com.captures2024.soongan.core.designsystem.theme.dropShadow
 import com.captures2024.soongan.core.designsystem.util.DevicePreviews
+import com.captures2024.soongan.core.designsystem.util.extension.toKM
 
 @Composable
 internal fun HomePostScreenBottomBar(
+    isLiked: Boolean,
     likeCount: Int,
     commentCount: Int,
     modifier: Modifier = Modifier,
     onClickMenu: () -> Unit = {},
     onClickHeart: () -> Unit = {},
-    onClickComment: () -> Unit = {}
+    onClickComment: () -> Unit = {},
 ) {
     Row(
         modifier = modifier
@@ -55,12 +60,8 @@ internal fun HomePostScreenBottomBar(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Box(
-            modifier =  Modifier.size(
-                width = 24.dp,
-                height = 24.dp
-            ),
-            contentAlignment = Alignment.Center
+        SGIconButton(
+            onClick = onClickMenu
         ) {
             Icon(
                 imageVector = MyIconPack.IconNonFillMenu,
@@ -69,28 +70,38 @@ internal fun HomePostScreenBottomBar(
                 modifier = Modifier.size(
                     width = 4.dp,
                     height = 20.dp
-                ).clickable(
-                    onClick = onClickMenu
                 )
             )
         }
-        Row {
-            Icon(
-                imageVector = MyIconPack.IconFillHeart,
-                contentDescription = "heart",
-                tint = SGColor.primaryA,
-                modifier = Modifier.size(
-                    width = 24.dp,
-                    height = 21.dp
-                ).clickable(
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Crossfade(
+                targetState = isLiked,
+                animationSpec = tween(durationMillis = 300, easing = LinearEasing),
+                label = "isLiked icon ease out animation"
+            ) { isLiked ->
+                val icon = if (isLiked) MyIconPack.IconFillHeart else MyIconPack.IconNonFillHeart
+                SGIconButton(
                     onClick = onClickHeart
-                )
-            )
+                ) {
+                    Icon(
+                        imageVector = icon,
+                        contentDescription = "heart",
+                        tint = SGColor.primaryA,
+                        modifier = Modifier
+                            .size(
+                                width = 24.dp,
+                                height = 21.dp
+                            )
+                    )
+                }
+            }
 
             WidthSpacer(8.dp)
 
             SGText(
-                text = likeCount.toString(),
+                text = likeCount.toKM(),
                 style = getSGNonScaleTextStyle(
                     color = SGColor.primaryA,
                     fontSize = 12.sp,
@@ -118,7 +129,7 @@ internal fun HomePostScreenBottomBar(
 //            )
 //            Spacer(modifier = Modifier.width(8.dp))
 //            NonScaleText(
-//                text = commentCount.toString(),
+//                text = commentCount.toKM(),
 //                color = SGColor.primaryA,
 //                fontSize = 12.sp,
 //                fontWeight = FontWeight.Light
@@ -132,7 +143,8 @@ internal fun HomePostScreenBottomBar(
 @Composable
 private fun HomePostScreenBottomBarPreview() {
     HomePostScreenBottomBar(
-        likeCount = 0,
+        isLiked = false,
+        likeCount = 1_234_567,
         commentCount = 0,
     )
 }

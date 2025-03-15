@@ -42,7 +42,11 @@ internal fun HomePostRoute(
             when (effect) {
                 is Effect.NavigateToBack -> navigateToBack()
 
-                is Effect.NavigateToEditPost -> navigateToEditPost(effect.postId, effect.imageUrl, effect.title)
+                is Effect.NavigateToEditPost -> navigateToEditPost(
+                    effect.postId,
+                    effect.imageUrl,
+                    effect.title
+                )
 
                 is Effect.NavigateToHomePostPhoto -> navigateToHomePostPhoto(effect.url)
 
@@ -53,6 +57,10 @@ internal fun HomePostRoute(
 
     LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
         homePostViewModel.intent(Intent.Init)
+    }
+
+    LifecycleEventEffect(Lifecycle.Event.ON_PAUSE) {
+        homePostViewModel.intent(Intent.OnClickHeartRemote)
     }
 
     HomePostScreen(
