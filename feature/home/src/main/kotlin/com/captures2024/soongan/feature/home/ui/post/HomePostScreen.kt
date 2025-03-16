@@ -77,6 +77,7 @@ internal fun HomePostScreen(
         },
         bottomBar = @Composable {
             HomePostScreenBottomBar(
+                isLiked = uiState.post.isLiked,
                 likeCount = uiState.post.likeCount,
 //                commentCount = uiState.post.commentCount,
                 onClickMenu = { intent(HomePostViewModel.Intent.OnClickMenu) },

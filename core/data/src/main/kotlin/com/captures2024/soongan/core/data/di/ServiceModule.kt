@@ -4,6 +4,7 @@ import com.captures2024.soongan.core.data.service.AuthService
 import com.captures2024.soongan.core.data.service.FcmService
 import com.captures2024.soongan.core.data.service.HomeService
 import com.captures2024.soongan.core.data.service.MembersService
+import com.captures2024.soongan.core.data.service.PostLikeService
 import com.captures2024.soongan.core.data.service.ReportService
 import com.captures2024.soongan.core.data.service.WeeklyContestService
 import dagger.Module
@@ -40,4 +41,8 @@ object ServiceModule {
     @Singleton
     @Provides
     internal fun provideReportService(retrofit: Retrofit): ReportService = retrofit.create(ReportService::class.java)
+
+    @Singleton
+    @Provides
+    internal fun providePostLikeService(retrofit: Retrofit): PostLikeService = retrofit.create(PostLikeService::class.java)
 }

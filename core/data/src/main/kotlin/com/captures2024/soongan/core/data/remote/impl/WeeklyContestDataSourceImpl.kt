@@ -11,6 +11,7 @@ import com.captures2024.soongan.core.data.utils.toImageMultiPart
 import com.captures2024.soongan.core.model.dto.GalleryDto
 import com.captures2024.soongan.core.model.dto.MyGalleryDto
 import com.captures2024.soongan.core.model.dto.PostInfoDto
+import com.captures2024.soongan.core.model.network.request.weekly.contests.EditPostRequest
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
@@ -52,6 +53,31 @@ constructor(
             postId = postId,
         )
     }.body?.responseData?.toPostInfoDto()
+
+    override suspend fun deletePost(
+        postId: Long,
+    ): Boolean {
+        val result = safeAPICall {
+            service.deletePost(
+                postId = postId,
+            )
+        }.body
+
+        return when (result) {
+            null -> false
+            else -> true
+        }
+    }
+
+    override suspend fun editPostTitle(
+        postId: Long,
+        title: String,
+    ): String? = safeAPICall {
+        service.editPostTitle(
+            postId = postId,
+            request = EditPostRequest(title = title),
+        )
+    }.body?.responseData?.title
 
     override suspend fun getMyGalleryInfo(
         page: Int,

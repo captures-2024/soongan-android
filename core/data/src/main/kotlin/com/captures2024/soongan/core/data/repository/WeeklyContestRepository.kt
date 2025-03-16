@@ -22,6 +22,15 @@ interface WeeklyContestRepository {
         postId: Long,
     ): PostInfoDto
 
+    suspend fun deletePost(
+        postId: Long,
+    ): Boolean
+
+    suspend fun editPostTitle(
+        postId: Long,
+        title: String,
+    ): String
+
     suspend fun getMyGalleryInfo(
         page: Int,
         pageSize: Int,

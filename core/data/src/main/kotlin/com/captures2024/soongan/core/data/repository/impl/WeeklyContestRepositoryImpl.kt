@@ -49,6 +49,18 @@ constructor(
         return postInfoDto ?: throw java.lang.NullPointerException("postInfoDto is null")
     }
 
+    override suspend fun deletePost(postId: Long): Boolean =
+        weeklyContestDataSource.deletePost(postId = postId)
+
+    override suspend fun editPostTitle(postId: Long, title: String): String {
+        val editedTitle = weeklyContestDataSource.editPostTitle(
+            postId = postId,
+            title = title,
+        )
+
+        return editedTitle ?: throw java.lang.NullPointerException("editedTitle is null")
+    }
+
     override suspend fun getMyGalleryInfo(page: Int, pageSize: Int): MyGalleryDto {
         val myGalleryInfo = weeklyContestDataSource.getMyGalleryInfo(
             page = page,

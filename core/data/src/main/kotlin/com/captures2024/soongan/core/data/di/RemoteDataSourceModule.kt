@@ -4,12 +4,14 @@ import com.captures2024.soongan.core.data.remote.AuthDataSource
 import com.captures2024.soongan.core.data.remote.FcmDataSource
 import com.captures2024.soongan.core.data.remote.HomeDataSource
 import com.captures2024.soongan.core.data.remote.MembersDataSource
+import com.captures2024.soongan.core.data.remote.PostLikeDataSource
 import com.captures2024.soongan.core.data.remote.ReportDataSource
 import com.captures2024.soongan.core.data.remote.WeeklyContestDataSource
 import com.captures2024.soongan.core.data.remote.impl.AuthDataSourceImpl
 import com.captures2024.soongan.core.data.remote.impl.FcmDataSourceImpl
 import com.captures2024.soongan.core.data.remote.impl.HomeDataSourceImpl
 import com.captures2024.soongan.core.data.remote.impl.MembersDataSourceImpl
+import com.captures2024.soongan.core.data.remote.impl.PostLikeDataSourceImpl
 import com.captures2024.soongan.core.data.remote.impl.ReportDataSourceImpl
 import com.captures2024.soongan.core.data.remote.impl.WeeklyContestDataSourceImpl
 import dagger.Binds
@@ -45,4 +47,8 @@ abstract class RemoteDataSourceModule {
     @Binds
     @Singleton
     abstract fun bindReportDataSource(reportDataSourceImpl: ReportDataSourceImpl): ReportDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindPostLikeDataSource(postLikeDataSourceImpl: PostLikeDataSourceImpl): PostLikeDataSource
 }
