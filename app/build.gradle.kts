@@ -9,6 +9,7 @@ plugins {
     alias(libs.plugins.captures2024.soongan.retrofit)
     alias(libs.plugins.captures2024.soongan.test.junit5)
     alias(libs.plugins.captures2024.soongan.test.kotest)
+    alias(libs.plugins.google.crashlytics)
 }
 
 android {
@@ -87,6 +88,8 @@ dependencies {
     implementation(projects.feature.signUp)
     implementation(projects.feature.termsOfUse)
     implementation(projects.feature.welcome)
+
+    implementation(libs.google.firebase.crashlytics)
 
     implementation(libs.android.startup)
     implementation(libs.kakao.login)
