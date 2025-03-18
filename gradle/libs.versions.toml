@@ -249,7 +249,6 @@ navigation = [
 firebase = [
     "google-firebase-auth",
     "google-firebase-analytics",
-#    "google-firebase-crashlytics",
     "google-firebase-messaging"
 ]
 
