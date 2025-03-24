@@ -49,7 +49,7 @@ internal fun RefuteScreen(
 ) {
     val scrollState = rememberScrollState()
 
-    Scaffold (
+    Scaffold(
         modifier = modifier.fillMaxSize(),
         topBar = @Composable {
             Column {
@@ -62,7 +62,7 @@ internal fun RefuteScreen(
         },
         bottomBar = {
             Box(
-                modifier = Modifier.padding(20.dp)
+                modifier = Modifier.padding(20.dp),
             ) {
                 SGTextButtonType2(
                     text = stringResource(R.string.refute_screen_button_content),
@@ -71,7 +71,6 @@ internal fun RefuteScreen(
                     modifier = Modifier.fillMaxWidth(),
                 )
             }
-
         },
         containerColor = SGColor.white,
     ) { paddingValues: PaddingValues ->
@@ -80,7 +79,7 @@ internal fun RefuteScreen(
                 .padding(paddingValues)
                 .padding(20.dp)
                 .verticalScroll(scrollState),
-            verticalArrangement = Arrangement.spacedBy(40.dp)
+            verticalArrangement = Arrangement.spacedBy(40.dp),
         ) {
             Box(
                 modifier = Modifier
@@ -140,13 +139,13 @@ internal fun RefuteScreen(
                             fontWeight = FontWeight.Normal,
                             fontFamily = SGTypography.nanumSquareNeo,
                             letterSpacing = 0.em,
-                            textDecoration = TextDecoration.Underline
+                            textDecoration = TextDecoration.Underline,
                         ),
                     ) {
                         append(stringResource(R.string.refute_screen_content_8))
                         append(stringResource(R.string.refute_screen_content_9))
                     }
-                }
+                },
             )
 
             SGTextFieldTypeLong(
