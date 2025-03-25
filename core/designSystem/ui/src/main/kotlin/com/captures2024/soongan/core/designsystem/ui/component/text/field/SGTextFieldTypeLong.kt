@@ -50,7 +50,7 @@ fun SGTextFieldTypeLong(
             .padding(12.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        Box {
+        Box(modifier = Modifier.weight(1f)) {
             SGTextField(
                 value = value,
                 textStyle = textStyle,
