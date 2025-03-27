@@ -13,6 +13,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.navOptions
 import com.captures2024.soongan.core.android.utils.LocalAnalyticsHelper
 import com.captures2024.soongan.core.designsystem.ui.component.dialog.SGDoubleButtonDialog
+import com.captures2024.soongan.core.navigator.screen.main.home.RegistrationPostNavigator
 import com.captures2024.soongan.core.viewmodel.post.RegistrationPostViewModel
 import com.captures2024.soongan.feature.home.ui.registration_post.RegistrationPostScreen
 import com.captures2024.soongan.feature.home.ui.registration_post.SubmitBottomSheetDialog
@@ -46,7 +47,9 @@ internal fun RegistrationPostRoute(
                 is RegistrationPostViewModel.Effect.NavigateToPost -> navigateToPost(
                     sideEffect.postId,
                     navOptions {
-                        popUpTo(0)
+                        popUpTo(RegistrationPostNavigator) {
+                            inclusive = true
+                        }
                     },
                 )
             }
