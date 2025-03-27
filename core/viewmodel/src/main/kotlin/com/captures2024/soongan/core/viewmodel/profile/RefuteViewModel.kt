@@ -13,9 +13,12 @@ import com.captures2024.soongan.core.domain.usecase.loading.ShowLoadingUseCase
 import com.captures2024.soongan.core.domain.usecase.members.GetIsCurrentGuestModeUseCase
 import com.captures2024.soongan.core.viewmodel.NewBaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 @HiltViewModel
-class RefuteViewModel(
+class RefuteViewModel
+@Inject
+constructor(
     analyticsHelper: AnalyticsHelper,
     showLoadingUseCase: ShowLoadingUseCase,
     hideLoadingUseCase: HideLoadingUseCase,
