@@ -52,7 +52,9 @@ internal fun MainRouteNavHost(
         welcome(
             navigateToHome = {
                 val navOptions = navOptions {
-                    popUpTo(navController.graph.findStartDestination().id)
+                    popUpTo(navController.graph.findStartDestination().id) {
+                        inclusive = true
+                    }
                     launchSingleTop = true
                     restoreState = true
                 }
