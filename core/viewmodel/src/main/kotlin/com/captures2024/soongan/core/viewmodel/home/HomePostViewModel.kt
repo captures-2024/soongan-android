@@ -239,6 +239,12 @@ constructor(
                 )
             }
         }
+
+        reduce {
+            copy(
+                isLikedChanged = false,
+            )
+        }
     }
 
     private fun handleOnClickMenu() {
