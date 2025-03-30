@@ -6,6 +6,7 @@ import com.captures2024.soongan.core.analytics.utils.LogElementArgument
 import com.captures2024.soongan.core.common.base.UIIntent
 import com.captures2024.soongan.core.common.base.UISideEffect
 import com.captures2024.soongan.core.common.base.UIState
+import com.captures2024.soongan.core.domain.usecase.auth.SigningGoogleUseCase
 import com.captures2024.soongan.core.domain.usecase.auth.SigningKakaoUseCase
 import com.captures2024.soongan.core.domain.usecase.dialog.SetIsShowGuestModeDialogFlowUseCase
 import com.captures2024.soongan.core.domain.usecase.fcm.GetFcmUseCase
@@ -25,6 +26,7 @@ class SignViewModel
 constructor(
     private val getFcmUseCase: GetFcmUseCase,
     private val signingKakaoUseCase: SigningKakaoUseCase,
+    private val signingGoogleUseCase: SigningGoogleUseCase,
     private val setGuestModeUseCase: SetGuestModeUseCase,
     private val getMemberInfoUseCase: GetMemberInfoUseCase,
     analyticsHelper: AnalyticsHelper,
@@ -57,6 +59,10 @@ constructor(
 
         data object KakaoSignIn : Effect
 
+        data class GoogleSignIn(
+            val signInRequestCode: Int,
+        ) : Effect
+
         data object NavigateToTermsOfUse : Effect
 
         data object NavigateToPrivacyPolicy : Effect
@@ -79,6 +85,11 @@ constructor(
         data object OnClickSignKakao : Intent
 
         /**
+         * 사용자가 구글 로그인을 시도할 때 발생하는 인텐트
+         */
+        data object OnClickSignGoogle : Intent
+
+        /**
          * 사용자가 이용약관을 확인하려고 할 때 발생하는 인텐트
          */
         data object OnClickTermsOfUse : Intent
@@ -98,6 +109,10 @@ constructor(
             val accessToken: String,
             val refreshToken: String,
         ) : Intent
+
+        data class CompleteSignGoogleResult(
+            val token: String,
+        ) : Intent
     }
 
     override fun createInitialState(savedStateHandle: SavedStateHandle): State = State()
@@ -112,14 +127,12 @@ constructor(
     override fun handleIntent(intent: Intent) {
         when (intent) {
             is Intent.OnClickGuestMode -> handleOnClickGuestMode()
-
             is Intent.OnClickSignKakao -> loadingLaunch { handleOnClickSignKakao() }
-
+            is Intent.OnClickSignGoogle -> handleOnClickSignGoogle()
             is Intent.OnClickPrivacyPolicy -> handleOnClickPrivacyPolicy()
-
             is Intent.OnClickTermsOfUse -> handleOnClickTermsOfUse()
-
             is Intent.CompleteSignKakao -> launch { handleCompleteSignKakao(intent) }
+            is Intent.CompleteSignGoogleResult -> loadingLaunch { handleCompleteSignGoogleResult(intent) }
         }
     }
 
@@ -129,6 +142,10 @@ constructor(
 
     private fun handleOnClickSignKakao() {
         postSideEffect(Effect.KakaoSignIn)
+    }
+
+    private fun handleOnClickSignGoogle() {
+        postSideEffect(Effect.GoogleSignIn(SIGN_IN_REQUEST_CODE))
     }
 
     private fun handleOnClickPrivacyPolicy() {
@@ -141,6 +158,10 @@ constructor(
 
     private suspend fun handleCompleteSignKakao(intent: Intent.CompleteSignKakao) {
         kakaoSignIn(token = intent.accessToken)
+    }
+
+    private suspend fun handleCompleteSignGoogleResult(intent: Intent.CompleteSignGoogleResult) {
+        googleSignIn(token = intent.token)
     }
 
     private suspend fun kakaoSignIn(token: String) {
@@ -171,5 +192,39 @@ constructor(
                 analyticsHelper.d(message = "kakaoSignIn - result: $result")
             }
         }
+    }
+
+    private suspend fun googleSignIn(token: String) {
+        val fcmToken = getFcmUseCase().getOrNull()
+
+        if (fcmToken == null) {
+            analyticsHelper.d(message = "fcm token is null")
+            return
+        }
+
+        val result = signingGoogleUseCase(
+            token = token,
+            fcmToken = fcmToken,
+        ).getOrNull()
+
+        when (result) {
+            true -> {
+                val infoDto = getMemberInfoUseCase().getOrNull()
+
+                if (infoDto == null) {
+                    analyticsHelper.d(message = "googleSign - infoDto is null")
+                }
+
+                postSideEffect(Effect.NavigateToSignUp(infoDto?.nickname))
+            }
+
+            else -> {
+                analyticsHelper.d(message = "googleSign - result: $result")
+            }
+        }
+    }
+
+    companion object {
+        private const val SIGN_IN_REQUEST_CODE = 158
     }
 }

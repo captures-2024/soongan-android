@@ -10,7 +10,7 @@ import javax.inject.Inject
 class AuthInterceptor
 @Inject
 constructor(
-    analyticsHelper: AnalyticsHelper,
+    private val analyticsHelper: AnalyticsHelper,
     private val tokenDataSource: TokenDataSource,
 ) : Interceptor {
 
@@ -26,6 +26,8 @@ constructor(
         return@with when (isAccessToken) {
             "true" -> {
                 val accessToken = runBlocking { tokenDataSource.getAccessToken() }
+
+//                analyticsHelper.d(message = "AuthInterceptor - accessToken: $accessToken")
 
                 val newRequest = defaultRequest.newBuilder()
                     .header(AUTH_HEADER, "$AUTH_PREFIX $accessToken")
