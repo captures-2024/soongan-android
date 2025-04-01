@@ -111,7 +111,7 @@ constructor(
         ) : Intent
 
         data class CompleteSignGoogleResult(
-            val token: String,
+            val token: String?,
         ) : Intent
     }
 
@@ -161,7 +161,8 @@ constructor(
     }
 
     private suspend fun handleCompleteSignGoogleResult(intent: Intent.CompleteSignGoogleResult) {
-        googleSignIn(token = intent.token)
+        val token = intent.token ?: return
+        googleSignIn(token)
     }
 
     private suspend fun kakaoSignIn(token: String) {

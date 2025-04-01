@@ -79,7 +79,9 @@ class SoonGanActivity : ComponentActivity(), KakaoLoginCallback {
                 }
             }
 
-            CompositionLocalProvider(LocalAnalyticsHelper provides analyticsHelper) {
+            CompositionLocalProvider(
+                LocalAnalyticsHelper provides analyticsHelper,
+            ) {
                 SGTheme(darkTheme = darkTheme) {
                     AppRoute(
                         appRootViewModel = appRootViewModel,
