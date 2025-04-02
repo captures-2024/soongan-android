@@ -1,7 +1,11 @@
 package com.captures2024.soongan.core.model.mock
 
-import com.captures2024.soongan.core.model.UserNotification
 import com.captures2024.soongan.core.model.UserPost
+import com.captures2024.soongan.core.model.dto.Notification
+import com.captures2024.soongan.core.model.utils.NotificationSubType
+import com.captures2024.soongan.core.model.utils.NotificationType
+import com.captures2024.soongan.core.model.utils.NotificationsTable
+import java.util.EnumMap
 
 val samplePhotos: List<UserPost> by lazy {
     listOf(
@@ -133,48 +137,79 @@ val samplePhotos: List<UserPost> by lazy {
     )
 }
 
-val mockNotifications: List<UserNotification> by lazy {
-    listOf(
-        List(8) { idx ->
-            val index = idx + 1
-            UserNotification.Contest(
-                id = index,
-                title = "대회 알림 title $index",
-                body = "대회 알림 content $index",
-                receiveAt = "$index 일전",
-                isRead = idx % 2 != 0,
+val mockNotificationsTable: NotificationsTable by lazy {
+    EnumMap<NotificationType, Map<Long, Notification>>(NotificationType::class.java).apply {
+        put(
+            NotificationType.CONTEST,
+            mapOf(
+                1L to Notification(
+                    id = 1,
+                    title = "CONTEST_START",
+                    body = "CONTEST_START",
+                    subType = NotificationSubType.CONTEST_START,
+                    createdAt = "1"
+                ),
+                2L to Notification(
+                    id = 2,
+                    title = "CONTEST_END",
+                    body = "CONTEST_END",
+                    subType = NotificationSubType.CONTEST_END,
+                    createdAt = "1"
+                ),
             )
-        },
-        List(8) { idx ->
-            val index = idx + 9
-            UserNotification.Action(
-                id = index,
-                title = "활동 알림 title $index",
-                body = "활동 알림 content $index",
-                receiveAt = "$index 일전",
-                isRead = idx % 2 != 0,
+        )
+        put(
+            NotificationType.ACTIVITY,
+            mapOf(
+                3L to Notification(
+                    id = 3,
+                    title = "LIKE",
+                    body = "LIKE",
+                    subType = NotificationSubType.LIKE,
+                    createdAt = "1"
+                ),
+                4L to Notification(
+                    id = 4,
+                    title = "COMMENT",
+                    body = "COMMENT",
+                    subType = NotificationSubType.COMMENT,
+                    createdAt = "2"
+                ),
+                5L to Notification(
+                    id = 5,
+                    title = "APPEAL",
+                    body = "APPEAL",
+                    subType = NotificationSubType.APPEAL,
+                    createdAt = "3"
+                ),
             )
-        },
-        List(8) { idx ->
-            val index = idx + 17
-            UserNotification.Announcement(
-                id = index,
-                title = "공지 알림 title $index",
-                body = "공지 알림 content $index",
-                receiveAt = "$index 일전",
-                isRead = idx % 2 != 0,
+        )
+        put(
+            NotificationType.NOTICE,
+            mapOf(
+                6L to Notification(
+                    id = 6,
+                    title = "NOTICE",
+                    body = "NOTICE",
+                    subType = NotificationSubType.NOTICE,
+                    createdAt = "1"
+                ),
+                7L to Notification(
+                    id = 7,
+                    title = "NOTICE",
+                    body = "NOTICE",
+                    subType = NotificationSubType.NOTICE,
+                    createdAt = "2"
+                ),
             )
-        },
-        List(4) { idx ->
-            val index = idx + 25
-            UserNotification.Vindication(
-                id = index,
-                title = "소명 알림 title $index",
-                body = "소명 알림 content $index",
-                receiveAt = "$index 일전",
-                isRead = idx % 2 != 0,
-                completed = idx % 2 != 0,
-            )
-        },
-    ).flatten()
+        )
+    }
+}
+
+val mockNotificationsCountTable by lazy {
+    EnumMap<NotificationType, Int>(NotificationType::class.java).apply {
+        put(NotificationType.CONTEST, 2)
+        put(NotificationType.ACTIVITY, 3)
+        put(NotificationType.NOTICE, 2)
+    }
 }

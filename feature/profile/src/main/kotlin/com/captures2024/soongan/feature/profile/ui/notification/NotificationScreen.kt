@@ -7,26 +7,34 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
-import com.captures2024.soongan.core.model.UserNotification
-import com.captures2024.soongan.core.model.mock.mockNotifications
+import com.captures2024.soongan.core.viewmodel.profile.NotificationViewModel
 import com.captures2024.soongan.feature.profile.ui.component.CustomTopBar
 
 @Composable
 internal fun NotificationScreen(
+    uiState: NotificationViewModel.State,
+    intent: (NotificationViewModel.Intent) -> Unit,
     modifier: Modifier = Modifier,
-    onBackPressed: () -> Unit = {},
-    allNotifications: List<UserNotification> = mockNotifications,
 ) {
     Scaffold(
         modifier = modifier.fillMaxSize(),
         topBar = {
-            CustomTopBar(text = "알림", onBackPressed = onBackPressed)
+            CustomTopBar(
+                text = "알림",
+                onBackPressed = { intent(NotificationViewModel.Intent.OnBackPressed) })
         },
         containerColor = SGColor.white,
     ) { paddingValues ->
         NotificationBody(
             modifier = modifier.padding(paddingValues),
-            notifications = allNotifications,
+            notificationsTable = uiState.notifications,
+            notificationsCountTable = uiState.notificationsCount,
+            onClickNotification = { type, id ->
+                intent(NotificationViewModel.Intent.OnClickNotification(type, id))
+            },
+            onDeleteNotification = { type, id ->
+                intent(NotificationViewModel.Intent.OnDeleteNotification(type, id))
+            },
         )
     }
 }
@@ -34,5 +42,5 @@ internal fun NotificationScreen(
 @DevicePreviews
 @Composable
 private fun NotificationScreenPreview() {
-    NotificationScreen(allNotifications = mockNotifications)
+    NotificationScreen(uiState = NotificationViewModel.State(), intent = {})
 }

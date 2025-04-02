@@ -34,7 +34,9 @@ fun NavGraphBuilder.profile(
         )
     }
     composable<NotificationNavigator> {
-        NotificationRoute()
+        NotificationRoute(
+            navigateToBack = navigateToBack,
+        )
     }
     composable<FAQNavigator> {
         FAQScreen(
