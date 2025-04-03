@@ -2,7 +2,8 @@ package com.captures2024.soongan.feature.signIn.route
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import com.captures2024.soongan.core.android.utils.LocalAnalyticsHelper
+import androidx.compose.ui.platform.LocalContext
+import com.captures2024.soongan.core.auth.requestGoogleLogin
 import com.captures2024.soongan.core.viewmodel.sign.SignViewModel
 import com.captures2024.soongan.feature.signIn.ui.SignInScreen
 
@@ -14,18 +15,17 @@ internal fun SignInRoute(
     navigateToPrivacyPolicy: () -> Unit,
     signViewModel: SignViewModel,
 ) {
-    val analyticsHelper = LocalAnalyticsHelper.current
+    val context = LocalContext.current
 
     LaunchedEffect(Unit) {
-        signViewModel.sideEffect.collect {
-            analyticsHelper.d(message = "Collected sideEffect = $it")
-            when (it) {
+        signViewModel.sideEffect.collect { effect ->
+            when (effect) {
                 is SignViewModel.Effect.NavigateToTermsOfUse -> navigateToTermsOfUse()
 
                 is SignViewModel.Effect.NavigateToPrivacyPolicy -> navigateToPrivacyPolicy()
 
                 is SignViewModel.Effect.NavigateToSignUp -> {
-                    val nickname = it.nickname
+                    val nickname = effect.nickname
 
                     if (nickname == null) {
                         navigateToNickname()
@@ -40,6 +40,8 @@ internal fun SignInRoute(
                 }
 
                 is SignViewModel.Effect.KakaoSignIn -> Unit
+
+                is SignViewModel.Effect.GoogleSignIn -> signViewModel.intent(SignViewModel.Intent.CompleteSignGoogleResult(context.requestGoogleLogin()))
             }
         }
     }

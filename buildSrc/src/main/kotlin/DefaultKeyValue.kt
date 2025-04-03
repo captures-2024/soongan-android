@@ -31,22 +31,6 @@ object DefaultKeyValue {
         IllegalArgumentException::class,
         NullPointerException::class,
     )
-    fun isAllowedGoogleApiKey(key: String?): String {
-        if (key == null) {
-            throw NullPointerException("google api key is null. Please input your google api key")
-        }
-
-        if (key == DEFAULT_GOOGLE_API_KEY) {
-            throw IllegalArgumentException("google api key is default. Please input your google api key")
-        }
-
-        return key
-    }
-
-    @Throws(
-        IllegalArgumentException::class,
-        NullPointerException::class,
-    )
     fun isAllowedGoogleClientId(key: String?): String {
         if (key == null) {
             throw NullPointerException("google client id is null. Please input your google client id")

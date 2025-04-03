@@ -22,6 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconLogoGoogle
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconLogoKakao
 import com.captures2024.soongan.core.designsystem.ui.component.HeightSpacer
 import com.captures2024.soongan.core.designsystem.ui.component.text.SGText
@@ -72,6 +73,13 @@ internal fun SignInScreen(
             verticalArrangement = Arrangement.Bottom,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
+            SocialSignInButton(
+                text = stringResource(id = R.string.sign_in_text_google),
+                icon = MyIconPack.IconLogoGoogle,
+                backgroundColor = Color(0xFFF5F5F5),
+                onClick = { intent(SignViewModel.Intent.OnClickSignGoogle) },
+            )
+            HeightSpacer(16.dp)
             SocialSignInButton(
                 text = stringResource(id = R.string.sign_in_text_kakao),
                 icon = MyIconPack.IconLogoKakao,
