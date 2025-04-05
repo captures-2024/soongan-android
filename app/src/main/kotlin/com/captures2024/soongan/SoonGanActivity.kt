@@ -10,21 +10,16 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.android.utils.LocalAnalyticsHelper
-import com.captures2024.soongan.core.auth.kakao.KakaoAuthHelper
-import com.captures2024.soongan.core.auth.kakao.KakaoAuthHelperImpl
-import com.captures2024.soongan.core.auth.kakao.KakaoLoginCallback
 import com.captures2024.soongan.core.designsystem.ui.theme.SGTheme
 import com.captures2024.soongan.core.viewmodel.AppRootViewModel
-import com.captures2024.soongan.core.viewmodel.sign.SignViewModel
 import com.captures2024.soongan.route.AppRoute
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SoonGanActivity : ComponentActivity(), KakaoLoginCallback {
+class SoonGanActivity : ComponentActivity() {
 
     //region di property
     @Inject
@@ -32,9 +27,6 @@ class SoonGanActivity : ComponentActivity(), KakaoLoginCallback {
     //endregion
 
     private val appRootViewModel: AppRootViewModel by viewModels()
-    private val signViewModel: SignViewModel by viewModels()
-
-    private val kakaoAuthHelper: KakaoAuthHelper by lazy { KakaoAuthHelperImpl() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,56 +55,16 @@ class SoonGanActivity : ComponentActivity(), KakaoLoginCallback {
                 onDispose {}
             }
 
-            LaunchedEffect(Unit) {
-                signViewModel.sideEffect.collect { sideEffect ->
-                    analyticsHelper.d { "Collected signInVm.sideEffect signInViewModel.sideEffect = $sideEffect" }
-
-                    when (sideEffect) {
-                        is SignViewModel.Effect.KakaoSignIn -> signInKakao()
-
-                        else -> Unit
-                    }
-                }
-            }
-
             CompositionLocalProvider(
                 LocalAnalyticsHelper provides analyticsHelper,
             ) {
                 SGTheme(darkTheme = darkTheme) {
                     AppRoute(
                         appRootViewModel = appRootViewModel,
-                        signViewModel = signViewModel,
                     )
                 }
             }
         }
-    }
-
-    override fun onSuccessKakaoLogin(
-        accessToken: String?,
-        refreshToken: String?,
-    ) {
-        analyticsHelper.d { "onSuccessKakaoLogin - accessToken: $accessToken, refreshToken: $refreshToken" }
-
-        signViewModel.intent(
-            SignViewModel.Intent.CompleteSignKakao(
-                accessToken = accessToken ?: "",
-                refreshToken = refreshToken ?: "",
-            ),
-        )
-    }
-
-    override fun onFailureKakaoLogin(
-        error: Throwable?,
-    ) {
-        analyticsHelper.e(error) { "onFailureKakaoLogin" }
-    }
-
-    private fun signInKakao() {
-        kakaoAuthHelper.kakaoLogin(
-            context = this,
-            callback = this,
-        )
     }
 }
 

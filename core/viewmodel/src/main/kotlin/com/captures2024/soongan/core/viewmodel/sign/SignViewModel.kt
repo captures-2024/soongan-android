@@ -23,11 +23,6 @@ import javax.inject.Inject
 class SignViewModel
 @Inject
 constructor(
-    private val getFcmUseCase: GetFcmUseCase,
-    private val signingKakaoUseCase: SigningKakaoUseCase,
-    private val signingGoogleUseCase: SigningGoogleUseCase,
-    private val setGuestModeUseCase: SetGuestModeUseCase,
-    private val getMemberInfoUseCase: GetMemberInfoUseCase,
     analyticsHelper: AnalyticsHelper,
     showLoadingUseCase: ShowLoadingUseCase,
     hideLoadingUseCase: HideLoadingUseCase,
@@ -35,6 +30,11 @@ constructor(
     getIsCurrentGuestModeUseCase: GetIsCurrentGuestModeUseCase,
     setIsShowGuestModeDialogFlowUseCase: SetIsShowGuestModeDialogFlowUseCase,
     savedStateHandle: SavedStateHandle,
+    private val getFcmUseCase: GetFcmUseCase,
+    private val signingKakaoUseCase: SigningKakaoUseCase,
+    private val signingGoogleUseCase: SigningGoogleUseCase,
+    private val setGuestModeUseCase: SetGuestModeUseCase,
+    private val getMemberInfoUseCase: GetMemberInfoUseCase,
 ) : NewBaseViewModel<SignViewModel.State, SignViewModel.Effect, SignViewModel.Intent>(
     analyticsHelper = analyticsHelper,
     showLoadingUseCase = showLoadingUseCase,
@@ -98,8 +98,8 @@ constructor(
          * @property refreshToken 토큰 갱신을 위해 카카오로부터 받은 refresh 토큰
          */
         data class CompleteSignKakao(
-            val accessToken: String,
-            val refreshToken: String,
+            val accessToken: String?,
+            val refreshToken: String?,
         ) : Intent
 
         data class CompleteSignGoogleResult(
@@ -146,6 +146,10 @@ constructor(
     }
 
     private suspend fun handleCompleteSignKakao(intent: Intent.CompleteSignKakao) {
+        if (intent.accessToken == null) {
+            return
+        }
+
         kakaoSignIn(token = intent.accessToken)
     }
 

@@ -1,9 +1,10 @@
-package com.captures2024.soongan.core.auth
+package com.captures2024.soongan.core.auth.google
 
 import android.content.Context
 import androidx.credentials.CredentialManager
 import androidx.credentials.CustomCredential
 import androidx.credentials.GetCredentialRequest
+import com.captures2024.soongan.core.auth.BuildConfig
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 

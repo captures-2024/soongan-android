@@ -7,7 +7,6 @@ import com.captures2024.soongan.core.viewmodel.sign.SignViewModel
 import com.captures2024.soongan.feature.signIn.route.SignInRoute
 
 fun NavGraphBuilder.signIn(
-    signViewModel: SignViewModel,
     navigateToNickname: () -> Unit,
     navigateToBirth: (String) -> Unit,
     navigateToTermsOfUse: () -> Unit,
@@ -19,7 +18,6 @@ fun NavGraphBuilder.signIn(
             navigateToBirth = navigateToBirth,
             navigateToTermsOfUse = navigateToTermsOfUse,
             navigateToPrivacyPolicy = navigateToPrivacyPolicy,
-            signViewModel = signViewModel,
         )
     }
 }

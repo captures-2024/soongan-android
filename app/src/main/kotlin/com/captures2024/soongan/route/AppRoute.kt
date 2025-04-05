@@ -23,7 +23,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.captures2024.soongan.core.designsystem.ui.component.background.SGBackground
 import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.core.viewmodel.AppRootViewModel
-import com.captures2024.soongan.core.viewmodel.sign.SignViewModel
 import com.captures2024.soongan.feature.intro.route.IntroRoute
 import com.captures2024.soongan.feature.main.route.MainRoute
 import com.captures2024.soongan.feature.sign.route.SignRoute
@@ -33,7 +32,6 @@ import kotlinx.coroutines.delay
 @Composable
 internal fun AppRoute(
     appRootViewModel: AppRootViewModel,
-    signViewModel: SignViewModel,
 ) {
     val uiState by appRootViewModel.state.collectAsStateWithLifecycle()
 
@@ -41,11 +39,11 @@ internal fun AppRoute(
         AppRootScreen(
             intent = appRootViewModel::intent,
             uiState = uiState,
-            appLandingRoute = @Composable { AppLandingRoute() },
+            appLandingRoute = @Composable {
+                AppLandingRoute()
+            },
             appSignRoute = @Composable {
-                AppSignRoute(
-                    signViewModel = signViewModel,
-                )
+                AppSignRoute()
             },
             appMainRoute = @Composable {
                 AppMainRoute(isGuestMode = uiState.isGuestMode)
@@ -100,10 +98,8 @@ private fun AppLandingRoute() {
 }
 
 @Composable
-private fun AppSignRoute(
-    signViewModel: SignViewModel,
-) {
-    SignRoute(signViewModel = signViewModel)
+private fun AppSignRoute() {
+    SignRoute()
 }
 
 @Composable
