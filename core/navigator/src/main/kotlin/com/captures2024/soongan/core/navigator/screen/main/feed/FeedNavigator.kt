@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data object FeedNavigator
 
-fun NavController.navigateToFeed() = navigate(FeedNavigator)
+fun NavController.navigateToFeed() = navigateToFeed(null)
 
 fun NavController.navigateToFeed(navOptions: NavOptions?) = navigate(
     route = FeedNavigator,

@@ -9,7 +9,10 @@ data class HomePostNavigator(
     val id: Long,
 )
 
-fun NavController.navigateToHomePost(id: Long) = navigate(HomePostNavigator(id = id))
+fun NavController.navigateToHomePost(id: Long) = navigateToHomePost(
+    id = id,
+    navOptions = null,
+)
 
 fun NavController.navigateToHomePost(
     id: Long,

@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data object RegistrationPostNavigator
 
-fun NavController.navigateToRegistrationPost() = navigate(RegistrationPostNavigator)
+fun NavController.navigateToRegistrationPost() = navigateToRegistrationPost(null)
 
 fun NavController.navigateToRegistrationPost(navOptions: NavOptions?) = navigate(
     route = RegistrationPostNavigator,

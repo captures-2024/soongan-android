@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data object AwardsNavigator
 
-fun NavController.navigateToAwards() = navigate(AwardsNavigator)
+fun NavController.navigateToAwards() = navigateToAwards(null)
 
 fun NavController.navigateToAwards(navOptions: NavOptions?) = navigate(
     route = AwardsNavigator,

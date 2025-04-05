@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data object NotificationNavigator
 
-fun NavController.navigateToNotification() = navigate(NotificationNavigator)
+fun NavController.navigateToNotification() = navigateToNotification(null)
 
 fun NavController.navigateToNotification(navOptions: NavOptions?) = navigate(
     route = NotificationNavigator,
