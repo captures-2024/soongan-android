@@ -41,7 +41,11 @@ internal fun SignInRoute(
 
                 is SignViewModel.Effect.KakaoSignIn -> Unit
 
-                is SignViewModel.Effect.GoogleSignIn -> signViewModel.intent(SignViewModel.Intent.CompleteSignGoogleResult(context.requestGoogleLogin()))
+                is SignViewModel.Effect.GoogleSignIn -> signViewModel.intent(
+                    SignViewModel.Intent.CompleteSignGoogleResult(
+                        context.requestGoogleLogin(),
+                    ),
+                )
             }
         }
     }
