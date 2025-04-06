@@ -22,6 +22,7 @@ import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillBac
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillBell
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillCircleQuestion
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillComment
+import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillDelete
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillEdit
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillFile
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillFillter
@@ -361,6 +362,22 @@ private fun IconNonFillCommentPreview() {
     ) {
         Icon(
             imageVector = MyIconPack.IconNonFillComment,
+            contentDescription = "",
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun IconNonFillDeletePreview() {
+    Box(
+        modifier = Modifier
+            .size(64.dp, 64.dp)
+            .background(Color.White),
+        contentAlignment = Alignment.Center,
+    ) {
+        Icon(
+            imageVector = MyIconPack.IconNonFillDelete,
             contentDescription = "",
         )
     }
