@@ -25,7 +25,7 @@ internal fun NotificationScreen(
         },
         containerColor = SGColor.white,
     ) { paddingValues ->
-        NotificationBody(
+        NotificationTab(
             modifier = modifier.padding(paddingValues),
             notificationsTable = uiState.notifications,
             notificationsCountTable = uiState.notificationsCount,
