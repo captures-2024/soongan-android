@@ -37,10 +37,10 @@ import com.captures2024.soongan.feature.profile.ui.notification.component.Notifi
 
 @Composable
 internal fun NotificationBody(
-    notifications: Map<Long, Notification>,
+    notifications: Map<Int, Notification>,
     modifier: Modifier = Modifier,
-    onClickNotification: (Long) -> Unit = {},
-    onDeleteNotification: (Long) -> Unit = {},
+    onClickNotification: (Int) -> Unit = {},
+    onDeleteNotification: (Int) -> Unit = {},
 ) {
     Column(
         modifier = modifier.fillMaxSize(),
@@ -79,33 +79,34 @@ private fun EmptyNotificationHistory(modifier: Modifier = Modifier) {
 
 @Composable
 private fun NotificationHistory(
-    notifications: Map<Long, Notification>,
+    notifications: Map<Int, Notification>,
     modifier: Modifier = Modifier,
-    onClickNotification: (Long) -> Unit = {},
-    onDeleteNotification: (Long) -> Unit = {},
+    onClickNotification: (Int) -> Unit = {},
+    onDeleteNotification: (Int) -> Unit = {},
 ) {
     LazyColumn(
         modifier = modifier
     ) {
         items(
-            items = notifications.values.toList(),
-            key = { it.id }
+            items = notifications.entries.toList(),
+            key = { it.key }
         ) {
-            if (it.subType == NotificationSubType.APPEAL || it.subType == NotificationSubType.NOTICE) {
+            val notification = it.value
+            if (notification.subType == NotificationSubType.APPEAL || notification.subType == NotificationSubType.NOTICE) {
                 NotificationHistoryContent(
-                    notification = it,
-                    isAppeal = (it.subType == NotificationSubType.APPEAL),
-                    onClick = { onClickNotification(it.id) },
+                    notification = notification,
+                    isAppeal = (notification.subType == NotificationSubType.APPEAL),
+                    onClick = { onClickNotification(it.key) },
                 )
             } else {
                 SwipeableBox(
                     actions = {
-                        DeleteActionBox(onClick = { onDeleteNotification(it.id) })
+                        DeleteActionBox(onClick = { onDeleteNotification(it.key) })
                     },
                     content = {
                         NotificationHistoryContent(
-                            notification = it,
-                            onClick = { onClickNotification(it.id) })
+                            notification = notification,
+                            onClick = { onClickNotification(it.key) })
                     }
                 )
             }

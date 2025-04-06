@@ -77,12 +77,12 @@ constructor(
 
         data class OnClickNotification(
             val type: NotificationType,
-            val notificationId: Long,
+            val indexKey: Int,
         ) : Intent
 
         data class OnDeleteNotification(
             val type: NotificationType,
-            val notificationId: Long,
+            val indexKey: Int,
         ) : Intent
     }
 
@@ -110,21 +110,22 @@ constructor(
     }
 
     private suspend fun handleInit() {
+//        initSetNotificationsCount()
+//        initSetNotifications()
+
+        // 임시 데이터 - 아래 코드 삭제 후 위 주석 해제
         reduce {
             copy(
                 notifications = mockNotificationsTable,
                 notificationsCount = mockNotificationsCountTable,
             )
         }
-
-//        initSetNotificationsCount()
-//        initSetNotifications()
     }
 
     private suspend fun initSetNotificationsCount() {
         val notificationsCountDto = getNotificationsCountUseCase().getOrNull()
 
-        if(notificationsCountDto == null) {
+        if (notificationsCountDto == null) {
             analyticsHelper.d(message = "Init Set NotificationsCountDto: null")
 
             return
@@ -144,12 +145,13 @@ constructor(
     }
 
     private suspend fun initSetNotifications() {
-        val tempNotificationsTable = EnumMap<NotificationType, Map<Long, Notification>>(NotificationType::class.java)
+        val tempNotificationsTable =
+            EnumMap<NotificationType, Map<Int, Notification>>(NotificationType::class.java)
 
         NotificationType.entries.forEach { type ->
             val notificationsDto = getNotificationsUseCase(type = type).getOrNull()
 
-            if(notificationsDto == null) {
+            if (notificationsDto == null) {
                 analyticsHelper.d(message = "Init Set NotificationsDto: null")
 
                 return
@@ -157,8 +159,10 @@ constructor(
 
             analyticsHelper.d(message = "Init Set NotificationsDto: $notificationsDto")
 
-            val tempNotificationMap: Map<Long, Notification> =
-                notificationsDto.notifications.associateBy { it.id }
+            val tempNotificationMap: Map<Int, Notification> =
+                notificationsDto.notifications.mapIndexed { index, notification ->
+                    index to notification
+                }.toMap()
 
             tempNotificationsTable.apply {
                 put(notificationsDto.type, tempNotificationMap)
@@ -177,15 +181,15 @@ constructor(
     }
 
     private suspend fun handleOnClickNotification(intent: Intent.OnClickNotification) {
-        val result = postNotificationReadUseCase(notificationId = intent.notificationId).getOrNull()
+        val targetNotificationMap = currentState.notifications[intent.type] ?: return
+        val targetNotification = targetNotificationMap[intent.indexKey] ?: return
+
+        val result = postNotificationReadUseCase(notificationId = targetNotification.id).getOrNull()
             ?: return
 
         if (result) {
-            val targetNotificationMap = currentState.notifications[intent.type] ?: return
-            val targetNotification = targetNotificationMap[intent.notificationId] ?: return
-
             val updatedMap = targetNotificationMap.toMutableMap().apply {
-                put(intent.notificationId, targetNotification.copy(isRead = true))
+                put(intent.indexKey, targetNotification.copy(isRead = true))
             }.toMap()
 
             reduce {
@@ -199,12 +203,13 @@ constructor(
     }
 
     private suspend fun handleOnDeleteNotification(intent: Intent.OnDeleteNotification) {
-        deleteNotificationUseCase(notificationId = intent.notificationId).getOrNull() ?: return
-
         val targetNotificationMap = currentState.notifications[intent.type] ?: return
+        val targetNotification = targetNotificationMap[intent.indexKey] ?: return
+
+        deleteNotificationUseCase(notificationId = targetNotification.id).getOrNull() ?: return
 
         val updatedMap = targetNotificationMap.toMutableMap().apply {
-            remove(intent.notificationId)
+            remove(intent.indexKey)
         }.toMap()
 
         reduce {

@@ -21,8 +21,8 @@ internal fun NotificationTab(
     notificationsTable: NotificationsTable,
     notificationsCountTable: NotificationsCountTable,
     modifier: Modifier = Modifier,
-    onClickNotification : (NotificationType, Long) -> Unit = { _, _ -> },
-    onDeleteNotification : (NotificationType, Long) -> Unit = { _, _ -> },
+    onClickNotification : (NotificationType, Int) -> Unit = { _, _ -> },
+    onDeleteNotification : (NotificationType, Int) -> Unit = { _, _ -> },
 ) {
     val notificationTypes = NotificationType.entries.toList()
 
