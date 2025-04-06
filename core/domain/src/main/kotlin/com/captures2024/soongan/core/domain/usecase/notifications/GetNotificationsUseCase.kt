@@ -15,6 +15,8 @@ constructor(
     suspend operator fun invoke(type: NotificationType): Result<NotificationsDto> = runSuspendCatching {
         val notificationsDto = repository.getNotifications(type = type)
 
-        return@runSuspendCatching notificationsDto
+        return@runSuspendCatching notificationsDto.copy(
+            notifications = notificationsDto.notifications.sorted()
+        )
     }
 }
