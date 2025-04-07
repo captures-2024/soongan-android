@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data object FAQNavigator
 
-fun NavController.navigateToFAQ() = navigate(FAQNavigator)
+fun NavController.navigateToFAQ() = navigateToFAQ(null)
 
 fun NavController.navigateToFAQ(navOptions: NavOptions?) = navigate(
     route = FAQNavigator,

@@ -15,12 +15,11 @@ fun NavController.navigateToEditPost(
     id: Long,
     imageUrl: String,
     title: String,
-) = navigate(
-    EditPostNavigator(
-        postId = id,
-        imageUrl = imageUrl,
-        title = title,
-    ),
+) = navigateToEditPost(
+    id = id,
+    imageUrl = imageUrl,
+    title = title,
+    navOptions = null,
 )
 
 fun NavController.navigateToEditPost(

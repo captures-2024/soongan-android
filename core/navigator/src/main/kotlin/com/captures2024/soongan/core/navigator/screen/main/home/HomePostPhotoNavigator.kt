@@ -9,7 +9,10 @@ data class HomePostPhotoNavigator(
     val url: String,
 )
 
-fun NavController.navigateToHomePostPhoto(url: String) = navigate(HomePostPhotoNavigator(url))
+fun NavController.navigateToHomePostPhoto(url: String) = navigateToHomePostPhoto(
+    url = url,
+    navOptions = null,
+)
 
 fun NavController.navigateToHomePostPhoto(
     url: String,

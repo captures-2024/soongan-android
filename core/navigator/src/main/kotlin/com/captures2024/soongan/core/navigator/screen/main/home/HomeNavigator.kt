@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data object HomeNavigator
 
-fun NavController.navigateToHome() = navigate(HomeNavigator)
+fun NavController.navigateToHome() = navigateToHome(null)
 
 fun NavController.navigateToHome(navOptions: NavOptions?) = navigate(
     route = HomeNavigator,
