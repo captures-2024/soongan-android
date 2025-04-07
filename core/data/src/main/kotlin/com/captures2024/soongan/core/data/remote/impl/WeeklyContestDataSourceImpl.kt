@@ -49,7 +49,7 @@ constructor(
     override suspend fun getPostInfo(
         postId: Long,
     ): PostInfoDto? = safeAPICall {
-        service.getPostInfo(
+        service.getPostInfoWithToken(
             postId = postId,
         )
     }.body?.responseData?.toPostInfoDto()

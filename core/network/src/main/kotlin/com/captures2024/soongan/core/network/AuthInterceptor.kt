@@ -2,6 +2,7 @@ package com.captures2024.soongan.core.network
 
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.datastore.TokenDataSource
+import com.captures2024.soongan.core.model.AppConst
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -21,47 +22,23 @@ constructor(
     override fun intercept(chain: Interceptor.Chain): Response = with(chain) {
         val defaultRequest = request()
 
-        val isAccessToken = defaultRequest.headers[AUTH_HEADER]
-
-        return@with when (isAccessToken) {
-            "true" -> {
-                val accessToken = runBlocking { tokenDataSource.getAccessToken() }
-
-//                analyticsHelper.d(message = "AuthInterceptor - accessToken: $accessToken")
-
-                val newRequest = defaultRequest.newBuilder()
-                    .header(AUTH_HEADER, "$AUTH_PREFIX $accessToken")
-                    .addHeader(AGENT_HEADER, OS)
-                    .build()
-
-                proceed(newRequest)
+        val newRequest = defaultRequest.newBuilder().apply {
+            addHeader(AppConst.Network.AGENT_HEADER, AppConst.Network.OS)
+            addHeader(BuildConfig.HEADER_KEY, BuildConfig.HEADER_VALUE)
+            when (defaultRequest.headers[AppConst.Network.AUTH_HEADER]) {
+                "true" -> {
+                    val accessToken = runBlocking { tokenDataSource.getAccessToken() }
+                    header(AppConst.Network.AUTH_HEADER, "${AppConst.Network.AUTH_PREFIX} $accessToken")
+                }
+                "false" -> {
+                    val refreshToken = runBlocking { tokenDataSource.getRefreshToken() }
+                    header(AppConst.Network.AUTH_HEADER, "${AppConst.Network.AUTH_PREFIX} $refreshToken")
+                }
             }
+        }.build()
 
-            "false" -> {
-                val refreshToken = runBlocking { tokenDataSource.getRefreshToken() }
+        analyticsHelper.d(message = "newRequest: ${newRequest.headers}")
 
-                val newRequest = defaultRequest.newBuilder()
-                    .header(AUTH_HEADER, "$AUTH_PREFIX $refreshToken")
-                    .addHeader(AGENT_HEADER, OS)
-                    .build()
-
-                proceed(newRequest)
-            }
-
-            else -> {
-                val newRequest = defaultRequest.newBuilder()
-                    .addHeader(AGENT_HEADER, OS)
-                    .build()
-
-                proceed(newRequest)
-            }
-        }
-    }
-
-    companion object {
-        private const val AUTH_HEADER = "Authorization"
-        private const val AUTH_PREFIX = "Bearer"
-        private const val AGENT_HEADER = "User-Agent"
-        private const val OS = "ANDROID"
+        return@with proceed(newRequest)
     }
 }

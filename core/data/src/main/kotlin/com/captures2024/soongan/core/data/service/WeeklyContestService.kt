@@ -1,5 +1,6 @@
 package com.captures2024.soongan.core.data.service
 
+import com.captures2024.soongan.core.model.AppConst
 import com.captures2024.soongan.core.model.network.request.weekly.contests.EditPostRequest
 import com.captures2024.soongan.core.model.network.response.BaseResponse
 import com.captures2024.soongan.core.model.network.response.weekly.contests.EditPostResponse
@@ -30,35 +31,39 @@ interface WeeklyContestService {
         @Query("pageSize") pageSize: Int,
     ): Response<BaseResponse<GetGalleryResponse>>
 
-    @Headers("Authorization: true")
+    @Headers(AppConst.Network.ACCESS_TOKEN_ALLOW)
     @Multipart
     @POST("weekly/contests/posts")
     suspend fun registerPost(
-//        @Part("weeklyContestRound") weeklyContestRound: Int?,
         @Part("title") title: String?,
         @Part imageFile: MultipartBody.Part?,
     ): Response<BaseResponse<RegisterPostResponse>>
 
-    @Headers("Authorization: true")
     @GET("weekly/contests/posts/{postId}")
     suspend fun getPostInfo(
         @Path("postId") postId: Long,
     ): Response<BaseResponse<GetPostInfoResponse>>
 
-    @Headers("Authorization: true")
+    @Headers(AppConst.Network.ACCESS_TOKEN_ALLOW)
+    @GET("weekly/contests/posts/{postId}")
+    suspend fun getPostInfoWithToken(
+        @Path("postId") postId: Long,
+    ): Response<BaseResponse<GetPostInfoResponse>>
+
+    @Headers(AppConst.Network.ACCESS_TOKEN_ALLOW)
     @DELETE("weekly/contests/posts/{postId}")
     suspend fun deletePost(
         @Path("postId") postId: Long,
     ): Response<BaseResponse<Unit>>
 
-    @Headers("Authorization: true")
+    @Headers(AppConst.Network.ACCESS_TOKEN_ALLOW)
     @PATCH("weekly/contests/posts/{postId}")
     suspend fun editPostTitle(
         @Path("postId") postId: Long,
         @Body request: EditPostRequest,
     ): Response<BaseResponse<EditPostResponse>>
 
-    @Headers("Authorization: true")
+    @Headers(AppConst.Network.ACCESS_TOKEN_ALLOW)
     @GET("weekly/contests/posts/my-hisotry")
     suspend fun getMyGalleryInfo(
         @Query("page") page: Int,

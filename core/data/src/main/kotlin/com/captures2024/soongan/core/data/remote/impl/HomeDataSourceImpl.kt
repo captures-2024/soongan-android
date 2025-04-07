@@ -17,7 +17,7 @@ constructor(
 
     override suspend fun getHomeStatus(): Pair<ContestInfoDto, List<PostInfoDto>>? {
         val response = safeAPICall {
-            homeService.getHomeStatus()
+            homeService.getHomeStatusWithToken()
         }.body?.responseData
 
         if (response == null) {
