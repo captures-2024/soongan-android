@@ -36,7 +36,7 @@ internal fun nonScaleAnnotatedTitle(
 
     append(" ")
 
-    if(count > 0) {
+    if (count > 0) {
         withStyle(
             style = getSGNonScaleSpanStyle(
                 color = SGColor.primaryA,
@@ -44,7 +44,7 @@ internal fun nonScaleAnnotatedTitle(
                 fontWeight = FontWeight.Bold,
                 fontFamily = SGTypography.nanumSquareNeo,
                 letterSpacing = (0).em,
-            )
+            ),
         ) {
             append("$count")
         }

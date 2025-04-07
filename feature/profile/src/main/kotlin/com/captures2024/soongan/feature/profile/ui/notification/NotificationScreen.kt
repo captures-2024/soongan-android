@@ -21,7 +21,8 @@ internal fun NotificationScreen(
         topBar = {
             CustomTopBar(
                 text = "알림",
-                onBackPressed = { intent(NotificationViewModel.Intent.OnBackPressed) })
+                onBackPressed = { intent(NotificationViewModel.Intent.OnBackPressed) },
+            )
         },
         containerColor = SGColor.white,
     ) { paddingValues ->

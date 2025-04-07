@@ -40,6 +40,7 @@ fun NavController.getHidedPostId(): Long =
  * @param subType [NotificationSubType]
  * @param redirectUrl 타겟 화면 url
  */
+@Suppress("UNUSED_PARAMETER")
 fun NavController.navigateByNotification(
     subType: NotificationSubType,
     redirectUrl: String? = null,
@@ -53,7 +54,7 @@ fun NavController.navigateByNotification(
                     }
                     launchSingleTop = true
                     restoreState = true
-                }
+                },
             )
         }
 

@@ -16,7 +16,7 @@ constructor(
         val notificationsDto = repository.getNotifications(type = type)
 
         return@runSuspendCatching notificationsDto.copy(
-            notifications = notificationsDto.notifications.sorted()
+            notifications = notificationsDto.notifications.sorted(),
         )
     }
 }

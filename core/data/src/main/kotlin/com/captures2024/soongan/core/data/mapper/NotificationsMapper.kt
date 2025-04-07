@@ -33,7 +33,6 @@ private fun NotificationResponse.toNotification(): Notification =
         createdAt = createdAt,
     )
 
-
 private fun NotificationCountResponse.toNotificationCountItem(): NotificationCountItem =
     NotificationCountItem(
         count = count,

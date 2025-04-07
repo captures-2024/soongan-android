@@ -22,7 +22,8 @@ constructor(
     override suspend fun getNotificationsCount(): NotificationsCountDto {
         val notificationsCount = dataSourceImpl.getNotificationsCount()
 
-        return notificationsCount ?: throw java.lang.NullPointerException("notificationsCountDto is null")
+        return notificationsCount
+            ?: throw java.lang.NullPointerException("notificationsCountDto is null")
     }
 
     override suspend fun postNotificationRead(notificationId: Long): Boolean =

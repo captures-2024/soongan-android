@@ -21,8 +21,8 @@ internal fun NotificationTab(
     notificationsTable: NotificationsTable,
     notificationsCountTable: NotificationsCountTable,
     modifier: Modifier = Modifier,
-    onClickNotification : (NotificationType, Int) -> Unit = { _, _ -> },
-    onDeleteNotification : (NotificationType, Int) -> Unit = { _, _ -> },
+    onClickNotification: (NotificationType, Int) -> Unit = { _, _ -> },
+    onDeleteNotification: (NotificationType, Int) -> Unit = { _, _ -> },
 ) {
     val notificationTypes = NotificationType.entries.toList()
 
@@ -33,9 +33,9 @@ internal fun NotificationTab(
                     NotificationType.CONTEST -> R.string.contest_notification_title
                     NotificationType.ACTIVITY -> R.string.user_action_notification_title
                     NotificationType.NOTICE -> R.string.announce_notification_title
-                }
+                },
             ),
-            count = notificationsCountTable[type] ?: 0
+            count = notificationsCountTable[type] ?: 0,
         )
     }
 
@@ -71,6 +71,6 @@ internal fun NotificationTab(
 private fun NotificationBodyPreview() {
     NotificationTab(
         notificationsTable = mockNotificationsTable,
-        notificationsCountTable = mockNotificationsCountTable
+        notificationsCountTable = mockNotificationsCountTable,
     )
 }

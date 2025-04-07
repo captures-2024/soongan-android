@@ -162,14 +162,14 @@ val mockContestNotifications: List<Notification> by lazy {
             title = "CONTEST_START",
             body = "CONTEST_START",
             subType = NotificationSubType.CONTEST_START,
-            createdAt = "1"
+            createdAt = "1",
         ),
         Notification(
             id = 2,
             title = "CONTEST_END",
             body = "CONTEST_END",
             subType = NotificationSubType.CONTEST_END,
-            createdAt = "1"
+            createdAt = "1",
         ),
     )
 }
@@ -181,21 +181,21 @@ private val mockActivityNotifications: List<Notification> by lazy {
             title = "LIKE",
             body = "LIKE",
             subType = NotificationSubType.LIKE,
-            createdAt = "1"
+            createdAt = "1",
         ),
         Notification(
             id = 4,
             title = "COMMENT",
             body = "COMMENT",
             subType = NotificationSubType.COMMENT,
-            createdAt = "2"
+            createdAt = "2",
         ),
         Notification(
             id = 5,
             title = "APPEAL",
             body = "APPEAL",
             subType = NotificationSubType.APPEAL,
-            createdAt = "3"
+            createdAt = "3",
         ),
     )
 }
@@ -207,14 +207,14 @@ private val mockNoticeNotifications: List<Notification> by lazy {
             title = "NOTICE",
             body = "NOTICE",
             subType = NotificationSubType.NOTICE,
-            createdAt = "1"
+            createdAt = "1",
         ),
         Notification(
             id = 7,
             title = "NOTICE",
             body = "NOTICE",
             subType = NotificationSubType.NOTICE,
-            createdAt = "2"
+            createdAt = "2",
         ),
     )
 }

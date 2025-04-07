@@ -38,7 +38,7 @@ fun NavGraphBuilder.profile(
     composable<NotificationNavigator> {
         NotificationRoute(
             navigateToBack = navigateToBack,
-            navigateByNotification = navigateByNotification
+            navigateByNotification = navigateByNotification,
         )
     }
     composable<FAQNavigator> {

@@ -51,7 +51,7 @@ internal fun SwipeableBox(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .height(IntrinsicSize.Min)
+            .height(IntrinsicSize.Min),
     ) {
         Row(
             modifier = Modifier
@@ -89,7 +89,7 @@ internal fun SwipeableBox(
                                     }
                                 }
                             }
-                        }
+                        },
                     )
                 },
             color = SGColor.white,
@@ -105,14 +105,16 @@ private fun SwipeableBoxPreview() {
     SwipeableBox(
         modifier = Modifier.height(100.dp),
         actions = {
-            Box(modifier = Modifier
-                .fillMaxHeight()
-                .background(color = SGColor.negative)
-                .padding(horizontal = 12.dp),
-                contentAlignment = Alignment.Center) {
+            Box(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .background(color = SGColor.negative)
+                    .padding(horizontal = 12.dp),
+                contentAlignment = Alignment.Center,
+            ) {
                 Icon(MyIconPack.IconNonFillDelete, null, tint = SGColor.white)
             }
-        }
+        },
     ) {
         Box(contentAlignment = Alignment.Center) {
             Text(text = "SwipeBox from left to right", fontSize = 20.sp)

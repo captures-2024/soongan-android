@@ -26,12 +26,12 @@ interface NotificationsService {
     @Headers("Authorization: true")
     @POST("notifications/{notificationId}/read")
     suspend fun postNotificationRead(
-        @Path ("notificationId") notificationId: Long,
+        @Path("notificationId") notificationId: Long,
     ): Response<BaseResponse<Unit>>
 
     @Headers("Authorization: true")
     @DELETE("notifications/{notificationId}")
     suspend fun deleteNotification(
-        @Path ("notificationId") notificationId: Long,
+        @Path("notificationId") notificationId: Long,
     ): Response<BaseResponse<Unit>>
 }

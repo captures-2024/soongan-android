@@ -30,9 +30,10 @@ data class Notification(
         // 2. 안 읽음 순
         // 3. 알림 날짜 순
         return compareValuesBy(
-            a = this, b = other,
+            a = this,
+            b = other,
             { it.isRead },
-            { it.createdAt }
+            { it.createdAt },
         )
     }
 }

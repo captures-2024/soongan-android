@@ -7,16 +7,16 @@ import com.captures2024.soongan.core.model.utils.NotificationType
 interface NotificationsRepository {
 
     suspend fun getNotifications(
-        type: NotificationType
+        type: NotificationType,
     ): NotificationsDto
 
     suspend fun getNotificationsCount(): NotificationsCountDto
 
     suspend fun postNotificationRead(
-        notificationId: Long
+        notificationId: Long,
     ): Boolean
 
     suspend fun deleteNotification(
-        notificationId: Long
+        notificationId: Long,
     ): Boolean
 }

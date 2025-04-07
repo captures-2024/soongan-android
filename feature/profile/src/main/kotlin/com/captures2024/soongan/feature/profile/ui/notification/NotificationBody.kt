@@ -51,7 +51,7 @@ internal fun NotificationBody(
             NotificationHistory(
                 notifications = notifications,
                 onClickNotification = onClickNotification,
-                onDeleteNotification = onDeleteNotification
+                onDeleteNotification = onDeleteNotification,
             )
         }
     }
@@ -67,11 +67,11 @@ private fun EmptyNotificationHistory(modifier: Modifier = Modifier) {
             text = stringResource(R.string.non_exist_notification_message),
             style = getSGNonScaleTextStyle(
                 color = SGColor.primaryA,
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
-                lineHeight = 16.sp,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Normal,
+                lineHeight = 12.sp,
                 fontFamily = SGTypography.nanumSquareNeo,
-                letterSpacing = 0.em,
+                letterSpacing = (-5).em,
             ),
         )
     }
@@ -85,11 +85,11 @@ private fun NotificationHistory(
     onDeleteNotification: (Int) -> Unit = {},
 ) {
     LazyColumn(
-        modifier = modifier
+        modifier = modifier,
     ) {
         items(
             items = notifications.entries.toList(),
-            key = { it.key }
+            key = { it.key },
         ) {
             val notification = it.value
             if (notification.subType == NotificationSubType.APPEAL || notification.subType == NotificationSubType.NOTICE) {
@@ -106,8 +106,9 @@ private fun NotificationHistory(
                     content = {
                         NotificationHistoryContent(
                             notification = notification,
-                            onClick = { onClickNotification(it.key) })
-                    }
+                            onClick = { onClickNotification(it.key) },
+                        )
+                    },
                 )
             }
             HorizontalDivider(modifier = Modifier.padding(horizontal = 20.dp))
@@ -188,12 +189,11 @@ private fun NotificationHistoryContent(
     }
 }
 
-
 @DevicePreviews
 @Composable
 private fun NotificationBodyPreview() {
     NotificationBody(
-        notifications = mockNotificationsTable[NotificationType.CONTEST] ?: emptyMap()
+        notifications = mockNotificationsTable[NotificationType.CONTEST] ?: emptyMap(),
     )
 }
 

@@ -1,16 +1,14 @@
 package com.captures2024.soongan.core.model.utils
 
-enum class NotificationType(
-    val deepLink: String? = null, // not decide yet. mail, appLink, google form etc..
-) {
+enum class NotificationType {
     CONTEST,
     ACTIVITY,
     NOTICE,
 }
 
 enum class NotificationSubType(
-    val type: NotificationType
-){
+    val type: NotificationType,
+) {
     CONTEST_START(NotificationType.CONTEST),
     CONTEST_END(NotificationType.CONTEST),
 
@@ -18,6 +16,5 @@ enum class NotificationSubType(
     LIKE(NotificationType.ACTIVITY),
     APPEAL(NotificationType.ACTIVITY),
 
-    NOTICE(NotificationType.NOTICE)
-    ;
+    NOTICE(NotificationType.NOTICE),
 }

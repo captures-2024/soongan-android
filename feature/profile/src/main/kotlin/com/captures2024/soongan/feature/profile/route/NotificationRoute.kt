@@ -19,10 +19,13 @@ internal fun NotificationRoute(
 
     LaunchedEffect(Unit) {
         notificationViewModel.sideEffect.collect { sideEffect ->
-            when(sideEffect) {
+            when (sideEffect) {
                 NotificationViewModel.Effect.NavigateToBack -> navigateToBack()
 
-                is NotificationViewModel.Effect.NavigateByNotification -> navigateByNotification(sideEffect.subType, sideEffect.url)
+                is NotificationViewModel.Effect.NavigateByNotification -> navigateByNotification(
+                    sideEffect.subType,
+                    sideEffect.url,
+                )
             }
         }
     }
