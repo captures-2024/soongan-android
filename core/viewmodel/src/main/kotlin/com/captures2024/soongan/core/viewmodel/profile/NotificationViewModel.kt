@@ -18,6 +18,7 @@ import com.captures2024.soongan.core.domain.usecase.notifications.PostNotificati
 import com.captures2024.soongan.core.model.dto.Notification
 import com.captures2024.soongan.core.model.mock.mockNotificationsCountTable
 import com.captures2024.soongan.core.model.mock.mockNotificationsTable
+import com.captures2024.soongan.core.model.utils.NotificationSubType
 import com.captures2024.soongan.core.model.utils.NotificationType
 import com.captures2024.soongan.core.model.utils.NotificationsCountTable
 import com.captures2024.soongan.core.model.utils.NotificationsTable
@@ -67,6 +68,11 @@ constructor(
     sealed interface Effect : UISideEffect {
 
         data object NavigateToBack : Effect
+
+        data class NavigateByNotification(
+            val subType: NotificationSubType,
+            val url: String?, // redirectUrl
+        ) : Effect
     }
 
     sealed interface Intent : UIIntent {
@@ -199,6 +205,8 @@ constructor(
                     }.toMap()
                 )
             }
+
+            postSideEffect(Effect.NavigateByNotification(subType = targetNotification.subType, url = targetNotification.redirectUrl))
         }
     }
 
