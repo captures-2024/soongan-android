@@ -1,5 +1,6 @@
 package com.captures2024.soongan.core.data.service
 
+import com.captures2024.soongan.core.model.AppConst
 import com.captures2024.soongan.core.model.network.request.auth.ReissueTokenRequest
 import com.captures2024.soongan.core.model.network.request.auth.SignWithTokenRequest
 import com.captures2024.soongan.core.model.network.response.BaseResponse
@@ -18,7 +19,7 @@ interface AuthService {
      *
      * 회원을 탈퇴합니다.
      **/
-    @Headers("Authorization: true")
+    @Headers(AppConst.Network.ACCESS_TOKEN_ALLOW)
     @POST("auth/withdraw")
     suspend fun withdrawWithToken(): Response<Unit>
 
@@ -27,7 +28,7 @@ interface AuthService {
      *
      * 로그인시 발급한 JWT를 말소합니다.
      **/
-    @Headers("Authorization: true")
+    @Headers(AppConst.Network.ACCESS_TOKEN_ALLOW)
     @POST("auth/logout")
     suspend fun signOutWithToken(): Response<Unit>
 
@@ -46,7 +47,7 @@ interface AuthService {
      *
      * Refresh Token을 이용하여 JWT를 갱신합니다.
      **/
-    @Headers("Authorization: false")
+    @Headers(AppConst.Network.REFRESH_TOKEN_ALLOW)
     @PATCH("auth/refresh")
     suspend fun reissueToken(
         @Body request: ReissueTokenRequest,

@@ -1,5 +1,6 @@
 package com.captures2024.soongan.core.data.service
 
+import com.captures2024.soongan.core.model.AppConst
 import com.captures2024.soongan.core.model.network.response.BaseResponse
 import com.captures2024.soongan.core.model.network.response.members.GetMemberInfoResponse
 import com.captures2024.soongan.core.model.network.response.members.PatchBirthYearResponse
@@ -15,7 +16,7 @@ import retrofit2.http.Query
 
 interface MembersService {
 
-    @Headers("Authorization: true")
+    @Headers(AppConst.Network.ACCESS_TOKEN_ALLOW)
     @Multipart
     @PATCH("members/profile")
     suspend fun patchProfile(
@@ -25,17 +26,16 @@ interface MembersService {
         @Part("isDefaultProfileImage") isDefaultProfileImage: Boolean,
     ): Response<BaseResponse<PatchProfileResponse>>
 
-    @Headers("Authorization: true")
+    @Headers(AppConst.Network.ACCESS_TOKEN_ALLOW)
     @PATCH("members/birth-year")
     suspend fun patchBirthYear(
         @Query("birthYear") birthYear: Int,
     ): Response<BaseResponse<PatchBirthYearResponse>>
 
-    @Headers("Authorization: true")
+    @Headers(AppConst.Network.ACCESS_TOKEN_ALLOW)
     @GET("members")
     suspend fun getMemberInfo(): Response<BaseResponse<GetMemberInfoResponse>>
 
-    @Headers("Authorization: true")
     @GET("members/check-nickname")
     suspend fun isVerifiedNickname(
         @Query("nickname") nickname: String,

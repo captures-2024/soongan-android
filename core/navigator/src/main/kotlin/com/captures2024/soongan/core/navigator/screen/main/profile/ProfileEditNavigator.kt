@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data object ProfileEditNavigator
 
-fun NavController.navigateToEditProfile() = navigate(ProfileEditNavigator)
+fun NavController.navigateToEditProfile() = navigateToEditProfile(null)
 
 fun NavController.navigateToEditProfile(navOptions: NavOptions?) = navigate(
     route = ProfileEditNavigator,

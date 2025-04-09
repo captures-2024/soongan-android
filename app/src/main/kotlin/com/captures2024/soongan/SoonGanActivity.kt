@@ -74,15 +74,14 @@ class SoonGanActivity : ComponentActivity(), KakaoLoginCallback {
                     when (sideEffect) {
                         is SignViewModel.Effect.KakaoSignIn -> signInKakao()
 
-                        is SignViewModel.Effect.NavigateToSignUp,
-                        is SignViewModel.Effect.NavigateToPrivacyPolicy,
-                        is SignViewModel.Effect.NavigateToTermsOfUse,
-                        -> Unit
+                        else -> Unit
                     }
                 }
             }
 
-            CompositionLocalProvider(LocalAnalyticsHelper provides analyticsHelper) {
+            CompositionLocalProvider(
+                LocalAnalyticsHelper provides analyticsHelper,
+            ) {
                 SGTheme(darkTheme = darkTheme) {
                     AppRoute(
                         appRootViewModel = appRootViewModel,
