@@ -8,7 +8,7 @@ import com.captures2024.soongan.core.navigator.screen.main.profile.NotificationN
 import com.captures2024.soongan.core.navigator.screen.main.profile.ProfileEditNavigator
 import com.captures2024.soongan.core.navigator.screen.main.profile.ProfileNavigator
 import com.captures2024.soongan.feature.profile.route.EditProfileRoute
-import com.captures2024.soongan.feature.profile.route.NotificationRoute
+import com.captures2024.soongan.feature.profile.route.ProfileNotificationRoute
 import com.captures2024.soongan.feature.profile.route.ProfileRoute
 import com.captures2024.soongan.feature.profile.ui.faq.FAQScreen
 
@@ -16,7 +16,7 @@ fun NavGraphBuilder.profile(
     navigateToBack: () -> Unit,
     navigateToEditProfile: () -> Unit,
     navigateToNotification: () -> Unit,
-    navigateByNotification: (NotificationSubType, String?) -> Unit,
+    navigateFromNotification: (NotificationSubType, String?) -> Unit,
     navigateToHomePost: (Long) -> Unit,
     navigateToRegistrationPost: () -> Unit,
     navigateToFAQ: () -> Unit,
@@ -36,9 +36,9 @@ fun NavGraphBuilder.profile(
         )
     }
     composable<NotificationNavigator> {
-        NotificationRoute(
+        ProfileNotificationRoute(
             navigateToBack = navigateToBack,
-            navigateByNotification = navigateByNotification,
+            navigateFromNotification = navigateFromNotification,
         )
     }
     composable<FAQNavigator> {

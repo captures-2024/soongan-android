@@ -41,7 +41,7 @@ fun NavController.getHidedPostId(): Long =
  * @param redirectUrl 타겟 화면 url
  */
 @Suppress("UNUSED_PARAMETER")
-fun NavController.navigateByNotification(
+fun NavController.navigateFromNotification(
     subType: NotificationSubType,
     redirectUrl: String? = null,
 ) {

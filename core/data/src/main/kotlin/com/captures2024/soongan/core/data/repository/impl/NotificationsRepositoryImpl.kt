@@ -16,14 +16,14 @@ constructor(
     override suspend fun getNotifications(type: NotificationType): NotificationsDto {
         val notifications = dataSourceImpl.getNotifications(type = type)
 
-        return notifications ?: throw java.lang.NullPointerException("notificationsDto is null")
+        return notifications ?: throw NullPointerException("notificationsDto is null")
     }
 
     override suspend fun getNotificationsCount(): NotificationsCountDto {
         val notificationsCount = dataSourceImpl.getNotificationsCount()
 
         return notificationsCount
-            ?: throw java.lang.NullPointerException("notificationsCountDto is null")
+            ?: throw NullPointerException("notificationsCountDto is null")
     }
 
     override suspend fun postNotificationRead(notificationId: Long): Boolean =

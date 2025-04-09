@@ -1,7 +1,7 @@
 package com.captures2024.soongan.core.model.mock
 
+import com.captures2024.soongan.core.model.Notification
 import com.captures2024.soongan.core.model.UserPost
-import com.captures2024.soongan.core.model.dto.Notification
 import com.captures2024.soongan.core.model.utils.NotificationSubType
 import com.captures2024.soongan.core.model.utils.NotificationType
 import com.captures2024.soongan.core.model.utils.NotificationsTable

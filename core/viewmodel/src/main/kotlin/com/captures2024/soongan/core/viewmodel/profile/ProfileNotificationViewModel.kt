@@ -15,7 +15,7 @@ import com.captures2024.soongan.core.domain.usecase.notifications.DeleteNotifica
 import com.captures2024.soongan.core.domain.usecase.notifications.GetNotificationsCountUseCase
 import com.captures2024.soongan.core.domain.usecase.notifications.GetNotificationsUseCase
 import com.captures2024.soongan.core.domain.usecase.notifications.PostNotificationReadUseCase
-import com.captures2024.soongan.core.model.dto.Notification
+import com.captures2024.soongan.core.model.Notification
 import com.captures2024.soongan.core.model.utils.NotificationSubType
 import com.captures2024.soongan.core.model.utils.NotificationType
 import com.captures2024.soongan.core.model.utils.NotificationsCountTable
@@ -26,7 +26,7 @@ import java.util.EnumMap
 import javax.inject.Inject
 
 @HiltViewModel
-class NotificationViewModel
+class ProfileNotificationViewModel
 @Inject
 constructor(
     private val getNotificationsUseCase: GetNotificationsUseCase,
@@ -40,7 +40,7 @@ constructor(
     getIsCurrentGuestModeUseCase: GetIsCurrentGuestModeUseCase,
     setIsShowGuestModeDialogFlowUseCase: SetIsShowGuestModeDialogFlowUseCase,
     savedStateHandle: SavedStateHandle,
-) : NewBaseViewModel<NotificationViewModel.State, NotificationViewModel.Effect, NotificationViewModel.Intent>(
+) : NewBaseViewModel<ProfileNotificationViewModel.State, ProfileNotificationViewModel.Effect, ProfileNotificationViewModel.Intent>(
     analyticsHelper = analyticsHelper,
     showLoadingUseCase = showLoadingUseCase,
     hideLoadingUseCase = hideLoadingUseCase,
@@ -67,7 +67,7 @@ constructor(
 
         data object NavigateToBack : Effect
 
-        data class NavigateByNotification(
+        data class NavigateFromNotification(
             val subType: NotificationSubType,
             val url: String?, // redirectUrl
         ) : Effect
@@ -206,7 +206,7 @@ constructor(
             }
 
             postSideEffect(
-                Effect.NavigateByNotification(
+                Effect.NavigateFromNotification(
                     subType = targetNotification.subType,
                     url = targetNotification.redirectUrl,
                 ),

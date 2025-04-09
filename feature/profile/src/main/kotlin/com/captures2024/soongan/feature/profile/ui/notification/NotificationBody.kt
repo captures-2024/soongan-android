@@ -26,7 +26,7 @@ import com.captures2024.soongan.core.designsystem.ui.component.text.getSGNonScal
 import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.core.designsystem.ui.theme.SGTypography
 import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
-import com.captures2024.soongan.core.model.dto.Notification
+import com.captures2024.soongan.core.model.Notification
 import com.captures2024.soongan.core.model.mock.mockNotificationsTable
 import com.captures2024.soongan.core.model.utils.NotificationSubType
 import com.captures2024.soongan.core.model.utils.NotificationType

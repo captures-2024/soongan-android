@@ -1,7 +1,7 @@
 package com.captures2024.soongan.core.data.mapper
 
-import com.captures2024.soongan.core.model.dto.Notification
-import com.captures2024.soongan.core.model.dto.NotificationCountItem
+import com.captures2024.soongan.core.model.Notification
+import com.captures2024.soongan.core.model.NotificationCountItem
 import com.captures2024.soongan.core.model.dto.NotificationsCountDto
 import com.captures2024.soongan.core.model.dto.NotificationsDto
 import com.captures2024.soongan.core.model.network.response.notifications.GetNotificationsCountResponse
