@@ -1,5 +1,6 @@
 package com.captures2024.soongan.core.data.service
 
+import com.captures2024.soongan.core.model.AppConst
 import com.captures2024.soongan.core.model.network.response.BaseResponse
 import com.captures2024.soongan.core.model.network.response.notifications.GetNotificationsCountResponse
 import com.captures2024.soongan.core.model.network.response.notifications.GetNotificationsResponse
@@ -13,23 +14,23 @@ import retrofit2.http.Query
 
 interface NotificationsService {
 
-    @Headers("Authorization: true")
+    @Headers(AppConst.Network.ACCESS_TOKEN_ALLOW)
     @GET("notifications")
     suspend fun getNotifications(
         @Query("type") type: String,
     ): Response<BaseResponse<GetNotificationsResponse>>
 
-    @Headers("Authorization: true")
+    @Headers(AppConst.Network.ACCESS_TOKEN_ALLOW)
     @GET("notifications/unread-count")
     suspend fun getNotificationsCount(): Response<BaseResponse<GetNotificationsCountResponse>>
 
-    @Headers("Authorization: true")
+    @Headers(AppConst.Network.ACCESS_TOKEN_ALLOW)
     @POST("notifications/{notificationId}/read")
     suspend fun postNotificationRead(
         @Path("notificationId") notificationId: Long,
     ): Response<BaseResponse<Unit>>
 
-    @Headers("Authorization: true")
+    @Headers(AppConst.Network.ACCESS_TOKEN_ALLOW)
     @DELETE("notifications/{notificationId}")
     suspend fun deleteNotification(
         @Path("notificationId") notificationId: Long,
