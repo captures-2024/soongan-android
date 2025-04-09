@@ -33,16 +33,20 @@ internal fun nonScaleAnnotatedTitle(
     ) {
         append(title)
     }
+
     append(" ")
-    withStyle(
-        style = getSGNonScaleSpanStyle(
-            color = SGColor.primaryA,
-            fontSize = countFontSize,
-            fontWeight = FontWeight.Bold,
-            fontFamily = SGTypography.nanumSquareNeo,
-            letterSpacing = (0).em,
-        ),
-    ) {
-        append("$count")
+
+    if (count > 0) {
+        withStyle(
+            style = getSGNonScaleSpanStyle(
+                color = SGColor.primaryA,
+                fontSize = countFontSize,
+                fontWeight = FontWeight.Bold,
+                fontFamily = SGTypography.nanumSquareNeo,
+                letterSpacing = (0).em,
+            ),
+        ) {
+            append("$count")
+        }
     }
 }

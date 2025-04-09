@@ -6,6 +6,7 @@ import com.captures2024.soongan.core.data.repository.FcmRepository
 import com.captures2024.soongan.core.data.repository.HomeRepository
 import com.captures2024.soongan.core.data.repository.LoadingRepository
 import com.captures2024.soongan.core.data.repository.MembersRepository
+import com.captures2024.soongan.core.data.repository.NotificationsRepository
 import com.captures2024.soongan.core.data.repository.PostLikeRepository
 import com.captures2024.soongan.core.data.repository.ReportRepository
 import com.captures2024.soongan.core.data.repository.TokenRepository
@@ -16,6 +17,7 @@ import com.captures2024.soongan.core.data.repository.impl.FcmRepositoryImpl
 import com.captures2024.soongan.core.data.repository.impl.HomeRepositoryImpl
 import com.captures2024.soongan.core.data.repository.impl.LoadingRepositoryImpl
 import com.captures2024.soongan.core.data.repository.impl.MembersRepositoryImpl
+import com.captures2024.soongan.core.data.repository.impl.NotificationsRepositoryImpl
 import com.captures2024.soongan.core.data.repository.impl.PostLikeRepositoryImpl
 import com.captures2024.soongan.core.data.repository.impl.ReportRepositoryImpl
 import com.captures2024.soongan.core.data.repository.impl.TokenRepositoryImpl
@@ -69,4 +71,8 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindPostLikeRepository(postLikeRepositoryImpl: PostLikeRepositoryImpl): PostLikeRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindNotificationsRepository(notificationsRepositoryImpl: NotificationsRepositoryImpl): NotificationsRepository
 }

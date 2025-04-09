@@ -21,6 +21,7 @@ import com.captures2024.soongan.core.navigator.screen.main.profile.navigateToEdi
 import com.captures2024.soongan.core.navigator.screen.main.profile.navigateToFAQ
 import com.captures2024.soongan.core.navigator.screen.main.profile.navigateToNotification
 import com.captures2024.soongan.core.navigator.screen.main.util.getHidedPostId
+import com.captures2024.soongan.core.navigator.screen.main.util.navigateFromNotification
 import com.captures2024.soongan.core.navigator.screen.main.util.navigateToBackWithHidePost
 import com.captures2024.soongan.core.navigator.screen.main.welcome.WelcomeNavigator
 import com.captures2024.soongan.feature.awards.navigation.awards
@@ -78,6 +79,7 @@ internal fun MainRouteNavHost(
             navigateToBack = navController::popBackStack,
             navigateToEditProfile = navController::navigateToEditProfile,
             navigateToNotification = navController::navigateToNotification,
+            navigateFromNotification = navController::navigateFromNotification,
             navigateToHomePost = navController::navigateToHomePost,
             navigateToRegistrationPost = navController::navigateToRegistrationPost,
             navigateToFAQ = navController::navigateToFAQ,
