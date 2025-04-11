@@ -3,7 +3,6 @@ package com.captures2024.soongan.core.viewmodel.sign
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.toRoute
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
-import com.captures2024.soongan.core.analytics.utils.LogElementArgument
 import com.captures2024.soongan.core.common.Validation
 import com.captures2024.soongan.core.common.Validation.BirthYearValidState
 import com.captures2024.soongan.core.common.base.UIIntent

@@ -14,7 +14,6 @@ import androidx.core.app.NotificationCompat
 import com.captures2024.soongan.R
 import com.captures2024.soongan.SoonGanActivity
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
-import com.captures2024.soongan.core.analytics.utils.LogElementArgument
 import com.captures2024.soongan.core.common.extension.checkGrantedPermission
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage

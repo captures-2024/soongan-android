@@ -12,7 +12,6 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
-import com.captures2024.soongan.core.analytics.utils.LogElementArgument
 import com.captures2024.soongan.core.android.utils.LocalAnalyticsHelper
 import com.captures2024.soongan.core.auth.kakao.KakaoAuthHelper
 import com.captures2024.soongan.core.auth.kakao.KakaoAuthHelperImpl

@@ -2,7 +2,6 @@ package com.captures2024.soongan.core.viewmodel
 
 import androidx.lifecycle.SavedStateHandle
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
-import com.captures2024.soongan.core.analytics.utils.LogElementArgument
 import com.captures2024.soongan.core.common.base.UIIntent
 import com.captures2024.soongan.core.common.base.UISideEffect
 import com.captures2024.soongan.core.common.base.UIState
