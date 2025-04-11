@@ -53,10 +53,4 @@ class DefaultAnalyticsHelper : AnalyticsHelper() {
         formatingMessage: Boolean,
         message: () -> String,
     ) = Unit
-
-    override fun networkLog(
-        tag: String?,
-        formatingMessage: Boolean,
-        message: () -> String,
-    ) = Unit
 }

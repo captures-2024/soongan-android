@@ -47,13 +47,9 @@ constructor(
         val isOpenBottomSheet: Boolean = false,
     ) : UIState {
 
-        override fun toLoggingElements(): Array<LogElementArgument> = arrayOf(
-            LogElementArgument("isLoading", isLoading.toString()),
-            LogElementArgument("contestInfo", contestInfo.toString()),
-            LogElementArgument("postList", postList.toString()),
-            LogElementArgument("isWeeklySelected", isWeeklySelected.toString()),
-            LogElementArgument("isOpenBottomSheet", isOpenBottomSheet.toString()),
-        )
+        override fun toString(): String {
+            return "State(isLoading=$isLoading, contestInfo=$contestInfo, postList=$postList, isWeeklySelected=$isWeeklySelected, isOpenBottomSheet=$isOpenBottomSheet)"
+        }
     }
 
     sealed interface Effect : UISideEffect {
@@ -91,7 +87,7 @@ constructor(
     }
 
     override fun handleClientException(throwable: Throwable) {
-        analyticsHelper.e(throwable = throwable)
+        analyticsHelper.e(throwable = throwable) { "state: $currentState" }
     }
 
     override fun handleIntent(intent: Intent) {
@@ -116,7 +112,7 @@ constructor(
         val result = getHomeUseCase().getOrNull()
 
         if (result == null) {
-            analyticsHelper.d(message = "result is null")
+            analyticsHelper.d { "result is null" }
             return
         }
 

@@ -1,5 +1,6 @@
 package com.captures2024.soongan.core.data.repository.impl
 
+import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.data.remote.WeeklyContestDataSource
 import com.captures2024.soongan.core.data.repository.WeeklyContestRepository
 import com.captures2024.soongan.core.model.dto.GalleryDto
@@ -10,8 +11,13 @@ import javax.inject.Inject
 class WeeklyContestRepositoryImpl
 @Inject
 constructor(
+    private val analyticsHelper: AnalyticsHelper,
     private val weeklyContestDataSource: WeeklyContestDataSource,
 ) : WeeklyContestRepository {
+
+    init {
+        analyticsHelper.d { "WeeklyContestRepository::init" }
+    }
 
     override suspend fun getGalleryInfo(
         round: Int?,

@@ -61,7 +61,7 @@ internal object NetworkModule {
     @Provides
     @Singleton
     fun provideLoggingInterceptor(analyticsHelper: AnalyticsHelper): HttpLoggingInterceptor = HttpLoggingInterceptor { message ->
-        analyticsHelper.networkLog(message = message)
+        analyticsHelper.d { message }
     }.apply {
         level = HttpLoggingInterceptor.Level.BODY
 //        level = when (BuildConfig.DEBUG) {

@@ -44,12 +44,9 @@ constructor(
         val showBackDialog: Boolean = false,
     ) : UIState {
 
-        override fun toLoggingElements(): Array<LogElementArgument> = arrayOf(
-            LogElementArgument("currentMedia", currentMedia.toString()),
-            LogElementArgument("title", title),
-            LogElementArgument("isOpenSubmitBottomSheet", isOpenSubmitBottomSheet.toString()),
-            LogElementArgument("showBackDialog", showBackDialog.toString()),
-        )
+        override fun toString(): String {
+            return "State(currentMedia=$currentMedia, title='$title', isOpenSubmitBottomSheet=$isOpenSubmitBottomSheet, showBackDialog=$showBackDialog)"
+        }
     }
 
     sealed interface Effect : UISideEffect {
@@ -91,11 +88,7 @@ constructor(
     override fun createInitialState(savedStateHandle: SavedStateHandle): State = State()
 
     override fun handleClientException(throwable: Throwable) {
-        analyticsHelper.e(
-            throwable = throwable,
-            logVariable = currentState.toLoggingElements(),
-            message = "handleClientException",
-        )
+        analyticsHelper.e(throwable = throwable) { "state: $currentState" }
     }
 
     override fun handleIntent(intent: Intent) {
@@ -175,12 +168,12 @@ constructor(
         val submitData = currentState
 
         if (submitData.currentMedia == null) {
-            analyticsHelper.d(message = "handleOnClickSubmit - submitData.currentMedia is null")
+            analyticsHelper.d { "handleOnClickSubmit - submitData.currentMedia is null" }
             return
         }
 
         if (submitData.title.isEmpty()) {
-            analyticsHelper.d(message = "handleOnClickSubmit - submitData.title is empty")
+            analyticsHelper.d { "handleOnClickSubmit - submitData.title is empty" }
             return
         }
 
@@ -195,12 +188,12 @@ constructor(
         val submitData = currentState
 
         if (submitData.currentMedia == null) {
-            analyticsHelper.d(message = "handleOnClickSubmitRemote - submitData.currentMedia is null")
+            analyticsHelper.d { "handleOnClickSubmitRemote - submitData.currentMedia is null" }
             return
         }
 
         if (submitData.title.isEmpty()) {
-            analyticsHelper.d(message = "handleOnClickSubmitRemote - submitData.title is empty")
+            analyticsHelper.d { "handleOnClickSubmitRemote - submitData.title is empty" }
             return
         }
 
@@ -212,7 +205,7 @@ constructor(
         ).getOrNull() ?: -1L
 
         if (result == -1L) {
-            analyticsHelper.d(message = "handleOnClickSubmitRemote - result: $result")
+            analyticsHelper.d { "handleOnClickSubmitRemote - result: $result" }
             return
         }
 

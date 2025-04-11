@@ -13,8 +13,8 @@ import javax.inject.Inject
 class MembersRepositoryImpl
 @Inject
 constructor(
-    private val membersDataSource: MembersDataSource,
     private val analyticsHelper: AnalyticsHelper,
+    private val membersDataSource: MembersDataSource,
 ) : MembersRepository {
 
     private val _currentMember: MutableStateFlow<UserInfoDto?> = MutableStateFlow(null)
@@ -24,6 +24,10 @@ constructor(
     private val _isGuestMode: MutableStateFlow<Boolean> = MutableStateFlow(false)
     override val isGuestMode: StateFlow<Boolean>
         get() = _isGuestMode.asStateFlow()
+
+    init {
+        analyticsHelper.d { "MembersRepository::init" }
+    }
 
     override fun setGuestMode(isGuestMode: Boolean) {
         _isGuestMode.value = isGuestMode
@@ -43,18 +47,19 @@ constructor(
         )
 
         _currentMember.emit(
-            value = _currentMember.value?.let { currentMember ->
-                return@let currentMember.copy(
-                    nickname = userInfoDto?.nickname,
-                    selfIntroduction = userInfoDto?.selfIntroduction,
-                    profileImageUrl = userInfoDto?.profileImageUrl,
-                )
-            },
+            value = _currentMember.value
+                ?.let { currentMember ->
+                    return@let currentMember.copy(
+                        nickname = userInfoDto?.nickname,
+                        selfIntroduction = userInfoDto?.selfIntroduction,
+                        profileImageUrl = userInfoDto?.profileImageUrl,
+                    )
+                },
         )
 
-        return userInfoDto?.also {
-            analyticsHelper.d(message = "patchProfile - userInfoDto: $userInfoDto")
-        } ?: throw NullPointerException("userInfoDto is null")
+        return userInfoDto
+            ?.also { analyticsHelper.d { "patchProfile - userInfoDto: $userInfoDto" } }
+            ?: throw NullPointerException("userInfoDto is null")
     }
 
     override suspend fun patchBirthYear(birthYear: Int): UserInfoDto {
@@ -70,9 +75,9 @@ constructor(
             },
         )
 
-        return userInfoDto?.also {
-            analyticsHelper.d(message = "patchBirthYear - userInfoDto: $userInfoDto")
-        } ?: throw NullPointerException("userInfoDto is null")
+        return userInfoDto
+            ?.also { analyticsHelper.d { "patchBirthYear - userInfoDto: $userInfoDto" } }
+            ?: throw NullPointerException("userInfoDto is null")
     }
 
     override suspend fun getMemberInfo(): UserInfoDto {
@@ -80,9 +85,9 @@ constructor(
 
         _currentMember.emit(userInfoDto)
 
-        return userInfoDto.also {
-            analyticsHelper.d(message = "getMemberInfo - userInfoDto: $userInfoDto")
-        } ?: throw NullPointerException("MemberInfo is null")
+        return userInfoDto
+            ?.also { analyticsHelper.d { "getMemberInfo - userInfoDto: $userInfoDto" } }
+            ?: throw NullPointerException("MemberInfo is null")
     }
 
     override suspend fun isVerifiedNickname(nickname: String): ResultConditionDto {
@@ -90,9 +95,9 @@ constructor(
             nickname = nickname,
         )
 
-        return resultConditionDto.also {
-            analyticsHelper.d(message = "isVerifiedNickname - resultConditionDto: $resultConditionDto")
-        } ?: throw NullPointerException("resultConditionDto is null")
+        return resultConditionDto
+            ?.also { analyticsHelper.d { "isVerifiedNickname - resultConditionDto: $resultConditionDto" } }
+            ?: throw NullPointerException("resultConditionDto is null")
     }
 
     override suspend fun clearCurrentMember() = _currentMember.emit(null)

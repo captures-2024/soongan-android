@@ -59,7 +59,6 @@ constructor(
         val isLoading: Pair<Boolean, Long> = false to System.currentTimeMillis(),
         val isShowGuestModeDialog: Boolean = false,
     ) : UIState {
-
         val rootRouteState: AppRootRoute
             get() = when (isInitialized) {
                 // 앱 진입 성공
@@ -87,10 +86,9 @@ constructor(
                 false -> AppRootRoute.LANDING
             }
 
-        override fun toLoggingElements(): Array<LogElementArgument> = arrayOf(
-            LogElementArgument("isInitialized", isInitialized.toString()),
-            LogElementArgument("currentMember", currentMember.toString()),
-        )
+        override fun toString(): String {
+            return "State(rootRouteState=$rootRouteState, isShowGuestModeDialog=$isShowGuestModeDialog, isLoading=$isLoading, currentMember=$currentMember, isGuestMode=$isGuestMode, isInitialized=$isInitialized)"
+        }
     }
 
     sealed interface Effect : UISideEffect
@@ -111,7 +109,7 @@ constructor(
     }
 
     override fun handleClientException(throwable: Throwable) {
-        analyticsHelper.e(throwable = throwable)
+        analyticsHelper.e(throwable = throwable) { "state: $currentState" }
     }
 
     override fun handleIntent(intent: Intent) {
@@ -188,10 +186,7 @@ constructor(
             else -> "already registered RemoteFcmToken"
         }
 
-        analyticsHelper.d(
-            LogElementArgument("result about init fcm", "result = $result"),
-            message = logMessage,
-        )
+        analyticsHelper.d { "result about init fcm $logMessage, result = $result" }
     }
 
     private suspend fun fetchRemoteMemberInfo() {

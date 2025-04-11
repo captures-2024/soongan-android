@@ -59,7 +59,7 @@ internal fun HomePostPhotoScreen(
         }
 
         val bitmap = imageLoader.execute(model).drawable?.toBitmap()
-        analyticsHelper.d(message = "height = ${bitmap?.height}, width = ${bitmap?.width}")
+        analyticsHelper.d { "height = ${bitmap?.height}, width = ${bitmap?.width}" }
     }
 
     Box(

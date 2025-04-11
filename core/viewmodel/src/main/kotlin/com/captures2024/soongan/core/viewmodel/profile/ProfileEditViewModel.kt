@@ -43,18 +43,14 @@ constructor(
 ) {
 
     data class State(
-        val isLoading: Boolean = false,
         val userProfile: UserProfile = UserProfile(),
         val editingState: EditingProfileState = EditingProfileState(),
         val isOpenBottomSheet: Boolean = false,
     ) : UIState {
 
-        override fun toLoggingElements(): Array<LogElementArgument> = arrayOf(
-            LogElementArgument("isLoading", isLoading.toString()),
-            LogElementArgument("userProfile", userProfile.toString()),
-            LogElementArgument("editingState", editingState.toString()),
-            LogElementArgument("isOpenBottomSheet", isOpenBottomSheet.toString()),
-        )
+        override fun toString(): String {
+            return "State(userProfile=$userProfile, editingState=$editingState, isOpenBottomSheet=$isOpenBottomSheet)"
+        }
     }
 
     sealed interface Effect : UISideEffect {
@@ -102,11 +98,7 @@ constructor(
     }
 
     override fun handleClientException(throwable: Throwable) {
-        analyticsHelper.e(
-            throwable = throwable,
-            logVariable = currentState.toLoggingElements(),
-            message = "handleClientException",
-        )
+        analyticsHelper.e(throwable = throwable) { "state: $currentState" }
     }
 
     override fun handleIntent(intent: Intent) {
@@ -158,7 +150,7 @@ constructor(
                 isDefaultProfileImage = (editedProfile.profileImageUrl == null),
             ).getOrThrow()
 
-            analyticsHelper.d(message = "Patch Profile result : $isPatchedProfile")
+            analyticsHelper.d { "Patch Profile result : $isPatchedProfile" }
 
             reduce { copy(isOpenBottomSheet = false) }
 
@@ -243,7 +235,7 @@ constructor(
     private suspend fun collectMemberInfo() {
         getCurrentMemberFlowUseCase().collect { currentMember ->
 
-            analyticsHelper.d(message = "currentMember Update? - currentMember: $currentMember")
+            analyticsHelper.d { "currentMember Update? - currentMember: $currentMember" }
 
             val userProfile = UserProfile(
                 nickname = currentMember?.nickname ?: "user1",

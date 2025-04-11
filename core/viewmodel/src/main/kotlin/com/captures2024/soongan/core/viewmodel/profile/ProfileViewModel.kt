@@ -46,7 +46,6 @@ constructor(
 ) {
 
     data class State(
-        val isLoading: Boolean = false,
         val userProfile: UserProfile = UserProfile(),
         val isRefreshing: Boolean = false,
         val paginationStatus: PaginationStatus = PaginationStatus.INACTIVE,
@@ -57,17 +56,9 @@ constructor(
         val isOpenBottomSheet: Boolean = false,
     ) : UIState {
 
-        override fun toLoggingElements(): Array<LogElementArgument> = arrayOf(
-            LogElementArgument("isLoading", isLoading.toString()),
-            LogElementArgument("userProfile", userProfile.toString()),
-            LogElementArgument("isRefreshing", isRefreshing.toString()),
-            LogElementArgument("paginationStatus", paginationStatus.toString()),
-            LogElementArgument("myPosts", myPosts.toString()),
-            LogElementArgument("nextPage", nextPage.toString()),
-            LogElementArgument("hasNextPage", hasNextPage.toString()),
-            LogElementArgument("hasNotification", hasNotification.toString()),
-            LogElementArgument("isOpenBottomSheet", isOpenBottomSheet.toString()),
-        )
+        override fun toString(): String {
+            return "State(userProfile=$userProfile, isRefreshing=$isRefreshing, paginationStatus=$paginationStatus, myPosts=$myPosts, nextPage=$nextPage, hasNextPage=$hasNextPage, hasNotification=$hasNotification, isOpenBottomSheet=$isOpenBottomSheet)"
+        }
     }
 
     sealed interface Effect : UISideEffect {
@@ -117,11 +108,7 @@ constructor(
     }
 
     override fun handleClientException(throwable: Throwable) {
-        analyticsHelper.e(
-            throwable = throwable,
-            logVariable = currentState.toLoggingElements(),
-            message = "handleClientException",
-        )
+        analyticsHelper.e(throwable = throwable) { "state: $currentState" }
     }
 
     override fun handleIntent(intent: Intent) {
@@ -254,7 +241,7 @@ constructor(
         ).getOrNull()
 
         if (myGalleryDto == null) {
-            analyticsHelper.d(message = "myGalleryDto is null")
+            analyticsHelper.d{ "myGalleryDto is null" }
 
             reduce {
                 copy(
@@ -266,7 +253,7 @@ constructor(
             return
         }
 
-        analyticsHelper.d(message = "myGalleryDto is ${myGalleryDto.posts}")
+        analyticsHelper.d { "myGalleryDto is ${myGalleryDto.posts}" }
 
         reduce {
             copy(

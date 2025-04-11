@@ -48,12 +48,9 @@ constructor(
         val isValid: Validation.NicknameValidState
             get() = Validation.isValidNickname(nickname)
 
-        override fun toLoggingElements(): Array<LogElementArgument> = arrayOf(
-            LogElementArgument("nickname", nickname),
-            LogElementArgument("maxNicknameLength", maxNicknameLength.toString()),
-            LogElementArgument("isDuplicatedNickname", isDuplicatedNickname.toString()),
-            LogElementArgument("isValid", isValid.toString()),
-        )
+        override fun toString(): String {
+            return "State(isValid=$isValid, isDuplicatedNickname=$isDuplicatedNickname, maxNicknameLength=$maxNicknameLength, nickname='$nickname')"
+        }
     }
 
     sealed interface Effect : UISideEffect {
@@ -75,7 +72,7 @@ constructor(
     override fun createInitialState(savedStateHandle: SavedStateHandle): State = State()
 
     override fun handleClientException(throwable: Throwable) {
-        analyticsHelper.e(throwable)
+        analyticsHelper.e(throwable) { "state: $currentState" }
     }
 
     override fun handleIntent(intent: Intent) {
@@ -109,7 +106,7 @@ constructor(
         val isAllow = isVerifiedNicknameUseCase(currentState.nickname).getOrNull()
 
         if (isAllow == null) {
-            analyticsHelper.d(message = "isAllow is null")
+            analyticsHelper.d { "isAllow is null" }
             return
         }
 
@@ -117,7 +114,7 @@ constructor(
             true -> registerNickname()
 
             false -> {
-                analyticsHelper.d(message = "isAllow is false")
+                analyticsHelper.d { "isAllow is false" }
 
                 reduce {
                     copy(
@@ -130,7 +127,7 @@ constructor(
 
     private suspend fun registerNickname() {
         if (currentState.isDuplicatedNickname) {
-            analyticsHelper.d(message = "nickname[${currentState.nickname}] is duplicated")
+            analyticsHelper.d { "nickname[${currentState.nickname}] is duplicated" }
             reduce {
                 copy(
                     isDuplicatedNickname = true,
@@ -144,7 +141,7 @@ constructor(
         val isPatchedNickname = patchProfileUseCase(currentNickname).getOrNull()
 
         if (isPatchedNickname == null) {
-            analyticsHelper.d(message = "isRegister is null")
+            analyticsHelper.d { "isRegister is null" }
             return
         }
 
@@ -152,7 +149,7 @@ constructor(
             true -> postSideEffect(Effect.NavigateToBirth)
 
             false -> {
-                analyticsHelper.d(message = "nickame[${currentState.nickname}] post failed")
+                analyticsHelper.d { "nickname[${currentState.nickname}] post failed" }
             }
         }
     }

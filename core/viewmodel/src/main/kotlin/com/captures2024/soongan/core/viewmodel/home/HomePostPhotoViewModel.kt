@@ -43,11 +43,9 @@ constructor(
         val isShowShimmer: Boolean = true,
     ) : UIState {
 
-        override fun toLoggingElements(): Array<LogElementArgument> = arrayOf(
-            LogElementArgument("url", url),
-            LogElementArgument("isLoading", isLoading.toString()),
-            LogElementArgument("isShowShimmer", isShowShimmer.toString()),
-        )
+        override fun toString(): String {
+            return "State(url='$url', isLoading=$isLoading, isShowShimmer=$isShowShimmer)"
+        }
     }
 
     sealed interface Effect : UISideEffect

@@ -23,22 +23,17 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class FirebaseCloudMessageService : FirebaseMessagingService() {
+    private val simpleName = this::class.simpleName
 
     @Inject
     lateinit var analyticsHelper: AnalyticsHelper
 
     override fun onNewToken(token: String) {
-        analyticsHelper.d(
-            LogElementArgument("$TAG.onNewToken", "$TAG.onNewToken = $token"),
-            message = "generate fcm token",
-        )
+        analyticsHelper.d { "[$simpleName] onNewToken - token: $token" }
     }
 
     override fun onMessageReceived(message: RemoteMessage) {
-        analyticsHelper.d(
-            LogElementArgument("$TAG.onMessageReceived", "$TAG.onMessageReceive = $message"),
-            message = "received fcm message",
-        )
+        analyticsHelper.d { "[$simpleName] onMessageReceived - message: $message" }
 
         if (!checkGrantedPermission(android.Manifest.permission.POST_NOTIFICATIONS)) return
 
@@ -116,8 +111,6 @@ class FirebaseCloudMessageService : FirebaseMessagingService() {
     }.getOrNull()
 
     companion object {
-        private const val TAG = "FCMService"
-
         private const val CHANNEL_ID = "soongan_channel_id"
         private const val CHANNEL_NAME = "soongan_Notification"
         private const val CHANNEL_DESCRIPTION = "Channel for soongan Notification"

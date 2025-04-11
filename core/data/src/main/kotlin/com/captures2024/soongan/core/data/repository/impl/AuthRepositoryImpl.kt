@@ -1,5 +1,6 @@
 package com.captures2024.soongan.core.data.repository.impl
 
+import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.data.remote.AuthDataSource
 import com.captures2024.soongan.core.data.repository.AuthRepository
 import com.captures2024.soongan.core.datastore.TokenDataSource
@@ -10,9 +11,14 @@ import javax.inject.Inject
 class AuthRepositoryImpl
 @Inject
 constructor(
+    private val analyticsHelper: AnalyticsHelper,
     private val tokenDataSource: TokenDataSource,
     private val authDataSource: AuthDataSource,
 ) : AuthRepository {
+
+    init {
+        analyticsHelper.d { "AuthRepository::init" }
+    }
 
     override suspend fun withdrawMember(): ResultConditionDto = when (authDataSource.withdrawWithToken()) {
         true -> {

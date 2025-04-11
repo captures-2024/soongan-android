@@ -45,13 +45,9 @@ class EditPostViewModel
         val isEditable: Boolean = false,
     ) : UIState {
 
-        override fun toLoggingElements(): Array<LogElementArgument> = arrayOf(
-            LogElementArgument("postId", postId.toString()),
-            LogElementArgument("imageUrl", imageUrl),
-            LogElementArgument("previousTitle", previousTitle),
-            LogElementArgument("title", title),
-            LogElementArgument("isEditable", isEditable.toString()),
-        )
+        override fun toString(): String {
+            return "State(postId=$postId, imageUrl='$imageUrl', previousTitle='$previousTitle', title='$title', isEditable=$isEditable)"
+        }
     }
 
     sealed interface Effect : UISideEffect {
@@ -82,7 +78,7 @@ class EditPostViewModel
     }
 
     override fun handleClientException(throwable: Throwable) {
-        analyticsHelper.e(throwable = throwable)
+        analyticsHelper.e(throwable = throwable) { "state: $currentState" }
     }
 
     override fun handleIntent(intent: Intent) {
@@ -103,7 +99,7 @@ class EditPostViewModel
             title = currentState.title,
         ).getOrNull()
 
-        analyticsHelper.d(message = "handleOnClickEditRemote - result: $result")
+        analyticsHelper.d { "handleOnClickEditRemote - result: $result" }
 
         if (result == null) {
             return

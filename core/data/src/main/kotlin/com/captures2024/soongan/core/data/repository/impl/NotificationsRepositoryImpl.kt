@@ -1,5 +1,6 @@
 package com.captures2024.soongan.core.data.repository.impl
 
+import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.data.remote.impl.NotificationsDataSourceImpl
 import com.captures2024.soongan.core.data.repository.NotificationsRepository
 import com.captures2024.soongan.core.model.dto.NotificationsCountDto
@@ -10,8 +11,13 @@ import javax.inject.Inject
 class NotificationsRepositoryImpl
 @Inject
 constructor(
+    private val analyticsHelper: AnalyticsHelper,
     private val dataSourceImpl: NotificationsDataSourceImpl,
 ) : NotificationsRepository {
+
+    init {
+        analyticsHelper.d { "NotificationsRepository:init" }
+    }
 
     override suspend fun getNotifications(type: NotificationType): NotificationsDto {
         val notifications = dataSourceImpl.getNotifications(type = type)

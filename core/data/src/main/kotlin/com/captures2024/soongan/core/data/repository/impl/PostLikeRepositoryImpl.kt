@@ -1,14 +1,22 @@
 package com.captures2024.soongan.core.data.repository.impl
 
+import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.data.remote.PostLikeDataSource
 import com.captures2024.soongan.core.data.repository.PostLikeRepository
 import com.captures2024.soongan.core.model.dto.ResultConditionDto
 import javax.inject.Inject
 
 class PostLikeRepositoryImpl
-@Inject constructor(
+@Inject
+constructor(
+    private val analyticsHelper: AnalyticsHelper,
     private val dataSource: PostLikeDataSource,
 ) : PostLikeRepository {
+
+    init {
+        analyticsHelper.d { "PostLikeRepository:init" }
+    }
+
     override suspend fun putPostLike(
         postId: Long,
         contestType: String,

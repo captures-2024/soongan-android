@@ -51,11 +51,9 @@ constructor(
         val pushSettings: PushSettingState = PushSettingState(),
     ) : UIState {
 
-        override fun toLoggingElements(): Array<LogElementArgument> = arrayOf(
-            LogElementArgument("isLoading", isLoading.toString()),
-            LogElementArgument("depthStatus", depthStatus.toString()),
-            LogElementArgument("pushSettings", pushSettings.toString()),
-        )
+        override fun toString(): String {
+            return "State(isLoading=$isLoading, depthStatus=$depthStatus, pushSettings=$pushSettings)"
+        }
     }
 
     sealed interface Effect : UISideEffect {
@@ -89,11 +87,7 @@ constructor(
     }
 
     override fun handleClientException(throwable: Throwable) {
-        analyticsHelper.e(
-            throwable = throwable,
-            logVariable = currentState.toLoggingElements(),
-            message = "handleClientException",
-        )
+        analyticsHelper.e(throwable = throwable) { "state: $currentState" }
     }
 
     override fun handleIntent(intent: Intent) {
@@ -131,7 +125,7 @@ constructor(
         when (intent.type) {
             ProfileBtmShtCheckType.SIGN_OUT -> {
                 val result = signOutUseCase().getOrNull()
-                analyticsHelper.d(message = "signOut result = $result")
+                analyticsHelper.d { "signOut result = $result" }
 
                 if (result != true) {
                     reduce { copy(depthStatus = ProfileBtmShtDepthState.Error) }
@@ -143,7 +137,7 @@ constructor(
 
             ProfileBtmShtCheckType.WITHDRAW -> {
                 val result = withdrawUseCase().getOrNull()
-                analyticsHelper.d(message = "withDraw result = $result")
+                analyticsHelper.d { "withDraw result = $result" }
 
                 if (result != true) {
                     reduce { copy(depthStatus = ProfileBtmShtDepthState.Error) }
