@@ -8,7 +8,6 @@ class GoogleAuthConventionPlugin : BaseConventionPlugin({
         implementation(libs.android.credentials.play.services.auth)
 
         implementation(libs.google.services)
-        implementation(libs.google.gms.auth)
         implementation(libs.google.id)
     }
 })
