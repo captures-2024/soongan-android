@@ -30,13 +30,16 @@ import com.captures2024.soongan.core.designsystem.ui.component.text.getSGNonScal
 import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.core.designsystem.ui.theme.SGTypography
 import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
-import com.captures2024.soongan.core.viewmodel.sign.SignViewModel
 import com.captures2024.soongan.feature.signIn.R
 
 @Composable
 internal fun SignInScreen(
-    intent: (SignViewModel.Intent) -> Unit,
     modifier: Modifier = Modifier,
+    onClickSignGoogle: () -> Unit,
+    onClickSignKakao: () -> Unit,
+    onClickTermsOfUse: () -> Unit,
+    onClickPrivacyPolicy: () -> Unit,
+    onClickGuestMode: () -> Unit,
 ) {
     Column(
         modifier = modifier
@@ -49,7 +52,8 @@ internal fun SignInScreen(
             .padding(all = 16.dp),
     ) {
         Box(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .weight(1f),
             contentAlignment = Alignment.Center,
         ) {
@@ -77,20 +81,20 @@ internal fun SignInScreen(
                 text = stringResource(id = R.string.sign_in_text_google),
                 icon = MyIconPack.IconLogoGoogle,
                 backgroundColor = Color(0xFFF5F5F5),
-                onClick = { intent(SignViewModel.Intent.OnClickSignGoogle) },
+                onClick = onClickSignGoogle,
             )
             HeightSpacer(16.dp)
             SocialSignInButton(
                 text = stringResource(id = R.string.sign_in_text_kakao),
                 icon = MyIconPack.IconLogoKakao,
                 backgroundColor = Color(0xFFFEE500),
-                onClick = { intent(SignViewModel.Intent.OnClickSignKakao) },
+                onClick = onClickSignKakao,
             )
             HeightSpacer(16.dp)
             Spacer(modifier = Modifier.height(16.dp))
             TermsText(
-                onClickTermsOfUse = { intent(SignViewModel.Intent.OnClickTermsOfUse) },
-                onClickPrivacyPolicy = { intent(SignViewModel.Intent.OnClickPrivacyPolicy) },
+                onClickTermsOfUse = onClickTermsOfUse,
+                onClickPrivacyPolicy = onClickPrivacyPolicy,
             )
             HeightSpacer(24.dp)
             SGText(
@@ -102,8 +106,7 @@ internal fun SignInScreen(
                     lineHeight = 20.sp,
                     fontFamily = SGTypography.pretendard,
                 ),
-                modifier = Modifier
-                    .clickable { intent(SignViewModel.Intent.OnClickGuestMode) },
+                modifier = Modifier.clickable(onClick = onClickGuestMode),
             )
         }
     }
@@ -113,6 +116,10 @@ internal fun SignInScreen(
 @Composable
 private fun PreviewSignInScreen() {
     SignInScreen(
-        intent = {},
+        onClickSignGoogle = {},
+        onClickSignKakao = {},
+        onClickTermsOfUse = {},
+        onClickPrivacyPolicy = {},
+        onClickGuestMode = {},
     )
 }

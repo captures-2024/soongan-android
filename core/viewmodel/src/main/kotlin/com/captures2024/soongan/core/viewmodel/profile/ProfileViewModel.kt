@@ -241,7 +241,7 @@ constructor(
         ).getOrNull()
 
         if (myGalleryDto == null) {
-            analyticsHelper.d{ "myGalleryDto is null" }
+            analyticsHelper.d { "myGalleryDto is null" }
 
             reduce {
                 copy(

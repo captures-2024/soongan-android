@@ -11,7 +11,6 @@ import com.captures2024.soongan.core.navigator.screen.sign.navigateToBirth
 import com.captures2024.soongan.core.navigator.screen.sign.navigateToNickname
 import com.captures2024.soongan.core.navigator.screen.sign.navigateToPrivacyPolicy
 import com.captures2024.soongan.core.navigator.screen.sign.navigateToTermsOfUse
-import com.captures2024.soongan.core.viewmodel.sign.SignViewModel
 import com.captures2024.soongan.feature.privacypolicy.navigation.privacyPolicy
 import com.captures2024.soongan.feature.signIn.navigation.signIn
 import com.captures2024.soongan.feature.signUp.navigation.signUp
@@ -20,7 +19,6 @@ import com.captures2024.soongan.feature.termsofuse.navigation.termsOfUse
 @Composable
 internal fun SignRouteNavHost(
     navController: NavHostController,
-    signViewModel: SignViewModel,
     modifier: Modifier = Modifier,
 ) {
     NavHost(
@@ -33,7 +31,6 @@ internal fun SignRouteNavHost(
         popExitTransition = { ExitTransition.None },
     ) {
         signIn(
-            signViewModel = signViewModel,
             navigateToNickname = {
                 navController.navigateToNickname()
             },
