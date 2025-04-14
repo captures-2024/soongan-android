@@ -2,7 +2,6 @@ package com.captures2024.soongan.core.viewmodel.home
 
 import androidx.lifecycle.SavedStateHandle
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
-import com.captures2024.soongan.core.analytics.utils.LogElementArgument
 import com.captures2024.soongan.core.common.base.UIIntent
 import com.captures2024.soongan.core.common.base.UISideEffect
 import com.captures2024.soongan.core.common.base.UIState
@@ -52,13 +51,10 @@ constructor(
         val nextPage: Int = 0,
         val hasNextPage: Boolean = false,
     ) : UIState {
-        override fun toLoggingElements(): Array<LogElementArgument> = arrayOf(
-            LogElementArgument("isLoading", isLoading.toString()),
-            LogElementArgument("isShowBottomSheet", isShowBottomSheet.toString()),
-            LogElementArgument("postOrderType", postOrderType.toString()),
-            LogElementArgument("paginationStatus", paginationStatus.toString()),
-            LogElementArgument("posts", posts.toString()),
-        )
+
+        override fun toString(): String {
+            return "State(isLoading=$isLoading, isShowBottomSheet=$isShowBottomSheet, isRefreshing=$isRefreshing, postOrderType=$postOrderType, paginationStatus=$paginationStatus, posts=$posts, nextPage=$nextPage, hasNextPage=$hasNextPage)"
+        }
     }
 
     sealed interface Effect : UISideEffect {
@@ -106,7 +102,7 @@ constructor(
     }
 
     override fun handleClientException(throwable: Throwable) {
-        analyticsHelper.e(throwable = throwable)
+        analyticsHelper.e(throwable = throwable) { "state: $currentState" }
     }
 
     override fun handleIntent(intent: Intent) {
@@ -226,7 +222,7 @@ constructor(
         ).getOrNull()
 
         if (galleryDto == null) {
-            analyticsHelper.d(message = "galleryDto is null")
+            analyticsHelper.d { "galleryDto is null" }
 
             reduce {
                 copy(
@@ -238,7 +234,7 @@ constructor(
             return
         }
 
-        analyticsHelper.d(message = "galleryDto is ${galleryDto.posts}")
+        analyticsHelper.d { "galleryDto is ${galleryDto.posts}" }
 
         reduce {
             copy(
@@ -270,7 +266,7 @@ constructor(
             copy(posts = tempPosts.toList())
         }
 
-        analyticsHelper.d(message = "reported post, postId : ${intent.postId}")
+        analyticsHelper.d { "reported post, postId : ${intent.postId}" }
     }
 
     companion object {

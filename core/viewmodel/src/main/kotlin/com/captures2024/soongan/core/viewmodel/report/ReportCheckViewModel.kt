@@ -3,7 +3,6 @@ package com.captures2024.soongan.core.viewmodel.report
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.toRoute
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
-import com.captures2024.soongan.core.analytics.utils.LogElementArgument
 import com.captures2024.soongan.core.common.base.BaseViewModel
 import com.captures2024.soongan.core.common.base.UIIntent
 import com.captures2024.soongan.core.common.base.UISideEffect
@@ -32,12 +31,10 @@ constructor(
         val reason: String = "",
         val isError: Boolean = false,
     ) : UIState {
-        override fun toLoggingElements(): Array<LogElementArgument> = arrayOf(
-            LogElementArgument("isLoading", isLoading.toString()),
-            LogElementArgument("reportType", reportType.toString()),
-            LogElementArgument("reason", reason),
-            LogElementArgument("isError", isError.toString()),
-        )
+
+        override fun toString(): String {
+            return "State(isLoading=$isLoading, reportType=$reportType, reason='$reason', isError=$isError)"
+        }
     }
 
     sealed interface Effect : UISideEffect {
@@ -71,11 +68,7 @@ constructor(
     }
 
     override fun handleClientException(throwable: Throwable) {
-        analyticsHelper.e(
-            throwable = throwable,
-            logVariable = currentState.toLoggingElements(),
-            message = "handleClientException",
-        )
+        analyticsHelper.e(throwable = throwable) { "state: $currentState" }
     }
 
     override suspend fun handleIntent(intent: Intent) {
@@ -104,7 +97,7 @@ constructor(
             ),
         ).getOrNull()
 
-        analyticsHelper.d(message = "report result = $result")
+        analyticsHelper.d { "report result = $result" }
 
         if (result != true) {
             reduce {

@@ -109,20 +109,20 @@ abstract class NewBaseViewModel<S : UIState, SE : UISideEffect, I : UIIntent>(
     }
 
     fun intent(intent: I) {
-        analyticsHelper.i(message = "[$simpleName] intent: $intent")
+        analyticsHelper.i { "[$simpleName] intent: $intent" }
         handleIntent(intent)
     }
 
     protected fun reduce(reduce: S.() -> S) {
         val state = currentState.reduce()
         if (_state.value != state) {
-            analyticsHelper.i(message = "[$simpleName] reduce: $state")
+            analyticsHelper.i { "[$simpleName] reduce: $state" }
             _state.value = state
         }
     }
 
     protected fun postSideEffect(sideEffect: SE) {
-        analyticsHelper.i(message = "[$simpleName] postSideEffect: $sideEffect")
+        analyticsHelper.i { "[$simpleName] postSideEffect: $sideEffect" }
         launch { _sideEffect.emit(sideEffect) }
     }
 

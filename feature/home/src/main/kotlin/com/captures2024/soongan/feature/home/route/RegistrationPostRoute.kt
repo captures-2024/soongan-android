@@ -28,13 +28,13 @@ internal fun RegistrationPostRoute(
     val uiState by registrationPostViewModel.state.collectAsStateWithLifecycle()
 
     val pickSingleMedia = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-        analyticsHelper.d(message = "pickSingleMedia - uri: $uri")
+        analyticsHelper.d { "pickSingleMedia - uri: $uri" }
         registrationPostViewModel.intent(RegistrationPostViewModel.Intent.InitMedia(uri))
     }
 
     LaunchedEffect(Unit) {
         registrationPostViewModel.sideEffect.collect { sideEffect ->
-            analyticsHelper.d(message = "registrationPostViewModel.sideEffect.collect - sideEffect: $sideEffect")
+            analyticsHelper.d { "registrationPostViewModel.sideEffect.collect - sideEffect: $sideEffect" }
             when (sideEffect) {
                 is RegistrationPostViewModel.Effect.OpenMediaPicker -> pickSingleMedia.launch(
                     PickVisualMediaRequest(

@@ -16,7 +16,7 @@ constructor(
 ) : Interceptor {
 
     init {
-        analyticsHelper.d(message = "init AuthInterceptor")
+        analyticsHelper.d { "AuthInterceptor::init" }
     }
 
     override fun intercept(chain: Interceptor.Chain): Response = with(chain) {
@@ -37,7 +37,7 @@ constructor(
             }
         }.build()
 
-        analyticsHelper.d(message = "newRequest: ${newRequest.headers}")
+        analyticsHelper.d { "AuthInterceptor::intercept - newRequest.headers: ${newRequest.headers}" }
 
         return@with proceed(newRequest)
     }

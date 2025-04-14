@@ -2,7 +2,6 @@ package com.captures2024.soongan.core.viewmodel.sign
 
 import androidx.lifecycle.SavedStateHandle
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
-import com.captures2024.soongan.core.analytics.utils.LogElementArgument
 import com.captures2024.soongan.core.common.base.UIIntent
 import com.captures2024.soongan.core.common.base.UISideEffect
 import com.captures2024.soongan.core.common.base.UIState
@@ -46,14 +45,7 @@ constructor(
     savedStateHandle = savedStateHandle,
 ) {
 
-    data class State(
-        val isLoading: Boolean = false,
-    ) : UIState {
-
-        override fun toLoggingElements(): Array<LogElementArgument> = arrayOf(
-            LogElementArgument("isLoading", isLoading.toString()),
-        )
-    }
+    data object State : UIState
 
     sealed interface Effect : UISideEffect {
 
@@ -115,13 +107,10 @@ constructor(
         ) : Intent
     }
 
-    override fun createInitialState(savedStateHandle: SavedStateHandle): State = State()
+    override fun createInitialState(savedStateHandle: SavedStateHandle): State = State
 
     override fun handleClientException(throwable: Throwable) {
-        analyticsHelper.e(
-            throwable = throwable,
-            logVariable = currentState.toLoggingElements(),
-        )
+        analyticsHelper.e(throwable = throwable) { "state: $currentState" }
     }
 
     override fun handleIntent(intent: Intent) {
@@ -169,7 +158,7 @@ constructor(
         val fcmToken = getFcmUseCase().getOrNull()
 
         if (fcmToken == null) {
-            analyticsHelper.d(message = "fcm token is null")
+            analyticsHelper.d { "fcm token is null" }
             return
         }
 
@@ -183,14 +172,14 @@ constructor(
                 val infoDto = getMemberInfoUseCase().getOrNull()
 
                 if (infoDto == null) {
-                    analyticsHelper.d(message = "kakaoSignIn - infoDto is null")
+                    analyticsHelper.d { "kakaoSignIn - infoDto is null" }
                 }
 
                 postSideEffect(Effect.NavigateToSignUp(infoDto?.nickname))
             }
 
             else -> {
-                analyticsHelper.d(message = "kakaoSignIn - result: $result")
+                analyticsHelper.d { "kakaoSignIn - result: $result" }
             }
         }
     }
@@ -199,7 +188,7 @@ constructor(
         val fcmToken = getFcmUseCase().getOrNull()
 
         if (fcmToken == null) {
-            analyticsHelper.d(message = "fcm token is null")
+            analyticsHelper.d { "fcm token is null" }
             return
         }
 
@@ -213,14 +202,14 @@ constructor(
                 val infoDto = getMemberInfoUseCase().getOrNull()
 
                 if (infoDto == null) {
-                    analyticsHelper.d(message = "googleSign - infoDto is null")
+                    analyticsHelper.d { "googleSign - infoDto is null" }
                 }
 
                 postSideEffect(Effect.NavigateToSignUp(infoDto?.nickname))
             }
 
             else -> {
-                analyticsHelper.d(message = "googleSign - result: $result")
+                analyticsHelper.d { "googleSign - result: $result" }
             }
         }
     }

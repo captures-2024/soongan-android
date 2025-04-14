@@ -2,7 +2,6 @@ package com.captures2024.soongan.core.viewmodel.profile
 
 import androidx.lifecycle.SavedStateHandle
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
-import com.captures2024.soongan.core.analytics.utils.LogElementArgument
 import com.captures2024.soongan.core.common.base.UIIntent
 import com.captures2024.soongan.core.common.base.UISideEffect
 import com.captures2024.soongan.core.common.base.UIState
@@ -51,16 +50,13 @@ constructor(
 ) {
 
     data class State(
-        val isLoading: Boolean = false,
         val notifications: NotificationsTable = emptyMap(),
         val notificationsCount: NotificationsCountTable = emptyMap(),
     ) : UIState {
 
-        override fun toLoggingElements(): Array<LogElementArgument> = arrayOf(
-            LogElementArgument("isLoading", isLoading.toString()),
-            LogElementArgument("notifications", notifications.toString()),
-            LogElementArgument("notificationsCount", notificationsCount.toString()),
-        )
+        override fun toString(): String {
+            return "State(notifications=$notifications, notificationsCount=$notificationsCount)"
+        }
     }
 
     sealed interface Effect : UISideEffect {
@@ -97,11 +93,7 @@ constructor(
     override fun createInitialState(savedStateHandle: SavedStateHandle): State = State()
 
     override fun handleClientException(throwable: Throwable) {
-        analyticsHelper.e(
-            throwable = throwable,
-            logVariable = currentState.toLoggingElements(),
-            message = "handleClientException",
-        )
+        analyticsHelper.e(throwable = throwable) { "state: $currentState" }
     }
 
     override fun handleIntent(intent: Intent) {
@@ -131,12 +123,12 @@ constructor(
         val notificationsCountDto = getNotificationsCountUseCase().getOrNull()
 
         if (notificationsCountDto == null) {
-            analyticsHelper.d(message = "Init Set NotificationsCountDto: null")
+            analyticsHelper.d { "Init Set NotificationsCountDto: null" }
 
             return
         }
 
-        analyticsHelper.d(message = "Init Set NotificationsCountDto: $notificationsCountDto")
+        analyticsHelper.d { "Init Set NotificationsCountDto: $notificationsCountDto" }
 
         reduce {
             copy(
@@ -157,12 +149,12 @@ constructor(
             val notificationsDto = getNotificationsUseCase(type = type).getOrNull()
 
             if (notificationsDto == null) {
-                analyticsHelper.d(message = "Init Set NotificationsDto: null")
+                analyticsHelper.d { "Init Set NotificationsDto: null" }
 
                 return
             }
 
-            analyticsHelper.d(message = "Init Set NotificationsDto: $notificationsDto")
+            analyticsHelper.d { "Init Set NotificationsDto: $notificationsDto" }
 
             val tempNotificationMap: Map<Int, Notification> =
                 notificationsDto.notifications.mapIndexed { index, notification ->

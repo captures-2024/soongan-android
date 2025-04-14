@@ -1,5 +1,6 @@
 package com.captures2024.soongan.core.data.repository.impl
 
+import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.data.remote.ReportDataSource
 import com.captures2024.soongan.core.data.repository.ReportRepository
 import com.captures2024.soongan.core.model.dto.ResultConditionDto
@@ -8,9 +9,15 @@ import com.captures2024.soongan.core.model.utils.ReportType
 import javax.inject.Inject
 
 class ReportRepositoryImpl
-@Inject constructor(
+@Inject
+constructor(
+    private val analyticsHelper: AnalyticsHelper,
     private val dataSource: ReportDataSource,
 ) : ReportRepository {
+
+    init {
+        analyticsHelper.d { "ReportRepository::init" }
+    }
 
     override suspend fun postReport(
         targetId: Long,

@@ -2,7 +2,6 @@ package com.captures2024.soongan.core.viewmodel.sign
 
 import androidx.lifecycle.SavedStateHandle
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
-import com.captures2024.soongan.core.analytics.utils.LogElementArgument
 import com.captures2024.soongan.core.common.base.UIIntent
 import com.captures2024.soongan.core.common.base.UISideEffect
 import com.captures2024.soongan.core.common.base.UIState
@@ -41,9 +40,9 @@ constructor(
         val url: String = "https://abyssinian-cherry-9fc.notion.site/71392fc225bf47b69e353739a74829db?pvs=4",
     ) : UIState {
 
-        override fun toLoggingElements(): Array<LogElementArgument> = arrayOf(
-            LogElementArgument("url", url),
-        )
+        override fun toString(): String {
+            return "State(url='$url')"
+        }
     }
 
     sealed interface Effect : UISideEffect {
@@ -67,7 +66,7 @@ constructor(
     override fun createInitialState(savedStateHandle: SavedStateHandle): State = State()
 
     override fun handleClientException(throwable: Throwable) {
-        analyticsHelper.e(throwable)
+        analyticsHelper.e(throwable) { "state: $currentState" }
     }
 
     override fun handleIntent(intent: Intent) {

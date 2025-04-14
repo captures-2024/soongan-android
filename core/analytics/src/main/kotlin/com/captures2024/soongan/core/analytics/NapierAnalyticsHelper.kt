@@ -2,7 +2,6 @@ package com.captures2024.soongan.core.analytics
 
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.analytics.helper.LoggingHelper
-import com.captures2024.soongan.core.analytics.utils.LogElementArgument
 import com.captures2024.soongan.core.analytics.utils.LogLevel
 import io.github.aakira.napier.DebugAntilog
 import io.github.aakira.napier.Napier
@@ -13,7 +12,7 @@ class NapierAnalyticsHelper : AnalyticsHelper() {
         Napier.base(DebugAntilog())
     }
 
-    override fun setTag(): Pair<String, List<LogElementArgument>> {
+    override fun setTag(): Pair<String, String> {
         val ignoreClassList = listOf(
             AnalyticsHelper::class.java.name,
             LoggingHelper::class.java.name,
@@ -27,7 +26,7 @@ class NapierAnalyticsHelper : AnalyticsHelper() {
         return pair
     }
 
-    override fun createStacktraceElementTag(element: StackTraceElement): Pair<String, List<LogElementArgument>> {
+    override fun createStacktraceElementTag(element: StackTraceElement): Pair<String, String> {
         var tag = element.className.substringAfterLast('.')
 
         val m = Pattern.compile("(\\$\\d+)+$").matcher(tag)
@@ -36,144 +35,133 @@ class NapierAnalyticsHelper : AnalyticsHelper() {
             tag = m.replaceAll("")
         }
 
-        val list = mutableListOf(
-            LogElementArgument(
-                "fileName",
-                element.fileName ?: "null",
-            ),
-            LogElementArgument(
-                "lineNumber",
-                element.lineNumber.toString(),
-            ),
-            LogElementArgument(
-                "methodName",
-                element.methodName,
-            ),
-        )
+        val fileName = element.fileName ?: "null"
+        val lineNumber = element.lineNumber.toString()
+        val methodName = element.methodName
+
+        val defaultFormatingLog = "fileName: $fileName, lineNumber: $lineNumber, methodName: $methodName, "
 
         return if (tag.length <= 23) {
-            tag to list
+            tag to defaultFormatingLog
         } else {
-            tag.substring(0, 23) to list
+            tag.substring(0, 23) to defaultFormatingLog
         }
     }
 
     override fun v(
-        vararg logVariable: LogElementArgument,
-        message: String?,
         tag: String?,
+        formatingMessage: Boolean,
+        message: () -> String,
     ) {
-        val (defaultTag, defaultArg) = setTag()
+        val (defaultTag, defaultFormatingLog) = setTag()
+        val inputLog: String = message()
+
+        val logMessage = when (formatingMessage) {
+            true -> defaultFormatingLog + inputLog
+            false -> inputLog
+        }
 
         val currentTag = tag ?: defaultTag
 
-        val sb = StringBuilder().apply {
-            append("$message\n")
-            defaultArg.forEach {
-                append("${it.key} : ${it.value}\n")
-            }
-            logVariable.forEach { append("${it.key} : ${it.value}\n") }
-        }
-
         Napier.v(
-            message = sb.toString(),
             tag = currentTag,
+            message = logMessage,
         )
     }
 
     override fun d(
-        vararg logVariable: LogElementArgument,
-        message: String?,
         tag: String?,
+        formatingMessage: Boolean,
+        message: () -> String,
     ) {
-        val (defaultTag, defaultArg) = setTag()
+        val (defaultTag, defaultFormatingLog) = setTag()
+        val inputLog: String = message()
+
+        val logMessage = when (formatingMessage) {
+            true -> defaultFormatingLog + inputLog
+            false -> inputLog
+        }
 
         val currentTag = tag ?: defaultTag
 
-        val sb = StringBuilder().apply {
-            append("$message\n")
-            defaultArg.forEach { append("${it.key} : ${it.value}\n") }
-            logVariable.forEach { append("${it.key} : ${it.value}\n") }
-        }
-
         Napier.d(
-            message = sb.toString(),
             tag = currentTag,
+            message = logMessage,
         )
     }
 
     override fun i(
-        vararg logVariable: LogElementArgument,
-        message: String?,
         tag: String?,
+        formatingMessage: Boolean,
+        message: () -> String,
     ) {
-        val (defaultTag, defaultArg) = setTag()
+        val (defaultTag, defaultFormatingLog) = setTag()
+        val inputLog: String = message()
+
+        val logMessage = when (formatingMessage) {
+            true -> defaultFormatingLog + inputLog
+            false -> inputLog
+        }
 
         val currentTag = tag ?: defaultTag
 
-        val sb = StringBuilder().apply {
-            append("$message\n")
-            defaultArg.forEach { append("${it.key} : ${it.value}\n") }
-            logVariable.forEach { append("${it.key} : ${it.value}\n") }
-        }
-
         Napier.i(
-            message = sb.toString(),
             tag = currentTag,
+            message = logMessage,
         )
     }
 
     override fun w(
-        vararg logVariable: LogElementArgument,
-        message: String?,
         tag: String?,
+        formatingMessage: Boolean,
+        message: () -> String,
     ) {
-        val (defaultTag, defaultArg) = setTag()
+        val (defaultTag, defaultFormatingLog) = setTag()
+        val inputLog: String = message()
+
+        val logMessage = when (formatingMessage) {
+            true -> defaultFormatingLog + inputLog
+            false -> inputLog
+        }
 
         val currentTag = tag ?: defaultTag
 
-        val sb = StringBuilder().apply {
-            append("$message\n")
-            defaultArg.forEach { append("${it.key} : ${it.value}\n") }
-            logVariable.forEach { append("${it.key} : ${it.value}\n") }
-        }
-
         Napier.w(
-            message = sb.toString(),
             tag = currentTag,
+            message = logMessage,
         )
     }
 
     override fun e(
         throwable: Throwable?,
-        vararg logVariable: LogElementArgument,
-        message: String?,
         tag: String?,
+        formatingMessage: Boolean,
+        message: () -> String,
     ) {
-        val (defaultTag, defaultArg) = setTag()
+        val (defaultTag, defaultFormatingLog) = setTag()
+        val inputLog: String = message()
+
+        val logMessage = when (formatingMessage) {
+            true -> defaultFormatingLog + inputLog
+            false -> inputLog
+        }
 
         val currentTag = tag ?: defaultTag
 
-        val sb = StringBuilder().apply {
-            append("$message\n")
-            defaultArg.forEach { append("${it.key} : ${it.value}\n") }
-            logVariable.forEach { append("${it.key} : ${it.value}\n") }
-        }
-
         Napier.e(
             throwable = throwable,
-            message = sb.toString(),
             tag = currentTag,
+            message = logMessage,
         )
     }
 
     override fun logIf(
         condition: () -> Boolean,
         level: LogLevel,
-        vararg logVariable: LogElementArgument,
         throwable: Throwable?,
-        message: String?,
         tag: String?,
+        formatingMessage: Boolean,
+        message: () -> String,
     ) {
         if (!condition()) {
             return
@@ -181,44 +169,35 @@ class NapierAnalyticsHelper : AnalyticsHelper() {
 
         when (level) {
             LogLevel.VERBOSE -> v(
-                logVariable = logVariable,
-                message = message,
                 tag = tag,
+                formatingMessage = formatingMessage,
+                message = message,
             )
 
             LogLevel.DEBUG -> d(
-                logVariable = logVariable,
-                message = message,
                 tag = tag,
+                formatingMessage = formatingMessage,
+                message = message,
             )
 
             LogLevel.INFO -> i(
-                logVariable = logVariable,
-                message = message,
                 tag = tag,
+                formatingMessage = formatingMessage,
+                message = message,
             )
 
             LogLevel.WARN -> w(
-                logVariable = logVariable,
-                message = message,
                 tag = tag,
+                formatingMessage = formatingMessage,
+                message = message,
             )
 
             LogLevel.ERROR -> e(
                 throwable = throwable,
-                logVariable = logVariable,
-                message = message,
                 tag = tag,
+                formatingMessage = formatingMessage,
+                message = message,
             )
         }
-    }
-
-    override fun networkLog(message: String?) {
-        val (defaultTag, _) = setTag()
-
-        Napier.d(
-            message = "$message\n",
-            tag = defaultTag,
-        )
     }
 }

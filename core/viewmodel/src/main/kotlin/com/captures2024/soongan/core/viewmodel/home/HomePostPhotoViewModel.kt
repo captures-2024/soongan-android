@@ -3,7 +3,6 @@ package com.captures2024.soongan.core.viewmodel.home
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.toRoute
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
-import com.captures2024.soongan.core.analytics.utils.LogElementArgument
 import com.captures2024.soongan.core.common.base.UIIntent
 import com.captures2024.soongan.core.common.base.UISideEffect
 import com.captures2024.soongan.core.common.base.UIState
@@ -44,11 +43,9 @@ constructor(
         val isShowShimmer: Boolean = true,
     ) : UIState {
 
-        override fun toLoggingElements(): Array<LogElementArgument> = arrayOf(
-            LogElementArgument("url", url),
-            LogElementArgument("isLoading", isLoading.toString()),
-            LogElementArgument("isShowShimmer", isShowShimmer.toString()),
-        )
+        override fun toString(): String {
+            return "State(url='$url', isLoading=$isLoading, isShowShimmer=$isShowShimmer)"
+        }
     }
 
     sealed interface Effect : UISideEffect

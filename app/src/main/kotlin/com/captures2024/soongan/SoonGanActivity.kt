@@ -12,7 +12,6 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
-import com.captures2024.soongan.core.analytics.utils.LogElementArgument
 import com.captures2024.soongan.core.android.utils.LocalAnalyticsHelper
 import com.captures2024.soongan.core.auth.kakao.KakaoAuthHelper
 import com.captures2024.soongan.core.auth.kakao.KakaoAuthHelperImpl
@@ -40,7 +39,7 @@ class SoonGanActivity : ComponentActivity(), KakaoLoginCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        analyticsHelper.d(message = "entry onCreate")
+        analyticsHelper.d { "entry onCreate" }
 
         setContent {
 //            val darkTheme = isSystemInDarkTheme()
@@ -66,10 +65,7 @@ class SoonGanActivity : ComponentActivity(), KakaoLoginCallback {
 
             LaunchedEffect(Unit) {
                 signViewModel.sideEffect.collect { sideEffect ->
-                    analyticsHelper.d(
-                        LogElementArgument("signInVm.sideEffect", "signInViewModel.sideEffect = $sideEffect"),
-                        message = "Collected sideEffect",
-                    )
+                    analyticsHelper.d { "Collected signInVm.sideEffect signInViewModel.sideEffect = $sideEffect" }
 
                     when (sideEffect) {
                         is SignViewModel.Effect.KakaoSignIn -> signInKakao()
@@ -96,11 +92,7 @@ class SoonGanActivity : ComponentActivity(), KakaoLoginCallback {
         accessToken: String?,
         refreshToken: String?,
     ) {
-        analyticsHelper.d(
-            LogElementArgument("accessToken", accessToken.toString()),
-            LogElementArgument("refreshToken", refreshToken.toString()),
-            message = "onSuccessKakaoLogin",
-        )
+        analyticsHelper.d { "onSuccessKakaoLogin - accessToken: $accessToken, refreshToken: $refreshToken" }
 
         signViewModel.intent(
             SignViewModel.Intent.CompleteSignKakao(
@@ -113,10 +105,7 @@ class SoonGanActivity : ComponentActivity(), KakaoLoginCallback {
     override fun onFailureKakaoLogin(
         error: Throwable?,
     ) {
-        analyticsHelper.e(
-            throwable = error,
-            message = "onFailureKakaoLogin",
-        )
+        analyticsHelper.e(error) { "onFailureKakaoLogin" }
     }
 
     private fun signInKakao() {

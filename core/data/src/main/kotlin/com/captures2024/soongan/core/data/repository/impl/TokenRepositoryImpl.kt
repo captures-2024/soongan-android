@@ -1,5 +1,6 @@
 package com.captures2024.soongan.core.data.repository.impl
 
+import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.data.repository.TokenRepository
 import com.captures2024.soongan.core.datastore.TokenDataSource
 import javax.inject.Inject
@@ -7,8 +8,13 @@ import javax.inject.Inject
 class TokenRepositoryImpl
 @Inject
 constructor(
+    private val analyticsHelper: AnalyticsHelper,
     private val tokenDataStore: TokenDataSource,
 ) : TokenRepository {
+
+    init {
+        analyticsHelper.d { "TokenRepository::init" }
+    }
 
     override suspend fun setAccessToken(accessToken: String) {
         tokenDataStore.setAccessToken(accessToken)

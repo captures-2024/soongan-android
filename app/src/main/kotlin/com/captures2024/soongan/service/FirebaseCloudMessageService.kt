@@ -14,7 +14,6 @@ import androidx.core.app.NotificationCompat
 import com.captures2024.soongan.R
 import com.captures2024.soongan.SoonGanActivity
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
-import com.captures2024.soongan.core.analytics.utils.LogElementArgument
 import com.captures2024.soongan.core.common.extension.checkGrantedPermission
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -24,22 +23,17 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class FirebaseCloudMessageService : FirebaseMessagingService() {
+    private val simpleName = this::class.simpleName
 
     @Inject
     lateinit var analyticsHelper: AnalyticsHelper
 
     override fun onNewToken(token: String) {
-        analyticsHelper.d(
-            LogElementArgument("$TAG.onNewToken", "$TAG.onNewToken = $token"),
-            message = "generate fcm token",
-        )
+        analyticsHelper.d { "[$simpleName] onNewToken - token: $token" }
     }
 
     override fun onMessageReceived(message: RemoteMessage) {
-        analyticsHelper.d(
-            LogElementArgument("$TAG.onMessageReceived", "$TAG.onMessageReceive = $message"),
-            message = "received fcm message",
-        )
+        analyticsHelper.d { "[$simpleName] onMessageReceived - message: $message" }
 
         if (!checkGrantedPermission(android.Manifest.permission.POST_NOTIFICATIONS)) return
 
@@ -117,8 +111,6 @@ class FirebaseCloudMessageService : FirebaseMessagingService() {
     }.getOrNull()
 
     companion object {
-        private const val TAG = "FCMService"
-
         private const val CHANNEL_ID = "soongan_channel_id"
         private const val CHANNEL_NAME = "soongan_Notification"
         private const val CHANNEL_DESCRIPTION = "Channel for soongan Notification"

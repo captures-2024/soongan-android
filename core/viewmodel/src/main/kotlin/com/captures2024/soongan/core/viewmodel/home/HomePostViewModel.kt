@@ -3,7 +3,6 @@ package com.captures2024.soongan.core.viewmodel.home
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.toRoute
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
-import com.captures2024.soongan.core.analytics.utils.LogElementArgument
 import com.captures2024.soongan.core.common.base.UIIntent
 import com.captures2024.soongan.core.common.base.UISideEffect
 import com.captures2024.soongan.core.common.base.UIState
@@ -62,15 +61,9 @@ constructor(
         val inWritingComment: String = "",
     ) : UIState {
 
-        override fun toLoggingElements(): Array<LogElementArgument> = arrayOf(
-            LogElementArgument("postId", postId.toString()),
-            LogElementArgument("post", post.toString()),
-            LogElementArgument("isMyPost", isMyPost.toString()),
-            LogElementArgument("isLikedChanged", isLikedChanged.toString()),
-            LogElementArgument("isOpenModal", isOpenModal.toString()),
-            LogElementArgument("isOpenDialogModal", isOpenDialogModal.toString()),
-            LogElementArgument("inWritingComment", inWritingComment),
-        )
+        override fun toString(): String {
+            return "State(postId=$postId, post=$post, isMyPost=$isMyPost, isLikedChanged=$isLikedChanged, isOpenModal=$isOpenModal, isOpenDialogModal=$isOpenDialogModal, inWritingComment='$inWritingComment')"
+        }
     }
 
     sealed interface Effect : UISideEffect {
@@ -138,7 +131,7 @@ constructor(
     }
 
     override fun handleClientException(throwable: Throwable) {
-        analyticsHelper.e(throwable = throwable)
+        analyticsHelper.e(throwable = throwable) { "state: $currentState" }
     }
 
     override fun handleIntent(intent: Intent) {
@@ -320,7 +313,7 @@ constructor(
             postId = currentState.postId,
         ).getOrNull()
 
-        analyticsHelper.d(message = "postDeleteResult: $result")
+        analyticsHelper.d { "postDeleteResult: $result" }
 
         reduce {
             copy(
