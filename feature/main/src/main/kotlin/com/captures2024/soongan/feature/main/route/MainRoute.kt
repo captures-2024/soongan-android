@@ -5,9 +5,7 @@ import com.captures2024.soongan.core.designsystem.ui.component.background.SGBack
 import com.captures2024.soongan.feature.main.ui.MainScreen
 
 @Composable
-fun MainRoute(isGuestMode: Boolean) {
-    val routeState: MainRouteState = rememberMainRouteState(isGuestMode = isGuestMode)
-
+fun MainRoute(routeState: MainRouteState) {
     SGBackground {
         MainScreen(routeState = routeState)
     }
