@@ -6,6 +6,7 @@ data class UserInfoDto(
     val birthYear: Int? = null,
     val selfIntroduction: String? = null,
     val profileImageUrl: String? = null,
+    val reportHistories: List<ReportHistoryDto> = emptyList(),
 ) {
 
     companion object {

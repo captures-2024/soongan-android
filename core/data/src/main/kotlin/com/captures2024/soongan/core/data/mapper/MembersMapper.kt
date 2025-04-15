@@ -23,4 +23,5 @@ fun GetMemberInfoResponse.toUserInfoDto(): UserInfoDto = UserInfoDto(
     birthYear = this.birthYear,
     profileImageUrl = this.profileImageUrl,
     selfIntroduction = this.selfIntroduction,
+    reportHistories = this.reportHistories.map { it.toReportHistoryDto() },
 )
