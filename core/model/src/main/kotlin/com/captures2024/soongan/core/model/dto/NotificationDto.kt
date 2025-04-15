@@ -1,8 +1,8 @@
-package com.captures2024.soongan.core.model
+package com.captures2024.soongan.core.model.dto
 
 import com.captures2024.soongan.core.model.utils.NotificationSubType
 
-data class Notification(
+data class NotificationDto(
     val id: Long = -1,
     val title: String = "",
     val body: String = "",
@@ -10,9 +10,9 @@ data class Notification(
     val isRead: Boolean = false,
     val redirectUrl: String? = null,
     val createdAt: String = "",
-) : Comparable<Notification> {
+) : Comparable<NotificationDto> {
 
-    override fun compareTo(other: Notification): Int {
+    override fun compareTo(other: NotificationDto): Int {
         // 1. 소명 알림 순
         val thisAppeal = (this.subType == NotificationSubType.APPEAL)
         val otherAppeal = (other.subType == NotificationSubType.APPEAL)
