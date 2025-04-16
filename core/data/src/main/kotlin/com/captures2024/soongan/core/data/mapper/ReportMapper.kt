@@ -13,7 +13,7 @@ fun PostReportResponse.toReportInfoDto(): ReportInfoDto = ReportInfoDto(
     targetType = targetType,
     reportType = reportType,
     reason = reason,
-    reportHistories = reportHistories.map { it.toReportHistoryDto() }
+    reportHistories = reportHistories.map { it.toReportHistoryDto() },
 )
 
 fun ReportHistoryResponse.toReportHistoryDto(): ReportHistoryDto = ReportHistoryDto(

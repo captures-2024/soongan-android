@@ -208,12 +208,12 @@ constructor(
             .collect { currentReportHistories ->
                 val filteredPost = filterReportedPosts(
                     posts = currentState.posts,
-                    reportHistories = currentReportHistories
+                    reportHistories = currentReportHistories,
                 )
 
                 reduce {
                     copy(
-                        posts = filteredPost
+                        posts = filteredPost,
                     )
                 }
             }
