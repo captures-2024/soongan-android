@@ -3,7 +3,7 @@ package com.captures2024.soongan.core.data.repository.impl
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.data.remote.ReportDataSource
 import com.captures2024.soongan.core.data.repository.ReportRepository
-import com.captures2024.soongan.core.model.dto.ResultConditionDto
+import com.captures2024.soongan.core.model.dto.ReportInfoDto
 import com.captures2024.soongan.core.model.utils.ReportTargetType
 import com.captures2024.soongan.core.model.utils.ReportType
 import javax.inject.Inject
@@ -24,7 +24,7 @@ constructor(
         targetType: ReportTargetType,
         reportType: ReportType,
         reason: String?,
-    ): ResultConditionDto {
+    ): ReportInfoDto {
         val reportInfo = dataSource.postReport(
             targetId = targetId,
             targetType = targetType,
@@ -40,9 +40,9 @@ constructor(
             targetType.name != reportInfo.targetType ||
             reportType.name != reportInfo.reportType ||
             reason != reportInfo.reason) {
-            return ResultConditionDto(result = false)
+            error("mismatch between request and response data")
         }
 
-        return ResultConditionDto(result = true)
+        return reportInfo
     }
 }
