@@ -3,11 +3,13 @@ package com.captures2024.soongan.core.data.repository.impl
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.data.remote.MembersDataSource
 import com.captures2024.soongan.core.data.repository.MembersRepository
+import com.captures2024.soongan.core.model.dto.ReportHistoryDto
 import com.captures2024.soongan.core.model.dto.ResultConditionDto
 import com.captures2024.soongan.core.model.dto.UserInfoDto
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 class MembersRepositoryImpl
@@ -98,6 +100,12 @@ constructor(
         return resultConditionDto
             ?.also { analyticsHelper.d { "isVerifiedNickname - resultConditionDto: $resultConditionDto" } }
             ?: throw NullPointerException("resultConditionDto is null")
+    }
+
+    override suspend fun updateReportHistories(histories: List<ReportHistoryDto>) {
+        _currentMember.update { currentMember ->
+            currentMember?.copy(reportHistories = histories)
+        }
     }
 
     override suspend fun clearCurrentMember() = _currentMember.emit(null)
