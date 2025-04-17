@@ -134,7 +134,7 @@ constructor(
     }
 
     private suspend fun handleInit() {
-        launch { fetchReportHistories() }
+        launch { handleReportHistoriesFlow() }
         fetchPostPage(page = 0)
     }
 
@@ -201,7 +201,7 @@ constructor(
         }
     }
 
-    private suspend fun fetchReportHistories() {
+    private suspend fun handleReportHistoriesFlow() {
         getCurrentMemberFlowUseCase()
             .map { it?.reportHistories ?: emptyList() }
             .distinctUntilChanged()
@@ -257,13 +257,8 @@ constructor(
             return
         }
 
-        val galleryPosts = when (isInitPage) {
-            false -> galleryDto.posts
-            true -> {
-                val reportHistories = getCurrentMemberFlowUseCase().first()?.reportHistories
-                filterReportedPosts(posts = galleryDto.posts, reportHistories = reportHistories)
-            }
-        }
+        val reportHistories = getCurrentMemberFlowUseCase().first()?.reportHistories
+        val galleryPosts = filterReportedPosts(posts = galleryDto.posts, reportHistories = reportHistories)
 
         analyticsHelper.d { "galleryDto posts are $galleryPosts" }
 
