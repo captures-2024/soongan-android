@@ -1,16 +1,16 @@
 package com.captures2024.soongan.core.data.repository
 
-import com.captures2024.soongan.core.model.dto.NotificationsCountDto
-import com.captures2024.soongan.core.model.dto.NotificationsDto
+import com.captures2024.soongan.core.model.dto.NotificationsCountInfoDto
+import com.captures2024.soongan.core.model.dto.NotificationsInfoDto
 import com.captures2024.soongan.core.model.utils.NotificationType
 
 interface NotificationsRepository {
 
     suspend fun getNotifications(
         type: NotificationType,
-    ): NotificationsDto
+    ): NotificationsInfoDto
 
-    suspend fun getNotificationsCount(): NotificationsCountDto
+    suspend fun getNotificationsCount(): NotificationsCountInfoDto
 
     suspend fun postNotificationRead(
         notificationId: Long,

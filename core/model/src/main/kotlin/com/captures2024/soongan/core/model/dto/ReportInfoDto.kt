@@ -8,4 +8,5 @@ data class ReportInfoDto(
     val targetType: String,
     val reportType: String,
     val reason: String? = null,
+    val reportHistories: List<ReportHistoryDto>,
 )

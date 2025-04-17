@@ -1,6 +1,6 @@
 package com.captures2024.soongan.core.model.mock
 
-import com.captures2024.soongan.core.model.Notification
+import com.captures2024.soongan.core.model.dto.NotificationDto
 import com.captures2024.soongan.core.model.UserPost
 import com.captures2024.soongan.core.model.utils.NotificationSubType
 import com.captures2024.soongan.core.model.utils.NotificationType
@@ -148,23 +148,23 @@ val mockNotificationsTable: NotificationsTable by lazy {
         index to notification
     }.toMap()
 
-    EnumMap<NotificationType, Map<Int, Notification>>(NotificationType::class.java).apply {
+    EnumMap<NotificationType, Map<Int, NotificationDto>>(NotificationType::class.java).apply {
         put(NotificationType.CONTEST, tempContestNotifications)
         put(NotificationType.ACTIVITY, tempActivityNotifications)
         put(NotificationType.NOTICE, tempNoticeNotifications)
     }
 }
 
-val mockContestNotifications: List<Notification> by lazy {
+val mockContestNotifications: List<NotificationDto> by lazy {
     listOf(
-        Notification(
+        NotificationDto(
             id = 1,
             title = "CONTEST_START",
             body = "CONTEST_START",
             subType = NotificationSubType.CONTEST_START,
             createdAt = "1",
         ),
-        Notification(
+        NotificationDto(
             id = 2,
             title = "CONTEST_END",
             body = "CONTEST_END",
@@ -174,23 +174,23 @@ val mockContestNotifications: List<Notification> by lazy {
     )
 }
 
-private val mockActivityNotifications: List<Notification> by lazy {
+private val mockActivityNotifications: List<NotificationDto> by lazy {
     listOf(
-        Notification(
+        NotificationDto(
             id = 3,
             title = "LIKE",
             body = "LIKE",
             subType = NotificationSubType.LIKE,
             createdAt = "1",
         ),
-        Notification(
+        NotificationDto(
             id = 4,
             title = "COMMENT",
             body = "COMMENT",
             subType = NotificationSubType.COMMENT,
             createdAt = "2",
         ),
-        Notification(
+        NotificationDto(
             id = 5,
             title = "APPEAL",
             body = "APPEAL",
@@ -200,16 +200,16 @@ private val mockActivityNotifications: List<Notification> by lazy {
     )
 }
 
-private val mockNoticeNotifications: List<Notification> by lazy {
+private val mockNoticeNotifications: List<NotificationDto> by lazy {
     listOf(
-        Notification(
+        NotificationDto(
             id = 6,
             title = "NOTICE",
             body = "NOTICE",
             subType = NotificationSubType.NOTICE,
             createdAt = "1",
         ),
-        Notification(
+        NotificationDto(
             id = 7,
             title = "NOTICE",
             body = "NOTICE",

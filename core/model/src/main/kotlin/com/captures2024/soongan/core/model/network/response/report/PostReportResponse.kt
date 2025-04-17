@@ -19,4 +19,6 @@ data class PostReportResponse(
     val reportType: String,
     @SerialName("reason")
     val reason: String? = null,
+    @SerialName("reportHistories")
+    val reportHistories: List<ReportHistoryResponse>,
 )

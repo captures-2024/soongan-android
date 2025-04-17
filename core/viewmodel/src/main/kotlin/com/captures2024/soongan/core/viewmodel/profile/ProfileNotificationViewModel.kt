@@ -14,7 +14,7 @@ import com.captures2024.soongan.core.domain.usecase.notifications.DeleteNotifica
 import com.captures2024.soongan.core.domain.usecase.notifications.GetNotificationsCountUseCase
 import com.captures2024.soongan.core.domain.usecase.notifications.GetNotificationsUseCase
 import com.captures2024.soongan.core.domain.usecase.notifications.PostNotificationReadUseCase
-import com.captures2024.soongan.core.model.Notification
+import com.captures2024.soongan.core.model.dto.NotificationDto
 import com.captures2024.soongan.core.model.utils.NotificationSubType
 import com.captures2024.soongan.core.model.utils.NotificationType
 import com.captures2024.soongan.core.model.utils.NotificationsCountTable
@@ -143,7 +143,7 @@ constructor(
 
     private suspend fun initSetNotifications() {
         val tempNotificationsTable =
-            EnumMap<NotificationType, Map<Int, Notification>>(NotificationType::class.java)
+            EnumMap<NotificationType, Map<Int, NotificationDto>>(NotificationType::class.java)
 
         NotificationType.entries.forEach { type ->
             val notificationsDto = getNotificationsUseCase(type = type).getOrNull()
@@ -156,7 +156,7 @@ constructor(
 
             analyticsHelper.d { "Init Set NotificationsDto: $notificationsDto" }
 
-            val tempNotificationMap: Map<Int, Notification> =
+            val tempNotificationMap: Map<Int, NotificationDto> =
                 notificationsDto.notifications.mapIndexed { index, notification ->
                     index to notification
                 }.toMap()

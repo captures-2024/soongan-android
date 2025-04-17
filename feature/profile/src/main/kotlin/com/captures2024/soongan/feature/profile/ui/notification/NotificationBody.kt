@@ -26,7 +26,7 @@ import com.captures2024.soongan.core.designsystem.ui.component.text.getSGNonScal
 import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.core.designsystem.ui.theme.SGTypography
 import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
-import com.captures2024.soongan.core.model.Notification
+import com.captures2024.soongan.core.model.dto.NotificationDto
 import com.captures2024.soongan.core.model.mock.mockNotificationsTable
 import com.captures2024.soongan.core.model.utils.NotificationSubType
 import com.captures2024.soongan.core.model.utils.NotificationType
@@ -37,7 +37,7 @@ import com.captures2024.soongan.feature.profile.ui.notification.component.Notifi
 
 @Composable
 internal fun NotificationBody(
-    notifications: Map<Int, Notification>,
+    notifications: Map<Int, NotificationDto>,
     modifier: Modifier = Modifier,
     onClickNotification: (Int) -> Unit = {},
     onDeleteNotification: (Int) -> Unit = {},
@@ -79,7 +79,7 @@ private fun EmptyNotificationHistory(modifier: Modifier = Modifier) {
 
 @Composable
 private fun NotificationHistory(
-    notifications: Map<Int, Notification>,
+    notifications: Map<Int, NotificationDto>,
     modifier: Modifier = Modifier,
     onClickNotification: (Int) -> Unit = {},
     onDeleteNotification: (Int) -> Unit = {},
@@ -118,7 +118,7 @@ private fun NotificationHistory(
 
 @Composable
 private fun NotificationHistoryContent(
-    notification: Notification,
+    notification: NotificationDto,
     modifier: Modifier = Modifier,
     isAppeal: Boolean = false, // 소명 알림 여부
     onClick: () -> Unit = {},
@@ -201,7 +201,7 @@ private fun NotificationBodyPreview() {
 @Composable
 private fun NotificationHistoryContentPreview() {
     NotificationHistoryContent(
-        notification = Notification(
+        notification = NotificationDto(
             title = "알림",
             body = "알림 내용",
             isRead = false,

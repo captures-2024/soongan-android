@@ -5,8 +5,8 @@ import com.captures2024.soongan.core.data.mapper.toNotificationsDto
 import com.captures2024.soongan.core.data.remote.NotificationsDataSource
 import com.captures2024.soongan.core.data.service.NotificationsService
 import com.captures2024.soongan.core.data.utils.safeAPICall
-import com.captures2024.soongan.core.model.dto.NotificationsCountDto
-import com.captures2024.soongan.core.model.dto.NotificationsDto
+import com.captures2024.soongan.core.model.dto.NotificationsCountInfoDto
+import com.captures2024.soongan.core.model.dto.NotificationsInfoDto
 import com.captures2024.soongan.core.model.utils.NotificationType
 import javax.inject.Inject
 
@@ -16,11 +16,11 @@ constructor(
     private val service: NotificationsService,
 ) : NotificationsDataSource {
 
-    override suspend fun getNotifications(type: NotificationType): NotificationsDto? = safeAPICall {
+    override suspend fun getNotifications(type: NotificationType): NotificationsInfoDto? = safeAPICall {
         service.getNotifications(type = type.name)
     }.body?.responseData?.toNotificationsDto()
 
-    override suspend fun getNotificationsCount(): NotificationsCountDto? = safeAPICall {
+    override suspend fun getNotificationsCount(): NotificationsCountInfoDto? = safeAPICall {
         service.getNotificationsCount()
     }.body?.responseData?.toNotificationsCountDto()
 
