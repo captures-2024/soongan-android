@@ -1,8 +1,8 @@
-package com.captures2024.soongan.core.data.remote
+package com.captures2024.soongan.core.data.source.post_like.remote
 
 import com.captures2024.soongan.core.model.dto.PostLikeDto
 
-interface PostLikeDataSource {
+interface PostLikeRemoteDataSource {
 
     suspend fun putPostLike(
         postId: Long,

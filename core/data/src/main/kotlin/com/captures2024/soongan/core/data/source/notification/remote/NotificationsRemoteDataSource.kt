@@ -1,10 +1,10 @@
-package com.captures2024.soongan.core.data.remote
+package com.captures2024.soongan.core.data.source.notification.remote
 
 import com.captures2024.soongan.core.model.dto.NotificationsCountInfoDto
 import com.captures2024.soongan.core.model.dto.NotificationsInfoDto
 import com.captures2024.soongan.core.model.utils.NotificationType
 
-interface NotificationsDataSource {
+interface NotificationsRemoteDataSource {
 
     suspend fun getNotifications(
         type: NotificationType,

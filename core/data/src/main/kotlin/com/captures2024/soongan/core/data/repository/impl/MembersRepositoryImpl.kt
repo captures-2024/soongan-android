@@ -1,7 +1,7 @@
 package com.captures2024.soongan.core.data.repository.impl
 
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
-import com.captures2024.soongan.core.data.remote.MembersDataSource
+import com.captures2024.soongan.core.data.source.members.remote.MembersRemoteDataSource
 import com.captures2024.soongan.core.data.repository.MembersRepository
 import com.captures2024.soongan.core.model.dto.ReportHistoryDto
 import com.captures2024.soongan.core.model.dto.ResultConditionDto
@@ -16,7 +16,7 @@ class MembersRepositoryImpl
 @Inject
 constructor(
     private val analyticsHelper: AnalyticsHelper,
-    private val membersDataSource: MembersDataSource,
+    private val membersRemoteDataSource: MembersRemoteDataSource,
 ) : MembersRepository {
 
     private val _currentMember: MutableStateFlow<UserInfoDto?> = MutableStateFlow(null)
@@ -41,7 +41,7 @@ constructor(
         profileImageUrl: String?,
         isDefaultProfileImage: Boolean,
     ): UserInfoDto {
-        val userInfoDto = membersDataSource.patchProfile(
+        val userInfoDto = membersRemoteDataSource.patchProfile(
             nickname = nickname,
             selfIntroduction = selfIntroduction,
             profileImageUrl = profileImageUrl,
@@ -65,7 +65,7 @@ constructor(
     }
 
     override suspend fun patchBirthYear(birthYear: Int): UserInfoDto {
-        val userInfoDto = membersDataSource.patchBirthYear(
+        val userInfoDto = membersRemoteDataSource.patchBirthYear(
             birthYear = birthYear,
         )
 
@@ -83,7 +83,7 @@ constructor(
     }
 
     override suspend fun getMemberInfo(): UserInfoDto {
-        val userInfoDto = membersDataSource.getMemberInfo()
+        val userInfoDto = membersRemoteDataSource.getMemberInfo()
 
         _currentMember.emit(userInfoDto)
 
@@ -93,7 +93,7 @@ constructor(
     }
 
     override suspend fun isVerifiedNickname(nickname: String): ResultConditionDto {
-        val resultConditionDto = membersDataSource.isVerifiedNickname(
+        val resultConditionDto = membersRemoteDataSource.isVerifiedNickname(
             nickname = nickname,
         )
 

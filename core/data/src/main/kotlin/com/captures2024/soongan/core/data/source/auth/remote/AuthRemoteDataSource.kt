@@ -1,10 +1,10 @@
-package com.captures2024.soongan.core.data.remote
+package com.captures2024.soongan.core.data.source.auth.remote
 
-import com.captures2024.soongan.core.model.utils.SocialSignType
 import com.captures2024.soongan.core.model.network.response.auth.ReissueTokenResponse
 import com.captures2024.soongan.core.model.network.response.auth.SignInWithTokenResponse
+import com.captures2024.soongan.core.model.utils.SocialSignType
 
-interface AuthDataSource {
+interface AuthRemoteDataSource {
 
     suspend fun withdrawWithToken(): Boolean
 

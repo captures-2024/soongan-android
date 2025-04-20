@@ -1,10 +1,10 @@
-package com.captures2024.soongan.core.data.remote
+package com.captures2024.soongan.core.data.source.report.remote
 
 import com.captures2024.soongan.core.model.dto.ReportInfoDto
 import com.captures2024.soongan.core.model.utils.ReportTargetType
 import com.captures2024.soongan.core.model.utils.ReportType
 
-interface ReportDataSource {
+interface ReportRemoteDataSource {
 
     suspend fun postReport(
         targetId: Long,

@@ -1,7 +1,7 @@
 package com.captures2024.soongan.core.data.repository.impl
 
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
-import com.captures2024.soongan.core.data.remote.AuthDataSource
+import com.captures2024.soongan.core.data.source.auth.remote.AuthRemoteDataSource
 import com.captures2024.soongan.core.data.repository.AuthRepository
 import com.captures2024.soongan.core.datastore.TokenDataSource
 import com.captures2024.soongan.core.model.dto.ResultConditionDto
@@ -13,14 +13,14 @@ class AuthRepositoryImpl
 constructor(
     private val analyticsHelper: AnalyticsHelper,
     private val tokenDataSource: TokenDataSource,
-    private val authDataSource: AuthDataSource,
+    private val authRemoteDataSource: AuthRemoteDataSource,
 ) : AuthRepository {
 
     init {
         analyticsHelper.d { "AuthRepository::init" }
     }
 
-    override suspend fun withdrawMember(): ResultConditionDto = when (authDataSource.withdrawWithToken()) {
+    override suspend fun withdrawMember(): ResultConditionDto = when (authRemoteDataSource.withdrawWithToken()) {
         true -> {
             tokenDataSource.clearAllToken()
             ResultConditionDto(result = true)
@@ -28,7 +28,7 @@ constructor(
         false -> ResultConditionDto(result = false)
     }
 
-    override suspend fun signOutSocialPlatform(): ResultConditionDto = when (authDataSource.signOutWithToken()) {
+    override suspend fun signOutSocialPlatform(): ResultConditionDto = when (authRemoteDataSource.signOutWithToken()) {
         true -> {
             tokenDataSource.clearAllToken()
             ResultConditionDto(result = true)
@@ -41,7 +41,7 @@ constructor(
         token: String,
         fcmToken: String,
     ): ResultConditionDto {
-        val tokenResult = authDataSource.signInWithToken(
+        val tokenResult = authRemoteDataSource.signInWithToken(
             type = type,
             token = token,
             fcmToken = fcmToken,
@@ -70,7 +70,7 @@ constructor(
             return ResultConditionDto(result = false)
         }
 
-        val tokenResult = authDataSource.reissueToken(
+        val tokenResult = authRemoteDataSource.reissueToken(
             accessToken = currentAccessToken,
             refreshToken = currentRefreshToken,
         ) ?: return ResultConditionDto(result = false)

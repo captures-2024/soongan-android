@@ -1,9 +1,9 @@
-package com.captures2024.soongan.core.data.remote
+package com.captures2024.soongan.core.data.source.members.remote
 
 import com.captures2024.soongan.core.model.dto.ResultConditionDto
 import com.captures2024.soongan.core.model.dto.UserInfoDto
 
-interface MembersDataSource {
+interface MembersRemoteDataSource {
 
     suspend fun patchProfile(
         nickname: String? = null,

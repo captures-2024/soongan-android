@@ -1,10 +1,10 @@
-package com.captures2024.soongan.core.data.remote
+package com.captures2024.soongan.core.data.source.weekly_contest.remote
 
 import com.captures2024.soongan.core.model.dto.GalleryDto
 import com.captures2024.soongan.core.model.dto.MyGalleryDto
 import com.captures2024.soongan.core.model.dto.PostInfoDto
 
-interface WeeklyContestDataSource {
+interface WeeklyContestRemoteDataSource {
 
     suspend fun getGalleryInfo(
         round: Int?,
@@ -18,13 +18,9 @@ interface WeeklyContestDataSource {
         imageFile: String,
     ): PostInfoDto?
 
-    suspend fun getPostInfo(
-        postId: Long,
-    ): PostInfoDto?
+    suspend fun getPostInfo(postId: Long): PostInfoDto?
 
-    suspend fun deletePost(
-        postId: Long,
-    ): Boolean
+    suspend fun deletePost(postId: Long): Boolean
 
     suspend fun editPostTitle(
         postId: Long,
