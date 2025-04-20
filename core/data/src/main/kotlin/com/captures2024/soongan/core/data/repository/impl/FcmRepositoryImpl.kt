@@ -22,17 +22,12 @@ constructor(
     override suspend fun initFcm(): ResultConditionDto {
         val result = fcmRemoteDataSource.initFcm(
             fcmToken = fcmLocalDataSource.getFcm(),
-        ) ?: return ResultConditionDto(false)
+        )
 
-        if (result.token != getFcm()) {
-            return ResultConditionDto(false)
-        }
-
-        return ResultConditionDto(true)
+        return ResultConditionDto(result?.token == getFcm())
     }
 
     override suspend fun getFcm(): String {
-        val fcmToken = fcmLocalDataSource.getFcm()
-        return fcmToken
+        return fcmLocalDataSource.getFcm()
     }
 }

@@ -20,20 +20,24 @@ constructor(
         analyticsHelper.d { "AuthRepository::init" }
     }
 
-    override suspend fun withdrawMember(): ResultConditionDto = when (authRemoteDataSource.withdrawWithToken()) {
-        true -> {
+    override suspend fun withdrawMember(): ResultConditionDto {
+        val result = authRemoteDataSource.withdrawWithToken()
+
+        if (result) {
             tokenDataSource.clearAllToken()
-            ResultConditionDto(result = true)
         }
-        false -> ResultConditionDto(result = false)
+
+        return ResultConditionDto(result = result)
     }
 
-    override suspend fun signOutSocialPlatform(): ResultConditionDto = when (authRemoteDataSource.signOutWithToken()) {
-        true -> {
+    override suspend fun signOutSocialPlatform(): ResultConditionDto {
+        val result = authRemoteDataSource.signOutWithToken()
+
+        if (result) {
             tokenDataSource.clearAllToken()
-            ResultConditionDto(result = true)
         }
-        false -> ResultConditionDto(result = false)
+
+        return ResultConditionDto(result = result)
     }
 
     override suspend fun signingSocialPlatform(

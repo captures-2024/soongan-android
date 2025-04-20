@@ -30,11 +30,7 @@ constructor(
             throw NullPointerException("postLikeDto(PUT) is null")
         }
 
-        if (postId != data.postId) {
-            return ResultConditionDto(false)
-        }
-
-        return ResultConditionDto(true)
+        return ResultConditionDto(postId == data.postId)
     }
 
     override suspend fun deletePostLike(
@@ -50,10 +46,6 @@ constructor(
             throw NullPointerException("postLikeDto(DELETE) is null")
         }
 
-        if (postId != data.postId) {
-            return ResultConditionDto(false)
-        }
-
-        return ResultConditionDto(true)
+        return ResultConditionDto(postId == data.postId)
     }
 }
