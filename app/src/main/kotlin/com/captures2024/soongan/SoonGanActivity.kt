@@ -12,7 +12,9 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.android.utils.LocalAnalyticsHelper
+import com.captures2024.soongan.core.common.extension.toMap
 import com.captures2024.soongan.core.designsystem.ui.theme.SGTheme
+import com.captures2024.soongan.core.model.AppConst
 import com.captures2024.soongan.core.viewmodel.AppRootViewModel
 import com.captures2024.soongan.route.AppRoute
 import dagger.hilt.android.AndroidEntryPoint
@@ -64,6 +66,22 @@ class SoonGanActivity : ComponentActivity() {
                     )
                 }
             }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val localIntent = intent
+        val extras = localIntent?.extras
+        val data = localIntent?.data
+        val parameters = data?.queryParameterNames?.associate { it to localIntent.data?.getQueryParameter(it) }
+        analyticsHelper.d { "[PUSH] onResume - $localIntent, $extras, $parameters" }
+
+        if (localIntent?.action?.equals(AppConst.Notification.PUSH_ACTION_NAME, ignoreCase = true) == true) {
+            analyticsHelper.d { "push - localIntent?.action: ${localIntent.action}" }
+            val payload = extras?.toMap()?.map { it.key to it.value.toString() }?.toMap() ?: emptyMap()
+            appRootViewModel.intent(AppRootViewModel.Intent.PostNotification(payload))
+            intent = null
         }
     }
 }

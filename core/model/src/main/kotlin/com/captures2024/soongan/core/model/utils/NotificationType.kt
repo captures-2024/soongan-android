@@ -17,4 +17,20 @@ enum class NotificationSubType(
     APPEAL(NotificationType.ACTIVITY),
 
     NOTICE(NotificationType.NOTICE),
+    ;
+
+    companion object {
+        fun fromString(name: String): NotificationSubType = when (name) {
+            CONTEST_START.name -> CONTEST_START
+            CONTEST_END.name -> CONTEST_END
+
+            COMMENT.name -> COMMENT
+            LIKE.name -> LIKE
+            APPEAL.name -> APPEAL
+
+            NOTICE.name -> NOTICE
+
+            else -> error("Unknown NotificationSubType: $name")
+        }
+    }
 }

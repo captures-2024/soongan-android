@@ -71,14 +71,15 @@ constructor(
 
     private fun handleInit() {
         launch { collectCurrentMember() }
+        launch { collectEvent() }
     }
 
     private fun handleClearEvent() {
-
+        // TODO
     }
 
     private suspend fun collectEvent() {
-
+        // TODO
     }
 
     private suspend fun collectCurrentMember() {

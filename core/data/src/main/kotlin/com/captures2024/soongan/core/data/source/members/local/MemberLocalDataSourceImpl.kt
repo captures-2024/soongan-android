@@ -42,7 +42,7 @@ constructor(
     override fun updateUserInfo(
         nickname: String?,
         selfIntroduction: String?,
-        profileImageUrl: String?
+        profileImageUrl: String?,
     ) {
         analyticsHelper.d { "updateUserInfo - nickname: $nickname, selfIntroduction: $selfIntroduction, profileImageUrl: $profileImageUrl" }
 

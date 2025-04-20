@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -20,13 +19,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import com.captures2024.soongan.core.designsystem.ui.component.background.SGBackground
 import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.core.viewmodel.AppRootViewModel
-import com.captures2024.soongan.core.viewmodel.NotificationViewModel
 import com.captures2024.soongan.feature.intro.route.IntroRoute
 import com.captures2024.soongan.feature.main.route.MainRoute
 import com.captures2024.soongan.feature.main.route.MainRouteState
@@ -57,7 +53,7 @@ internal fun AppRoute(
             },
         )
 
-        NotificationHost(navController = routeState.navController)
+//        NotificationHost(navController = routeState.navController)
         AppLoading(visible = uiState.isLoading)
     }
 }
@@ -117,11 +113,10 @@ private fun AppMainRoute(routeState: MainRouteState) {
 
 @Composable
 private fun NotificationHost(
-    navController: NavController,
-    notificationViewModel: NotificationViewModel = hiltViewModel(),
+//    navController: NavController,
+//    notificationViewModel: NotificationViewModel = hiltViewModel(),
 ) {
-    val state by notificationViewModel.state.collectAsState()
+//    val state by notificationViewModel.state.collectAsState()
 
-
-
+    // TODO
 }

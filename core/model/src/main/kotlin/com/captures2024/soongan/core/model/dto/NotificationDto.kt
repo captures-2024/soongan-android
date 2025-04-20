@@ -30,4 +30,20 @@ data class NotificationDto(
             { it.createdAt },
         )
     }
+
+    companion object {
+        fun fromPayload(payload: Map<String, Any?>): NotificationDto? {
+            return runCatching {
+                NotificationDto(
+                    id = payload[NotificationDto::id.name]!!.toString().toLong(),
+                    title = payload[NotificationDto::title.name]!!.toString(),
+                    body = payload[NotificationDto::body.name]!!.toString(),
+                    subType = NotificationSubType.fromString(payload[NotificationDto::subType.name]!!.toString()),
+                    isRead = payload[NotificationDto::isRead.name]!!.toString().toBoolean(),
+                    redirectUrl = payload[NotificationDto::redirectUrl.name]?.toString(),
+                    createdAt = payload[NotificationDto::createdAt.name]!!.toString(),
+                )
+            }.getOrNull()
+        }
+    }
 }
