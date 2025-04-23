@@ -86,7 +86,7 @@ constructor(
     }
 
     private fun handleOnBirthValueChanged(intent: Intent.OnBirthValueChanged) {
-        if (intent.newValue.toIntOrNull() == null) {
+        if (intent.newValue.isNotEmpty() && intent.newValue.toIntOrNull() == null) {
             return
         }
 
