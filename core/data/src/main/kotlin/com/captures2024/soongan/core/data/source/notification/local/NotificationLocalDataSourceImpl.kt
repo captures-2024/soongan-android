@@ -34,7 +34,7 @@ constructor(
         analyticsHelper.d { "emitNotification - payload: $payload" }
 
         scope.launch {
-            _notificationToken.emit(payload.map { it.key to it.value?.toString() }.toMap())
+            _notificationToken.emit(payload.mapValues { it.value?.toString() })
         }
     }
 
