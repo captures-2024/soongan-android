@@ -1,21 +1,21 @@
 package com.captures2024.soongan.core.data.di
 
-import com.captures2024.soongan.core.data.remote.AuthDataSource
-import com.captures2024.soongan.core.data.remote.FcmDataSource
-import com.captures2024.soongan.core.data.remote.HomeDataSource
-import com.captures2024.soongan.core.data.remote.MembersDataSource
-import com.captures2024.soongan.core.data.remote.NotificationsDataSource
-import com.captures2024.soongan.core.data.remote.PostLikeDataSource
-import com.captures2024.soongan.core.data.remote.ReportDataSource
-import com.captures2024.soongan.core.data.remote.WeeklyContestDataSource
-import com.captures2024.soongan.core.data.remote.impl.AuthDataSourceImpl
-import com.captures2024.soongan.core.data.remote.impl.FcmDataSourceImpl
-import com.captures2024.soongan.core.data.remote.impl.HomeDataSourceImpl
-import com.captures2024.soongan.core.data.remote.impl.MembersDataSourceImpl
-import com.captures2024.soongan.core.data.remote.impl.NotificationsDataSourceImpl
-import com.captures2024.soongan.core.data.remote.impl.PostLikeDataSourceImpl
-import com.captures2024.soongan.core.data.remote.impl.ReportDataSourceImpl
-import com.captures2024.soongan.core.data.remote.impl.WeeklyContestDataSourceImpl
+import com.captures2024.soongan.core.data.source.auth.remote.AuthRemoteDataSource
+import com.captures2024.soongan.core.data.source.fcm.remote.FcmRemoteDataSource
+import com.captures2024.soongan.core.data.source.home.remote.HomeRemoteDataSource
+import com.captures2024.soongan.core.data.source.members.remote.MembersRemoteDataSource
+import com.captures2024.soongan.core.data.source.notification.remote.NotificationsRemoteDataSource
+import com.captures2024.soongan.core.data.source.post_like.remote.PostLikeRemoteDataSource
+import com.captures2024.soongan.core.data.source.report.remote.ReportRemoteDataSource
+import com.captures2024.soongan.core.data.source.weekly_contest.remote.WeeklyContestRemoteDataSource
+import com.captures2024.soongan.core.data.source.auth.remote.AuthRemoteDataSourceImpl
+import com.captures2024.soongan.core.data.source.fcm.remote.FcmRemoteDataSourceImpl
+import com.captures2024.soongan.core.data.source.home.remote.HomeRemoteDataSourceImpl
+import com.captures2024.soongan.core.data.source.members.remote.MembersRemoteDataSourceImpl
+import com.captures2024.soongan.core.data.source.notification.remote.NotificationsRemoteDataSourceImpl
+import com.captures2024.soongan.core.data.source.post_like.remote.PostLikeRemoteDataSourceImpl
+import com.captures2024.soongan.core.data.source.report.remote.ReportRemoteDataSourceImpl
+import com.captures2024.soongan.core.data.source.weekly_contest.remote.WeeklyContestRemoteDataSourceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -28,33 +28,33 @@ abstract class RemoteDataSourceModule {
 
     @Binds
     @Singleton
-    abstract fun bindMembersDataSource(membersDataSourceImpl: MembersDataSourceImpl): MembersDataSource
+    abstract fun bindMembersRemoteDataSource(membersRemoteDataSourceImpl: MembersRemoteDataSourceImpl): MembersRemoteDataSource
 
     @Binds
     @Singleton
-    abstract fun bindFcmDataSource(fcmDataSourceImpl: FcmDataSourceImpl): FcmDataSource
+    abstract fun bindFcmRemoteDataSource(fcmRemoteDataSourceImpl: FcmRemoteDataSourceImpl): FcmRemoteDataSource
 
     @Binds
     @Singleton
-    abstract fun bindAuthDataSource(authDataSourceImpl: AuthDataSourceImpl): AuthDataSource
+    abstract fun bindAuthRemoteDataSource(authRemoteDataSourceImpl: AuthRemoteDataSourceImpl): AuthRemoteDataSource
 
     @Binds
     @Singleton
-    abstract fun bindHomeDataSource(homeDataSourceImpl: HomeDataSourceImpl): HomeDataSource
+    abstract fun bindHomeRemoteDataSource(homeRemoteDataSourceImpl: HomeRemoteDataSourceImpl): HomeRemoteDataSource
 
     @Binds
     @Singleton
-    abstract fun bindWeeklyContestDataSource(weeklyContestDataSourceImpl: WeeklyContestDataSourceImpl): WeeklyContestDataSource
+    abstract fun bindWeeklyContestRemoteDataSource(weeklyContestRemoteDataSourceImpl: WeeklyContestRemoteDataSourceImpl): WeeklyContestRemoteDataSource
 
     @Binds
     @Singleton
-    abstract fun bindReportDataSource(reportDataSourceImpl: ReportDataSourceImpl): ReportDataSource
+    abstract fun bindReportRemoteDataSource(reportRemoteDataSourceImpl: ReportRemoteDataSourceImpl): ReportRemoteDataSource
 
     @Binds
     @Singleton
-    abstract fun bindPostLikeDataSource(postLikeDataSourceImpl: PostLikeDataSourceImpl): PostLikeDataSource
+    abstract fun bindPostLikeRemoteDataSource(postLikeRemoteDataSourceImpl: PostLikeRemoteDataSourceImpl): PostLikeRemoteDataSource
 
     @Binds
     @Singleton
-    abstract fun bindNotificationsDataSource(notificationsDataSourceImpl: NotificationsDataSourceImpl): NotificationsDataSource
+    abstract fun bindNotificationsRemoteDataSource(notificationsRemoteDataSourceImpl: NotificationsRemoteDataSourceImpl): NotificationsRemoteDataSource
 }

@@ -15,6 +15,7 @@ import com.captures2024.soongan.R
 import com.captures2024.soongan.SoonGanActivity
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.common.extension.checkGrantedPermission
+import com.captures2024.soongan.core.model.AppConst
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,9 +34,15 @@ class FirebaseCloudMessageService : FirebaseMessagingService() {
     }
 
     override fun onMessageReceived(message: RemoteMessage) {
-        analyticsHelper.d { "[$simpleName] onMessageReceived - message: $message" }
+        if (!checkGrantedPermission(android.Manifest.permission.POST_NOTIFICATIONS)) {
+            return
+        }
 
-        if (!checkGrantedPermission(android.Manifest.permission.POST_NOTIFICATIONS)) return
+        if (message.data.isEmpty()) {
+            return
+        }
+
+        analyticsHelper.i { "[$simpleName] onMessageReceived - data: ${message.data}" }
 
         message.notification?.let { sgNotification ->
             val pendingIntent = createPendingIntent(message.data)
@@ -43,25 +50,21 @@ class FirebaseCloudMessageService : FirebaseMessagingService() {
         }
     }
 
-    @Suppress("UnusedParameter")
     private fun createPendingIntent(messageData: Map<String, String>): PendingIntent {
-        // server 타입명 동기화 필요
-//        val type = getNotificationType(messageData["notificationType"])
-
         val intent = Intent(this, SoonGanActivity::class.java).apply {
-            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-//            putExtra("link", messageData["link"])
-//            putExtra("type", type)
-//            putExtra("postId", messageData["postId"])
-//            putExtra("timeStamp", messageData["timestamp"])
+            this.action = AppConst.Notification.PUSH_ACTION_NAME
+            messageData.forEach { putExtra(it.key, it.value) }
         }
+        val intentFlags = PendingIntent.FLAG_MUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
 
-        return PendingIntent.getActivity(
-            this,
-            UUID.randomUUID().hashCode(),
-            intent,
-            PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE,
+        val pendingIntent = PendingIntent.getActivity(
+            /* context = */ this,
+            /* requestCode = */ UUID.randomUUID().hashCode(),
+            /* intent = */ intent,
+            /* flags = */ intentFlags,
         )
+
+        return pendingIntent
     }
 
     private fun sendNotification(
@@ -74,9 +77,10 @@ class FirebaseCloudMessageService : FirebaseMessagingService() {
 
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(smallIcon)
+            .setLargeIcon(bitmap)
             .setContentTitle(sgNotification.title)
             .setContentText(sgNotification.body)
-            .setLargeIcon(bitmap)
+            .setContentIntent(pendingIntent)
             .setStyle(
                 NotificationCompat.BigPictureStyle()
                     .bigPicture(bitmap)
@@ -84,7 +88,7 @@ class FirebaseCloudMessageService : FirebaseMessagingService() {
             )
             .setAutoCancel(true)
             .setSound(defaultSoundUri)
-            .setContentIntent(pendingIntent)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
             .build()
 
         with(getSystemService(NOTIFICATION_SERVICE) as NotificationManager) {

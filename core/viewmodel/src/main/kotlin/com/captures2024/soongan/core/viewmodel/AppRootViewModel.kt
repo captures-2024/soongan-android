@@ -17,6 +17,7 @@ import com.captures2024.soongan.core.domain.usecase.members.GetGuestModeFlowUseC
 import com.captures2024.soongan.core.domain.usecase.members.GetIsCurrentGuestModeUseCase
 import com.captures2024.soongan.core.domain.usecase.members.GetMemberInfoUseCase
 import com.captures2024.soongan.core.domain.usecase.members.SetGuestModeUseCase
+import com.captures2024.soongan.core.domain.usecase.notifications.EmitNotificationUseCase
 import com.captures2024.soongan.core.domain.usecase.token.ClearAllTokenUseCase
 import com.captures2024.soongan.core.model.dto.UserInfoDto
 import com.captures2024.soongan.core.viewmodel.model.AppRootRoute
@@ -35,6 +36,7 @@ constructor(
     private val clearAllTokenUseCase: ClearAllTokenUseCase,
     private val getLoadingFlowUseCase: GetLoadingFlowUseCase,
     private val getIsShowGuestModeDialogFlowUseCase: GetIsShowGuestModeDialogFlowUseCase,
+    private val emitNotificationUseCase: EmitNotificationUseCase,
     analyticsHelper: AnalyticsHelper,
     showLoadingUseCase: ShowLoadingUseCase,
     hideLoadingUseCase: HideLoadingUseCase,
@@ -98,6 +100,10 @@ constructor(
         data object Init : Intent
 
         data object OnClickConfirmGuestModeDialog : Intent
+
+        data class PostNotification(
+            val payload: Map<String, Any?>,
+        ) : Intent
     }
 
     init {
@@ -115,8 +121,8 @@ constructor(
     override fun handleIntent(intent: Intent) {
         when (intent) {
             is Intent.Init -> launch { handleInit() }
-
             is Intent.OnClickConfirmGuestModeDialog -> loadingLaunch { handleOnClickConfirmGuestModeDialog() }
+            is Intent.PostNotification -> handlePostNotification(intent)
         }
     }
 
@@ -139,6 +145,10 @@ constructor(
     private fun handleOnClickConfirmGuestModeDialog() {
         dismissGuestModeDialog()
         setGuestModeUseCase(false)
+    }
+
+    private fun handlePostNotification(intent: Intent.PostNotification) {
+        emitNotificationUseCase(intent.payload)
     }
 
     private suspend fun collectCurrentMember() {

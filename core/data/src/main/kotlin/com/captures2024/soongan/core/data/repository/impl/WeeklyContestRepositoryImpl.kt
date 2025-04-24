@@ -1,7 +1,7 @@
 package com.captures2024.soongan.core.data.repository.impl
 
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
-import com.captures2024.soongan.core.data.remote.WeeklyContestDataSource
+import com.captures2024.soongan.core.data.source.weekly_contest.remote.WeeklyContestRemoteDataSource
 import com.captures2024.soongan.core.data.repository.WeeklyContestRepository
 import com.captures2024.soongan.core.model.dto.GalleryDto
 import com.captures2024.soongan.core.model.dto.MyGalleryDto
@@ -12,7 +12,7 @@ class WeeklyContestRepositoryImpl
 @Inject
 constructor(
     private val analyticsHelper: AnalyticsHelper,
-    private val weeklyContestDataSource: WeeklyContestDataSource,
+    private val weeklyContestRemoteDataSource: WeeklyContestRemoteDataSource,
 ) : WeeklyContestRepository {
 
     init {
@@ -25,7 +25,7 @@ constructor(
         page: Int,
         pageSize: Int,
     ): GalleryDto {
-        val galleryInfo = weeklyContestDataSource.getGalleryInfo(
+        val galleryInfo = weeklyContestRemoteDataSource.getGalleryInfo(
             round = round,
             orderType = orderType,
             page = page,
@@ -39,7 +39,7 @@ constructor(
         title: String,
         imageFile: String,
     ): PostInfoDto {
-        val postInfoDto = weeklyContestDataSource.registerPost(
+        val postInfoDto = weeklyContestRemoteDataSource.registerPost(
             title = title,
             imageFile = imageFile,
         )
@@ -48,7 +48,7 @@ constructor(
     }
 
     override suspend fun getPostInfo(postId: Long): PostInfoDto {
-        val postInfoDto = weeklyContestDataSource.getPostInfo(
+        val postInfoDto = weeklyContestRemoteDataSource.getPostInfo(
             postId = postId,
         )
 
@@ -56,10 +56,10 @@ constructor(
     }
 
     override suspend fun deletePost(postId: Long): Boolean =
-        weeklyContestDataSource.deletePost(postId = postId)
+        weeklyContestRemoteDataSource.deletePost(postId = postId)
 
     override suspend fun editPostTitle(postId: Long, title: String): String {
-        val editedTitle = weeklyContestDataSource.editPostTitle(
+        val editedTitle = weeklyContestRemoteDataSource.editPostTitle(
             postId = postId,
             title = title,
         )
@@ -68,7 +68,7 @@ constructor(
     }
 
     override suspend fun getMyGalleryInfo(page: Int, pageSize: Int): MyGalleryDto {
-        val myGalleryInfo = weeklyContestDataSource.getMyGalleryInfo(
+        val myGalleryInfo = weeklyContestRemoteDataSource.getMyGalleryInfo(
             page = page,
             pageSize = pageSize,
         )

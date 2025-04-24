@@ -1,38 +1,37 @@
 package com.captures2024.soongan.core.data.repository.impl
 
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
-import com.captures2024.soongan.core.data.remote.MembersDataSource
+import com.captures2024.soongan.core.data.source.members.remote.MembersRemoteDataSource
 import com.captures2024.soongan.core.data.repository.MembersRepository
+import com.captures2024.soongan.core.data.source.members.local.GuestLocalDataSource
+import com.captures2024.soongan.core.data.source.members.local.MemberLocalDataSource
 import com.captures2024.soongan.core.model.dto.ReportHistoryDto
 import com.captures2024.soongan.core.model.dto.ResultConditionDto
 import com.captures2024.soongan.core.model.dto.UserInfoDto
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 class MembersRepositoryImpl
 @Inject
 constructor(
     private val analyticsHelper: AnalyticsHelper,
-    private val membersDataSource: MembersDataSource,
+    private val guestLocalDataSource: GuestLocalDataSource,
+    private val memberLocalDataSource: MemberLocalDataSource,
+    private val membersRemoteDataSource: MembersRemoteDataSource,
 ) : MembersRepository {
 
-    private val _currentMember: MutableStateFlow<UserInfoDto?> = MutableStateFlow(null)
     override val currentMember: StateFlow<UserInfoDto?>
-        get() = _currentMember.asStateFlow()
+        get() = memberLocalDataSource.loginInfo
 
-    private val _isGuestMode: MutableStateFlow<Boolean> = MutableStateFlow(false)
     override val isGuestMode: StateFlow<Boolean>
-        get() = _isGuestMode.asStateFlow()
+        get() = guestLocalDataSource.isGuestMode
 
     init {
         analyticsHelper.d { "MembersRepository::init" }
     }
 
     override fun setGuestMode(isGuestMode: Boolean) {
-        _isGuestMode.value = isGuestMode
+        guestLocalDataSource.setGuestMode(isGuestMode)
     }
 
     override suspend fun patchProfile(
@@ -41,72 +40,65 @@ constructor(
         profileImageUrl: String?,
         isDefaultProfileImage: Boolean,
     ): UserInfoDto {
-        val userInfoDto = membersDataSource.patchProfile(
+        val userInfoDto = membersRemoteDataSource.patchProfile(
             nickname = nickname,
             selfIntroduction = selfIntroduction,
             profileImageUrl = profileImageUrl,
             isDefaultProfileImage = isDefaultProfileImage,
         )
 
-        _currentMember.emit(
-            value = _currentMember.value
-                ?.let { currentMember ->
-                    return@let currentMember.copy(
-                        nickname = userInfoDto?.nickname,
-                        selfIntroduction = userInfoDto?.selfIntroduction,
-                        profileImageUrl = userInfoDto?.profileImageUrl,
-                    )
-                },
+        if (userInfoDto == null) {
+            throw NullPointerException("userInfoDto is null")
+        }
+
+        memberLocalDataSource.updateUserInfo(
+            nickname = nickname,
+            selfIntroduction = selfIntroduction,
+            profileImageUrl = profileImageUrl,
         )
 
         return userInfoDto
-            ?.also { analyticsHelper.d { "patchProfile - userInfoDto: $userInfoDto" } }
-            ?: throw NullPointerException("userInfoDto is null")
     }
 
     override suspend fun patchBirthYear(birthYear: Int): UserInfoDto {
-        val userInfoDto = membersDataSource.patchBirthYear(
-            birthYear = birthYear,
-        )
+        val userInfoDto = membersRemoteDataSource.patchBirthYear(birthYear = birthYear)
 
-        _currentMember.emit(
-            _currentMember.value?.let { currentMember ->
-                return@let currentMember.copy(
-                    birthYear = userInfoDto?.birthYear ?: currentMember.birthYear,
-                )
-            },
-        )
+        if (userInfoDto == null) {
+            throw NullPointerException("userInfoDto is null")
+        }
+
+        memberLocalDataSource.updateUserInfo(birthYear = birthYear)
 
         return userInfoDto
-            ?.also { analyticsHelper.d { "patchBirthYear - userInfoDto: $userInfoDto" } }
-            ?: throw NullPointerException("userInfoDto is null")
     }
 
     override suspend fun getMemberInfo(): UserInfoDto {
-        val userInfoDto = membersDataSource.getMemberInfo()
+        val userInfoDto = membersRemoteDataSource.getMemberInfo()
 
-        _currentMember.emit(userInfoDto)
+        if (userInfoDto == null) {
+            throw NullPointerException("userInfoDto is null")
+        }
+
+        memberLocalDataSource.updateUserInfo(userInfoDto)
 
         return userInfoDto
-            ?.also { analyticsHelper.d { "getMemberInfo - userInfoDto: $userInfoDto" } }
-            ?: throw NullPointerException("MemberInfo is null")
     }
 
     override suspend fun isVerifiedNickname(nickname: String): ResultConditionDto {
-        val resultConditionDto = membersDataSource.isVerifiedNickname(
-            nickname = nickname,
-        )
+        val resultConditionDto = membersRemoteDataSource.isVerifiedNickname(nickname = nickname)
+
+        if (resultConditionDto == null) {
+            throw NullPointerException("resultConditionDto is null")
+        }
 
         return resultConditionDto
-            ?.also { analyticsHelper.d { "isVerifiedNickname - resultConditionDto: $resultConditionDto" } }
-            ?: throw NullPointerException("resultConditionDto is null")
     }
 
     override suspend fun updateReportHistories(histories: List<ReportHistoryDto>) {
-        _currentMember.update { currentMember ->
-            currentMember?.copy(reportHistories = histories)
-        }
+        memberLocalDataSource.updateUserInfo(histories = histories)
     }
 
-    override suspend fun clearCurrentMember() = _currentMember.emit(null)
+    override suspend fun clearCurrentMember() {
+        memberLocalDataSource.clearInfo()
+    }
 }

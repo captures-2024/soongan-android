@@ -2,6 +2,10 @@ package com.captures2024.soongan.core.model
 
 data object AppConst {
 
+    data object Notification {
+        const val PUSH_ACTION_NAME = "com.captures2024.soongan.push"
+    }
+
     data object Network {
         const val AUTH_HEADER = "Authorization"
         const val AUTH_PREFIX = "Bearer"
