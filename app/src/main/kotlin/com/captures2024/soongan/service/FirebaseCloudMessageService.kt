@@ -34,6 +34,8 @@ class FirebaseCloudMessageService : FirebaseMessagingService() {
     }
 
     override fun onMessageReceived(message: RemoteMessage) {
+        analyticsHelper.i { "[$simpleName] onMessageReceived - message: $message" }
+
         if (!checkGrantedPermission(android.Manifest.permission.POST_NOTIFICATIONS)) {
             return
         }
@@ -56,6 +58,8 @@ class FirebaseCloudMessageService : FirebaseMessagingService() {
             messageData.forEach { putExtra(it.key, it.value) }
         }
         val intentFlags = PendingIntent.FLAG_MUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+
+        analyticsHelper.d { "createPendingIntent - intent.action: ${intent?.action}" }
 
         val pendingIntent = PendingIntent.getActivity(
             /* context = */ this,
@@ -102,7 +106,7 @@ class FirebaseCloudMessageService : FirebaseMessagingService() {
                 createNotificationChannel(channel)
             }
 
-            notify((System.currentTimeMillis() / 7).toInt(), notification)
+            notify("${CHANNEL_ID}${System.currentTimeMillis() / 7}".hashCode(), notification)
         }
     }
 

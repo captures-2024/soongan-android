@@ -1,5 +1,6 @@
 package com.captures2024.soongan
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -72,10 +73,11 @@ class SoonGanActivity : ComponentActivity() {
     override fun onResume() {
         super.onResume()
         val localIntent = intent
+        val action = localIntent?.action
         val extras = localIntent?.extras
         val data = localIntent?.data
         val parameters = data?.queryParameterNames?.associate { it to localIntent.data?.getQueryParameter(it) }
-        analyticsHelper.d { "[PUSH] onResume - $localIntent, $extras, $parameters" }
+        analyticsHelper.d { "[PUSH] onResume - $localIntent, $action, $extras, $parameters" }
 
         if (localIntent?.action?.equals(AppConst.Notification.PUSH_ACTION_NAME, ignoreCase = true) == true) {
             analyticsHelper.d { "push - localIntent?.action: ${localIntent.action}" }
@@ -83,6 +85,12 @@ class SoonGanActivity : ComponentActivity() {
             appRootViewModel.intent(AppRootViewModel.Intent.PostNotification(payload))
             intent = null
         }
+    }
+
+    override fun onNewIntent(newIntent: Intent) {
+        super.onNewIntent(newIntent)
+        analyticsHelper.v { "[PUSH] onNewIntent - intent: ${intent?.extras} newIntent: ${newIntent?.extras}" }
+        intent = newIntent
     }
 }
 
