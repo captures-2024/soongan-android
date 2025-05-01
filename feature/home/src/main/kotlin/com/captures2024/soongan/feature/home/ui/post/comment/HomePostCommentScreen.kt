@@ -24,8 +24,7 @@ import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillMenu
 import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
-import com.captures2024.soongan.core.model.UserPost
-import com.captures2024.soongan.core.model.mock.samplePhotos
+import com.captures2024.soongan.core.model.mock.mockPosts
 
 @Composable
 internal fun HomePostCommentScreen(
@@ -39,7 +38,7 @@ internal fun HomePostCommentScreen(
     ) {
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
-                .data((samplePhotos[0] as UserPost.PhotoPost).url)
+                .data(mockPosts[0].imageUrl)
                 .build(),
             contentDescription = "user_profile",
             modifier = Modifier
