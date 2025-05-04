@@ -88,8 +88,8 @@ fun SGGalleryImageItem(
 @Composable
 fun SGGalleryEmptyItem(
     emptyText: String,
-    registrationText: String = "",
     modifier: Modifier = Modifier,
+    registrationText: String = "",
     onClickRegistrationText: () -> Unit = {},
 ) {
     Column(
