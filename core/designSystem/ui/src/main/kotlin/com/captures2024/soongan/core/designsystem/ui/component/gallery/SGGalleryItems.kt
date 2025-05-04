@@ -88,8 +88,8 @@ fun SGGalleryImageItem(
 @Composable
 fun SGGalleryEmptyItem(
     emptyText: String,
-    registrationText: String,
     modifier: Modifier = Modifier,
+    registrationText: String = "",
     onClickRegistrationText: () -> Unit = {},
 ) {
     Column(
@@ -108,27 +108,29 @@ fun SGGalleryEmptyItem(
             ),
         )
 
-        Box(
-            modifier = Modifier
-                .size(
-                    width = 92.dp,
-                    height = 40.dp,
+        if (registrationText.isNotBlank()) {
+            Box(
+                modifier = Modifier
+                    .size(
+                        width = 92.dp,
+                        height = 40.dp,
+                    )
+                    .clickable { onClickRegistrationText() },
+                contentAlignment = Alignment.Center,
+            ) {
+                SGText(
+                    text = registrationText,
+                    style = getSGNonScaleTextStyle(
+                        color = SGColor.primaryA,
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Bold,
+                        lineHeight = 12.sp,
+                        fontFamily = SGTypography.nanumSquareNeo,
+                        letterSpacing = 0.em,
+                        textDecoration = TextDecoration.Underline,
+                    ),
                 )
-                .clickable { onClickRegistrationText() },
-            contentAlignment = Alignment.Center,
-        ) {
-            SGText(
-                text = registrationText,
-                style = getSGNonScaleTextStyle(
-                    color = SGColor.primaryA,
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Bold,
-                    lineHeight = 12.sp,
-                    fontFamily = SGTypography.nanumSquareNeo,
-                    letterSpacing = 0.em,
-                    textDecoration = TextDecoration.Underline,
-                ),
-            )
+            }
         }
     }
 }

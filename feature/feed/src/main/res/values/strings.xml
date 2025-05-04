@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!-- FeedFilterBottomSheet  -->
+    <string name="filter_likes">좋아요 순</string>
+    <string name="filter_oldest">오래된 순</string>
+    <string name="filter_newest">최신 등록 순</string>
+</resources>

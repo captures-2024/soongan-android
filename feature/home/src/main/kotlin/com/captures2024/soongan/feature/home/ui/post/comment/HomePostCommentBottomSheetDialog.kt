@@ -43,8 +43,7 @@ import com.captures2024.soongan.core.designsystem.ui.component.text.getSGNonScal
 import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.core.designsystem.ui.theme.SGTypography
 import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
-import com.captures2024.soongan.core.model.UserPost
-import com.captures2024.soongan.core.model.mock.samplePhotos
+import com.captures2024.soongan.core.model.mock.mockPosts
 import com.captures2024.soongan.feature.home.R
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -121,7 +120,7 @@ internal fun HomePostCommentBottomSheetDialog(
                 ) {
                     AsyncImage(
                         model = ImageRequest.Builder(LocalContext.current)
-                            .data((samplePhotos[0] as UserPost.PhotoPost).url)
+                            .data(mockPosts[0].imageUrl)
                             .build(),
                         contentDescription = "my_profile",
                         modifier = Modifier

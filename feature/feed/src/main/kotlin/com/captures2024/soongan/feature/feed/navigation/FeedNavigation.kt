@@ -1,12 +1,19 @@
 package com.captures2024.soongan.feature.feed.navigation
 
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import com.captures2024.soongan.core.navigator.screen.main.feed.FeedNavigator
 import com.captures2024.soongan.feature.feed.route.FeedRoute
 
-fun NavGraphBuilder.feed() {
+fun NavGraphBuilder.feed(
+    navigateToPost: (Long, NavOptions?) -> Unit,
+    getHidedPostId: () -> Long,
+) {
     composable<FeedNavigator> {
-        FeedRoute()
+        FeedRoute(
+            navigateToPost = navigateToPost,
+            getReportedPostId = getHidedPostId,
+        )
     }
 }

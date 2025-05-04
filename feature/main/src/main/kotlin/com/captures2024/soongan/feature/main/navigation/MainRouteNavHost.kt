@@ -73,7 +73,10 @@ internal fun MainRouteNavHost(
             navigateToBackWithHidePost = navController::navigateToBackWithHidePost,
             getHidedPostId = navController::getHidedPostId,
         )
-        feed()
+        feed(
+            navigateToPost = navController::navigateToHomePost,
+            getHidedPostId = navController::getHidedPostId,
+        )
         awards()
         profile(
             navigateToBack = navController::popBackStack,
