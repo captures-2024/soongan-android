@@ -13,8 +13,6 @@ android {
 dependencies {
     implementation(projects.core.auth)
 
-    implementation(projects.presentation.feature.privacyPolicy)
     implementation(projects.presentation.feature.signIn)
     implementation(projects.presentation.feature.signUp)
-    implementation(projects.presentation.feature.terms)
 }

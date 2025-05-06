@@ -27,7 +27,6 @@ import com.captures2024.soongan.feature.intro.route.IntroRoute
 import com.captures2024.soongan.feature.main.route.MainRoute
 import com.captures2024.soongan.feature.main.route.MainRouteState
 import com.captures2024.soongan.feature.main.route.rememberMainRouteState
-import com.captures2024.soongan.feature.sign.route.SignRoute
 import com.captures2024.soongan.presentation.feature.sign.navigation.SignNavigation
 import com.captures2024.soongan.ui.AppRootScreen
 import kotlinx.coroutines.delay

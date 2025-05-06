@@ -48,11 +48,9 @@ include(
 )
 
 include(
-    ":presentation:feature:privacy-policy",
     ":presentation:feature:sign",
     ":presentation:feature:sign-in",
     ":presentation:feature:sign-up",
-    ":presentation:feature:terms",
 
     ":presentation:viewmodel",
 )

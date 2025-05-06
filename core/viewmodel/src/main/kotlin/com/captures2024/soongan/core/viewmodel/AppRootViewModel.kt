@@ -18,6 +18,7 @@ import com.captures2024.soongan.core.domain.usecase.members.GetIsCurrentGuestMod
 import com.captures2024.soongan.core.domain.usecase.members.GetMemberInfoUseCase
 import com.captures2024.soongan.core.domain.usecase.members.SetGuestModeUseCase
 import com.captures2024.soongan.core.domain.usecase.notifications.EmitNotificationUseCase
+import com.captures2024.soongan.core.domain.usecase.system.GetInAppBrowserUrlFlow
 import com.captures2024.soongan.core.domain.usecase.token.ClearAllTokenUseCase
 import com.captures2024.soongan.core.model.dto.UserInfoDto
 import com.captures2024.soongan.core.viewmodel.model.AppRootRoute
@@ -37,6 +38,7 @@ constructor(
     private val getLoadingFlowUseCase: GetLoadingFlowUseCase,
     private val getIsShowGuestModeDialogFlowUseCase: GetIsShowGuestModeDialogFlowUseCase,
     private val emitNotificationUseCase: EmitNotificationUseCase,
+    private val getInAppBrowserUrlFlow: GetInAppBrowserUrlFlow,
     analyticsHelper: AnalyticsHelper,
     showLoadingUseCase: ShowLoadingUseCase,
     hideLoadingUseCase: HideLoadingUseCase,
@@ -93,7 +95,11 @@ constructor(
         }
     }
 
-    sealed interface Effect : UISideEffect
+    sealed interface Effect : UISideEffect {
+        data class OpenInAppBrowser(
+            val url: String,
+        ) : Effect
+    }
 
     sealed interface Intent : UIIntent {
 
@@ -131,6 +137,7 @@ constructor(
         launch { collectGuestMode() }
         launch { collectLoading() }
         launch { collectGuestModeDialog() }
+        launch { collectInAppBrowserUrl() }
 
         fetchRemoteFCMToken()
         fetchRemoteMemberInfo()
@@ -184,6 +191,12 @@ constructor(
                     isShowGuestModeDialog = condition,
                 )
             }
+        }
+    }
+
+    private suspend fun collectInAppBrowserUrl() {
+        getInAppBrowserUrlFlow().collect {
+            postSideEffect(Effect.OpenInAppBrowser(it))
         }
     }
 

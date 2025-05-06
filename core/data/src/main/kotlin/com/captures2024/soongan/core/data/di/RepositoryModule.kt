@@ -9,6 +9,7 @@ import com.captures2024.soongan.core.data.repository.MembersRepository
 import com.captures2024.soongan.core.data.repository.NotificationsRepository
 import com.captures2024.soongan.core.data.repository.PostLikeRepository
 import com.captures2024.soongan.core.data.repository.ReportRepository
+import com.captures2024.soongan.core.data.repository.SystemRepository
 import com.captures2024.soongan.core.data.repository.TokenRepository
 import com.captures2024.soongan.core.data.repository.WeeklyContestRepository
 import com.captures2024.soongan.core.data.repository.impl.AuthRepositoryImpl
@@ -20,6 +21,7 @@ import com.captures2024.soongan.core.data.repository.impl.MembersRepositoryImpl
 import com.captures2024.soongan.core.data.repository.impl.NotificationsRepositoryImpl
 import com.captures2024.soongan.core.data.repository.impl.PostLikeRepositoryImpl
 import com.captures2024.soongan.core.data.repository.impl.ReportRepositoryImpl
+import com.captures2024.soongan.core.data.repository.impl.SystemRepositoryImpl
 import com.captures2024.soongan.core.data.repository.impl.TokenRepositoryImpl
 import com.captures2024.soongan.core.data.repository.impl.WeeklyContestRepositoryImpl
 import dagger.Binds
@@ -75,4 +77,8 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindNotificationsRepository(notificationsRepositoryImpl: NotificationsRepositoryImpl): NotificationsRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindSystemRepository(systemRepositoryImpl: SystemRepositoryImpl): SystemRepository
 }
