@@ -89,6 +89,10 @@ dependencies {
     implementation(projects.feature.termsOfUse)
     implementation(projects.feature.welcome)
 
+    implementation(projects.presentation.feature.sign)
+
+    implementation(projects.presentation.viewmodel)
+
     implementation(libs.google.firebase.crashlytics)
 
     implementation(libs.android.startup)
