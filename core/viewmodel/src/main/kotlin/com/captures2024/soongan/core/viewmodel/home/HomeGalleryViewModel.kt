@@ -9,27 +9,20 @@ import com.captures2024.soongan.core.domain.usecase.dialog.SetIsShowGuestModeDia
 import com.captures2024.soongan.core.domain.usecase.loading.ClearLoadingUseCase
 import com.captures2024.soongan.core.domain.usecase.loading.HideLoadingUseCase
 import com.captures2024.soongan.core.domain.usecase.loading.ShowLoadingUseCase
-import com.captures2024.soongan.core.domain.usecase.members.GetCurrentMemberFlowUseCase
 import com.captures2024.soongan.core.domain.usecase.members.GetIsCurrentGuestModeUseCase
-import com.captures2024.soongan.core.domain.usecase.weekly.contests.GetGalleryUseCase
+import com.captures2024.soongan.core.domain.usecase.weekly.contests.GetFilteredGalleryUseCase
 import com.captures2024.soongan.core.model.dto.GalleryPostDto
-import com.captures2024.soongan.core.model.dto.ReportHistoryDto
-import com.captures2024.soongan.core.model.utils.ReportTargetType
 import com.captures2024.soongan.core.viewmodel.NewBaseViewModel
 import com.captures2024.soongan.core.viewmodel.model.PaginationStatus
 import com.captures2024.soongan.core.viewmodel.model.PostOrderType
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeGalleryViewModel
 @Inject
 constructor(
-    private val getCurrentMemberFlowUseCase: GetCurrentMemberFlowUseCase,
-    private val getGalleryUseCase: GetGalleryUseCase,
+    private val getFilteredGalleryUseCase: GetFilteredGalleryUseCase,
     analyticsHelper: AnalyticsHelper,
     showLoadingUseCase: ShowLoadingUseCase,
     hideLoadingUseCase: HideLoadingUseCase,
@@ -134,7 +127,6 @@ constructor(
     }
 
     private suspend fun handleInit() {
-        launch { handleReportHistoriesFlow() }
         fetchPostPage(page = 0)
     }
 
@@ -201,24 +193,6 @@ constructor(
         }
     }
 
-    private suspend fun handleReportHistoriesFlow() {
-        getCurrentMemberFlowUseCase()
-            .map { it?.reportHistories ?: emptyList() }
-            .distinctUntilChanged()
-            .collect { currentReportHistories ->
-                val filteredPost = filterReportedPosts(
-                    posts = currentState.posts,
-                    reportHistories = currentReportHistories,
-                )
-
-                reduce {
-                    copy(
-                        posts = filteredPost,
-                    )
-                }
-            }
-    }
-
     private suspend fun fetchPostPage(
         page: Int = 0,
         isRefreshing: Boolean = false,
@@ -235,8 +209,8 @@ constructor(
 
         setUpLoading(isInitPage = isInitPage, isRefreshing = isRefreshing)
 
-        val galleryDto = getGalleryUseCase(
-            params = GetGalleryUseCase.Params(
+        val galleryDto = getFilteredGalleryUseCase(
+            params = GetFilteredGalleryUseCase.Params(
                 round = null,
                 orderType = currentState.postOrderType.name,
                 page = page,
@@ -257,11 +231,6 @@ constructor(
             return
         }
 
-        val reportHistories = getCurrentMemberFlowUseCase().first()?.reportHistories
-        val galleryPosts = filterReportedPosts(posts = galleryDto.posts, reportHistories = reportHistories)
-
-        analyticsHelper.d { "galleryDto posts are $galleryPosts" }
-
         reduce {
             copy(
                 isRefreshing = false,
@@ -272,24 +241,11 @@ constructor(
 
                     else -> PaginationStatus.INACTIVE
                 },
-                posts = posts + galleryPosts,
+                posts = posts + galleryDto.posts,
                 nextPage = page + 1,
                 hasNextPage = galleryDto.hasNext,
             )
         }
-    }
-
-    private fun filterReportedPosts(
-        posts: List<GalleryPostDto>,
-        reportHistories: List<ReportHistoryDto>?,
-    ): List<GalleryPostDto> {
-        val reportTargetIds = reportHistories
-            ?.filter { it.targetType == ReportTargetType.WEEKLY_POST.name }
-            ?.map { it.targetId }
-            ?.toSet()
-            ?: emptySet()
-
-        return posts.filter { it.postId !in reportTargetIds }
     }
 
     private fun handleOnClickRegistrationText() {
