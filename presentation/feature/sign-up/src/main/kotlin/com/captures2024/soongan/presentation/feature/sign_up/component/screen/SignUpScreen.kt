@@ -72,6 +72,7 @@ internal fun SignUpScreen(
                 },
             )
         },
+        containerColor = Color(0xFFFAFAF8),
     ) { innerPadding ->
         when (state.nicknameState.isRemoteSuccess) {
             false -> InputNicknameScreen(
