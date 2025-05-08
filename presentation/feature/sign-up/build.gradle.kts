@@ -5,3 +5,7 @@ plugins {
 android {
     namespace = "com.captures2024.soongan.presentation.feature.sign_up"
 }
+
+dependencies {
+    implementation(projects.presentation.viewmodel)
+}

@@ -61,11 +61,6 @@ include(
     ":feature:home",
     ":feature:intro",
     ":feature:main",
-    ":feature:privacyPolicy",
     ":feature:profile",
-    ":feature:sign",
-    ":feature:signIn",
-    ":feature:signUp",
-    ":feature:termsOfUse",
     ":feature:welcome",
 )

@@ -7,7 +7,9 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.captures2024.soongan.core.navigator.screen.sign.SignInNavigator
+import com.captures2024.soongan.core.navigator.screen.sign.navigateToSignUp
 import com.captures2024.soongan.presentation.feature.sign_in.navigation.signIn
+import com.captures2024.soongan.presentation.feature.sign_up.navigation.signUp
 
 @Composable
 fun SignNavigation(
@@ -24,7 +26,10 @@ fun SignNavigation(
         popExitTransition = { ExitTransition.None },
     ) {
         signIn(
-            navigateToSignUp = { TODO() }
+            navigateToSignUp = { navController.navigateToSignUp() },
+        )
+        signUp(
+            navigateToBack = { navController.navigateUp() },
         )
     }
 }

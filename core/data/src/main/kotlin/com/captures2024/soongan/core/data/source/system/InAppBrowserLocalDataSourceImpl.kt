@@ -9,7 +9,7 @@ class InAppBrowserLocalDataSourceImpl
 @Inject
 constructor(
     private val analyticsHelper: AnalyticsHelper,
-): InAppBrowserLocalDataSource {
+) : InAppBrowserLocalDataSource {
 
     private val _inAppBrowserUrl: MutableSharedFlow<String> = MutableSharedFlow()
     override val inAppBrowserUrl: SharedFlow<String>

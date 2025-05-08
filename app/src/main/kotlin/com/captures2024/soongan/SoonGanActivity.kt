@@ -41,7 +41,7 @@ class SoonGanActivity : ComponentActivity() {
     private val customTabs = object : CustomTabsServiceConnection() {
         override fun onCustomTabsServiceConnected(
             name: ComponentName,
-            client: CustomTabsClient
+            client: CustomTabsClient,
         ) {
             analyticsHelper.i { "PlatformInAppBrowserController::onCustomTabsServiceConnected - name: $name, client: $client" }
             client.warmup(0)
@@ -53,7 +53,6 @@ class SoonGanActivity : ComponentActivity() {
         override fun onServiceDisconnected(name: ComponentName?) {
             analyticsHelper.i { "PlatformInAppBrowserController::onServiceDisconnected - name: $name" }
         }
-
     }
 
     private var currentUrl: String = ""

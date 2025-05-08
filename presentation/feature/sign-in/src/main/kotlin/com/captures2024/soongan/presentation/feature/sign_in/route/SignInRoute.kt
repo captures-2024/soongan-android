@@ -9,12 +9,12 @@ import com.captures2024.soongan.core.auth.google.requestGoogleLogin
 import com.captures2024.soongan.core.auth.kakao.KakaoAuthHelperImpl
 import com.captures2024.soongan.core.auth.kakao.KakaoLoginCallback
 import com.captures2024.soongan.presentation.feature.sign_in.component.screen.SignInScreen
-import com.captures2024.soongan.presentation.viewmodel.SignInViewModel
+import com.captures2024.soongan.presentation.viewmodel.sign.SignInViewModel
 
 @Composable
 internal fun SignInRoute(
     navigateToSignUp: () -> Unit,
-    signInViewModel: SignInViewModel = hiltViewModel()
+    signInViewModel: SignInViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
 

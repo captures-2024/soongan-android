@@ -95,7 +95,6 @@ internal fun TermsComponent(
     )
 }
 
-
 @DevicePreviews
 @Composable
 private fun PreviewTermsComponent() {
