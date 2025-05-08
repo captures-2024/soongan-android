@@ -2,7 +2,6 @@ package com.captures2024.soongan.feature.feed.ui
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
 import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.foundation.lazy.staggeredgrid.rememberLazyStaggeredGridState
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -78,15 +77,15 @@ private fun FeedScreen(
             isInitPage = isInitPage,
             hasNextPage = (paginationStatus != PaginationStatus.EXHAUST),
             onLoadNextPage = onLoadNextPage,
-        ) {
-            item(span = StaggeredGridItemSpan.FullLine) {
-                FeedTopBar(
+            header = {
+                FeedGalleryHeader(
                     selectedOption = uiState.currentTitleOption,
                     options = uiState.titleOptions,
                     onClickRound = onClickRound,
                     onClickFilter = onClickFilter,
                 )
-            }
+            },
+        ) {
             items(items = uiState.currentRoundGallery, key = { it.postId }) {
                 SGGalleryImageItem(
                     imageUrl = it.imageUrl,

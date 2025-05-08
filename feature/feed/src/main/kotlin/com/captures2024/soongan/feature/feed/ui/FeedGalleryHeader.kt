@@ -1,11 +1,8 @@
 package com.captures2024.soongan.feature.feed.ui
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
@@ -22,13 +19,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillFillter
-import com.captures2024.soongan.core.designsystem.ui.component.WidthSpacer
 import com.captures2024.soongan.core.designsystem.ui.component.button.SGIconCircleButton
+import com.captures2024.soongan.core.designsystem.ui.component.gallery.SGGalleryHeader
+import com.captures2024.soongan.core.designsystem.ui.component.gallery.SGGalleryHeaderTitle
 import com.captures2024.soongan.core.designsystem.ui.component.text.SGText
 import com.captures2024.soongan.core.designsystem.ui.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
@@ -37,35 +34,28 @@ import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.core.viewmodel.feed.FeedViewModel
 
 @Composable
-internal fun FeedTopBar(
+internal fun FeedGalleryHeader(
     selectedOption: Pair<Int, String>,
     options: List<Pair<Int, String>>,
     modifier: Modifier = Modifier,
     onClickRound: (Int) -> Unit = {},
     onClickFilter: () -> Unit = {},
 ) {
-    Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(100.dp)
-            .padding(20.dp),
-        contentAlignment = Alignment.Center,
+    SGGalleryHeader(
+        modifier = modifier,
+        trailingIcon = {
+            SGIconCircleButton(
+                imageVector = MyIconPack.IconNonFillFillter,
+                contentDescription = "select gallery posts order type",
+                onClick = onClickFilter,
+            )
+        },
     ) {
         FeedDropDownMenu(
             selectedOption = selectedOption,
             options = options,
             onClickRound = onClickRound,
         )
-        Box(
-            modifier = Modifier
-                .align(Alignment.CenterEnd),
-        ) {
-            SGIconCircleButton(
-                imageVector = MyIconPack.IconNonFillFillter,
-                contentDescription = "",
-                onClick = onClickFilter,
-            )
-        }
     }
 }
 
@@ -86,20 +76,26 @@ private fun FeedDropDownMenu(
     ) {
         Row(
             modifier = Modifier
-                .menuAnchor(MenuAnchorType.PrimaryEditable)
-                .fillMaxWidth(0.5f),
+                .fillMaxWidth(fraction = 0.45f)
+                .menuAnchor(MenuAnchorType.PrimaryEditable),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
+            horizontalArrangement = Arrangement.SpaceAround,
         ) {
-            FeedTopBarAnnotatedTitle(prefix = selectedOption.first, suffix = selectedOption.second)
-            WidthSpacer(8.dp)
+            SGGalleryHeaderTitle(
+                prefix = "${selectedOption.first}회차",
+                suffix = selectedOption.second,
+            )
+
             Icon(
                 imageVector = if (expanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown,
                 contentDescription = null,
             )
         }
 
-        ExposedDropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
+        ExposedDropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false },
+        ) {
             for ((round, title) in options) {
                 DropdownMenuItem(
                     text = {
@@ -125,58 +121,12 @@ private fun FeedDropDownMenu(
     }
 }
 
-@Composable
-private fun FeedTopBarAnnotatedTitle(
-    prefix: Int,
-    suffix: String,
-) {
-    SGText(
-        text = "${prefix}회차",
-        style = getSGNonScaleTextStyle(
-            color = SGColor.primaryA,
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
-            lineHeight = 20.sp,
-            fontFamily = SGTypography.nanumSquareNeo,
-            letterSpacing = (-5).em,
-        ),
-    )
-
-    WidthSpacer(8.dp)
-
-    SGText(
-        text = "|",
-        style = getSGNonScaleTextStyle(
-            color = SGColor.primaryA,
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
-            lineHeight = 20.sp,
-            fontFamily = SGTypography.poppins,
-            letterSpacing = 0.em,
-        ),
-    )
-
-    WidthSpacer(8.dp)
-
-    SGText(
-        text = suffix,
-        style = getSGNonScaleTextStyle(
-            color = SGColor.primaryA,
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
-            lineHeight = 20.sp,
-            fontFamily = SGTypography.nanumSquareNeo,
-            letterSpacing = (-5).em,
-        ),
-    )
-}
-
 @DevicePreviews
 @Composable
-private fun HomeGalleryTopBarPreview() {
+private fun FeedHeaderPreview() {
     val state = FeedViewModel.State()
 
-    FeedTopBar(
+    FeedGalleryHeader(
         selectedOption = state.currentTitleOption,
         options = state.titleOptions,
         onClickRound = {},
