@@ -1,3 +1,4 @@
+import com.captures2024.soongan.plugin.Plugins
 import com.captures2024.soongan.plugin.implementation
 import com.captures2024.soongan.plugin.libs
 import com.captures2024.soongan.plugin.project
@@ -5,9 +6,9 @@ import org.gradle.kotlin.dsl.dependencies
 
 class AndroidFeatureConventionPlugin : BaseConventionPlugin({
     with(plugins) {
-        apply("captures2024.soongan.android.library")
-        apply("captures2024.soongan.android.library.compose")
-        apply("captures2024.soongan.android.hilt")
+        apply(Plugins.CUSTOM_LIBRARY)
+        apply(Plugins.CUSTOM_LIBRARY_COMPOSE)
+        apply(Plugins.CUSTOM_HILT)
     }
 
     dependencies {

@@ -47,6 +47,7 @@ fun SGTextFieldTypeForm(
     onValueChange: (String) -> Unit,
     hint: String,
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
     state: SGTextFieldFormState = SGTextFieldFormState.Default,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
@@ -65,12 +66,13 @@ fun SGTextFieldTypeForm(
                 color = when (state) {
                     SGTextFieldFormState.Default,
                     SGTextFieldFormState.Success,
-                    -> SGColor.black
+                    -> SGColor.black60
 
                     SGTextFieldFormState.Error -> SGColor.negative
                 },
                 shape = backgroundShape,
             ),
+        enabled = enabled,
         singleLine = true,
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
@@ -94,7 +96,7 @@ fun SGTextFieldTypeForm(
                         tint = when (state) {
                             SGTextFieldFormState.Default -> SGColor.buttonDisableGray
 
-                            SGTextFieldFormState.Success -> SGColor.positive
+                            SGTextFieldFormState.Success -> SGColor.accent
 
                             SGTextFieldFormState.Error -> SGColor.negative
                         },
@@ -118,8 +120,8 @@ fun SGTextFieldTypeForm(
                 colors = TextFieldDefaults.colors(
                     focusedContainerColor = SGColor.white,
                     unfocusedContainerColor = SGColor.white,
-                    focusedTextColor = SGColor.primaryA,
-                    unfocusedTextColor = SGColor.primaryA,
+                    focusedTextColor = SGColor.black100,
+                    unfocusedTextColor = SGColor.black100,
                     focusedIndicatorColor = SGColor.transparent,
                     unfocusedIndicatorColor = SGColor.transparent,
                     disabledIndicatorColor = SGColor.transparent,

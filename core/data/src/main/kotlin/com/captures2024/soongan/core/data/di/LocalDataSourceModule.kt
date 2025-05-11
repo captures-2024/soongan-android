@@ -10,6 +10,8 @@ import com.captures2024.soongan.core.data.source.members.local.MemberLocalDataSo
 import com.captures2024.soongan.core.data.source.members.local.MemberLocalDataSourceImpl
 import com.captures2024.soongan.core.data.source.notification.local.NotificationLocalDataSource
 import com.captures2024.soongan.core.data.source.notification.local.NotificationLocalDataSourceImpl
+import com.captures2024.soongan.core.data.source.system.InAppBrowserLocalDataSource
+import com.captures2024.soongan.core.data.source.system.InAppBrowserLocalDataSourceImpl
 import com.captures2024.soongan.core.data.source.ui.local.LoadingLocalDataSource
 import com.captures2024.soongan.core.data.source.ui.local.LoadingLocalDataSourceImpl
 import com.captures2024.soongan.core.datastore.TokenDataSource
@@ -51,4 +53,8 @@ abstract class LocalDataSourceModule {
     @Binds
     @Singleton
     abstract fun bindNotificationLocalDataSource(notificationLocalDataSourceImpl: NotificationLocalDataSourceImpl): NotificationLocalDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindInAppBrowserLocalDataSource(inAppBrowserLocalDataSourceImpl: InAppBrowserLocalDataSourceImpl): InAppBrowserLocalDataSource
 }

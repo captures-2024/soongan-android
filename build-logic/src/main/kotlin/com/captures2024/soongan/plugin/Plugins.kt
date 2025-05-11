@@ -17,4 +17,11 @@ internal object Plugins {
     internal const val GOOGLE_SERVICE = "com.google.gms.google-services"
 
     internal const val JUNIT5 = "de.mannodermaus.android-junit5"
+
+    private const val CUSTOM_PREFIX = "captures2024.soongan.android"
+
+    internal const val CUSTOM_LIBRARY = "${CUSTOM_PREFIX}.library"
+    internal const val CUSTOM_HILT = "${CUSTOM_PREFIX}.hilt"
+
+    internal const val CUSTOM_LIBRARY_COMPOSE = "${CUSTOM_LIBRARY}.compose"
 }

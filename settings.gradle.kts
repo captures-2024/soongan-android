@@ -48,16 +48,19 @@ include(
 )
 
 include(
+    ":presentation:feature:sign",
+    ":presentation:feature:sign-in",
+    ":presentation:feature:sign-up",
+
+    ":presentation:viewmodel",
+)
+
+include(
     ":feature:awards",
     ":feature:feed",
     ":feature:home",
     ":feature:intro",
     ":feature:main",
-    ":feature:privacyPolicy",
     ":feature:profile",
-    ":feature:sign",
-    ":feature:signIn",
-    ":feature:signUp",
-    ":feature:termsOfUse",
     ":feature:welcome",
 )

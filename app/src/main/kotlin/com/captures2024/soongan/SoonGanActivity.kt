@@ -1,5 +1,6 @@
 package com.captures2024.soongan
 
+import android.content.ComponentName
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
@@ -9,8 +10,14 @@ import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.browser.customtabs.CustomTabsCallback
+import androidx.browser.customtabs.CustomTabsClient
+import androidx.browser.customtabs.CustomTabsIntent
+import androidx.browser.customtabs.CustomTabsServiceConnection
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
+import androidx.core.net.toUri
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.android.utils.LocalAnalyticsHelper
 import com.captures2024.soongan.core.common.extension.toMap
@@ -30,6 +37,25 @@ class SoonGanActivity : ComponentActivity() {
     //endregion
 
     private val appRootViewModel: AppRootViewModel by viewModels()
+
+    private val customTabs = object : CustomTabsServiceConnection() {
+        override fun onCustomTabsServiceConnected(
+            name: ComponentName,
+            client: CustomTabsClient,
+        ) {
+            analyticsHelper.i { "PlatformInAppBrowserController::onCustomTabsServiceConnected - name: $name, client: $client" }
+            client.warmup(0)
+
+            val session = client.newSession(CustomTabsCallback())
+            session?.mayLaunchUrl(currentUrl.toUri(), null, null)
+        }
+
+        override fun onServiceDisconnected(name: ComponentName?) {
+            analyticsHelper.i { "PlatformInAppBrowserController::onServiceDisconnected - name: $name" }
+        }
+    }
+
+    private var currentUrl: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +87,14 @@ class SoonGanActivity : ComponentActivity() {
             CompositionLocalProvider(
                 LocalAnalyticsHelper provides analyticsHelper,
             ) {
+                LaunchedEffect(appRootViewModel.sideEffect) {
+                    appRootViewModel.sideEffect.collect { effect ->
+                        when (effect) {
+                            is AppRootViewModel.Effect.OpenInAppBrowser -> launchInAppBrowser(effect.url)
+                        }
+                    }
+                }
+
                 SGTheme(darkTheme = darkTheme) {
                     AppRoute(
                         appRootViewModel = appRootViewModel,
@@ -91,6 +125,50 @@ class SoonGanActivity : ComponentActivity() {
         super.onNewIntent(newIntent)
         analyticsHelper.v { "[PUSH] onNewIntent - intent: ${intent?.extras} newIntent: ${newIntent?.extras}" }
         intent = newIntent
+    }
+
+    override fun onDestroy() {
+        disposeInAppBrowser()
+        super.onDestroy()
+    }
+
+    private fun launchInAppBrowser(url: String) {
+        currentUrl = url
+        val intent = Intent(Intent.ACTION_VIEW, currentUrl.toUri())
+
+        // 설치된 브라우저 앱이 없는 경우
+        val packages = this.packageManager?.queryIntentActivities(intent, 0)
+            ?.map { it.activityInfo.packageName }
+            ?: emptyList()
+
+        if (packages.isEmpty()) {
+            analyticsHelper.w { "launch - packages is empty" }
+            return
+        }
+
+        val customTabsPackageName = CustomTabsClient.getPackageName(this, packages, true)
+
+        if (customTabsPackageName.isNullOrBlank()) {
+            analyticsHelper.w { "launch - customTabsPackageName is null or blank" }
+            return
+        }
+
+        CustomTabsClient.bindCustomTabsService(this, customTabsPackageName, customTabs)
+
+        val tabsIntent = CustomTabsIntent.Builder()
+            .setShowTitle(true)
+            .setShareState(CustomTabsIntent.SHARE_STATE_OFF)
+            .build()
+
+        tabsIntent.launchUrl(this, currentUrl.toUri())
+    }
+
+    private fun disposeInAppBrowser() {
+        if (currentUrl.isEmpty()) {
+            return
+        }
+        this.unbindService(customTabs)
+        currentUrl = ""
     }
 }
 
