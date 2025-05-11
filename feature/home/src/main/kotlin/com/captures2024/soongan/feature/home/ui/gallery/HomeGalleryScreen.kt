@@ -26,7 +26,7 @@ import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.core.model.dto.GalleryPostDto
 import com.captures2024.soongan.feature.home.R
 import com.captures2024.soongan.core.viewmodel.home.HomeGalleryViewModel
-import com.captures2024.soongan.feature.home.ui.gallery.component.HomeGalleryTopBar
+import com.captures2024.soongan.feature.home.ui.gallery.component.HomeGalleryHeader
 import com.captures2024.soongan.core.viewmodel.model.PaginationStatus
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -95,13 +95,13 @@ private fun HomeGalleryScreen(
             isInitPage = isInitPage,
             hasNextPage = (paginationStatus != PaginationStatus.EXHAUST),
             onLoadNextPage = onLoadNextPage,
-        ) {
-            item(span = StaggeredGridItemSpan.FullLine) {
-                HomeGalleryTopBar(
+            header = {
+                HomeGalleryHeader(
                     onBackPressed = onBackPressed,
                     onClickFilter = onClickFilter,
                 )
-            }
+            },
+        ) {
             when (paginationStatus) {
                 PaginationStatus.LOADING -> items(listOf(258, 192, 275, 268, 275, 192)) { height ->
                     SGGallerySkeletonItem(height = height)

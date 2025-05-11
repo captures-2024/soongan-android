@@ -14,7 +14,6 @@ import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
 import androidx.compose.foundation.lazy.staggeredgrid.rememberLazyStaggeredGridState
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
@@ -30,9 +29,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillTopArrow
-import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.core.designsystem.ui.R
 import com.captures2024.soongan.core.designsystem.ui.component.button.SGIconCircleButton
+import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
@@ -44,6 +43,7 @@ fun SGGallery(
     isInitPage: Boolean = true,
     hasNextPage: Boolean = false,
     onLoadNextPage: () -> Unit = {},
+    header: @Composable (() -> Unit)? = null,
     content: LazyStaggeredGridScope.() -> Unit,
 ) {
     val shouldLoadMore = remember {
@@ -81,6 +81,12 @@ fun SGGallery(
         verticalItemSpacing = 12.dp,
         contentPadding = PaddingValues(8.dp),
     ) {
+        header?.let {
+            item(span = StaggeredGridItemSpan.FullLine) {
+                header()
+            }
+        }
+
         content()
     }
 
@@ -106,7 +112,7 @@ private fun ScrollToTopIcon(
     ) {
         SGIconCircleButton(
             imageVector = MyIconPack.IconNonFillTopArrow,
-            contentDescription = "icon that scrolls up to the top",
+            contentDescription = "scroll up to the top",
             modifier = Modifier.offset(
                 y = when (lazyStaggeredGridState.firstVisibleItemIndex) {
                     0 -> 100.dp
@@ -127,10 +133,16 @@ private fun ScrollToTopIcon(
 @Preview
 @Composable
 private fun SGGalleryPreview() {
-    SGGallery {
-        item(span = StaggeredGridItemSpan.FullLine) {
-            Text("preview test")
-        }
+    SGGallery(
+        header = {
+            SGGalleryHeader {
+                SGGalleryHeaderTitle(
+                    prefix = "1회차",
+                    suffix = "평화",
+                )
+            }
+        },
+    ) {
         items(3) {
             Image(painter = painterResource(R.drawable.test), contentDescription = null)
         }
