@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sign_up_title">회원가입</string>
+    <string name="sign_up_description">다음이 마지막 단계입니다!</string>
+    <string name="sign_up_content">다음</string>
+
+    <string name="nickname_title">닉네임</string>
+    <string name="nickname_hint">사용자명을 입력해주세요.</string>
+    <string name="nickname_state_icon_description">state</string>
+
+    <string name="nickname_default_description">3–10자리 숫자, 영문, 한글로 입력해주세요</string>
+    <string name="nickname_error_description_duplicated">아이디가 중복되었습니다</string>
+    <string name="nickname_error_description_regex">특수문자는 제거해주세요</string>
+
+    <string name="birth_title">출생연도</string>
+    <string name="birth_hint">YYYY</string>
+
+    <string name="birth_default_description">출생연도 숫자 4자리 기입해주세요</string>
+    <string name="birth_error_description_regex">1950&#8211;2009이내의 기간을 입력해주세요.</string>
+</resources>

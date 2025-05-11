@@ -30,4 +30,10 @@ object SGColor {
     val black = Color(0xFF000000)
     val white = Color(0xFFFFFFFF)
     val transparent = Color(0x00000000)
+
+    val black100 = Color(0xFF252525)
+    val black80 = Color(0xFF8D939D)
+    val black60 = Color(0xFFABB0BA)
+    val black40 = Color(0xFFD4DAE6)
+    val black20 = Color(0xFFF0F2F6)
 }

@@ -81,13 +81,12 @@ dependencies {
     implementation(projects.feature.home)
     implementation(projects.feature.intro)
     implementation(projects.feature.main)
-    implementation(projects.feature.privacyPolicy)
     implementation(projects.feature.profile)
-    implementation(projects.feature.sign)
-    implementation(projects.feature.signIn)
-    implementation(projects.feature.signUp)
-    implementation(projects.feature.termsOfUse)
     implementation(projects.feature.welcome)
+
+    implementation(projects.presentation.feature.sign)
+
+    implementation(projects.presentation.viewmodel)
 
     implementation(libs.google.firebase.crashlytics)
 
