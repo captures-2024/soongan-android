@@ -8,7 +8,7 @@ import com.captures2024.soongan.core.model.utils.ReportTargetType
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
-class GetFilteredGalleryUseCase
+class GetFilteredGalleryByReportTargetIdsUseCase
 @Inject
 constructor(
     private val membersRepository: MembersRepository,

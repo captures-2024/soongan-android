@@ -10,7 +10,7 @@ import com.captures2024.soongan.core.domain.usecase.loading.ClearLoadingUseCase
 import com.captures2024.soongan.core.domain.usecase.loading.HideLoadingUseCase
 import com.captures2024.soongan.core.domain.usecase.loading.ShowLoadingUseCase
 import com.captures2024.soongan.core.domain.usecase.members.GetIsCurrentGuestModeUseCase
-import com.captures2024.soongan.core.domain.usecase.weekly.contests.GetFilteredGalleryUseCase
+import com.captures2024.soongan.core.domain.usecase.weekly.contests.GetFilteredGalleryByReportTargetIdsUseCase
 import com.captures2024.soongan.core.model.dto.GalleryPostDto
 import com.captures2024.soongan.core.viewmodel.NewBaseViewModel
 import com.captures2024.soongan.core.viewmodel.model.PaginationStatus
@@ -22,7 +22,7 @@ import javax.inject.Inject
 class HomeGalleryViewModel
 @Inject
 constructor(
-    private val getFilteredGalleryUseCase: GetFilteredGalleryUseCase,
+    private val getFilteredGalleryByReportTargetIdsUseCase: GetFilteredGalleryByReportTargetIdsUseCase,
     analyticsHelper: AnalyticsHelper,
     showLoadingUseCase: ShowLoadingUseCase,
     hideLoadingUseCase: HideLoadingUseCase,
@@ -209,8 +209,8 @@ constructor(
 
         setUpLoading(isInitPage = isInitPage, isRefreshing = isRefreshing)
 
-        val galleryDto = getFilteredGalleryUseCase(
-            params = GetFilteredGalleryUseCase.Params(
+        val galleryDto = getFilteredGalleryByReportTargetIdsUseCase(
+            params = GetFilteredGalleryByReportTargetIdsUseCase.Params(
                 round = null,
                 orderType = currentState.postOrderType.name,
                 page = page,
