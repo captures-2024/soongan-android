@@ -4,6 +4,7 @@ import com.captures2024.soongan.core.model.AppConst
 import com.captures2024.soongan.core.model.network.request.weekly.contests.EditPostRequest
 import com.captures2024.soongan.core.model.network.response.BaseResponse
 import com.captures2024.soongan.core.model.network.response.weekly.contests.EditPostResponse
+import com.captures2024.soongan.core.model.network.response.weekly.contests.GetWeeklyContestInfoListResponse
 import com.captures2024.soongan.core.model.network.response.weekly.contests.GetGalleryResponse
 import com.captures2024.soongan.core.model.network.response.weekly.contests.GetMyGalleryResponse
 import com.captures2024.soongan.core.model.network.response.weekly.contests.GetPostInfoResponse
@@ -62,6 +63,10 @@ interface WeeklyContestService {
         @Path("postId") postId: Long,
         @Body request: EditPostRequest,
     ): Response<BaseResponse<EditPostResponse>>
+
+    @Headers(AppConst.Network.ACCESS_TOKEN_ALLOW)
+    @GET("weekly/contests")
+    suspend fun getContestInfoList(): Response<BaseResponse<GetWeeklyContestInfoListResponse>>
 
     @Headers(AppConst.Network.ACCESS_TOKEN_ALLOW)
     @GET("weekly/contests/posts/my-hisotry")
