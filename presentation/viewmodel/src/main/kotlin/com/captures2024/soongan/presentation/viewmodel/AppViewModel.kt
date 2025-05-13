@@ -182,7 +182,6 @@ constructor(
         }
     }
 
-
     private suspend fun collectLoading() {
         getLoadingFlowUseCase().collect {
             reduce {

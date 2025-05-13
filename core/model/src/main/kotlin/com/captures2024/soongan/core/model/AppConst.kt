@@ -3,7 +3,6 @@ package com.captures2024.soongan.core.model
 object AppConst {
     const val EMPTY_STRING = ""
 
-
     object Sign {
 
         object SignUp {
@@ -11,8 +10,6 @@ object AppConst {
             const val MAX_BIRTH_LENGTH = 4
         }
     }
-
-
 
     object Notification {
         const val PUSH_ACTION_NAME = "com.captures2024.soongan.push"

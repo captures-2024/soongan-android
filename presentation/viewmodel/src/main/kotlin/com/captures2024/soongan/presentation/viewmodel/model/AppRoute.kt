@@ -4,5 +4,4 @@ enum class AppRoute {
     LANDING,
     SIGN,
     MAIN,
-    ;
 }

@@ -12,9 +12,13 @@ import androidx.navigation.compose.NavHost
 import com.captures2024.soongan.core.navigator.screen.main.home.HomeNavigator
 import com.captures2024.soongan.core.navigator.screen.main.home.navigateToHome
 import com.captures2024.soongan.core.navigator.screen.main.welcome.WelcomeNavigator
+import com.captures2024.soongan.presentation.feature.main.awards.navigation.mainAwards
 import com.captures2024.soongan.presentation.feature.main.component.MainComponent
+import com.captures2024.soongan.presentation.feature.main.feed.navigation.mainFeed
+import com.captures2024.soongan.presentation.feature.main.home.navigation.mainHome
 import com.captures2024.soongan.presentation.feature.main.navigation.MainNavigationState
 import com.captures2024.soongan.presentation.feature.main.navigation.welcome
+import com.captures2024.soongan.presentation.feature.main.profile.navigation.mainProfile
 
 @Composable
 internal fun MainScreen(navigationState: MainNavigationState) {
@@ -26,6 +30,7 @@ internal fun MainScreen(navigationState: MainNavigationState) {
         onNavigateToDestination = navigationState::navigateToTopLevelDestination,
         currentDestination = navigationState.currentDestination,
     ) { innerPadding ->
+
         NavHost(
             modifier = Modifier.padding(innerPadding),
             navController = navController,
@@ -44,6 +49,11 @@ internal fun MainScreen(navigationState: MainNavigationState) {
                     navController.navigateToHome(navOptions)
                 },
             )
+
+            mainAwards()
+            mainFeed()
+            mainHome()
+            mainProfile()
         }
     }
 }

@@ -65,7 +65,6 @@ internal fun WelcomeScreen(
     }
 }
 
-
 @DevicePreviews
 @Composable
 private fun WelcomeScreenPreview() {
