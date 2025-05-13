@@ -84,6 +84,7 @@ dependencies {
     implementation(projects.feature.profile)
     implementation(projects.feature.welcome)
 
+    implementation(projects.presentation.feature.main)
     implementation(projects.presentation.feature.sign)
 
     implementation(projects.presentation.viewmodel)

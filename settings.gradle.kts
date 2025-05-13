@@ -48,6 +48,12 @@ include(
 )
 
 include(
+    ":presentation:feature:main",
+    ":presentation:feature:main-awards",
+    ":presentation:feature:main-feed",
+    ":presentation:feature:main-home",
+    ":presentation:feature:main-profile",
+
     ":presentation:feature:sign",
     ":presentation:feature:sign-in",
     ":presentation:feature:sign-up",

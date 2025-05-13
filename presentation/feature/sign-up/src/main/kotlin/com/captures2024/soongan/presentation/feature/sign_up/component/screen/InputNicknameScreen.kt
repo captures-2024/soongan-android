@@ -29,6 +29,7 @@ import com.captures2024.soongan.core.designsystem.ui.component.text.getSGNonScal
 import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.core.designsystem.ui.theme.SGTypography
 import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
+import com.captures2024.soongan.core.model.AppConst
 import com.captures2024.soongan.presentation.feature.sign_up.R
 import com.captures2024.soongan.presentation.viewmodel.sign.SignUpViewModel
 
@@ -139,7 +140,12 @@ internal fun InputNicknameScreen(
 private fun PreviewInputNicknameScreen() {
     SGBackground {
         InputNicknameScreen(
-            state = SignUpViewModel.State.NicknameState(),
+            state = SignUpViewModel.State.NicknameState(
+                nickname = AppConst.EMPTY_STRING,
+                maxNicknameLength = AppConst.Sign.SignUp.MAX_NICKNAME_LENGTH,
+                isDuplicatedNickname = false,
+                isRemoteSuccess = false,
+            ),
             onNicknameValueChanged = {},
         )
     }

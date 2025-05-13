@@ -27,7 +27,7 @@ import com.captures2024.soongan.feature.intro.route.IntroRoute
 import com.captures2024.soongan.feature.main.route.MainRoute
 import com.captures2024.soongan.feature.main.route.MainRouteState
 import com.captures2024.soongan.feature.main.route.rememberMainRouteState
-import com.captures2024.soongan.presentation.feature.sign.navigation.SignNavigation
+import com.captures2024.soongan.presentation.feature.sign.route.SignRoute
 import com.captures2024.soongan.ui.AppRootScreen
 import kotlinx.coroutines.delay
 
@@ -53,7 +53,6 @@ internal fun AppRoute(
             },
         )
 
-//        NotificationHost(navController = routeState.navController)
         AppLoading(visible = uiState.isLoading)
     }
 }
@@ -103,20 +102,10 @@ private fun AppLandingRoute() {
 
 @Composable
 private fun AppSignRoute(routeState: MainRouteState) {
-    SignNavigation(navController = routeState.navController)
+    SignRoute(navController = routeState.navController)
 }
 
 @Composable
 private fun AppMainRoute(routeState: MainRouteState) {
     MainRoute(routeState)
-}
-
-@Composable
-private fun NotificationHost(
-//    navController: NavController,
-//    notificationViewModel: NotificationViewModel = hiltViewModel(),
-) {
-//    val state by notificationViewModel.state.collectAsState()
-
-    // TODO
 }

@@ -19,6 +19,7 @@ import androidx.compose.ui.res.stringResource
 import com.captures2024.soongan.core.common.Validation
 import com.captures2024.soongan.core.designsystem.ui.component.background.SGBackground
 import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
+import com.captures2024.soongan.core.model.AppConst
 import com.captures2024.soongan.presentation.feature.sign_up.R
 import com.captures2024.soongan.presentation.feature.sign_up.component.SignUpBottomComponent
 import com.captures2024.soongan.presentation.feature.sign_up.component.SignUpTopComponent
@@ -96,7 +97,18 @@ internal fun SignUpScreen(
 private fun PreviewSignUpScreen() {
     SGBackground {
         SignUpScreen(
-            state = SignUpViewModel.State(),
+            state = SignUpViewModel.State(
+                nicknameState = SignUpViewModel.State.NicknameState(
+                    nickname = AppConst.EMPTY_STRING,
+                    maxNicknameLength = AppConst.Sign.SignUp.MAX_NICKNAME_LENGTH,
+                    isDuplicatedNickname = false,
+                    isRemoteSuccess = false,
+                ),
+                birthState = SignUpViewModel.State.BirthState(
+                    birthYear = "2005",
+                    maxBirthLength = AppConst.Sign.SignUp.MAX_BIRTH_LENGTH,
+                ),
+            ),
             onClickBack = {},
             onNicknameValueChanged = {},
             onBirthValueChanged = {},
