@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class GetWeeklyContestInfoListResponse(
     @SerialName("contests")
-    val weeklyContestInfoList: List<GetWeeklyContestInfoResponse>
+    val weeklyContestInfoList: List<GetWeeklyContestInfoResponse>,
 )

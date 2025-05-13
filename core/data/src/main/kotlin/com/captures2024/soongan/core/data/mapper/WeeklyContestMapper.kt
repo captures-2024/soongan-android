@@ -57,7 +57,7 @@ fun GetPostInfoResponse.toPostInfoDto(): PostInfoDto = PostInfoDto(
 
 fun GetWeeklyContestInfoListResponse.toWeeklyContestInfoListDto(): WeeklyContestInfoListDto =
     WeeklyContestInfoListDto(
-        weeklyContestInfoList = this.weeklyContestInfoList.map { it.toWeeklyContestInfoDto() }
+        weeklyContestInfoList = this.weeklyContestInfoList.map { it.toWeeklyContestInfoDto() },
     )
 
 fun GetWeeklyContestInfoResponse.toWeeklyContestInfoDto(): WeeklyContestInfoDto =
