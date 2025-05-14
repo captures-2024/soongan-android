@@ -1,11 +1,11 @@
 package com.captures2024.soongan.core.data.source.home.remote
 
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
-import com.captures2024.soongan.core.data.mapper.toContestInfoDto
+import com.captures2024.soongan.core.data.mapper.toHomeContestInfoDto
 import com.captures2024.soongan.core.data.mapper.toPostInfoDto
 import com.captures2024.soongan.core.data.service.HomeService
 import com.captures2024.soongan.core.data.utils.safeAPICall
-import com.captures2024.soongan.core.model.dto.ContestInfoDto
+import com.captures2024.soongan.core.model.dto.HomeContestInfoDto
 import com.captures2024.soongan.core.model.dto.PostInfoDto
 import javax.inject.Inject
 
@@ -20,7 +20,7 @@ constructor(
         analyticsHelper.d { "HomeRemoteDataSource::init" }
     }
 
-    override suspend fun getHomeStatus(): Pair<ContestInfoDto, List<PostInfoDto>>? {
+    override suspend fun getHomeStatus(): Pair<HomeContestInfoDto, List<PostInfoDto>>? {
         analyticsHelper.d { "getHomeStatus - entry" }
 
         val response = safeAPICall { homeService.getHomeStatusWithToken() }
@@ -39,6 +39,6 @@ constructor(
             return null
         }
 
-        return responseData.contestInfo.toContestInfoDto() to responseData.postInfo.map { it.toPostInfoDto() }
+        return responseData.contestInfo.toHomeContestInfoDto() to responseData.postInfo.map { it.toPostInfoDto() }
     }
 }

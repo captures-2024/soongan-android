@@ -11,7 +11,7 @@ import com.captures2024.soongan.core.domain.usecase.loading.ClearLoadingUseCase
 import com.captures2024.soongan.core.domain.usecase.loading.HideLoadingUseCase
 import com.captures2024.soongan.core.domain.usecase.loading.ShowLoadingUseCase
 import com.captures2024.soongan.core.domain.usecase.members.GetIsCurrentGuestModeUseCase
-import com.captures2024.soongan.core.model.dto.ContestInfoDto
+import com.captures2024.soongan.core.model.dto.HomeContestInfoDto
 import com.captures2024.soongan.core.model.dto.PostInfoDto
 import com.captures2024.soongan.core.viewmodel.NewBaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -41,7 +41,7 @@ constructor(
 
     data class State(
         val isLoading: Boolean = false,
-        val contestInfo: ContestInfoDto = ContestInfoDto(),
+        val contestInfo: HomeContestInfoDto = HomeContestInfoDto(),
         val postList: List<PostInfoDto> = emptyList(),
         val isWeeklySelected: Boolean = true,
         val isOpenBottomSheet: Boolean = false,

@@ -1,6 +1,6 @@
 package com.captures2024.soongan.core.model.dto
 
-data class ContestInfoDto(
+data class HomeContestInfoDto(
     val contestType: String = "",
     val subject: String = "",
     val startAt: String = "",

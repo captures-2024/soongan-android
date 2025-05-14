@@ -2,12 +2,14 @@ package com.captures2024.soongan.core.data.source.weekly_contest.remote
 
 import android.content.Context
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
+import com.captures2024.soongan.core.data.mapper.toWeeklyContestInfoListDto
 import com.captures2024.soongan.core.data.mapper.toGalleryDto
 import com.captures2024.soongan.core.data.mapper.toMyGalleryDto
 import com.captures2024.soongan.core.data.mapper.toPostInfoDto
 import com.captures2024.soongan.core.data.service.WeeklyContestService
 import com.captures2024.soongan.core.data.utils.safeAPICall
 import com.captures2024.soongan.core.data.utils.toImageMultiPart
+import com.captures2024.soongan.core.model.dto.WeeklyContestInfoListDto
 import com.captures2024.soongan.core.model.dto.GalleryDto
 import com.captures2024.soongan.core.model.dto.MyGalleryDto
 import com.captures2024.soongan.core.model.dto.PostInfoDto
@@ -136,6 +138,24 @@ constructor(
         analyticsHelper.d { "editPostTitle - responseBody: $responseBody" }
 
         return responseBody?.responseData?.title
+    }
+
+    override suspend fun getWeeklyContestInfoList(): WeeklyContestInfoListDto? {
+        analyticsHelper.d { "getContestInfoList - no param" }
+
+        val response = safeAPICall {
+            service.getContestInfoList()
+        }
+
+        val responseHeader = response.headers
+
+        analyticsHelper.d { "getMyGalleryInfo - responseHeader: $responseHeader" }
+
+        val responseBody = response.body
+
+        analyticsHelper.d { "getMyGalleryInfo - responseBody: $responseBody" }
+
+        return responseBody?.responseData?.toWeeklyContestInfoListDto()
     }
 
     override suspend fun getMyGalleryInfo(

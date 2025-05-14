@@ -1,5 +1,6 @@
 package com.captures2024.soongan.core.data.repository
 
+import com.captures2024.soongan.core.model.dto.WeeklyContestInfoListDto
 import com.captures2024.soongan.core.model.dto.GalleryDto
 import com.captures2024.soongan.core.model.dto.MyGalleryDto
 import com.captures2024.soongan.core.model.dto.PostInfoDto
@@ -30,6 +31,8 @@ interface WeeklyContestRepository {
         postId: Long,
         title: String,
     ): String
+
+    suspend fun getWeeklyContestInfoList(): WeeklyContestInfoListDto
 
     suspend fun getMyGalleryInfo(
         page: Int,

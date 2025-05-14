@@ -6,6 +6,7 @@ import com.captures2024.soongan.core.data.repository.WeeklyContestRepository
 import com.captures2024.soongan.core.model.dto.GalleryDto
 import com.captures2024.soongan.core.model.dto.MyGalleryDto
 import com.captures2024.soongan.core.model.dto.PostInfoDto
+import com.captures2024.soongan.core.model.dto.WeeklyContestInfoListDto
 import javax.inject.Inject
 
 class WeeklyContestRepositoryImpl
@@ -32,7 +33,7 @@ constructor(
             pageSize = pageSize,
         )
 
-        return galleryInfo ?: throw java.lang.NullPointerException("galleryDto is null")
+        return galleryInfo ?: throw NullPointerException("galleryDto is null")
     }
 
     override suspend fun registerPost(
@@ -52,7 +53,7 @@ constructor(
             postId = postId,
         )
 
-        return postInfoDto ?: throw java.lang.NullPointerException("postInfoDto is null")
+        return postInfoDto ?: throw NullPointerException("postInfoDto is null")
     }
 
     override suspend fun deletePost(postId: Long): Boolean =
@@ -64,7 +65,13 @@ constructor(
             title = title,
         )
 
-        return editedTitle ?: throw java.lang.NullPointerException("editedTitle is null")
+        return editedTitle ?: throw NullPointerException("editedTitle is null")
+    }
+
+    override suspend fun getWeeklyContestInfoList(): WeeklyContestInfoListDto {
+        val weeklyContestInfoListDto = weeklyContestRemoteDataSource.getWeeklyContestInfoList()
+
+        return weeklyContestInfoListDto ?: throw NullPointerException("weeklyContestInfoListDto is null")
     }
 
     override suspend fun getMyGalleryInfo(page: Int, pageSize: Int): MyGalleryDto {
@@ -73,6 +80,6 @@ constructor(
             pageSize = pageSize,
         )
 
-        return myGalleryInfo ?: throw java.lang.NullPointerException("myGalleryDto is null")
+        return myGalleryInfo ?: throw NullPointerException("myGalleryDto is null")
     }
 }

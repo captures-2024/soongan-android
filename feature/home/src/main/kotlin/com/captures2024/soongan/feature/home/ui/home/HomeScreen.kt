@@ -16,7 +16,7 @@ import com.captures2024.soongan.core.designsystem.ui.R
 import com.captures2024.soongan.core.designsystem.ui.component.HeightSpacer
 import com.captures2024.soongan.core.designsystem.ui.component.WeightSpacer
 import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
-import com.captures2024.soongan.core.model.dto.ContestInfoDto
+import com.captures2024.soongan.core.model.dto.HomeContestInfoDto
 import com.captures2024.soongan.core.model.dto.PostInfoDto
 import com.captures2024.soongan.core.viewmodel.home.HomeViewModel
 import com.captures2024.soongan.feature.home.ui.home.component.ContestPeriodText
@@ -102,7 +102,7 @@ private fun HomeScreenPreview() {
     HomeScreen(
         modifier = modifier,
         uiState = HomeViewModel.State(
-            contestInfo = ContestInfoDto(
+            contestInfo = HomeContestInfoDto(
                 subject = stringResource(com.captures2024.soongan.feature.home.R.string.home_top_bar_topic_example),
                 startAt = "2024.05.10",
                 endAt = "2024.06.10",
@@ -124,7 +124,7 @@ private fun HomeScreenMultiPostPreview() {
     HomeScreen(
         modifier = modifier,
         uiState = HomeViewModel.State(
-            contestInfo = ContestInfoDto(
+            contestInfo = HomeContestInfoDto(
                 subject = stringResource(com.captures2024.soongan.feature.home.R.string.home_top_bar_topic_example),
                 startAt = "2024.05.10",
                 endAt = "2024.06.10",
