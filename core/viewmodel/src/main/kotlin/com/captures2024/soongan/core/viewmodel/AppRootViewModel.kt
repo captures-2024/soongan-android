@@ -6,6 +6,8 @@ import com.captures2024.soongan.core.common.base.UIIntent
 import com.captures2024.soongan.core.common.base.UISideEffect
 import com.captures2024.soongan.core.common.base.UIState
 import com.captures2024.soongan.core.domain.usecase.dialog.GetIsShowGuestModeDialogFlowUseCase
+import com.captures2024.soongan.core.domain.usecase.dialog.GetSingleButtonDialogEventUseCase
+import com.captures2024.soongan.core.domain.usecase.dialog.PostSingleButtonDialogUseCase
 import com.captures2024.soongan.core.domain.usecase.dialog.SetIsShowGuestModeDialogFlowUseCase
 import com.captures2024.soongan.core.domain.usecase.fcm.InitFcmUseCase
 import com.captures2024.soongan.core.domain.usecase.loading.ClearLoadingUseCase
@@ -29,6 +31,13 @@ import javax.inject.Inject
 class AppRootViewModel
 @Inject
 constructor(
+    analyticsHelper: AnalyticsHelper,
+    showLoadingUseCase: ShowLoadingUseCase,
+    hideLoadingUseCase: HideLoadingUseCase,
+    clearLoadingUseCase: ClearLoadingUseCase,
+    getIsCurrentGuestModeUseCase: GetIsCurrentGuestModeUseCase,
+    setIsShowGuestModeDialogFlowUseCase: SetIsShowGuestModeDialogFlowUseCase,
+    savedStateHandle: SavedStateHandle,
     private val getCurrentMemberFlowUseCase: GetCurrentMemberFlowUseCase,
     private val initFcmUseCase: InitFcmUseCase,
     private val getMemberInfoUseCase: GetMemberInfoUseCase,
@@ -39,13 +48,8 @@ constructor(
     private val getIsShowGuestModeDialogFlowUseCase: GetIsShowGuestModeDialogFlowUseCase,
     private val emitNotificationUseCase: EmitNotificationUseCase,
     private val getInAppBrowserUrlFlow: GetInAppBrowserUrlFlow,
-    analyticsHelper: AnalyticsHelper,
-    showLoadingUseCase: ShowLoadingUseCase,
-    hideLoadingUseCase: HideLoadingUseCase,
-    clearLoadingUseCase: ClearLoadingUseCase,
-    getIsCurrentGuestModeUseCase: GetIsCurrentGuestModeUseCase,
-    setIsShowGuestModeDialogFlowUseCase: SetIsShowGuestModeDialogFlowUseCase,
-    savedStateHandle: SavedStateHandle,
+    private val getSingleButtonDialogEventUseCase: GetSingleButtonDialogEventUseCase,
+    private val postSingleButtonDialogUseCase: PostSingleButtonDialogUseCase,
 ) : NewBaseViewModel<AppRootViewModel.State, AppRootViewModel.Effect, AppRootViewModel.Intent>(
     analyticsHelper = analyticsHelper,
     showLoadingUseCase = showLoadingUseCase,
@@ -96,6 +100,10 @@ constructor(
     }
 
     sealed interface Effect : UISideEffect {
+        data class ShowSingleButtonDialog(
+            val content: String?
+        ) : Effect
+
         data class OpenInAppBrowser(
             val url: String,
         ) : Effect
@@ -138,6 +146,7 @@ constructor(
         launch { collectLoading() }
         launch { collectGuestModeDialog() }
         launch { collectInAppBrowserUrl() }
+        launch { collectSingleButtonDialogEvent() }
 
         fetchRemoteFCMToken()
         fetchRemoteMemberInfo()
@@ -200,6 +209,12 @@ constructor(
         }
     }
 
+    private suspend fun collectSingleButtonDialogEvent() {
+        getSingleButtonDialogEventUseCase().collect {
+            postSideEffect(Effect.ShowSingleButtonDialog(it))
+        }
+    }
+
     private suspend fun fetchRemoteFCMToken() {
         val result = initFcmUseCase().getOrNull()
 
@@ -218,5 +233,12 @@ constructor(
         if (result == null) {
             clearAllTokenUseCase()
         }
+
+        postSingleButtonDialogUseCase(
+            when (result) {
+                null -> "로그인 만료"
+                else -> "자동 로그인 성공"
+            }
+        )
     }
 }
