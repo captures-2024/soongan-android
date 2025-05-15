@@ -38,6 +38,7 @@ import com.captures2024.soongan.core.designsystem.ui.component.text.getSGNonScal
 import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.core.designsystem.ui.theme.SGTypography
 import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
+import com.captures2024.soongan.core.model.AppConst
 import com.captures2024.soongan.presentation.feature.sign_up.R
 import com.captures2024.soongan.presentation.viewmodel.sign.SignUpViewModel
 
@@ -192,7 +193,10 @@ private fun PreviewInputBirthScreen() {
     SGBackground {
         InputBirthScreen(
             nickname = "test",
-            state = SignUpViewModel.State.BirthState("2025"),
+            state = SignUpViewModel.State.BirthState(
+                birthYear = "2005",
+                maxBirthLength = AppConst.Sign.SignUp.MAX_BIRTH_LENGTH,
+            ),
             onBrithValueChanged = {},
         )
     }

@@ -1,12 +1,21 @@
 package com.captures2024.soongan.core.model
 
-data object AppConst {
+object AppConst {
+    const val EMPTY_STRING = ""
 
-    data object Notification {
+    object Sign {
+
+        object SignUp {
+            const val MAX_NICKNAME_LENGTH = 10
+            const val MAX_BIRTH_LENGTH = 4
+        }
+    }
+
+    object Notification {
         const val PUSH_ACTION_NAME = "com.captures2024.soongan.push"
     }
 
-    data object Network {
+    object Network {
         const val AUTH_HEADER = "Authorization"
         const val AUTH_PREFIX = "Bearer"
         const val AGENT_HEADER = "User-Agent"

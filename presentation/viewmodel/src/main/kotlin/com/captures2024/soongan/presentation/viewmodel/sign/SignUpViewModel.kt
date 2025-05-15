@@ -17,6 +17,7 @@ import com.captures2024.soongan.core.domain.usecase.members.IsVerifiedNicknameUs
 import com.captures2024.soongan.core.domain.usecase.members.PatchBirthYearUseCase
 import com.captures2024.soongan.core.domain.usecase.members.PatchProfileUseCase
 import com.captures2024.soongan.core.domain.usecase.token.ClearAllTokenUseCase
+import com.captures2024.soongan.core.model.AppConst
 import com.captures2024.soongan.presentation.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.filterNotNull
@@ -49,15 +50,15 @@ constructor(
 ) {
 
     data class State(
-        val nicknameState: NicknameState = NicknameState(),
-        val birthState: BirthState = BirthState(),
+        val nicknameState: NicknameState,
+        val birthState: BirthState,
     ) : UIState {
 
         data class NicknameState(
-            val nickname: String = "",
-            val maxNicknameLength: Int = 10,
-            val isDuplicatedNickname: Boolean = false,
-            val isRemoteSuccess: Boolean = false,
+            val nickname: String,
+            val maxNicknameLength: Int,
+            val isDuplicatedNickname: Boolean,
+            val isRemoteSuccess: Boolean,
         ) {
             val isValid: Validation.NicknameValidState
                 get() = Validation.isValidNickname(nickname)
@@ -68,8 +69,8 @@ constructor(
         }
 
         data class BirthState(
-            val birthYear: String = "",
-            val maxBirthLength: Int = 4,
+            val birthYear: String,
+            val maxBirthLength: Int,
         ) {
             val isValid: BirthYearValidState
                 get() = Validation.isValidBirthYear(birthYear)
@@ -106,7 +107,18 @@ constructor(
         intent(Intent.Init)
     }
 
-    override fun createInitialState(savedStateHandle: SavedStateHandle): State = State()
+    override fun createInitialState(savedStateHandle: SavedStateHandle): State = State(
+        nicknameState = State.NicknameState(
+            nickname = AppConst.EMPTY_STRING,
+            maxNicknameLength = AppConst.Sign.SignUp.MAX_NICKNAME_LENGTH,
+            isDuplicatedNickname = false,
+            isRemoteSuccess = false,
+        ),
+        birthState = State.BirthState(
+            birthYear = AppConst.EMPTY_STRING,
+            maxBirthLength = AppConst.Sign.SignUp.MAX_BIRTH_LENGTH,
+        ),
+    )
 
     override fun handleIntent(intent: Intent) {
         when (intent) {
