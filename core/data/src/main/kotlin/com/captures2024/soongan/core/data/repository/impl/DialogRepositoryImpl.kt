@@ -3,6 +3,7 @@ package com.captures2024.soongan.core.data.repository.impl
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.data.repository.DialogRepository
 import com.captures2024.soongan.core.data.source.ui.local.DialogLocalDataSource
+import com.captures2024.soongan.core.model.enums.CommonDialogType
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
@@ -14,7 +15,7 @@ constructor(
     private val dialogLocalDataSource: DialogLocalDataSource,
 ) : DialogRepository {
 
-    override val singleButtonDialogEvent: SharedFlow<String>
+    override val singleButtonDialogEvent: SharedFlow<CommonDialogType>
         get() = dialogLocalDataSource.commonSingleButtonDialogContent
 
     override val isShowGuestModeDialogFlow: StateFlow<Boolean>
@@ -28,7 +29,7 @@ constructor(
         dialogLocalDataSource.setIsShowGuestModeDialog(condition)
     }
 
-    override suspend fun postSingleButtonDialog(content: String) {
-        dialogLocalDataSource.postSingleButtonDialog(content)
+    override suspend fun postSingleButtonDialog(type: CommonDialogType) {
+        dialogLocalDataSource.postSingleButtonDialog(type)
     }
 }

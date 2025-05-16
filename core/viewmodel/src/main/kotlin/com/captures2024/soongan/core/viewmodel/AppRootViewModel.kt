@@ -23,6 +23,7 @@ import com.captures2024.soongan.core.domain.usecase.notifications.EmitNotificati
 import com.captures2024.soongan.core.domain.usecase.system.GetInAppBrowserUrlFlow
 import com.captures2024.soongan.core.domain.usecase.token.ClearAllTokenUseCase
 import com.captures2024.soongan.core.model.dto.UserInfoDto
+import com.captures2024.soongan.core.model.enums.CommonDialogType
 import com.captures2024.soongan.core.viewmodel.model.AppRootRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -101,7 +102,7 @@ constructor(
 
     sealed interface Effect : UISideEffect {
         data class ShowSingleButtonDialog(
-            val content: String?
+            val type: CommonDialogType,
         ) : Effect
 
         data class OpenInAppBrowser(
@@ -236,8 +237,8 @@ constructor(
 
         postSingleButtonDialogUseCase(
             when (result) {
-                null -> "로그인 만료"
-                else -> "자동 로그인 성공"
+                null -> CommonDialogType.TOKEN_EXPIRED
+                else -> CommonDialogType.SUCCESS_SIGN
             }
         )
     }

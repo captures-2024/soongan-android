@@ -1,15 +1,16 @@
 package com.captures2024.soongan.core.data.source.ui.local
 
+import com.captures2024.soongan.core.model.enums.CommonDialogType
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 
 interface DialogLocalDataSource {
 
-    val commonSingleButtonDialogContent: SharedFlow<String>
+    val commonSingleButtonDialogContent: SharedFlow<CommonDialogType>
 
     val isShowGuestModeDialog: StateFlow<Boolean>
 
     fun setIsShowGuestModeDialog(condition: Boolean)
 
-    suspend fun postSingleButtonDialog(content: String)
+    suspend fun postSingleButtonDialog(type: CommonDialogType)
 }
