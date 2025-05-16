@@ -1,6 +1,7 @@
 package com.captures2024.soongan.core.data.source.ui.local
 
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
+import com.captures2024.soongan.core.model.enums.CommonDialogType
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -14,8 +15,8 @@ constructor(
     private val analyticsHelper: AnalyticsHelper,
 ) : DialogLocalDataSource {
 
-    private val _commonSingleButtonDialogContent = MutableSharedFlow<String>()
-    override val commonSingleButtonDialogContent: SharedFlow<String>
+    private val _commonSingleButtonDialogContent = MutableSharedFlow<CommonDialogType>()
+    override val commonSingleButtonDialogContent: SharedFlow<CommonDialogType>
         get() = _commonSingleButtonDialogContent
 
     private val _isShowGuestModeDialog = MutableStateFlow(false)
@@ -31,7 +32,7 @@ constructor(
         _isShowGuestModeDialog.value = condition
     }
 
-    override suspend fun postSingleButtonDialog(content: String) {
-        _commonSingleButtonDialogContent.emit(content)
+    override suspend fun postSingleButtonDialog(type: CommonDialogType) {
+        _commonSingleButtonDialogContent.emit(type)
     }
 }
