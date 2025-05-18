@@ -16,20 +16,33 @@ object SGColor {
 
     val tempNotificationBody = Color(0xFF555555)
 
-    val gray700 = Color(0xFF3F3F3F)
-    val gray600 = Color(0xFF595959)
-    val gray500 = Color(0xFF737373)
-    val gray400 = Color(0xFF8D8D8D)
-    val gray300 = Color(0xFFA7A7A7)
-    val gray200 = Color(0xFFC1C1C1)
-    val gray100 = Color(0xFFDBDBDB)
-
     val buttonDisableGray = Color(0xFFBBBBBB)
     val hintGray = Color(0xFFCACACA)
 
     val black = Color(0xFF000000)
     val white = Color(0xFFFFFFFF)
     val transparent = Color(0x00000000)
+
+    object Main {
+        val primary = Color(0xFFFBC304)
+        val secondary = Color(0xFF252525)
+        val error = Color(0xFFFE2929)
+    }
+
+    object Grayscale {
+        val black100 = Color(0xFF252525)
+        val black80 = Color(0xFF8D939D)
+        val black60 = Color(0xFFABB0BA)
+        val black40 = Color(0xFFD4DAE6)
+        val black20 = Color(0xFFF0F2F6)
+        val white = Color(0xFFFFFFFF)
+    }
+
+    data object BG {
+        val gray = Color(0xFFF0F2F6)
+        val modal = Color(0xFF252525).copy(alpha = 0.5f)
+        val bg = Color(0xFFFAFAF8)
+    }
 
     val black100 = Color(0xFF252525)
     val black80 = Color(0xFF8D939D)

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="register_button_title">출품하기</string>
+
+    <string name="register_button_description">exhibit</string>
+    <string name="photo_button_description">photo</string>
+    <string name="heart_button_description">heart</string>
+    <string name="comment_button_description">comment</string>
+    <string name="contest_info_description">contest_info</string>
+    <string name="post_list_description">post_list</string>
+    <string name="logo_description">logo</string>
+
+    <!--  HomeBodyComponent  -->
+    <string name="start_date_title">시작 일정</string>
+    <string name="end_date_title">마감 일정</string>
+
+<!--  HomeBottomBarComponent  -->
+    <string name="contest_info_title">대회 정보</string>
+    <string name="post_list_title">참가 작품</string>
+
+<!--  HomeContestInfoBottomSheet  -->
+    <string name="contest_info_bs_title">대회 정보</string>
+    <string name="contest_info_bs_title_1">규칙</string>
+    <string name="contest_info_bs_content_1">작품 총 3개 출품 가능</string>
+    <string name="contest_info_bs_title_2">선정 방식</string>
+    <string name="contest_info_bs_content_2_by_1">투표: 좋아요 개수로 TOP 7 선정</string>
+    <string name="contest_info_bs_content_2_by_2">기간 : 1달</string>
+    <string name="contest_info_bs_content_2_by_3">매달 1일 오전 9시 ~ 다음 달 1일 00시</string>
+    <string name="contest_info_bs_title_3">동점자 처리 방식</string>
+    <string name="contest_info_bs_content_3_by_1">1. 직전 회차 참가자</string>
+    <string name="contest_info_bs_content_3_by_2">2. 업로드 시간을 비교해 더 일찍 참가한 작품</string>
+    <string name="contest_info_bs_title_4">리워드</string>
+    <string name="contest_info_bs_content_4_by_1">최종 1위한 작품은\n앱 접속 시 나오는 화면에 배경 사진으로 사용</string>
+    <string name="contest_info_bs_content_4_by_2">(차기 콘테스트 종료 시까지)</string>
+    <string name="contest_info_bs_button_content">확인</string>
+
+<!--  HomeFailedComponent  -->
+    <string name="fail_content">네트워크 오류가 발생하였습니다.\n잠시후 재시도 부탁드립니다.</string>
+    <string name="fail_retry_content">재시도</string>
+
+
+</resources>
