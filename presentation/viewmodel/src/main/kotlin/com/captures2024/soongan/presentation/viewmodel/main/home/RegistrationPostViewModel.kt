@@ -251,12 +251,12 @@ constructor(
         val submitData = currentState
 
         if (submitData.currentMedia == null) {
-            analyticsHelper.d { "handleOnClickSubmitRemote - submitData.currentMedia is null" }
+            analyticsHelper.d { "submitRemote - submitData.currentMedia is null" }
             return
         }
 
         if (submitData.title.isEmpty()) {
-            analyticsHelper.d { "handleOnClickSubmitRemote - submitData.title is empty" }
+            analyticsHelper.d { "submitRemote - submitData.title is empty" }
             return
         }
 
