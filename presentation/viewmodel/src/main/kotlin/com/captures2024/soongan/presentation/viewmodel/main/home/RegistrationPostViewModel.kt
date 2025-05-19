@@ -178,7 +178,7 @@ constructor(
     private fun handleOnTitleValueChanged(intent: Intent.OnTitleValueChanged) {
         val newValue = intent.newValue
 
-        if (newValue.length !in 0..15) {
+        if (newValue.length > currentState.maxInputLength) {
             return
         }
 
