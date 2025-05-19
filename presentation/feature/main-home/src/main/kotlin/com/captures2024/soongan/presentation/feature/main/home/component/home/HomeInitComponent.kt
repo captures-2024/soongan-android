@@ -9,8 +9,8 @@ import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 
 @Composable
 internal fun HomeInitComponent(
-    modifier: Modifier = Modifier
-){
+    modifier: Modifier = Modifier,
+) {
     Box(modifier = modifier)
 }
 

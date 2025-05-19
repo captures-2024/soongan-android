@@ -4,10 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.paint
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
-import com.captures2024.soongan.core.designsystem.ui.R
 import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.core.designsystem.ui.theme.SGTheme
 import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
@@ -31,7 +27,7 @@ internal fun HomeScreen(
 ) {
     val commonModifier = Modifier
         .fillMaxSize()
-        .background(color = SGColor.BG.bg)
+        .background(color = SGColor.BG.background)
 
     when (state.initState) {
         HomeViewModel.State.InitState.INIT -> HomeInitComponent(
@@ -113,4 +109,3 @@ private fun PreviewHomeScreen_Success() {
         )
     }
 }
-

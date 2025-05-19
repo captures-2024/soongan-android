@@ -7,10 +7,16 @@ import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import com.captures2024.soongan.core.navigator.screen.main.home.HomeNavigator
 import com.captures2024.soongan.core.navigator.screen.main.home.navigateToHome
+import com.captures2024.soongan.core.navigator.screen.main.home.navigateToRegistrationPost
 import com.captures2024.soongan.core.navigator.screen.main.welcome.WelcomeNavigator
 import com.captures2024.soongan.presentation.feature.main.awards.navigation.mainAwards
 import com.captures2024.soongan.presentation.feature.main.component.MainComponent
@@ -19,18 +25,29 @@ import com.captures2024.soongan.presentation.feature.main.home.navigation.mainHo
 import com.captures2024.soongan.presentation.feature.main.navigation.MainNavigationState
 import com.captures2024.soongan.presentation.feature.main.navigation.welcome
 import com.captures2024.soongan.presentation.feature.main.profile.navigation.mainProfile
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 internal fun MainScreen(navigationState: MainNavigationState) {
+    val scope = rememberCoroutineScope()
     val navController = navigationState.navController
 
-    MainComponent(
-        isNotViewBottomBar = navigationState.isNotViewBottomBar(),
-        destinations = navigationState.topLevelDestinations,
-        onNavigateToDestination = navigationState::navigateToTopLevelDestination,
-        currentDestination = navigationState.currentDestination,
-    ) { innerPadding ->
+    var isAvailableBack by remember { mutableStateOf(true) }
 
+    val navigateToBack: () -> Unit = {
+        if (isAvailableBack) {
+            isAvailableBack = false
+            navController.navigateUp()
+
+            scope.launch {
+                delay(500L)
+                isAvailableBack = true
+            }
+        }
+    }
+
+    MainComponent(navigationState = navigationState) { innerPadding ->
         NavHost(
             modifier = Modifier.padding(innerPadding),
             navController = navController,
@@ -44,15 +61,17 @@ internal fun MainScreen(navigationState: MainNavigationState) {
             popExitTransition = { fadeOut() + scaleOut(targetScale = 0.5f) },
         ) {
             welcome(
-                navigateToHome = {
-                    val navOptions = navigationState.buildTopLevelNavOptions()
-                    navController.navigateToHome(navOptions)
-                },
+                navigateToHome = navController::navigateToHome,
             )
 
             mainAwards()
             mainFeed()
-            mainHome()
+            mainHome(
+                navigateToBack = navigateToBack,
+                navigateToRegistrationPost = navController::navigateToRegistrationPost,
+                navigateToGallery = {},
+                navigateToPost = { postId, navOptions -> },
+            )
             mainProfile()
         }
     }

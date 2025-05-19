@@ -15,6 +15,7 @@ object AppConst {
 
         object Home {
             const val MAX_REGISTER_POST_COUNT: Int = 3
+            const val MAX_INPUT_LENGTH: Int = 15
         }
     }
 

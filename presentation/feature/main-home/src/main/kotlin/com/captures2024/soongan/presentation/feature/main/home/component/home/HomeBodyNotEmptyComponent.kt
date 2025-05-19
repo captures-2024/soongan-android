@@ -107,7 +107,7 @@ private fun RegisterButtonComponent(
                     color = when (isValidPost) {
                         true -> SGColor.Grayscale.white
                         false -> SGColor.Grayscale.black40
-                    }
+                    },
                 ),
         ) {
             Icon(
@@ -123,7 +123,7 @@ private fun RegisterButtonComponent(
             )
 
             SGText(
-                text = "${postCount}/${maxCount}",
+                text = "$postCount/$maxCount",
                 style = getSGNonScaleTextStyle(
                     color = when (isValidPost) {
                         true -> SGColor.Grayscale.black100

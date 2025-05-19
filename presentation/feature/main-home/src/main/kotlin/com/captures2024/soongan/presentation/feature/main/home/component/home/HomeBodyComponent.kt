@@ -39,7 +39,7 @@ internal fun ColumnScope.HomeBodyComponent(
         horizontalAlignment = when (isEmptyState) {
             true -> Alignment.CenterHorizontally
             false -> Alignment.Start
-        }
+        },
     ) {
         when (isEmptyState) {
             true -> HomeBodyEmptyComponent(

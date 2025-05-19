@@ -41,7 +41,7 @@ object SGColor {
     data object BG {
         val gray = Color(0xFFF0F2F6)
         val modal = Color(0xFF252525).copy(alpha = 0.5f)
-        val bg = Color(0xFFFAFAF8)
+        val background = Color(0xFFFAFAF8)
     }
 
     val black100 = Color(0xFF252525)

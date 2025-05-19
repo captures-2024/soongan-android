@@ -133,10 +133,11 @@ constructor(
         when (state.initState) {
             State.InitState.INIT,
             State.InitState.LOADING,
-                -> {
-                    analyticsHelper.d { "handleViewOnResume - state.isInit: ${state.initState}" }
-                    return
-                }
+            -> {
+                analyticsHelper.d { "handleViewOnResume - state.isInit: ${state.initState}" }
+                return
+            }
+
             else -> Unit
         }
 

@@ -14,7 +14,6 @@ import com.captures2024.soongan.core.navigator.screen.main.awards.navigateToAwar
 import com.captures2024.soongan.core.navigator.screen.main.feed.navigateToFeed
 import com.captures2024.soongan.core.navigator.screen.main.home.navigateToHome
 import com.captures2024.soongan.core.navigator.screen.main.profile.navigateToProfile
-import com.captures2024.soongan.presentation.feature.main.component.isTopLevelDestinationInHierarchy
 
 @Composable
 internal fun rememberMainNavigationState(
@@ -62,19 +61,6 @@ internal class MainNavigationState(
                 }
             }
         }
-    }
-
-    /**
-     * 바텀 네비게이션 바를 표시할지 안할지 결정하는 함수
-     * @return topLevel에 해당한다면 즉, home, feed, awards, profile에 해당하면 false 해당하지 않으면 true
-     * **/
-    @Composable
-    fun isNotViewBottomBar(): Boolean {
-        for (topLevelDestination in topLevelDestinations)
-            if (currentDestination.isTopLevelDestinationInHierarchy(topLevelDestination))
-                return false
-
-        return true
     }
 
     fun buildTopLevelNavOptions(): NavOptions = navOptions {

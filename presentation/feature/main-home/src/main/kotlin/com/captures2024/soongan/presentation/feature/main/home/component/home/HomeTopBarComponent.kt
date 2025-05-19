@@ -94,7 +94,7 @@ private fun SubjectComponent(subject: String) {
 private fun PreviewHomeTopBarComponent() {
     SGTheme {
         HomeTopBarComponent(
-            subject = "테스트"
+            subject = "테스트",
         )
     }
 }
