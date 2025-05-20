@@ -92,7 +92,7 @@ constructor(
         data object OnClickRegistrationText : Intent
 
         data class HidePost(
-            val postId: Long,
+            val targetId: Long,
         ) : Intent
     }
 
@@ -264,12 +264,12 @@ constructor(
     private fun handleHidePost(intent: Intent.HidePost) {
         val tempPosts = currentState.posts.toMutableList()
 
-        tempPosts.removeAll { it.postId == intent.postId }
+        tempPosts.removeAll { it.postId == intent.targetId }
 
         reduce {
             copy(posts = tempPosts.toList())
         }
 
-        analyticsHelper.d { "reported post, postId : ${intent.postId}" }
+        analyticsHelper.d { "reported post, postId : ${intent.targetId}" }
     }
 }

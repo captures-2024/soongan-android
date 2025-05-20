@@ -21,7 +21,7 @@ import com.captures2024.soongan.feature.feed.ui.FeedScreen
 @Composable
 internal fun FeedRoute(
     navigateToPost: (Long, NavOptions?) -> Unit,
-    getReportedPostId: () -> Long,
+    getHideTargetContentId: () -> Long,
     feedViewModel: FeedViewModel = hiltViewModel(),
 ) {
     val uiState by feedViewModel.state.collectAsStateWithLifecycle()
@@ -35,10 +35,10 @@ internal fun FeedRoute(
     }
 
     LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
-        val postId = getReportedPostId()
+        val targetId = getHideTargetContentId()
 
-        if (postId != -1L) {
-            feedViewModel.intent(Intent.HidePost(postId))
+        if (targetId != -1L) {
+            feedViewModel.intent(Intent.HidePost(targetId))
         }
     }
 

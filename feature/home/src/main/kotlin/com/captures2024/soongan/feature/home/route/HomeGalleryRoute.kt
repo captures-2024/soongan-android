@@ -21,7 +21,7 @@ internal fun HomeGalleryRoute(
     navigateToBack: () -> Unit,
     navigateToPost: (Long, NavOptions?) -> Unit,
     navigateToRegistrationPost: () -> Unit,
-    getReportedPostId: () -> Long,
+    getHideTargetContentId: () -> Long,
     homeGalleryViewModel: HomeGalleryViewModel = hiltViewModel(),
 ) {
     val uiState by homeGalleryViewModel.state.collectAsStateWithLifecycle()
@@ -37,10 +37,10 @@ internal fun HomeGalleryRoute(
     }
 
     LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
-        val postId = getReportedPostId()
+        val targetId = getHideTargetContentId()
 
-        if (postId != -1L) {
-            homeGalleryViewModel.intent(Intent.HidePost(postId))
+        if (targetId != -1L) {
+            homeGalleryViewModel.intent(Intent.HidePost(targetId))
         }
     }
 

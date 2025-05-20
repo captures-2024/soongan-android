@@ -103,7 +103,7 @@ constructor(
         ) : Intent
 
         data class HidePost(
-            val postId: Long,
+            val targetId: Long,
         ) : Intent
     }
 
@@ -215,18 +215,18 @@ constructor(
     }
 
     private fun handleOnReportedPost(intent: Intent.HidePost) {
-        val postId = intent.postId
+        val targetId = intent.targetId
         val round = currentState.currentRound
 
         val tempPosts = currentState.feed[round]?.toMutableList() ?: mutableListOf()
 
-        tempPosts.removeAll { it.postId == intent.postId }
+        tempPosts.removeAll { it.postId == targetId }
 
         reduce {
             copy(feed = feed.toMutableMap().apply { put(round, tempPosts) }.toMap())
         }
 
-        analyticsHelper.d { "reported post, postId : $postId" }
+        analyticsHelper.d { "reported post, postId : $targetId" }
     }
 
     private suspend fun syncFeedInfo() {
