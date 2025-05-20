@@ -25,7 +25,6 @@ internal fun FeedRoute(
     feedViewModel: FeedViewModel = hiltViewModel(),
 ) {
     val uiState by feedViewModel.state.collectAsStateWithLifecycle()
-    val round = uiState.currentRound
 
     LaunchedEffect(key1 = Unit) {
         feedViewModel.sideEffect.collect { effect ->
@@ -39,24 +38,24 @@ internal fun FeedRoute(
         val postId = getReportedPostId()
 
         if (postId != -1L) {
-            feedViewModel.intent(Intent.HidePost(round, postId))
+            feedViewModel.intent(Intent.HidePost(postId))
         }
     }
 
     FeedScreen(
         uiState = uiState,
         modifier = Modifier.fillMaxSize().sgBottomBarPadding(),
-        onRefresh = { feedViewModel.intent(Intent.RefreshFeed(round)) },
+        onRefresh = { feedViewModel.intent(Intent.RefreshFeed) },
         onClickRound = { feedViewModel.intent(Intent.OnClickRound(it)) },
         onClickFilter = { feedViewModel.intent(Intent.OnClickFilter) },
         onClickPost = { feedViewModel.intent(Intent.OnClickPost(it)) },
     )
 
-    if (uiState.isShowBottomSheet) {
+    if (uiState.isOpenFilterBottomSheet) {
         FeedFilterBottomSheet(
             orderType = uiState.postOrderType,
             onDismissRequest = { feedViewModel.intent(Intent.OnFilterDismissRequest) },
-            onClickItem = { feedViewModel.intent(Intent.OnClickSortFilter(round, it)) },
+            onClickItem = { feedViewModel.intent(Intent.OnClickSortFilter(it)) },
         )
     }
 }

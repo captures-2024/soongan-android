@@ -10,13 +10,14 @@ import com.captures2024.soongan.core.domain.usecase.loading.ClearLoadingUseCase
 import com.captures2024.soongan.core.domain.usecase.loading.HideLoadingUseCase
 import com.captures2024.soongan.core.domain.usecase.loading.ShowLoadingUseCase
 import com.captures2024.soongan.core.domain.usecase.members.GetIsCurrentGuestModeUseCase
+import com.captures2024.soongan.core.domain.usecase.weekly.contests.GetFilteredGalleryByReportTargetIdsUseCase
+import com.captures2024.soongan.core.domain.usecase.weekly.contests.GetWeeklyContestInfoListUseCase
+import com.captures2024.soongan.core.model.AppConst
 import com.captures2024.soongan.core.model.dto.GalleryPostDto
-import com.captures2024.soongan.core.model.mock.mockFeedTitleOptions
-import com.captures2024.soongan.core.model.mock.mockPosts
 import com.captures2024.soongan.core.viewmodel.NewBaseViewModel
+import com.captures2024.soongan.core.viewmodel.model.PaginationStatus
 import com.captures2024.soongan.core.viewmodel.model.PostOrderType
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 @HiltViewModel
@@ -30,6 +31,8 @@ constructor(
     getIsCurrentGuestModeUseCase: GetIsCurrentGuestModeUseCase,
     setIsShowGuestModeDialogFlowUseCase: SetIsShowGuestModeDialogFlowUseCase,
     savedStateHandle: SavedStateHandle,
+    private val getWeeklyContestInfoListUseCase: GetWeeklyContestInfoListUseCase,
+    private val getFilteredGalleryByReportTargetIdsUseCase: GetFilteredGalleryByReportTargetIdsUseCase,
 ) : NewBaseViewModel<FeedViewModel.State, FeedViewModel.Effect, FeedViewModel.Intent>(
     analyticsHelper = analyticsHelper,
     showLoadingUseCase = showLoadingUseCase,
@@ -43,22 +46,28 @@ constructor(
     data class State(
         val isLoading: Boolean = false,
         val isRefreshing: Boolean = false,
-        val isShowDropDown: Boolean = false, /* cmp: FeedDropDown */
-        val isShowBottomSheet: Boolean = false, /* cmp: FeedFilterBottomSheet  */
+        val isOpenDropDown: Boolean = false,
+        val isOpenFilterBottomSheet: Boolean = false,
         val postOrderType: PostOrderType = PostOrderType.MOST_LIKED,
-        val currentRound: Int = 1,
+        val paginationStatus: PaginationStatus = PaginationStatus.INACTIVE,
         val titleOptions: List<Pair<Int, String>> = emptyList(), /* string value : "${round}회차 | title" */
+        val currentRound: Int = 1,
+        internal val nextPage: Int = 0,
+        internal val hasNextPage: Boolean = false,
         internal val feed: Map<Int, List<GalleryPostDto>> = emptyMap(),
     ) : UIState {
 
         val currentTitleOption: Pair<Int, String>
             get() = titleOptions[currentRound - 1]
 
+        val isFirstPage: Boolean
+            get() = (nextPage == 0)
+
         val currentRoundGallery: List<GalleryPostDto>
             get() = feed[currentRound] ?: emptyList()
 
         override fun toString(): String {
-            return "State(isLoading=$isLoading, isRefreshing = $isRefreshing, isShowDropDown = $isShowDropDown, isShowBottomSheet=$isShowBottomSheet, titleItems:$titleOptions, postOrderType:$postOrderType, feeds:$feed)"
+            return "State(isLoading=$isLoading, isRefreshing = $isRefreshing, isShowDropDown = $isOpenDropDown, isShowBottomSheet=$isOpenFilterBottomSheet, titleItems:$titleOptions, postOrderType:$postOrderType, currentRound:$currentRound, titleOptions:$titleOptions, feeds:$feed, currentTitleOption:$currentTitleOption, currentRoundGallery:$currentRoundGallery)"
         }
     }
 
@@ -73,9 +82,7 @@ constructor(
 
         data object Init : Intent
 
-        data class RefreshFeed(
-            val round: Int,
-        ) : Intent
+        data object RefreshFeed : Intent
 
         data class OnClickRound(
             val newRound: Int,
@@ -86,16 +93,16 @@ constructor(
         data object OnFilterDismissRequest : Intent
 
         data class OnClickSortFilter(
-            val round: Int,
             val postOrderType: PostOrderType,
         ) : Intent
+
+        data object LoadNextPage : Intent
 
         data class OnClickPost(
             val postId: Long,
         ) : Intent
 
         data class HidePost(
-            val round: Int,
             val postId: Long,
         ) : Intent
     }
@@ -116,7 +123,7 @@ constructor(
         when (intent) {
             is Intent.Init -> loadingLaunch { handleInit() }
 
-            is Intent.RefreshFeed -> launch { handleRefreshFeed(intent) }
+            is Intent.RefreshFeed -> launch { handleRefreshFeed() }
 
             is Intent.OnClickRound -> launch { handleOnClickRound(intent) }
 
@@ -126,6 +133,8 @@ constructor(
 
             is Intent.OnClickSortFilter -> launch { handleOnClickSortFilter(intent) }
 
+            is Intent.LoadNextPage -> launch { handleLoadNextPage() }
+
             is Intent.OnClickPost -> handleOnClickPost(intent)
 
             is Intent.HidePost -> handleOnReportedPost(intent)
@@ -133,33 +142,41 @@ constructor(
     }
 
     private suspend fun handleInit() {
-        getTitleOptions()
-        fetchFeedPage()
+        syncFeedInfo()
     }
 
-    private suspend fun handleRefreshFeed(intent: Intent.RefreshFeed) {
+    private suspend fun handleRefreshFeed() {
         reduce {
             copy(
                 isRefreshing = true,
+                nextPage = 0,
             )
         }
 
-        val round = intent.round
-        val orderType = currentState.postOrderType
+        fetchFeedPage()
 
-        fetchFeedPage(round = round, orderType = orderType)
+        reduce {
+            copy(
+                isRefreshing = false,
+            )
+        }
     }
 
     private suspend fun handleOnClickRound(intent: Intent.OnClickRound) {
-        val round = intent.newRound
+        reduce {
+            copy(
+                currentRound = intent.newRound,
+                nextPage = 0,
+            )
+        }
 
-        fetchFeedPage(round = round, orderType = currentState.postOrderType)
+        fetchFeedPage()
     }
 
     private fun handleOnClickFilter() {
         reduce {
             copy(
-                isShowBottomSheet = true,
+                isOpenFilterBottomSheet = true,
             )
         }
     }
@@ -167,23 +184,30 @@ constructor(
     private fun handleOnFilterDismissRequest() {
         reduce {
             copy(
-                isShowBottomSheet = false,
+                isOpenFilterBottomSheet = false,
             )
         }
     }
 
     private suspend fun handleOnClickSortFilter(intent: Intent.OnClickSortFilter) {
-        val round = intent.round
-        val orderType = intent.postOrderType
-
         reduce {
             copy(
-                isShowBottomSheet = false,
+                isOpenFilterBottomSheet = false,
                 postOrderType = intent.postOrderType,
             )
         }
 
-        fetchFeedPage(round = round, orderType = orderType)
+        fetchFeedPage()
+    }
+
+    private suspend fun handleLoadNextPage() {
+        reduce {
+            copy(
+                nextPage = nextPage + 1,
+            )
+        }
+
+        fetchFeedPage()
     }
 
     private fun handleOnClickPost(intent: Intent.OnClickPost) {
@@ -191,8 +215,8 @@ constructor(
     }
 
     private fun handleOnReportedPost(intent: Intent.HidePost) {
-        val round = intent.round
         val postId = intent.postId
+        val round = currentState.currentRound
 
         val tempPosts = currentState.feed[round]?.toMutableList() ?: mutableListOf()
 
@@ -205,34 +229,99 @@ constructor(
         analyticsHelper.d { "reported post, postId : $postId" }
     }
 
-    private fun getTitleOptions() {
-        val mockTitleOptions = mockFeedTitleOptions
+    private suspend fun syncFeedInfo() {
+        getTitleOptions()
+        fetchFeedPage()
+    }
+
+    private suspend fun getTitleOptions() {
+        val weeklyContestInfoListDto = getWeeklyContestInfoListUseCase().getOrNull()
+
+        if (weeklyContestInfoListDto == null) {
+            analyticsHelper.d { "getTitleOptions - weeklyContestInfoListDto is null" }
+
+            return
+        }
+
+        val titleOptions: List<Pair<Int, String>> =
+            weeklyContestInfoListDto.weeklyContestInfoList.map { it.round to it.subject }
 
         reduce {
             copy(
-                titleOptions = mockTitleOptions,
+                titleOptions = titleOptions,
             )
         }
     }
 
-    private suspend fun fetchFeedPage(
-        round: Int = 1,
-        orderType: PostOrderType = PostOrderType.MOST_LIKED,
-    ) {
-        val mockFeed = buildMap { put(round, mockPosts) }
-        // val feed = getFeedUseCase(round, orderType, + page | cursor)
+    private fun setUpPaginationStatus() {
+        if (currentState.isFirstPage) {
+            reduce {
+                copy(
+                    paginationStatus = PaginationStatus.LOADING,
+                    feed = emptyMap(),
+                )
+            }
+        } else {
+            reduce {
+                copy(
+                    paginationStatus = PaginationStatus.PAGINATING,
+                )
+            }
+        }
+    }
 
-        delay(1000) // 임시 로딩용
+    private suspend fun fetchFeedPage() {
+        when (currentState.paginationStatus) {
+            PaginationStatus.LOADING,
+            PaginationStatus.PAGINATING,
+            -> return
 
-        analyticsHelper.d { "fetchFeedPage - round: $round, orderType: $orderType, feed: $mockFeed" }
+            else -> Unit
+        }
+
+        setUpPaginationStatus()
+
+        val galleryDto = getFilteredGalleryByReportTargetIdsUseCase(
+            params = GetFilteredGalleryByReportTargetIdsUseCase.Params(
+                round = currentState.currentRound,
+                orderType = currentState.postOrderType.name,
+                page = currentState.nextPage,
+                pageSize = AppConst.Gallery.PAGE_SIZE,
+            ),
+        ).getOrNull()
+
+        if (galleryDto == null) {
+            analyticsHelper.d { "fetchFeedPage - galleryDto is null" }
+
+            reduce {
+                copy(
+                    paginationStatus = PaginationStatus.ERROR,
+                )
+            }
+
+            return
+        }
+
+        val round = galleryDto.round ?: currentState.currentRound
+
+        val currentPosts = currentState.feed[round].orEmpty()
+        val updatedPosts = currentPosts + galleryDto.posts
+
+        val updatedFeed = currentState.feed.toMutableMap().apply {
+            put(round, updatedPosts)
+        }.toMap()
 
         reduce {
             copy(
-//                isLoading | paginationStatus.Loading = false
-                isRefreshing = false,
-                currentRound = round,
-                postOrderType = orderType,
-                feed = mockFeed,
+                paginationStatus = when {
+                    !galleryDto.hasNext -> PaginationStatus.EXHAUST
+
+                    galleryDto.posts.isEmpty() -> PaginationStatus.EMPTY
+
+                    else -> PaginationStatus.INACTIVE
+                },
+                hasNextPage = galleryDto.hasNext,
+                feed = updatedFeed,
             )
         }
     }
