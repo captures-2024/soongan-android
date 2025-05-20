@@ -54,10 +54,10 @@ internal fun HomeGalleryRoute(
         onClickRegistrationText = { homeGalleryViewModel.intent(Intent.OnClickRegistrationText) },
     )
 
-    if (uiState.isShowBottomSheet) {
+    if (uiState.isOpenFilterBottomSheet) {
         HomeGalleryBottomSheet(
             uiState = uiState,
-            onDismissRequest = { homeGalleryViewModel.intent(Intent.OnBottomModalDismissRequest) },
+            onDismissRequest = { homeGalleryViewModel.intent(Intent.OnFilterDismissRequest) },
             onClickItem = { homeGalleryViewModel.intent(Intent.OnClickSortFilter(it)) },
         )
     }

@@ -11,6 +11,7 @@ import com.captures2024.soongan.core.domain.usecase.loading.HideLoadingUseCase
 import com.captures2024.soongan.core.domain.usecase.loading.ShowLoadingUseCase
 import com.captures2024.soongan.core.domain.usecase.members.GetIsCurrentGuestModeUseCase
 import com.captures2024.soongan.core.domain.usecase.weekly.contests.GetFilteredGalleryByReportTargetIdsUseCase
+import com.captures2024.soongan.core.model.AppConst
 import com.captures2024.soongan.core.model.dto.GalleryPostDto
 import com.captures2024.soongan.core.viewmodel.NewBaseViewModel
 import com.captures2024.soongan.core.viewmodel.model.PaginationStatus
@@ -22,7 +23,6 @@ import javax.inject.Inject
 class HomeGalleryViewModel
 @Inject
 constructor(
-    private val getFilteredGalleryByReportTargetIdsUseCase: GetFilteredGalleryByReportTargetIdsUseCase,
     analyticsHelper: AnalyticsHelper,
     showLoadingUseCase: ShowLoadingUseCase,
     hideLoadingUseCase: HideLoadingUseCase,
@@ -30,6 +30,7 @@ constructor(
     getIsCurrentGuestModeUseCase: GetIsCurrentGuestModeUseCase,
     setIsShowGuestModeDialogFlowUseCase: SetIsShowGuestModeDialogFlowUseCase,
     savedStateHandle: SavedStateHandle,
+    private val getFilteredGalleryByReportTargetIdsUseCase: GetFilteredGalleryByReportTargetIdsUseCase,
 ) : NewBaseViewModel<HomeGalleryViewModel.State, HomeGalleryViewModel.Effect, HomeGalleryViewModel.Intent>(
     analyticsHelper = analyticsHelper,
     showLoadingUseCase = showLoadingUseCase,
@@ -42,17 +43,20 @@ constructor(
 
     data class State(
         val isLoading: Boolean = false,
-        val isShowBottomSheet: Boolean = false,
         val isRefreshing: Boolean = false,
+        val isOpenFilterBottomSheet: Boolean = false,
         val postOrderType: PostOrderType = PostOrderType.MOST_LIKED,
         val paginationStatus: PaginationStatus = PaginationStatus.INACTIVE,
         val posts: List<GalleryPostDto> = emptyList(),
-        val nextPage: Int = 0,
-        val hasNextPage: Boolean = false,
+        internal val nextPage: Int = 0,
+        internal val hasNextPage: Boolean = false,
     ) : UIState {
 
+        val isFirstPage: Boolean
+            get() = (nextPage == 0)
+
         override fun toString(): String {
-            return "State(isLoading=$isLoading, isShowBottomSheet=$isShowBottomSheet, isRefreshing=$isRefreshing, postOrderType=$postOrderType, paginationStatus=$paginationStatus, posts=$posts, nextPage=$nextPage, hasNextPage=$hasNextPage)"
+            return "State(isLoading=$isLoading, isShowBottomSheet=$isOpenFilterBottomSheet, isRefreshing=$isRefreshing, postOrderType=$postOrderType, paginationStatus=$paginationStatus, posts=$posts, nextPage=$nextPage, hasNextPage=$hasNextPage)"
         }
     }
 
@@ -71,19 +75,19 @@ constructor(
 
         data object RefreshGallery : Intent
 
-        data object LoadNextPage : Intent
-
-        data class OnClickPost(
-            val postId: Long,
-        ) : Intent
-
         data object OnClickFilter : Intent
+
+        data object OnFilterDismissRequest : Intent
 
         data class OnClickSortFilter(
             val postOrderType: PostOrderType,
         ) : Intent
 
-        data object OnBottomModalDismissRequest : Intent
+        data object LoadNextPage : Intent
+
+        data class OnClickPost(
+            val postId: Long,
+        ) : Intent
 
         data object OnClickRegistrationText : Intent
 
@@ -110,15 +114,15 @@ constructor(
 
             is Intent.RefreshGallery -> launch { handleRefreshGallery() }
 
-            is Intent.LoadNextPage -> launch { handleLoadNextPage() }
-
-            is Intent.OnBottomModalDismissRequest -> handleOnBottomModalDismissRequest()
-
             is Intent.OnClickFilter -> handleOnClickFilter()
 
-            is Intent.OnClickPost -> handleOnClickPost(intent)
+            is Intent.OnFilterDismissRequest -> handleOnFilterDismissRequest()
 
             is Intent.OnClickSortFilter -> loadingLaunch { handleOnClickSortFilter(intent) }
+
+            is Intent.LoadNextPage -> launch { handleLoadNextPage() }
+
+            is Intent.OnClickPost -> handleOnClickPost(intent)
 
             is Intent.OnClickRegistrationText -> handleOnClickRegistrationText()
 
@@ -127,24 +131,40 @@ constructor(
     }
 
     private suspend fun handleInit() {
-        fetchPostPage(page = 0)
+        fetchPostPage()
     }
 
     private suspend fun handleRefreshGallery() {
-        fetchPostPage(
-            page = 0,
-            isRefreshing = true,
-        )
+        reduce {
+            copy(
+                isRefreshing = true,
+                nextPage = 0,
+            )
+        }
+
+        fetchPostPage()
+
+        reduce {
+            copy(
+                isRefreshing = false,
+            )
+        }
     }
 
     private suspend fun handleLoadNextPage() {
-        fetchPostPage(page = currentState.nextPage)
-    }
-
-    private fun handleOnBottomModalDismissRequest() {
         reduce {
             copy(
-                isShowBottomSheet = false,
+                nextPage = currentState.nextPage + 1,
+            )
+        }
+
+        fetchPostPage()
+    }
+
+    private fun handleOnFilterDismissRequest() {
+        reduce {
+            copy(
+                isOpenFilterBottomSheet = false,
             )
         }
     }
@@ -152,7 +172,7 @@ constructor(
     private fun handleOnClickFilter() {
         reduce {
             copy(
-                isShowBottomSheet = true,
+                isOpenFilterBottomSheet = true,
             )
         }
     }
@@ -164,22 +184,19 @@ constructor(
     private suspend fun handleOnClickSortFilter(intent: Intent.OnClickSortFilter) {
         reduce {
             copy(
-                isShowBottomSheet = false,
+                isOpenFilterBottomSheet = false,
                 postOrderType = intent.postOrderType,
+                nextPage = 0,
             )
         }
 
-        fetchPostPage(page = 0)
+        fetchPostPage()
     }
 
-    private fun setUpLoading(
-        isInitPage: Boolean,
-        isRefreshing: Boolean,
-    ) {
-        if (isInitPage) {
+    private fun setUpPaginationStatus() {
+        if (currentState.isFirstPage) {
             reduce {
                 copy(
-                    isRefreshing = isRefreshing,
                     paginationStatus = PaginationStatus.LOADING,
                     posts = emptyList(),
                 )
@@ -193,10 +210,7 @@ constructor(
         }
     }
 
-    private suspend fun fetchPostPage(
-        page: Int = 0,
-        isRefreshing: Boolean = false,
-    ) {
+    private suspend fun fetchPostPage() {
         when (currentState.paginationStatus) {
             PaginationStatus.LOADING,
             PaginationStatus.PAGINATING,
@@ -205,25 +219,22 @@ constructor(
             else -> Unit
         }
 
-        val isInitPage = (page == 0)
-
-        setUpLoading(isInitPage = isInitPage, isRefreshing = isRefreshing)
+        setUpPaginationStatus()
 
         val galleryDto = getFilteredGalleryByReportTargetIdsUseCase(
             params = GetFilteredGalleryByReportTargetIdsUseCase.Params(
                 round = null,
                 orderType = currentState.postOrderType.name,
-                page = page,
-                pageSize = PAGE_SIZE,
+                page = currentState.nextPage,
+                pageSize = AppConst.Gallery.PAGE_SIZE,
             ),
         ).getOrNull()
 
         if (galleryDto == null) {
-            analyticsHelper.d { "galleryDto is null" }
+            analyticsHelper.d { "fetchPostPage - galleryDto is null" }
 
             reduce {
                 copy(
-                    isRefreshing = false,
                     paginationStatus = PaginationStatus.ERROR,
                 )
             }
@@ -233,7 +244,6 @@ constructor(
 
         reduce {
             copy(
-                isRefreshing = false,
                 paginationStatus = when {
                     !galleryDto.hasNext -> PaginationStatus.EXHAUST
 
@@ -242,7 +252,6 @@ constructor(
                     else -> PaginationStatus.INACTIVE
                 },
                 posts = posts + galleryDto.posts,
-                nextPage = page + 1,
                 hasNextPage = galleryDto.hasNext,
             )
         }
@@ -262,9 +271,5 @@ constructor(
         }
 
         analyticsHelper.d { "reported post, postId : ${intent.postId}" }
-    }
-
-    companion object {
-        private const val PAGE_SIZE = 20
     }
 }
