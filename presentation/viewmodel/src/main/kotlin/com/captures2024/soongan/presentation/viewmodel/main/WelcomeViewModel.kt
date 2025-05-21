@@ -14,6 +14,7 @@ import com.captures2024.soongan.core.domain.usecase.members.GetIsCurrentGuestMod
 import com.captures2024.soongan.presentation.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.filterNotNull
 import javax.inject.Inject
 
 @HiltViewModel
@@ -77,14 +78,17 @@ constructor(
     }
 
     private suspend fun collectMemberInfo() {
-        getCurrentMemberFlowUseCase().collect {
-            reduce {
-                copy(
-                    isInit = true,
-                    nickname = nickname,
-                )
+        getCurrentMemberFlowUseCase
+            .invoke()
+            .filterNotNull()
+            .collect {
+                reduce {
+                    copy(
+                        isInit = true,
+                        nickname = it.nickname ?: "",
+                    )
+                }
             }
-        }
     }
 
     private suspend fun launchEntryCount() {

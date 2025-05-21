@@ -11,6 +11,14 @@ object AppConst {
         }
     }
 
+    object Main {
+
+        object Home {
+            const val MAX_REGISTER_POST_COUNT: Int = 3
+            const val MAX_INPUT_LENGTH: Int = 15
+        }
+    }
+
     object Notification {
         const val PUSH_ACTION_NAME = "com.captures2024.soongan.push"
     }

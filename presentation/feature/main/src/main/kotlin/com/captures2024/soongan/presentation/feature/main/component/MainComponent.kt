@@ -8,27 +8,28 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.navigation.NavDestination
-import com.captures2024.soongan.core.designsystem.ui.component.background.SGBackground
-import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
+import com.captures2024.soongan.presentation.feature.main.navigation.MainNavigationState
 import com.captures2024.soongan.presentation.feature.main.navigation.MainTopLevelDestination
 
 @Composable
 internal fun MainComponent(
-    isNotViewBottomBar: Boolean,
-    destinations: List<MainTopLevelDestination>,
-    onNavigateToDestination: (MainTopLevelDestination) -> Unit,
-    currentDestination: NavDestination?,
+    navigationState: MainNavigationState,
     content: @Composable (PaddingValues) -> Unit,
 ) {
     Scaffold(
         modifier = Modifier.fillMaxSize()
             .navigationBarsPadding(),
         bottomBar = {
+            val isNotViewBottomBar = isNotViewBottomBar(
+                currentDestination = navigationState.currentDestination,
+                topLevelDestinations = navigationState.topLevelDestinations,
+            )
+
             if (!isNotViewBottomBar) {
                 SoonGanBottomBar(
-                    destinations = destinations,
-                    onNavigateToDestination = onNavigateToDestination,
-                    currentDestination = currentDestination,
+                    destinations = navigationState.topLevelDestinations,
+                    onNavigateToDestination = navigationState::navigateToTopLevelDestination,
+                    currentDestination = navigationState.currentDestination,
                     modifier = Modifier.testTag("SoonGanBottomBar"),
                 )
             }
@@ -37,16 +38,20 @@ internal fun MainComponent(
     )
 }
 
-@DevicePreviews
+/**
+ * 바텀 네비게이션 바를 표시할지 안할지 결정하는 함수
+ * @return topLevel에 해당한다면 즉, home, feed, awards, profile에 해당하면 false 해당하지 않으면 true
+ * @param currentDestination 현재 Destination,
+ * @param topLevelDestinations Top Level에 해당하는 Destination 리스트
+ * **/
 @Composable
-private fun PreviewMainComponent() {
-    SGBackground {
-        MainComponent(
-            isNotViewBottomBar = false,
-            destinations = MainTopLevelDestination.entries,
-            onNavigateToDestination = {},
-            currentDestination = null,
-            content = {},
-        )
-    }
+private fun isNotViewBottomBar(
+    currentDestination: NavDestination?,
+    topLevelDestinations: List<MainTopLevelDestination>,
+): Boolean {
+    for (topLevelDestination in topLevelDestinations)
+        if (currentDestination.isTopLevelDestinationInHierarchy(topLevelDestination))
+            return false
+
+    return true
 }
