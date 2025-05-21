@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import com.captures2024.soongan.core.navigator.screen.main.home.HomeNavigator
 import com.captures2024.soongan.core.navigator.screen.main.home.navigateToHome
+import com.captures2024.soongan.core.navigator.screen.main.home.navigateToHomeGallery
 import com.captures2024.soongan.core.navigator.screen.main.home.navigateToRegistrationPost
 import com.captures2024.soongan.core.navigator.screen.main.welcome.WelcomeNavigator
 import com.captures2024.soongan.presentation.feature.main.awards.navigation.mainAwards
@@ -69,7 +70,7 @@ internal fun MainScreen(navigationState: MainNavigationState) {
             mainHome(
                 navigateToBack = navigateToBack,
                 navigateToRegistrationPost = navController::navigateToRegistrationPost,
-                navigateToGallery = {},
+                navigateToGallery = navController::navigateToHomeGallery,
                 navigateToPost = { postId, navOptions -> },
             )
             mainProfile()

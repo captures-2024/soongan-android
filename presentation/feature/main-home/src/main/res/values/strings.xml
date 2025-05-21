@@ -11,6 +11,10 @@
     <string name="post_list_description">post_list</string>
     <string name="logo_description">logo</string>
 
+    <string name="filter_likes">좋아요 순</string>
+    <string name="filter_oldest">오래된 순</string>
+    <string name="filter_newest">최신 등록 순</string>
+
     <!--  HomeBodyComponent  -->
     <string name="start_date_title">시작 일정</string>
     <string name="end_date_title">마감 일정</string>
@@ -56,5 +60,11 @@
     <string name="registration_post_back_dialog_content">정말 작품 등록을\n하지 않으시겠어요?</string>
     <string name="registration_post_back_dialog_button_cancel">아니오</string>
     <string name="registration_post_back_dialog_button_confirm">네</string>
+
+<!--  HomeGalleryScreen  -->
+    <string name="home_gallery_round_unit">회차</string>
+    <string name="home_gallery_post_empty_content">아직 참가한 작품이 없어요.</string>
+    <string name="home_gallery_post_empty_button">참가하러 가기</string>
+    <string name="home_gallery_post_error">참가 작품을 불러올 수 없어요.</string>
 
 </resources>
