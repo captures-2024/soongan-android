@@ -4,8 +4,10 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import androidx.navigation.navOptions
+import com.captures2024.soongan.core.navigator.screen.main.home.HomeGalleryNavigator
 import com.captures2024.soongan.core.navigator.screen.main.home.HomeNavigator
 import com.captures2024.soongan.core.navigator.screen.main.home.RegistrationPostNavigator
+import com.captures2024.soongan.presentation.feature.main.home.route.HomeGalleryRoute
 import com.captures2024.soongan.presentation.feature.main.home.route.HomeRoute
 import com.captures2024.soongan.presentation.feature.main.home.route.RegistrationPostRoute
 
@@ -33,6 +35,14 @@ fun NavGraphBuilder.mainHome(
         RegistrationPostRoute(
             navigateToBack = navigateToBack,
             navigateToPost = { navigateToPost(it, options) },
+        )
+    }
+
+    composable<HomeGalleryNavigator> {
+        HomeGalleryRoute(
+            navigateToBack = navigateToBack,
+            navigateToPost = { navigateToPost(it, null) },
+            navigateToRegistrationPost = navigateToRegistrationPost,
         )
     }
 }
