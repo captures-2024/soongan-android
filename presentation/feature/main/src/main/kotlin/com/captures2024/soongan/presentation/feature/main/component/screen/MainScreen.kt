@@ -18,6 +18,10 @@ import com.captures2024.soongan.core.navigator.screen.main.home.HomeNavigator
 import com.captures2024.soongan.core.navigator.screen.main.home.navigateToHome
 import com.captures2024.soongan.core.navigator.screen.main.home.navigateToHomeGallery
 import com.captures2024.soongan.core.navigator.screen.main.home.navigateToRegistrationPost
+import com.captures2024.soongan.core.navigator.screen.main.post.navigateToImageViewer
+import com.captures2024.soongan.core.navigator.screen.main.post.navigateToPostInfo
+import com.captures2024.soongan.core.navigator.screen.main.util.getHidedPostId
+import com.captures2024.soongan.core.navigator.screen.main.util.navigateToBackWithHidePost
 import com.captures2024.soongan.core.navigator.screen.main.welcome.WelcomeNavigator
 import com.captures2024.soongan.presentation.feature.main.awards.navigation.mainAwards
 import com.captures2024.soongan.presentation.feature.main.component.MainComponent
@@ -25,6 +29,7 @@ import com.captures2024.soongan.presentation.feature.main.feed.navigation.mainFe
 import com.captures2024.soongan.presentation.feature.main.home.navigation.mainHome
 import com.captures2024.soongan.presentation.feature.main.navigation.MainNavigationState
 import com.captures2024.soongan.presentation.feature.main.navigation.welcome
+import com.captures2024.soongan.presentation.feature.main.post.navigation.mainPost
 import com.captures2024.soongan.presentation.feature.main.profile.navigation.mainProfile
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -71,7 +76,14 @@ internal fun MainScreen(navigationState: MainNavigationState) {
                 navigateToBack = navigateToBack,
                 navigateToRegistrationPost = navController::navigateToRegistrationPost,
                 navigateToGallery = navController::navigateToHomeGallery,
-                navigateToPost = { postId, navOptions -> },
+                navigateToPost = navController::navigateToPostInfo,
+                getHidedPostId = navController::getHidedPostId,
+            )
+            mainPost(
+                navigateToBack = navigateToBack,
+                navigateToImageViewer = navController::navigateToImageViewer,
+                navigateToEditPost = { },
+                navigateToBackWithHidePost = navController::navigateToBackWithHidePost,
             )
             mainProfile()
         }

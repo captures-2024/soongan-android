@@ -17,6 +17,12 @@ object AppConst {
             const val MAX_REGISTER_POST_COUNT: Int = 3
             const val MAX_INPUT_LENGTH: Int = 15
         }
+
+        object Post {
+            const val REPORT_REASON_MAX_LENGTH = 200
+
+            const val IMAGE_DEFAULT_DURATION: Long = 1L * 1L * 1000L
+        }
     }
 
     object Notification {
