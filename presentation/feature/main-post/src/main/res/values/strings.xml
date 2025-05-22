@@ -6,8 +6,10 @@
     <string name="heart_description">heart</string>
     <string name="image_description">image</string>
 
+    <string name="round_unit">회차</string>
 <!-- button   -->
     <string name="button_confirm">확인</string>
+    <string name="button_edit">수정하기</string>
 
 <!--  ReportType  -->
     <string name="report_type_inappropriate_photo_or_behavior">부적절한 사진 게시 및 언행</string>
@@ -36,5 +38,14 @@
 <!--  ReportReasonScreen  -->
     <string name="report_reason_check_message_prefix">이 게시물을</string>
     <string name="report_reason_check_message_suffix">(으)로 정말 신고하시겠습니까?</string>
+
+<!--  PostInfoEditTitleComponent  -->
+    <string name="post_info_edit_title_hint">제목을 입력해주세요.</string>
+
+<!--  ReportReasonTextFieldComponent  -->
+    <string name="report_reason_input_hint">신고 사유를 입력해주세요</string>
+
+<!--  PostInfoEditScreen  -->
+    <string name="post_info_edit_init_error_content">네트워크 오류가 발생했습니다.</string>
 
 </resources>

@@ -33,11 +33,11 @@ internal fun PostInfoMenuBottomSheet(
             isMyPost = isMyPost,
             onClickEdit = {
                 onDismissRequest()
-                onClickDelete()
+                onClickEditPost()
             },
             onClickDelete = {
                 onDismissRequest()
-                onClickEditPost()
+                onClickDelete()
             },
             onClickReport = {
                 onDismissRequest()

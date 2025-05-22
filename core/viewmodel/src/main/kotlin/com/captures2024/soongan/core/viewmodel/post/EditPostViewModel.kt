@@ -12,7 +12,7 @@ import com.captures2024.soongan.core.domain.usecase.loading.HideLoadingUseCase
 import com.captures2024.soongan.core.domain.usecase.loading.ShowLoadingUseCase
 import com.captures2024.soongan.core.domain.usecase.members.GetIsCurrentGuestModeUseCase
 import com.captures2024.soongan.core.domain.usecase.weekly.contests.EditPostTitleUseCase
-import com.captures2024.soongan.core.navigator.screen.main.home.EditPostNavigator
+import com.captures2024.soongan.core.navigator.screen.main.post.EditPostNavigator
 import com.captures2024.soongan.core.viewmodel.NewBaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

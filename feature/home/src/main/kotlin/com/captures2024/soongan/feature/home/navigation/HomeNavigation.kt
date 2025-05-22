@@ -5,7 +5,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import com.captures2024.soongan.core.navigator.screen.main.home.HomeGalleryNavigator
 import com.captures2024.soongan.core.navigator.screen.main.home.HomeNavigator
-import com.captures2024.soongan.core.navigator.screen.main.home.EditPostNavigator
+import com.captures2024.soongan.core.navigator.screen.main.post.EditPostNavigator
 import com.captures2024.soongan.core.navigator.screen.main.home.HomePostNavigator
 import com.captures2024.soongan.core.navigator.screen.main.home.HomePostPhotoNavigator
 import com.captures2024.soongan.core.navigator.screen.main.home.RegistrationPostNavigator

@@ -18,6 +18,7 @@ import com.captures2024.soongan.core.navigator.screen.main.home.HomeNavigator
 import com.captures2024.soongan.core.navigator.screen.main.home.navigateToHome
 import com.captures2024.soongan.core.navigator.screen.main.home.navigateToHomeGallery
 import com.captures2024.soongan.core.navigator.screen.main.home.navigateToRegistrationPost
+import com.captures2024.soongan.core.navigator.screen.main.post.navigateToEditPost
 import com.captures2024.soongan.core.navigator.screen.main.post.navigateToImageViewer
 import com.captures2024.soongan.core.navigator.screen.main.post.navigateToPostInfo
 import com.captures2024.soongan.core.navigator.screen.main.util.getHidedPostId
@@ -82,7 +83,7 @@ internal fun MainScreen(navigationState: MainNavigationState) {
             mainPost(
                 navigateToBack = navigateToBack,
                 navigateToImageViewer = navController::navigateToImageViewer,
-                navigateToEditPost = { },
+                navigateToEditPost = navController::navigateToEditPost,
                 navigateToBackWithHidePost = navController::navigateToBackWithHidePost,
             )
             mainProfile()

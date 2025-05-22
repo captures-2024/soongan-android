@@ -17,6 +17,7 @@ import com.captures2024.soongan.core.domain.usecase.members.GetCurrentMemberFlow
 import com.captures2024.soongan.core.domain.usecase.members.GetIsCurrentGuestModeUseCase
 import com.captures2024.soongan.core.domain.usecase.weekly.contests.DeletePostUseCase
 import com.captures2024.soongan.core.domain.usecase.weekly.contests.GetPostInfoUseCase
+import com.captures2024.soongan.core.domain.usecase.weekly.contests.GetWeeklyContestInfoListUseCase
 import com.captures2024.soongan.core.model.AppConst
 import com.captures2024.soongan.core.model.dto.PostInfoDto
 import com.captures2024.soongan.core.model.enums.CommonDialogType
@@ -39,6 +40,7 @@ constructor(
     savedStateHandle: SavedStateHandle,
     private val postSingleButtonDialogUseCase: PostSingleButtonDialogUseCase,
     private val currentMemberFlowUseCase: GetCurrentMemberFlowUseCase,
+    private val getWeeklyContestInfoListUseCase: GetWeeklyContestInfoListUseCase,
     private val getPostInfoUseCase: GetPostInfoUseCase,
     private val deletePostUseCase: DeletePostUseCase,
     private val putPostLikeUseCase: PutPostLikeUseCase,
@@ -53,6 +55,8 @@ constructor(
     savedStateHandle = savedStateHandle,
 ) {
     data class State(
+        val round: Int,
+        val subject: String,
         val postId: Long,
         val postInfo: PostInfoDto?,
         val isShowMenuBottomSheet: Boolean,
@@ -67,7 +71,11 @@ constructor(
 
         data object NavigateToBack : Effect
 
-        data object NavigateToEditPost : Effect
+        data class NavigateToEditPost(
+            val postId: Long,
+            val url: String,
+            val title: String,
+        ) : Effect
 
         data class NavigateToImageViewer(
             val url: String,
@@ -110,6 +118,8 @@ constructor(
         val route = savedStateHandle.toRoute<PostInfoNavigator>()
 
         return State(
+            round = 0,
+            subject = AppConst.EMPTY_STRING,
             postId = route.id,
             postInfo = null,
             currentMemberNickname = null,
@@ -141,7 +151,27 @@ constructor(
     private fun handleInit() {
         launch { collectMemberInfo() }
 
-        loadingLaunch { getRemotePostInfo() }
+        loadingLaunch {
+            val weeklyInfo = getWeeklyContestInfoListUseCase
+                .invoke()
+                .getOrNull()
+                ?.weeklyContestInfoList
+                ?.lastOrNull()
+
+            if (weeklyInfo == null) {
+                postSingleButtonDialogUseCase(CommonDialogType.NETWORK_ERROR)
+                return@loadingLaunch
+            }
+
+            reduce {
+                copy(
+                    round = weeklyInfo.round,
+                    subject = weeklyInfo.subject,
+                )
+            }
+
+            loadingLaunch { getRemotePostInfo() }
+        }
     }
 
     private fun handleOnClickBack() {
@@ -210,7 +240,15 @@ constructor(
     }
 
     private fun handleOnClickEditPost() {
-        postSideEffect(Effect.NavigateToEditPost)
+        val postInfo = currentState.postInfo ?: return
+
+        postSideEffect(
+            sideEffect = Effect.NavigateToEditPost(
+                postId = postInfo.postId,
+                url = postInfo.imageUrl,
+                title = postInfo.title,
+            ),
+        )
     }
 
     private fun handleOnClickReport() {

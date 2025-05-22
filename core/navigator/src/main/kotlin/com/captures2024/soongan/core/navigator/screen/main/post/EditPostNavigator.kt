@@ -1,4 +1,4 @@
-package com.captures2024.soongan.core.navigator.screen.main.home
+package com.captures2024.soongan.core.navigator.screen.main.post
 
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions

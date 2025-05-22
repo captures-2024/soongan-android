@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
@@ -24,6 +25,7 @@ import com.captures2024.soongan.core.designsystem.ui.component.text.SGText
 import com.captures2024.soongan.core.designsystem.ui.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.core.designsystem.ui.theme.SGTypography
+import com.captures2024.soongan.presentation.feature.main.post.R
 
 @Composable
 internal fun ReportReasonTextFieldComponent(
@@ -82,7 +84,7 @@ internal fun ReportReasonTextFieldComponent(
                 ) {
                     if (text.isEmpty()) {
                         SGText(
-                            text = "신고 사유를 입력해주세요",
+                            text = stringResource(R.string.report_reason_input_hint),
                             style = getSGNonScaleTextStyle(
                                 color = SGColor.Grayscale.black100.copy(alpha = 0.3f),
                                 fontSize = 16.sp,
