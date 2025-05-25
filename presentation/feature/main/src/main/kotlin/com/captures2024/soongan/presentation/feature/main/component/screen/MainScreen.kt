@@ -21,8 +21,12 @@ import com.captures2024.soongan.core.navigator.screen.main.home.navigateToRegist
 import com.captures2024.soongan.core.navigator.screen.main.post.navigateToEditPost
 import com.captures2024.soongan.core.navigator.screen.main.post.navigateToImageViewer
 import com.captures2024.soongan.core.navigator.screen.main.post.navigateToPostInfo
+import com.captures2024.soongan.core.navigator.screen.main.profile.navigateToEditProfile
+import com.captures2024.soongan.core.navigator.screen.main.profile.navigateToFAQ
+import com.captures2024.soongan.core.navigator.screen.main.profile.navigateToNotification
 import com.captures2024.soongan.core.navigator.screen.main.util.getHidedPostId
 import com.captures2024.soongan.core.navigator.screen.main.util.navigateToBackWithHidePost
+import com.captures2024.soongan.core.navigator.screen.main.util.navigateFromNotification
 import com.captures2024.soongan.core.navigator.screen.main.welcome.WelcomeNavigator
 import com.captures2024.soongan.presentation.feature.main.awards.navigation.mainAwards
 import com.captures2024.soongan.presentation.feature.main.component.MainComponent
@@ -86,7 +90,15 @@ internal fun MainScreen(navigationState: MainNavigationState) {
                 navigateToEditPost = navController::navigateToEditPost,
                 navigateToBackWithHidePost = navController::navigateToBackWithHidePost,
             )
-            mainProfile()
+            mainProfile(
+                navigateToBack = navigateToBack,
+                navigateToNotification = navController::navigateToNotification,
+                navigateToPostInfo = navController::navigateToPostInfo,
+                navigateToRegistrationPost = navController::navigateToRegistrationPost,
+                navigateToEditProfile = navController::navigateToEditProfile,
+                navigateToFAQ = navController::navigateToFAQ,
+                navigateFromNotification = navController::navigateFromNotification,
+            )
         }
     }
 }

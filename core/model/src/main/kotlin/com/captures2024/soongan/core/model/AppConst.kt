@@ -18,6 +18,11 @@ object AppConst {
             const val MAX_INPUT_LENGTH: Int = 15
         }
 
+        object Profile {
+            const val MAX_NICKNAME_LENGTH = Sign.SignUp.MAX_NICKNAME_LENGTH
+            const val MAX_INTRODUCTION_LENGTH = 20
+        }
+
         object Post {
             const val REPORT_REASON_MAX_LENGTH = 200
 
