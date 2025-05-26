@@ -110,5 +110,9 @@
     <string name="profile_menu_withdraw_description">정말 회원탈퇴를 하실 건가요?\n\n회원탈퇴를 위해 아래 입력창에\n\'회원탈퇴\'를 입력해주세요</string>
     <string name="profile_menu_withdraw_placeholder">회원탈퇴</string>
 
+<!-- ProfileBodyComponent  -->
+    <string name="profile_gallery_post_empty_content">아직 참가한 작품이 없어요.</string>
+    <string name="profile_gallery_post_empty_button">참가하러 가기</string>
+    <string name="profile_gallery_post_error">참가 작품을 불러올 수 없어요.</string>
 
 </resources>

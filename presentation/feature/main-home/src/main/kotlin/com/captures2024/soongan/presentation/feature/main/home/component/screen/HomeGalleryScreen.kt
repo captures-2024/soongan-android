@@ -101,7 +101,7 @@ internal fun HomeGalleryScreen(
                             item(span = StaggeredGridItemSpan.FullLine) {
                                 SGGalleryEmptyItem(
                                     emptyText = stringResource(R.string.home_gallery_post_empty_content),
-                                    registrationText = stringResource(R.string.home_gallery_post_empty_content),
+                                    registrationText = stringResource(R.string.home_gallery_post_empty_button),
                                     modifier = modifier.padding(top = 100.dp),
                                     onClickRegistrationText = onClickRegisterPost,
                                 )

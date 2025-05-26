@@ -12,8 +12,10 @@ import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.core.designsystem.ui.theme.SGTheme
 import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.presentation.feature.main.profile.component.menu.ProfileMenuBottomSheet
+import com.captures2024.soongan.presentation.feature.main.profile.component.profile.ProfileBodyComponent
 import com.captures2024.soongan.presentation.feature.main.profile.component.profile.ProfileTopBarComponent
 import com.captures2024.soongan.presentation.viewmodel.main.profile.ProfileViewModel
+import com.captures2024.soongan.presentation.viewmodel.model.PaginationStatus
 import com.captures2024.soongan.presentation.viewmodel.model.UserProfile
 
 @Composable
@@ -26,6 +28,10 @@ internal fun ProfileScreen(
     onClickEditProfile: () -> Unit,
     onClickFaq: () -> Unit,
     onClickTerms: () -> Unit,
+    onRefresh: () -> Unit,
+    onLoadNextPage: () -> Unit,
+    onClickPost: (Long) -> Unit,
+    onClickRegisterPost: () -> Unit,
 ) {
     Column(
         modifier = modifier
@@ -45,7 +51,13 @@ internal fun ProfileScreen(
 
         HeightSpacer(28.dp)
 
-        // TODO POST
+        ProfileBodyComponent(
+            state = state.myGalleryState,
+            onRefresh = onRefresh,
+            onLoadNextPage = onLoadNextPage,
+            onClickPost = onClickPost,
+            onClickRegisterPost = onClickRegisterPost,
+        )
     }
 
     if (state.isShowMenuBottomSheet) {
@@ -65,6 +77,14 @@ private fun PreviewProfileScreen() {
         ProfileScreen(
             state = ProfileViewModel.State(
                 userProfile = UserProfile(),
+                myGalleryState = ProfileViewModel.State.MyGalleryState(
+                    isRefreshing = false,
+                    posts = emptyList(),
+                    paginationStatus = PaginationStatus.DEFAULT,
+                    loadPage = 0,
+                    loadPageSize = 50,
+                    hasNextPage = false,
+                ),
                 isShowMenuBottomSheet = false,
             ),
             onClickNotification = {},
@@ -73,6 +93,10 @@ private fun PreviewProfileScreen() {
             onClickEditProfile = {},
             onClickFaq = {},
             onClickTerms = {},
+            onRefresh = {},
+            onLoadNextPage = {},
+            onClickPost = {},
+            onClickRegisterPost = {},
         )
     }
 }

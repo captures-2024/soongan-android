@@ -39,5 +39,9 @@ internal fun ProfileRoute(
         onClickEditProfile = { viewModel.intent(ProfileViewModel.Intent.OnClickEditProfile) },
         onClickFaq = { viewModel.intent(ProfileViewModel.Intent.OnClickFaq) },
         onClickTerms = { viewModel.intent(ProfileViewModel.Intent.OnClickTerms) },
+        onRefresh = { viewModel.intent(ProfileViewModel.Intent.OnRefresh) },
+        onLoadNextPage = { viewModel.intent(ProfileViewModel.Intent.OnLoadNextPage) },
+        onClickPost = { viewModel.intent(ProfileViewModel.Intent.OnClickPost(it)) },
+        onClickRegisterPost = { viewModel.intent(ProfileViewModel.Intent.OnClickRegisterPost) },
     )
 }

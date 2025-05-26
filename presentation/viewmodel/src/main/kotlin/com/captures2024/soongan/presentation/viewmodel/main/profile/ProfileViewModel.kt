@@ -12,7 +12,10 @@ import com.captures2024.soongan.core.domain.usecase.loading.ShowLoadingUseCase
 import com.captures2024.soongan.core.domain.usecase.members.GetCurrentMemberFlowUseCase
 import com.captures2024.soongan.core.domain.usecase.members.GetIsCurrentGuestModeUseCase
 import com.captures2024.soongan.core.domain.usecase.system.LaunchTermsUseCase
+import com.captures2024.soongan.core.domain.usecase.weekly.contests.GetMyGalleryUseCase
+import com.captures2024.soongan.core.model.dto.GalleryPostDto
 import com.captures2024.soongan.presentation.viewmodel.BaseViewModel
+import com.captures2024.soongan.presentation.viewmodel.model.PaginationStatus
 import com.captures2024.soongan.presentation.viewmodel.model.UserProfile
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -30,6 +33,7 @@ constructor(
     savedStateHandle: SavedStateHandle,
     private val getCurrentMemberFlowUseCase: GetCurrentMemberFlowUseCase,
     private val launchTermsUseCase: LaunchTermsUseCase,
+    private val getMyGalleryUseCase: GetMyGalleryUseCase,
 ) : BaseViewModel<ProfileViewModel.State, ProfileViewModel.Effect, ProfileViewModel.Intent>(
     analyticsHelper = analyticsHelper,
     showLoadingUseCase = showLoadingUseCase,
@@ -42,8 +46,22 @@ constructor(
 
     data class State(
         val userProfile: UserProfile,
+        val myGalleryState: MyGalleryState,
         val isShowMenuBottomSheet: Boolean,
-    ) : UIState
+    ) : UIState {
+
+        data class MyGalleryState(
+            val isRefreshing: Boolean,
+            val posts: List<GalleryPostDto>,
+            val paginationStatus: PaginationStatus,
+            val loadPage: Int,
+            val loadPageSize: Int,
+            val hasNextPage: Boolean,
+        ) {
+            val isInitPage: Boolean
+                get() = loadPage == 0
+        }
+    }
 
     sealed interface Effect : UISideEffect {
 
@@ -74,6 +92,16 @@ constructor(
         data object OnClickFaq : Intent
 
         data object OnClickTerms : Intent
+
+        data object OnRefresh : Intent
+
+        data object OnLoadNextPage : Intent
+
+        data object OnClickRegisterPost : Intent
+
+        data class OnClickPost(
+            val postId: Long,
+        ) : Intent
     }
 
     init {
@@ -83,19 +111,31 @@ constructor(
     override fun createInitialState(savedStateHandle: SavedStateHandle): State {
         return State(
             userProfile = UserProfile(),
+            myGalleryState = State.MyGalleryState(
+                isRefreshing = false,
+                posts = emptyList(),
+                paginationStatus = PaginationStatus.DEFAULT,
+                loadPage = 0,
+                loadPageSize = 50,
+                hasNextPage = false,
+            ),
             isShowMenuBottomSheet = false,
         )
     }
 
     override fun handleIntent(intent: Intent) {
         when (intent) {
-            is Intent.Init -> handleInit()
+            is Intent.Init -> loadingLaunch { handleInit() }
             is Intent.OnClickMenu -> handleOnClickMenu()
             is Intent.OnClickNotification -> handleOnClickNotification()
             is Intent.OnDismissRequestMenuBottomSheet -> handleOnDismissRequestMenuBottomSheet()
             is Intent.OnClickEditProfile -> handleOnClickEditProfile()
             is Intent.OnClickFaq -> handleOnClickFaq()
             is Intent.OnClickTerms -> loadingLaunch { handleOnClickTerms() }
+            is Intent.OnRefresh -> launch { handleOnRefresh() }
+            is Intent.OnLoadNextPage -> launch { handleOnLoadNextPage() }
+            is Intent.OnClickRegisterPost -> handleOnClickRegisterPost()
+            is Intent.OnClickPost -> handleOnClickPost(intent)
         }
     }
 
@@ -103,8 +143,21 @@ constructor(
         analyticsHelper.e(throwable) { "state: $currentState" }
     }
 
-    private fun handleInit() {
+    private suspend fun handleInit() {
         launch { collectUserProfile() }
+
+        val status = getRemotePost(
+            page = 0,
+            isRefreshing = true,
+        )
+
+        reduce {
+            copy(
+                myGalleryState = myGalleryState.copy(
+                    paginationStatus = status,
+                ),
+            )
+        }
     }
 
     private fun handleOnClickMenu() {
@@ -129,6 +182,54 @@ constructor(
 
     private suspend fun handleOnClickTerms() {
         launchTermsUseCase()
+    }
+
+    private suspend fun handleOnRefresh() {
+        reduce {
+            copy(
+                myGalleryState = myGalleryState.copy(
+                    isRefreshing = true,
+                ),
+            )
+        }
+
+        val status = getRemotePost(
+            page = 0,
+            isRefreshing = true,
+        )
+
+        reduce {
+            copy(
+                myGalleryState = myGalleryState.copy(
+                    isRefreshing = false,
+                    paginationStatus = status,
+                ),
+            )
+        }
+    }
+
+    private suspend fun handleOnLoadNextPage() {
+        val status = getRemotePost(page = currentState.myGalleryState.loadPage)
+
+        reduce {
+            copy(
+                myGalleryState = myGalleryState.copy(
+                    paginationStatus = status,
+                ),
+            )
+        }
+    }
+
+    private fun handleOnClickRegisterPost() {
+        postSideEffect(Effect.NavigateToRegistrationPost)
+    }
+
+    private fun handleOnClickPost(intent: Intent.OnClickPost) {
+        postSideEffect(
+            sideEffect = Effect.NavigateToPostInfo(
+                postId = intent.postId,
+            )
+        )
     }
 
     private suspend fun collectUserProfile() {
@@ -161,5 +262,57 @@ constructor(
                 isShowMenuBottomSheet = false,
             )
         }
+    }
+
+    private suspend fun getRemotePost(
+        page: Int,
+        isRefreshing: Boolean = false,
+    ): PaginationStatus {
+        val state = currentState
+
+        when (state.myGalleryState.paginationStatus) {
+            PaginationStatus.REFRESH_LOAD,
+            PaginationStatus.PAGING_LOAD,
+                -> return state.myGalleryState.paginationStatus
+
+            else -> Unit
+        }
+
+        reduce {
+            copy(
+                myGalleryState = myGalleryState.copy(
+                    paginationStatus = when (isRefreshing) {
+                        true -> PaginationStatus.REFRESH_LOAD
+                        false -> PaginationStatus.PAGING_LOAD
+                    },
+                ),
+            )
+        }
+
+        val galleryDto = getMyGalleryUseCase(
+            params = GetMyGalleryUseCase.Params(
+                page = page,
+                pageSize = state.myGalleryState.loadPageSize,
+            ),
+        ).getOrNull()
+
+        if (galleryDto == null) {
+            return PaginationStatus.FAILED
+        }
+
+        reduce {
+            copy(
+                myGalleryState = myGalleryState.copy(
+                    posts = when (isRefreshing) {
+                        true -> galleryDto.posts
+                        false -> myGalleryState.posts + galleryDto.posts
+                    },
+                    loadPage = page + 1,
+                    hasNextPage = galleryDto.hasNext,
+                ),
+            )
+        }
+
+        return PaginationStatus.SUCCESS
     }
 }
