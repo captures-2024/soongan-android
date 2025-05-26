@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="back_description">back</string>
+    <string name="menu_description">menu</string>
+    <string name="heart_description">heart</string>
+    <string name="image_description">image</string>
+
+    <string name="round_unit">회차</string>
+<!-- button   -->
+    <string name="button_confirm">확인</string>
+    <string name="button_edit">수정하기</string>
+
+<!--  ReportType  -->
+    <string name="report_type_inappropriate_photo_or_behavior">부적절한 사진 게시 및 언행</string>
+    <string name="report_type_profanity_hate_speech">욕설, 혐오, 비하 등이 포함된 표현</string>
+    <string name="report_type_copyright_or_privacy_violation">도용, 초상권, 저작권 등 타인의 권리 침해</string>
+    <string name="report_type_spam">게시물 도배</string>
+    <string name="report_type_promotional_content">홍보용 사진 혹은 댓글 게시</string>
+    <string name="report_type_other">기타</string>
+
+<!--  PostInfoBodyComponent  -->
+    <string name="post_info_nickname_prefix">\@</string>
+
+<!-- PostInfoMenuScreen   -->
+    <string name="post_info_menu_edit_title">수정하기</string>"
+    <string name="post_info_menu_delete_title">삭제하기</string>"
+    <string name="post_info_menu_report_title">신고하기</string>"
+
+<!--  ReportBottomSheetTopBarComponent  -->
+    <string name="report_top_bar_title">신고</string>
+
+<!-- DoneReportReasonScreen   -->
+    <string name="report_done_message">신고가 완료됐습니다.\n\n해당 게시글은 숨김 처리 되었습니다.\n\n3일 이내로 검토 후 조치가 이뤄질 예정입니다.\n결과가 나오면 알림으로 알려드리겠습니다</string>
+    <string name="report_done_extra_message">신고 내용의 구체적인 확인이 더 필요한 경우 이메일로 연락드릴 예정입니다.</string>
+    <string name="report_done_last_message">감사합니다</string>
+
+<!--  ReportReasonScreen  -->
+    <string name="report_reason_check_message_prefix">이 게시물을</string>
+    <string name="report_reason_check_message_suffix">(으)로 정말 신고하시겠습니까?</string>
+
+<!--  PostInfoEditTitleComponent  -->
+    <string name="post_info_edit_title_hint">제목을 입력해주세요.</string>
+
+<!--  ReportReasonTextFieldComponent  -->
+    <string name="report_reason_input_hint">신고 사유를 입력해주세요</string>
+
+<!--  PostInfoEditScreen  -->
+    <string name="post_info_edit_init_error_content">네트워크 오류가 발생했습니다.</string>
+
+</resources>

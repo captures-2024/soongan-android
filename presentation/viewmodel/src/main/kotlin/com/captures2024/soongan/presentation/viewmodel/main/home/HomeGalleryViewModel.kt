@@ -96,6 +96,10 @@ constructor(
         data class OnClickFilterItem(
             val selectedOrderType: PostOrderType,
         ) : Intent
+
+        data class HidePost(
+            val postId: Long,
+        ) : Intent
     }
 
     init {
@@ -130,6 +134,7 @@ constructor(
             is Intent.OnClickPost -> handleOnClickPost(intent)
             is Intent.OnDismissRequestFilterBottomSheet -> handleOnDismissRequestFilterBottomSheet()
             is Intent.OnClickFilterItem -> loadingLaunch { handleOnClickFilterItem(intent) }
+            is Intent.HidePost -> handleHidePost(intent)
         }
     }
 
@@ -238,6 +243,15 @@ constructor(
         reduce {
             copy(
                 paginationStatus = status,
+            )
+        }
+    }
+
+    private fun handleHidePost(intent: Intent.HidePost) {
+        reduce {
+            copy(
+                posts = currentState.posts
+                    .filter { it.postId != intent.postId },
             )
         }
     }

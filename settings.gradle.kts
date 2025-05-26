@@ -52,6 +52,7 @@ include(
     ":presentation:feature:main-awards",
     ":presentation:feature:main-feed",
     ":presentation:feature:main-home",
+    ":presentation:feature:main-post",
     ":presentation:feature:main-profile",
 
     ":presentation:feature:sign",

@@ -3,7 +3,7 @@ package com.captures2024.soongan.core.data.repository.impl
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.data.source.post_like.remote.PostLikeRemoteDataSource
 import com.captures2024.soongan.core.data.repository.PostLikeRepository
-import com.captures2024.soongan.core.model.dto.ResultConditionDto
+import com.captures2024.soongan.core.model.dto.PostLikeDto
 import javax.inject.Inject
 
 class PostLikeRepositoryImpl
@@ -20,7 +20,7 @@ constructor(
     override suspend fun putPostLike(
         postId: Long,
         contestType: String,
-    ): ResultConditionDto {
+    ): PostLikeDto {
         val data = dataSource.putPostLike(
             postId = postId,
             contestType = contestType,
@@ -30,13 +30,13 @@ constructor(
             throw NullPointerException("postLikeDto(PUT) is null")
         }
 
-        return ResultConditionDto(postId == data.postId)
+        return data
     }
 
     override suspend fun deletePostLike(
         postId: Long,
         contestType: String,
-    ): ResultConditionDto {
+    ): PostLikeDto {
         val data = dataSource.deletePostLike(
             postId = postId,
             contestType = contestType,
@@ -46,6 +46,6 @@ constructor(
             throw NullPointerException("postLikeDto(DELETE) is null")
         }
 
-        return ResultConditionDto(postId == data.postId)
+        return data
     }
 }
