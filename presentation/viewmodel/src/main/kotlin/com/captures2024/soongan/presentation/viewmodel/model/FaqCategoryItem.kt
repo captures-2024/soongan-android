@@ -8,16 +8,16 @@ sealed interface FaqCategoryItem {
     }
 
     sealed interface Contest : FaqCategoryItem {
-        data object First : Default
-        data object Second : Default
-        data object Third : Default
-        data object Fourth : Default
-        data object Fifth : Default
+        data object First : Contest
+        data object Second : Contest
+        data object Third : Contest
+        data object Fourth : Contest
+        data object Fifth : Contest
     }
 
     sealed interface Copyright : FaqCategoryItem {
-        data object First : Default
-        data object Second : Default
-        data object Third : Default
+        data object First : Copyright
+        data object Second : Copyright
+        data object Third : Copyright
     }
 }
