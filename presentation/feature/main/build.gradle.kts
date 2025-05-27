@@ -12,6 +12,7 @@ dependencies {
     implementation(projects.presentation.feature.mainAwards)
     implementation(projects.presentation.feature.mainFeed)
     implementation(projects.presentation.feature.mainHome)
+    implementation(projects.presentation.feature.mainPost)
     implementation(projects.presentation.feature.mainProfile)
 
     implementation(projects.presentation.viewmodel)

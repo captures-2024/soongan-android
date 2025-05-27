@@ -73,7 +73,7 @@ fun SGGalleryHeaderTitle(
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 lineHeight = 20.sp,
-                fontFamily = SGTypography.nanumSquareNeo,
+                fontFamily = SGTypography.pretendard,
                 letterSpacing = (-5).em,
             ),
         )
@@ -87,7 +87,7 @@ fun SGGalleryHeaderTitle(
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 lineHeight = 20.sp,
-                fontFamily = SGTypography.poppins,
+                fontFamily = SGTypography.pretendard,
                 letterSpacing = 0.em,
             ),
         )
@@ -101,7 +101,7 @@ fun SGGalleryHeaderTitle(
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 lineHeight = 20.sp,
-                fontFamily = SGTypography.nanumSquareNeo,
+                fontFamily = SGTypography.pretendard,
                 letterSpacing = (-5).em,
             ),
         )

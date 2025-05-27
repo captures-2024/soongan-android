@@ -1,16 +1,26 @@
 package com.captures2024.soongan.presentation.feature.main.navigation
 
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
+import androidx.navigation.navOptions
 import com.captures2024.soongan.core.navigator.screen.main.welcome.WelcomeNavigator
 import com.captures2024.soongan.presentation.feature.main.route.WelcomeRoute
 
 fun NavGraphBuilder.welcome(
-    navigateToHome: () -> Unit,
+    navigateToHome: (NavOptions?) -> Unit,
 ) {
     composable<WelcomeNavigator> {
         WelcomeRoute(
-            navigateToHome = navigateToHome,
+            navigateToHome = {
+                val navOptions = navOptions {
+                    popUpTo(WelcomeNavigator) {
+                        inclusive = true
+                    }
+                }
+
+                navigateToHome(navOptions)
+            },
         )
     }
 }

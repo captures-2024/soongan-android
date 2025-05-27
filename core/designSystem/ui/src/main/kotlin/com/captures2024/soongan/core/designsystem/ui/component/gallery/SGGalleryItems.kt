@@ -103,7 +103,7 @@ fun SGGalleryEmptyItem(
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Normal,
                 lineHeight = 12.sp,
-                fontFamily = SGTypography.nanumSquareNeo,
+                fontFamily = SGTypography.pretendard,
                 letterSpacing = (-5).em,
             ),
         )
@@ -125,7 +125,7 @@ fun SGGalleryEmptyItem(
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Bold,
                         lineHeight = 12.sp,
-                        fontFamily = SGTypography.nanumSquareNeo,
+                        fontFamily = SGTypography.pretendard,
                         letterSpacing = 0.em,
                         textDecoration = TextDecoration.Underline,
                     ),
@@ -166,7 +166,7 @@ fun SGGalleryErrorItem(
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Normal,
                 lineHeight = 12.sp,
-                fontFamily = SGTypography.nanumSquareNeo,
+                fontFamily = SGTypography.pretendard,
                 letterSpacing = (-5).em,
             ),
         )

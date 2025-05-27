@@ -11,6 +11,25 @@ object AppConst {
         }
     }
 
+    object Main {
+
+        object Home {
+            const val MAX_REGISTER_POST_COUNT: Int = 3
+            const val MAX_INPUT_LENGTH: Int = 15
+        }
+
+        object Profile {
+            const val MAX_NICKNAME_LENGTH = Sign.SignUp.MAX_NICKNAME_LENGTH
+            const val MAX_INTRODUCTION_LENGTH = 20
+        }
+
+        object Post {
+            const val REPORT_REASON_MAX_LENGTH = 200
+
+            const val IMAGE_DEFAULT_DURATION: Long = 1L * 1L * 1000L
+        }
+    }
+
     object Notification {
         const val PUSH_ACTION_NAME = "com.captures2024.soongan.push"
     }

@@ -31,12 +31,12 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.captures2024.soongan.core.designsystem.icon.MyIconPack
 import com.captures2024.soongan.core.designsystem.icon.myiconpack.Logo
-import com.captures2024.soongan.core.designsystem.ui.theme.NanumSquareNeoFontFamily
 import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.core.designsystem.ui.component.button.SGTextButtonType2
 import com.captures2024.soongan.core.designsystem.ui.component.text.SGText
 import com.captures2024.soongan.core.designsystem.ui.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.core.designsystem.ui.theme.SGTheme
+import com.captures2024.soongan.core.designsystem.ui.theme.SGTypography
 
 @Composable
 fun SGSingleButtonDialog(
@@ -80,7 +80,7 @@ fun SGSingleButtonDialog(
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
                     lineHeight = 24.sp,
-                    fontFamily = NanumSquareNeoFontFamily,
+                    fontFamily = SGTypography.pretendard,
                     letterSpacing = 0.em,
                     textAlign = TextAlign.Center,
                 ),
@@ -139,7 +139,7 @@ fun SGDoubleButtonDialog(
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
                     lineHeight = 24.sp,
-                    fontFamily = NanumSquareNeoFontFamily,
+                    fontFamily = SGTypography.pretendard,
                     letterSpacing = 0.em,
                     textAlign = TextAlign.Center,
                 ),
@@ -173,7 +173,7 @@ fun SGDoubleButtonDialog(
                             fontSize = 14.sp,
                             fontWeight = FontWeight.Bold,
                             lineHeight = 20.sp,
-                            fontFamily = NanumSquareNeoFontFamily,
+                            fontFamily = SGTypography.pretendard,
                             letterSpacing = 0.em,
                         ),
                     )
