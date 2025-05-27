@@ -1,12 +1,16 @@
 package com.captures2024.soongan.presentation.feature.main.component
 
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import com.captures2024.soongan.presentation.feature.main.navigation.MainNavigationState
 import com.captures2024.soongan.presentation.feature.main.navigation.MainTopLevelDestination
@@ -25,14 +29,21 @@ internal fun MainComponent(
                 topLevelDestinations = navigationState.topLevelDestinations,
             )
 
-            if (!isNotViewBottomBar) {
-                SoonGanBottomBar(
-                    destinations = navigationState.topLevelDestinations,
-                    onNavigateToDestination = navigationState::navigateToTopLevelDestination,
-                    currentDestination = navigationState.currentDestination,
-                    modifier = Modifier.testTag("SoonGanBottomBar"),
-                )
-            }
+            SoonGanBottomBar(
+                isNotViewBottomBar = isNotViewBottomBar,
+                destinations = navigationState.topLevelDestinations,
+                onNavigateToDestination = navigationState::navigateToTopLevelDestination,
+                currentDestination = navigationState.currentDestination,
+                modifier = Modifier
+                    .let {
+                        return@let when (isNotViewBottomBar) {
+                            true -> it.height(0.dp)
+                            false -> it.wrapContentHeight()
+                        }
+                    }
+                    .animateContentSize()
+                    .testTag("SoonGanBottomBar"),
+            )
         },
         content = content,
     )

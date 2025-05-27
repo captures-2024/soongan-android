@@ -15,6 +15,7 @@ import kotlin.collections.forEach
 
 @Composable
 internal fun SoonGanBottomBar(
+    isNotViewBottomBar: Boolean,
     destinations: List<MainTopLevelDestination>,
     onNavigateToDestination: (MainTopLevelDestination) -> Unit,
     currentDestination: NavDestination?,
@@ -28,7 +29,11 @@ internal fun SoonGanBottomBar(
 
             SoonGanNavigationBarItem(
                 selected = selected,
-                onClick = { if (!selected) { onNavigateToDestination(destination) } },
+                onClick = {
+                    if (!isNotViewBottomBar && !selected) {
+                        onNavigateToDestination(destination)
+                    }
+                },
                 icon = {
                     Icon(
                         imageVector = destination.unselectedIcon,

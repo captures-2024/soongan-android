@@ -1,10 +1,5 @@
 package com.captures2024.soongan.presentation.feature.main.component.screen
 
-import androidx.compose.animation.ExitTransition
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.scaleIn
-import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -66,10 +61,6 @@ internal fun MainScreen(navigationState: MainNavigationState) {
                 true -> HomeNavigator
                 false -> WelcomeNavigator
             },
-            enterTransition = { fadeIn() + scaleIn(initialScale = 0.9f) },
-            exitTransition = { ExitTransition.None },
-            popEnterTransition = { fadeIn() + scaleIn(initialScale = 0.9f) },
-            popExitTransition = { fadeOut() + scaleOut(targetScale = 0.5f) },
         ) {
             welcome(
                 navigateToHome = navController::navigateToHome,
