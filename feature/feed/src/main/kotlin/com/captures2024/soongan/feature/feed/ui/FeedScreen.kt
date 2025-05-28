@@ -24,7 +24,7 @@ internal fun FeedScreen(
     uiState: FeedViewModel.State,
     modifier: Modifier = Modifier,
     onRefresh: () -> Unit,
-    onClickRound: (Int) -> Unit,
+    onClickTitle: () -> Unit,
     onClickFilter: () -> Unit,
     onClickPost: (Long) -> Unit,
 ) {
@@ -47,7 +47,7 @@ internal fun FeedScreen(
     ) {
         FeedScreen(
             uiState = uiState,
-            onClickRound = onClickRound,
+            onClickTitle = onClickTitle,
             onClickFilter = onClickFilter,
             onClickPost = onClickPost,
         )
@@ -58,7 +58,7 @@ internal fun FeedScreen(
 private fun FeedScreen(
     uiState: FeedViewModel.State,
     modifier: Modifier = Modifier,
-    onClickRound: (Int) -> Unit = {},
+    onClickTitle: () -> Unit = {},
     onClickFilter: () -> Unit = {},
     onClickPost: (Long) -> Unit = {},
     /* temp SGGallery params */
@@ -80,8 +80,7 @@ private fun FeedScreen(
             header = {
                 FeedGalleryHeader(
                     selectedOption = uiState.currentTitleOption,
-                    options = uiState.titleOptions,
-                    onClickRound = onClickRound,
+                    onClickTitle = onClickTitle,
                     onClickFilter = onClickFilter,
                 )
             },

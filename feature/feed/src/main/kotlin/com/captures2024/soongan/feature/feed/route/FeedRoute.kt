@@ -16,6 +16,7 @@ import com.captures2024.soongan.core.viewmodel.feed.FeedViewModel
 import com.captures2024.soongan.core.viewmodel.feed.FeedViewModel.Intent
 import com.captures2024.soongan.feature.feed.ui.FeedFilterBottomSheet
 import com.captures2024.soongan.feature.feed.ui.FeedScreen
+import com.captures2024.soongan.feature.feed.ui.FeedTitlePickerBottomSheet
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -44,9 +45,11 @@ internal fun FeedRoute(
 
     FeedScreen(
         uiState = uiState,
-        modifier = Modifier.fillMaxSize().sgBottomBarPadding(),
+        modifier = Modifier
+            .fillMaxSize()
+            .sgBottomBarPadding(),
         onRefresh = { feedViewModel.intent(Intent.RefreshFeed) },
-        onClickRound = { feedViewModel.intent(Intent.OnClickRound(it)) },
+        onClickTitle = { feedViewModel.intent(Intent.OnClickTitle) },
         onClickFilter = { feedViewModel.intent(Intent.OnClickFilter) },
         onClickPost = { feedViewModel.intent(Intent.OnClickPost(it)) },
     )
@@ -56,6 +59,15 @@ internal fun FeedRoute(
             orderType = uiState.postOrderType,
             onDismissRequest = { feedViewModel.intent(Intent.OnFilterDismissRequest) },
             onClickItem = { feedViewModel.intent(Intent.OnClickSortFilter(it)) },
+        )
+    }
+
+    if (uiState.isOpenTitlePickerBottomSheet) {
+        FeedTitlePickerBottomSheet(
+            selectedOption = uiState.currentTitleOption,
+            options = uiState.titleOptions,
+            onSelectTitle = { feedViewModel.intent(Intent.OnSelectTitle(it)) },
+            onDismissRequest = { feedViewModel.intent(Intent.OnTitlePickerDismissRequest) },
         )
     }
 }

@@ -8,7 +8,7 @@ import com.captures2024.soongan.core.model.utils.NotificationsTable
 import java.util.EnumMap
 
 val mockFeedTitleOptions by lazy {
-    listOf(1 to "평화", 2 to "즐거움", 3 to "따듯함", 4 to "행복")
+    listOf(1 to "평화", 2 to "즐거움", 3 to "따듯함", 4 to "주제", 5 to "주제", 6 to "주제", 7 to "주제", 8 to "주제", 9 to "주제", 10 to "주제")
 }
 
 val mockPosts: List<GalleryPostDto> by lazy {
