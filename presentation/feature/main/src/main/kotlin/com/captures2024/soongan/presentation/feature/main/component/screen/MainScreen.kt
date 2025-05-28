@@ -12,6 +12,7 @@ import androidx.navigation.compose.NavHost
 import com.captures2024.soongan.core.navigator.screen.main.home.HomeNavigator
 import com.captures2024.soongan.core.navigator.screen.main.home.navigateToHome
 import com.captures2024.soongan.core.navigator.screen.main.home.navigateToHomeGallery
+import com.captures2024.soongan.core.navigator.screen.main.home.navigateToHomePost
 import com.captures2024.soongan.core.navigator.screen.main.home.navigateToRegistrationPost
 import com.captures2024.soongan.core.navigator.screen.main.post.navigateToEditPost
 import com.captures2024.soongan.core.navigator.screen.main.post.navigateToImageViewer
@@ -19,9 +20,9 @@ import com.captures2024.soongan.core.navigator.screen.main.post.navigateToPostIn
 import com.captures2024.soongan.core.navigator.screen.main.profile.navigateToEditProfile
 import com.captures2024.soongan.core.navigator.screen.main.profile.navigateToFAQ
 import com.captures2024.soongan.core.navigator.screen.main.profile.navigateToNotification
-import com.captures2024.soongan.core.navigator.screen.main.util.getHidedPostId
-import com.captures2024.soongan.core.navigator.screen.main.util.navigateToBackWithHidePost
+import com.captures2024.soongan.core.navigator.screen.main.util.getHideTargetContentId
 import com.captures2024.soongan.core.navigator.screen.main.util.navigateFromNotification
+import com.captures2024.soongan.core.navigator.screen.main.util.navigateToBackWithHideTargetContentId
 import com.captures2024.soongan.core.navigator.screen.main.welcome.WelcomeNavigator
 import com.captures2024.soongan.presentation.feature.main.awards.navigation.mainAwards
 import com.captures2024.soongan.presentation.feature.main.component.MainComponent
@@ -65,21 +66,23 @@ internal fun MainScreen(navigationState: MainNavigationState) {
             welcome(
                 navigateToHome = navController::navigateToHome,
             )
-
             mainAwards()
-            mainFeed()
+            mainFeed(
+                navigateToPost = navController::navigateToHomePost,
+                getHideTargetContentId = navController::getHideTargetContentId,
+            )
             mainHome(
                 navigateToBack = navigateToBack,
                 navigateToRegistrationPost = navController::navigateToRegistrationPost,
                 navigateToGallery = navController::navigateToHomeGallery,
                 navigateToPost = navController::navigateToPostInfo,
-                getHidedPostId = navController::getHidedPostId,
+                getHideTargetContentId = navController::getHideTargetContentId,
             )
             mainPost(
                 navigateToBack = navigateToBack,
                 navigateToImageViewer = navController::navigateToImageViewer,
                 navigateToEditPost = navController::navigateToEditPost,
-                navigateToBackWithHidePost = navController::navigateToBackWithHidePost,
+                navigateToBackWithHideTargetContentId = navController::navigateToBackWithHideTargetContentId,
             )
             mainProfile(
                 navigateToBack = navigateToBack,
