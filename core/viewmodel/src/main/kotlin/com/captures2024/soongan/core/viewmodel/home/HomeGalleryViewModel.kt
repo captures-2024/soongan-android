@@ -226,7 +226,7 @@ constructor(
                 round = null,
                 orderType = currentState.postOrderType.name,
                 page = currentState.nextPage,
-                pageSize = AppConst.Gallery.PAGE_SIZE,
+                pageSize = AppConst.Main.Gallery.PAGE_SIZE,
             ),
         ).getOrNull()
 

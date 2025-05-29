@@ -28,6 +28,10 @@ object AppConst {
 
             const val IMAGE_DEFAULT_DURATION: Long = 1L * 1L * 1000L
         }
+
+        object Gallery {
+            const val PAGE_SIZE = 50
+        }
     }
 
     object Notification {
@@ -42,9 +46,5 @@ object AppConst {
 
         const val ACCESS_TOKEN_ALLOW = "$AUTH_HEADER: true"
         const val REFRESH_TOKEN_ALLOW = "$AUTH_HEADER: false"
-    }
-
-    object Gallery {
-        const val PAGE_SIZE = 20
     }
 }
