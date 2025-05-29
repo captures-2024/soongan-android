@@ -46,8 +46,8 @@ constructor(
     data class State(
         val isLoading: Boolean = false,
         val isRefreshing: Boolean = false,
-        val isOpenDropDown: Boolean = false,
-        val isOpenFilterBottomSheet: Boolean = false,
+        val isOpenTitlePickerBottomSheet: Boolean = false, /* cmp: FeedDropDown */
+        val isOpenFilterBottomSheet: Boolean = false, /* cmp: FeedFilterBottomSheet  */
         val postOrderType: PostOrderType = PostOrderType.MOST_LIKED,
         val paginationStatus: PaginationStatus = PaginationStatus.INACTIVE,
         val titleOptions: List<Pair<Int, String>> = emptyList(), /* string value : "${round}회차 | title" */
@@ -58,7 +58,7 @@ constructor(
     ) : UIState {
 
         val currentTitleOption: Pair<Int, String>
-            get() = titleOptions[currentRound - 1]
+            get() = titleOptions.getOrNull(currentRound - 1) ?: (0 to "")
 
         val isFirstPage: Boolean
             get() = (nextPage == 0)
@@ -67,7 +67,7 @@ constructor(
             get() = feed[currentRound] ?: emptyList()
 
         override fun toString(): String {
-            return "State(isLoading=$isLoading, isRefreshing = $isRefreshing, isShowDropDown = $isOpenDropDown, isShowBottomSheet=$isOpenFilterBottomSheet, titleItems:$titleOptions, postOrderType:$postOrderType, currentRound:$currentRound, titleOptions:$titleOptions, feeds:$feed, currentTitleOption:$currentTitleOption, currentRoundGallery:$currentRoundGallery)"
+            return "State(isLoading=$isLoading, isRefreshing = $isRefreshing, isOpenTitlePickerBottomSheet = $isOpenTitlePickerBottomSheet, isOpenFilterBottomSheet=$isOpenFilterBottomSheet, titleItems:$titleOptions, postOrderType:$postOrderType, feeds:$feed)"
         }
     }
 
@@ -82,11 +82,15 @@ constructor(
 
         data object Init : Intent
 
-        data object RefreshFeed : Intent
+        data object RefreshFeed: Intent
 
-        data class OnClickRound(
-            val newRound: Int,
-        ) : Intent
+        data object OnClickTitle: Intent
+
+        data object OnTitlePickerDismissRequest : Intent
+
+        data class OnSelectTitle(
+            val round: Int,
+        ): Intent
 
         data object OnClickFilter : Intent
 
@@ -103,7 +107,7 @@ constructor(
         ) : Intent
 
         data class HidePost(
-            val targetId: Long,
+            val postId: Long,
         ) : Intent
     }
 
@@ -125,7 +129,11 @@ constructor(
 
             is Intent.RefreshFeed -> launch { handleRefreshFeed() }
 
-            is Intent.OnClickRound -> launch { handleOnClickRound(intent) }
+            is Intent.OnClickTitle -> launch { handleOnClickTitle() }
+
+            is Intent.OnTitlePickerDismissRequest -> launch { handleOnTitlePickerDismissRequest() }
+
+            is Intent.OnSelectTitle -> launch { handleOnSelectTitle(intent) }
 
             is Intent.OnClickFilter -> handleOnClickFilter()
 
@@ -154,23 +162,32 @@ constructor(
         }
 
         fetchFeedPage()
+    }
 
+    private fun handleOnClickTitle() {
         reduce {
             copy(
-                isRefreshing = false,
+                isOpenTitlePickerBottomSheet = true,
             )
         }
     }
 
-    private suspend fun handleOnClickRound(intent: Intent.OnClickRound) {
+    private fun handleOnTitlePickerDismissRequest() {
         reduce {
             copy(
-                currentRound = intent.newRound,
-                nextPage = 0,
+                isOpenTitlePickerBottomSheet = false,
             )
         }
+    }
 
-        fetchFeedPage()
+    private suspend fun handleOnSelectTitle(intent: Intent.OnSelectTitle) {
+        val round = intent.round
+
+        if(round != currentState.currentRound) {
+            fetchFeedPage(round = round)
+        }
+
+        handleOnTitlePickerDismissRequest()
     }
 
     private fun handleOnClickFilter() {
@@ -190,14 +207,8 @@ constructor(
     }
 
     private suspend fun handleOnClickSortFilter(intent: Intent.OnClickSortFilter) {
-        reduce {
-            copy(
-                isOpenFilterBottomSheet = false,
-                postOrderType = intent.postOrderType,
-            )
-        }
-
-        fetchFeedPage()
+        handleOnFilterDismissRequest()
+        fetchFeedPage(postOrderType = intent.postOrderType)
     }
 
     private suspend fun handleLoadNextPage() {
@@ -215,18 +226,18 @@ constructor(
     }
 
     private fun handleOnReportedPost(intent: Intent.HidePost) {
-        val targetId = intent.targetId
         val round = currentState.currentRound
+        val postId = intent.postId
 
         val tempPosts = currentState.feed[round]?.toMutableList() ?: mutableListOf()
 
-        tempPosts.removeAll { it.postId == targetId }
+        tempPosts.removeAll { it.postId == postId }
 
         reduce {
             copy(feed = feed.toMutableMap().apply { put(round, tempPosts) }.toMap())
         }
 
-        analyticsHelper.d { "reported post, postId : $targetId" }
+        analyticsHelper.d { "reported post, postId : $postId" }
     }
 
     private suspend fun syncFeedInfo() {
@@ -270,7 +281,10 @@ constructor(
         }
     }
 
-    private suspend fun fetchFeedPage() {
+    private suspend fun fetchFeedPage(
+        round: Int = currentState.currentRound,
+        postOrderType: PostOrderType = currentState.postOrderType,
+    ) {
         when (currentState.paginationStatus) {
             PaginationStatus.LOADING,
             PaginationStatus.PAGINATING,
@@ -283,8 +297,8 @@ constructor(
 
         val galleryDto = getFilteredGalleryByReportTargetIdsUseCase(
             params = GetFilteredGalleryByReportTargetIdsUseCase.Params(
-                round = currentState.currentRound,
-                orderType = currentState.postOrderType.name,
+                round = round,
+                orderType = postOrderType.name,
                 page = currentState.nextPage,
                 pageSize = AppConst.Gallery.PAGE_SIZE,
             ),
@@ -302,8 +316,6 @@ constructor(
             return
         }
 
-        val round = galleryDto.round ?: currentState.currentRound
-
         val currentPosts = currentState.feed[round].orEmpty()
         val updatedPosts = currentPosts + galleryDto.posts
 
@@ -320,6 +332,7 @@ constructor(
 
                     else -> PaginationStatus.INACTIVE
                 },
+                currentRound = round,
                 hasNextPage = galleryDto.hasNext,
                 feed = updatedFeed,
             )
