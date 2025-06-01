@@ -32,7 +32,7 @@ private val jsonRule = Json {
     explicitNulls = false
 }
 
-private val jsonConverterFactory = jsonRule.asConverterFactory("application/json".toMediaType())
+internal val jsonConverterFactory = jsonRule.asConverterFactory("application/json".toMediaType())
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -41,9 +41,11 @@ internal object NetworkModule {
     @Provides
     @Singleton
     fun providerSoonGanAuthenticator(
+        authInterceptor: AuthInterceptor,
         analyticsHelper: AnalyticsHelper,
         tokenDataSource: TokenDataSource,
     ): Authenticator = SoonGanAuthenticator(
+        authInterceptor = authInterceptor,
         analyticsHelper = analyticsHelper,
         tokenDataSource = tokenDataSource,
     )
