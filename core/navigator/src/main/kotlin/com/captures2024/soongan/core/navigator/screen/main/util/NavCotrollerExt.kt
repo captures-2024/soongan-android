@@ -3,13 +3,12 @@ package com.captures2024.soongan.core.navigator.screen.main.util
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.navOptions
+import com.captures2024.soongan.core.model.AppConst
 import com.captures2024.soongan.core.model.utils.NotificationSubType
 import com.captures2024.soongan.core.navigator.screen.main.feed.FeedNavigator
 import com.captures2024.soongan.core.navigator.screen.main.home.HomeGalleryNavigator
 import com.captures2024.soongan.core.navigator.screen.main.home.HomeNavigator
 import com.captures2024.soongan.core.navigator.screen.main.home.navigateToHome
-
-private const val UGC_HIDE_KEY = "ugc-hide-key"
 
 private enum class HideTargetScreen(val navigator: Any) {
     HOME_GALLERY(HomeGalleryNavigator),
@@ -47,10 +46,10 @@ fun NavController.navigateToBackWithHideTargetContentId(targetId: Long) {
 }
 
 private fun NavController.setHideTargetContentId(targetId: Long) =
-    this.previousBackStackEntry?.savedStateHandle?.set(UGC_HIDE_KEY, targetId)
+    this.previousBackStackEntry?.savedStateHandle?.set(AppConst.SavedStateHandle.UGC_HIDE_KEY, targetId)
 
 fun NavController.getHideTargetContentId(): Long =
-    this.currentBackStackEntry?.savedStateHandle?.get(UGC_HIDE_KEY) ?: -1L
+    this.currentBackStackEntry?.savedStateHandle?.get(AppConst.SavedStateHandle.UGC_HIDE_KEY) ?: -1L
 
 /**
  * 알림 하위 타입에 따른 타겟 화면으로 전환.

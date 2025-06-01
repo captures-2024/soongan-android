@@ -23,7 +23,7 @@ import com.captures2024.soongan.core.designsystem.ui.component.gallery.SGGallery
 import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.presentation.feature.main.feed.R
-import com.captures2024.soongan.presentation.viewmodel.main.feed.TitleOption
+import com.captures2024.soongan.presentation.viewmodel.model.feed.TitleOption
 
 @Composable
 internal fun FeedGalleryHeaderComponent(
@@ -32,8 +32,6 @@ internal fun FeedGalleryHeaderComponent(
     onClickTitle: () -> Unit,
     onClickFilter: () -> Unit,
 ) {
-    val (round, subject) = selectedOption
-
     SGGalleryHeader(
         modifier = modifier,
         trailingIcon = {
@@ -47,12 +45,12 @@ internal fun FeedGalleryHeaderComponent(
         Row(
             modifier = Modifier.clickable(
                 onClick = onClickTitle,
-                enabled = subject.isNotBlank(),
+                enabled = selectedOption.hasValidSubject,
             ),
         ) {
             SGGalleryHeaderTitle(
-                prefix = stringResource(R.string.feed_gallery_header_title_round_unit, round),
-                suffix = subject,
+                prefix = stringResource(R.string.feed_gallery_header_title_round_unit, selectedOption.round),
+                suffix = selectedOption.subject,
             )
             WidthSpacer(26.dp)
             TempArrowDownIcon()
@@ -80,7 +78,7 @@ private fun TempArrowDownIcon(modifier: Modifier = Modifier) {
 @Composable
 private fun FeedGalleryHeaderComponent_Preview() {
     FeedGalleryHeaderComponent(
-        selectedOption = (1 to "test"),
+        selectedOption = TitleOption(round = 1, subject = "주제"),
         onClickTitle = {},
         onClickFilter = {},
     )

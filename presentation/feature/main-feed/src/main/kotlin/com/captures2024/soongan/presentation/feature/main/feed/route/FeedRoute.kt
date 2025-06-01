@@ -41,7 +41,7 @@ internal fun FeedRoute(
         onRefresh = { feedViewModel.intent(Intent.RefreshFeed) },
         onLoadNextPage = { feedViewModel.intent(Intent.LoadNextPage) },
         onClickTitle = { feedViewModel.intent(Intent.OnClickTitle) },
-        onSelectTitle = { feedViewModel.intent(Intent.OnSelectTitle(it)) },
+        onSelectTitleOption = { feedViewModel.intent(Intent.OnSelectTitleOption(it)) },
         onClickFilter = { feedViewModel.intent(Intent.OnClickFilter) },
         onClickFilterItem = { feedViewModel.intent(Intent.OnClickFilterItem(it)) },
         onClickPost = { feedViewModel.intent(Intent.OnClickPost(it)) },

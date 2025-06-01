@@ -15,5 +15,5 @@
     <string name="feed_scroll_title_picker_header_text">회차 선택</string>
     <string name="feed_scroll_title_picker_dismiss_text">취소</string>
     <string name="feed_scroll_title_picker_confirm_text">확인</string>
-    <string name="scroll_picker_title_infix_text">"회차 | "</string>
+    <string name="scroll_picker_title_infix_text">"회차  "</string>
 </resources>

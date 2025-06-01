@@ -47,4 +47,8 @@ object AppConst {
         const val ACCESS_TOKEN_ALLOW = "$AUTH_HEADER: true"
         const val REFRESH_TOKEN_ALLOW = "$AUTH_HEADER: false"
     }
+
+    object SavedStateHandle {
+        const val UGC_HIDE_KEY = "ugc-hide-key"
+    }
 }

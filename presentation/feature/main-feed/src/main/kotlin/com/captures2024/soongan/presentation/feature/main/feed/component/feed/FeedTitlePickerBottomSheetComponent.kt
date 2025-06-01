@@ -14,8 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
-import com.captures2024.soongan.core.model.mock.mockFeedTitleOptions
-import com.captures2024.soongan.presentation.viewmodel.main.feed.TitleOption
+import com.captures2024.soongan.presentation.viewmodel.model.feed.TitleOption
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -24,11 +23,10 @@ internal fun FeedTitlePickerBottomSheetComponent(
     options: List<TitleOption>,
     modifier: Modifier = Modifier,
     sheetState: SheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
-    onSelectTitle: (round: Int) -> Unit,
+    onSelectOption: (round: Int) -> Unit,
     onDismissRequest: () -> Unit,
 ) {
     var currentSelectedOption by remember { mutableStateOf(selectedOption) }
-    val round = currentSelectedOption.first
 
     ModalBottomSheet(
         onDismissRequest = onDismissRequest,
@@ -40,7 +38,7 @@ internal fun FeedTitlePickerBottomSheetComponent(
             selectedOption = currentSelectedOption,
             options = options,
             onChangedOption = { idx -> currentSelectedOption = options[idx] },
-            onSelectTitle = { onSelectTitle(round) },
+            onSelectOption = { onSelectOption(currentSelectedOption.round) },
             onDismissRequest = onDismissRequest
         )
     }
@@ -50,6 +48,11 @@ internal fun FeedTitlePickerBottomSheetComponent(
 @DevicePreviews
 @Composable
 private fun FeedScrollTitlePickerBottomSheet_Preview() {
+    val options = listOf(
+        TitleOption(round = 1, subject = "주제"),
+        TitleOption(round = 2, subject = "주제"),
+        TitleOption(round = 3, subject = "주제"),
+    )
     val sheetState = SheetState(
         skipPartiallyExpanded = true,
         initialValue = SheetValue.Expanded,
@@ -58,10 +61,10 @@ private fun FeedScrollTitlePickerBottomSheet_Preview() {
     )
 
     FeedTitlePickerBottomSheetComponent(
-        selectedOption = mockFeedTitleOptions.first(),
-        options = mockFeedTitleOptions,
+        selectedOption = options[0],
+        options = options,
         sheetState = sheetState,
-        onSelectTitle = {},
+        onSelectOption = {},
         onDismissRequest = {},
     )
 }

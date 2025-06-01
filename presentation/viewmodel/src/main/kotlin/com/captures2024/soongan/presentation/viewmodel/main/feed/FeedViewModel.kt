@@ -19,11 +19,9 @@ import com.captures2024.soongan.core.model.enums.CommonDialogType
 import com.captures2024.soongan.presentation.viewmodel.BaseViewModel
 import com.captures2024.soongan.presentation.viewmodel.model.PaginationStatus
 import com.captures2024.soongan.presentation.viewmodel.model.PostOrderType
+import com.captures2024.soongan.presentation.viewmodel.model.feed.TitleOption
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-
-typealias TitleOption = Pair<Int, String> // round, subject
-typealias Feed = Map<Int, List<GalleryPostDto>> // round, gallery
 
 @HiltViewModel
 class FeedViewModel
@@ -63,13 +61,13 @@ constructor(
             val hasNextPage: Boolean,
             internal val currentRound: Int,
             internal val loadPage: Int,
-            internal val feed: Feed,
+            internal val feed: Map<Int, List<GalleryPostDto>>,
         ) {
             val isInitPage: Boolean
                 get() = (loadPage == 0)
 
             val currentTitleOption: TitleOption
-                get() = titleOptions.getOrNull(currentRound - 1) ?: (currentRound to "")
+                get() = titleOptions.getOrNull(currentRound - 1) ?: TitleOption()
 
             val currentRoundGallery: List<GalleryPostDto>
                 get() = feed[currentRound] ?: emptyList()
@@ -93,7 +91,7 @@ constructor(
 
         data object OnTitlePickerDismissRequest : Intent
 
-        data class OnSelectTitle(
+        data class OnSelectTitleOption(
             val round: Int,
         ) : Intent
 
@@ -151,7 +149,7 @@ constructor(
 
             is Intent.OnTitlePickerDismissRequest -> launch { handleOnTitlePickerDismissRequest() }
 
-            is Intent.OnSelectTitle -> launch { handleOnSelectTitle(intent) }
+            is Intent.OnSelectTitleOption -> launch { handleOnSelectTitleOption(intent) }
 
             is Intent.OnClickFilter -> handleOnClickFilter()
 
@@ -209,7 +207,7 @@ constructor(
         }
     }
 
-    private suspend fun handleOnSelectTitle(intent: Intent.OnSelectTitle) {
+    private suspend fun handleOnSelectTitleOption(intent: Intent.OnSelectTitleOption) {
         val round = intent.round
 
         if (round != currentState.feedState.currentRound) {
@@ -254,6 +252,7 @@ constructor(
             reduce {
                 copy(
                     feedState = feedState.copy(
+                        postOrderType = postOrderType,
                         paginationStatus = paginationStatus,
                     )
                 )
@@ -325,8 +324,13 @@ constructor(
             return
         }
 
-        val titleOptions: List<Pair<Int, String>> =
-            weeklyContestInfoListDto.weeklyContestInfoList.map { it.round to it.subject }
+        val titleOptions: List<TitleOption> =
+            weeklyContestInfoListDto.weeklyContestInfoList.map {
+                TitleOption(
+                    round = it.round,
+                    subject = it.subject,
+                )
+            }
 
         reduce {
             copy(

@@ -31,6 +31,7 @@ import com.captures2024.soongan.presentation.feature.main.feed.component.feed.Fe
 import com.captures2024.soongan.presentation.viewmodel.main.feed.FeedViewModel
 import com.captures2024.soongan.presentation.viewmodel.model.PaginationStatus
 import com.captures2024.soongan.presentation.viewmodel.model.PostOrderType
+import com.captures2024.soongan.presentation.viewmodel.model.feed.TitleOption
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -40,7 +41,7 @@ internal fun FeedScreen(
     onRefresh: () -> Unit,
     onLoadNextPage: () -> Unit,
     onClickTitle: () -> Unit,
-    onSelectTitle: (round: Int) -> Unit,
+    onSelectTitleOption: (round: Int) -> Unit,
     onClickFilter: () -> Unit,
     onClickFilterItem: (PostOrderType) -> Unit,
     onClickPost: (Long) -> Unit,
@@ -138,7 +139,7 @@ internal fun FeedScreen(
         FeedTitlePickerBottomSheetComponent(
             selectedOption = feedState.currentTitleOption,
             options = feedState.titleOptions,
-            onSelectTitle = onSelectTitle,
+            onSelectOption = onSelectTitleOption,
             onDismissRequest = onTitlePickerDismissRequest,
         )
     }
@@ -160,7 +161,7 @@ private fun FeedScreenPreview() {
             isRefreshing = false,
             postOrderType = PostOrderType.MOST_LIKED,
             paginationStatus = PaginationStatus.DEFAULT,
-            titleOptions = listOf(1 to "test"),
+            titleOptions = listOf(TitleOption()),
             currentRound = 1,
             loadPage = 0,
             hasNextPage = true,
@@ -175,7 +176,7 @@ private fun FeedScreenPreview() {
         onRefresh = {},
         onLoadNextPage = {},
         onClickTitle = {},
-        onSelectTitle = {},
+        onSelectTitleOption = {},
         onClickFilter = {},
         onClickFilterItem = {},
         onClickPost = {},

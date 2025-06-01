@@ -48,9 +48,8 @@ import com.captures2024.soongan.core.designsystem.ui.theme.SGTypography
 import com.captures2024.soongan.core.designsystem.ui.theme.innerShadow
 import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.core.model.AppConst
-import com.captures2024.soongan.core.model.mock.mockFeedTitleOptions
 import com.captures2024.soongan.presentation.feature.main.feed.R
-import com.captures2024.soongan.presentation.viewmodel.main.feed.TitleOption
+import com.captures2024.soongan.presentation.viewmodel.model.feed.TitleOption
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
 
@@ -60,7 +59,7 @@ internal fun FeedScrollTitlePickerComponent(
     options: List<TitleOption>,
     modifier: Modifier = Modifier,
     onChangedOption: (Int) -> Unit,
-    onSelectTitle: () -> Unit,
+    onSelectOption: () -> Unit,
     onDismissRequest: () -> Unit,
 ) {
     Column(
@@ -97,14 +96,16 @@ internal fun FeedScrollTitlePickerComponent(
                 text = stringResource(R.string.feed_scroll_title_picker_dismiss_text),
                 textColor = SGColor.black,
                 containerColor = SGColor.transparent,
+                borderColor = SGColor.black,
                 onClick = onDismissRequest,
             )
             WidthSpacer(54.dp)
             TempPickerButton(
                 text = stringResource(R.string.feed_scroll_title_picker_confirm_text),
-                textColor = SGColor.white,
-                containerColor = SGColor.black100,
-                onClick = onSelectTitle,
+                textColor = SGColor.Grayscale.white,
+                containerColor = SGColor.Main.primary,
+                borderColor = SGColor.Main.primary,
+                onClick = onSelectOption,
             )
         }
     }
@@ -130,7 +131,7 @@ private fun ScrollPicker(
         } ?: AppConst.EMPTY_STRING
 
     val listState =
-        rememberLazyListState(initialFirstVisibleItemIndex = selectedOption.first - 1)
+        rememberLazyListState(initialFirstVisibleItemIndex = selectedOption.round - 1)
     val flingBehavior = rememberSnapFlingBehavior(lazyListState = listState)
 
     val currentCenterIndex = remember {
@@ -242,6 +243,7 @@ private fun TempPickerButton(
     text: String,
     textColor: Color,
     containerColor: Color,
+    borderColor: Color,
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
 ) {
@@ -252,7 +254,7 @@ private fun TempPickerButton(
         modifier = modifier
             .height(48.dp)
             .width(120.dp)
-            .border(width = 1.dp, color = SGColor.black100, shape = shape),
+            .border(width = 1.dp, color = borderColor, shape = shape),
         shape = shape,
         colors = ButtonDefaults.buttonColors(
             containerColor = containerColor,
@@ -274,11 +276,16 @@ private fun TempPickerButton(
 @DevicePreviews
 @Composable
 private fun FeedScrollTitlePicker_Preview() {
+    val options = listOf(
+        TitleOption(round = 1, subject = "주제"),
+        TitleOption(round = 2, subject = "주제"),
+        TitleOption(round = 3, subject = "주제"),
+    )
     FeedScrollTitlePickerComponent(
-        selectedOption = mockFeedTitleOptions.first(),
-        options = mockFeedTitleOptions,
+        selectedOption = options[0],
+        options = options,
         onChangedOption = {},
-        onSelectTitle = {},
+        onSelectOption = {},
         onDismissRequest = {},
     )
 }
@@ -286,9 +293,14 @@ private fun FeedScrollTitlePicker_Preview() {
 @DevicePreviews
 @Composable
 private fun ScrollPicker_Preview() {
+    val options = listOf(
+        TitleOption(round = 1, subject = "주제"),
+        TitleOption(round = 2, subject = "주제"),
+        TitleOption(round = 3, subject = "주제"),
+    )
     ScrollPicker(
-        selectedOption = mockFeedTitleOptions.first(),
-        options = mockFeedTitleOptions,
+        selectedOption = options[0],
+        options = options,
         visibleOptionCount = 5,
         onChangedOption = {},
     )
