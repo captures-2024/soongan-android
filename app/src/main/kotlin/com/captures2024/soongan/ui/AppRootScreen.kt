@@ -5,9 +5,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.captures2024.soongan.core.designsystem.ui.component.dialog.SGSingleButtonDialog
-import com.captures2024.soongan.core.designsystem.ui.theme.SGTheme
-import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
+import com.captures2024.soongan.presentation.designsystem.ui.component.dialog.SGSingleButtonDialog
+import com.captures2024.soongan.presentation.designsystem.ui.theme.SGTheme
+import com.captures2024.soongan.presentation.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.presentation.viewmodel.AppViewModel
 import com.captures2024.soongan.presentation.viewmodel.model.AppRoute
 

@@ -1,13 +1,13 @@
 package com.captures2024.soongan.presentation.feature.main.profile.utils.extension
 
-import com.captures2024.soongan.core.designsystem.icon.MyIconPack
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconArrowRightFromBracket
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFillPersonRunning
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillCircleQuestion
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillFile
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillGear
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillUser
-import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
+import com.captures2024.soongan.presentation.designsystem.icon.MyIconPack
+import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconArrowRightFromBracket
+import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconFillPersonRunning
+import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconNonFillCircleQuestion
+import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconNonFillFile
+import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconNonFillGear
+import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconNonFillUser
+import com.captures2024.soongan.presentation.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.presentation.feature.main.profile.R
 import com.captures2024.soongan.presentation.viewmodel.model.ProfileBottomSheetMenuItem
 

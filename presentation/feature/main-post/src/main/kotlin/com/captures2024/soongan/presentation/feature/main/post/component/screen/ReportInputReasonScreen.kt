@@ -7,10 +7,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.captures2024.soongan.core.designsystem.ui.component.HeightSpacer
-import com.captures2024.soongan.core.designsystem.ui.component.button.SGTextButtonType2
-import com.captures2024.soongan.core.designsystem.ui.theme.SGTheme
-import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
+import com.captures2024.soongan.presentation.designsystem.ui.component.HeightSpacer
+import com.captures2024.soongan.presentation.designsystem.ui.component.button.SGTextButtonType2
+import com.captures2024.soongan.presentation.designsystem.ui.theme.SGTheme
+import com.captures2024.soongan.presentation.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.core.model.utils.ReportType
 import com.captures2024.soongan.presentation.feature.main.post.R
 import com.captures2024.soongan.presentation.feature.main.post.component.report.ReportReasonTextFieldComponent

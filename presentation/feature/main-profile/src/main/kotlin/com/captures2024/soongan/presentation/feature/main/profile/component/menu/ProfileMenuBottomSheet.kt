@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
+import com.captures2024.soongan.presentation.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.core.navigator.screen.main.profile.menu.ProfileMenuDefaultNavigator
 import com.captures2024.soongan.core.navigator.screen.main.profile.menu.ProfileMenuNotificationSettingNavigator
 import com.captures2024.soongan.core.navigator.screen.main.profile.menu.ProfileMenuSignOutNavigator

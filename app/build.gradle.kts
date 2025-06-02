@@ -68,12 +68,13 @@ dependencies {
     implementation(projects.core.common)
     implementation(projects.core.data)
     implementation(projects.core.datastore)
-    implementation(projects.core.designSystem.icon)
-    implementation(projects.core.designSystem.ui)
     implementation(projects.core.domain)
     implementation(projects.core.model)
     implementation(projects.core.navigator)
     implementation(projects.core.network)
+
+    implementation(projects.presentation.designSystem.icon)
+    implementation(projects.presentation.designSystem.ui)
 
     implementation(projects.presentation.feature.main)
     implementation(projects.presentation.feature.sign)

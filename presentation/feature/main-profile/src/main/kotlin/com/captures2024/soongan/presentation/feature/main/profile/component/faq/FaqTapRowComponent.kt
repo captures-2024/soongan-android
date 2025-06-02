@@ -13,9 +13,9 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
-import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
-import com.captures2024.soongan.core.designsystem.ui.theme.SGTheme
-import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
+import com.captures2024.soongan.presentation.designsystem.ui.theme.SGColor
+import com.captures2024.soongan.presentation.designsystem.ui.theme.SGTheme
+import com.captures2024.soongan.presentation.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.presentation.viewmodel.model.FaqCategory
 import kotlinx.coroutines.launch
 

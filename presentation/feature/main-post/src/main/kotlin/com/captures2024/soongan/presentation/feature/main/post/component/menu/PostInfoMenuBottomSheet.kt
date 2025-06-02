@@ -7,7 +7,7 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
+import com.captures2024.soongan.presentation.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.presentation.feature.main.post.component.screen.PostInfoMenuScreen
 
 @OptIn(ExperimentalMaterial3Api::class)

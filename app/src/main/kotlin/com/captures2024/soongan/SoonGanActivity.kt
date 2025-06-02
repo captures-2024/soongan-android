@@ -21,7 +21,7 @@ import androidx.core.net.toUri
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.android.utils.LocalAnalyticsHelper
 import com.captures2024.soongan.core.common.extension.toMap
-import com.captures2024.soongan.core.designsystem.ui.theme.SGTheme
+import com.captures2024.soongan.presentation.designsystem.ui.theme.SGTheme
 import com.captures2024.soongan.core.model.AppConst
 import com.captures2024.soongan.presentation.viewmodel.AppViewModel
 import com.captures2024.soongan.route.AppRoute

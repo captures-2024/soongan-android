@@ -24,10 +24,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.captures2024.soongan.core.designsystem.ui.component.text.SGText
-import com.captures2024.soongan.core.designsystem.ui.component.text.getSGNonScaleTextStyle
-import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
-import com.captures2024.soongan.core.designsystem.ui.theme.SGTypography
+import com.captures2024.soongan.presentation.designsystem.ui.component.text.SGText
+import com.captures2024.soongan.presentation.designsystem.ui.component.text.getSGNonScaleTextStyle
+import com.captures2024.soongan.presentation.designsystem.ui.theme.SGColor
+import com.captures2024.soongan.presentation.designsystem.ui.theme.SGTypography
 import com.captures2024.soongan.presentation.feature.main.home.utils.extension.getIcon
 import com.captures2024.soongan.presentation.feature.main.home.utils.extension.getStringResId
 import com.captures2024.soongan.presentation.viewmodel.model.PostOrderType

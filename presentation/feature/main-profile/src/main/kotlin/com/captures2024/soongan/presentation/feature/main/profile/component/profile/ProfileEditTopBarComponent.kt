@@ -8,11 +8,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.captures2024.soongan.core.designsystem.icon.MyIconPack
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillLeftArrow
-import com.captures2024.soongan.core.designsystem.ui.component.button.SGIconCircleButton
-import com.captures2024.soongan.core.designsystem.ui.theme.SGTheme
-import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
+import com.captures2024.soongan.presentation.designsystem.icon.MyIconPack
+import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconNonFillLeftArrow
+import com.captures2024.soongan.presentation.designsystem.ui.component.button.SGIconCircleButton
+import com.captures2024.soongan.presentation.designsystem.ui.theme.SGTheme
+import com.captures2024.soongan.presentation.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.presentation.feature.main.profile.R
 
 @Composable

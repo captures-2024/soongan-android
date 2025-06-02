@@ -20,21 +20,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import com.captures2024.soongan.core.designsystem.icon.MyIconPack
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconFillHeart
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillHeart
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillMenu
-import com.captures2024.soongan.core.designsystem.ui.component.WidthSpacer
-import com.captures2024.soongan.core.designsystem.ui.component.button.SGIconButton
-import com.captures2024.soongan.core.designsystem.ui.component.text.SGText
-import com.captures2024.soongan.core.designsystem.ui.component.text.getSGNonScaleTextStyle
-import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
-import com.captures2024.soongan.core.designsystem.ui.theme.SGDimension
-import com.captures2024.soongan.core.designsystem.ui.theme.SGTheme
-import com.captures2024.soongan.core.designsystem.ui.theme.SGTypography
-import com.captures2024.soongan.core.designsystem.ui.theme.dropShadow
-import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
-import com.captures2024.soongan.core.designsystem.ui.util.extension.toKM
+import com.captures2024.soongan.presentation.designsystem.icon.MyIconPack
+import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconFillHeart
+import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconNonFillHeart
+import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconNonFillMenu
+import com.captures2024.soongan.presentation.designsystem.ui.component.WidthSpacer
+import com.captures2024.soongan.presentation.designsystem.ui.component.button.SGIconButton
+import com.captures2024.soongan.presentation.designsystem.ui.component.text.SGText
+import com.captures2024.soongan.presentation.designsystem.ui.component.text.getSGNonScaleTextStyle
+import com.captures2024.soongan.presentation.designsystem.ui.theme.SGColor
+import com.captures2024.soongan.presentation.designsystem.ui.theme.SGDimension
+import com.captures2024.soongan.presentation.designsystem.ui.theme.SGTheme
+import com.captures2024.soongan.presentation.designsystem.ui.theme.SGTypography
+import com.captures2024.soongan.presentation.designsystem.ui.theme.dropShadow
+import com.captures2024.soongan.presentation.designsystem.ui.util.DevicePreviews
+import com.captures2024.soongan.presentation.designsystem.ui.util.extension.toKM
 import com.captures2024.soongan.presentation.feature.main.post.R
 
 @Composable

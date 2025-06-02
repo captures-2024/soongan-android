@@ -17,8 +17,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import com.captures2024.soongan.core.common.Validation
-import com.captures2024.soongan.core.designsystem.ui.component.background.SGBackground
-import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
+import com.captures2024.soongan.presentation.designsystem.ui.component.background.SGBackground
+import com.captures2024.soongan.presentation.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.core.model.AppConst
 import com.captures2024.soongan.presentation.feature.sign_up.R
 import com.captures2024.soongan.presentation.feature.sign_up.component.SignUpBottomComponent

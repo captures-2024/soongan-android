@@ -5,7 +5,7 @@ import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.captures2024.soongan.core.designsystem.ui.component.background.SGBackground
+import com.captures2024.soongan.presentation.designsystem.ui.component.background.SGBackground
 import com.captures2024.soongan.presentation.feature.main.route.MainRoute
 import com.captures2024.soongan.presentation.feature.sign.route.SignRoute
 import com.captures2024.soongan.presentation.viewmodel.AppViewModel

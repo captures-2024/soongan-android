@@ -14,14 +14,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.captures2024.soongan.core.designsystem.icon.MyIconPack
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillFillter
-import com.captures2024.soongan.core.designsystem.ui.component.WidthSpacer
-import com.captures2024.soongan.core.designsystem.ui.component.button.SGIconCircleButton
-import com.captures2024.soongan.core.designsystem.ui.component.gallery.SGGalleryHeader
-import com.captures2024.soongan.core.designsystem.ui.component.gallery.SGGalleryHeaderTitle
-import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
-import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
+import com.captures2024.soongan.presentation.designsystem.icon.MyIconPack
+import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconNonFillFillter
+import com.captures2024.soongan.presentation.designsystem.ui.component.WidthSpacer
+import com.captures2024.soongan.presentation.designsystem.ui.component.button.SGIconCircleButton
+import com.captures2024.soongan.presentation.designsystem.ui.component.gallery.SGGalleryHeader
+import com.captures2024.soongan.presentation.designsystem.ui.component.gallery.SGGalleryHeaderTitle
+import com.captures2024.soongan.presentation.designsystem.ui.theme.SGColor
+import com.captures2024.soongan.presentation.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.presentation.feature.main.feed.R
 import com.captures2024.soongan.presentation.viewmodel.model.TitleOption
 

@@ -36,8 +36,6 @@ include(
     ":core:analytics-android",
     ":core:auth",
     ":core:common",
-    ":core:designSystem:icon",
-    ":core:designSystem:ui",
     ":core:data",
     ":core:datastore",
     ":core:domain",
@@ -47,6 +45,9 @@ include(
 )
 
 include(
+    ":presentation:designSystem:icon",
+    ":presentation:designSystem:ui",
+
     ":presentation:feature:main",
     ":presentation:feature:main-awards",
     ":presentation:feature:main-feed",
