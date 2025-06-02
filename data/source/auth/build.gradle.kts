@@ -9,13 +9,11 @@ plugins {
 }
 
 android {
-    namespace = "com.captures2024.soongan.core.data"
+    namespace = "com.captures2024.soongan.data.source.auth"
 }
 
 dependencies {
     implementation(projects.core.analytics)
     implementation(projects.core.common)
     implementation(projects.core.model)
-
-    implementation(projects.data.datastore)
 }

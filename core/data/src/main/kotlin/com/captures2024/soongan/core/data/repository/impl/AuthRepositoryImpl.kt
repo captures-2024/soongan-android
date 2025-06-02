@@ -3,7 +3,7 @@ package com.captures2024.soongan.core.data.repository.impl
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.data.source.auth.remote.AuthRemoteDataSource
 import com.captures2024.soongan.core.data.repository.AuthRepository
-import com.captures2024.soongan.core.datastore.TokenDataSource
+import com.captures2024.soongan.data.datastore.TokenDataSource
 import com.captures2024.soongan.core.model.dto.ResultConditionDto
 import com.captures2024.soongan.core.model.utils.SocialSignType
 import javax.inject.Inject

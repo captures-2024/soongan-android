@@ -14,8 +14,8 @@ import com.captures2024.soongan.core.data.source.system.InAppBrowserLocalDataSou
 import com.captures2024.soongan.core.data.source.system.InAppBrowserLocalDataSourceImpl
 import com.captures2024.soongan.core.data.source.ui.local.LoadingLocalDataSource
 import com.captures2024.soongan.core.data.source.ui.local.LoadingLocalDataSourceImpl
-import com.captures2024.soongan.core.datastore.TokenDataSource
-import com.captures2024.soongan.core.datastore.TokenDataSourceImpl
+import com.captures2024.soongan.data.datastore.TokenDataSource
+import com.captures2024.soongan.data.datastore.TokenDataSourceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

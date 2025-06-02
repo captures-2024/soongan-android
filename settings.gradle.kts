@@ -37,11 +37,29 @@ include(
     ":core:auth",
     ":core:common",
     ":core:data",
-    ":core:datastore",
     ":core:domain",
     ":core:model",
     ":core:navigator",
-    ":core:network",
+)
+
+include(
+    ":data:datastore",
+    ":data:network",
+)
+
+include(
+    ":data:source:auth",
+    ":data:source:contest",
+    ":data:source:fcm",
+    ":data:source:home",
+    ":data:source:member",
+    ":data:source:notification",
+    ":data:source:report",
+    ":data:source:system",
+)
+
+include(
+    ":domain:usecase",
 )
 
 include(

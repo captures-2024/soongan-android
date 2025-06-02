@@ -67,11 +67,21 @@ dependencies {
     implementation(projects.core.auth)
     implementation(projects.core.common)
     implementation(projects.core.data)
-    implementation(projects.core.datastore)
     implementation(projects.core.domain)
     implementation(projects.core.model)
     implementation(projects.core.navigator)
-    implementation(projects.core.network)
+
+    implementation(projects.data.datastore)
+    implementation(projects.data.network)
+
+    implementation(projects.data.source.auth)
+    implementation(projects.data.source.contest)
+    implementation(projects.data.source.fcm)
+    implementation(projects.data.source.home)
+    implementation(projects.data.source.member)
+    implementation(projects.data.source.notification)
+    implementation(projects.data.source.report)
+    implementation(projects.data.source.system)
 
     implementation(projects.presentation.designSystem.icon)
     implementation(projects.presentation.designSystem.ui)
