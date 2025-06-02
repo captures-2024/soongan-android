@@ -44,7 +44,6 @@ include(
     ":core:model",
     ":core:navigator",
     ":core:network",
-    ":core:viewmodel",
 )
 
 include(
@@ -60,14 +59,4 @@ include(
     ":presentation:feature:sign-up",
 
     ":presentation:viewmodel",
-)
-
-include(
-    ":feature:awards",
-    ":feature:feed",
-    ":feature:home",
-    ":feature:intro",
-    ":feature:main",
-    ":feature:profile",
-    ":feature:welcome",
 )

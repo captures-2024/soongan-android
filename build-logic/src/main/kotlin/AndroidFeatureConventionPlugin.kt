@@ -17,10 +17,10 @@ class AndroidFeatureConventionPlugin : BaseConventionPlugin({
         implementation(project(path = ":core:common"))
         implementation(project(path = ":core:designSystem:icon"))
         implementation(project(path = ":core:designSystem:ui"))
-        implementation(project(path = ":core:domain"))
         implementation(project(path = ":core:model"))
         implementation(project(path = ":core:navigator"))
-        implementation(project(path = ":core:viewmodel"))
+
+        implementation(project(path = ":presentation:viewmodel"))
 
         implementation(libs.bundles.lifecycle)
     }
