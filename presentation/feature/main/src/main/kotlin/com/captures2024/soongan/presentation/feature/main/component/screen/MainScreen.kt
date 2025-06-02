@@ -12,7 +12,6 @@ import androidx.navigation.compose.NavHost
 import com.captures2024.soongan.core.navigator.screen.main.home.HomeNavigator
 import com.captures2024.soongan.core.navigator.screen.main.home.navigateToHome
 import com.captures2024.soongan.core.navigator.screen.main.home.navigateToHomeGallery
-import com.captures2024.soongan.core.navigator.screen.main.home.navigateToHomePost
 import com.captures2024.soongan.core.navigator.screen.main.home.navigateToRegistrationPost
 import com.captures2024.soongan.core.navigator.screen.main.post.navigateToEditPost
 import com.captures2024.soongan.core.navigator.screen.main.post.navigateToImageViewer
@@ -68,7 +67,7 @@ internal fun MainScreen(navigationState: MainNavigationState) {
             )
             mainAwards()
             mainFeed(
-                navigateToPost = navController::navigateToHomePost,
+                navigateToPost = navController::navigateToPostInfo,
                 getHideTargetContentId = navController::getHideTargetContentId,
             )
             mainHome(
