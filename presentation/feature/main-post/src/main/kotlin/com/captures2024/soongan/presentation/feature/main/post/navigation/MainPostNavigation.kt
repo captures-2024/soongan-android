@@ -13,14 +13,14 @@ fun NavGraphBuilder.mainPost(
     navigateToBack: () -> Unit,
     navigateToImageViewer: (String) -> Unit,
     navigateToEditPost: (Long, String, String) -> Unit,
-    navigateToBackWithHidePost: (Long) -> Unit,
+    navigateToBackWithHideTargetContentId: (Long) -> Unit,
 ) {
     composable<PostInfoNavigator> {
         PostInfoRoute(
             navigateToBack = navigateToBack,
             navigateToImageViewer = navigateToImageViewer,
             navigateToEditPost = navigateToEditPost,
-            navigateToBackWithHidePost = navigateToBackWithHidePost,
+            navigateToBackWithHideTargetContentId = navigateToBackWithHideTargetContentId,
         )
     }
 

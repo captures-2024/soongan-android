@@ -12,7 +12,7 @@ import com.captures2024.soongan.presentation.viewmodel.main.home.HomeGalleryView
 
 @Composable
 internal fun HomeGalleryRoute(
-    getHidePostId: () -> Long,
+    getHideTargetContentId: () -> Long,
     navigateToBack: () -> Unit,
     navigateToPost: (Long) -> Unit,
     navigateToRegistrationPost: () -> Unit,
@@ -31,7 +31,7 @@ internal fun HomeGalleryRoute(
     }
 
     LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
-        val postId = getHidePostId()
+        val postId = getHideTargetContentId()
 
         if (postId != -1L) {
             viewModel.intent(HomeGalleryViewModel.Intent.HidePost(postId))

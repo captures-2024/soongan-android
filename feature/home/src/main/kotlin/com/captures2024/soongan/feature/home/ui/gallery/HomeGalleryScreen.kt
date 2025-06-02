@@ -24,10 +24,10 @@ import com.captures2024.soongan.core.designsystem.ui.component.gallery.SGGallery
 import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.core.model.dto.GalleryPostDto
-import com.captures2024.soongan.feature.home.R
 import com.captures2024.soongan.core.viewmodel.home.HomeGalleryViewModel
-import com.captures2024.soongan.feature.home.ui.gallery.component.HomeGalleryHeader
 import com.captures2024.soongan.core.viewmodel.model.PaginationStatus
+import com.captures2024.soongan.feature.home.R
+import com.captures2024.soongan.feature.home.ui.gallery.component.HomeGalleryHeader
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -61,7 +61,7 @@ internal fun HomeGalleryScreen(
         HomeGalleryScreen(
             posts = uiState.posts,
             paginationStatus = uiState.paginationStatus,
-            isInitPage = (uiState.nextPage == 0),
+            isInitPage = uiState.isFirstPage,
             onBackPressed = onBackPressed,
             onLoadNextPage = onLoadNextPage,
             onClickPost = onClickPost,

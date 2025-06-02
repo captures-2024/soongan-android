@@ -16,16 +16,16 @@ import com.captures2024.soongan.core.viewmodel.feed.FeedViewModel
 import com.captures2024.soongan.core.viewmodel.feed.FeedViewModel.Intent
 import com.captures2024.soongan.feature.feed.ui.FeedFilterBottomSheet
 import com.captures2024.soongan.feature.feed.ui.FeedScreen
+import com.captures2024.soongan.feature.feed.ui.FeedTitlePickerBottomSheet
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun FeedRoute(
     navigateToPost: (Long, NavOptions?) -> Unit,
-    getReportedPostId: () -> Long,
+    getHideTargetContentId: () -> Long,
     feedViewModel: FeedViewModel = hiltViewModel(),
 ) {
     val uiState by feedViewModel.state.collectAsStateWithLifecycle()
-    val round = uiState.currentRound
 
     LaunchedEffect(key1 = Unit) {
         feedViewModel.sideEffect.collect { effect ->
@@ -36,27 +36,38 @@ internal fun FeedRoute(
     }
 
     LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
-        val postId = getReportedPostId()
+        val targetId = getHideTargetContentId()
 
-        if (postId != -1L) {
-            feedViewModel.intent(Intent.HidePost(round, postId))
+        if (targetId != -1L) {
+            feedViewModel.intent(Intent.HidePost(targetId))
         }
     }
 
     FeedScreen(
         uiState = uiState,
-        modifier = Modifier.fillMaxSize().sgBottomBarPadding(),
-        onRefresh = { feedViewModel.intent(Intent.RefreshFeed(round)) },
-        onClickRound = { feedViewModel.intent(Intent.OnClickRound(it)) },
+        modifier = Modifier
+            .fillMaxSize()
+            .sgBottomBarPadding(),
+        onRefresh = { feedViewModel.intent(Intent.RefreshFeed) },
+        onClickTitle = { feedViewModel.intent(Intent.OnClickTitle) },
         onClickFilter = { feedViewModel.intent(Intent.OnClickFilter) },
         onClickPost = { feedViewModel.intent(Intent.OnClickPost(it)) },
     )
 
-    if (uiState.isShowBottomSheet) {
+    if (uiState.isOpenFilterBottomSheet) {
         FeedFilterBottomSheet(
             orderType = uiState.postOrderType,
             onDismissRequest = { feedViewModel.intent(Intent.OnFilterDismissRequest) },
-            onClickItem = { feedViewModel.intent(Intent.OnClickSortFilter(round, it)) },
+            onClickItem = { feedViewModel.intent(Intent.OnClickSortFilter(it)) },
+        )
+    }
+
+    if (uiState.isOpenTitlePickerBottomSheet) {
+        FeedTitlePickerBottomSheet(
+            selectedOption = uiState.currentTitleOption,
+            options = uiState.titleOptions,
+            onSelectTitle = { feedViewModel.intent(Intent.OnSelectTitle(it)) },
+            onDismissRequest = { feedViewModel.intent(Intent.OnTitlePickerDismissRequest) },
         )
     }
 }

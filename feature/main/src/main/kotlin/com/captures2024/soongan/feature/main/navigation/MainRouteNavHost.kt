@@ -20,9 +20,9 @@ import com.captures2024.soongan.core.navigator.screen.main.home.navigateToRegist
 import com.captures2024.soongan.core.navigator.screen.main.profile.navigateToEditProfile
 import com.captures2024.soongan.core.navigator.screen.main.profile.navigateToFAQ
 import com.captures2024.soongan.core.navigator.screen.main.profile.navigateToNotification
-import com.captures2024.soongan.core.navigator.screen.main.util.getHidedPostId
+import com.captures2024.soongan.core.navigator.screen.main.util.getHideTargetContentId
 import com.captures2024.soongan.core.navigator.screen.main.util.navigateFromNotification
-import com.captures2024.soongan.core.navigator.screen.main.util.navigateToBackWithHidePost
+import com.captures2024.soongan.core.navigator.screen.main.util.navigateToBackWithHideTargetContentId
 import com.captures2024.soongan.core.navigator.screen.main.welcome.WelcomeNavigator
 import com.captures2024.soongan.feature.awards.navigation.awards
 import com.captures2024.soongan.feature.feed.navigation.feed
@@ -70,12 +70,12 @@ internal fun MainRouteNavHost(
             navigateToPost = navController::navigateToHomePost,
             navigateToEditPost = navController::navigateToEditPost,
             navigateToPostPhoto = navController::navigateToHomePostPhoto,
-            navigateToBackWithHidePost = navController::navigateToBackWithHidePost,
-            getHidedPostId = navController::getHidedPostId,
+            navigateToBackWithHideTargetContentId = navController::navigateToBackWithHideTargetContentId,
+            getHideTargetContentId = navController::getHideTargetContentId,
         )
         feed(
             navigateToPost = navController::navigateToHomePost,
-            getHidedPostId = navController::getHidedPostId,
+            getHideTargetContentId = navController::getHideTargetContentId,
         )
         awards()
         profile(
