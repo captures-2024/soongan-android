@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.captures2024.soongan.data.repository.memberImpl"
+    namespace = "com.captures2024.soongan.data.repository.member.impl"
 }
 
 dependencies {

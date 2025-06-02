@@ -64,6 +64,8 @@ include(
     ":data:repository:report-impl",
     ":data:repository:system",
     ":data:repository:system-impl",
+    ":data:repository:token",
+    ":data:repository:token-impl",
 )
 
 include(
@@ -83,10 +85,30 @@ include(
     ":data:source:report-impl",
     ":data:source:system",
     ":data:source:system-impl",
+    ":data:source:token",
+    ":data:source:token-impl",
     ":data:source:utils",
 )
 
 include(
+    ":domain:usecase:auth",
+    ":domain:usecase:auth-impl",
+    ":domain:usecase:contest",
+    ":domain:usecase:contest-impl",
+    ":domain:usecase:fcm",
+    ":domain:usecase:fcm-impl",
+    ":domain:usecase:home",
+    ":domain:usecase:home-impl",
+    ":domain:usecase:member",
+    ":domain:usecase:member-impl",
+    ":domain:usecase:notification",
+    ":domain:usecase:notification-impl",
+    ":domain:usecase:report",
+    ":domain:usecase:report-impl",
+    ":domain:usecase:system",
+    ":domain:usecase:system-impl",
+    ":domain:usecase:token",
+    ":domain:usecase:token-impl",
     ":domain:usecase:utils",
 )
 

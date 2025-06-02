@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.captures2024.soongan.data.repository.fcmImpl"
+    namespace = "com.captures2024.soongan.data.repository.fcm.impl"
 }
 
 dependencies {

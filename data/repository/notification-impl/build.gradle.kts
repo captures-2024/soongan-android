@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.captures2024.soongan.data.repository.notificationImpl"
+    namespace = "com.captures2024.soongan.data.repository.notification.impl"
 }
 
 dependencies {

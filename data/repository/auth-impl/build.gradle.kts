@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.captures2024.soongan.data.repository.authImpl"
+    namespace = "com.captures2024.soongan.data.repository.auth.impl"
 }
 
 dependencies {
@@ -14,7 +14,7 @@ dependencies {
     implementation(projects.core.common)
     implementation(projects.core.model)
 
-    implementation(projects.data.datastore)
     implementation(projects.data.source.auth)
+    implementation(projects.data.source.token)
     implementation(projects.data.repository.auth)
 }
