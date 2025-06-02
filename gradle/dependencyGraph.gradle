@@ -1,5 +1,3 @@
-// from: https://github.com/DroidKaigi/conference-app-2021/blob/main/gradle/dependencyGraph.gradle
-// from: https://github.com/JakeWharton/SdkSearch/blob/3351cad9bfacb0a364858e843774147143f58c7a/gradle/projectDependencyGraph.gradle
 tasks.register('projectDependencyGraph') {
     doLast {
         def dotFileName = 'project.dot'
@@ -20,98 +18,241 @@ tasks.register('projectDependencyGraph') {
             queue.addAll(project.childProjects.values())
         }
 
-        def projects = new LinkedHashSet<Project>()
-        def dependencies = new LinkedHashMap<Tuple2<Project, Project>, List<String>>()
-        def multiplatformProjects = []
-        def jsProjects = []
-        def androidProjects = []
-        def androidLibraryProjects = []
-        def androidDynamicFeatureProjects = []
-        def javaProjects = []
+        def rootModules = []
+        def rootModulesPath = []
+        def presentationModules = []
+        def presentationModulesPath = []
+        def domainModules = []
+        def domainModulesPath = []
+        def domainImplModules = []
+        def domainImplModulesPath = []
+        def dataModules = []
+        def dataModulesPath = []
+        def dataImplModules = []
+        def dataImplModulesPath = []
+        def coreModules = []
+        def coreModulesPath = []
+        def excludedModules = []
+        def excludedModulesPath = []
+        def emptyModules = []
+        def emptyModulesPath = []
+
 
         queue = [rootProject]
         while (!queue.isEmpty()) {
             def project = queue.remove(0)
             queue.addAll(project.childProjects.values())
 
-            if (project.plugins.hasPlugin('org.jetbrains.kotlin.multiplatform')) {
-                multiplatformProjects.add(project)
+            if (project.path == ":presentation" || project.path == ":presentation:feature") {
+                emptyModules.add(project)
+                emptyModulesPath.add(project.path)
+            } else if (project.path == ":domain" || project.path == ":domain:usecase") {
+                emptyModules.add(project)
+                emptyModulesPath.add(project.path)
+            } else if (project.path == ":data" || project.path == ":data:repository" || project.path == ":data:source") {
+                emptyModules.add(project)
+                emptyModulesPath.add(project.path)
+            } else if (project.path == ":core") {
+                emptyModules.add(project)
+                emptyModulesPath.add(project.path)
+            } else {
+                if (project.path.startsWith(":app")) {
+                    rootModules.add(project)
+                    rootModulesPath.add(project.path)
+                } else if (project.path.startsWith(":presentation")) {
+                    if (project.path.contains("designSystem")) {
+                        excludedModules.add(project)
+                        excludedModulesPath.add(project.path)
+                    } else {
+                        presentationModules.add(project)
+                        presentationModulesPath.add(project.path)
+                    }
+                } else if (project.path.startsWith(":domain")) {
+                    if (project.path.contains("impl")) {
+                        domainImplModules.add(project)
+                        domainImplModulesPath.add(project.path)
+                    } else {
+                        domainModules.add(project)
+                        domainModulesPath.add(project.path)
+                    }
+                } else if (project.path.startsWith(":data")) {
+                    if (project.path.contains("impl")) {
+                        dataImplModules.add(project)
+                        dataImplModulesPath.add(project.path)
+                    } else {
+                        dataModules.add(project)
+                        dataModulesPath.add(project.path)
+                    }
+                } else if (project.path.startsWith(":core")) {
+                    coreModules.add(project)
+                    coreModulesPath.add(project.path)
+                    excludedModules.add(project)
+                    excludedModulesPath.add(project.path)
+                }
             }
-            if (project.plugins.hasPlugin('kotlin2js')) {
-                jsProjects.add(project)
-            }
-            if (project.plugins.hasPlugin('com.android.application')) {
-                androidProjects.add(project)
-            }
-            if (project.plugins.hasPlugin('com.android.library')) {
-                androidLibraryProjects.add(project)
-            }
-            if (project.plugins.hasPlugin('com.android.dynamic-feature')) {
-                androidDynamicFeatureProjects.add(project)
-            }
-            if (project.plugins.hasPlugin('java-library') || project.plugins.hasPlugin('java')) {
-                javaProjects.add(project)
-            }
+        }
+
+        def dependencies = new LinkedHashMap<Tuple2<Project, Project>, List<String>>()
+
+        queue = []
+        queue.addAll(rootProject)
+
+        while (!queue.isEmpty()) {
+            def project = queue.remove(0)
+            queue.addAll(project.childProjects.values())
 
             project.configurations.configureEach { config ->
-                if (config.name.toLowerCase().contains("test")) return
+                if (config.name.toLowerCase().contains("test")) {
+                    return
+                }
+
                 config.dependencies
-                        .withType(ProjectDependency)
-                        .collect { it.dependencyProject }
-                        .each { dependency ->
-                            projects.add(project)
-                            projects.add(dependency)
-                            rootProjects.remove(dependency)
-
-                            def graphKey = new Tuple2<Project, Project>(project, dependency)
-                            def traits = dependencies.computeIfAbsent(graphKey) { new ArrayList<String>() }
-
-                            if (config.name.toLowerCase().endsWith('implementation')) {
-                                traits.add('style=dotted')
-                            }
+                    .withType(ProjectDependency)
+                    .collect { it.dependencyProject }
+                    .each { dependency ->
+                        def graphKey = new Tuple2<Project, Project>(project, dependency)
+                        def traits = dependencies.computeIfAbsent(graphKey) { new ArrayList<String>() }
+                        if (config.name.toLowerCase().endsWith('implementation')) {
+                            traits.add('style=dotted')
                         }
+                    }
             }
         }
-
-        projects = projects.sort { it.path }
 
         dot << '\n  # Projects\n\n'
-        for (project in projects) {
+
+        queue = []
+        queue.addAll(rootProject.childProjects.values())
+
+        while (!queue.isEmpty()) {
+            def project = queue.remove(0)
             def traits = []
+            queue.addAll(project.childProjects.values())
 
-            if (rootProjects.contains(project)) {
+            if (rootModulesPath.contains(project.path)) {
                 traits.add('shape=box')
+                traits.add('fillcolor="#FFCC99"')
+            } else if (presentationModulesPath.contains(project.path)) {
+                traits.add('fillcolor="#99FFCC"')
+            } else if (domainModulesPath.contains(project.path) || domainImplModulesPath.contains(project.path)) {
+                traits.add('fillcolor="#FFFF99"')
+            } else if (dataModulesPath.contains(project.path) || dataImplModulesPath.contains(project.path)) {
+                traits.add('fillcolor="#FF99CC"')
+            } else if (coreModulesPath.contains(project.path)) {
+                traits.add('fillcolor="#FF9966"')
             }
 
-            if (multiplatformProjects.contains(project)) {
-                traits.add('fillcolor="#ffd2b3"')
-            } else if (jsProjects.contains(project)) {
-                traits.add('fillcolor="#ffffba"')
-            } else if (androidProjects.contains(project)) {
-                traits.add('fillcolor="#baffc9"')
-            } else if (androidLibraryProjects.contains(project)) {
-                traits.add('fillcolor="#81D4FA"')
-            } else if (androidDynamicFeatureProjects.contains(project)) {
-                traits.add('fillcolor="#c9baff"')
-            } else if (javaProjects.contains(project)) {
-                traits.add('fillcolor="#ffb3ba"')
-            } else {
-                traits.add('fillcolor="#eeeeee"')
-            }
-
-            dot << "  \"${project.path}\" [${traits.join(", ")}];\n"
-        }
-
-        dot << '\n  {rank = same;'
-        for (project in projects) {
-            if (rootProjects.contains(project)) {
-                dot << " \"${project.path}\";"
+            if (!traits.isEmpty()) {
+                dot << "  \"${project.path}\" [${traits.join(", ")}];\n"
             }
         }
-        dot << '}\n'
 
         dot << '\n  # Dependencies\n\n'
-        dependencies.forEach { key, traits ->
+
+        for (dependency in dependencies) {
+            def key = dependency.key
+            def traits = dependency.value
+
+            if (key.first.path == key.second.path) {
+                continue
+            }
+
+            if (key.first.path.contains("utils")) {
+                continue
+            }
+
+            if (key.second.path.contains("utils")) {
+                continue
+            }
+
+            if (rootModulesPath.contains(key.first.path)) {
+                if (!presentationModulesPath.contains(key.second.path)) {
+                    if (!coreModulesPath.contains(key.second.path)) {
+                        continue
+                    }
+                }
+            } else if (presentationModulesPath.contains(key.first.path)) {
+                if (excludedModulesPath.contains(key.first.path)) {
+                    continue
+                }
+
+                if (excludedModulesPath.contains(key.second.path)) {
+                    continue
+                }
+
+                if (dataModulesPath.contains(key.second.path)) {
+                    continue
+                }
+            } else {
+                continue
+            }
+
+            dot << "  \"${key.first.path}\" -> \"${key.second.path}\""
+            if (!traits.isEmpty()) {
+                dot << " [${traits.join(", ")}]"
+            }
+            dot << '\n'
+        }
+
+        for (domainModule in domainModules) {
+            if (domainModule.path.contains("utils")) {
+                continue
+            }
+
+            dot << "  \"${domainModule.path}\" -> \"${domainModule.path}-impl\" [arrowhead=none];"
+            dot << '\n'
+        }
+
+        for (dataModule in dataModules) {
+            if (dataModule.path.contains("utils")) {
+                continue
+            }
+
+            dot << "  \"${dataModule.path}\" -> \"${dataModule.path}-impl\" [arrowhead=none];"
+            dot << '\n'
+        }
+
+        for (dependency in dependencies) {
+            def key = dependency.key
+            def traits = dependency.value
+
+            if (key.first.path == key.second.path) {
+                continue
+            }
+
+            if (key.first.path.contains("utils")) {
+                continue
+            }
+
+            if (key.second.path.contains("utils")) {
+                continue
+            }
+
+            if (excludedModulesPath.contains(key.first.path)) {
+                continue
+            }
+
+            if (excludedModulesPath.contains(key.second.path)) {
+                continue
+            }
+
+
+            if (rootModulesPath.contains(key.first.path)) {
+                continue
+            }
+
+            if (presentationModulesPath.contains(key.first.path)) {
+                continue
+            }
+
+            if (domainModulesPath.contains(key.first.path)) {
+                continue
+            }
+
+            if (key.first.path == "${key.second.path}-impl") {
+                continue
+            }
+
             dot << "  \"${key.first.path}\" -> \"${key.second.path}\""
             if (!traits.isEmpty()) {
                 dot << " [${traits.join(", ")}]"
