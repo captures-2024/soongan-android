@@ -1,10 +1,10 @@
 package com.captures2024.soongan.data.network.di
 
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
-import com.captures2024.soongan.data.datastore.TokenDataSource
 import com.captures2024.soongan.data.network.AuthInterceptor
 import com.captures2024.soongan.data.network.BuildConfig
 import com.captures2024.soongan.data.network.SoonGanAuthenticator
+import com.captures2024.soongan.data.source.token.local.TokenLocalDataSource
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
@@ -43,21 +43,21 @@ internal object NetworkModule {
     fun providerSoonGanAuthenticator(
         authInterceptor: AuthInterceptor,
         analyticsHelper: AnalyticsHelper,
-        tokenDataSource: TokenDataSource,
+        tokenLocalDataSource: TokenLocalDataSource,
     ): Authenticator = SoonGanAuthenticator(
         authInterceptor = authInterceptor,
         analyticsHelper = analyticsHelper,
-        tokenDataSource = tokenDataSource,
+        tokenLocalDataSource = tokenLocalDataSource,
     )
 
     @Provides
     @Singleton
     fun providerAuthInterceptor(
         analyticsHelper: AnalyticsHelper,
-        tokenDataSource: TokenDataSource,
+        tokenLocalDataSource: TokenLocalDataSource,
     ): AuthInterceptor = AuthInterceptor(
         analyticsHelper = analyticsHelper,
-        tokenDataSource = tokenDataSource,
+        tokenLocalDataSource = tokenLocalDataSource,
     )
 
     @Provides

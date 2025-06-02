@@ -5,24 +5,24 @@ import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.common.base.UIIntent
 import com.captures2024.soongan.core.common.base.UISideEffect
 import com.captures2024.soongan.core.common.base.UIState
-import com.captures2024.soongan.core.domain.usecase.dialog.GetIsShowGuestModeDialogFlowUseCase
-import com.captures2024.soongan.core.domain.usecase.dialog.GetSingleButtonDialogEventUseCase
-import com.captures2024.soongan.core.domain.usecase.dialog.SetIsShowGuestModeDialogFlowUseCase
-import com.captures2024.soongan.core.domain.usecase.fcm.InitFcmUseCase
-import com.captures2024.soongan.core.domain.usecase.loading.ClearLoadingUseCase
-import com.captures2024.soongan.core.domain.usecase.loading.GetLoadingFlowUseCase
-import com.captures2024.soongan.core.domain.usecase.loading.HideLoadingUseCase
-import com.captures2024.soongan.core.domain.usecase.loading.ShowLoadingUseCase
-import com.captures2024.soongan.core.domain.usecase.members.GetCurrentMemberFlowUseCase
-import com.captures2024.soongan.core.domain.usecase.members.GetGuestModeFlowUseCase
-import com.captures2024.soongan.core.domain.usecase.members.GetIsCurrentGuestModeUseCase
-import com.captures2024.soongan.core.domain.usecase.members.GetMemberInfoUseCase
-import com.captures2024.soongan.core.domain.usecase.members.SetGuestModeUseCase
-import com.captures2024.soongan.core.domain.usecase.notifications.EmitNotificationUseCase
-import com.captures2024.soongan.core.domain.usecase.system.GetInAppBrowserUrlFlow
-import com.captures2024.soongan.core.domain.usecase.token.ClearAllTokenUseCase
 import com.captures2024.soongan.core.model.dto.UserInfoDto
 import com.captures2024.soongan.core.model.enums.CommonDialogType
+import com.captures2024.soongan.domain.usecase.fcm.InitFcmUseCase
+import com.captures2024.soongan.domain.usecase.member.GetCurrentMemberFlowUseCase
+import com.captures2024.soongan.domain.usecase.member.GetGuestModeFlowUseCase
+import com.captures2024.soongan.domain.usecase.member.GetIsCurrentGuestModeUseCase
+import com.captures2024.soongan.domain.usecase.member.GetMemberInfoUseCase
+import com.captures2024.soongan.domain.usecase.member.SetGuestModeUseCase
+import com.captures2024.soongan.domain.usecase.notification.EmitNotificationUseCase
+import com.captures2024.soongan.domain.usecase.system.dialog.GetIsShowGuestModeDialogFlowUseCase
+import com.captures2024.soongan.domain.usecase.system.dialog.GetSingleButtonDialogEventUseCase
+import com.captures2024.soongan.domain.usecase.system.dialog.SetIsShowGuestModeDialogFlowUseCase
+import com.captures2024.soongan.domain.usecase.system.inapp.GetInAppBrowserUrlFlowUseCase
+import com.captures2024.soongan.domain.usecase.system.loading.ClearLoadingUseCase
+import com.captures2024.soongan.domain.usecase.system.loading.GetLoadingFlowUseCase
+import com.captures2024.soongan.domain.usecase.system.loading.HideLoadingUseCase
+import com.captures2024.soongan.domain.usecase.system.loading.ShowLoadingUseCase
+import com.captures2024.soongan.domain.usecase.token.ClearAllTokenUseCase
 import com.captures2024.soongan.presentation.viewmodel.model.AppRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -48,7 +48,7 @@ constructor(
     private val getLoadingFlowUseCase: GetLoadingFlowUseCase,
     private val getIsShowGuestModeDialogFlowUseCase: GetIsShowGuestModeDialogFlowUseCase,
     private val emitNotificationUseCase: EmitNotificationUseCase,
-    private val getInAppBrowserUrlFlow: GetInAppBrowserUrlFlow,
+    private val getInAppBrowserUrlFlowUseCase: GetInAppBrowserUrlFlowUseCase,
 ) : BaseViewModel<AppViewModel.State, AppViewModel.Effect, AppViewModel.Intent>(
     analyticsHelper = analyticsHelper,
     showLoadingUseCase = showLoadingUseCase,
@@ -212,7 +212,7 @@ constructor(
     }
 
     private suspend fun collectInAppBrowserUrl() {
-        getInAppBrowserUrlFlow().collect {
+        getInAppBrowserUrlFlowUseCase().collect {
             postSideEffect(Effect.OpenInAppBrowser(it))
         }
     }

@@ -13,7 +13,16 @@ android {
 dependencies {
     implementation(projects.core.analytics)
     implementation(projects.core.common)
-    implementation(projects.core.domain)
     implementation(projects.core.model)
     implementation(projects.core.navigator)
+
+    implementation(projects.domain.usecase.auth)
+    implementation(projects.domain.usecase.contest)
+    implementation(projects.domain.usecase.fcm)
+    implementation(projects.domain.usecase.home)
+    implementation(projects.domain.usecase.member)
+    implementation(projects.domain.usecase.notification)
+    implementation(projects.domain.usecase.report)
+    implementation(projects.domain.usecase.system)
+    implementation(projects.domain.usecase.token)
 }

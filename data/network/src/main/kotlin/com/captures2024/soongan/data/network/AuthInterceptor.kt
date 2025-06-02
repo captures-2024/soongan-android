@@ -2,7 +2,7 @@ package com.captures2024.soongan.data.network
 
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.model.AppConst
-import com.captures2024.soongan.data.datastore.TokenDataSource
+import com.captures2024.soongan.data.source.token.local.TokenLocalDataSource
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -12,7 +12,7 @@ class AuthInterceptor
 @Inject
 constructor(
     private val analyticsHelper: AnalyticsHelper,
-    private val tokenDataSource: TokenDataSource,
+    private val tokenLocalDataSource: TokenLocalDataSource,
 ) : Interceptor {
 
     init {
@@ -27,11 +27,11 @@ constructor(
             addHeader(BuildConfig.HEADER_KEY, BuildConfig.HEADER_VALUE)
             when (defaultRequest.headers[AppConst.Network.AUTH_HEADER]) {
                 "true" -> {
-                    val accessToken = runBlocking { tokenDataSource.getAccessToken() }
+                    val accessToken = runBlocking { tokenLocalDataSource.getAccessToken() }
                     header(AppConst.Network.AUTH_HEADER, "${AppConst.Network.AUTH_PREFIX} $accessToken")
                 }
                 "false" -> {
-                    val refreshToken = runBlocking { tokenDataSource.getRefreshToken() }
+                    val refreshToken = runBlocking { tokenLocalDataSource.getRefreshToken() }
                     header(AppConst.Network.AUTH_HEADER, "${AppConst.Network.AUTH_PREFIX} $refreshToken")
                 }
             }

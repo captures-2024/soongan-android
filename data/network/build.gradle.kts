@@ -31,5 +31,5 @@ dependencies {
     implementation(projects.core.analytics)
     implementation(projects.core.model)
 
-    implementation(projects.data.datastore)
+    implementation(projects.data.source.token)
 }

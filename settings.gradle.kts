@@ -36,8 +36,6 @@ include(
     ":core:analytics-android",
     ":core:auth",
     ":core:common",
-    ":core:data",
-    ":core:domain",
     ":core:model",
     ":core:navigator",
 )
