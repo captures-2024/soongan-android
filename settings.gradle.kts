@@ -48,6 +48,25 @@ include(
 )
 
 include(
+    ":data:repository:auth",
+    ":data:repository:auth-impl",
+    ":data:repository:contest",
+    ":data:repository:contest-impl",
+    ":data:repository:fcm",
+    ":data:repository:fcm-impl",
+    ":data:repository:home",
+    ":data:repository:home-impl",
+    ":data:repository:member",
+    ":data:repository:member-impl",
+    ":data:repository:notification",
+    ":data:repository:notification-impl",
+    ":data:repository:report",
+    ":data:repository:report-impl",
+    ":data:repository:system",
+    ":data:repository:system-impl",
+)
+
+include(
     ":data:source:auth",
     ":data:source:auth-impl",
     ":data:source:contest",
@@ -68,7 +87,7 @@ include(
 )
 
 include(
-    ":domain:usecase",
+    ":domain:usecase:utils",
 )
 
 include(

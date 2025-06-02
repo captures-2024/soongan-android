@@ -92,6 +92,25 @@ dependencies {
     implementation(projects.data.source.systemImpl)
     implementation(projects.data.source.utils)
 
+    implementation(projects.data.repository.auth)
+    implementation(projects.data.repository.authImpl)
+    implementation(projects.data.repository.contest)
+    implementation(projects.data.repository.contestImpl)
+    implementation(projects.data.repository.fcm)
+    implementation(projects.data.repository.fcmImpl)
+    implementation(projects.data.repository.home)
+    implementation(projects.data.repository.homeImpl)
+    implementation(projects.data.repository.member)
+    implementation(projects.data.repository.memberImpl)
+    implementation(projects.data.repository.notification)
+    implementation(projects.data.repository.notificationImpl)
+    implementation(projects.data.repository.report)
+    implementation(projects.data.repository.reportImpl)
+    implementation(projects.data.repository.system)
+    implementation(projects.data.repository.systemImpl)
+
+    implementation(projects.domain.usecase.utils)
+
     implementation(projects.presentation.designSystem.icon)
     implementation(projects.presentation.designSystem.ui)
 
