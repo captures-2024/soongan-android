@@ -49,13 +49,22 @@ include(
 
 include(
     ":data:source:auth",
+    ":data:source:auth-impl",
     ":data:source:contest",
+    ":data:source:contest-impl",
     ":data:source:fcm",
+    ":data:source:fcm-impl",
     ":data:source:home",
+    ":data:source:home-impl",
     ":data:source:member",
+    ":data:source:member-impl",
     ":data:source:notification",
+    ":data:source:notification-impl",
     ":data:source:report",
+    ":data:source:report-impl",
     ":data:source:system",
+    ":data:source:system-impl",
+    ":data:source:utils",
 )
 
 include(
