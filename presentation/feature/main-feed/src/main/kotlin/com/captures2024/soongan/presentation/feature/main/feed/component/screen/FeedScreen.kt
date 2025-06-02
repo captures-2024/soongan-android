@@ -31,7 +31,7 @@ import com.captures2024.soongan.presentation.feature.main.feed.component.feed.Fe
 import com.captures2024.soongan.presentation.viewmodel.main.feed.FeedViewModel
 import com.captures2024.soongan.presentation.viewmodel.model.PaginationStatus
 import com.captures2024.soongan.presentation.viewmodel.model.PostOrderType
-import com.captures2024.soongan.presentation.viewmodel.model.feed.TitleOption
+import com.captures2024.soongan.presentation.viewmodel.model.TitleOption
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -87,7 +87,7 @@ internal fun FeedScreen(
                 },
             ) {
                 when {
-                    feedState.currentRoundGallery.isEmpty() -> when (feedState.paginationStatus) {
+                    feedState.posts.isEmpty() -> when (feedState.paginationStatus) {
                         PaginationStatus.DEFAULT,
                         PaginationStatus.REFRESH_LOAD,
                         PaginationStatus.PAGING_LOAD,
@@ -116,7 +116,7 @@ internal fun FeedScreen(
                     }
 
                     else -> items(
-                        items = feedState.currentRoundGallery,
+                        items = feedState.posts,
                         key = { it.postId },
                     ) {
                         SGGalleryImageItem(
@@ -162,10 +162,10 @@ private fun FeedScreenPreview() {
             postOrderType = PostOrderType.MOST_LIKED,
             paginationStatus = PaginationStatus.DEFAULT,
             titleOptions = listOf(TitleOption()),
+            hasNextPage = true,
+            posts = emptyList(),
             currentRound = 1,
             loadPage = 0,
-            hasNextPage = true,
-            feed = emptyMap(),
         ),
         isOpenTitlePickerBottomSheet = false,
         isOpenFilterBottomSheet = false,

@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
-import com.captures2024.soongan.presentation.viewmodel.model.feed.TitleOption
+import com.captures2024.soongan.presentation.viewmodel.model.TitleOption
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

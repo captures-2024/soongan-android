@@ -49,7 +49,7 @@ import com.captures2024.soongan.core.designsystem.ui.theme.innerShadow
 import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.core.model.AppConst
 import com.captures2024.soongan.presentation.feature.main.feed.R
-import com.captures2024.soongan.presentation.viewmodel.model.feed.TitleOption
+import com.captures2024.soongan.presentation.viewmodel.model.TitleOption
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
 

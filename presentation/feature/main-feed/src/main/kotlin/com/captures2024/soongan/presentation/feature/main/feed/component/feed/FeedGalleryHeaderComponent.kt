@@ -23,7 +23,7 @@ import com.captures2024.soongan.core.designsystem.ui.component.gallery.SGGallery
 import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.presentation.feature.main.feed.R
-import com.captures2024.soongan.presentation.viewmodel.model.feed.TitleOption
+import com.captures2024.soongan.presentation.viewmodel.model.TitleOption
 
 @Composable
 internal fun FeedGalleryHeaderComponent(

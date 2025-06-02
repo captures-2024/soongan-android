@@ -1,4 +1,4 @@
-package com.captures2024.soongan.presentation.viewmodel.model.feed
+package com.captures2024.soongan.presentation.viewmodel.model
 
 data class TitleOption(
     val round: Int = 1,
