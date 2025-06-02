@@ -7,12 +7,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import com.captures2024.soongan.core.android.utils.LocalAnalyticsHelper
-import com.captures2024.soongan.core.designsystem.ui.component.dialog.SGSingleButtonDialog
+import com.captures2024.soongan.presentation.designsystem.ui.component.dialog.SGSingleButtonDialog
 import com.captures2024.soongan.core.model.enums.CommonDialogType
-import com.captures2024.soongan.core.viewmodel.AppRootViewModel
+import com.captures2024.soongan.presentation.viewmodel.AppViewModel
 
 @Composable
-internal fun DialogHost(viewModel: AppRootViewModel) {
+internal fun DialogHost(viewModel: AppViewModel) {
     val analyticsHelper = LocalAnalyticsHelper.current
 
     var isShowDialog: Boolean by remember { mutableStateOf(false) }
@@ -21,7 +21,7 @@ internal fun DialogHost(viewModel: AppRootViewModel) {
     LaunchedEffect(viewModel.sideEffect) {
         viewModel.sideEffect.collect { effect ->
             when (effect) {
-                is AppRootViewModel.Effect.ShowSingleButtonDialog -> {
+                is AppViewModel.Effect.ShowSingleButtonDialog -> {
                     analyticsHelper.d { "DialogHost::ShowSingleButtonDialog - type: ${effect.type}" }
                     isShowDialog = true
                     dialog = effect.type

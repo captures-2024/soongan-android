@@ -9,10 +9,10 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.captures2024.soongan.core.designsystem.ui.component.HeightSpacer
-import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
-import com.captures2024.soongan.core.designsystem.ui.theme.SGTheme
-import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
+import com.captures2024.soongan.presentation.designsystem.ui.component.HeightSpacer
+import com.captures2024.soongan.presentation.designsystem.ui.theme.SGColor
+import com.captures2024.soongan.presentation.designsystem.ui.theme.SGTheme
+import com.captures2024.soongan.presentation.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.presentation.feature.main.profile.component.profile.ProfileEditBodyComponent
 import com.captures2024.soongan.presentation.feature.main.profile.component.profile.ProfileEditImageBottomSheet
 import com.captures2024.soongan.presentation.feature.main.profile.component.profile.ProfileEditTopBarComponent

@@ -5,17 +5,17 @@ import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.common.base.UIIntent
 import com.captures2024.soongan.core.common.base.UISideEffect
 import com.captures2024.soongan.core.common.base.UIState
-import com.captures2024.soongan.core.domain.usecase.dialog.PostSingleButtonDialogUseCase
-import com.captures2024.soongan.core.domain.usecase.dialog.SetIsShowGuestModeDialogFlowUseCase
-import com.captures2024.soongan.core.domain.usecase.loading.ClearLoadingUseCase
-import com.captures2024.soongan.core.domain.usecase.loading.HideLoadingUseCase
-import com.captures2024.soongan.core.domain.usecase.loading.ShowLoadingUseCase
-import com.captures2024.soongan.core.domain.usecase.members.GetIsCurrentGuestModeUseCase
-import com.captures2024.soongan.core.domain.usecase.weekly.contests.GetFilteredGalleryByReportTargetIdsUseCase
-import com.captures2024.soongan.core.domain.usecase.weekly.contests.GetWeeklyContestInfoListUseCase
 import com.captures2024.soongan.core.model.AppConst
 import com.captures2024.soongan.core.model.dto.GalleryPostDto
 import com.captures2024.soongan.core.model.enums.CommonDialogType
+import com.captures2024.soongan.domain.usecase.contest.GetFilteredGalleryByReportTargetIdsUseCase
+import com.captures2024.soongan.domain.usecase.contest.GetWeeklyContestInfoListUseCase
+import com.captures2024.soongan.domain.usecase.member.GetIsCurrentGuestModeUseCase
+import com.captures2024.soongan.domain.usecase.system.dialog.PostSingleButtonDialogUseCase
+import com.captures2024.soongan.domain.usecase.system.dialog.SetIsShowGuestModeDialogFlowUseCase
+import com.captures2024.soongan.domain.usecase.system.loading.ClearLoadingUseCase
+import com.captures2024.soongan.domain.usecase.system.loading.HideLoadingUseCase
+import com.captures2024.soongan.domain.usecase.system.loading.ShowLoadingUseCase
 import com.captures2024.soongan.presentation.viewmodel.BaseViewModel
 import com.captures2024.soongan.presentation.viewmodel.model.PaginationStatus
 import com.captures2024.soongan.presentation.viewmodel.model.PostOrderType
@@ -374,12 +374,10 @@ constructor(
         }
 
         val galleryDto = getFilteredGalleryByReportTargetIdsUseCase(
-            params = GetFilteredGalleryByReportTargetIdsUseCase.Params(
-                round = state.currentRound,
-                orderType = state.postOrderType.name,
-                page = state.loadPage,
-                pageSize = AppConst.Main.Gallery.PAGE_SIZE,
-            ),
+            round = state.currentRound,
+            orderType = state.postOrderType.name,
+            page = state.loadPage,
+            pageSize = AppConst.Main.Gallery.PAGE_SIZE,
         ).getOrNull() ?: return PaginationStatus.FAILED
 
         reduce {

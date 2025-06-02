@@ -21,10 +21,10 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import com.captures2024.soongan.core.designsystem.ui.component.text.SGText
-import com.captures2024.soongan.core.designsystem.ui.component.text.getSGNonScaleTextStyle
-import com.captures2024.soongan.core.designsystem.ui.theme.SGColor
-import com.captures2024.soongan.core.designsystem.ui.theme.SGTypography
+import com.captures2024.soongan.presentation.designsystem.ui.component.text.SGText
+import com.captures2024.soongan.presentation.designsystem.ui.component.text.getSGNonScaleTextStyle
+import com.captures2024.soongan.presentation.designsystem.ui.theme.SGColor
+import com.captures2024.soongan.presentation.designsystem.ui.theme.SGTypography
 import com.captures2024.soongan.presentation.feature.main.post.R
 
 @Composable

@@ -19,16 +19,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.captures2024.soongan.core.common.Validation
-import com.captures2024.soongan.core.designsystem.ui.component.HeightSpacer
-import com.captures2024.soongan.core.designsystem.ui.component.WeightSpacer
-import com.captures2024.soongan.core.designsystem.ui.component.button.SGTextButtonType2
-import com.captures2024.soongan.core.designsystem.ui.theme.SGTheme
-import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
+import com.captures2024.soongan.presentation.designsystem.ui.component.HeightSpacer
+import com.captures2024.soongan.presentation.designsystem.ui.component.WeightSpacer
+import com.captures2024.soongan.presentation.designsystem.ui.component.button.SGTextButtonType2
+import com.captures2024.soongan.presentation.designsystem.ui.theme.SGTheme
+import com.captures2024.soongan.presentation.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.core.model.AppConst
 import com.captures2024.soongan.presentation.feature.main.profile.R
 import com.captures2024.soongan.presentation.viewmodel.main.profile.ProfileEditViewModel
 import com.captures2024.soongan.presentation.viewmodel.model.UserProfile
-import com.captures2024.soongan.core.designsystem.ui.R as RDesign
+import com.captures2024.soongan.presentation.designsystem.ui.R as RDesign
 
 @Composable
 internal fun ProfileEditBodyComponent(

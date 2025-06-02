@@ -3,14 +3,14 @@ package com.captures2024.soongan.presentation.feature.main.home.component.galler
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.captures2024.soongan.core.designsystem.icon.MyIconPack
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillFillter
-import com.captures2024.soongan.core.designsystem.icon.myiconpack.IconNonFillLeftArrow
-import com.captures2024.soongan.core.designsystem.ui.component.button.SGIconCircleButton
-import com.captures2024.soongan.core.designsystem.ui.component.gallery.SGGalleryHeader
-import com.captures2024.soongan.core.designsystem.ui.component.gallery.SGGalleryHeaderTitle
-import com.captures2024.soongan.core.designsystem.ui.theme.SGTheme
-import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
+import com.captures2024.soongan.presentation.designsystem.icon.MyIconPack
+import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconNonFillFillter
+import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconNonFillLeftArrow
+import com.captures2024.soongan.presentation.designsystem.ui.component.button.SGIconCircleButton
+import com.captures2024.soongan.presentation.designsystem.ui.component.gallery.SGGalleryHeader
+import com.captures2024.soongan.presentation.designsystem.ui.component.gallery.SGGalleryHeaderTitle
+import com.captures2024.soongan.presentation.designsystem.ui.theme.SGTheme
+import com.captures2024.soongan.presentation.designsystem.ui.util.DevicePreviews
 
 @Composable
 internal fun GalleryTopBarComponent(
