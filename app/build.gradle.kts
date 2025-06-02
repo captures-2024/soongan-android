@@ -74,15 +74,6 @@ dependencies {
     implementation(projects.core.model)
     implementation(projects.core.navigator)
     implementation(projects.core.network)
-    implementation(projects.core.viewmodel)
-
-    implementation(projects.feature.awards)
-    implementation(projects.feature.feed)
-    implementation(projects.feature.home)
-    implementation(projects.feature.intro)
-    implementation(projects.feature.main)
-    implementation(projects.feature.profile)
-    implementation(projects.feature.welcome)
 
     implementation(projects.presentation.feature.main)
     implementation(projects.presentation.feature.sign)

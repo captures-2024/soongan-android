@@ -6,6 +6,7 @@ import com.captures2024.soongan.core.common.base.UIIntent
 import com.captures2024.soongan.core.common.base.UISideEffect
 import com.captures2024.soongan.core.common.base.UIState
 import com.captures2024.soongan.core.domain.usecase.dialog.GetIsShowGuestModeDialogFlowUseCase
+import com.captures2024.soongan.core.domain.usecase.dialog.GetSingleButtonDialogEventUseCase
 import com.captures2024.soongan.core.domain.usecase.dialog.SetIsShowGuestModeDialogFlowUseCase
 import com.captures2024.soongan.core.domain.usecase.fcm.InitFcmUseCase
 import com.captures2024.soongan.core.domain.usecase.loading.ClearLoadingUseCase
@@ -21,6 +22,7 @@ import com.captures2024.soongan.core.domain.usecase.notifications.EmitNotificati
 import com.captures2024.soongan.core.domain.usecase.system.GetInAppBrowserUrlFlow
 import com.captures2024.soongan.core.domain.usecase.token.ClearAllTokenUseCase
 import com.captures2024.soongan.core.model.dto.UserInfoDto
+import com.captures2024.soongan.core.model.enums.CommonDialogType
 import com.captures2024.soongan.presentation.viewmodel.model.AppRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -37,6 +39,7 @@ constructor(
     setIsShowGuestModeDialogFlowUseCase: SetIsShowGuestModeDialogFlowUseCase,
     savedStateHandle: SavedStateHandle,
     private val getCurrentMemberFlowUseCase: GetCurrentMemberFlowUseCase,
+    private val getSingleButtonDialogEventUseCase: GetSingleButtonDialogEventUseCase,
     private val initFcmUseCase: InitFcmUseCase,
     private val getMemberInfoUseCase: GetMemberInfoUseCase,
     private val getGuestModeFlowUseCase: GetGuestModeFlowUseCase,
@@ -96,6 +99,11 @@ constructor(
     }
 
     sealed interface Effect : UISideEffect {
+
+        data class ShowSingleButtonDialog(
+            val type: CommonDialogType,
+        ) : Effect
+
         data class OpenInAppBrowser(
             val url: String,
         ) : Effect
@@ -142,6 +150,7 @@ constructor(
         launch { collectLoading() }
         launch { collectGuestModeDialog() }
         launch { collectInAppBrowserUrl() }
+        launch { collectSingleButtonDialogEvent() }
 
         fetchRemoteFCMToken()
         fetchRemoteMemberInfo()
@@ -205,6 +214,12 @@ constructor(
     private suspend fun collectInAppBrowserUrl() {
         getInAppBrowserUrlFlow().collect {
             postSideEffect(Effect.OpenInAppBrowser(it))
+        }
+    }
+
+    private suspend fun collectSingleButtonDialogEvent() {
+        getSingleButtonDialogEventUseCase().collect {
+            postSideEffect(Effect.ShowSingleButtonDialog(it))
         }
     }
 

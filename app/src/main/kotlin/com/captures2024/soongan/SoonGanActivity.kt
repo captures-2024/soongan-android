@@ -23,7 +23,7 @@ import com.captures2024.soongan.core.android.utils.LocalAnalyticsHelper
 import com.captures2024.soongan.core.common.extension.toMap
 import com.captures2024.soongan.core.designsystem.ui.theme.SGTheme
 import com.captures2024.soongan.core.model.AppConst
-import com.captures2024.soongan.core.viewmodel.AppRootViewModel
+import com.captures2024.soongan.presentation.viewmodel.AppViewModel
 import com.captures2024.soongan.route.AppRoute
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -36,7 +36,7 @@ class SoonGanActivity : ComponentActivity() {
     lateinit var analyticsHelper: AnalyticsHelper
     //endregion
 
-    private val appRootViewModel: AppRootViewModel by viewModels()
+    private val appViewModel: AppViewModel by viewModels()
 
     /**
      * The default light scrim, as defined by androidx and the platform:
@@ -99,18 +99,18 @@ class SoonGanActivity : ComponentActivity() {
             CompositionLocalProvider(
                 LocalAnalyticsHelper provides analyticsHelper,
             ) {
-                LaunchedEffect(appRootViewModel.sideEffect) {
-                    appRootViewModel.sideEffect.collect { effect ->
+                LaunchedEffect(appViewModel.sideEffect) {
+                    appViewModel.sideEffect.collect { effect ->
                         when (effect) {
-                            is AppRootViewModel.Effect.OpenInAppBrowser -> launchInAppBrowser(effect.url)
-                            is AppRootViewModel.Effect.ShowSingleButtonDialog -> Unit
+                            is AppViewModel.Effect.OpenInAppBrowser -> launchInAppBrowser(effect.url)
+                            is AppViewModel.Effect.ShowSingleButtonDialog -> Unit
                         }
                     }
                 }
 
                 SGTheme(darkTheme = darkTheme) {
                     AppRoute(
-                        appRootViewModel = appRootViewModel,
+                        viewModel = appViewModel,
                     )
                 }
             }
@@ -129,7 +129,7 @@ class SoonGanActivity : ComponentActivity() {
         if (localIntent?.action?.equals(AppConst.Notification.PUSH_ACTION_NAME, ignoreCase = true) == true) {
             analyticsHelper.d { "push - localIntent?.action: ${localIntent.action}" }
             val payload = extras?.toMap()?.map { it.key to it.value.toString() }?.toMap() ?: emptyMap()
-            appRootViewModel.intent(AppRootViewModel.Intent.PostNotification(payload))
+            appViewModel.intent(AppViewModel.Intent.PostNotification(payload))
             intent = null
         }
     }

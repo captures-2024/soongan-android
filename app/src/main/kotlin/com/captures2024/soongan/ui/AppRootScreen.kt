@@ -8,13 +8,13 @@ import androidx.compose.ui.Modifier
 import com.captures2024.soongan.core.designsystem.ui.component.dialog.SGSingleButtonDialog
 import com.captures2024.soongan.core.designsystem.ui.theme.SGTheme
 import com.captures2024.soongan.core.designsystem.ui.util.DevicePreviews
-import com.captures2024.soongan.core.viewmodel.AppRootViewModel
-import com.captures2024.soongan.core.viewmodel.model.AppRootRoute
+import com.captures2024.soongan.presentation.viewmodel.AppViewModel
+import com.captures2024.soongan.presentation.viewmodel.model.AppRoute
 
 @Composable
 internal fun AppRootScreen(
-    intent: (AppRootViewModel.Intent) -> Unit,
-    uiState: AppRootViewModel.State,
+    intent: (AppViewModel.Intent) -> Unit,
+    state: AppViewModel.State,
     appLandingRoute: @Composable () -> Unit,
     appSignRoute: @Composable () -> Unit,
     appMainRoute: @Composable () -> Unit,
@@ -23,20 +23,20 @@ internal fun AppRootScreen(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center,
     ) {
-        when (uiState.rootRouteState) {
-            AppRootRoute.LANDING -> appLandingRoute()
+        when (state.rootRouteState) {
+            AppRoute.LANDING -> appLandingRoute()
 
-            AppRootRoute.SIGN -> appSignRoute()
+            AppRoute.SIGN -> appSignRoute()
 
-            AppRootRoute.MAIN -> appMainRoute()
+            AppRoute.MAIN -> appMainRoute()
         }
 
-        if (uiState.isShowGuestModeDialog) {
+        if (state.isShowGuestModeDialog) {
             SGSingleButtonDialog(
                 content = "해당 기능은\n로그인 필요한 기능입니다.",
                 confirmContent = "확인",
-                onClickConfirm = { intent(AppRootViewModel.Intent.OnClickConfirmGuestModeDialog) },
-                onDismissRequest = { intent(AppRootViewModel.Intent.OnClickConfirmGuestModeDialog) },
+                onClickConfirm = { intent(AppViewModel.Intent.OnClickConfirmGuestModeDialog) },
+                onDismissRequest = { intent(AppViewModel.Intent.OnClickConfirmGuestModeDialog) },
             )
         }
     }
@@ -48,7 +48,13 @@ private fun PreviewAppRootScreen() {
     SGTheme {
         AppRootScreen(
             intent = {},
-            uiState = AppRootViewModel.State(),
+            state = AppViewModel.State(
+                isInitialized = false,
+                isGuestMode = false,
+                isLoading = false to System.currentTimeMillis(),
+                isShowGuestModeDialog = false,
+                currentMember = null,
+            ),
             appLandingRoute = {},
             appSignRoute = {},
             appMainRoute = {},
