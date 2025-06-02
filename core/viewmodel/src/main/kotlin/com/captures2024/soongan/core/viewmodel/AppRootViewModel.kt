@@ -229,17 +229,6 @@ constructor(
     }
 
     private suspend fun fetchRemoteMemberInfo() {
-        val result = getMemberInfoUseCase().getOrNull()
-
-        if (result == null) {
-            clearAllTokenUseCase()
-        }
-
-        postSingleButtonDialogUseCase(
-            when (result) {
-                null -> CommonDialogType.TOKEN_EXPIRED
-                else -> CommonDialogType.SUCCESS_SIGN
-            }
-        )
+        getMemberInfoUseCase().getOrNull()
     }
 }
