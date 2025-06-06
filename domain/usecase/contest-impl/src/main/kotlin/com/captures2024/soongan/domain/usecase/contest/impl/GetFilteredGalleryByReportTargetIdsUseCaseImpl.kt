@@ -30,15 +30,20 @@ constructor(
         )
 
         val reportHistories = membersRepository.currentMember.first()?.reportHistories
-            ?: error("current userInfo is null")
 
-        val reportTargetIds = reportHistories
-            .filter { it.targetType == ReportTargetType.WEEKLY_POST.name }
-            .map { it.targetId }
-            .toSet()
+        return@runSuspendCatching when (reportHistories) {
+            null -> galleryDto
 
-        return@runSuspendCatching galleryDto.copy(
-            posts = galleryDto.posts.filter { it.postId !in reportTargetIds },
-        )
+            else -> {
+                val reportTargetIds = reportHistories
+                    .filter { it.targetType == ReportTargetType.WEEKLY_POST.name }
+                    .map { it.targetId }
+                    .toSet()
+
+                galleryDto.copy(
+                    posts = galleryDto.posts.filter { it.postId !in reportTargetIds },
+                )
+            }
+        }
     }
 }

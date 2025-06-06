@@ -7,6 +7,7 @@ import com.captures2024.soongan.core.model.dto.PostInfoDto
 import com.captures2024.soongan.core.model.dto.WeeklyContestInfoListDto
 import com.captures2024.soongan.data.repository.contest.WeeklyContestRepository
 import com.captures2024.soongan.data.source.contest.remote.WeeklyContestRemoteDataSource
+import com.captures2024.soongan.data.source.member.local.GuestLocalDataSource
 import javax.inject.Inject
 
 class WeeklyContestRepositoryImpl
@@ -14,6 +15,7 @@ class WeeklyContestRepositoryImpl
 constructor(
     private val analyticsHelper: AnalyticsHelper,
     private val weeklyContestRemoteDataSource: WeeklyContestRemoteDataSource,
+    private val guestLocalDataSource: GuestLocalDataSource,
 ) : WeeklyContestRepository {
 
     init {
@@ -49,9 +51,11 @@ constructor(
     }
 
     override suspend fun getPostInfo(postId: Long): PostInfoDto {
-        val postInfoDto = weeklyContestRemoteDataSource.getPostInfo(
-            postId = postId,
-        )
+        val postInfoDto = when (guestLocalDataSource.isGuestMode.value) {
+            true -> weeklyContestRemoteDataSource.getPostInfoByGuest(postId = postId)
+
+            false -> weeklyContestRemoteDataSource.getPostInfo(postId = postId)
+        }
 
         return postInfoDto ?: throw NullPointerException("postInfoDto is null")
     }
