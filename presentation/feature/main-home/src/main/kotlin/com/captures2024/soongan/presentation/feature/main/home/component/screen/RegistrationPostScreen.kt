@@ -1,12 +1,16 @@
 package com.captures2024.soongan.presentation.feature.main.home.component.screen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import com.captures2024.soongan.presentation.designsystem.ui.component.HeightSpacer
 import com.captures2024.soongan.presentation.designsystem.ui.component.dialog.SGDoubleButtonDialog
 import com.captures2024.soongan.presentation.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.presentation.designsystem.ui.theme.SGTheme
@@ -28,20 +32,19 @@ internal fun RegistrationPostScreen(
     onClickConfirmSubmitBottomSheet: () -> Unit,
     onClickCancelSubmitBottomSheet: () -> Unit,
 ) {
-    Scaffold(
+    Column(
         modifier = Modifier.fillMaxSize()
             .background(color = SGColor.BG.background),
-        topBar = @Composable {
-            RegistrationPostTopBarComponent(
-                contestInfo = state.currentContestInfo,
-                onBackPressed = onClickBack,
-            )
-        },
-        containerColor = SGColor.transparent,
-    ) { paddingValues ->
+    ) {
+        RegistrationPostTopBarComponent(
+            contestInfo = state.currentContestInfo,
+            onBackPressed = onClickBack,
+        )
+
+        HeightSpacer(20.dp)
+
         RegistrationPostBodyComponent(
             state = state,
-            modifier = Modifier.padding(paddingValues),
             onTitleValueChanged = onTitleValueChanged,
             onClickSubmit = onClickSubmit,
         )
