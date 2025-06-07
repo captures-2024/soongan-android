@@ -9,6 +9,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
+import com.captures2024.soongan.core.navigator.screen.main.awards.navigateToAwardsInfo
+import com.captures2024.soongan.core.navigator.screen.main.feed.navigateToFeed
 import com.captures2024.soongan.core.navigator.screen.main.home.HomeNavigator
 import com.captures2024.soongan.core.navigator.screen.main.home.navigateToHome
 import com.captures2024.soongan.core.navigator.screen.main.home.navigateToHomeGallery
@@ -65,7 +67,12 @@ internal fun MainScreen(navigationState: MainNavigationState) {
             welcome(
                 navigateToHome = navController::navigateToHome,
             )
-            mainAwards()
+            mainAwards(
+                navigateToAwardsInfo = navController::navigateToAwardsInfo,
+                navigateToBack = navigateToBack,
+                navigateToFeed = navController::navigateToFeed,
+                navigateToPost = navController::navigateToPostInfo,
+            )
             mainFeed(
                 navigateToPost = navController::navigateToPostInfo,
                 getHideTargetContentId = navController::getHideTargetContentId,
