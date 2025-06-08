@@ -126,8 +126,8 @@ constructor(
     override fun handleIntent(intent: Intent) {
         when (intent) {
             is Intent.Init -> loadingLaunch { handleInit() }
-            is Intent.OnClickMenu -> handleOnClickMenu()
-            is Intent.OnClickNotification -> handleOnClickNotification()
+            is Intent.OnClickMenu -> blockGuestModeLogic { handleOnClickMenu() }
+            is Intent.OnClickNotification -> blockGuestModeLogic { handleOnClickNotification() }
             is Intent.OnDismissRequestMenuBottomSheet -> handleOnDismissRequestMenuBottomSheet()
             is Intent.OnClickEditProfile -> handleOnClickEditProfile()
             is Intent.OnClickFaq -> handleOnClickFaq()

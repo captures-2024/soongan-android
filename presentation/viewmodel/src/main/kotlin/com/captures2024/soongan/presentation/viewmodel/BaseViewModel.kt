@@ -126,7 +126,7 @@ abstract class BaseViewModel<S : UIState, SE : UISideEffect, I : UIIntent>(
         launch { _sideEffect.emit(sideEffect) }
     }
 
-    protected fun blockGuestModeLogic(block: () -> Unit) {
+    protected inline fun blockGuestModeLogic(block: () -> Unit) {
         when (isGuestMode()) {
             true -> showGuestModeDialog()
 

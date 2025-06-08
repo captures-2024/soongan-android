@@ -21,6 +21,8 @@ interface WeeklyContestRemoteDataSource {
 
     suspend fun getPostInfo(postId: Long): PostInfoDto?
 
+    suspend fun getPostInfoByGuest(postId: Long): PostInfoDto?
+
     suspend fun deletePost(postId: Long): Boolean
 
     suspend fun editPostTitle(

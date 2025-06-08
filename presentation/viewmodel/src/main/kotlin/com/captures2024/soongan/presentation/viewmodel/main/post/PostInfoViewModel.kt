@@ -132,8 +132,10 @@ constructor(
         when (intent) {
             is Intent.Init -> handleInit()
             is Intent.OnClickBack -> handleOnClickBack()
-            is Intent.OnClickMenu -> handleOnClickMenu()
-            is Intent.OnClickHeart -> loadingLaunch { handleOnClickHeart() }
+            is Intent.OnClickMenu -> blockGuestModeLogic { handleOnClickMenu() }
+            is Intent.OnClickHeart -> blockGuestModeLogic {
+                loadingLaunch { handleOnClickHeart() }
+            }
             is Intent.OnClickPhoto -> handleOnClickPhoto()
             is Intent.OnDismissRequestMenuBottomSheet -> handleOnDismissRequestMenuBottomSheet()
             is Intent.OnClickDelete -> loadingLaunch { handleOnClickDelete() }

@@ -15,5 +15,7 @@ dependencies {
     implementation(projects.core.model)
 
     implementation(projects.data.source.home)
+    implementation(projects.data.source.member)
+
     implementation(projects.data.repository.home)
 }

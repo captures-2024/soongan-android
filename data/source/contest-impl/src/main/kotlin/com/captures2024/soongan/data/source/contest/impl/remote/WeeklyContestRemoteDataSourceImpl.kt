@@ -85,7 +85,7 @@ constructor(
     override suspend fun getPostInfo(postId: Long): PostInfoDto? {
         analyticsHelper.d { "getPostInfo - postId: $postId" }
 
-        val response = safeAPICall { service.getPostInfoWithToken(postId = postId) }
+        val response = safeAPICall { service.getPostInfo(postId = postId) }
 
         val responseHeader = response.headers
 
@@ -94,6 +94,22 @@ constructor(
         val responseBody = response.body
 
         analyticsHelper.d { "getPostInfo - responseBody: $responseBody" }
+
+        return responseBody?.responseData?.toPostInfoDto()
+    }
+
+    override suspend fun getPostInfoByGuest(postId: Long): PostInfoDto? {
+        analyticsHelper.d { "getPostInfoByGuest - postId: $postId" }
+
+        val response = safeAPICall { service.getPostInfoByGuest(postId = postId) }
+
+        val responseHeader = response.headers
+
+        analyticsHelper.d { "getPostInfoByGuest - responseHeader: $responseHeader" }
+
+        val responseBody = response.body
+
+        analyticsHelper.d { "getPostInfoByGuest - responseBody: $responseBody" }
 
         return responseBody?.responseData?.toPostInfoDto()
     }
