@@ -104,7 +104,7 @@ private fun TempButton(
         shape = RoundedCornerShape(30.dp),
         colors = ButtonDefaults.buttonColors(
             containerColor = SGColor.Main.primary,
-        )
+        ),
     ) {
         SGText(
             text = stringResource(R.string.awards_info_navigate_to_feed_text),
@@ -119,7 +119,6 @@ private fun TempButton(
         )
     }
 }
-
 
 @DevicePreviews
 @Composable

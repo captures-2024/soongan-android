@@ -15,11 +15,11 @@ import com.captures2024.soongan.presentation.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-// temp
+// TODO move package and convert remote value class
 data class AwardsContestInfo(
     val round: Int = 1,
     val subject: String = "주제",
-    val imageUrl: String = "",
+    val imageUrl: String = "https://storage.googleapis.com/soongan-dev-bk/1/weekly/1/test.jpeg",
 )
 
 @HiltViewModel
@@ -78,7 +78,6 @@ constructor(
         intent(Intent.Init)
     }
 
-
     override fun createInitialState(savedStateHandle: SavedStateHandle): State {
         return State(
             initState = State.InitState.INIT,
@@ -106,7 +105,7 @@ constructor(
         if (weeklyContestInfoListDto == null) {
             reduce {
                 copy(
-                    initState = State.InitState.FAIL
+                    initState = State.InitState.FAIL,
                 )
             }
 

@@ -13,7 +13,7 @@ constructor(
 
     override suspend fun invoke(
         title: String,
-        imageFile: String
+        imageFile: String,
     ): Result<Long> = runSuspendCatching {
         val result = weeklyContestRepository.registerPost(
             title = title,

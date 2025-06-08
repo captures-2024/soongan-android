@@ -28,7 +28,7 @@ internal fun AwardsNoContestComponent(
         contentAlignment = Alignment.Center,
     ) {
         AwardsTopBarComponent(
-            modifier = Modifier.align(Alignment.TopCenter)
+            modifier = Modifier.align(Alignment.TopCenter),
         )
 
         Column(

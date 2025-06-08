@@ -32,7 +32,7 @@ internal fun AwardsInfoRoundInfoComponent(
             text = stringResource(
                 R.string.awards_info_round_info_title_text,
                 contestInfo.subject,
-                contestInfo.round
+                contestInfo.round,
             ),
             style = getSGNonScaleTextStyle(
                 color = SGColor.Grayscale.black100,
@@ -41,7 +41,7 @@ internal fun AwardsInfoRoundInfoComponent(
                 lineHeight = 20.sp,
                 fontFamily = SGTypography.pretendard,
                 letterSpacing = 0.em,
-            )
+            ),
         )
         HeightSpacer(20.dp)
         SGText(
@@ -53,13 +53,13 @@ internal fun AwardsInfoRoundInfoComponent(
                 lineHeight = 20.sp,
                 fontFamily = SGTypography.pretendard,
                 letterSpacing = (-0.5).em,
-            )
+            ),
         )
         HeightSpacer(14.dp)
         SGText(
             text = stringResource(
                 R.string.awards_info_round_info_all_post_count_text,
-                contestInfo.allPostCount
+                contestInfo.allPostCount,
             ),
             style = getSGNonScaleTextStyle(
                 color = SGColor.black,
@@ -68,7 +68,7 @@ internal fun AwardsInfoRoundInfoComponent(
                 lineHeight = 20.sp,
                 fontFamily = SGTypography.pretendard,
                 letterSpacing = (-0.5).em,
-            )
+            ),
         )
         HeightSpacer(92.dp)
     }

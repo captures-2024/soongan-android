@@ -16,8 +16,8 @@ import com.captures2024.soongan.presentation.viewmodel.main.award.AwardsContestI
 internal fun AwardsComponent(
     contestInfo: List<AwardsContestInfo>,
     modifier: Modifier = Modifier,
-    onCLickContestSubject: (round: Int) -> Unit,
-    ) {
+    onClickContestSubject: (round: Int) -> Unit,
+) {
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
@@ -36,7 +36,7 @@ internal fun AwardsComponent(
         ) {
             AwardsRoundItemComponent(
                 awardsContestInfo = it,
-                onCLickContestSubject = onCLickContestSubject,
+                onClickContestSubject = onClickContestSubject,
             )
         }
     }
@@ -47,6 +47,6 @@ internal fun AwardsComponent(
 private fun AwardsComponent_Preview() {
     AwardsComponent(
         contestInfo = emptyList(),
-        onCLickContestSubject = {},
+        onClickContestSubject = {},
     )
 }

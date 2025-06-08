@@ -29,7 +29,7 @@ internal fun AwardsInfoScreen(
         modifier = modifier
             .fillMaxSize()
             .background(color = SGColor.BG.background),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         when (state.initState) {
             AwardsInfoViewModel.State.InitState.INIT -> AwardsCommonInitComponent()

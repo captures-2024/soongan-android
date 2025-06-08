@@ -11,7 +11,7 @@ data class AwardsInfoNavigator(
 
 fun NavController.navigateToAwardsInfo(round: Int) = navigateToAwardsInfo(
     round = round,
-    navOptions = null
+    navOptions = null,
 )
 
 fun NavController.navigateToAwardsInfo(

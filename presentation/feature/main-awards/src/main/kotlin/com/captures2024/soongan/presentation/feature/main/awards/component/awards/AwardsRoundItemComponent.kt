@@ -30,7 +30,7 @@ import com.captures2024.soongan.presentation.designsystem.ui.R as RDesignSystem
 internal fun AwardsRoundItemComponent(
     awardsContestInfo: AwardsContestInfo,
     modifier: Modifier = Modifier,
-    onCLickContestSubject: (round: Int) -> Unit,
+    onClickContestSubject: (round: Int) -> Unit,
 ) {
     val model = ImageRequest.Builder(LocalContext.current)
         .data(awardsContestInfo.imageUrl)
@@ -40,7 +40,7 @@ internal fun AwardsRoundItemComponent(
         modifier = modifier
             .width(361.dp)
             .height(126.dp)
-            .clickable { onCLickContestSubject(awardsContestInfo.round) },
+            .clickable { onClickContestSubject(awardsContestInfo.round) },
     ) {
         AsyncImage(
             model = model,
@@ -48,7 +48,7 @@ internal fun AwardsRoundItemComponent(
             modifier = Modifier.fillMaxSize(),
             placeholder = painterResource(RDesignSystem.drawable.test),
             error = painterResource(RDesignSystem.drawable.test),
-            contentScale = ContentScale.FillWidth,
+            contentScale = ContentScale.Crop,
         )
         Box(
             modifier = Modifier
@@ -76,6 +76,6 @@ internal fun AwardsRoundItemComponent(
 private fun AwardsRoundItemComponent_Preview() {
     AwardsRoundItemComponent(
         awardsContestInfo = AwardsContestInfo(),
-        onCLickContestSubject = {},
+        onClickContestSubject = {},
     )
 }

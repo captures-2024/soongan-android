@@ -34,7 +34,7 @@ internal fun AwardsScreen(
 
             AwardsViewModel.State.InitState.SUCCESS -> AwardsComponent(
                 contestInfo = state.awardsContestInfoList,
-                onCLickContestSubject = onClickContestSubject,
+                onClickContestSubject = onClickContestSubject,
             )
 
             AwardsViewModel.State.InitState.FAIL -> AwardsCommonFailComponent(

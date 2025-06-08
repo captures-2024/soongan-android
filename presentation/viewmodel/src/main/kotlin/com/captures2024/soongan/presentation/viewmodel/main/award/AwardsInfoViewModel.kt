@@ -16,7 +16,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlin.random.Random
 
-// temp
+// TODO move package and convert remote value class
 data class ContestInfo(
     val round: Int = 1,
     val subject: String = "주제",
@@ -27,7 +27,7 @@ data class ContestInfo(
 
 data class TopPost(
     val postId: Long = Random.nextLong(),
-    val imageUrl: String = "",
+    val imageUrl: String = "https://storage.googleapis.com/soongan-dev-bk/1/weekly/1/test.jpeg",
     val nickname: String = "닉네임",
     val voteLike: Int = 9999,
 )

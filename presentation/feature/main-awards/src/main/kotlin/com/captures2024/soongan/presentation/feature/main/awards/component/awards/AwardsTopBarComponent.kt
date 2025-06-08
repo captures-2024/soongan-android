@@ -39,7 +39,7 @@ internal fun AwardsTopBarComponent(
                 lineHeight = 20.sp,
                 fontFamily = SGTypography.pretendard,
                 letterSpacing = (-5).em,
-            )
+            ),
         )
     }
 }

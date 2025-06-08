@@ -26,6 +26,6 @@ internal fun AwardsRoute(
     AwardsScreen(
         state = state,
         onClickContestSubject = { viewModel.intent(AwardsViewModel.Intent.OnClickContestSubject(it)) },
-        onClickRetry = { viewModel.intent(AwardsViewModel.Intent.OnClickEntry) }
+        onClickRetry = { viewModel.intent(AwardsViewModel.Intent.OnClickEntry) },
     )
 }

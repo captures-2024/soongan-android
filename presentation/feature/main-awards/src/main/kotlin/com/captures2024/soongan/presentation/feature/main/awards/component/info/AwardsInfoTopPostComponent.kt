@@ -3,6 +3,7 @@ package com.captures2024.soongan.presentation.feature.main.awards.component.info
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -46,7 +47,7 @@ internal fun AwardsInfoTopPostComponent(
         AsyncImage(
             model = model,
             contentDescription = "top post image",
-            placeholder = painterResource(RDesignSystem.drawable.test),
+            modifier = Modifier.fillMaxSize(),
             error = painterResource(RDesignSystem.drawable.test),
             contentScale = ContentScale.Crop,
         )
@@ -75,7 +76,7 @@ private fun TopPostBadge(
             .height(20.dp)
             .background(
                 color = SGColor.black100.copy(alpha = 0.5f),
-                shape = RoundedCornerShape(20.dp)
+                shape = RoundedCornerShape(20.dp),
             )
             .padding(horizontal = 8.dp),
         contentAlignment = Alignment.Center,

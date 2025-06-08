@@ -173,7 +173,7 @@ constructor(
                     isRefreshing = true,
                     loadPage = 0,
                     posts = emptyList(),
-                )
+                ),
             )
         }
 
@@ -184,7 +184,7 @@ constructor(
                 feedState = feedState.copy(
                     isRefreshing = false,
                     paginationStatus = paginationStatus,
-                )
+                ),
             )
         }
     }
@@ -216,7 +216,7 @@ constructor(
                     feedState = feedState.copy(
                         currentRound = round,
                         posts = emptyList(),
-                    )
+                    ),
                 )
             }
 
@@ -226,7 +226,7 @@ constructor(
                 copy(
                     feedState = feedState.copy(
                         paginationStatus = paginationStatus,
-                    )
+                    ),
                 )
             }
         }
@@ -259,7 +259,7 @@ constructor(
                     feedState = feedState.copy(
                         postOrderType = postOrderType,
                         posts = emptyList(),
-                    )
+                    ),
                 )
             }
 
@@ -269,7 +269,7 @@ constructor(
                 copy(
                     feedState = feedState.copy(
                         paginationStatus = paginationStatus,
-                    )
+                    ),
                 )
             }
         }
@@ -290,7 +290,7 @@ constructor(
             copy(
                 feedState = feedState.copy(
                     paginationStatus = paginationStatus,
-                )
+                ),
             )
         }
     }
@@ -306,7 +306,7 @@ constructor(
             copy(
                 feedState = feedState.copy(
                     posts = feedState.posts.filter { it.postId != postId },
-                )
+                ),
             )
         }
     }
@@ -320,7 +320,7 @@ constructor(
             copy(
                 feedState = feedState.copy(
                     paginationStatus = paginationStatus,
-                )
+                ),
             )
         }
     }
@@ -346,7 +346,7 @@ constructor(
             copy(
                 feedState = feedState.copy(
                     titleOptions = titleOptions,
-                )
+                ),
             )
         }
     }
@@ -369,7 +369,7 @@ constructor(
                         true -> PaginationStatus.REFRESH_LOAD
                         false -> PaginationStatus.PAGING_LOAD
                     },
-                )
+                ),
             )
         }
 
@@ -385,7 +385,7 @@ constructor(
                 feedState = feedState.copy(
                     hasNextPage = galleryDto.hasNext,
                     posts = feedState.posts + galleryDto.posts,
-                )
+                ),
             )
         }
 

@@ -228,7 +228,7 @@ constructor(
         postSideEffect(
             sideEffect = Effect.NavigateToPostInfo(
                 postId = intent.postId,
-            )
+            ),
         )
     }
 
@@ -273,7 +273,7 @@ constructor(
         when (state.myGalleryState.paginationStatus) {
             PaginationStatus.REFRESH_LOAD,
             PaginationStatus.PAGING_LOAD,
-                -> return state.myGalleryState.paginationStatus
+            -> return state.myGalleryState.paginationStatus
 
             else -> Unit
         }

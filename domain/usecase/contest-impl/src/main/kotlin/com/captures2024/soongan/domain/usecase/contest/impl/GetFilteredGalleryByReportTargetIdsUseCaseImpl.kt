@@ -20,7 +20,7 @@ constructor(
         round: Int?,
         orderType: String,
         page: Int,
-        pageSize: Int
+        pageSize: Int,
     ): Result<GalleryDto> = runSuspendCatching {
         val galleryDto = weeklyContestRepository.getGalleryInfo(
             round = round,

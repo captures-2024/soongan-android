@@ -53,7 +53,7 @@ internal fun AwardsInfoWinnerPostComponent(
                 fontFamily = SGTypography.pretendard,
                 letterSpacing = (-0.5).em,
             ),
-            modifier = Modifier.padding(start = 13.dp, top = 9.dp, bottom = 11.dp)
+            modifier = Modifier.padding(start = 13.dp, top = 9.dp, bottom = 11.dp),
         )
     }
 }

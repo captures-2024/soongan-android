@@ -28,6 +28,7 @@ fun NavGraphBuilder.mainAwards(
                 saveState = true
             }
             launchSingleTop = true
+            restoreState = true
         }
 
         AwardsInfoRoute(

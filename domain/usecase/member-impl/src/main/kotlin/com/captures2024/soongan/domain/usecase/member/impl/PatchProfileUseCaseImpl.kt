@@ -15,7 +15,7 @@ constructor(
         nickname: String?,
         selfIntroduction: String?,
         profileImageUrl: String?,
-        isDefaultProfileImage: Boolean
+        isDefaultProfileImage: Boolean,
     ): Result<Boolean> = runSuspendCatching {
         val userInfoDto = repository.patchProfile(
             nickname = nickname,

@@ -39,7 +39,7 @@ internal fun FeedTitlePickerBottomSheetComponent(
             options = options,
             onChangedOption = { idx -> currentSelectedOption = options[idx] },
             onSelectOption = { onSelectOption(currentSelectedOption.round) },
-            onDismissRequest = onDismissRequest
+            onDismissRequest = onDismissRequest,
         )
     }
 }
