@@ -23,6 +23,7 @@
 # Keep Dagger
 -keep class dagger.** { *; }
 -keep class javax.inject.** { *; }
+-keep class javax.annotation.** { *; }
 
 -keep class * extends androidx.lifecycle.ViewModel {
     <init>();
@@ -111,10 +112,5 @@
 -keep class kotlinx.serialization.** { *; }
 -keep @kotlinx.serialization.Serializable class * { *; }
 
--keep class * extends com.captures2024.soongan.core.common.base.UIIntent { *; }
--keep interface * extends com.captures2024.soongan.core.common.base.UIIntent { *; }
--keep class * extends com.captures2024.soongan.core.common.base.UISideEffect { *; }
--keep interface * extends com.captures2024.soongan.core.common.base.UISideEffect { *; }
--keep class * extends com.captures2024.soongan.core.common.base.UIState { *; }
-
--keep class * extends com.captures2024.soongan.core.common.base.BaseViewModel { *; }
+-keep class com.captures2024.soongan.core.model.** { *; }
+-keep class com.captures2024.soongan.core.navigator.** { *; }

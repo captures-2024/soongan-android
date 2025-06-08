@@ -41,13 +41,13 @@ interface WeeklyContestService {
     ): Response<BaseResponse<RegisterPostResponse>>
 
     @GET("weekly/contests/posts/{postId}")
-    suspend fun getPostInfo(
+    suspend fun getPostInfoByGuest(
         @Path("postId") postId: Long,
     ): Response<BaseResponse<GetPostInfoResponse>>
 
     @Headers(AppConst.Network.ACCESS_TOKEN_ALLOW)
     @GET("weekly/contests/posts/{postId}")
-    suspend fun getPostInfoWithToken(
+    suspend fun getPostInfo(
         @Path("postId") postId: Long,
     ): Response<BaseResponse<GetPostInfoResponse>>
 
@@ -64,7 +64,6 @@ interface WeeklyContestService {
         @Body request: EditPostRequest,
     ): Response<BaseResponse<EditPostResponse>>
 
-    @Headers(AppConst.Network.ACCESS_TOKEN_ALLOW)
     @GET("weekly/contests")
     suspend fun getContestInfoList(): Response<BaseResponse<GetWeeklyContestInfoListResponse>>
 

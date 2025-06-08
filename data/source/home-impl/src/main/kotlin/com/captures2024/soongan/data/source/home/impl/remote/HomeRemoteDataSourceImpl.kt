@@ -42,4 +42,26 @@ constructor(
 
         return responseData.contestInfo.toHomeContestInfoDto() to responseData.postInfo.map { it.toPostInfoDto() }
     }
+
+    override suspend fun getHomeStatusByGuest(): Pair<HomeContestInfoDto, List<PostInfoDto>>? {
+        analyticsHelper.d { "getHomeStatusByGuest - entry" }
+
+        val response = safeAPICall { homeService.getHomeStatusWithGuest() }
+
+        val responseHeader = response.headers
+
+        analyticsHelper.d { "getHomeStatusByGuest - responseHeader: $responseHeader" }
+
+        val responseBody = response.body
+
+        analyticsHelper.d { "getHomeStatusByGuest - responseBody: $responseBody" }
+
+        val responseData = responseBody?.responseData
+
+        if (responseData == null) {
+            return null
+        }
+
+        return responseData.contestInfo.toHomeContestInfoDto() to responseData.postInfo.map { it.toPostInfoDto() }
+    }
 }

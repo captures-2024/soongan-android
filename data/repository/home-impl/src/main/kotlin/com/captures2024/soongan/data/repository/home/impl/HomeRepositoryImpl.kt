@@ -5,6 +5,7 @@ import com.captures2024.soongan.core.model.dto.HomeContestInfoDto
 import com.captures2024.soongan.core.model.dto.PostInfoDto
 import com.captures2024.soongan.data.repository.home.HomeRepository
 import com.captures2024.soongan.data.source.home.remote.HomeRemoteDataSource
+import com.captures2024.soongan.data.source.member.local.GuestLocalDataSource
 import javax.inject.Inject
 
 class HomeRepositoryImpl
@@ -12,6 +13,7 @@ class HomeRepositoryImpl
 constructor(
     private val analyticsHelper: AnalyticsHelper,
     private val homeRemoteDataSource: HomeRemoteDataSource,
+    private val guestLocalDataSource: GuestLocalDataSource,
 ) : HomeRepository {
 
     init {
@@ -19,7 +21,11 @@ constructor(
     }
 
     override suspend fun getHome(): Pair<HomeContestInfoDto, List<PostInfoDto>> {
-        val response = homeRemoteDataSource.getHomeStatus()
+        val response = when (guestLocalDataSource.isGuestMode.value) {
+            true -> homeRemoteDataSource.getHomeStatusByGuest()
+
+            false -> homeRemoteDataSource.getHomeStatus()
+        }
 
         return response ?: error("response is null")
     }

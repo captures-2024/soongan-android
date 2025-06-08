@@ -9,26 +9,26 @@ versionCode = "1"
 gradle-dependency-handler-extensions = "1.1.0"
 
 # kotlin
-kotlin-kotlin = "2.1.20"
+kotlin-kotlin = "2.1.21"
 kotlin-coroutines = "1.10.2"
 kotlin-serialization-json = "1.8.1"
 kotlin-serialization-converter = "1.0.0"
 kotlin-datetime = "0.6.2"
 
-kotlin-detekt = "1.23.6"
-kotlin-ktlint-gradle = "11.6.1"
+kotlin-detekt = "1.23.8"
+kotlin-ktlint-gradle = "12.3.0"
 kotlin-ktlint-source = "0.50.0"
 
 # android
-android-gradle-plugin = "8.6.1"
-android-lifecycle = "2.8.7"
-android-lifecycle-runtime = "2.8.7"
-android-navigation = "2.8.9"
+android-gradle-plugin = "8.10.1"
+android-lifecycle = "2.9.1"
+android-lifecycle-runtime = "2.9.1"
+android-navigation = "2.9.0"
 android-startup = "1.2.0"
 android-security = "1.1.1"
 android-desugar-jdk = "2.1.5"
 android-in-app-update = "2.1.0"
-android-datastore = "1.1.4"
+android-datastore = "1.1.7"
 android-room = "2.7.1"
 android-splash-screen = "1.0.1"
 android-secret-gradle-plugin = "2.0.1"
@@ -38,17 +38,17 @@ android-credentials = "1.5.0"
 
 # android-xml
 android-xml-core = "1.16.0"
-android-xml-appcompat = "1.7.0"
+android-xml-appcompat = "1.7.1"
 android-xml-activity = "1.9.2"
-android-xml-fragment = "1.8.6"
+android-xml-fragment = "1.8.8"
 android-xml-flexbox = "3.0.0"
 android-xml-material = "1.12.0"
 android-xml-constraintlayout = "2.2.1"
 
 # android-compose
-android-compose-bom = "2025.04.01"
+android-compose-bom = "2025.06.00"
 android-compose-activity = "1.10.1"
-android-compose-junit4-test = "1.8.0"
+android-compose-junit4-test = "1.8.2"
 
 # test
 test-junit = "4.13.2"
@@ -56,37 +56,37 @@ test-junit-version = "1.2.1"
 test-espresso-core = "3.6.1"
 test-runner = "1.6.2"
 
-test-junit5 = "5.10.2"
-test-junit5-plugin = "1.10.0.0"
+test-junit5 = "5.13.0"
+test-junit5-plugin = "1.12.2.0"
 test-junit5-android = "1.4.0"
 
 test-robolectric = "4.14.1"
-test-truth = "1.1.5"
+test-truth = "1.4.4"
 
 test-kotest = "5.9.1"
 
 # google
-google-ksp = "2.1.20-2.0.0"
+google-ksp = "2.1.21-2.0.1"
 google-services = "4.4.2"
-google-firebase = "33.13.0"
-google-admob = "24.2.0"
+google-firebase = "33.15.0"
+google-admob = "24.3.0"
 google-auth = "21.3.0"
 google-id = "1.1.1"
-google-crashlytics = "3.0.3"
+google-crashlytics = "3.0.4"
 
 # dagger hilt
-dagger-hilt = "2.55"
+dagger-hilt = "2.56.2"
 dagger-hilt-navigation-compose = "1.2.0"
 
 # thrid part
-coil = "2.5.0"
+coil = "2.7.0"
 javax-inject = "1"
 okhttp = "4.12.0"
-retrofit = "2.11.0"
-kakao = "2.21.1"
+retrofit = "3.0.0"
+kakao = "2.21.3"
 ktlint = "11.6.1"
 napier = "2.7.1"
-process-pheonix = "2.1.2"
+process-pheonix = "3.0.0"
 
 
 [libraries]

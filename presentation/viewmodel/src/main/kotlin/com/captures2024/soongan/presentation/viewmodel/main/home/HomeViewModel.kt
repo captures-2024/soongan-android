@@ -112,7 +112,7 @@ constructor(
             is Intent.ViewOnResume -> launch { handleViewOnResume() }
             is Intent.OnClickContestInfo -> handleOnClickContestInfo()
             is Intent.OnClickPostList -> handleOnClickPostList()
-            is Intent.OnClickRegister -> handleOnClickRegister()
+            is Intent.OnClickRegister -> blockGuestModeLogic { handleOnClickRegister() }
             is Intent.OnClickPost -> handleOnClickPost(intent)
             is Intent.OnClickRetry -> loadingLaunch { handleOnClickRetry() }
             is Intent.DismissContestInfoBottomSheet -> handleDismissContestInfoBottomSheet()
