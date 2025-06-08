@@ -12,6 +12,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.navOptions
 import com.captures2024.soongan.core.navigator.screen.main.awards.navigateToAwards
 import com.captures2024.soongan.core.navigator.screen.main.feed.navigateToFeed
+import com.captures2024.soongan.core.navigator.screen.main.home.HomeNavigator
 import com.captures2024.soongan.core.navigator.screen.main.home.navigateToHome
 import com.captures2024.soongan.core.navigator.screen.main.profile.navigateToProfile
 
@@ -64,7 +65,7 @@ internal class MainNavigationState(
     }
 
     fun buildTopLevelNavOptions(): NavOptions = navOptions {
-        popUpTo(navController.graph.findStartDestination().id) {
+        popUpTo(HomeNavigator) {
             saveState = true
         }
         launchSingleTop = true
