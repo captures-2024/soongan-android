@@ -9,6 +9,7 @@ import com.captures2024.soongan.domain.usecase.system.impl.dialog.GetSingleButto
 import com.captures2024.soongan.domain.usecase.system.impl.dialog.PostSingleButtonDialogUseCaseImpl
 import com.captures2024.soongan.domain.usecase.system.impl.dialog.SetIsShowGuestModeDialogFlowUseCaseImpl
 import com.captures2024.soongan.domain.usecase.system.impl.inapp.GetInAppBrowserUrlFlowUseCaseImpl
+import com.captures2024.soongan.domain.usecase.system.impl.inapp.LaunchInquiryUseCaseImpl
 import com.captures2024.soongan.domain.usecase.system.impl.inapp.LaunchPrivacyPolicyUseCaseImpl
 import com.captures2024.soongan.domain.usecase.system.impl.inapp.LaunchTermsUseCaseImpl
 import com.captures2024.soongan.domain.usecase.system.impl.loading.ClearLoadingUseCaseImpl
@@ -17,6 +18,7 @@ import com.captures2024.soongan.domain.usecase.system.impl.loading.HideLoadingUs
 import com.captures2024.soongan.domain.usecase.system.impl.loading.IsLoadingUseCaseImpl
 import com.captures2024.soongan.domain.usecase.system.impl.loading.ShowLoadingUseCaseImpl
 import com.captures2024.soongan.domain.usecase.system.inapp.GetInAppBrowserUrlFlowUseCase
+import com.captures2024.soongan.domain.usecase.system.inapp.LaunchInquiryUseCase
 import com.captures2024.soongan.domain.usecase.system.inapp.LaunchPrivacyPolicyUseCase
 import com.captures2024.soongan.domain.usecase.system.inapp.LaunchTermsUseCase
 import com.captures2024.soongan.domain.usecase.system.loading.ClearLoadingUseCase
@@ -53,6 +55,9 @@ internal abstract class SystemUseCaseModule {
 
     @Binds
     abstract fun bindLaunchTermsUseCase(launchTermsUseCaseImpl: LaunchTermsUseCaseImpl): LaunchTermsUseCase
+
+    @Binds
+    abstract fun bindLaunchInquiryUseCase(launchInquiryUseCaseImpl: LaunchInquiryUseCaseImpl): LaunchInquiryUseCase
 
     @Binds
     abstract fun bindClearLoadingUseCase(clearLoadingUseCaseImpl: ClearLoadingUseCaseImpl): ClearLoadingUseCase

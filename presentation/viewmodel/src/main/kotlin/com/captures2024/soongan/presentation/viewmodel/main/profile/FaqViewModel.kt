@@ -7,6 +7,7 @@ import com.captures2024.soongan.core.common.base.UISideEffect
 import com.captures2024.soongan.core.common.base.UIState
 import com.captures2024.soongan.domain.usecase.member.GetIsCurrentGuestModeUseCase
 import com.captures2024.soongan.domain.usecase.system.dialog.SetIsShowGuestModeDialogFlowUseCase
+import com.captures2024.soongan.domain.usecase.system.inapp.LaunchInquiryUseCase
 import com.captures2024.soongan.domain.usecase.system.loading.ClearLoadingUseCase
 import com.captures2024.soongan.domain.usecase.system.loading.HideLoadingUseCase
 import com.captures2024.soongan.domain.usecase.system.loading.ShowLoadingUseCase
@@ -26,6 +27,7 @@ constructor(
     getIsCurrentGuestModeUseCase: GetIsCurrentGuestModeUseCase,
     setIsShowGuestModeDialogFlowUseCase: SetIsShowGuestModeDialogFlowUseCase,
     savedStateHandle: SavedStateHandle,
+    private val launchInquiryUseCase: LaunchInquiryUseCase,
 ) : BaseViewModel<FaqViewModel.State, FaqViewModel.Effect, FaqViewModel.Intent>(
     analyticsHelper = analyticsHelper,
     showLoadingUseCase = showLoadingUseCase,
@@ -66,7 +68,7 @@ constructor(
         when (intent) {
             is Intent.OnClickBack -> handleOnClickBack()
             is Intent.OnClickCategory -> handleOnClickCategory(intent)
-            is Intent.OnClickInquiry -> handleOnClickInquiry()
+            is Intent.OnClickInquiry -> loadingLaunch { handleOnClickInquiry() }
         }
     }
 
@@ -86,7 +88,7 @@ constructor(
         }
     }
 
-    private fun handleOnClickInquiry() {
-        // TODO()
+    private suspend fun handleOnClickInquiry() {
+        launchInquiryUseCase()
     }
 }
