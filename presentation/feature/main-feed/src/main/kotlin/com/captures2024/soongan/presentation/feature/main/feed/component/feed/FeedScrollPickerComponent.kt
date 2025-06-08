@@ -77,7 +77,7 @@ internal fun FeedScrollTitlePickerComponent(
                 fontWeight = FontWeight.SemiBold,
                 lineHeight = 20.sp,
                 fontFamily = SGTypography.pretendard,
-            )
+            ),
         )
 
         ScrollPicker(
@@ -90,7 +90,7 @@ internal fun FeedScrollTitlePickerComponent(
         HeightSpacer(32.dp)
 
         Row(
-            modifier = Modifier.padding(bottom = 60.dp)
+            modifier = Modifier.padding(bottom = 60.dp),
         ) {
             TempPickerButton(
                 text = stringResource(R.string.feed_scroll_title_picker_dismiss_text),
@@ -143,7 +143,7 @@ private fun ScrollPicker(
     val fadingEdgeGradient = Brush.verticalGradient(
         0f to Color.Transparent,
         0.5f to Color.Black,
-        1f to Color.Transparent
+        1f to Color.Transparent,
     )
 
     val boxHeight = 264.dp
@@ -180,13 +180,13 @@ private fun ScrollPicker(
         HorizontalDivider(
             modifier = Modifier.offset(y = upperDividerYOffset),
             thickness = 0.5.dp,
-            color = Color(0xFFCCCCCC)
+            color = Color(0xFFCCCCCC),
         )
 
         HorizontalDivider(
             modifier = Modifier.offset(y = underDividerYOffset),
             thickness = 0.5.dp,
-            color = Color(0xFFCCCCCC)
+            color = Color(0xFFCCCCCC),
         )
 
         LazyColumn(
@@ -197,7 +197,7 @@ private fun ScrollPicker(
                 .align(Alignment.Center)
                 .wrapContentSize()
                 .height(itemSize * visibleOptionCount)
-                .fadingEdge(fadingEdgeGradient)
+                .fadingEdge(fadingEdgeGradient),
         ) {
             items(
                 count = listCount,
@@ -223,7 +223,7 @@ private fun ScrollPicker(
                             fontWeight = FontWeight.Normal,
                             lineHeight = 20.sp,
                             fontFamily = SGTypography.pretendard,
-                        )
+                        ),
                     )
                 }
             }
@@ -258,7 +258,7 @@ private fun TempPickerButton(
         shape = shape,
         colors = ButtonDefaults.buttonColors(
             containerColor = containerColor,
-        )
+        ),
     ) {
         SGText(
             text = text,
@@ -268,7 +268,7 @@ private fun TempPickerButton(
                 fontWeight = FontWeight.SemiBold,
                 lineHeight = 20.sp,
                 fontFamily = SGTypography.pretendard,
-            )
+            ),
         )
     }
 }

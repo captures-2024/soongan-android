@@ -14,7 +14,7 @@ constructor(
 
     override suspend fun invoke(
         postId: Long,
-        contestType: String
+        contestType: String,
     ): Result<PostLikeDto> = runSuspendCatching {
         val resultConditionDto = repository.putPostLike(
             postId = postId,

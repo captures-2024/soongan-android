@@ -14,7 +14,7 @@ constructor(
 
     override suspend fun invoke(
         page: Int,
-        pageSize: Int
+        pageSize: Int,
     ): Result<MyGalleryDto> = runSuspendCatching {
         val myGalleryDto = weeklyContestRepository.getMyGalleryInfo(
             page = page,

@@ -22,16 +22,14 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.paint
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.captures2024.soongan.presentation.designsystem.icon.MyIconPack
 import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconNonFillTopArrow
 import com.captures2024.soongan.presentation.designsystem.ui.R
 import com.captures2024.soongan.presentation.designsystem.ui.component.button.SGIconCircleButton
 import com.captures2024.soongan.presentation.designsystem.ui.theme.SGColor
+import com.captures2024.soongan.presentation.designsystem.ui.util.DevicePreviews
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
@@ -69,12 +67,7 @@ fun SGGallery(
     LazyVerticalStaggeredGrid(
         modifier = modifier
             .fillMaxSize()
-            .background(color = SGColor.primaryB)
-            .paint(
-                painter = painterResource(id = R.drawable.background_home_gallery),
-                contentScale = ContentScale.FillBounds,
-                alpha = 0.8f,
-            ),
+            .background(color = SGColor.BG.background),
         state = lazyStaggeredGridState,
         columns = StaggeredGridCells.Fixed(2),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
@@ -130,7 +123,7 @@ private fun ScrollToTopIcon(
     }
 }
 
-@Preview
+@DevicePreviews
 @Composable
 private fun SGGalleryPreview() {
     SGGallery(

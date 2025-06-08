@@ -20,7 +20,7 @@ constructor(
         targetId: Long,
         targetType: ReportTargetType,
         reportType: ReportType,
-        reason: String?
+        reason: String?,
     ): Result<Boolean> = runSuspendCatching {
         val reportInfoDto = reportRepository.postReport(
             targetId = targetId,

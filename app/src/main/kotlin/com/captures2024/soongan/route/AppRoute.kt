@@ -33,7 +33,7 @@ internal fun AppRoute(viewModel: AppViewModel) {
                     isGuestMode = state.isGuestMode,
                     navController = navController,
                 )
-            }
+            },
         )
 
         DialogHost(viewModel = viewModel)
@@ -43,7 +43,7 @@ internal fun AppRoute(viewModel: AppViewModel) {
 
 @Composable
 private fun AppLandingRoute() {
-
+    // TODO()
 }
 
 @Composable

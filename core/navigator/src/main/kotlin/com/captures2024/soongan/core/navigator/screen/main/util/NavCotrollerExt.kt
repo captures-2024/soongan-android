@@ -30,7 +30,7 @@ fun NavController.navigateToBackWithHideTargetContentId(targetId: Long) {
         prevDestination.hasRoute(screen.navigator::class)
     }
 
-    if(hideTargetScreen == null) {
+    if (hideTargetScreen == null) {
         popBackStack()
 
         return
@@ -38,7 +38,7 @@ fun NavController.navigateToBackWithHideTargetContentId(targetId: Long) {
 
     setHideTargetContentId(targetId)
 
-    when(hideTargetScreen) {
+    when (hideTargetScreen) {
         HideTargetScreen.HOME_GALLERY -> popBackStack<HomeGalleryNavigator>(inclusive = false)
 
         HideTargetScreen.FEED -> popBackStack<FeedNavigator>(inclusive = false)

@@ -1,0 +1,137 @@
+package com.captures2024.soongan.presentation.feature.main.awards.component.info
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
+import androidx.compose.foundation.lazy.staggeredgrid.itemsIndexed
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
+import androidx.compose.ui.unit.sp
+import com.captures2024.soongan.presentation.designsystem.ui.component.text.SGText
+import com.captures2024.soongan.presentation.designsystem.ui.component.text.getSGNonScaleTextStyle
+import com.captures2024.soongan.presentation.designsystem.ui.theme.SGColor
+import com.captures2024.soongan.presentation.designsystem.ui.theme.SGTypography
+import com.captures2024.soongan.presentation.designsystem.ui.util.DevicePreviews
+import com.captures2024.soongan.presentation.feature.main.awards.R
+import com.captures2024.soongan.presentation.viewmodel.main.award.AwardsInfoViewModel
+import com.captures2024.soongan.presentation.viewmodel.main.award.ContestInfo
+import com.captures2024.soongan.presentation.viewmodel.main.award.WinnerPost
+
+@Composable
+internal fun AwardsInfoComponent(
+    state: AwardsInfoViewModel.State,
+    modifier: Modifier = Modifier,
+    onClickBack: () -> Unit,
+    onClickPost: (postId: Long) -> Unit,
+    onClickAllPosts: () -> Unit,
+) {
+    val winnerPost = state.winnerPost
+    val contestInfo = state.contestInfo
+    val topPosts = state.topPosts
+
+    val gridPadding = 8.dp
+    val topPostItemHeightList = remember { List(7) { (150..300).random() } }
+
+    LazyVerticalStaggeredGrid(
+        columns = StaggeredGridCells.Fixed(2),
+        modifier = modifier,
+        horizontalArrangement = Arrangement.spacedBy(gridPadding),
+        verticalItemSpacing = gridPadding,
+        contentPadding = PaddingValues(gridPadding),
+    ) {
+        item(span = StaggeredGridItemSpan.FullLine) {
+            AwardsInfoTopBarComponent(
+                onClickIcon = onClickBack,
+            )
+        }
+
+        item(span = StaggeredGridItemSpan.FullLine) {
+            AwardsInfoWinnerPostComponent(
+                winnerPost = winnerPost,
+                onClickPost = onClickPost,
+            )
+        }
+
+        item(span = StaggeredGridItemSpan.FullLine) {
+            AwardsInfoRoundInfoComponent(
+                contestInfo = contestInfo,
+            )
+        }
+
+        itemsIndexed(
+            items = topPosts,
+            key = { _, topPost -> topPost.postId },
+        ) { index, topPost ->
+            AwardsInfoTopPostComponent(
+                topPost = topPost,
+                modifier = Modifier.height(topPostItemHeightList[index].dp),
+                isWinnerPost = false,
+                onClickPost = onClickPost,
+            )
+        }
+
+        item(span = StaggeredGridItemSpan.FullLine) {
+            TempButton(
+                onClick = onClickAllPosts,
+            )
+        }
+    }
+}
+
+@Composable
+private fun TempButton(
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
+) {
+    Button(
+        onClick = onClick,
+        modifier = modifier
+            .heightIn(min = 48.dp)
+            .padding(horizontal = 36.dp, vertical = 76.dp),
+        shape = RoundedCornerShape(30.dp),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = SGColor.Main.primary,
+        ),
+    ) {
+        SGText(
+            text = stringResource(R.string.awards_info_navigate_to_feed_text),
+            style = getSGNonScaleTextStyle(
+                color = SGColor.Main.secondary,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Normal,
+                lineHeight = 20.sp,
+                fontFamily = SGTypography.pretendard,
+                letterSpacing = (-5).em,
+            ),
+        )
+    }
+}
+
+@DevicePreviews
+@Composable
+private fun AwardsInfoComponent_Preview() {
+    AwardsInfoComponent(
+        state = AwardsInfoViewModel.State(
+            initState = AwardsInfoViewModel.State.InitState.SUCCESS,
+            winnerPost = WinnerPost(),
+            contestInfo = ContestInfo(),
+            topPosts = emptyList(),
+        ),
+        onClickBack = {},
+        onClickPost = {},
+        onClickAllPosts = {},
+    )
+}
