@@ -9,6 +9,8 @@ import com.captures2024.soongan.core.model.AppConst
 import com.captures2024.soongan.core.model.dto.GalleryPostDto
 import com.captures2024.soongan.core.model.enums.CommonDialogType
 import com.captures2024.soongan.domain.usecase.contest.GetFilteredGalleryByReportTargetIdsUseCase
+import com.captures2024.soongan.domain.usecase.contest.GetHidePostEventUseCase
+import com.captures2024.soongan.domain.usecase.contest.GetRegisterPostEventUseCase
 import com.captures2024.soongan.domain.usecase.contest.GetWeeklyContestInfoListUseCase
 import com.captures2024.soongan.domain.usecase.member.GetIsCurrentGuestModeUseCase
 import com.captures2024.soongan.domain.usecase.system.dialog.PostSingleButtonDialogUseCase
@@ -37,6 +39,8 @@ constructor(
     private val postSingleButtonDialogUseCase: PostSingleButtonDialogUseCase,
     private val getWeeklyContestInfoListUseCase: GetWeeklyContestInfoListUseCase,
     private val getFilteredGalleryByReportTargetIdsUseCase: GetFilteredGalleryByReportTargetIdsUseCase,
+    private val getRegisterPostEventUseCase: GetRegisterPostEventUseCase,
+    private val getHidePostEventUseCase: GetHidePostEventUseCase,
 ) : BaseViewModel<FeedViewModel.State, FeedViewModel.Effect, FeedViewModel.Intent>(
     analyticsHelper = analyticsHelper,
     showLoadingUseCase = showLoadingUseCase,
@@ -105,10 +109,6 @@ constructor(
         data class OnClickPost(
             val postId: Long,
         ) : Intent
-
-        data class HidePost(
-            val postId: Long,
-        ) : Intent
     }
 
     init {
@@ -139,31 +139,23 @@ constructor(
     override fun handleIntent(intent: Intent) {
         when (intent) {
             is Intent.Init -> loadingLaunch { handleInit() }
-
             is Intent.RefreshFeed -> launch { handleRefreshFeed() }
-
             is Intent.OnClickTitle -> launch { handleOnClickTitle() }
-
             is Intent.OnTitlePickerDismissRequest -> launch { handleOnTitlePickerDismissRequest() }
-
             is Intent.OnSelectTitleOption -> launch { handleOnSelectTitleOption(intent) }
-
             is Intent.OnClickFilter -> handleOnClickFilter()
-
             is Intent.OnFilterDismissRequest -> handleOnFilterDismissRequest()
-
             is Intent.OnClickFilterItem -> launch { handleOnClickSortFilter(intent) }
-
             is Intent.LoadNextPage -> launch { handleLoadNextPage() }
-
             is Intent.OnClickPost -> handleOnClickPost(intent)
-
-            is Intent.HidePost -> handleOnReportedPost(intent)
         }
     }
 
     private suspend fun handleInit() {
-        syncFeedInfo()
+        launch { collectRegisterPostEvent() }
+        launch { collectHidePostEvent() }
+
+        fetchInitData()
     }
 
     private suspend fun handleRefreshFeed() {
@@ -299,19 +291,25 @@ constructor(
         postSideEffect(Effect.NavigateToHomePost(intent.postId))
     }
 
-    private fun handleOnReportedPost(intent: Intent.HidePost) {
-        val postId = intent.postId
-
-        reduce {
-            copy(
-                feedState = feedState.copy(
-                    posts = feedState.posts.filter { it.postId != postId },
-                ),
-            )
+    private suspend fun collectRegisterPostEvent() {
+        getRegisterPostEventUseCase().collect {
+            handleRefreshFeed()
         }
     }
 
-    private suspend fun syncFeedInfo() {
+    private suspend fun collectHidePostEvent() {
+        getHidePostEventUseCase().collect { postId ->
+            reduce {
+                copy(
+                    feedState = feedState.copy(
+                        posts = feedState.posts.filter { it.postId != postId },
+                    ),
+                )
+            }
+        }
+    }
+
+    private suspend fun fetchInitData() {
         getTitleOptions()
 
         val paginationStatus = getRemoteGalleryPost()
