@@ -12,7 +12,6 @@ import com.captures2024.soongan.presentation.feature.main.home.route.HomeRoute
 import com.captures2024.soongan.presentation.feature.main.home.route.RegistrationPostRoute
 
 fun NavGraphBuilder.mainHome(
-    getHideTargetContentId: () -> Long,
     navigateToBack: () -> Unit,
     navigateToRegistrationPost: () -> Unit,
     navigateToGallery: () -> Unit,
@@ -41,7 +40,6 @@ fun NavGraphBuilder.mainHome(
 
     composable<HomeGalleryNavigator> {
         HomeGalleryRoute(
-            getHideTargetContentId = getHideTargetContentId,
             navigateToBack = navigateToBack,
             navigateToPost = { navigateToPost(it, null) },
             navigateToRegistrationPost = navigateToRegistrationPost,

@@ -8,12 +8,10 @@ import com.captures2024.soongan.presentation.feature.main.feed.route.FeedRoute
 
 fun NavGraphBuilder.mainFeed(
     navigateToPost: (Long, NavOptions?) -> Unit,
-    getHideTargetContentId: () -> Long,
 ) {
     composable<FeedNavigator> {
         FeedRoute(
             navigateToPost = navigateToPost,
-            getHideTargetContentId = getHideTargetContentId,
         )
     }
 }
