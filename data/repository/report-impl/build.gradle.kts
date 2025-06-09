@@ -15,5 +15,6 @@ dependencies {
     implementation(projects.core.model)
 
     implementation(projects.data.source.report)
+    implementation(projects.data.source.contest)
     implementation(projects.data.repository.report)
 }

@@ -6,6 +6,7 @@ import com.captures2024.soongan.core.model.dto.MyGalleryDto
 import com.captures2024.soongan.core.model.dto.PostInfoDto
 import com.captures2024.soongan.core.model.dto.WeeklyContestInfoListDto
 import com.captures2024.soongan.data.repository.contest.WeeklyContestRepository
+import com.captures2024.soongan.data.source.contest.local.ContentVisibilityLocalDataSource
 import com.captures2024.soongan.data.source.contest.remote.WeeklyContestRemoteDataSource
 import com.captures2024.soongan.data.source.member.local.GuestLocalDataSource
 import javax.inject.Inject
@@ -16,6 +17,7 @@ constructor(
     private val analyticsHelper: AnalyticsHelper,
     private val weeklyContestRemoteDataSource: WeeklyContestRemoteDataSource,
     private val guestLocalDataSource: GuestLocalDataSource,
+    private val contentVisibilityLocalDataSource: ContentVisibilityLocalDataSource,
 ) : WeeklyContestRepository {
 
     init {
@@ -47,7 +49,13 @@ constructor(
             imageFile = imageFile,
         )
 
-        return postInfoDto ?: throw NullPointerException("postInfoDto is null")
+        if (postInfoDto == null) {
+            throw NullPointerException("postInfoDto is null")
+        }
+
+        contentVisibilityLocalDataSource.emitRegisterPostEvent()
+
+        return postInfoDto
     }
 
     override suspend fun getPostInfo(postId: Long): PostInfoDto {
@@ -60,8 +68,15 @@ constructor(
         return postInfoDto ?: throw NullPointerException("postInfoDto is null")
     }
 
-    override suspend fun deletePost(postId: Long): Boolean =
-        weeklyContestRemoteDataSource.deletePost(postId = postId)
+    override suspend fun deletePost(postId: Long): Boolean {
+        val result = weeklyContestRemoteDataSource.deletePost(postId = postId)
+
+        if (result) {
+            contentVisibilityLocalDataSource.emitHidePostEvent(postId = postId)
+        }
+
+        return result
+    }
 
     override suspend fun editPostTitle(postId: Long, title: String): String {
         val editedTitle = weeklyContestRemoteDataSource.editPostTitle(
