@@ -1,12 +1,13 @@
 package com.captures2024.soongan.presentation.feature.main.home.component.home
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -18,7 +19,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.presentation.designsystem.ui.component.HeightSpacer
-import com.captures2024.soongan.presentation.designsystem.ui.component.button.SGTextButtonType2
 import com.captures2024.soongan.presentation.designsystem.ui.component.text.SGText
 import com.captures2024.soongan.presentation.designsystem.ui.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.presentation.designsystem.ui.theme.SGColor
@@ -41,11 +41,9 @@ internal fun HomeContestInfoBottomSheet(
         modifier = modifier,
         onDismissRequest = onDismissRequest,
         sheetState = sheetState,
-        containerColor = SGColor.Grayscale.white,
+        containerColor = SGColor.BG.background,
         content = @Composable {
-            HomeContestInfoComponent(
-                onDismissRequest = onDismissRequest,
-            )
+            HomeContestInfoComponent()
         },
     )
 }
@@ -53,7 +51,6 @@ internal fun HomeContestInfoBottomSheet(
 @Composable
 private fun ColumnScope.HomeContestInfoComponent(
     modifier: Modifier = Modifier,
-    onDismissRequest: () -> Unit,
 ) {
     val titleStyle = getSGNonScaleTextStyle(
         color = SGColor.Grayscale.black100,
@@ -79,28 +76,31 @@ private fun ColumnScope.HomeContestInfoComponent(
             .wrapContentHeight(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        SGText(
-            text = stringResource(R.string.contest_info_bs_title),
-            style = getSGNonScaleTextStyle(
-                color = SGColor.Grayscale.black100,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold,
-                lineHeight = 20.sp,
-                fontFamily = SGTypography.pretendard,
-                letterSpacing = (-5).em,
-            ),
-        )
-
-        HeightSpacer(12.dp)
-
-        HorizontalDivider(color = SGColor.primaryA.copy(alpha = 0.3f))
+        Box(
+            modifier = Modifier.fillMaxWidth()
+                .wrapContentHeight()
+                .padding(vertical = 8.dp),
+            contentAlignment = Alignment.Center,
+        ) {
+            SGText(
+                text = stringResource(R.string.contest_info_bs_title),
+                style = getSGNonScaleTextStyle(
+                    color = SGColor.Grayscale.black100,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    lineHeight = 20.sp,
+                    fontFamily = SGTypography.pretendard,
+                    letterSpacing = (-5).em,
+                ),
+            )
+        }
 
         Column(
             modifier = Modifier.fillMaxWidth()
                 .wrapContentHeight()
                 .padding(
                     top = 40.dp,
-                    bottom = 28.dp,
+                    bottom = 120.dp,
                 )
                 .padding(horizontal = 20.dp),
         ) {
@@ -199,14 +199,6 @@ private fun ColumnScope.HomeContestInfoComponent(
                     modifier = Modifier.padding(start = 16.dp),
                 )
             }
-
-            HeightSpacer(44.dp)
-
-            SGTextButtonType2(
-                text = stringResource(R.string.contest_info_bs_button_content),
-                modifier = Modifier.fillMaxWidth(),
-                onClick = onDismissRequest,
-            )
         }
     }
 }
@@ -227,9 +219,7 @@ private fun PreviewHomeContestInfoBottomSheet() {
 private fun PreviewHomeContestInfoComponent() {
     SGTheme {
         Column {
-            HomeContestInfoComponent(
-                onDismissRequest = {},
-            )
+            HomeContestInfoComponent()
         }
     }
 }

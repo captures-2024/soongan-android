@@ -39,6 +39,7 @@ internal fun DialogHost(viewModel: AppViewModel) {
                 CommonDialogType.TOKEN_EXPIRED -> "토큰이 만료되었습니다. 다시 로그인해주세요."
                 CommonDialogType.SUCCESS_SIGN -> "로그인이 완료되었습니다."
                 CommonDialogType.NETWORK_ERROR -> "네트워크 오류가 발생하였습니다."
+                CommonDialogType.OTHER_SOCIAL -> "다른 소셜로 가입된 계정입니다."
             },
             confirmContent = "확인",
             onClickConfirm = { isShowDialog = false },

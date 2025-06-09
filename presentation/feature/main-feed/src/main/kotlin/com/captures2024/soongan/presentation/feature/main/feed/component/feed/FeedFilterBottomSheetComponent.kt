@@ -55,13 +55,11 @@ internal fun FeedFilterBottomSheetComponent(
         containerColor = Color.White,
     ) {
         Column(
-            modifier = Modifier.padding(
-                horizontal = 20.dp,
-                vertical = 20.dp,
-            ),
+            modifier = Modifier.padding(horizontal = 20.dp)
+                .padding(bottom = 20.dp),
         ) {
             PostOrderType.entries.forEachIndexed { idx, postOrderType ->
-                if (idx != 0) HorizontalDivider(color = SGColor.primaryA.copy(alpha = 0.3f))
+                if (idx != 0) HorizontalDivider(color = SGColor.Grayscale.black100.copy(alpha = 0.3f))
 
                 FeedGalleryFilterItem(
                     text = stringResource(id = postOrderType.getStringResId()),
@@ -85,7 +83,7 @@ private fun FeedGalleryFilterItem(
     Box(
         modifier = modifier
             .clip(RoundedCornerShape(8.dp))
-            .clickable { onClickItem() },
+            .clickable(onClick = onClickItem),
     ) {
         Row(
             modifier = Modifier
@@ -99,14 +97,14 @@ private fun FeedGalleryFilterItem(
                 text = text,
                 style = getSGNonScaleTextStyle(
                     color = when (selected) {
-                        true -> SGColor.primaryA
+                        true -> SGColor.Grayscale.black100
 
-                        false -> SGColor.primaryA.copy(alpha = 0.3f)
+                        false -> SGColor.Grayscale.black100.copy(alpha = 0.3f)
                     },
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
                     lineHeight = 24.sp,
-                    fontFamily = SGTypography.nanumSquareNeo,
+                    fontFamily = SGTypography.pretendard,
                 ),
             )
 
@@ -115,9 +113,9 @@ private fun FeedGalleryFilterItem(
                 imageVector = icon,
                 contentDescription = text,
                 tint = when (selected) {
-                    true -> SGColor.primaryA
+                    true -> SGColor.Grayscale.black100
 
-                    false -> SGColor.primaryA.copy(alpha = 0.3f)
+                    false -> SGColor.Grayscale.black100.copy(alpha = 0.3f)
                 },
             )
         }

@@ -5,12 +5,16 @@ import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.common.base.UIIntent
 import com.captures2024.soongan.core.common.base.UISideEffect
 import com.captures2024.soongan.core.common.base.UIState
+import com.captures2024.soongan.core.model.dto.UserInfoDto
+import com.captures2024.soongan.core.model.enums.CommonDialogType
+import com.captures2024.soongan.core.model.exception.NetworkExceptionWrapper
 import com.captures2024.soongan.domain.usecase.auth.SigningGoogleUseCase
 import com.captures2024.soongan.domain.usecase.auth.SigningKakaoUseCase
 import com.captures2024.soongan.domain.usecase.fcm.GetFcmUseCase
 import com.captures2024.soongan.domain.usecase.member.GetIsCurrentGuestModeUseCase
 import com.captures2024.soongan.domain.usecase.member.GetMemberInfoUseCase
 import com.captures2024.soongan.domain.usecase.member.SetGuestModeUseCase
+import com.captures2024.soongan.domain.usecase.system.dialog.PostSingleButtonDialogUseCase
 import com.captures2024.soongan.domain.usecase.system.dialog.SetIsShowGuestModeDialogFlowUseCase
 import com.captures2024.soongan.domain.usecase.system.inapp.LaunchPrivacyPolicyUseCase
 import com.captures2024.soongan.domain.usecase.system.inapp.LaunchTermsUseCase
@@ -39,6 +43,7 @@ constructor(
     private val signingKakaoUseCase: SigningKakaoUseCase,
     private val signingGoogleUseCase: SigningGoogleUseCase,
     private val getMemberInfoUseCase: GetMemberInfoUseCase,
+    private val postSingleButtonDialogUseCase: PostSingleButtonDialogUseCase,
 ) : BaseViewModel<SignInViewModel.State, SignInViewModel.Effect, SignInViewModel.Intent>(
     analyticsHelper = analyticsHelper,
     showLoadingUseCase = showLoadingUseCase,
@@ -132,26 +137,20 @@ constructor(
         val result = signingKakaoUseCase(
             token = token,
             fcmToken = fcmToken,
-        ).getOrNull()
+        ).getOrElse(this::failedSignInCase)
 
-        when (result) {
-            true -> {
-                val infoDto = getMemberInfoUseCase().getOrNull()
+        if (result) {
+            val infoDto = getMemberInfoUseCase().getOrNull()
 
-                if (infoDto == null) {
-                    analyticsHelper.d { "kakaoSignIn - infoDto is null" }
+            if (infoDto == null) {
+                analyticsHelper.d { "kakaoSignIn - infoDto is null" }
 
-                    return
-                }
-
-                when {
-                    infoDto.nickname == null || infoDto.birthYear == null -> postSideEffect(Effect.NavigateToSignUp)
-                    else -> Unit
-                }
+                return
             }
 
-            else -> {
-                analyticsHelper.d { "kakaoSignIn - result: $result" }
+            when {
+                infoDto.nickname == null || infoDto.birthYear == null -> postSideEffect(Effect.NavigateToSignUp)
+                else -> Unit
             }
         }
     }
@@ -167,26 +166,38 @@ constructor(
         val result = signingGoogleUseCase(
             token = token,
             fcmToken = fcmToken,
-        ).getOrNull()
+        ).getOrElse(this::failedSignInCase)
 
-        when (result) {
-            true -> {
-                val infoDto = getMemberInfoUseCase().getOrNull()
+        if (result) {
+            val infoDto = getMemberInfoUseCase().getOrNull()
 
-                if (infoDto == null) {
-                    analyticsHelper.d { "googleSign - infoDto is null" }
-                    return
-                }
-
-                when {
-                    infoDto.nickname == null || infoDto.birthYear == null -> postSideEffect(Effect.NavigateToSignUp)
-                    else -> Unit
-                }
+            if (infoDto == null) {
+                analyticsHelper.d { "googleSign - infoDto is null" }
+                return
             }
 
-            else -> {
-                analyticsHelper.d { "googleSign - result: $result" }
+            when {
+                infoDto.nickname == null || infoDto.birthYear == null -> postSideEffect(Effect.NavigateToSignUp)
+                else -> Unit
             }
         }
+    }
+
+    private fun failedSignInCase(exception: Throwable): Boolean {
+        analyticsHelper.d { "failedSignInCase - exception: $exception" }
+
+        if (exception is NetworkExceptionWrapper) {
+            launch {
+                postSingleButtonDialogUseCase(
+                    when (exception.statusCode) {
+                        705 -> CommonDialogType.OTHER_SOCIAL
+
+                        else -> CommonDialogType.NETWORK_ERROR
+                    }
+                )
+            }
+        }
+
+        return false
     }
 }

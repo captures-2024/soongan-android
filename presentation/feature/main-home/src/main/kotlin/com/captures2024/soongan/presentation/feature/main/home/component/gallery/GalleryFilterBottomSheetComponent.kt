@@ -3,6 +3,7 @@ package com.captures2024.soongan.presentation.feature.main.home.component.galler
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
@@ -48,22 +49,24 @@ internal fun GalleryFilterBottomSheetComponent(
         sheetState = sheetState,
         containerColor = SGColor.Grayscale.white,
     ) {
-        PostOrderType.entries.forEachIndexed { idx, postOrderType ->
-            if (idx != 0) {
-                HorizontalDivider(
-                    color = SGColor.Grayscale.black100
-                        .copy(
-                            alpha = 0.3f,
-                        ),
+        Column(
+            modifier = Modifier.padding(horizontal = 20.dp)
+                .padding(bottom = 20.dp),
+        ) {
+            PostOrderType.entries.forEachIndexed { idx, postOrderType ->
+                if (idx != 0) {
+                    HorizontalDivider(
+                        color = SGColor.Grayscale.black100.copy(alpha = 0.3f),
+                    )
+                }
+
+                GalleryFilterItem(
+                    text = stringResource(id = postOrderType.getStringResId()),
+                    icon = postOrderType.getIcon(),
+                    selected = selectedPostOrderType == postOrderType,
+                    onClickItem = { onClickItem(postOrderType) },
                 )
             }
-
-            GalleryFilterItem(
-                text = stringResource(id = postOrderType.getStringResId()),
-                icon = postOrderType.getIcon(),
-                selected = selectedPostOrderType == postOrderType,
-                onClickItem = { onClickItem(postOrderType) },
-            )
         }
     }
 }
