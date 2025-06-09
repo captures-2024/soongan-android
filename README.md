@@ -12,7 +12,8 @@ soongan(순간) - 당신의 눈으로 만든 우리의 순간
 ### Required
 - IDE : Android Studio Koala
 - JDK : Java 17을 실행할 수 있는 JDK
-- Kotlin Language : 1.9.20
+- Kotlin Language : 2.1.21
+- version: gradle/libs.versions.toml
 
 ### Language
 - Kotlin
@@ -26,19 +27,13 @@ soongan(순간) - 당신의 눈으로 만든 우리의 순간
     - DataStore 
     - StartUp 
     - Splash
-
 - Kotlin Libraries (Coroutine, Serialization, DateTime)
-
 - Compose 
     - Material3 
     - Navigation
-
 - Dagger Hilt
-
 - Retrofit
-
-- Timber
-
+- napier
 - coil(compose)
 
 ## Package Structure
@@ -48,27 +43,95 @@ soongan(순간) - 당신의 눈으로 만든 우리의 순간
 ├── build-logic
 ├── core
 │   ├── analytics
+│   ├── analytics-android
 │   ├── auth
 │   ├── common
-│   ├── data
-│   ├── datastore
-│   ├── designsystem
-│   ├── domain
 │   ├── model
-│   ├── navigator
-│   └── network
-├── feature
-│   ├── awards
-│   ├── feed
-│   ├── intro
-│   ├── main
-│   ├── privacyPolicy 
-│   ├── profile
-│   ├── sign
-│   ├── signIn
-│   ├── signUp
-│   ├── termsOfUse
-│   └── welcome
+│   └── navigator
+├── data
+│   ├── dataSource
+│   ├── network
+│   ├── repository
+│   │    ├── auth
+│   │    ├── auth
+│   │    ├── auth
+│   │    ├── auth-impl
+│   │    ├── contest
+│   │    ├── contest-impl
+│   │    ├── fcm
+│   │    ├── fcm-impl
+│   │    ├── home
+│   │    ├── home-impl
+│   │    ├── member
+│   │    ├── member-impl
+│   │    ├── notification
+│   │    ├── notification-impl
+│   │    ├── report
+│   │    ├── report-impl
+│   │    ├── system
+│   │    ├── system-impl
+│   │    ├── token
+│   │    └── token-impl
+│   └── source
+│        ├── auth
+│        ├── auth-impl
+│        ├── contest
+│        ├── contest-impl
+│        ├── fcm
+│        ├── fcm-impl
+│        ├── home
+│        ├── home-impl
+│        ├── member
+│        ├── member-impl
+│        ├── notification
+│        ├── notification-i
+│        ├── report
+│        ├── report-impl
+│        ├── system
+│        ├── system-impl
+│        ├── token
+│        ├── token-impl
+│        └── utils
+├── domain
+│   └── usecase
+│        ├── auth
+│        ├── auth-impl
+│        ├── contest
+│        ├── contest-impl
+│        ├── fcm
+│        ├── fcm-impl
+│        ├── home
+│        ├── home-impl
+│        ├── member
+│        ├── member-impl
+│        ├── notification
+│        ├── notification-impl
+│        ├── report
+│        ├── report-impl
+│        ├── system
+│        ├── system-impl
+│        ├── token
+│        ├── token-impl
+│        └── utils
+├── presentation
+│   ├── designSystem
+│   │    ├── icon
+│   │    └── ui
+│   ├── feature
+│   │    ├── main
+│   │    ├── main-awards
+│   │    ├── main-feed
+│   │    ├── main-home
+│   │    ├── main-post
+│   │    ├── main-profile
+│   │    ├── sign
+│   │    ├── sign-in
+│   │    └── sign-up
+│   └── viewmodel
 └── gradle
     └── libs.versions.toml
 ```
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/captures-2024/soongan-android/refs/heads/develop/project.dot.png"/>
+</p>
