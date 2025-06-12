@@ -1,7 +1,9 @@
 package com.captures2024.soongan.data.source.contest.impl.di
 
+import com.captures2024.soongan.data.source.contest.impl.local.ContentVisibilityLocalDataSourceImpl
 import com.captures2024.soongan.data.source.contest.impl.remote.PostLikeRemoteDataSourceImpl
 import com.captures2024.soongan.data.source.contest.impl.remote.WeeklyContestRemoteDataSourceImpl
+import com.captures2024.soongan.data.source.contest.local.ContentVisibilityLocalDataSource
 import com.captures2024.soongan.data.source.contest.remote.PostLikeRemoteDataSource
 import com.captures2024.soongan.data.source.contest.remote.WeeklyContestRemoteDataSource
 import dagger.Binds
@@ -21,4 +23,8 @@ internal abstract class ContestSourceModule {
     @Binds
     @Singleton
     abstract fun bindWeeklyContestRemoteDataSource(weeklyContestRemoteDataSourceImpl: WeeklyContestRemoteDataSourceImpl): WeeklyContestRemoteDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindContentVisibilityLocalDataSource(contentVisibilityLocalDataSourceImpl: ContentVisibilityLocalDataSourceImpl): ContentVisibilityLocalDataSource
 }

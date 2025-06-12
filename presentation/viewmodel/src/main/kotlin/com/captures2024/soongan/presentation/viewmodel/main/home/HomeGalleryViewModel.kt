@@ -9,6 +9,7 @@ import com.captures2024.soongan.core.model.AppConst
 import com.captures2024.soongan.core.model.dto.GalleryPostDto
 import com.captures2024.soongan.core.model.enums.CommonDialogType
 import com.captures2024.soongan.domain.usecase.contest.GetFilteredGalleryByReportTargetIdsUseCase
+import com.captures2024.soongan.domain.usecase.contest.GetHidePostEventUseCase
 import com.captures2024.soongan.domain.usecase.contest.GetWeeklyContestInfoListUseCase
 import com.captures2024.soongan.domain.usecase.member.GetIsCurrentGuestModeUseCase
 import com.captures2024.soongan.domain.usecase.system.dialog.PostSingleButtonDialogUseCase
@@ -36,6 +37,7 @@ constructor(
     private val postSingleButtonDialogUseCase: PostSingleButtonDialogUseCase,
     private val getFilteredGalleryByReportTargetIdsUseCase: GetFilteredGalleryByReportTargetIdsUseCase,
     private val getWeeklyContestInfoListUseCase: GetWeeklyContestInfoListUseCase,
+    private val getHidePostEventUseCase: GetHidePostEventUseCase,
 ) : BaseViewModel<HomeGalleryViewModel.State, HomeGalleryViewModel.Effect, HomeGalleryViewModel.Intent>(
     analyticsHelper = analyticsHelper,
     showLoadingUseCase = showLoadingUseCase,
@@ -96,10 +98,6 @@ constructor(
         data class OnClickFilterItem(
             val selectedOrderType: PostOrderType,
         ) : Intent
-
-        data class HidePost(
-            val postId: Long,
-        ) : Intent
     }
 
     init {
@@ -134,38 +132,13 @@ constructor(
             is Intent.OnClickPost -> handleOnClickPost(intent)
             is Intent.OnDismissRequestFilterBottomSheet -> handleOnDismissRequestFilterBottomSheet()
             is Intent.OnClickFilterItem -> loadingLaunch { handleOnClickFilterItem(intent) }
-            is Intent.HidePost -> handleHidePost(intent)
         }
     }
 
     private suspend fun handleInit() {
-        val weeklyInfo = getWeeklyContestInfoListUseCase
-            .invoke()
-            .getOrNull()
-            ?.weeklyContestInfoList
-            ?.lastOrNull()
+        launch { collectHidePostEvent() }
 
-        if (weeklyInfo == null) {
-            postSingleButtonDialogUseCase(CommonDialogType.NETWORK_ERROR)
-        }
-
-        reduce {
-            copy(
-                round = weeklyInfo?.round,
-                subject = weeklyInfo?.subject ?: AppConst.EMPTY_STRING,
-            )
-        }
-
-        val status = getRemotePost(
-            page = 0,
-            isRefreshing = true,
-        )
-
-        reduce {
-            copy(
-                paginationStatus = status,
-            )
-        }
+        fetchInitData()
     }
 
     private fun handleOnClickBack() {
@@ -247,11 +220,42 @@ constructor(
         }
     }
 
-    private fun handleHidePost(intent: Intent.HidePost) {
+    private suspend fun collectHidePostEvent() {
+        getHidePostEventUseCase().collect { postId ->
+            reduce {
+                copy(
+                    posts = posts.filter { it.postId != postId },
+                )
+            }
+        }
+    }
+
+    private suspend fun fetchInitData() {
+        val weeklyInfo = getWeeklyContestInfoListUseCase
+            .invoke()
+            .getOrNull()
+            ?.weeklyContestInfoList
+            ?.lastOrNull()
+
+        if (weeklyInfo == null) {
+            postSingleButtonDialogUseCase(CommonDialogType.NETWORK_ERROR)
+        }
+
         reduce {
             copy(
-                posts = currentState.posts
-                    .filter { it.postId != intent.postId },
+                round = weeklyInfo?.round,
+                subject = weeklyInfo?.subject ?: AppConst.EMPTY_STRING,
+            )
+        }
+
+        val status = getRemotePost(
+            page = 0,
+            isRefreshing = true,
+        )
+
+        reduce {
+            copy(
+                paginationStatus = status,
             )
         }
     }

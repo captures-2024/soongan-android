@@ -13,7 +13,6 @@ internal fun PostInfoRoute(
     navigateToBack: () -> Unit,
     navigateToEditPost: (Long, String, String) -> Unit,
     navigateToImageViewer: (String) -> Unit,
-    navigateToBackWithHideTargetContentId: (Long) -> Unit,
     viewModel: PostInfoViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsState()
@@ -24,7 +23,6 @@ internal fun PostInfoRoute(
                 is PostInfoViewModel.Effect.NavigateToBack -> navigateToBack()
                 is PostInfoViewModel.Effect.NavigateToEditPost -> navigateToEditPost(effect.postId, effect.url, effect.title)
                 is PostInfoViewModel.Effect.NavigateToImageViewer -> navigateToImageViewer(effect.url)
-                is PostInfoViewModel.Effect.NavigateToBackWithHidePost -> navigateToBackWithHideTargetContentId(effect.postId)
             }
         }
     }

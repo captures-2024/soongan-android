@@ -80,10 +80,6 @@ constructor(
         data class NavigateToImageViewer(
             val url: String,
         ) : Effect
-
-        data class NavigateToBackWithHidePost(
-            val postId: Long,
-        ) : Effect
     }
 
     sealed interface Intent : UIIntent {
@@ -130,7 +126,7 @@ constructor(
 
     override fun handleIntent(intent: Intent) {
         when (intent) {
-            is Intent.Init -> handleInit()
+            is Intent.Init -> loadingLaunch { handleInit() }
             is Intent.OnClickBack -> handleOnClickBack()
             is Intent.OnClickMenu -> blockGuestModeLogic { handleOnClickMenu() }
             is Intent.OnClickHeart -> blockGuestModeLogic {
@@ -150,30 +146,10 @@ constructor(
         analyticsHelper.e(throwable = throwable) { "state: $currentState" }
     }
 
-    private fun handleInit() {
+    private suspend fun handleInit() {
         launch { collectMemberInfo() }
 
-        loadingLaunch {
-            val weeklyInfo = getWeeklyContestInfoListUseCase
-                .invoke()
-                .getOrNull()
-                ?.weeklyContestInfoList
-                ?.lastOrNull()
-
-            if (weeklyInfo == null) {
-                postSingleButtonDialogUseCase(CommonDialogType.NETWORK_ERROR)
-                return@loadingLaunch
-            }
-
-            reduce {
-                copy(
-                    round = weeklyInfo.round,
-                    subject = weeklyInfo.subject,
-                )
-            }
-
-            loadingLaunch { getRemotePostInfo() }
-        }
+        fetchInitData()
     }
 
     private fun handleOnClickBack() {
@@ -238,7 +214,7 @@ constructor(
             return
         }
 
-        postSideEffect(Effect.NavigateToBackWithHidePost(postId))
+        postSideEffect(Effect.NavigateToBack)
     }
 
     private fun handleOnClickEditPost() {
@@ -262,7 +238,7 @@ constructor(
     }
 
     private fun handleOnDoneReport() {
-        postSideEffect(Effect.NavigateToBackWithHidePost(currentState.postId))
+        postSideEffect(Effect.NavigateToBack)
     }
 
     private suspend fun collectMemberInfo() {
@@ -273,6 +249,28 @@ constructor(
                 )
             }
         }
+    }
+
+    private suspend fun fetchInitData() {
+        val weeklyInfo = getWeeklyContestInfoListUseCase
+            .invoke()
+            .getOrNull()
+            ?.weeklyContestInfoList
+            ?.lastOrNull()
+
+        if (weeklyInfo == null) {
+            postSingleButtonDialogUseCase(CommonDialogType.NETWORK_ERROR)
+            return
+        }
+
+        reduce {
+            copy(
+                round = weeklyInfo.round,
+                subject = weeklyInfo.subject,
+            )
+        }
+
+        loadingLaunch { getRemotePostInfo() }
     }
 
     private suspend fun getRemotePostInfo() {

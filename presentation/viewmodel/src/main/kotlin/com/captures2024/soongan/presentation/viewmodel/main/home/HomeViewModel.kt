@@ -9,6 +9,8 @@ import com.captures2024.soongan.core.model.AppConst
 import com.captures2024.soongan.core.model.dto.HomeContestInfoDto
 import com.captures2024.soongan.core.model.dto.PostInfoDto
 import com.captures2024.soongan.core.model.enums.CommonDialogType
+import com.captures2024.soongan.domain.usecase.contest.GetHidePostEventUseCase
+import com.captures2024.soongan.domain.usecase.contest.GetRegisterPostEventUseCase
 import com.captures2024.soongan.domain.usecase.home.GetHomeUseCase
 import com.captures2024.soongan.domain.usecase.member.GetIsCurrentGuestModeUseCase
 import com.captures2024.soongan.domain.usecase.system.dialog.PostSingleButtonDialogUseCase
@@ -33,6 +35,8 @@ constructor(
     savedStateHandle: SavedStateHandle,
     private val getHomeUseCase: GetHomeUseCase,
     private val postSingleButtonDialogUseCase: PostSingleButtonDialogUseCase,
+    private val getRegisterPostEventUseCase: GetRegisterPostEventUseCase,
+    private val getHidePostEventUseCase: GetHidePostEventUseCase,
 ) : BaseViewModel<HomeViewModel.State, HomeViewModel.Effect, HomeViewModel.Intent>(
     analyticsHelper = analyticsHelper,
     showLoadingUseCase = showLoadingUseCase,
@@ -72,8 +76,6 @@ constructor(
     sealed interface Intent : UIIntent {
         data object Init : Intent
 
-        data object ViewOnResume : Intent
-
         data object OnClickContestInfo : Intent
 
         data object OnClickPostList : Intent
@@ -109,7 +111,6 @@ constructor(
     override fun handleIntent(intent: Intent) {
         when (intent) {
             is Intent.Init -> loadingLaunch { handleInit() }
-            is Intent.ViewOnResume -> launch { handleViewOnResume() }
             is Intent.OnClickContestInfo -> handleOnClickContestInfo()
             is Intent.OnClickPostList -> handleOnClickPostList()
             is Intent.OnClickRegister -> blockGuestModeLogic { handleOnClickRegister() }
@@ -124,24 +125,10 @@ constructor(
     }
 
     private suspend fun handleInit() {
-        syncHomeInfo()
-    }
+        launch { collectRegisterPostEvent() }
+        launch { collectHidePostEvent() }
 
-    private suspend fun handleViewOnResume() {
-        val state = currentState
-
-        when (state.initState) {
-            State.InitState.INIT,
-            State.InitState.LOADING,
-            -> {
-                analyticsHelper.d { "handleViewOnResume - state.isInit: ${state.initState}" }
-                return
-            }
-
-            else -> Unit
-        }
-
-        syncHomeInfo()
+        fetchInitData()
     }
 
     private fun handleOnClickContestInfo() {
@@ -161,14 +148,30 @@ constructor(
     }
 
     private suspend fun handleOnClickRetry() {
-        syncHomeInfo()
+        fetchInitData()
     }
 
     private fun handleDismissContestInfoBottomSheet() {
         dismissContestInfoBottomSheet()
     }
 
-    private suspend fun syncHomeInfo() {
+    private suspend fun collectRegisterPostEvent() {
+        getRegisterPostEventUseCase().collect {
+            fetchInitData()
+        }
+    }
+
+    private suspend fun collectHidePostEvent() {
+        getHidePostEventUseCase().collect { postId ->
+            reduce {
+                copy(
+                    postInfoList = postInfoList.filter { it.postId != postId },
+                )
+            }
+        }
+    }
+
+    private suspend fun fetchInitData() {
         reduce {
             copy(
                 initState = State.InitState.LOADING,

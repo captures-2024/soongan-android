@@ -5,6 +5,7 @@ import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.common.base.UIIntent
 import com.captures2024.soongan.core.common.base.UISideEffect
 import com.captures2024.soongan.core.common.base.UIState
+import com.captures2024.soongan.domain.usecase.contest.GetHidePostEventUseCase
 import com.captures2024.soongan.domain.usecase.contest.GetWeeklyContestInfoListUseCase
 import com.captures2024.soongan.domain.usecase.member.GetIsCurrentGuestModeUseCase
 import com.captures2024.soongan.domain.usecase.system.dialog.SetIsShowGuestModeDialogFlowUseCase
@@ -50,6 +51,7 @@ constructor(
     setIsShowGuestModeDialogFlowUseCase: SetIsShowGuestModeDialogFlowUseCase,
     savedStateHandle: SavedStateHandle,
     private val getWeeklyContestInfoListUseCase: GetWeeklyContestInfoListUseCase,
+    private val getHidePostEventUseCase: GetHidePostEventUseCase,
 ) : BaseViewModel<AwardsInfoViewModel.State, AwardsInfoViewModel.Effect, AwardsInfoViewModel.Intent>(
     analyticsHelper = analyticsHelper,
     showLoadingUseCase = showLoadingUseCase,
@@ -133,6 +135,8 @@ constructor(
     }
 
     private suspend fun handleInit() {
+        launch { collectHidePostEvent() }
+
         val weeklyContestInfoListDto = getWeeklyContestInfoListUseCase().getOrNull()
 
         if (weeklyContestInfoListDto == null) {
@@ -179,5 +183,11 @@ constructor(
 
     private suspend fun handleOnClickRetry() {
         handleInit()
+    }
+
+    private suspend fun collectHidePostEvent() {
+        getHidePostEventUseCase().collect { postId ->
+            // TODO(hidden post 처리 - display text or blur)
+        }
     }
 }

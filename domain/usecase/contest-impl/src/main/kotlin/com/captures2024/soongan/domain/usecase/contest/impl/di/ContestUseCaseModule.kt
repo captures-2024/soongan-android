@@ -4,8 +4,11 @@ import com.captures2024.soongan.domain.usecase.contest.DeletePostLikeUseCase
 import com.captures2024.soongan.domain.usecase.contest.DeletePostUseCase
 import com.captures2024.soongan.domain.usecase.contest.EditPostTitleUseCase
 import com.captures2024.soongan.domain.usecase.contest.GetFilteredGalleryByReportTargetIdsUseCase
+import com.captures2024.soongan.domain.usecase.contest.GetHideCommentEventUseCase
+import com.captures2024.soongan.domain.usecase.contest.GetHidePostEventUseCase
 import com.captures2024.soongan.domain.usecase.contest.GetMyGalleryUseCase
 import com.captures2024.soongan.domain.usecase.contest.GetPostInfoUseCase
+import com.captures2024.soongan.domain.usecase.contest.GetRegisterPostEventUseCase
 import com.captures2024.soongan.domain.usecase.contest.GetWeeklyContestInfoListUseCase
 import com.captures2024.soongan.domain.usecase.contest.PutPostLikeUseCase
 import com.captures2024.soongan.domain.usecase.contest.RegisterPostUseCase
@@ -13,8 +16,11 @@ import com.captures2024.soongan.domain.usecase.contest.impl.DeletePostLikeUseCas
 import com.captures2024.soongan.domain.usecase.contest.impl.DeletePostUseCaseImpl
 import com.captures2024.soongan.domain.usecase.contest.impl.EditPostTitleUseCaseImpl
 import com.captures2024.soongan.domain.usecase.contest.impl.GetFilteredGalleryByReportTargetIdsUseCaseImpl
+import com.captures2024.soongan.domain.usecase.contest.impl.GetHideCommentEventUseCaseImpl
+import com.captures2024.soongan.domain.usecase.contest.impl.GetHidePostEventUseCaseImpl
 import com.captures2024.soongan.domain.usecase.contest.impl.GetMyGalleryUseCaseImpl
 import com.captures2024.soongan.domain.usecase.contest.impl.GetPostInfoUseCaseImpl
+import com.captures2024.soongan.domain.usecase.contest.impl.GetRegisterRegisterPostEventUseCaseImpl
 import com.captures2024.soongan.domain.usecase.contest.impl.GetWeeklyContestInfoListUseCaseImpl
 import com.captures2024.soongan.domain.usecase.contest.impl.PutPostLikeUseCaseImpl
 import com.captures2024.soongan.domain.usecase.contest.impl.RegisterPostUseCaseImpl
@@ -53,4 +59,13 @@ internal abstract class ContestUseCaseModule {
 
     @Binds
     abstract fun bindRegisterPostUseCase(registerPostUseCaseImpl: RegisterPostUseCaseImpl): RegisterPostUseCase
+
+    @Binds
+    abstract fun bindGetRegisterPostEventUseCase(getRegisterPostEventUseCaseImpl: GetRegisterRegisterPostEventUseCaseImpl): GetRegisterPostEventUseCase
+
+    @Binds
+    abstract fun bindGetHidePostEventUseCase(getHidePostEventUseCaseImpl: GetHidePostEventUseCaseImpl): GetHidePostEventUseCase
+
+    @Binds
+    abstract fun bindGetHideCommentEventUseCase(getHideCommentEventUseCaseImpl: GetHideCommentEventUseCaseImpl): GetHideCommentEventUseCase
 }

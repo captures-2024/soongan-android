@@ -6,7 +6,9 @@ import com.captures2024.soongan.core.common.base.UIIntent
 import com.captures2024.soongan.core.common.base.UISideEffect
 import com.captures2024.soongan.core.common.base.UIState
 import com.captures2024.soongan.core.model.dto.GalleryPostDto
+import com.captures2024.soongan.domain.usecase.contest.GetHidePostEventUseCase
 import com.captures2024.soongan.domain.usecase.contest.GetMyGalleryUseCase
+import com.captures2024.soongan.domain.usecase.contest.GetRegisterPostEventUseCase
 import com.captures2024.soongan.domain.usecase.member.GetCurrentMemberFlowUseCase
 import com.captures2024.soongan.domain.usecase.member.GetIsCurrentGuestModeUseCase
 import com.captures2024.soongan.domain.usecase.system.dialog.SetIsShowGuestModeDialogFlowUseCase
@@ -34,6 +36,8 @@ constructor(
     private val getCurrentMemberFlowUseCase: GetCurrentMemberFlowUseCase,
     private val launchTermsUseCase: LaunchTermsUseCase,
     private val getMyGalleryUseCase: GetMyGalleryUseCase,
+    private val getRegisterPostEventUseCase: GetRegisterPostEventUseCase,
+    private val getHidePostEventUseCase: GetHidePostEventUseCase,
 ) : BaseViewModel<ProfileViewModel.State, ProfileViewModel.Effect, ProfileViewModel.Intent>(
     analyticsHelper = analyticsHelper,
     showLoadingUseCase = showLoadingUseCase,
@@ -145,19 +149,10 @@ constructor(
 
     private suspend fun handleInit() {
         launch { collectUserProfile() }
+        launch { collectRegisterPostEvent() }
+        launch { collectHidePostEvent() }
 
-        val status = getRemotePost(
-            page = 0,
-            isRefreshing = true,
-        )
-
-        reduce {
-            copy(
-                myGalleryState = myGalleryState.copy(
-                    paginationStatus = status,
-                ),
-            )
-        }
+        fetchInitData()
     }
 
     private fun handleOnClickMenu() {
@@ -245,6 +240,39 @@ constructor(
                     )
                 }
             }
+        }
+    }
+
+    private suspend fun collectRegisterPostEvent() {
+        getRegisterPostEventUseCase().collect {
+            fetchInitData()
+        }
+    }
+
+    private suspend fun collectHidePostEvent() {
+        getHidePostEventUseCase().collect { postId ->
+            reduce {
+                copy(
+                    myGalleryState = myGalleryState.copy(
+                        posts = myGalleryState.posts.filter { it.postId != postId },
+                    ),
+                )
+            }
+        }
+    }
+
+    private suspend fun fetchInitData() {
+        val status = getRemotePost(
+            page = 0,
+            isRefreshing = true,
+        )
+
+        reduce {
+            copy(
+                myGalleryState = myGalleryState.copy(
+                    paginationStatus = status,
+                ),
+            )
         }
     }
 

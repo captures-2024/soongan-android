@@ -127,20 +127,7 @@ constructor(
     }
 
     private suspend fun handleInit() {
-        val rounds = getWeeklyContestInfoListUseCase
-            .invoke()
-            .getOrNull()
-
-        if (rounds == null || rounds.weeklyContestInfoList.isEmpty()) {
-            postSideEffect(Effect.NavigateToBack)
-            return
-        }
-
-        reduce {
-            copy(
-                currentContestInfo = rounds.weeklyContestInfoList.last(),
-            )
-        }
+        fetchInitData()
     }
 
     private fun handleOpenMediaPicker() {
@@ -213,6 +200,23 @@ constructor(
         dismissSubmitBottomSheet()
 
         submitRemote()
+    }
+
+    private suspend fun fetchInitData() {
+        val rounds = getWeeklyContestInfoListUseCase
+            .invoke()
+            .getOrNull()
+
+        if (rounds == null || rounds.weeklyContestInfoList.isEmpty()) {
+            postSideEffect(Effect.NavigateToBack)
+            return
+        }
+
+        reduce {
+            copy(
+                currentContestInfo = rounds.weeklyContestInfoList.last(),
+            )
+        }
     }
 
     private fun showBackDialog() {
