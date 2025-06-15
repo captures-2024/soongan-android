@@ -76,7 +76,9 @@ internal fun PostInfoRegistrationScreen(
 
     if (state.isOpenSubmitBottomSheet) {
         PostInfoSubmitBottomSheet(
-            state = state,
+            title = state.title,
+            content = stringResource(R.string.post_info_registration_submit_body_title_content),
+            isChecked = state.isCheckedSubmitBottomSheet,
             onClickTerms = onClickTermsSubmitBottomSheet,
             onClickCheckBox = onClickCheckBoxSubmitBottomSheet,
             onClickConfirm = onClickConfirmSubmitBottomSheet,

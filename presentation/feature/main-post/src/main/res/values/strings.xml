@@ -49,6 +49,10 @@
 
 <!--  PostInfoEditScreen  -->
     <string name="post_info_edit_init_error_content">네트워크 오류가 발생했습니다.</string>
+    <string name="post_info_edit_back_dialog_content">정말 작품 수정을\n하지 않으시겠어요?</string>
+    <string name="post_info_edit_back_dialog_button_cancel">아니오</string>
+    <string name="post_info_edit_back_dialog_button_confirm">네</string>
+    <string name="post_info_edit_submit_body_title_content">(으)로 작품을 제출할까요?</string>
 
     <!--  RegisterPostInfoBodyComponent  -->
     <string name="registration_post_back_dialog_content">정말 작품 등록을\n하지 않으시겠어요?</string>

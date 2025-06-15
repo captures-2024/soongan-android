@@ -1,5 +1,6 @@
 package com.captures2024.soongan.presentation.feature.main.post.route
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -23,11 +24,21 @@ internal fun PostInfoEditRoute(
         }
     }
 
+    BackHandler {
+        viewModel.intent(PostInfoEditViewModel.Intent.OnClickBack)
+    }
+
     PostInfoEditScreen(
         state = state,
         onClickBack = { viewModel.intent(PostInfoEditViewModel.Intent.OnClickBack) },
         onTitleValueChanged = { viewModel.intent(PostInfoEditViewModel.Intent.OnTitleValueChanged(it)) },
         onClickEdit = { viewModel.intent(PostInfoEditViewModel.Intent.OnClickEdit) },
         onClickConfirmInitErrorDialog = { viewModel.intent(PostInfoEditViewModel.Intent.OnClickConfirmInitErrorDialog) },
+        onClickCancelBackDialog = { viewModel.intent(PostInfoEditViewModel.Intent.OnClickCancelBackDialog) },
+        onClickConfirmBackDialog = { viewModel.intent(PostInfoEditViewModel.Intent.OnClickConfirmBackDialog) },
+        onClickTermsSubmitBottomSheet = { viewModel.intent(PostInfoEditViewModel.Intent.OnClickTermsSubmitBottomSheet) },
+        onClickCheckBoxSubmitBottomSheet = { viewModel.intent(PostInfoEditViewModel.Intent.OnClickCheckBoxSubmitBottomSheet) },
+        onClickConfirmSubmitBottomSheet = { viewModel.intent(PostInfoEditViewModel.Intent.OnClickConfirmSubmitBottomSheet) },
+        onClickCancelSubmitBottomSheet = { viewModel.intent(PostInfoEditViewModel.Intent.OnClickCancelSubmitBottomSheet) },
     )
 }

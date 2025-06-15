@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import coil.request.ImageRequest
+import com.captures2024.soongan.presentation.designsystem.ui.component.dialog.SGDoubleButtonDialog
 import com.captures2024.soongan.presentation.designsystem.ui.component.dialog.SGSingleButtonDialog
 import com.captures2024.soongan.presentation.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.presentation.designsystem.ui.theme.SGTheme
@@ -16,6 +17,7 @@ import com.captures2024.soongan.presentation.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.presentation.feature.main.post.R
 import com.captures2024.soongan.presentation.feature.main.post.component.info.PostInfoTopBarComponent
 import com.captures2024.soongan.presentation.feature.main.post.component.info.input.PostInfoInputComponent
+import com.captures2024.soongan.presentation.feature.main.post.component.info.submit.PostInfoSubmitBottomSheet
 import com.captures2024.soongan.presentation.viewmodel.main.post.PostInfoEditViewModel
 
 @Composable
@@ -26,6 +28,12 @@ internal fun PostInfoEditScreen(
     onTitleValueChanged: (String) -> Unit,
     onClickEdit: () -> Unit,
     onClickConfirmInitErrorDialog: () -> Unit,
+    onClickCancelBackDialog: () -> Unit,
+    onClickConfirmBackDialog: () -> Unit,
+    onClickTermsSubmitBottomSheet: () -> Unit,
+    onClickCheckBoxSubmitBottomSheet: () -> Unit,
+    onClickConfirmSubmitBottomSheet: () -> Unit,
+    onClickCancelSubmitBottomSheet: () -> Unit,
 ) {
     val context = LocalContext.current
 
@@ -64,6 +72,29 @@ internal fun PostInfoEditScreen(
             onDismissRequest = onClickConfirmInitErrorDialog,
         )
     }
+
+    if (state.isShowBackDialog) {
+        SGDoubleButtonDialog(
+            content = stringResource(R.string.post_info_edit_back_dialog_content),
+            confirmContent = stringResource(R.string.post_info_edit_back_dialog_button_confirm),
+            onClickConfirm = onClickConfirmBackDialog,
+            cancelContent = stringResource(R.string.post_info_edit_back_dialog_button_cancel),
+            onClickCancel = onClickCancelBackDialog,
+            onDismissRequest = onClickCancelBackDialog,
+        )
+    }
+
+    if (state.isOpenSubmitBottomSheet) {
+        PostInfoSubmitBottomSheet(
+            title = state.editTitle,
+            content = stringResource(R.string.post_info_edit_submit_body_title_content),
+            isChecked = state.isCheckedSubmitBottomSheet,
+            onClickTerms = onClickTermsSubmitBottomSheet,
+            onClickCheckBox = onClickCheckBoxSubmitBottomSheet,
+            onClickConfirm = onClickConfirmSubmitBottomSheet,
+            onClickCancel = onClickCancelSubmitBottomSheet,
+        )
+    }
 }
 
 @DevicePreviews
@@ -80,11 +111,20 @@ private fun PreviewPostInfoEditScreen() {
                 editTitle = "test",
                 maxInputLength = 15,
                 isShowInitErrorDialog = false,
+                isShowBackDialog = false,
+                isOpenSubmitBottomSheet = false,
+                isCheckedSubmitBottomSheet = false,
             ),
             onClickBack = {},
             onTitleValueChanged = {},
             onClickEdit = {},
             onClickConfirmInitErrorDialog = {},
+            onClickCancelBackDialog = {},
+            onClickConfirmBackDialog = {},
+            onClickTermsSubmitBottomSheet = {},
+            onClickCheckBoxSubmitBottomSheet = {},
+            onClickConfirmSubmitBottomSheet = {},
+            onClickCancelSubmitBottomSheet = {},
         )
     }
 }

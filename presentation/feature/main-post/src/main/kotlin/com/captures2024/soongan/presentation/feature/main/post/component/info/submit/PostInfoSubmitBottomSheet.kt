@@ -16,7 +16,9 @@ import com.captures2024.soongan.presentation.viewmodel.main.home.RegistrationPos
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun PostInfoSubmitBottomSheet(
-    state: RegistrationPostViewModel.State,
+    title: String,
+    content: String,
+    isChecked: Boolean,
     modifier: Modifier = Modifier,
     onClickTerms: () -> Unit = {},
     onClickCheckBox: () -> Unit = {},
@@ -37,9 +39,9 @@ internal fun PostInfoSubmitBottomSheet(
         containerColor = SGColor.Grayscale.white,
         content = @Composable {
             PostInfoSubmitBodyComponent(
-                title = state.title,
-                content = stringResource(R.string.post_info_registration_submit_body_title_content),
-                isChecked = state.isCheckedSubmitBottomSheet,
+                title = title,
+                content = content,
+                isChecked = isChecked,
                 onClickTerms = onClickTerms,
                 onClickCheckBox = onClickCheckBox,
                 onClickConfirm = onClickConfirm,
@@ -54,15 +56,9 @@ internal fun PostInfoSubmitBottomSheet(
 private fun PreviewPostInfoSubmitBottomSheet() {
     SGTheme {
         PostInfoSubmitBottomSheet(
-            state = RegistrationPostViewModel.State(
-                currentMedia = null,
-                currentContestInfo = null,
-                title = "test",
-                maxInputLength = 15,
-                isShowBackDialog = false,
-                isOpenSubmitBottomSheet = false,
-                isCheckedSubmitBottomSheet = false,
-            ),
+            title = "title",
+            content = "content",
+            isChecked = false,
             onClickTerms = {},
             onClickCheckBox = {},
             onClickConfirm = {},
