@@ -14,6 +14,7 @@ import com.captures2024.soongan.domain.usecase.contest.RegisterPostUseCase
 import com.captures2024.soongan.domain.usecase.member.GetIsCurrentGuestModeUseCase
 import com.captures2024.soongan.domain.usecase.system.dialog.PostSingleButtonDialogUseCase
 import com.captures2024.soongan.domain.usecase.system.dialog.SetIsShowGuestModeDialogFlowUseCase
+import com.captures2024.soongan.domain.usecase.system.inapp.LaunchTermsUseCase
 import com.captures2024.soongan.domain.usecase.system.loading.ClearLoadingUseCase
 import com.captures2024.soongan.domain.usecase.system.loading.HideLoadingUseCase
 import com.captures2024.soongan.domain.usecase.system.loading.ShowLoadingUseCase
@@ -35,6 +36,7 @@ constructor(
     private val getWeeklyContestInfoListUseCase: GetWeeklyContestInfoListUseCase,
     private val registerPostUseCase: RegisterPostUseCase,
     private val postSingleButtonDialogUseCase: PostSingleButtonDialogUseCase,
+    private val launchTermsUseCase: LaunchTermsUseCase,
 ) : BaseViewModel<RegistrationPostViewModel.State, RegistrationPostViewModel.Effect, RegistrationPostViewModel.Intent>(
     analyticsHelper = analyticsHelper,
     showLoadingUseCase = showLoadingUseCase,
@@ -51,10 +53,13 @@ constructor(
         val maxInputLength: Int,
         val isShowBackDialog: Boolean,
         val isOpenSubmitBottomSheet: Boolean,
+        val isCheckedSubmitBottomSheet: Boolean,
     ) : UIState {
+        val isEnabled: Boolean
+            get() = currentMedia != null && title.isNotEmpty()
 
         override fun toString(): String {
-            return "State(currentMedia=${currentMedia?.toString()?.length}, currentContestInfo=$currentContestInfo, title='$title', maxInputLength=$maxInputLength, isShowBackDialog=$isShowBackDialog, isOpenSubmitBottomSheet=$isOpenSubmitBottomSheet)"
+            return "State(currentMedia=${currentMedia?.toString()?.length}, currentContestInfo=$currentContestInfo, title='$title', maxInputLength=$maxInputLength, isShowBackDialog=$isShowBackDialog, isOpenSubmitBottomSheet=$isOpenSubmitBottomSheet, isCheckedSubmitBottomSheet=$isCheckedSubmitBottomSheet, isEnabled=$isEnabled)"
         }
     }
 
@@ -92,6 +97,10 @@ constructor(
         data object OnClickCancelSubmitBottomSheet : Intent
 
         data object OnClickConfirmSubmitBottomSheet : Intent
+
+        data object OnClickTermsSubmitBottomSheet : Intent
+
+        data object OnClickCheckBoxSubmitBottomSheet : Intent
     }
 
     init {
@@ -105,6 +114,7 @@ constructor(
         maxInputLength = AppConst.Main.Home.MAX_INPUT_LENGTH,
         isShowBackDialog = false,
         isOpenSubmitBottomSheet = false,
+        isCheckedSubmitBottomSheet = false,
     )
 
     override fun handleClientException(throwable: Throwable) {
@@ -123,6 +133,8 @@ constructor(
             is Intent.OnClickSubmit -> handleOnClickSubmit()
             is Intent.OnClickCancelSubmitBottomSheet -> handleOnClickCancelSubmitBottomSheet()
             is Intent.OnClickConfirmSubmitBottomSheet -> loadingLaunch { handleOnClickConfirmSubmitBottomSheet() }
+            is Intent.OnClickCheckBoxSubmitBottomSheet -> handleOnClickCheckBoxSubmitBottomSheet()
+            is Intent.OnClickTermsSubmitBottomSheet -> loadingLaunch { handleOnClickTermsSubmitBottomSheet() }
         }
     }
 
@@ -200,6 +212,18 @@ constructor(
         dismissSubmitBottomSheet()
 
         submitRemote()
+    }
+
+    private fun handleOnClickCheckBoxSubmitBottomSheet() {
+        reduce {
+            copy(
+                isCheckedSubmitBottomSheet = !isCheckedSubmitBottomSheet,
+            )
+        }
+    }
+
+    private suspend fun handleOnClickTermsSubmitBottomSheet() {
+        launchTermsUseCase()
     }
 
     private suspend fun fetchInitData() {

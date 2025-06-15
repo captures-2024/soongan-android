@@ -14,7 +14,7 @@ import com.captures2024.soongan.core.navigator.screen.main.feed.navigateToFeed
 import com.captures2024.soongan.core.navigator.screen.main.home.HomeNavigator
 import com.captures2024.soongan.core.navigator.screen.main.home.navigateToHome
 import com.captures2024.soongan.core.navigator.screen.main.home.navigateToHomeGallery
-import com.captures2024.soongan.core.navigator.screen.main.home.navigateToRegistrationPost
+import com.captures2024.soongan.core.navigator.screen.main.home.navigateToPostInfoRegistration
 import com.captures2024.soongan.core.navigator.screen.main.post.navigateToEditPost
 import com.captures2024.soongan.core.navigator.screen.main.post.navigateToImageViewer
 import com.captures2024.soongan.core.navigator.screen.main.post.navigateToPostInfo
@@ -76,7 +76,7 @@ internal fun MainScreen(navigationState: MainNavigationState) {
             )
             mainHome(
                 navigateToBack = navigateToBack,
-                navigateToRegistrationPost = navController::navigateToRegistrationPost,
+                navigateToRegistrationPost = navController::navigateToPostInfoRegistration,
                 navigateToGallery = navController::navigateToHomeGallery,
                 navigateToPost = navController::navigateToPostInfo,
             )
@@ -84,12 +84,13 @@ internal fun MainScreen(navigationState: MainNavigationState) {
                 navigateToBack = navigateToBack,
                 navigateToImageViewer = navController::navigateToImageViewer,
                 navigateToEditPost = navController::navigateToEditPost,
+                navigateToPost = navController::navigateToPostInfo,
             )
             mainProfile(
                 navigateToBack = navigateToBack,
                 navigateToNotification = navController::navigateToNotification,
                 navigateToPostInfo = navController::navigateToPostInfo,
-                navigateToRegistrationPost = navController::navigateToRegistrationPost,
+                navigateToRegistrationPost = navController::navigateToPostInfoRegistration,
                 navigateToEditProfile = navController::navigateToEditProfile,
                 navigateToFAQ = navController::navigateToFAQ,
                 navigateFromNotification = navController::navigateFromNotification,
