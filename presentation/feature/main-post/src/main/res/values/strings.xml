@@ -64,7 +64,7 @@
     <string name="post_info_registration_submit_body_title_content">(으)로 작품을 제출할까요?</string>
     <string name="post_info_registration_submit_body_button_content">완료</string>
     <string name="post_info_registration_submit_prefix_check_box_content">*</string>
-    <string name="post_info_registration_submit_first_box_content">등록된 순간은 </string>
+    <string name="post_info_registration_submit_first_box_content">등록된 순간은&#160;</string>
     <string name="post_info_registration_submit_second_box_content">에 따라 관리되며,\n</string>
     <string name="post_info_registration_submit_third_box_content">TOP 7에 선정된 순간은 역대 콘테스트에 기록됩니다</string>
     <string name="post_info_registration_submit_clickable_box_content">약관</string>
