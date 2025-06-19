@@ -14,6 +14,7 @@ import com.captures2024.soongan.domain.usecase.contest.GetWeeklyContestInfoListU
 import com.captures2024.soongan.domain.usecase.member.GetIsCurrentGuestModeUseCase
 import com.captures2024.soongan.domain.usecase.system.dialog.PostSingleButtonDialogUseCase
 import com.captures2024.soongan.domain.usecase.system.dialog.SetIsShowGuestModeDialogFlowUseCase
+import com.captures2024.soongan.domain.usecase.system.inapp.LaunchTermsUseCase
 import com.captures2024.soongan.domain.usecase.system.loading.ClearLoadingUseCase
 import com.captures2024.soongan.domain.usecase.system.loading.HideLoadingUseCase
 import com.captures2024.soongan.domain.usecase.system.loading.ShowLoadingUseCase
@@ -35,6 +36,7 @@ constructor(
     private val postSingleButtonDialogUseCase: PostSingleButtonDialogUseCase,
     private val getWeeklyContestInfoListUseCase: GetWeeklyContestInfoListUseCase,
     private val editPostTitleUseCase: EditPostTitleUseCase,
+    private val launchTermsUseCase: LaunchTermsUseCase,
 ) : BaseViewModel<PostInfoEditViewModel.State, PostInfoEditViewModel.Effect, PostInfoEditViewModel.Intent>(
     analyticsHelper = analyticsHelper,
     showLoadingUseCase = showLoadingUseCase,
@@ -54,6 +56,9 @@ constructor(
         val editTitle: String,
         val maxInputLength: Int,
         val isShowInitErrorDialog: Boolean,
+        val isShowBackDialog: Boolean,
+        val isOpenSubmitBottomSheet: Boolean,
+        val isCheckedSubmitBottomSheet: Boolean,
     ) : UIState {
         val isEditable: Boolean
             get() = defaultTitle != editTitle && editTitle.isNotEmpty()
@@ -76,6 +81,18 @@ constructor(
         data object OnClickConfirmInitErrorDialog : Intent
 
         data object OnClickEdit : Intent
+
+        data object OnClickCancelBackDialog : Intent
+
+        data object OnClickConfirmBackDialog : Intent
+
+        data object OnClickCancelSubmitBottomSheet : Intent
+
+        data object OnClickConfirmSubmitBottomSheet : Intent
+
+        data object OnClickTermsSubmitBottomSheet : Intent
+
+        data object OnClickCheckBoxSubmitBottomSheet : Intent
     }
 
     init {
@@ -94,6 +111,9 @@ constructor(
             editTitle = route.title,
             maxInputLength = AppConst.Main.Home.MAX_INPUT_LENGTH,
             isShowInitErrorDialog = false,
+            isShowBackDialog = false,
+            isOpenSubmitBottomSheet = false,
+            isCheckedSubmitBottomSheet = false,
         )
     }
 
@@ -103,7 +123,13 @@ constructor(
             is Intent.OnClickBack -> handleOnClickBack()
             is Intent.OnTitleValueChanged -> handleOnTitleValueChanged(intent)
             is Intent.OnClickConfirmInitErrorDialog -> handleOnClickConfirmInitErrorDialog()
-            is Intent.OnClickEdit -> loadingLaunch { handleOnClickEdit() }
+            is Intent.OnClickEdit -> handleOnClickEdit()
+            is Intent.OnClickCancelBackDialog -> handleOnClickCancelBackDialog()
+            is Intent.OnClickConfirmBackDialog -> handleOnClickConfirmBackDialog()
+            is Intent.OnClickCancelSubmitBottomSheet -> handleOnClickCancelSubmitBottomSheet()
+            is Intent.OnClickConfirmSubmitBottomSheet -> loadingLaunch { handleOnClickConfirmSubmitBottomSheet() }
+            is Intent.OnClickCheckBoxSubmitBottomSheet -> handleOnClickCheckBoxSubmitBottomSheet()
+            is Intent.OnClickTermsSubmitBottomSheet -> loadingLaunch { handleOnClickTermsSubmitBottomSheet() }
         }
     }
 
@@ -132,7 +158,7 @@ constructor(
     }
 
     private fun handleOnClickBack() {
-        postSideEffect(Effect.NavigateToBack)
+        showBackDialog()
     }
 
     private fun handleOnTitleValueChanged(intent: Intent.OnTitleValueChanged) {
@@ -154,7 +180,33 @@ constructor(
         postSideEffect(Effect.NavigateToBack)
     }
 
-    private suspend fun handleOnClickEdit() {
+    private fun handleOnClickEdit() {
+        val submitData = currentState
+
+        if (!submitData.isEditable) {
+            analyticsHelper.d { "handleOnClickSubmit - isEditable = false" }
+            return
+        }
+
+        showSubmitBottomSheet()
+    }
+
+    private fun handleOnClickCancelBackDialog() {
+        dismissBackDialog()
+    }
+
+    private fun handleOnClickConfirmBackDialog() {
+        dismissBackDialog()
+        postSideEffect(Effect.NavigateToBack)
+    }
+
+    private fun handleOnClickCancelSubmitBottomSheet() {
+        dismissSubmitBottomSheet()
+    }
+
+    private suspend fun handleOnClickConfirmSubmitBottomSheet() {
+        dismissSubmitBottomSheet()
+
         val state = currentState
 
         val result = editPostTitleUseCase(
@@ -170,6 +222,18 @@ constructor(
         postSideEffect(Effect.NavigateToBack)
     }
 
+    private fun handleOnClickCheckBoxSubmitBottomSheet() {
+        reduce {
+            copy(
+                isCheckedSubmitBottomSheet = !isCheckedSubmitBottomSheet,
+            )
+        }
+    }
+
+    private suspend fun handleOnClickTermsSubmitBottomSheet() {
+        launchTermsUseCase()
+    }
+
     private fun showInitErrorDialog() {
         reduce {
             copy(
@@ -182,6 +246,38 @@ constructor(
         reduce {
             copy(
                 isShowInitErrorDialog = false,
+            )
+        }
+    }
+
+    private fun showBackDialog() {
+        reduce {
+            copy(
+                isShowBackDialog = true,
+            )
+        }
+    }
+
+    private fun dismissBackDialog() {
+        reduce {
+            copy(
+                isShowBackDialog = false,
+            )
+        }
+    }
+
+    private fun showSubmitBottomSheet() {
+        reduce {
+            copy(
+                isOpenSubmitBottomSheet = true,
+            )
+        }
+    }
+
+    private fun dismissSubmitBottomSheet() {
+        reduce {
+            copy(
+                isOpenSubmitBottomSheet = false,
             )
         }
     }
