@@ -1,5 +1,6 @@
 package com.captures2024.soongan.di
 
+import com.captures2024.soongan.BuildConfig
 import com.captures2024.soongan.core.analytics.NapierAnalyticsHelper
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import dagger.Module
@@ -14,5 +15,9 @@ object AnalyticsModule {
 
     @Provides
     @Singleton
-    fun provideAnalyticsHelper(): AnalyticsHelper = NapierAnalyticsHelper().apply { initialize() }
+    fun provideAnalyticsHelper(): AnalyticsHelper = NapierAnalyticsHelper().apply {
+        if (BuildConfig.DEBUG) {
+            initialize()
+        }
+    }
 }
