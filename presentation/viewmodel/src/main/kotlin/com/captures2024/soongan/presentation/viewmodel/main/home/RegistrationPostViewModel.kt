@@ -76,8 +76,6 @@ constructor(
     sealed interface Intent : UIIntent {
         data object Init : Intent
 
-        data object OpenMediaPicker : Intent
-
         data class InitMedia(
             val mediaUri: Uri?,
         ) : Intent
@@ -124,7 +122,6 @@ constructor(
     override fun handleIntent(intent: Intent) {
         when (intent) {
             is Intent.Init -> loadingLaunch { handleInit() }
-            is Intent.OpenMediaPicker -> handleOpenMediaPicker()
             is Intent.InitMedia -> handleInitMedia(intent)
             is Intent.OnClickBack -> handleOnClickBack()
             is Intent.OnClickCancelBackDialog -> handleOnClickCancelBackDialog()
@@ -140,10 +137,6 @@ constructor(
 
     private suspend fun handleInit() {
         fetchInitData()
-    }
-
-    private fun handleOpenMediaPicker() {
-        postSideEffect(Effect.OpenMediaPicker)
     }
 
     private fun handleInitMedia(intent: Intent.InitMedia) {
@@ -241,6 +234,8 @@ constructor(
                 currentContestInfo = rounds.weeklyContestInfoList.last(),
             )
         }
+
+        postSideEffect(Effect.OpenMediaPicker)
     }
 
     private fun showBackDialog() {
@@ -294,7 +289,7 @@ constructor(
         ).getOrNull()
 
         if (result == null) {
-            analyticsHelper.d { "handleOnClickSubmitRemote - result: $result" }
+            analyticsHelper.d { "handleOnClickSubmitRemote - result is null" }
             postSingleButtonDialogUseCase(
                 type = CommonDialogType.NETWORK_ERROR,
             )

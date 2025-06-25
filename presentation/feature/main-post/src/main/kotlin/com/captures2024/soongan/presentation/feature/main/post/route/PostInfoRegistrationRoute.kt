@@ -38,10 +38,6 @@ internal fun PostInfoRegistrationRoute(
         }
     }
 
-    LaunchedEffect(Unit) {
-        viewModel.intent(RegistrationPostViewModel.Intent.OpenMediaPicker)
-    }
-
     BackHandler {
         viewModel.intent(RegistrationPostViewModel.Intent.OnClickBack)
     }
