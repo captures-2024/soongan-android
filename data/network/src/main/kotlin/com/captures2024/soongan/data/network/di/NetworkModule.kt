@@ -65,11 +65,10 @@ internal object NetworkModule {
     fun provideLoggingInterceptor(analyticsHelper: AnalyticsHelper): HttpLoggingInterceptor = HttpLoggingInterceptor { message ->
         analyticsHelper.d { message }
     }.apply {
-        level = HttpLoggingInterceptor.Level.BODY
-//        level = when (BuildConfig.DEBUG) {
-//            true -> HttpLoggingInterceptor.Level.BODY
-//            false -> HttpLoggingInterceptor.Level.NONE
-//        }
+        level = when (BuildConfig.DEBUG) {
+            true -> HttpLoggingInterceptor.Level.BODY
+            false -> HttpLoggingInterceptor.Level.NONE
+        }
     }
 
     @Provides
