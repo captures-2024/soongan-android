@@ -3,8 +3,8 @@ package com.captures2024.soongan.domain.usecase.report.impl
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.model.utils.ReportTargetType
 import com.captures2024.soongan.core.model.utils.ReportType
-import com.captures2024.soongan.data.repository.member.MemberRepository
-import com.captures2024.soongan.data.repository.report.ReportRepository
+import com.captures2024.soongan.domain.repository.member.MemberRepository
+import com.captures2024.soongan.domain.repository.report.ReportRepository
 import com.captures2024.soongan.domain.usecase.report.PostReportUseCase
 import com.captures2024.soongan.domain.usecase.utils.runSuspendCatching
 import javax.inject.Inject

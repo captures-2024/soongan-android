@@ -48,27 +48,6 @@ include(
 )
 
 include(
-    ":data:repository:auth",
-    ":data:repository:auth-impl",
-    ":data:repository:contest",
-    ":data:repository:contest-impl",
-    ":data:repository:fcm",
-    ":data:repository:fcm-impl",
-    ":data:repository:home",
-    ":data:repository:home-impl",
-    ":data:repository:member",
-    ":data:repository:member-impl",
-    ":data:repository:notification",
-    ":data:repository:notification-impl",
-    ":data:repository:report",
-    ":data:repository:report-impl",
-    ":data:repository:system",
-    ":data:repository:system-impl",
-    ":data:repository:token",
-    ":data:repository:token-impl",
-)
-
-include(
     ":data:source:module",
     ":data:source:auth",
     ":data:source:auth-impl",
@@ -88,10 +67,35 @@ include(
     ":data:source:system-impl",
     ":data:source:token",
     ":data:source:token-impl",
-    ":data:source:utils",
 )
 
 include(
+    ":data:repository:module",
+    ":data:repository:auth-impl",
+    ":data:repository:contest-impl",
+    ":data:repository:fcm-impl",
+    ":data:repository:home-impl",
+    ":data:repository:member-impl",
+    ":data:repository:notification-impl",
+    ":data:repository:report-impl",
+    ":data:repository:system-impl",
+    ":data:repository:token-impl",
+)
+
+include(
+    ":domain:repository:auth",
+    ":domain:repository:contest",
+    ":domain:repository:fcm",
+    ":domain:repository:home",
+    ":domain:repository:member",
+    ":domain:repository:notification",
+    ":domain:repository:report",
+    ":domain:repository:system",
+    ":domain:repository:token",
+)
+
+include(
+    ":domain:usecase:module",
     ":domain:usecase:auth",
     ":domain:usecase:auth-impl",
     ":domain:usecase:contest",

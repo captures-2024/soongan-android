@@ -1,10 +1,5 @@
-import com.captures2024.soongan.plugin.implementation
-
 plugins {
-    alias(libs.plugins.captures2024.soongan.android.library)
-    alias(libs.plugins.captures2024.soongan.android.hilt)
-    alias(libs.plugins.captures2024.soongan.okhttp)
-    alias(libs.plugins.captures2024.soongan.retrofit)
+    alias(libs.plugins.captures2024.soongan.data.source)
 }
 
 android {
@@ -12,8 +7,6 @@ android {
 }
 
 dependencies {
-    implementation(projects.core.model)
-
     implementation(projects.data.source.auth)
     implementation(projects.data.source.authImpl)
     implementation(projects.data.source.contest)
@@ -32,5 +25,4 @@ dependencies {
     implementation(projects.data.source.systemImpl)
     implementation(projects.data.source.token)
     implementation(projects.data.source.tokenImpl)
-    implementation(projects.data.source.utils)
 }

@@ -13,13 +13,20 @@ gradlePlugin {
         "android.feature" to "AndroidFeature",
         "android.hilt" to "AndroidHilt",
         "android.room" to "AndroidRoomDatabase",
+        "data.service" to "DataService",
+        "data.source" to "DataSource",
+        "data.source.impl" to "DataSourceImpl",
         "google.auth" to "GoogleAuth",
         "google.firebase" to "GoogleFirebase",
         "jvm.kotlin" to "JvmKotlin",
         "okhttp" to "OkHttp",
+        "repository" to "Repository",
+        "repository.impl" to "RepositoryImpl",
         "retrofit" to "Retrofit",
         "test.junit5" to "TestJunit5",
         "test.kotest" to "TestKotest",
+        "usecase" to "UseCase",
+        "usecase.impl" to "UseCaseImpl",
     )
 
     plugins {

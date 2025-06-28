@@ -1,6 +1,6 @@
 package com.captures2024.soongan.domain.usecase.notification.impl
 
-import com.captures2024.soongan.data.repository.notification.NotificationRepository
+import com.captures2024.soongan.domain.repository.notification.NotificationRepository
 import com.captures2024.soongan.domain.usecase.notification.DeleteNotificationUseCase
 import com.captures2024.soongan.domain.usecase.utils.runSuspendCatching
 import javax.inject.Inject

@@ -5,7 +5,7 @@ import com.captures2024.soongan.core.model.dto.NotificationDto
 import com.captures2024.soongan.core.model.dto.NotificationsCountInfoDto
 import com.captures2024.soongan.core.model.dto.NotificationsInfoDto
 import com.captures2024.soongan.core.model.utils.NotificationType
-import com.captures2024.soongan.data.repository.notification.NotificationRepository
+import com.captures2024.soongan.domain.repository.notification.NotificationRepository
 import com.captures2024.soongan.data.source.notification.local.NotificationLocalDataSource
 import com.captures2024.soongan.data.source.notification.remote.NotificationsRemoteDataSource
 import kotlinx.coroutines.CoroutineScope

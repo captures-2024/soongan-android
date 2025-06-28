@@ -4,7 +4,7 @@ import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.model.dto.ReportInfoDto
 import com.captures2024.soongan.core.model.utils.ReportTargetType
 import com.captures2024.soongan.core.model.utils.ReportType
-import com.captures2024.soongan.data.repository.report.ReportRepository
+import com.captures2024.soongan.domain.repository.report.ReportRepository
 import com.captures2024.soongan.data.source.contest.local.ContentVisibilityLocalDataSource
 import com.captures2024.soongan.data.source.report.remote.ReportRemoteDataSource
 import javax.inject.Inject

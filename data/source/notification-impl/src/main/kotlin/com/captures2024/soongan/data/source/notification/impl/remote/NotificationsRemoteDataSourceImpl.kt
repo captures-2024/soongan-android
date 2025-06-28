@@ -7,7 +7,7 @@ import com.captures2024.soongan.core.model.utils.NotificationType
 import com.captures2024.soongan.data.source.notification.impl.mapper.toNotificationsCountDto
 import com.captures2024.soongan.data.source.notification.impl.mapper.toNotificationsDto
 import com.captures2024.soongan.data.source.notification.remote.NotificationsRemoteDataSource
-import com.captures2024.soongan.data.service.api.NotificationsService
+import com.captures2024.soongan.data.service.api.NotificationsAPI
 import com.captures2024.soongan.data.service.api.utils.safeAPICall
 import javax.inject.Inject
 
@@ -15,7 +15,7 @@ class NotificationsRemoteDataSourceImpl
 @Inject
 constructor(
     private val analyticsHelper: AnalyticsHelper,
-    private val service: NotificationsService,
+    private val notificationsAPI: NotificationsAPI,
 ) : NotificationsRemoteDataSource {
 
     init {
@@ -25,7 +25,7 @@ constructor(
     override suspend fun getNotifications(type: NotificationType): NotificationsInfoDto? {
         analyticsHelper.d { "getNotifications - type: $type" }
 
-        val response = safeAPICall { service.getNotifications(type = type.name) }
+        val response = safeAPICall { notificationsAPI.getNotifications(type = type.name) }
 
         val responseHeader = response.headers
 
@@ -41,7 +41,7 @@ constructor(
     override suspend fun getNotificationsCount(): NotificationsCountInfoDto? {
         analyticsHelper.d { "getNotificationsCount - entry" }
 
-        val response = safeAPICall { service.getNotificationsCount() }
+        val response = safeAPICall { notificationsAPI.getNotificationsCount() }
 
         val responseHeader = response.headers
 
@@ -57,7 +57,7 @@ constructor(
     override suspend fun postNotificationRead(notificationId: Long): Boolean {
         analyticsHelper.d { "postNotificationRead - notificationId: $notificationId" }
 
-        val response = safeAPICall { service.postNotificationRead(notificationId = notificationId) }
+        val response = safeAPICall { notificationsAPI.postNotificationRead(notificationId = notificationId) }
 
         val responseHeader = response.headers
 
@@ -76,7 +76,7 @@ constructor(
     override suspend fun deleteNotification(notificationId: Long): Boolean {
         analyticsHelper.d { "deleteNotification - notificationId: $notificationId" }
 
-        val response = safeAPICall { service.deleteNotification(notificationId = notificationId) }
+        val response = safeAPICall { notificationsAPI.deleteNotification(notificationId = notificationId) }
 
         val responseHeader = response.headers
 

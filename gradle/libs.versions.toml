@@ -237,13 +237,20 @@ captures2024-soongan-android-library-compose = { id = "captures2024.soongan.andr
 captures2024-soongan-android-feature = { id = "captures2024.soongan.android.feature", version = "unspecified" }
 captures2024-soongan-android-hilt = { id = "captures2024.soongan.android.hilt", version = "unspecified" }
 captures2024-soongan-android-room = { id = "captures2024.soongan.android.room", version = "unspecified" }
+captures2024-soongan-data-service = { id = "captures2024.soongan.data.service", version = "unspecified" }
+captures2024-soongan-data-source = { id = "captures2024.soongan.data.source", version = "unspecified" }
+captures2024-soongan-data-source-impl = { id = "captures2024.soongan.data.source.impl", version = "unspecified" }
 captures2024-soongan-google-auth = { id = "captures2024.soongan.google.auth", version = "unspecified" }
 captures2024-soongan-google-firebase = { id = "captures2024.soongan.google.firebase", version = "unspecified" }
 captures2024-soongan-jvm-kotlin = { id = "captures2024.soongan.jvm.kotlin", version = "unspecified" }
 captures2024-soongan-okhttp = { id = "captures2024.soongan.okhttp", version = "unspecified" }
+captures2024-soongan-repository = { id = "captures2024.soongan.repository", version = "unspecified" }
+captures2024-soongan-repository-impl = { id = "captures2024.soongan.repository.impl", version = "unspecified" }
 captures2024-soongan-retrofit = { id = "captures2024.soongan.retrofit", version = "unspecified" }
 captures2024-soongan-test-junit5 = { id = "captures2024.soongan.test.junit5", version = "unspecified" }
 captures2024-soongan-test-kotest = { id = "captures2024.soongan.test.kotest", version = "unspecified" }
+captures2024-soongan-usecase = { id = "captures2024.soongan.usecase", version = "unspecified" }
+captures2024-soongan-usecase-impl = { id = "captures2024.soongan.usecase.impl", version = "unspecified" }
 
 [bundles]
 navigation = [
