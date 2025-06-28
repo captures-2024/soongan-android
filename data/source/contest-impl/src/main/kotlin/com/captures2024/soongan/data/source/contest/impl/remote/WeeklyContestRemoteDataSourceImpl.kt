@@ -12,8 +12,8 @@ import com.captures2024.soongan.data.source.contest.impl.mapper.toMyGalleryDto
 import com.captures2024.soongan.data.source.contest.impl.mapper.toPostInfoDto
 import com.captures2024.soongan.data.source.contest.impl.mapper.toWeeklyContestInfoListDto
 import com.captures2024.soongan.data.source.contest.remote.WeeklyContestRemoteDataSource
-import com.captures2024.soongan.data.source.contest.impl.service.WeeklyContestService
-import com.captures2024.soongan.data.source.utils.safeAPICall
+import com.captures2024.soongan.data.service.api.WeeklyContestService
+import com.captures2024.soongan.data.service.api.utils.safeAPICall
 import com.captures2024.soongan.data.source.utils.toImageMultiPart
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject

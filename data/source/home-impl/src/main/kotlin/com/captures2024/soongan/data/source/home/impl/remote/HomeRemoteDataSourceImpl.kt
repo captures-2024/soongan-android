@@ -5,9 +5,9 @@ import com.captures2024.soongan.core.model.dto.HomeContestInfoDto
 import com.captures2024.soongan.core.model.dto.PostInfoDto
 import com.captures2024.soongan.data.source.home.impl.mapper.toHomeContestInfoDto
 import com.captures2024.soongan.data.source.home.impl.mapper.toPostInfoDto
-import com.captures2024.soongan.data.source.home.impl.service.HomeService
+import com.captures2024.soongan.data.service.api.HomeService
 import com.captures2024.soongan.data.source.home.remote.HomeRemoteDataSource
-import com.captures2024.soongan.data.source.utils.safeAPICall
+import com.captures2024.soongan.data.service.api.utils.safeAPICall
 import javax.inject.Inject
 
 class HomeRemoteDataSourceImpl

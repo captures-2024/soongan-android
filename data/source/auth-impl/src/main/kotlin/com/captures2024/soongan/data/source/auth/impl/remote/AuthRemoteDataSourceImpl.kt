@@ -6,9 +6,9 @@ import com.captures2024.soongan.core.model.network.request.auth.SignWithTokenReq
 import com.captures2024.soongan.core.model.network.response.auth.ReissueTokenResponse
 import com.captures2024.soongan.core.model.network.response.auth.SignInWithTokenResponse
 import com.captures2024.soongan.core.model.utils.SocialSignType
-import com.captures2024.soongan.data.source.auth.impl.service.AuthService
+import com.captures2024.soongan.data.service.api.AuthService
 import com.captures2024.soongan.data.source.auth.remote.AuthRemoteDataSource
-import com.captures2024.soongan.data.source.utils.safeAPICall
+import com.captures2024.soongan.data.service.api.utils.safeAPICall
 import javax.inject.Inject
 
 class AuthRemoteDataSourceImpl

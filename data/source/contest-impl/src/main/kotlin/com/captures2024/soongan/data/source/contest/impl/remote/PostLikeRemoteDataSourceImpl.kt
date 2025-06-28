@@ -5,8 +5,8 @@ import com.captures2024.soongan.core.model.dto.PostLikeDto
 import com.captures2024.soongan.core.model.network.request.like.PostLikeRequest
 import com.captures2024.soongan.data.source.contest.impl.mapper.toPostLikeDto
 import com.captures2024.soongan.data.source.contest.remote.PostLikeRemoteDataSource
-import com.captures2024.soongan.data.source.contest.impl.service.PostLikeService
-import com.captures2024.soongan.data.source.utils.safeAPICall
+import com.captures2024.soongan.data.service.api.PostLikeService
+import com.captures2024.soongan.data.service.api.utils.safeAPICall
 import javax.inject.Inject
 
 class PostLikeRemoteDataSourceImpl

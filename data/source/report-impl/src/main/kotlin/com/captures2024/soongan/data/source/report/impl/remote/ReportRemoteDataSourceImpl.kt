@@ -6,9 +6,9 @@ import com.captures2024.soongan.core.model.network.request.report.PostReportRequ
 import com.captures2024.soongan.core.model.utils.ReportTargetType
 import com.captures2024.soongan.core.model.utils.ReportType
 import com.captures2024.soongan.data.source.report.impl.mapper.toReportInfoDto
-import com.captures2024.soongan.data.source.report.impl.service.ReportService
+import com.captures2024.soongan.data.service.api.ReportService
 import com.captures2024.soongan.data.source.report.remote.ReportRemoteDataSource
-import com.captures2024.soongan.data.source.utils.safeAPICall
+import com.captures2024.soongan.data.service.api.utils.safeAPICall
 import javax.inject.Inject
 
 class ReportRemoteDataSourceImpl

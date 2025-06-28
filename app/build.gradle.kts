@@ -72,6 +72,7 @@ dependencies {
     implementation(projects.data.datastore)
     implementation(projects.data.network)
 
+    implementation(projects.data.service.module)
     implementation(projects.data.source.module)
 
     implementation(projects.data.repository.auth)

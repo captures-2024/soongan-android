@@ -5,9 +5,9 @@ import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.model.dto.ResultConditionDto
 import com.captures2024.soongan.core.model.dto.UserInfoDto
 import com.captures2024.soongan.data.source.member.impl.mapper.toUserInfoDto
-import com.captures2024.soongan.data.source.member.impl.service.MembersService
+import com.captures2024.soongan.data.service.api.MembersService
 import com.captures2024.soongan.data.source.member.remote.MembersRemoteDataSource
-import com.captures2024.soongan.data.source.utils.safeAPICall
+import com.captures2024.soongan.data.service.api.utils.safeAPICall
 import com.captures2024.soongan.data.source.utils.toImageMultiPart
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject

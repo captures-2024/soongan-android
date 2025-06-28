@@ -43,6 +43,8 @@ include(
 include(
     ":data:datastore",
     ":data:network",
+    ":data:service:api",
+    ":data:service:module",
 )
 
 include(

@@ -7,8 +7,8 @@ import com.captures2024.soongan.core.model.utils.NotificationType
 import com.captures2024.soongan.data.source.notification.impl.mapper.toNotificationsCountDto
 import com.captures2024.soongan.data.source.notification.impl.mapper.toNotificationsDto
 import com.captures2024.soongan.data.source.notification.remote.NotificationsRemoteDataSource
-import com.captures2024.soongan.data.source.notification.impl.service.NotificationsService
-import com.captures2024.soongan.data.source.utils.safeAPICall
+import com.captures2024.soongan.data.service.api.NotificationsService
+import com.captures2024.soongan.data.service.api.utils.safeAPICall
 import javax.inject.Inject
 
 class NotificationsRemoteDataSourceImpl
