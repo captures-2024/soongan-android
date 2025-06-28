@@ -67,6 +67,7 @@ include(
 )
 
 include(
+    ":data:source:module",
     ":data:source:auth",
     ":data:source:auth-impl",
     ":data:source:contest",
