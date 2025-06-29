@@ -2,7 +2,7 @@ package com.captures2024.soongan.data.repository.system.impl
 
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.model.enums.CommonDialogType
-import com.captures2024.soongan.data.repository.system.DialogRepository
+import com.captures2024.soongan.domain.repository.system.DialogRepository
 import com.captures2024.soongan.data.source.system.local.DialogLocalDataSource
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow

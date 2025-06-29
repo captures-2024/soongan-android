@@ -14,7 +14,8 @@ dependencies {
     implementation(projects.core.common)
     implementation(projects.core.model)
 
+    implementation(projects.domain.repository.auth)
+
     implementation(projects.data.source.auth)
     implementation(projects.data.source.token)
-    implementation(projects.data.repository.auth)
 }

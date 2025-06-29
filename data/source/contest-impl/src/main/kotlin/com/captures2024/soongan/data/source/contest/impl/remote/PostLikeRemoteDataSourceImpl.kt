@@ -5,15 +5,15 @@ import com.captures2024.soongan.core.model.dto.PostLikeDto
 import com.captures2024.soongan.core.model.network.request.like.PostLikeRequest
 import com.captures2024.soongan.data.source.contest.impl.mapper.toPostLikeDto
 import com.captures2024.soongan.data.source.contest.remote.PostLikeRemoteDataSource
-import com.captures2024.soongan.data.source.contest.impl.service.PostLikeService
-import com.captures2024.soongan.data.source.utils.safeAPICall
+import com.captures2024.soongan.data.service.api.PostLikeAPI
+import com.captures2024.soongan.data.service.api.utils.safeAPICall
 import javax.inject.Inject
 
 class PostLikeRemoteDataSourceImpl
 @Inject
 constructor(
     private val analyticsHelper: AnalyticsHelper,
-    private val postLikeService: PostLikeService,
+    private val postLikeAPI: PostLikeAPI,
 ) : PostLikeRemoteDataSource {
 
     init {
@@ -27,7 +27,7 @@ constructor(
         analyticsHelper.d { "putPostLike - postId: $postId, contestType: $contestType" }
 
         val response = safeAPICall {
-            postLikeService.putPostLike(
+            postLikeAPI.putPostLike(
                 request = PostLikeRequest(
                     postId = postId,
                     contestType = contestType,
@@ -53,7 +53,7 @@ constructor(
         analyticsHelper.d { "deletePostLike - postId: $postId, contestType: $contestType" }
 
         val response = safeAPICall {
-            postLikeService.deletePostLike(
+            postLikeAPI.deletePostLike(
                 request = PostLikeRequest(
                     postId = postId,
                     contestType = contestType,

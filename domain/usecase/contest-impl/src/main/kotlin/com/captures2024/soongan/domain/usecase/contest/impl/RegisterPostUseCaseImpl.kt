@@ -1,6 +1,6 @@
 package com.captures2024.soongan.domain.usecase.contest.impl
 
-import com.captures2024.soongan.data.repository.contest.WeeklyContestRepository
+import com.captures2024.soongan.domain.repository.contest.WeeklyContestRepository
 import com.captures2024.soongan.domain.usecase.contest.RegisterPostUseCase
 import com.captures2024.soongan.domain.usecase.utils.runSuspendCatching
 import javax.inject.Inject

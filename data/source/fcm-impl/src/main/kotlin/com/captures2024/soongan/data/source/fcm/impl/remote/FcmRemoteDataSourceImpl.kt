@@ -7,9 +7,9 @@ import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.model.dto.FcmDto
 import com.captures2024.soongan.core.model.network.request.fcm.InitFcmRequest
 import com.captures2024.soongan.data.source.fcm.impl.mapper.toDto
-import com.captures2024.soongan.data.source.fcm.impl.service.FcmService
+import com.captures2024.soongan.data.service.api.FcmAPI
 import com.captures2024.soongan.data.source.fcm.remote.FcmRemoteDataSource
-import com.captures2024.soongan.data.source.utils.safeAPICall
+import com.captures2024.soongan.data.service.api.utils.safeAPICall
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
@@ -18,7 +18,7 @@ class FcmRemoteDataSourceImpl
 constructor(
     private val analyticsHelper: AnalyticsHelper,
     @ApplicationContext private val context: Context,
-    private val service: FcmService,
+    private val fcmAPI: FcmAPI,
 ) : FcmRemoteDataSource {
 
     init {
@@ -30,7 +30,7 @@ constructor(
         analyticsHelper.d { "initFcm - fcmToken: $fcmToken" }
 
         val response = safeAPICall {
-            service.initFcm(
+            fcmAPI.initFcm(
                 request = InitFcmRequest(
                     token = fcmToken,
                     deviceId = Settings.Secure.getString(

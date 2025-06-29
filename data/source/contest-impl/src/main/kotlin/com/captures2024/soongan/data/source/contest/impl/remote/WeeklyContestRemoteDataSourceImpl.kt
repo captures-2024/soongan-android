@@ -12,9 +12,9 @@ import com.captures2024.soongan.data.source.contest.impl.mapper.toMyGalleryDto
 import com.captures2024.soongan.data.source.contest.impl.mapper.toPostInfoDto
 import com.captures2024.soongan.data.source.contest.impl.mapper.toWeeklyContestInfoListDto
 import com.captures2024.soongan.data.source.contest.remote.WeeklyContestRemoteDataSource
-import com.captures2024.soongan.data.source.contest.impl.service.WeeklyContestService
-import com.captures2024.soongan.data.source.utils.safeAPICall
-import com.captures2024.soongan.data.source.utils.toImageMultiPart
+import com.captures2024.soongan.data.service.api.WeeklyContestAPI
+import com.captures2024.soongan.data.service.api.utils.safeAPICall
+import com.captures2024.soongan.data.service.api.utils.toImageMultiPart
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
@@ -23,7 +23,7 @@ class WeeklyContestRemoteDataSourceImpl
 constructor(
     private val analyticsHelper: AnalyticsHelper,
     @ApplicationContext private val context: Context,
-    private val service: WeeklyContestService,
+    private val weeklyContestAPI: WeeklyContestAPI,
 ) : WeeklyContestRemoteDataSource {
 
     init {
@@ -39,7 +39,7 @@ constructor(
         analyticsHelper.d { "getGalleryInfo - round: $round, orderType: $orderType, page: $page, pageSize: $pageSize" }
 
         val response = safeAPICall {
-            service.getGalleryInfo(
+            weeklyContestAPI.getGalleryInfo(
                 round = round,
                 orderType = orderType,
                 page = page,
@@ -65,7 +65,7 @@ constructor(
         analyticsHelper.d { "registerPost - title: $title, imageFile: $imageFile" }
 
         val response = safeAPICall {
-            service.registerPost(
+            weeklyContestAPI.registerPost(
                 title = title,
                 imageFile = imageFile.toImageMultiPart(context, "imageFile"),
             )
@@ -85,7 +85,7 @@ constructor(
     override suspend fun getPostInfo(postId: Long): PostInfoDto? {
         analyticsHelper.d { "getPostInfo - postId: $postId" }
 
-        val response = safeAPICall { service.getPostInfo(postId = postId) }
+        val response = safeAPICall { weeklyContestAPI.getPostInfo(postId = postId) }
 
         val responseHeader = response.headers
 
@@ -101,7 +101,7 @@ constructor(
     override suspend fun getPostInfoByGuest(postId: Long): PostInfoDto? {
         analyticsHelper.d { "getPostInfoByGuest - postId: $postId" }
 
-        val response = safeAPICall { service.getPostInfoByGuest(postId = postId) }
+        val response = safeAPICall { weeklyContestAPI.getPostInfoByGuest(postId = postId) }
 
         val responseHeader = response.headers
 
@@ -117,7 +117,7 @@ constructor(
     override suspend fun deletePost(postId: Long): Boolean {
         analyticsHelper.d { "deletePost - postId: $postId" }
 
-        val response = safeAPICall { service.deletePost(postId = postId) }
+        val response = safeAPICall { weeklyContestAPI.deletePost(postId = postId) }
 
         val responseHeader = response.headers
 
@@ -140,7 +140,7 @@ constructor(
         analyticsHelper.d { "editPostTitle - postId: $postId, title: $title" }
 
         val response = safeAPICall {
-            service.editPostTitle(
+            weeklyContestAPI.editPostTitle(
                 postId = postId,
                 request = EditPostRequest(title = title),
             )
@@ -161,7 +161,7 @@ constructor(
         analyticsHelper.d { "getContestInfoList - no param" }
 
         val response = safeAPICall {
-            service.getContestInfoList()
+            weeklyContestAPI.getContestInfoList()
         }
 
         val responseHeader = response.headers
@@ -182,7 +182,7 @@ constructor(
         analyticsHelper.d { "getMyGalleryInfo - page: $page, pageSize: $pageSize" }
 
         val response = safeAPICall {
-            service.getMyGalleryInfo(
+            weeklyContestAPI.getMyGalleryInfo(
                 page = page,
                 pageSize = pageSize,
             )

@@ -1,7 +1,7 @@
 package com.captures2024.soongan.data.repository.contest.impl
 
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
-import com.captures2024.soongan.data.repository.contest.ContentVisibilityRepository
+import com.captures2024.soongan.domain.repository.contest.ContentVisibilityRepository
 import com.captures2024.soongan.data.source.contest.local.ContentVisibilityLocalDataSource
 import kotlinx.coroutines.flow.SharedFlow
 import javax.inject.Inject

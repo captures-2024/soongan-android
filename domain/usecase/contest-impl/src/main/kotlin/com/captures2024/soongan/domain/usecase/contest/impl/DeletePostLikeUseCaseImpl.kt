@@ -1,7 +1,7 @@
 package com.captures2024.soongan.domain.usecase.contest.impl
 
 import com.captures2024.soongan.core.model.dto.PostLikeDto
-import com.captures2024.soongan.data.repository.contest.PostLikeRepository
+import com.captures2024.soongan.domain.repository.contest.PostLikeRepository
 import com.captures2024.soongan.domain.usecase.contest.DeletePostLikeUseCase
 import com.captures2024.soongan.domain.usecase.utils.runSuspendCatching
 import javax.inject.Inject

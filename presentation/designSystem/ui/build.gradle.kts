@@ -13,6 +13,6 @@ dependencies {
     implementation(projects.core.analytics)
     implementation(projects.presentation.designSystem.icon)
 
-    implementation(libs.android.xml.core)
+    implementation(libs.android.core)
     implementation(libs.android.splash.screen)
 }

@@ -5,10 +5,10 @@ import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.model.dto.ResultConditionDto
 import com.captures2024.soongan.core.model.dto.UserInfoDto
 import com.captures2024.soongan.data.source.member.impl.mapper.toUserInfoDto
-import com.captures2024.soongan.data.source.member.impl.service.MembersService
+import com.captures2024.soongan.data.service.api.MembersAPI
 import com.captures2024.soongan.data.source.member.remote.MembersRemoteDataSource
-import com.captures2024.soongan.data.source.utils.safeAPICall
-import com.captures2024.soongan.data.source.utils.toImageMultiPart
+import com.captures2024.soongan.data.service.api.utils.safeAPICall
+import com.captures2024.soongan.data.service.api.utils.toImageMultiPart
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
@@ -16,7 +16,7 @@ class MembersRemoteDataSourceImpl
 @Inject
 constructor(
     private val analyticsHelper: AnalyticsHelper,
-    private val service: MembersService,
+    private val membersAPI: MembersAPI,
     @ApplicationContext private val context: Context,
 ) : MembersRemoteDataSource {
 
@@ -33,7 +33,7 @@ constructor(
         analyticsHelper.d { "patchProfile - nickname: $nickname, selfIntroduction: $selfIntroduction, profileImageUrl: $profileImageUrl, isDefaultProfileImage: $isDefaultProfileImage" }
 
         val response = safeAPICall {
-            service.patchProfile(
+            membersAPI.patchProfile(
                 nickname = nickname,
                 selfIntroduction = selfIntroduction,
                 profileImageUrl = profileImageUrl.toImageMultiPart(context, "profileImage"),
@@ -55,7 +55,7 @@ constructor(
     override suspend fun patchBirthYear(birthYear: Int): UserInfoDto? {
         analyticsHelper.d { "patchBirthYear - birthYear: $birthYear" }
 
-        val response = safeAPICall { service.patchBirthYear(birthYear = birthYear) }
+        val response = safeAPICall { membersAPI.patchBirthYear(birthYear = birthYear) }
 
         val responseHeader = response.headers
 
@@ -71,7 +71,7 @@ constructor(
     override suspend fun getMemberInfo(): UserInfoDto? {
         analyticsHelper.d { "getMemberInfo - entry" }
 
-        val response = safeAPICall { service.getMemberInfo() }
+        val response = safeAPICall { membersAPI.getMemberInfo() }
 
         val responseHeader = response.headers
 
@@ -87,7 +87,7 @@ constructor(
     override suspend fun isVerifiedNickname(nickname: String): ResultConditionDto? {
         analyticsHelper.d { "isVerifiedNickname - nickname: $nickname" }
 
-        val response = safeAPICall { service.isVerifiedNickname(nickname) }
+        val response = safeAPICall { membersAPI.isVerifiedNickname(nickname) }
 
         val responseHeader = response.headers
 

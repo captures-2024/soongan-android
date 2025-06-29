@@ -6,16 +6,16 @@ import com.captures2024.soongan.core.model.network.request.auth.SignWithTokenReq
 import com.captures2024.soongan.core.model.network.response.auth.ReissueTokenResponse
 import com.captures2024.soongan.core.model.network.response.auth.SignInWithTokenResponse
 import com.captures2024.soongan.core.model.utils.SocialSignType
-import com.captures2024.soongan.data.source.auth.impl.service.AuthService
+import com.captures2024.soongan.data.service.api.AuthAPI
 import com.captures2024.soongan.data.source.auth.remote.AuthRemoteDataSource
-import com.captures2024.soongan.data.source.utils.safeAPICall
+import com.captures2024.soongan.data.service.api.utils.safeAPICall
 import javax.inject.Inject
 
 class AuthRemoteDataSourceImpl
 @Inject
 constructor(
     private val analyticsHelper: AnalyticsHelper,
-    private val service: AuthService,
+    private val authAPI: AuthAPI,
 ) : AuthRemoteDataSource {
 
     init {
@@ -25,7 +25,7 @@ constructor(
     override suspend fun withdrawWithToken(): Boolean {
         analyticsHelper.d { "withdrawWithToken - entry" }
 
-        val response = safeAPICall { service.withdrawWithToken() }
+        val response = safeAPICall { authAPI.withdrawWithToken() }
 
         val responseHeader = response.headers
 
@@ -44,7 +44,7 @@ constructor(
     override suspend fun signOutWithToken(): Boolean {
         analyticsHelper.d { "signOutWithToken - entry" }
 
-        val response = safeAPICall { service.signOutWithToken() }
+        val response = safeAPICall { authAPI.signOutWithToken() }
 
         val responseHeader = response.headers
 
@@ -68,7 +68,7 @@ constructor(
         analyticsHelper.d { "signInWithToken - type: $type, token: $token, fcmToken: $fcmToken" }
 
         val response = safeAPICall {
-            service.signInWithToken(
+            authAPI.signInWithToken(
                 request = SignWithTokenRequest(
                     provider = type.provider,
                     idToken = token,
@@ -95,7 +95,7 @@ constructor(
         analyticsHelper.d { "reissueToken - accessToken: $accessToken, refreshToken: $refreshToken" }
 
         val response = safeAPICall {
-            service.reissueToken(
+            authAPI.reissueToken(
                 request = ReissueTokenRequest(
                     accessToken = accessToken,
                     refreshToken = refreshToken,

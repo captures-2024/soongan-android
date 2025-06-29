@@ -18,10 +18,13 @@ internal object Plugins {
 
     internal const val JUNIT5 = "de.mannodermaus.android-junit5"
 
-    private const val CUSTOM_PREFIX = "captures2024.soongan.android"
+    private const val CUSTOM_PREFIX = "captures2024.soongan"
 
-    internal const val CUSTOM_LIBRARY = "${CUSTOM_PREFIX}.library"
-    internal const val CUSTOM_HILT = "${CUSTOM_PREFIX}.hilt"
+    internal const val CUSTOM_JVM = "${CUSTOM_PREFIX}.jvm.kotlin"
 
+    internal const val CUSTOM_LIBRARY = "${CUSTOM_PREFIX}.android.library"
+    internal const val CUSTOM_HILT = "${CUSTOM_PREFIX}.android.hilt"
     internal const val CUSTOM_LIBRARY_COMPOSE = "${CUSTOM_LIBRARY}.compose"
+    internal const val CUSTOM_OKHTTP = "${CUSTOM_PREFIX}.okhttp"
+    internal const val CUSTOM_RETROFIT = "${CUSTOM_PREFIX}.retrofit"
 }

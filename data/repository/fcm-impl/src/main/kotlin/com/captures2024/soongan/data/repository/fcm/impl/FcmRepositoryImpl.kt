@@ -2,7 +2,7 @@ package com.captures2024.soongan.data.repository.fcm.impl
 
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.model.dto.ResultConditionDto
-import com.captures2024.soongan.data.repository.fcm.FcmRepository
+import com.captures2024.soongan.domain.repository.fcm.FcmRepository
 import com.captures2024.soongan.data.source.fcm.local.FcmLocalDataSource
 import com.captures2024.soongan.data.source.fcm.remote.FcmRemoteDataSource
 import javax.inject.Inject
