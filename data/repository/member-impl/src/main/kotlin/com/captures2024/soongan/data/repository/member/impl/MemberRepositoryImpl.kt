@@ -4,10 +4,10 @@ import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.model.dto.ReportHistoryDto
 import com.captures2024.soongan.core.model.dto.ResultConditionDto
 import com.captures2024.soongan.core.model.dto.UserInfoDto
-import com.captures2024.soongan.domain.repository.member.MemberRepository
 import com.captures2024.soongan.data.source.member.local.GuestLocalDataSource
 import com.captures2024.soongan.data.source.member.local.MemberLocalDataSource
 import com.captures2024.soongan.data.source.member.remote.MembersRemoteDataSource
+import com.captures2024.soongan.domain.repository.member.MemberRepository
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 

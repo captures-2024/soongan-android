@@ -17,12 +17,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.LinkAnnotation
+import androidx.compose.ui.text.ParagraphStyle
+import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.text.ParagraphStyle
-import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
@@ -39,7 +39,6 @@ import com.captures2024.soongan.presentation.designsystem.ui.theme.SGTheme
 import com.captures2024.soongan.presentation.designsystem.ui.theme.SGTypography
 import com.captures2024.soongan.presentation.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.presentation.feature.main.post.R
-import com.captures2024.soongan.presentation.designsystem.ui.R as DesignR
 
 @Composable
 internal fun PostInfoSubmitBodyComponent(
@@ -205,8 +204,8 @@ internal fun PostInfoSubmitBodyComponent(
                     Image(
                         painter = painterResource(
                             id = when (isChecked) {
-                                true -> DesignR.drawable.check_box_selected
-                                false -> DesignR.drawable.check_box_unselected
+                                true -> com.captures2024.soongan.presentation.designsystem.ui.R.drawable.check_box_selected
+                                false -> com.captures2024.soongan.presentation.designsystem.ui.R.drawable.check_box_unselected
                             },
                         ),
                         contentDescription = "checkBox",

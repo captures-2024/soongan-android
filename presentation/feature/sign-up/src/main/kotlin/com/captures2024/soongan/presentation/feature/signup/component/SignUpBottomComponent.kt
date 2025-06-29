@@ -1,4 +1,4 @@
-package com.captures2024.soongan.presentation.feature.sign_up.component
+package com.captures2024.soongan.presentation.feature.signup.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column

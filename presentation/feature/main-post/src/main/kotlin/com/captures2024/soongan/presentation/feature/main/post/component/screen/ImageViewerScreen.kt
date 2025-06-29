@@ -26,6 +26,7 @@ import coil.ImageLoader
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.captures2024.soongan.core.android.utils.LocalAnalyticsHelper
+import com.captures2024.soongan.core.model.AppConst
 import com.captures2024.soongan.presentation.designsystem.icon.MyIconPack
 import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconNonFillLeftArrow
 import com.captures2024.soongan.presentation.designsystem.ui.component.ZoomableBox
@@ -33,7 +34,6 @@ import com.captures2024.soongan.presentation.designsystem.ui.component.button.SG
 import com.captures2024.soongan.presentation.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.presentation.designsystem.ui.theme.SGTheme
 import com.captures2024.soongan.presentation.designsystem.ui.util.DevicePreviews
-import com.captures2024.soongan.core.model.AppConst
 import com.captures2024.soongan.presentation.feature.main.post.R
 import com.captures2024.soongan.presentation.viewmodel.main.post.ImageViewerViewModel
 import kotlinx.coroutines.delay

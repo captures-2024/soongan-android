@@ -1,9 +1,9 @@
 package com.captures2024.soongan.data.source.contest.remote
 
-import com.captures2024.soongan.core.model.dto.WeeklyContestInfoListDto
 import com.captures2024.soongan.core.model.dto.GalleryDto
 import com.captures2024.soongan.core.model.dto.MyGalleryDto
 import com.captures2024.soongan.core.model.dto.PostInfoDto
+import com.captures2024.soongan.core.model.dto.WeeklyContestInfoListDto
 
 interface WeeklyContestRemoteDataSource {
 

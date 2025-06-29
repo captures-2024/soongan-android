@@ -1,7 +1,7 @@
 package com.captures2024.soongan.core.android.di
 
-import com.captures2024.soongan.core.android.helper.impl.ConnectivityManagerNetworkMonitor
 import com.captures2024.soongan.core.android.helper.NetworkMonitor
+import com.captures2024.soongan.core.android.helper.impl.ConnectivityManagerNetworkMonitor
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

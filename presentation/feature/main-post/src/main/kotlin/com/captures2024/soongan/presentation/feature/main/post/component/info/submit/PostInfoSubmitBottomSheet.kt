@@ -6,12 +6,9 @@ import androidx.compose.material3.SheetValue
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import com.captures2024.soongan.presentation.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.presentation.designsystem.ui.theme.SGTheme
 import com.captures2024.soongan.presentation.designsystem.ui.util.DevicePreviews
-import com.captures2024.soongan.presentation.feature.main.post.R
-import com.captures2024.soongan.presentation.viewmodel.main.home.RegistrationPostViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

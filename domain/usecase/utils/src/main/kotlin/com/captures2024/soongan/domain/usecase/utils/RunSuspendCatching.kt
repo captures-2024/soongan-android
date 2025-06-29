@@ -1,3 +1,5 @@
+@file:Suppress("LEAKED_IN_PLACE_LAMBDA", "WRONG_INVOCATION_KIND")
+
 package com.captures2024.soongan.domain.usecase.utils
 
 import kotlin.contracts.ExperimentalContracts

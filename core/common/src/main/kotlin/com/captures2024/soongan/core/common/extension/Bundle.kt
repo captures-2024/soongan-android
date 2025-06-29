@@ -11,8 +11,9 @@ fun Bundle.toMap(): Map<String, Any>? {
 
         @Suppress("DEPRECATION")
         val value = get(key)
-        if (value != null)
+        if (value != null) {
             map[key] = value
+        }
     }
     return map
 }

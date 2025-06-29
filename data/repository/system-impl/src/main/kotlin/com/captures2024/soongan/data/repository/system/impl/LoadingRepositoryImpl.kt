@@ -1,8 +1,8 @@
 package com.captures2024.soongan.data.repository.system.impl
 
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
-import com.captures2024.soongan.domain.repository.system.LoadingRepository
 import com.captures2024.soongan.data.source.system.local.LoadingLocalDataSource
+import com.captures2024.soongan.domain.repository.system.LoadingRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

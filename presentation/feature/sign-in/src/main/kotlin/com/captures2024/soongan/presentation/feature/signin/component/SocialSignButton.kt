@@ -1,4 +1,4 @@
-package com.captures2024.soongan.presentation.feature.sign_in.component
+package com.captures2024.soongan.presentation.feature.signin.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Row
@@ -27,7 +27,7 @@ import com.captures2024.soongan.presentation.designsystem.ui.component.text.getS
 import com.captures2024.soongan.presentation.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.presentation.designsystem.ui.theme.SGTypography
 import com.captures2024.soongan.presentation.designsystem.ui.util.DevicePreviews
-import com.captures2024.soongan.presentation.feature.sign_in.R
+import com.captures2024.soongan.presentation.feature.signin.R
 
 @Composable
 internal fun GoogleSignButton(onClick: () -> Unit) {

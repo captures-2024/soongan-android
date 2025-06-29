@@ -4,11 +4,11 @@ import android.content.Context
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.model.dto.ResultConditionDto
 import com.captures2024.soongan.core.model.dto.UserInfoDto
-import com.captures2024.soongan.data.source.member.impl.mapper.toUserInfoDto
 import com.captures2024.soongan.data.service.api.MembersAPI
-import com.captures2024.soongan.data.source.member.remote.MembersRemoteDataSource
 import com.captures2024.soongan.data.service.api.utils.safeAPICall
 import com.captures2024.soongan.data.service.api.utils.toImageMultiPart
+import com.captures2024.soongan.data.source.member.impl.mapper.toUserInfoDto
+import com.captures2024.soongan.data.source.member.remote.MembersRemoteDataSource
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
@@ -17,7 +17,7 @@ class MembersRemoteDataSourceImpl
 constructor(
     private val analyticsHelper: AnalyticsHelper,
     private val membersAPI: MembersAPI,
-    @ApplicationContext private val context: Context,
+    @param:ApplicationContext private val context: Context,
 ) : MembersRemoteDataSource {
 
     init {

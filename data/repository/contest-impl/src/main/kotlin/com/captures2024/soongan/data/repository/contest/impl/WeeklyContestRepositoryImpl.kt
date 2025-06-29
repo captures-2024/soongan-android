@@ -5,10 +5,10 @@ import com.captures2024.soongan.core.model.dto.GalleryDto
 import com.captures2024.soongan.core.model.dto.MyGalleryDto
 import com.captures2024.soongan.core.model.dto.PostInfoDto
 import com.captures2024.soongan.core.model.dto.WeeklyContestInfoListDto
-import com.captures2024.soongan.domain.repository.contest.WeeklyContestRepository
 import com.captures2024.soongan.data.source.contest.local.ContentVisibilityLocalDataSource
 import com.captures2024.soongan.data.source.contest.remote.WeeklyContestRemoteDataSource
 import com.captures2024.soongan.data.source.member.local.GuestLocalDataSource
+import com.captures2024.soongan.domain.repository.contest.WeeklyContestRepository
 import javax.inject.Inject
 
 class WeeklyContestRepositoryImpl

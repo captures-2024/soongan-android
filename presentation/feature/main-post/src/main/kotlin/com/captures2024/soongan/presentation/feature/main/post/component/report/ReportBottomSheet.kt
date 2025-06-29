@@ -18,12 +18,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.captures2024.soongan.presentation.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.core.navigator.screen.main.report.CheckReportReasonNavigator
 import com.captures2024.soongan.core.navigator.screen.main.report.DoneReportReasonNavigator
 import com.captures2024.soongan.core.navigator.screen.main.report.SelectReportReasonNavigator
 import com.captures2024.soongan.core.navigator.screen.main.report.navigateToCheckReportReason
 import com.captures2024.soongan.core.navigator.screen.main.report.navigateToDoneReportReason
+import com.captures2024.soongan.presentation.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.presentation.feature.main.post.route.CheckReportReasonRoute
 import com.captures2024.soongan.presentation.feature.main.post.route.DoneReportReasonRoute
 import com.captures2024.soongan.presentation.feature.main.post.route.SelectReportReasonRoute

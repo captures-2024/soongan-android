@@ -14,11 +14,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.captures2024.soongan.core.model.utils.NotificationType
+import com.captures2024.soongan.core.model.utils.NotificationsCountTable
 import com.captures2024.soongan.presentation.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.presentation.designsystem.ui.theme.SGTheme
 import com.captures2024.soongan.presentation.designsystem.ui.util.DevicePreviews
-import com.captures2024.soongan.core.model.utils.NotificationType
-import com.captures2024.soongan.core.model.utils.NotificationsCountTable
 import com.captures2024.soongan.presentation.feature.main.profile.utils.extension.getTabResId
 import com.captures2024.soongan.presentation.feature.main.profile.utils.nonScaleAnnotatedTitle
 import kotlinx.coroutines.launch

@@ -61,12 +61,7 @@ class FirebaseCloudMessageService : FirebaseMessagingService() {
 
         analyticsHelper.d { "createPendingIntent - intent.action: ${intent?.action}" }
 
-        val pendingIntent = PendingIntent.getActivity(
-            /* context = */ this,
-            /* requestCode = */ UUID.randomUUID().hashCode(),
-            /* intent = */ intent,
-            /* flags = */ intentFlags,
-        )
+        val pendingIntent = PendingIntent.getActivity(this, UUID.randomUUID().hashCode(), intent, intentFlags)
 
         return pendingIntent
     }

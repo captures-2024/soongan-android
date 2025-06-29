@@ -21,7 +21,8 @@ internal fun MainComponent(
     content: @Composable (PaddingValues) -> Unit,
 ) {
     Scaffold(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
             .navigationBarsPadding(),
         bottomBar = {
             val isNotViewBottomBar = isNotViewBottomBar(
@@ -60,9 +61,11 @@ private fun isNotViewBottomBar(
     currentDestination: NavDestination?,
     topLevelDestinations: List<MainTopLevelDestination>,
 ): Boolean {
-    for (topLevelDestination in topLevelDestinations)
-        if (currentDestination.isTopLevelDestinationInHierarchy(topLevelDestination))
+    for (topLevelDestination in topLevelDestinations) {
+        if (currentDestination.isTopLevelDestinationInHierarchy(topLevelDestination)) {
             return false
+        }
+    }
 
     return true
 }
