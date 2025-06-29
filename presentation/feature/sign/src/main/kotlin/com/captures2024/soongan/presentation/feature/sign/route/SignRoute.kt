@@ -8,8 +8,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.captures2024.soongan.core.navigator.screen.sign.SignInNavigator
 import com.captures2024.soongan.core.navigator.screen.sign.navigateToSignUp
-import com.captures2024.soongan.presentation.feature.sign_in.navigation.signIn
-import com.captures2024.soongan.presentation.feature.sign_up.navigation.signUp
+import com.captures2024.soongan.presentation.feature.signin.navigation.signIn
+import com.captures2024.soongan.presentation.feature.signup.navigation.signUp
 
 @Composable
 fun SignRoute(

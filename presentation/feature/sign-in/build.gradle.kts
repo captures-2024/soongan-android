@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.captures2024.soongan.presentation.feature.sign_in"
+    namespace = "com.captures2024.soongan.presentation.feature.signin"
 }
 
 dependencies {

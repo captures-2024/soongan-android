@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.captures2024.soongan.core.model.dto.PostInfoDto
 import com.captures2024.soongan.presentation.designsystem.icon.MyIconPack
 import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconFillHeart
 import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconNonFillComment
@@ -41,7 +42,6 @@ import com.captures2024.soongan.presentation.designsystem.ui.theme.SGTheme
 import com.captures2024.soongan.presentation.designsystem.ui.theme.SGTypography
 import com.captures2024.soongan.presentation.designsystem.ui.theme.dropShadow
 import com.captures2024.soongan.presentation.designsystem.ui.util.DevicePreviews
-import com.captures2024.soongan.core.model.dto.PostInfoDto
 import com.captures2024.soongan.presentation.feature.main.home.R
 
 @Composable

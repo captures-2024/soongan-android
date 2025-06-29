@@ -2,8 +2,8 @@ package com.captures2024.soongan.data.repository.contest.impl
 
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.model.dto.PostLikeDto
-import com.captures2024.soongan.domain.repository.contest.PostLikeRepository
 import com.captures2024.soongan.data.source.contest.remote.PostLikeRemoteDataSource
+import com.captures2024.soongan.domain.repository.contest.PostLikeRepository
 import javax.inject.Inject
 
 class PostLikeRepositoryImpl

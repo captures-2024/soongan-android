@@ -1,4 +1,4 @@
-package com.captures2024.soongan.presentation.feature.sign_in.component.screen
+package com.captures2024.soongan.presentation.feature.signin.component.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -32,9 +32,9 @@ import com.captures2024.soongan.presentation.designsystem.ui.component.text.getS
 import com.captures2024.soongan.presentation.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.presentation.designsystem.ui.theme.SGTypography
 import com.captures2024.soongan.presentation.designsystem.ui.util.DevicePreviews
-import com.captures2024.soongan.presentation.feature.sign_in.component.GoogleSignButton
-import com.captures2024.soongan.presentation.feature.sign_in.component.KakaoSignButton
-import com.captures2024.soongan.presentation.feature.sign_in.component.TermsComponent
+import com.captures2024.soongan.presentation.feature.signin.component.GoogleSignButton
+import com.captures2024.soongan.presentation.feature.signin.component.KakaoSignButton
+import com.captures2024.soongan.presentation.feature.signin.component.TermsComponent
 
 @Composable
 internal fun SignInScreen(
@@ -93,7 +93,7 @@ internal fun SignInScreen(
             HeightSpacer(24.dp)
 
             SGText(
-                text = stringResource(com.captures2024.soongan.presentation.feature.sign_in.R.string.guest_mode_content),
+                text = stringResource(com.captures2024.soongan.presentation.feature.signin.R.string.guest_mode_content),
                 style = getSGNonScaleTextStyle(
                     color = SGColor.primaryA,
                     fontSize = 14.sp,

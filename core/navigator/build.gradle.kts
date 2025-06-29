@@ -9,7 +9,6 @@ android {
     namespace = "com.captures2024.soongan.core.navigator"
 }
 
-
 dependencies {
     implementation(libs.kotlin.serialization.json)
     implementation(libs.android.compose.navigation)

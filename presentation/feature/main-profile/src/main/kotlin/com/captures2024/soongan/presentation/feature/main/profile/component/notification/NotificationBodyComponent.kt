@@ -5,11 +5,11 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.captures2024.soongan.presentation.designsystem.ui.theme.SGTheme
-import com.captures2024.soongan.presentation.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.core.model.mock.mockNotificationsCountTable
 import com.captures2024.soongan.core.model.mock.mockNotificationsTable
 import com.captures2024.soongan.core.model.utils.NotificationType
+import com.captures2024.soongan.presentation.designsystem.ui.theme.SGTheme
+import com.captures2024.soongan.presentation.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.presentation.viewmodel.main.profile.ProfileNotificationViewModel
 
 @Composable

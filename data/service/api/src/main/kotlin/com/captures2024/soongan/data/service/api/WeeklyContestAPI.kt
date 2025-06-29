@@ -4,10 +4,10 @@ import com.captures2024.soongan.core.model.AppConst
 import com.captures2024.soongan.core.model.network.request.weekly.contests.EditPostRequest
 import com.captures2024.soongan.core.model.network.response.BaseResponse
 import com.captures2024.soongan.core.model.network.response.weekly.contests.EditPostResponse
-import com.captures2024.soongan.core.model.network.response.weekly.contests.GetWeeklyContestInfoListResponse
 import com.captures2024.soongan.core.model.network.response.weekly.contests.GetGalleryResponse
 import com.captures2024.soongan.core.model.network.response.weekly.contests.GetMyGalleryResponse
 import com.captures2024.soongan.core.model.network.response.weekly.contests.GetPostInfoResponse
+import com.captures2024.soongan.core.model.network.response.weekly.contests.GetWeeklyContestInfoListResponse
 import com.captures2024.soongan.core.model.network.response.weekly.contests.RegisterPostResponse
 import okhttp3.MultipartBody
 import retrofit2.Response

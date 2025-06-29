@@ -1,4 +1,4 @@
-package com.captures2024.soongan.presentation.feature.sign_in.route
+package com.captures2024.soongan.presentation.feature.signin.route
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -8,7 +8,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.captures2024.soongan.core.auth.google.requestGoogleLogin
 import com.captures2024.soongan.core.auth.kakao.KakaoAuthHelperImpl
 import com.captures2024.soongan.core.auth.kakao.KakaoLoginCallback
-import com.captures2024.soongan.presentation.feature.sign_in.component.screen.SignInScreen
+import com.captures2024.soongan.presentation.feature.signin.component.screen.SignInScreen
 import com.captures2024.soongan.presentation.viewmodel.sign.SignInViewModel
 
 @Composable

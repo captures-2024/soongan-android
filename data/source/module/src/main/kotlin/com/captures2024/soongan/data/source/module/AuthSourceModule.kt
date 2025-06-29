@@ -1,7 +1,7 @@
 package com.captures2024.soongan.data.source.module
 
-import com.captures2024.soongan.data.source.auth.remote.AuthRemoteDataSource
 import com.captures2024.soongan.data.source.auth.impl.remote.AuthRemoteDataSourceImpl
+import com.captures2024.soongan.data.source.auth.remote.AuthRemoteDataSource
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

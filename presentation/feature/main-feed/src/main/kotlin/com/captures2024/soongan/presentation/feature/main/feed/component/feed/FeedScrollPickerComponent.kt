@@ -39,6 +39,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.captures2024.soongan.core.model.AppConst
 import com.captures2024.soongan.presentation.designsystem.ui.component.HeightSpacer
 import com.captures2024.soongan.presentation.designsystem.ui.component.WidthSpacer
 import com.captures2024.soongan.presentation.designsystem.ui.component.text.SGText
@@ -47,7 +48,6 @@ import com.captures2024.soongan.presentation.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.presentation.designsystem.ui.theme.SGTypography
 import com.captures2024.soongan.presentation.designsystem.ui.theme.innerShadow
 import com.captures2024.soongan.presentation.designsystem.ui.util.DevicePreviews
-import com.captures2024.soongan.core.model.AppConst
 import com.captures2024.soongan.presentation.feature.main.feed.R
 import com.captures2024.soongan.presentation.viewmodel.model.TitleOption
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -130,8 +130,9 @@ private fun ScrollPicker(
             "$round" + stringResource(R.string.scroll_picker_title_infix_text) + subject
         } ?: AppConst.EMPTY_STRING
 
-    val listState =
-        rememberLazyListState(initialFirstVisibleItemIndex = selectedOption.round - 1)
+    val listState = rememberLazyListState(
+        initialFirstVisibleItemIndex = selectedOption.round - 1,
+    )
     val flingBehavior = rememberSnapFlingBehavior(lazyListState = listState)
 
     val currentCenterIndex = remember {
@@ -169,13 +170,15 @@ private fun ScrollPicker(
                 offsetX = 0.dp,
                 offsetY = (-0.5).dp,
             )
-            .nestedScroll(object : NestedScrollConnection {
-                override fun onPostScroll(
-                    consumed: Offset,
-                    available: Offset,
-                    source: NestedScrollSource,
-                ): Offset = available
-            }),
+            .nestedScroll(
+                object : NestedScrollConnection {
+                    override fun onPostScroll(
+                        consumed: Offset,
+                        available: Offset,
+                        source: NestedScrollSource,
+                    ): Offset = available
+                },
+            ),
     ) {
         HorizontalDivider(
             modifier = Modifier.offset(y = upperDividerYOffset),

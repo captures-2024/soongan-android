@@ -3,9 +3,9 @@ package com.captures2024.soongan.data.repository.auth.impl
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.model.dto.ResultConditionDto
 import com.captures2024.soongan.core.model.utils.SocialSignType
-import com.captures2024.soongan.domain.repository.auth.AuthRepository
 import com.captures2024.soongan.data.source.auth.remote.AuthRemoteDataSource
 import com.captures2024.soongan.data.source.token.local.TokenLocalDataSource
+import com.captures2024.soongan.domain.repository.auth.AuthRepository
 import javax.inject.Inject
 
 class AuthRepositoryImpl

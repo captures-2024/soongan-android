@@ -1,8 +1,8 @@
 package com.captures2024.soongan.data.repository.token.impl
 
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
-import com.captures2024.soongan.domain.repository.token.TokenRepository
 import com.captures2024.soongan.data.source.token.local.TokenLocalDataSource
+import com.captures2024.soongan.domain.repository.token.TokenRepository
 import javax.inject.Inject
 
 class TokenRepositoryImpl

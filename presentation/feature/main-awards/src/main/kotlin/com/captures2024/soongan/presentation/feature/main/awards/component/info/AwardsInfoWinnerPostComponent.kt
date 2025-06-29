@@ -27,11 +27,15 @@ internal fun AwardsInfoWinnerPostComponent(
     // default value: height(240) // 16:9 ratio: width(360)
     val sizeModifier =
         when (winnerPost.isDefaultOrientation) {
-            true -> Modifier
-                .height(240.dp)
-                .fillMaxWidth()
+            true -> {
+                Modifier
+                    .height(240.dp)
+                    .fillMaxWidth()
+            }
 
-            false -> Modifier.width(360.dp)
+            false -> {
+                Modifier.width(360.dp)
+            }
         }
 
     Column(

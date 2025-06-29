@@ -10,3 +10,7 @@ android {
 tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
     enabled = false
 }
+
+tasks.named("ktlintMainSourceSetCheck") {
+    enabled = false
+}

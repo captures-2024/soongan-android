@@ -5,7 +5,6 @@ import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.common.base.UIIntent
 import com.captures2024.soongan.core.common.base.UISideEffect
 import com.captures2024.soongan.core.common.base.UIState
-import com.captures2024.soongan.core.model.dto.UserInfoDto
 import com.captures2024.soongan.core.model.enums.CommonDialogType
 import com.captures2024.soongan.core.model.exception.NetworkExceptionWrapper
 import com.captures2024.soongan.domain.usecase.auth.SigningGoogleUseCase
@@ -193,7 +192,7 @@ constructor(
                         705 -> CommonDialogType.OTHER_SOCIAL
 
                         else -> CommonDialogType.NETWORK_ERROR
-                    }
+                    },
                 )
             }
         }

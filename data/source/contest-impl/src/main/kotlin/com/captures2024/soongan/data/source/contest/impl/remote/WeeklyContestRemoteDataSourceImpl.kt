@@ -7,14 +7,14 @@ import com.captures2024.soongan.core.model.dto.MyGalleryDto
 import com.captures2024.soongan.core.model.dto.PostInfoDto
 import com.captures2024.soongan.core.model.dto.WeeklyContestInfoListDto
 import com.captures2024.soongan.core.model.network.request.weekly.contests.EditPostRequest
+import com.captures2024.soongan.data.service.api.WeeklyContestAPI
+import com.captures2024.soongan.data.service.api.utils.safeAPICall
+import com.captures2024.soongan.data.service.api.utils.toImageMultiPart
 import com.captures2024.soongan.data.source.contest.impl.mapper.toGalleryDto
 import com.captures2024.soongan.data.source.contest.impl.mapper.toMyGalleryDto
 import com.captures2024.soongan.data.source.contest.impl.mapper.toPostInfoDto
 import com.captures2024.soongan.data.source.contest.impl.mapper.toWeeklyContestInfoListDto
 import com.captures2024.soongan.data.source.contest.remote.WeeklyContestRemoteDataSource
-import com.captures2024.soongan.data.service.api.WeeklyContestAPI
-import com.captures2024.soongan.data.service.api.utils.safeAPICall
-import com.captures2024.soongan.data.service.api.utils.toImageMultiPart
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
@@ -22,7 +22,7 @@ class WeeklyContestRemoteDataSourceImpl
 @Inject
 constructor(
     private val analyticsHelper: AnalyticsHelper,
-    @ApplicationContext private val context: Context,
+    @param:ApplicationContext private val context: Context,
     private val weeklyContestAPI: WeeklyContestAPI,
 ) : WeeklyContestRemoteDataSource {
 

@@ -4,9 +4,9 @@ import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.model.dto.ReportInfoDto
 import com.captures2024.soongan.core.model.utils.ReportTargetType
 import com.captures2024.soongan.core.model.utils.ReportType
-import com.captures2024.soongan.domain.repository.report.ReportRepository
 import com.captures2024.soongan.data.source.contest.local.ContentVisibilityLocalDataSource
 import com.captures2024.soongan.data.source.report.remote.ReportRemoteDataSource
+import com.captures2024.soongan.domain.repository.report.ReportRepository
 import javax.inject.Inject
 
 class ReportRepositoryImpl
@@ -38,10 +38,12 @@ constructor(
             throw NullPointerException("reportInfo is null")
         }
 
-        if (targetId != reportInfo.targetId ||
+        val condition = targetId != reportInfo.targetId ||
             targetType.name != reportInfo.targetType ||
             reportType.name != reportInfo.reportType ||
-            reason != reportInfo.reason) {
+            reason != reportInfo.reason
+
+        if (condition) {
             error("mismatch between request and response data")
         }
 

@@ -15,6 +15,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
+import com.captures2024.soongan.core.model.utils.ReportType
 import com.captures2024.soongan.presentation.designsystem.ui.component.HeightSpacer
 import com.captures2024.soongan.presentation.designsystem.ui.component.button.SGTextButtonType2
 import com.captures2024.soongan.presentation.designsystem.ui.component.text.getSGNonScaleSpanStyle
@@ -22,10 +23,9 @@ import com.captures2024.soongan.presentation.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.presentation.designsystem.ui.theme.SGTheme
 import com.captures2024.soongan.presentation.designsystem.ui.theme.SGTypography
 import com.captures2024.soongan.presentation.designsystem.ui.util.DevicePreviews
-import com.captures2024.soongan.core.model.utils.ReportType
-import com.captures2024.soongan.presentation.viewmodel.main.post.PostReportViewModel
 import com.captures2024.soongan.presentation.feature.main.post.R
 import com.captures2024.soongan.presentation.feature.main.post.utils.extension.getTextId
+import com.captures2024.soongan.presentation.viewmodel.main.post.PostReportViewModel
 
 @Composable
 internal fun ReportReasonScreen(
