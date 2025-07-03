@@ -1,0 +1,51 @@
+name: Build assembleRelease & Upload Firebase App Distribution
+
+on:
+  push:
+    branches: [ "develop" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: gradle
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Decode Keystore Base64
+        run: |
+          mkdir -p keystore
+          echo "${{ secrets.DEBUG_KEYSTORE }}" | base64 --decode > keystore/debug.keystore
+          echo "${{ secrets.RELEASE_KEYSTORE_JKS }}" | base64 --decode > keystore/release.keystore.jks
+
+      - name: Create Properties & Google Services JSON
+        env:
+          LOCAL_PROPERTIES: ${{secrets.LOCAL_PROPERTIES}}
+          KEYSTORE_PROPERTIES: ${{ secrets.KEYSTORE_PROPERTIES }}
+          SECRETS_PROPERTIES: ${{ secrets.SECRETS_PROPERTIES }}
+          GOOGLE_SERVICES_JSON: ${{secrets.GOOGLE_SERVICES_JSON}}
+        run: |
+          echo "$LOCAL_PROPERTIES" > local.properties
+          echo "$KEYSTORE_PROPERTIES" > keystore.properties
+          echo "$SECRETS_PROPERTIES" > secrets.properties
+          echo "$GOOGLE_SERVICES_JSON" > app/google-services.json
+
+      - name: Build Release APK
+        run: ./gradlew assembleRelease
+
+      - name: Upload Firebase App Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1.7.1
+        with:
+          appId: ${{secrets.FIREBASE_APP_ID}}
+          serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
+          groups: soongan-android-tester
+          file: app/build/outputs/apk/release/app-release.apk
