@@ -45,8 +45,7 @@ internal fun ProfileMenuNotificationSettingRoute(
         viewModel.sideEffect.collect { effect ->
             when (effect) {
                 is ProfileNotificationSettingViewModel.Effect.NavigateToBack -> navigateToBack()
-                is ProfileNotificationSettingViewModel.Effect.CheckPermission -> requestPermissions(
-                    context = context,
+                is ProfileNotificationSettingViewModel.Effect.CheckPermission -> context.requestPermissions(
                     permissions = permissions,
                     launcher = permissionLauncher,
                 )
