@@ -1,13 +1,16 @@
 package com.captures2024.soongan.data.source.notification.impl.remote
 
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
+import com.captures2024.soongan.core.model.dto.NotificationSettingDto
 import com.captures2024.soongan.core.model.dto.NotificationsCountInfoDto
 import com.captures2024.soongan.core.model.dto.NotificationsInfoDto
 import com.captures2024.soongan.core.model.utils.NotificationType
 import com.captures2024.soongan.data.service.api.NotificationsAPI
 import com.captures2024.soongan.data.service.api.utils.safeAPICall
+import com.captures2024.soongan.data.source.notification.impl.mapper.toNotificationSettingDto
 import com.captures2024.soongan.data.source.notification.impl.mapper.toNotificationsCountDto
 import com.captures2024.soongan.data.source.notification.impl.mapper.toNotificationsDto
+import com.captures2024.soongan.data.source.notification.impl.mapper.toPatchNotificationSettingsRequest
 import com.captures2024.soongan.data.source.notification.remote.NotificationsRemoteDataSource
 import javax.inject.Inject
 
@@ -90,5 +93,41 @@ constructor(
             null -> false
             else -> true
         }
+    }
+
+    override suspend fun getNotificationSettings(): NotificationSettingDto? {
+        analyticsHelper.d { "getNotificationSettings" }
+
+        val response = safeAPICall { notificationsAPI.getNotificationSettings() }
+
+        val responseHeader = response.headers
+
+        analyticsHelper.d { "getNotificationSettings - responseHeader: $responseHeader" }
+
+        val responseBody = response.body
+
+        analyticsHelper.d { "getNotificationSettings - responseBody: $responseBody" }
+
+        return responseBody?.responseData?.toNotificationSettingDto()
+    }
+
+    override suspend fun patchNotificationSettings(settings: NotificationSettingDto): NotificationSettingDto? {
+        analyticsHelper.d { "patchNotificationSettings - settings: $settings" }
+
+        val response = safeAPICall {
+            notificationsAPI.patchNotificationSettings(
+                request = settings.toPatchNotificationSettingsRequest(),
+            )
+        }
+
+        val responseHeader = response.headers
+
+        analyticsHelper.d { "patchNotificationSettings - responseHeader: $responseHeader" }
+
+        val responseBody = response.body
+
+        analyticsHelper.d { "patchNotificationSettings - responseBody: $responseBody" }
+
+        return responseBody?.responseData?.toNotificationSettingDto()
     }
 }

@@ -2,6 +2,7 @@ package com.captures2024.soongan.data.repository.notification.impl
 
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.model.dto.NotificationDto
+import com.captures2024.soongan.core.model.dto.NotificationSettingDto
 import com.captures2024.soongan.core.model.dto.NotificationsCountInfoDto
 import com.captures2024.soongan.core.model.dto.NotificationsInfoDto
 import com.captures2024.soongan.core.model.utils.NotificationType
@@ -61,5 +62,27 @@ constructor(
     override suspend fun deleteNotification(notificationId: Long): Boolean {
         analyticsHelper.d { "deleteNotification - notificationId: $notificationId" }
         return notificationsRemoteDataSource.deleteNotification(notificationId = notificationId)
+    }
+
+    override suspend fun getNotificationSettings(): NotificationSettingDto {
+        val notificationSetting = notificationsRemoteDataSource.getNotificationSettings()
+
+        return notificationSetting ?: throw NullPointerException("notificationSetting is null")
+    }
+
+    override suspend fun patchNotificationSettings(settings: NotificationSettingDto): NotificationSettingDto {
+        val notificationSetting = notificationsRemoteDataSource.patchNotificationSettings(
+            settings = settings,
+        )
+
+        if (notificationSetting == null) {
+            throw NullPointerException("notificationSetting is null")
+        }
+
+        if (settings != notificationSetting) {
+            error("Not match settings: $settings and notificationSetting: $notificationSetting")
+        }
+
+        return notificationSetting
     }
 }
