@@ -11,14 +11,4 @@ data class GetWeeklyContestInfoResponse(
     val round: Int,
     @SerialName("subject")
     val subject: String,
-    @SerialName("startAt")
-    val startAt: String,
-    @SerialName("endAt")
-    val endAt: String,
-    @SerialName("voteStartAt")
-    val voteStartAt: String,
-    @SerialName("voteEndAt")
-    val voteEndAt: String,
-    @SerialName("announcedAt")
-    val announcedAt: String,
 )
