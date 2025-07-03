@@ -1,4 +1,6 @@
+import io.gitlab.arturbosch.detekt.Detekt
 import io.gitlab.arturbosch.detekt.extensions.DetektExtension
+import io.gitlab.arturbosch.detekt.report.ReportMergeTask
 import org.jlleitschuh.gradle.ktlint.KtlintExtension
 
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
@@ -36,6 +38,10 @@ buildscript {
     }
 }
 
+val detektReportMergeSarif by tasks.registering(ReportMergeTask::class) {
+    output.set(layout.buildDirectory.file("reports/detekt/merge.sarif"))
+}
+
 allprojects {
     apply {
         plugin(rootProject.libs.plugins.kotlin.detekt.get().pluginId)
@@ -55,6 +61,19 @@ allprojects {
             version.set(rootProject.libs.versions.kotlin.ktlint.source.get())
             android.set(true)
             verbose.set(true)
+        }
+
+        // Merge detekt report to 'root/build/reports/detekt/marge.sarif'
+        tasks.withType<Detekt>().configureEach {
+            reports {
+                sarif.required.set(true)
+            }
+            basePath = rootDir.absolutePath
+            finalizedBy(detektReportMergeSarif)
+        }
+
+        detektReportMergeSarif {
+            input.from(tasks.withType<Detekt>().map { it.sarifReportFile })
         }
     }
 }
