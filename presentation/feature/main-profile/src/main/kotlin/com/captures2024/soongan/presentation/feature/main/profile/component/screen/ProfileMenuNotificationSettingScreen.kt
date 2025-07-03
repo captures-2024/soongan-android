@@ -17,6 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
+import com.captures2024.soongan.presentation.designsystem.ui.component.dialog.SGDoubleButtonDialog
 import com.captures2024.soongan.presentation.designsystem.ui.component.text.SGText
 import com.captures2024.soongan.presentation.designsystem.ui.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.presentation.designsystem.ui.theme.SGColor
@@ -32,10 +33,12 @@ import com.captures2024.soongan.presentation.viewmodel.model.NotificationSetting
 
 @Composable
 internal fun ProfileMenuNotificationSettingScreen(
-    state: ProfileNotificationSettingViewModel.State.NotificationSettingState,
+    state: ProfileNotificationSettingViewModel.State,
     modifier: Modifier = Modifier,
     onClickBack: () -> Unit,
     onSwitchNotificationSettingType: (NotificationSettingType) -> Unit,
+    onClickCancelPermissionDialog: () -> Unit,
+    onClickConfirmPermissionDialog: () -> Unit,
 ) {
     Column(modifier = modifier) {
         ProfileMenuItemTopBarComponent(
@@ -48,7 +51,7 @@ internal fun ProfileMenuNotificationSettingScreen(
             NotificationToggleRow(
                 text = stringResource(type.getTitleResId()),
                 detailText = stringResource(type.getDescriptionResId()),
-                checked = state.getStateByType(type),
+                checked = state.notificationSettingState.getStateByType(type),
                 onCheckedChange = { onSwitchNotificationSettingType(type) },
             )
 
@@ -59,6 +62,17 @@ internal fun ProfileMenuNotificationSettingScreen(
                 )
             }
         }
+    }
+
+    if (state.isShowPermissionDialog) {
+        SGDoubleButtonDialog(
+            content = stringResource(R.string.profile_menu_notification_setting_permission_dialog_content),
+            confirmContent = stringResource(R.string.profile_menu_notification_setting_permission_dialog_confirm),
+            cancelContent = stringResource(R.string.profile_menu_notification_setting_permission_dialog_cancel),
+            onClickConfirm = onClickConfirmPermissionDialog,
+            onClickCancel = onClickCancelPermissionDialog,
+            onDismissRequest = onClickCancelPermissionDialog,
+        )
     }
 }
 
@@ -135,9 +149,17 @@ private fun NotificationToggleRow(
 private fun PreviewProfileMenuNotificationSettingScreen() {
     SGTheme {
         ProfileMenuNotificationSettingScreen(
-            state = ProfileNotificationSettingViewModel.State.NotificationSettingState(),
+            state = ProfileNotificationSettingViewModel.State(
+                isInit = true,
+                isCheckedPermission = true,
+                notificationSettingState = ProfileNotificationSettingViewModel.State.NotificationSettingState(),
+                initNotificationSettingState = null,
+                isShowPermissionDialog = false,
+            ),
             onClickBack = {},
             onSwitchNotificationSettingType = {},
+            onClickCancelPermissionDialog = {},
+            onClickConfirmPermissionDialog = {},
         )
     }
 }
