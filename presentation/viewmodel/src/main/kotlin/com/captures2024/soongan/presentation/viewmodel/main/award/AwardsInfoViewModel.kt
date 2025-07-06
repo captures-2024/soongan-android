@@ -1,12 +1,16 @@
 package com.captures2024.soongan.presentation.viewmodel.main.award
 
 import androidx.lifecycle.SavedStateHandle
+import androidx.navigation.toRoute
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.common.base.UIIntent
 import com.captures2024.soongan.core.common.base.UISideEffect
 import com.captures2024.soongan.core.common.base.UIState
+import com.captures2024.soongan.core.model.dto.awards.AwardsDetailDto
+import com.captures2024.soongan.core.model.enums.AwardsPostStatusType
+import com.captures2024.soongan.core.navigator.screen.main.awards.AwardsInfoNavigator
+import com.captures2024.soongan.domain.usecase.awards.GetAwardsInfoUseCase
 import com.captures2024.soongan.domain.usecase.contest.GetHidePostEventUseCase
-import com.captures2024.soongan.domain.usecase.contest.GetWeeklyContestInfoListUseCase
 import com.captures2024.soongan.domain.usecase.member.GetIsCurrentGuestModeUseCase
 import com.captures2024.soongan.domain.usecase.system.dialog.SetIsShowGuestModeDialogFlowUseCase
 import com.captures2024.soongan.domain.usecase.system.loading.ClearLoadingUseCase
@@ -15,29 +19,6 @@ import com.captures2024.soongan.domain.usecase.system.loading.ShowLoadingUseCase
 import com.captures2024.soongan.presentation.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import kotlin.random.Random
-
-// TODO move package and convert remote value class
-data class ContestInfo(
-    val round: Int = 1,
-    val subject: String = "주제",
-    val startAt: String = "2025.01.07",
-    val endAt: String = "2025.02.07",
-    val allPostCount: Int = 30,
-)
-
-data class TopPost(
-    val postId: Long = Random.nextLong(),
-    val imageUrl: String = "https://storage.googleapis.com/soongan-dev-bk/1/weekly/1/test.jpeg",
-    val nickname: String = "닉네임",
-    val voteLike: Int = 9999,
-)
-
-data class WinnerPost(
-    val topPost: TopPost = TopPost(),
-    val title: String = "제목",
-    val isDefaultOrientation: Boolean = true,
-)
 
 @HiltViewModel
 class AwardsInfoViewModel
@@ -50,8 +31,8 @@ constructor(
     getIsCurrentGuestModeUseCase: GetIsCurrentGuestModeUseCase,
     setIsShowGuestModeDialogFlowUseCase: SetIsShowGuestModeDialogFlowUseCase,
     savedStateHandle: SavedStateHandle,
-    private val getWeeklyContestInfoListUseCase: GetWeeklyContestInfoListUseCase,
     private val getHidePostEventUseCase: GetHidePostEventUseCase,
+    private val getAwardsInfoUseCase: GetAwardsInfoUseCase,
 ) : BaseViewModel<AwardsInfoViewModel.State, AwardsInfoViewModel.Effect, AwardsInfoViewModel.Intent>(
     analyticsHelper = analyticsHelper,
     showLoadingUseCase = showLoadingUseCase,
@@ -62,10 +43,9 @@ constructor(
     savedStateHandle = savedStateHandle,
 ) {
     data class State(
+        val roundId: Long,
         val initState: InitState,
-        val contestInfo: ContestInfo,
-        val topPosts: List<TopPost>,
-        val winnerPost: WinnerPost,
+        val awardsInfo: AwardsDetailDto?,
     ) : UIState {
 
         enum class InitState {
@@ -106,13 +86,12 @@ constructor(
     }
 
     override fun createInitialState(savedStateHandle: SavedStateHandle): State {
-//        val route = savedStateHandle.toRoute<AwardsInfoNavigator>()
+        val route = savedStateHandle.toRoute<AwardsInfoNavigator>()
 
         return State(
+            roundId = route.id,
             initState = State.InitState.INIT,
-            winnerPost = WinnerPost(),
-            contestInfo = ContestInfo(),
-            topPosts = emptyList(),
+            awardsInfo = null,
         )
     }
 
@@ -137,36 +116,19 @@ constructor(
     private suspend fun handleInit() {
         launch { collectHidePostEvent() }
 
-        val weeklyContestInfoListDto = getWeeklyContestInfoListUseCase().getOrNull()
-
-        if (weeklyContestInfoListDto == null) {
-            reduce {
-                copy(
-                    initState = State.InitState.FAIL,
-                )
-            }
-
-            return
-        }
-
-        val weeklyContestInfo = weeklyContestInfoListDto.weeklyContestInfoList.first()
-        val contestInfo = ContestInfo(
-            round = weeklyContestInfo.round,
-            subject = weeklyContestInfo.subject,
-            startAt = weeklyContestInfo.startAt,
-            endAt = weeklyContestInfo.endAt,
-            allPostCount = 30,
-        )
+        val awardsInfo = getAwardsInfoUseCase(
+            awardsId = currentState.roundId,
+        ).getOrNull()
 
         reduce {
             copy(
-                initState = State.InitState.SUCCESS,
-                contestInfo = contestInfo,
-                topPosts = List(6) { TopPost() },
+                initState = when (awardsInfo) {
+                    null -> State.InitState.FAIL
+                    else -> State.InitState.SUCCESS
+                },
+                awardsInfo = awardsInfo,
             )
         }
-
-        analyticsHelper.d { "initState: ${state.value.initState.name}, contestInfo: $contestInfo, topPosts:${currentState.topPosts}" }
     }
 
     private fun handleOnClickBack() {
@@ -187,7 +149,36 @@ constructor(
 
     private suspend fun collectHidePostEvent() {
         getHidePostEventUseCase().collect { postId ->
-            // TODO(hidden post 처리 - display text or blur)
+            val currentAwardsInfo = currentState.awardsInfo
+
+            if (currentAwardsInfo == null) {
+                return@collect
+            }
+
+            val newFirstPrizePost = currentAwardsInfo.firstPrizePost.copy(
+                status = when {
+                    postId == currentAwardsInfo.firstPrizePost.postId -> AwardsPostStatusType.DELETED_BY_CREATOR
+                    else -> currentAwardsInfo.firstPrizePost.status
+                },
+            )
+
+            val newOtherTop7Posts = currentAwardsInfo.otherTop7Posts.map {
+                it.copy(
+                    status = when {
+                        postId == it.postId -> AwardsPostStatusType.DELETED_BY_CREATOR
+                        else -> it.status
+                    },
+                )
+            }
+
+            reduce {
+                copy(
+                    awardsInfo = currentAwardsInfo.copy(
+                        firstPrizePost = newFirstPrizePost,
+                        otherTop7Posts = newOtherTop7Posts,
+                    ),
+                )
+            }
         }
     }
 }
