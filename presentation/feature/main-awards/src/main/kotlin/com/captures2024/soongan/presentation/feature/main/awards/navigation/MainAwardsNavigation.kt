@@ -11,7 +11,7 @@ import com.captures2024.soongan.presentation.feature.main.awards.route.AwardsInf
 import com.captures2024.soongan.presentation.feature.main.awards.route.AwardsRoute
 
 fun NavGraphBuilder.mainAwards(
-    navigateToAwardsInfo: (round: Int) -> Unit,
+    navigateToAwardsInfo: (id: Long) -> Unit,
     navigateToBack: () -> Unit,
     navigateToPost: (postId: Long) -> Unit,
     navigateToFeed: (NavOptions) -> Unit,

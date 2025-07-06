@@ -16,6 +16,8 @@ dependencies {
 
     implementation(projects.domain.usecase.auth)
     implementation(projects.domain.usecase.authImpl)
+    implementation(projects.domain.usecase.awards)
+    implementation(projects.domain.usecase.awardsImpl)
     implementation(projects.domain.usecase.contest)
     implementation(projects.domain.usecase.contestImpl)
     implementation(projects.domain.usecase.fcm)

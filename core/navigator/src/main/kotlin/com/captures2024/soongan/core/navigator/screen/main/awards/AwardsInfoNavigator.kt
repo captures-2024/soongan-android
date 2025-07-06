@@ -6,20 +6,20 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class AwardsInfoNavigator(
-    val round: Int,
+    val id: Long,
 )
 
-fun NavController.navigateToAwardsInfo(round: Int) = navigateToAwardsInfo(
-    round = round,
+fun NavController.navigateToAwardsInfo(id: Long) = navigateToAwardsInfo(
+    id = id,
     navOptions = null,
 )
 
 fun NavController.navigateToAwardsInfo(
-    round: Int,
+    id: Long,
     navOptions: NavOptions?,
 ) = navigate(
     route = AwardsInfoNavigator(
-        round = round,
+        id = id,
     ),
     navOptions = navOptions,
 )

@@ -15,6 +15,7 @@ dependencies {
     implementation(projects.core.model)
 
     implementation(projects.domain.repository.auth)
+    implementation(projects.domain.repository.awards)
     implementation(projects.domain.repository.contest)
     implementation(projects.domain.repository.fcm)
     implementation(projects.domain.repository.home)
@@ -25,6 +26,7 @@ dependencies {
     implementation(projects.domain.repository.token)
 
     implementation(projects.data.repository.authImpl)
+    implementation(projects.data.repository.awardsImpl)
     implementation(projects.data.repository.contestImpl)
     implementation(projects.data.repository.fcmImpl)
     implementation(projects.data.repository.homeImpl)

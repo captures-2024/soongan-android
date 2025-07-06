@@ -9,14 +9,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.captures2024.soongan.core.model.dto.awards.AwardsDefaultDto
 import com.captures2024.soongan.presentation.designsystem.ui.util.DevicePreviews
-import com.captures2024.soongan.presentation.viewmodel.main.award.AwardsContestInfo
 
 @Composable
 internal fun AwardsComponent(
-    contestInfo: List<AwardsContestInfo>,
+    contestInfo: List<AwardsDefaultDto>,
     modifier: Modifier = Modifier,
-    onClickContestSubject: (round: Int) -> Unit,
+    onClickContestSubject: (AwardsDefaultDto) -> Unit,
 ) {
     LazyColumn(
         modifier = modifier
@@ -32,10 +32,10 @@ internal fun AwardsComponent(
 
         items(
             items = contestInfo,
-            key = { it.round },
+            key = { it.id },
         ) {
             AwardsRoundItemComponent(
-                awardsContestInfo = it,
+                awards = it,
                 onClickContestSubject = onClickContestSubject,
             )
         }
@@ -46,7 +46,17 @@ internal fun AwardsComponent(
 @Composable
 private fun AwardsComponent_Preview() {
     AwardsComponent(
-        contestInfo = emptyList(),
+        contestInfo = listOf(
+            AwardsDefaultDto(
+                id = 0L,
+                round = 0,
+                subject = "subject",
+                startAt = "startAt",
+                endAt = "endAt",
+                announcedAt = "announcedAt",
+                thumbnailImageUrl = "thumbnailImageUrl",
+            ),
+        ),
         onClickContestSubject = {},
     )
 }

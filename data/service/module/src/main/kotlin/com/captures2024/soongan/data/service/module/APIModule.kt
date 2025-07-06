@@ -1,6 +1,7 @@
 package com.captures2024.soongan.data.service.module
 
 import com.captures2024.soongan.data.service.api.AuthAPI
+import com.captures2024.soongan.data.service.api.AwardsAPI
 import com.captures2024.soongan.data.service.api.FcmAPI
 import com.captures2024.soongan.data.service.api.HomeAPI
 import com.captures2024.soongan.data.service.api.MembersAPI
@@ -50,4 +51,8 @@ object APIModule {
     @Singleton
     @Provides
     fun provideReportAPI(retrofit: Retrofit): ReportAPI = retrofit.create(ReportAPI::class.java)
+
+    @Singleton
+    @Provides
+    fun provideAwardsAPI(retrofit: Retrofit): AwardsAPI = retrofit.create(AwardsAPI::class.java)
 }

@@ -51,6 +51,8 @@ include(
     ":data:source:module",
     ":data:source:auth",
     ":data:source:auth-impl",
+    ":data:source:awards",
+    ":data:source:awards-impl",
     ":data:source:contest",
     ":data:source:contest-impl",
     ":data:source:fcm",
@@ -72,6 +74,7 @@ include(
 include(
     ":data:repository:module",
     ":data:repository:auth-impl",
+    ":data:repository:awards-impl",
     ":data:repository:contest-impl",
     ":data:repository:fcm-impl",
     ":data:repository:home-impl",
@@ -84,6 +87,7 @@ include(
 
 include(
     ":domain:repository:auth",
+    ":domain:repository:awards",
     ":domain:repository:contest",
     ":domain:repository:fcm",
     ":domain:repository:home",
@@ -98,6 +102,8 @@ include(
     ":domain:usecase:module",
     ":domain:usecase:auth",
     ":domain:usecase:auth-impl",
+    ":domain:usecase:awards",
+    ":domain:usecase:awards-impl",
     ":domain:usecase:contest",
     ":domain:usecase:contest-impl",
     ":domain:usecase:fcm",
