@@ -4,6 +4,7 @@ name: Weekly Discord Release Notification (Thu 21:00)
 on:
   schedule:
     - cron: '0 12 * * 4' # Thu 21:00(UTC+9)
+workflow_dispatch:  # 수동 workflow 실행
 
 jobs:
   build:

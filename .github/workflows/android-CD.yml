@@ -3,6 +3,7 @@ name: Build assembleRelease & Upload Firebase App Distribution
 on:
   push:
     branches: [ "dev/release" ] # develop
+workflow_dispatch:  # 수동 workflow 실행
 
 jobs:
   build:
