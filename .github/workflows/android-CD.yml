@@ -2,7 +2,7 @@ name: Build assembleRelease & Upload Firebase App Distribution
 
 on:
   push:
-    branches: [ "develop" ]
+    branches: [ "dev/release" ] # develop
 
 jobs:
   build:

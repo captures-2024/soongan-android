@@ -1,8 +1,8 @@
-name: Build with Detekt & Upload Detekt Report
+name: AssembleDebug & Detekt & Lint Report
 
 on:
   pull_request:
-    branches: [ "develop" ]
+    branches: [ "dev/release" ] #develop
 
 jobs:
   build:
@@ -39,8 +39,11 @@ jobs:
           echo "$SECRETS_PROPERTIES" > secrets.properties
           echo "$GOOGLE_SERVICES_JSON" > app/google-services.json
 
-      - name: Build with Gradle
-        run: ./gradlew build
+      - name: Build assembleDebug
+        run: ./gradlew assembleDebug
+
+      - name: Run Detekt
+        run: ./gradlew detekt
 
       - name: Upload Detekt SARIF file
         uses: github/codeql-action/upload-sarif@v3
