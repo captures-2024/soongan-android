@@ -63,7 +63,19 @@ jobs:
         with:
           sarif_file: build/reports/detekt/merge.sarif
 
-      # detekt 결과 discord 알림
+      # detekt 결과 discord 알림 콘텐츠 설정
+      - name: Set Discord Notification Content
+        id: set_discord_content
+        run: |
+          if [ "${{ steps.detekt.outcome }}" == "success" ]; then
+            echo "DISCORD_COLOR=65280" >> $GITHUB_ENV
+            echo "DISCORD_STATUS=✅ Success" >> $GITHUB_ENV
+          else
+            echo "DISCORD_COLOR=16711680" >> $GITHUB_ENV
+            echo "DISCORD_STATUS=❌ Failure" >> $GITHUB_ENV
+          fi
+
+      # discord 알림
       - name: Send Detekt Result to Discord
         uses: tsickert/discord-webhook@v7.0.0
         if: always()
@@ -77,11 +89,11 @@ jobs:
                 "title": "Detekt Code Analysis Report",
                 "description": "Pull Request: `${{ github.event.pull_request.title }}`\nBranch: `${{ github.head_ref }}`",
                 "url": "${{ github.event.pull_request.html_url }}/files",
-                "color": "${{ steps.detekt.outcome == 'success' ? '65280' : '16711680' }}",
+                "color": "${{ env.DISCORD_COLOR }}",
                 "fields": [
                   {
                     "name": "Status",
-                    "value": "${{ steps.detekt.outcome == 'success' ? '✅ Success' : '❌ Failure' }}",
+                    "value": "${{ env.DISCORD_STATUS }}",
                     "inline": true
                   },
                   {
