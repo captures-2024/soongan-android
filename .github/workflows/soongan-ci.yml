@@ -83,30 +83,15 @@ jobs:
           webhook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
           username: 'Android CI Bot'
           avatar-url: 'https://github.com/pknu-wap/WAPP/blob/main/image/icon.png?raw=true'
-          embeds: |
-            [
-              {
-                "title": "Detekt Code Analysis Report",
-                "description": "Pull Request: `${{ github.event.pull_request.title }}`\nBranch: `${{ github.head_ref }}`",
-                "url": "${{ github.event.pull_request.html_url }}/files",
-                "color": "${{ env.DISCORD_COLOR }}",
-                "fields": [
-                  {
-                    "name": "Status",
-                    "value": "${{ env.DISCORD_STATUS }}",
-                    "inline": true
-                  },
-                  {
-                    "name": "Triggered by",
-                    "value": "${{ github.actor }}",
-                    "inline": true
-                  }
-                ],
-                "footer": {
-                  "text": "자세한 분석 결과는 Pull Request의 'Checks' 탭을 확인하세요."
-                }
-              }
-            ]
+          embed-title: "Detekt Code Analysis Report"
+          embed-description: |
+            **Pull Request:** `${{ github.event.pull_request.title }}`
+            **Branch:** `${{ github.head_ref }}`
+            **Status:** `${{ env.DISCORD_STATUS }}`
+            **Triggered by:** `${{ github.actor }}`
+          embed-url: "${{ github.event.pull_request.html_url }}/files"
+          embed-color: "${{ env.DISCORD_COLOR }}"
+          embed-footer-text: "자세한 분석 결과는 Pull Request의 'Checks' 탭을 확인하세요."
 
       - name: Build assembleDebug
         run: ./gradlew assembleDebug
