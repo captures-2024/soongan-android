@@ -80,7 +80,7 @@ jobs:
         uses: tsickert/discord-webhook@v7.0.0
         if: always()
         with:
-          webhook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
           username: 'Android CI Bot'
           avatar-url: 'https://github.com/pknu-wap/WAPP/blob/main/image/icon.png?raw=true'
           embed-title: "Detekt Code Analysis Report"
@@ -92,6 +92,3 @@ jobs:
           embed-url: "${{ github.event.pull_request.html_url }}/files"
           embed-color: "${{ env.DISCORD_COLOR }}"
           embed-footer-text: "자세한 분석 결과는 Pull Request의 'Checks' 탭을 확인하세요."
-
-      - name: Build assembleDebug
-        run: ./gradlew assembleDebug
