@@ -47,6 +47,6 @@ interface NotificationsAPI {
     @Headers(AppConst.Network.ACCESS_TOKEN_ALLOW)
     @PATCH("notifications/settings")
     suspend fun patchNotificationSettings(
-        @Body request: PatchNotificationSettingsRequest
+        @Body request: PatchNotificationSettingsRequest,
     ): Response<BaseResponse<GetNotificationSettingsResponse>>
 }

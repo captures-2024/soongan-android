@@ -34,7 +34,7 @@ internal fun ProfileMenuNotificationSettingRoute(
     }
 
     val permissionLauncher = rememberLauncherForActivityResult(
-        ActivityResultContracts.RequestMultiplePermissions()
+        ActivityResultContracts.RequestMultiplePermissions(),
     ) { permissionsMap ->
         val areGranted = permissionsMap.values.reduce { acc, next -> acc && next }
 
@@ -74,6 +74,6 @@ internal fun ProfileMenuNotificationSettingRoute(
         onClickBack = { viewModel.intent(ProfileNotificationSettingViewModel.Intent.OnClickBack) },
         onSwitchNotificationSettingType = { viewModel.intent(ProfileNotificationSettingViewModel.Intent.OnSwitchNotificationSettingType(it)) },
         onClickCancelPermissionDialog = { viewModel.intent(ProfileNotificationSettingViewModel.Intent.OnClickCancelPermissionDialog) },
-        onClickConfirmPermissionDialog = { viewModel.intent(ProfileNotificationSettingViewModel.Intent.OnClickConfirmPermissionDialog) }
+        onClickConfirmPermissionDialog = { viewModel.intent(ProfileNotificationSettingViewModel.Intent.OnClickConfirmPermissionDialog) },
     )
 }

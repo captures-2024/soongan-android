@@ -12,7 +12,7 @@ constructor(
     private val notificationRepository: NotificationRepository,
 ) : PatchNotificationSettingsUseCase {
 
-    override suspend operator fun invoke(settings: NotificationSettingDto): Result<NotificationSettingDto> = runSuspendCatching{
+    override suspend operator fun invoke(settings: NotificationSettingDto): Result<NotificationSettingDto> = runSuspendCatching {
         return@runSuspendCatching notificationRepository.patchNotificationSettings(
             settings = settings,
         )

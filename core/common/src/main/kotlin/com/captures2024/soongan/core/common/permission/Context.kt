@@ -11,7 +11,7 @@ import androidx.core.content.ContextCompat
 fun Context.openAppSettings() {
     Intent(
         Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-        Uri.fromParts("package", packageName, null)
+        Uri.fromParts("package", packageName, null),
     ).also(::startActivity)
 }
 
