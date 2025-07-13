@@ -16,6 +16,7 @@ dependencies {
     implementation(projects.core.navigator)
 
     implementation(projects.domain.usecase.auth)
+    implementation(projects.domain.usecase.awards)
     implementation(projects.domain.usecase.contest)
     implementation(projects.domain.usecase.fcm)
     implementation(projects.domain.usecase.home)

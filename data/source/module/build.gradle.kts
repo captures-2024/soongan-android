@@ -9,6 +9,8 @@ android {
 dependencies {
     implementation(projects.data.source.auth)
     implementation(projects.data.source.authImpl)
+    implementation(projects.data.source.awards)
+    implementation(projects.data.source.awardsImpl)
     implementation(projects.data.source.contest)
     implementation(projects.data.source.contestImpl)
     implementation(projects.data.source.fcm)

@@ -4,49 +4,38 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
+import com.captures2024.soongan.core.model.dto.awards.AwardsPostDto
+import com.captures2024.soongan.core.model.enums.AwardsPostStatusType
 import com.captures2024.soongan.presentation.designsystem.ui.component.text.SGText
 import com.captures2024.soongan.presentation.designsystem.ui.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.presentation.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.presentation.designsystem.ui.theme.SGTypography
 import com.captures2024.soongan.presentation.designsystem.ui.util.DevicePreviews
-import com.captures2024.soongan.presentation.viewmodel.main.award.WinnerPost
 
 @Composable
 internal fun AwardsInfoWinnerPostComponent(
-    winnerPost: WinnerPost,
+    winnerPost: AwardsPostDto,
     modifier: Modifier = Modifier,
     onClickPost: (postId: Long) -> Unit,
 ) {
-    // default value: height(240) // 16:9 ratio: width(360)
-    val sizeModifier =
-        when (winnerPost.isDefaultOrientation) {
-            true -> {
-                Modifier
-                    .height(240.dp)
-                    .fillMaxWidth()
-            }
-
-            false -> {
-                Modifier.width(360.dp)
-            }
-        }
-
     Column(
         modifier = modifier.padding(horizontal = 16.dp),
     ) {
         AwardsInfoTopPostComponent(
-            topPost = winnerPost.topPost,
-            modifier = sizeModifier,
+            topPost = winnerPost,
+            modifier = Modifier
+                .height(240.dp)
+                .fillMaxWidth(),
             isWinnerPost = true,
             onClickPost = onClickPost,
         )
+
         SGText(
             text = winnerPost.title,
             style = getSGNonScaleTextStyle(
@@ -57,7 +46,11 @@ internal fun AwardsInfoWinnerPostComponent(
                 fontFamily = SGTypography.pretendard,
                 letterSpacing = (-0.5).em,
             ),
-            modifier = Modifier.padding(start = 13.dp, top = 9.dp, bottom = 11.dp),
+            modifier = Modifier.padding(
+                start = 13.dp,
+                top = 9.dp,
+                bottom = 11.dp,
+            ),
         )
     }
 }
@@ -66,7 +59,14 @@ internal fun AwardsInfoWinnerPostComponent(
 @Composable
 private fun AwardsInfoWinnerPostComponent_Preview() {
     AwardsInfoWinnerPostComponent(
-        winnerPost = WinnerPost(),
+        winnerPost = AwardsPostDto(
+            postId = 0,
+            title = "title_0",
+            imageUrl = "",
+            nickname = "nickname_0",
+            score = "0",
+            status = AwardsPostStatusType.ACTIVE,
+        ),
         onClickPost = {},
     )
 }

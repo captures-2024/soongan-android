@@ -2,7 +2,6 @@ package com.captures2024.soongan.presentation.feature.main.awards.component.info
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
@@ -13,37 +12,31 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
+import com.captures2024.soongan.core.model.dto.awards.AwardsDetailDto
+import com.captures2024.soongan.core.model.dto.awards.AwardsPostDto
+import com.captures2024.soongan.core.model.enums.AwardsPostStatusType
 import com.captures2024.soongan.presentation.designsystem.ui.component.text.SGText
 import com.captures2024.soongan.presentation.designsystem.ui.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.presentation.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.presentation.designsystem.ui.theme.SGTypography
 import com.captures2024.soongan.presentation.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.presentation.feature.main.awards.R
-import com.captures2024.soongan.presentation.viewmodel.main.award.AwardsInfoViewModel
-import com.captures2024.soongan.presentation.viewmodel.main.award.ContestInfo
-import com.captures2024.soongan.presentation.viewmodel.main.award.WinnerPost
 
 @Composable
 internal fun AwardsInfoComponent(
-    state: AwardsInfoViewModel.State,
+    awardsInfo: AwardsDetailDto,
     modifier: Modifier = Modifier,
     onClickBack: () -> Unit,
     onClickPost: (postId: Long) -> Unit,
     onClickAllPosts: () -> Unit,
 ) {
-    val winnerPost = state.winnerPost
-    val contestInfo = state.contestInfo
-    val topPosts = state.topPosts
-
     val gridPadding = 8.dp
-    val topPostItemHeightList = remember { List(7) { (150..300).random() } }
 
     LazyVerticalStaggeredGrid(
         columns = StaggeredGridCells.Fixed(2),
@@ -60,24 +53,23 @@ internal fun AwardsInfoComponent(
 
         item(span = StaggeredGridItemSpan.FullLine) {
             AwardsInfoWinnerPostComponent(
-                winnerPost = winnerPost,
+                winnerPost = awardsInfo.firstPrizePost,
                 onClickPost = onClickPost,
             )
         }
 
         item(span = StaggeredGridItemSpan.FullLine) {
             AwardsInfoRoundInfoComponent(
-                contestInfo = contestInfo,
+                awardsInfo = awardsInfo,
             )
         }
 
         itemsIndexed(
-            items = topPosts,
+            items = awardsInfo.otherTop7Posts,
             key = { _, topPost -> topPost.postId },
         ) { index, topPost ->
             AwardsInfoTopPostComponent(
                 topPost = topPost,
-                modifier = Modifier.height(topPostItemHeightList[index].dp),
                 isWinnerPost = false,
                 onClickPost = onClickPost,
             )
@@ -110,8 +102,8 @@ private fun TempButton(
             text = stringResource(R.string.awards_info_navigate_to_feed_text),
             style = getSGNonScaleTextStyle(
                 color = SGColor.Main.secondary,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Normal,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Medium,
                 lineHeight = 20.sp,
                 fontFamily = SGTypography.pretendard,
                 letterSpacing = (-5).em,
@@ -124,11 +116,27 @@ private fun TempButton(
 @Composable
 private fun AwardsInfoComponent_Preview() {
     AwardsInfoComponent(
-        state = AwardsInfoViewModel.State(
-            initState = AwardsInfoViewModel.State.InitState.SUCCESS,
-            winnerPost = WinnerPost(),
-            contestInfo = ContestInfo(),
-            topPosts = emptyList(),
+        awardsInfo = AwardsDetailDto(
+            postsCount = 30L,
+            firstPrizePost = AwardsPostDto(
+                postId = 0,
+                title = "title_0",
+                imageUrl = "",
+                nickname = "nickname_0",
+                score = "0",
+                status = AwardsPostStatusType.ACTIVE,
+            ),
+            otherTop7Posts = List(6) { index ->
+                val currentIndex = index + 1
+                AwardsPostDto(
+                    postId = currentIndex.toLong(),
+                    title = "title_$currentIndex",
+                    imageUrl = "",
+                    nickname = "nickname_$currentIndex",
+                    score = "$currentIndex",
+                    status = AwardsPostStatusType.ACTIVE,
+                )
+            },
         ),
         onClickBack = {},
         onClickPost = {},

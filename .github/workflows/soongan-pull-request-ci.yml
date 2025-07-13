@@ -1,4 +1,4 @@
-name: soongan CI
+name: Soongan Pull Request CI
 
 on:
   pull_request:

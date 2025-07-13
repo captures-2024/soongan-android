@@ -5,7 +5,8 @@ import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.common.base.UIIntent
 import com.captures2024.soongan.core.common.base.UISideEffect
 import com.captures2024.soongan.core.common.base.UIState
-import com.captures2024.soongan.domain.usecase.contest.GetWeeklyContestInfoListUseCase
+import com.captures2024.soongan.core.model.dto.awards.AwardsDefaultDto
+import com.captures2024.soongan.domain.usecase.awards.GetAwardsListUseCase
 import com.captures2024.soongan.domain.usecase.member.GetIsCurrentGuestModeUseCase
 import com.captures2024.soongan.domain.usecase.system.dialog.SetIsShowGuestModeDialogFlowUseCase
 import com.captures2024.soongan.domain.usecase.system.loading.ClearLoadingUseCase
@@ -14,13 +15,6 @@ import com.captures2024.soongan.domain.usecase.system.loading.ShowLoadingUseCase
 import com.captures2024.soongan.presentation.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-
-// TODO move package and convert remote value class
-data class AwardsContestInfo(
-    val round: Int = 1,
-    val subject: String = "주제",
-    val imageUrl: String = "https://storage.googleapis.com/soongan-dev-bk/1/weekly/1/test.jpeg",
-)
 
 @HiltViewModel
 class AwardsViewModel
@@ -33,7 +27,7 @@ constructor(
     getIsCurrentGuestModeUseCase: GetIsCurrentGuestModeUseCase,
     setIsShowGuestModeDialogFlowUseCase: SetIsShowGuestModeDialogFlowUseCase,
     savedStateHandle: SavedStateHandle,
-    private val getWeeklyContestInfoListUseCase: GetWeeklyContestInfoListUseCase,
+    private val getAwardsListUseCase: GetAwardsListUseCase,
 ) : BaseViewModel<AwardsViewModel.State, AwardsViewModel.Effect, AwardsViewModel.Intent>(
     analyticsHelper = analyticsHelper,
     showLoadingUseCase = showLoadingUseCase,
@@ -45,12 +39,11 @@ constructor(
 ) {
     data class State(
         val initState: InitState,
-        val awardsContestInfoList: List<AwardsContestInfo>,
+        val awardsList: List<AwardsDefaultDto>,
     ) : UIState {
 
         enum class InitState {
             INIT,
-            NO_CONTEST,
             SUCCESS,
             FAIL,
         }
@@ -59,7 +52,7 @@ constructor(
     sealed interface Effect : UISideEffect {
 
         data class NavigateToAwardsInfo(
-            val round: Int,
+            val roundId: Long,
         ) : Effect
     }
 
@@ -68,7 +61,7 @@ constructor(
         data object Init : Intent
 
         data class OnClickContestSubject(
-            val round: Int,
+            val awards: AwardsDefaultDto,
         ) : Intent
 
         data object OnClickEntry : Intent
@@ -81,7 +74,7 @@ constructor(
     override fun createInitialState(savedStateHandle: SavedStateHandle): State {
         return State(
             initState = State.InitState.INIT,
-            awardsContestInfoList = emptyList(),
+            awardsList = emptyList(),
         )
     }
 
@@ -100,39 +93,31 @@ constructor(
     }
 
     private suspend fun handleInit() {
-        val weeklyContestInfoListDto = getWeeklyContestInfoListUseCase().getOrNull()
+        val awardsList = getAwardsListUseCase().getOrNull()
 
-        if (weeklyContestInfoListDto == null) {
+        if (awardsList == null) {
             reduce {
                 copy(
                     initState = State.InitState.FAIL,
                 )
             }
-
             return
         }
-
-//        if (weeklyContestInfoListDto.weeklyContestInfoList.first().endAt < now)
-//        initState = State.InitState.NO_CONTEST
-
-        val awardsContestInfoList: List<AwardsContestInfo> =
-            weeklyContestInfoListDto.weeklyContestInfoList.map {
-                AwardsContestInfo(
-                    round = it.round,
-                    subject = it.subject,
-                )
-            }
 
         reduce {
             copy(
                 initState = State.InitState.SUCCESS,
-                awardsContestInfoList = awardsContestInfoList,
+                awardsList = awardsList,
             )
         }
     }
 
     private fun handleOnClickContestSubject(intent: Intent.OnClickContestSubject) {
-        postSideEffect(Effect.NavigateToAwardsInfo(intent.round))
+        postSideEffect(
+            sideEffect = Effect.NavigateToAwardsInfo(
+                roundId = intent.awards.id,
+            ),
+        )
     }
 
     private suspend fun handleOnClickEntry() {

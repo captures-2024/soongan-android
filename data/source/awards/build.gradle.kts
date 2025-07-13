@@ -3,5 +3,5 @@ plugins {
 }
 
 android {
-    namespace = "com.captures2024.soongan.data.source.utils"
+    namespace = "com.captures2024.soongan.data.source.awards"
 }

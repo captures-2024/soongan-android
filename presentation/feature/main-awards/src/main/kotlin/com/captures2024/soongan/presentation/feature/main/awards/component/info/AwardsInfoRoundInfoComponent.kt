@@ -10,6 +10,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
+import com.captures2024.soongan.core.model.dto.awards.AwardsDetailDto
+import com.captures2024.soongan.core.model.dto.awards.AwardsPostDto
+import com.captures2024.soongan.core.model.enums.AwardsPostStatusType
 import com.captures2024.soongan.presentation.designsystem.ui.component.HeightSpacer
 import com.captures2024.soongan.presentation.designsystem.ui.component.text.SGText
 import com.captures2024.soongan.presentation.designsystem.ui.component.text.getSGNonScaleTextStyle
@@ -17,11 +20,10 @@ import com.captures2024.soongan.presentation.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.presentation.designsystem.ui.theme.SGTypography
 import com.captures2024.soongan.presentation.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.presentation.feature.main.awards.R
-import com.captures2024.soongan.presentation.viewmodel.main.award.ContestInfo
 
 @Composable
 internal fun AwardsInfoRoundInfoComponent(
-    contestInfo: ContestInfo,
+    awardsInfo: AwardsDetailDto,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -31,8 +33,8 @@ internal fun AwardsInfoRoundInfoComponent(
         SGText(
             text = stringResource(
                 R.string.awards_info_round_info_title_text,
-                contestInfo.subject,
-                contestInfo.round,
+                "subject",
+                "1",
             ),
             style = getSGNonScaleTextStyle(
                 color = SGColor.Grayscale.black100,
@@ -45,7 +47,7 @@ internal fun AwardsInfoRoundInfoComponent(
         )
         HeightSpacer(20.dp)
         SGText(
-            text = contestInfo.startAt + stringResource(R.string.awards_info_round_info_period_delimiter) + contestInfo.endAt,
+            text = "2025.01.07" + stringResource(R.string.awards_info_round_info_period_delimiter) + "2025.02.07",
             style = getSGNonScaleTextStyle(
                 color = SGColor.black,
                 fontSize = 14.sp,
@@ -59,7 +61,7 @@ internal fun AwardsInfoRoundInfoComponent(
         SGText(
             text = stringResource(
                 R.string.awards_info_round_info_all_post_count_text,
-                contestInfo.allPostCount,
+                awardsInfo.postsCount,
             ),
             style = getSGNonScaleTextStyle(
                 color = SGColor.black,
@@ -78,6 +80,27 @@ internal fun AwardsInfoRoundInfoComponent(
 @Composable
 private fun AwardsInfoRoundInfoComponent_Preview() {
     AwardsInfoRoundInfoComponent(
-        contestInfo = ContestInfo(),
+        awardsInfo = AwardsDetailDto(
+            postsCount = 30L,
+            firstPrizePost = AwardsPostDto(
+                postId = 0,
+                title = "title_0",
+                imageUrl = "",
+                nickname = "nickname_0",
+                score = "0",
+                status = AwardsPostStatusType.ACTIVE,
+            ),
+            otherTop7Posts = List(6) { index ->
+                val currentIndex = index + 1
+                AwardsPostDto(
+                    postId = currentIndex.toLong(),
+                    title = "title_$currentIndex",
+                    imageUrl = "",
+                    nickname = "nickname_$currentIndex",
+                    score = "$currentIndex",
+                    status = AwardsPostStatusType.ACTIVE,
+                )
+            },
+        ),
     )
 }

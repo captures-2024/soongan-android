@@ -10,7 +10,7 @@ import com.captures2024.soongan.presentation.viewmodel.main.award.AwardsViewMode
 
 @Composable
 internal fun AwardsRoute(
-    navigateToAwardsInfo: (round: Int) -> Unit,
+    navigateToAwardsInfo: (id: Long) -> Unit,
     viewModel: AwardsViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsState()
@@ -18,7 +18,7 @@ internal fun AwardsRoute(
     LaunchedEffect(viewModel.sideEffect) {
         viewModel.sideEffect.collect { effect ->
             when (effect) {
-                is AwardsViewModel.Effect.NavigateToAwardsInfo -> navigateToAwardsInfo(effect.round)
+                is AwardsViewModel.Effect.NavigateToAwardsInfo -> navigateToAwardsInfo(effect.roundId)
             }
         }
     }
