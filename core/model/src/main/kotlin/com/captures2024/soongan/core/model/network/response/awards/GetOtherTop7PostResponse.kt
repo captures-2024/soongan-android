@@ -4,17 +4,17 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class GetAwardsDetailInfoPostResponse(
+data class GetOtherTop7PostResponse(
     @SerialName("postId")
     val postId: Long,
-    @SerialName("title")
-    val title: String,
     @SerialName("imageUrl")
     val imageUrl: String,
     @SerialName("nickname")
     val nickname: String,
+    @SerialName("ranking")
+    val ranking: Long,
     @SerialName("score")
-    val score: String,
+    val score: Long,
     @SerialName("status")
     val status: String? = null,
 )

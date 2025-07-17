@@ -12,6 +12,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -38,6 +39,14 @@ internal fun AwardsInfoComponent(
 ) {
     val gridPadding = 8.dp
 
+    val firstPrizePost = remember(awardsInfo.prizePosts) {
+        awardsInfo.prizePosts.first()
+    }
+
+    val otherTop7Posts = remember(awardsInfo.prizePosts) {
+        awardsInfo.prizePosts.subList(1, awardsInfo.prizePosts.lastIndex)
+    }
+
     LazyVerticalStaggeredGrid(
         columns = StaggeredGridCells.Fixed(2),
         modifier = modifier,
@@ -53,7 +62,7 @@ internal fun AwardsInfoComponent(
 
         item(span = StaggeredGridItemSpan.FullLine) {
             AwardsInfoWinnerPostComponent(
-                winnerPost = awardsInfo.firstPrizePost,
+                winnerPost = firstPrizePost,
                 onClickPost = onClickPost,
             )
         }
@@ -65,7 +74,7 @@ internal fun AwardsInfoComponent(
         }
 
         itemsIndexed(
-            items = awardsInfo.otherTop7Posts,
+            items = otherTop7Posts,
             key = { _, topPost -> topPost.postId },
         ) { index, topPost ->
             AwardsInfoTopPostComponent(
@@ -117,25 +126,33 @@ private fun TempButton(
 private fun AwardsInfoComponent_Preview() {
     AwardsInfoComponent(
         awardsInfo = AwardsDetailDto(
+            subject = "subject",
+            round = 1L,
+            startAt = "startAt",
+            endAt = "endAt",
             postsCount = 30L,
-            firstPrizePost = AwardsPostDto(
-                postId = 0,
-                title = "title_0",
-                imageUrl = "",
-                nickname = "nickname_0",
-                score = "0",
-                status = AwardsPostStatusType.ACTIVE,
-            ),
-            otherTop7Posts = List(6) { index ->
-                val currentIndex = index + 1
-                AwardsPostDto(
-                    postId = currentIndex.toLong(),
-                    title = "title_$currentIndex",
-                    imageUrl = "",
-                    nickname = "nickname_$currentIndex",
-                    score = "$currentIndex",
-                    status = AwardsPostStatusType.ACTIVE,
-                )
+            prizePosts = List(7) { index ->
+                when (index) {
+                    0 -> AwardsPostDto(
+                        postId = 0,
+                        title = "title_0",
+                        imageUrl = "",
+                        nickname = "nickname_0",
+                        score = "0",
+                        status = AwardsPostStatusType.ACTIVE,
+                    )
+
+                    else -> {
+                        AwardsPostDto(
+                            postId = index.toLong(),
+                            title = "title_$index",
+                            imageUrl = "",
+                            nickname = "nickname_$index",
+                            score = "$index",
+                            status = AwardsPostStatusType.ACTIVE,
+                        )
+                    }
+                }
             },
         ),
         onClickBack = {},
