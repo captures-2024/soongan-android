@@ -68,7 +68,7 @@ interface WeeklyContestAPI {
     suspend fun getContestInfoList(): Response<BaseResponse<GetWeeklyContestInfoListResponse>>
 
     @Headers(AppConst.Network.ACCESS_TOKEN_ALLOW)
-    @GET("weekly/contests/posts/my-hisotry")
+    @GET("weekly/contests/posts/my-history")
     suspend fun getMyGalleryInfo(
         @Query("page") page: Int,
         @Query("pageSize") pageSize: Int,
