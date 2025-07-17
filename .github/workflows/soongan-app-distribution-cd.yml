@@ -2,7 +2,7 @@ name: Soongan App Distribution CD
 
 on:
   push:
-    branches: [ "develop" ]
+    branches: [ "dev/release" ]
 
 jobs:
   build:
