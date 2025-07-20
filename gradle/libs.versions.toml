@@ -4,7 +4,7 @@ compileSdk = "35"
 minSdk = "24"
 targetSdk = "35"
 appVersion = "0.0.1"
-versionCode = "1"
+versionCode = "11"
 
 gradle-dependency-handler-extensions = "1.1.0"
 
@@ -13,18 +13,18 @@ kotlin-kotlin = "2.2.0"
 kotlin-coroutines = "1.10.2"
 kotlin-serialization-json = "1.9.0"
 kotlin-serialization-converter = "1.0.0"
-kotlin-datetime = "0.7.0"
+kotlin-datetime = "0.7.1"
 
 kotlin-detekt = "1.23.8"
-kotlin-ktlint-gradle = "12.3.0"
+kotlin-ktlint-gradle = "13.0.0"
 kotlin-ktlint-source = "0.50.0"
 
 # android
-android-gradle-plugin = "8.10.1"
+android-gradle-plugin = "8.11.1"
 android-core = "1.16.0"
-android-lifecycle = "2.9.1"
-android-lifecycle-runtime = "2.9.1"
-android-navigation = "2.9.0"
+android-lifecycle = "2.9.2"
+android-lifecycle-runtime = "2.9.2"
+android-navigation = "2.9.2"
 android-startup = "1.2.0"
 android-security = "1.1.1"
 android-desugar-jdk = "2.1.5"
@@ -34,11 +34,11 @@ android-room = "2.7.2"
 android-splash-screen = "1.0.1"
 android-secret-gradle-plugin = "2.0.1"
 android-oss-plugin = "0.10.6"
-android-oss = "17.1.0"
+android-oss = "17.2.1"
 android-credentials = "1.5.0"
 
 # android-compose
-android-compose-bom = "2025.06.01"
+android-compose-bom = "2025.07.00"
 android-compose-activity = "1.10.1"
 android-compose-junit4-test = "1.8.3"
 
@@ -48,8 +48,8 @@ test-junit-version = "1.2.1"
 test-espresso-core = "3.6.1"
 test-runner = "1.6.2"
 
-test-junit5 = "5.13.2"
-test-junit5-plugin = "1.13.0.0"
+test-junit5 = "5.13.3"
+test-junit5-plugin = "1.13.1.0"
 test-junit5-android = "1.4.0"
 
 test-robolectric = "4.15.1"
@@ -61,19 +61,17 @@ test-kotest = "5.9.1"
 google-ksp = "2.2.0-2.0.2"
 google-services = "4.4.3"
 google-firebase = "33.16.0"
-google-admob = "24.4.0"
-google-auth = "21.3.0"
 google-id = "1.1.1"
 google-crashlytics = "3.0.4"
 
 # dagger hilt
-dagger-hilt = "2.56.2"
+dagger-hilt = "2.57"
 dagger-hilt-navigation-compose = "1.2.0"
 
 # thrid part
 coil = "2.7.0"
 javax-inject = "1"
-okhttp = "4.12.0"
+okhttp = "5.1.0"
 retrofit = "3.0.0"
 kakao = "2.21.4"
 ktlint = "12.3.0"
@@ -129,9 +127,6 @@ android-compose-navigation = { group = "androidx.navigation", name = "navigation
 
 # google
 google-ksp-gradle-plugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "google-ksp" }
-google-services = { group = "com.google.gms", name = "google-services", version.ref = "google-services" }
-google-gms-ads = { group = "com.google.android.gms", name = "play-services-ads", version.ref = "google-admob" }
-google-gms-auth = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "google-auth" }
 google-id = { group = "com.google.android.libraries.identity.googleid", name = "googleid", version.ref = "google-id" }
 
 # firebase

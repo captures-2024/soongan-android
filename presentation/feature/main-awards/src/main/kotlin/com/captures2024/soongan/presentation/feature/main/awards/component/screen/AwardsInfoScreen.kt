@@ -62,25 +62,33 @@ private fun AwardsInfoScreen_Preview() {
             roundId = 0L,
             initState = AwardsInfoViewModel.State.InitState.SUCCESS,
             awardsInfo = AwardsDetailDto(
+                subject = "subject",
+                round = 1L,
+                startAt = "startAt",
+                endAt = "endAt",
                 postsCount = 30L,
-                firstPrizePost = AwardsPostDto(
-                    postId = 0,
-                    title = "title_0",
-                    imageUrl = "",
-                    nickname = "nickname_0",
-                    score = "0",
-                    status = AwardsPostStatusType.ACTIVE,
-                ),
-                otherTop7Posts = List(6) { index ->
-                    val currentIndex = index + 1
-                    AwardsPostDto(
-                        postId = currentIndex.toLong(),
-                        title = "title_$currentIndex",
-                        imageUrl = "",
-                        nickname = "nickname_$currentIndex",
-                        score = "$currentIndex",
-                        status = AwardsPostStatusType.ACTIVE,
-                    )
+                prizePosts = List(7) { index ->
+                    when (index) {
+                        0 -> AwardsPostDto(
+                            postId = 0,
+                            title = "title_0",
+                            imageUrl = "",
+                            nickname = "nickname_0",
+                            score = "0",
+                            status = AwardsPostStatusType.ACTIVE,
+                        )
+
+                        else -> {
+                            AwardsPostDto(
+                                postId = index.toLong(),
+                                title = "title_$index",
+                                imageUrl = "",
+                                nickname = "nickname_$index",
+                                score = "$index",
+                                status = AwardsPostStatusType.ACTIVE,
+                            )
+                        }
+                    }
                 },
             ),
         ),

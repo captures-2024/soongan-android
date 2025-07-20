@@ -155,27 +155,17 @@ constructor(
                 return@collect
             }
 
-            val newFirstPrizePost = currentAwardsInfo.firstPrizePost.copy(
-                status = when {
-                    postId == currentAwardsInfo.firstPrizePost.postId -> AwardsPostStatusType.DELETED_BY_CREATOR
-                    else -> currentAwardsInfo.firstPrizePost.status
-                },
-            )
-
-            val newOtherTop7Posts = currentAwardsInfo.otherTop7Posts.map {
-                it.copy(
-                    status = when {
-                        postId == it.postId -> AwardsPostStatusType.DELETED_BY_CREATOR
-                        else -> it.status
-                    },
-                )
-            }
-
             reduce {
                 copy(
                     awardsInfo = currentAwardsInfo.copy(
-                        firstPrizePost = newFirstPrizePost,
-                        otherTop7Posts = newOtherTop7Posts,
+                        prizePosts = currentAwardsInfo.prizePosts.map {
+                            it.copy(
+                                status = when {
+                                    postId == it.postId -> AwardsPostStatusType.DELETED_BY_CREATOR
+                                    else -> it.status
+                                },
+                            )
+                        },
                     ),
                 )
             }
