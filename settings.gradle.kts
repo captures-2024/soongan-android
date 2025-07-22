@@ -127,6 +127,8 @@ include(
     ":presentation:designSystem:icon",
     ":presentation:designSystem:ui",
 
+    ":presentation:feature:root",
+
     ":presentation:feature:main",
     ":presentation:feature:main-awards",
     ":presentation:feature:main-feed",
