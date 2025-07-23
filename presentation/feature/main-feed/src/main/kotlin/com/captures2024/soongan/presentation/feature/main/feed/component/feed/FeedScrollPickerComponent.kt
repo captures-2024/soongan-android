@@ -1,7 +1,9 @@
 package com.captures2024.soongan.presentation.feature.main.feed.component.feed
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -25,23 +27,19 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithContent
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.CompositingStrategy
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
-import androidx.compose.ui.input.nestedscroll.NestedScrollSource
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.model.AppConst
 import com.captures2024.soongan.presentation.designsystem.ui.component.HeightSpacer
-import com.captures2024.soongan.presentation.designsystem.ui.component.WidthSpacer
+import com.captures2024.soongan.presentation.designsystem.ui.component.WeightSpacer
 import com.captures2024.soongan.presentation.designsystem.ui.component.text.SGText
 import com.captures2024.soongan.presentation.designsystem.ui.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.presentation.designsystem.ui.theme.SGColor
@@ -70,7 +68,7 @@ internal fun FeedScrollTitlePickerComponent(
             text = stringResource(R.string.feed_scroll_title_picker_header_text),
             modifier = Modifier
                 .align(Alignment.Start)
-                .padding(start = 24.dp),
+                .padding(start = 26.dp, top = 27.dp),
             style = getSGNonScaleTextStyle(
                 color = SGColor.Grayscale.black100,
                 fontSize = 20.sp,
@@ -85,12 +83,17 @@ internal fun FeedScrollTitlePickerComponent(
             options = options,
             modifier = Modifier.padding(horizontal = 10.dp),
             onChangedOption = onChangedOption,
+            onItemClick = { clickedIndex ->
+                onChangedOption(clickedIndex)
+            },
         )
 
         HeightSpacer(32.dp)
 
         Row(
-            modifier = Modifier.padding(bottom = 60.dp),
+            modifier = Modifier
+                .padding(bottom = 61.dp)
+                .padding(horizontal = 48.dp),
         ) {
             TempPickerButton(
                 text = stringResource(R.string.feed_scroll_title_picker_dismiss_text),
@@ -99,7 +102,7 @@ internal fun FeedScrollTitlePickerComponent(
                 borderColor = SGColor.black,
                 onClick = onDismissRequest,
             )
-            WidthSpacer(54.dp)
+            WeightSpacer(1f)
             TempPickerButton(
                 text = stringResource(R.string.feed_scroll_title_picker_confirm_text),
                 textColor = SGColor.Grayscale.white,
@@ -118,6 +121,7 @@ private fun ScrollPicker(
     modifier: Modifier = Modifier,
     visibleOptionCount: Int = 5,
     onChangedOption: (Int) -> Unit,
+    onItemClick: ((Int) -> Unit)? = null,
 ) {
     val median = visibleOptionCount / 2
     val spaceOptions = List(median) { null }
@@ -160,6 +164,13 @@ private fun ScrollPicker(
             .collect { round -> onChangedOption(round) }
     }
 
+    LaunchedEffect(selectedOption) {
+        val targetIndex = selectedOption.round - 1
+        if (targetIndex != listState.firstVisibleItemIndex) {
+            listState.animateScrollToItem(targetIndex)
+        }
+    }
+
     Box(
         modifier = modifier
             .fillMaxWidth()
@@ -169,15 +180,6 @@ private fun ScrollPicker(
                 blur = 0.dp,
                 offsetX = 0.dp,
                 offsetY = (-0.5).dp,
-            )
-            .nestedScroll(
-                object : NestedScrollConnection {
-                    override fun onPostScroll(
-                        consumed: Offset,
-                        available: Offset,
-                        source: NestedScrollSource,
-                    ): Offset = available
-                },
             ),
     ) {
         HorizontalDivider(
@@ -201,12 +203,14 @@ private fun ScrollPicker(
                 .wrapContentSize()
                 .height(itemSize * visibleOptionCount)
                 .fadingEdge(fadingEdgeGradient),
+            userScrollEnabled = false,
         ) {
             items(
                 count = listCount,
                 key = { it },
             ) { index ->
                 val distanceFromCenter = kotlin.math.abs(index - currentCenterIndex.value)
+                val centerIndex = index - median
                 val fontSize = when (distanceFromCenter) {
                     0 -> 23.sp
                     1 -> 18.sp
@@ -215,7 +219,19 @@ private fun ScrollPicker(
                 }
 
                 Box(
-                    modifier = Modifier.height(itemSize),
+                    modifier = Modifier
+                        .height(itemSize)
+                        .fillMaxWidth()
+                        .then(
+                            if (onItemClick != null && centerIndex in options.indices) {
+                                Modifier.clickable(
+                                    interactionSource = remember { MutableInteractionSource() },
+                                    indication = null,
+                                ) { onItemClick(centerIndex) }
+                            } else {
+                                Modifier
+                            },
+                        ),
                     contentAlignment = Alignment.Center,
                 ) {
                     SGText(
@@ -279,11 +295,7 @@ private fun TempPickerButton(
 @DevicePreviews
 @Composable
 private fun FeedScrollTitlePicker_Preview() {
-    val options = listOf(
-        TitleOption(round = 1, subject = "주제"),
-        TitleOption(round = 2, subject = "주제"),
-        TitleOption(round = 3, subject = "주제"),
-    )
+    val options = List(15) { TitleOption(round = 1, subject = "주제") }
     FeedScrollTitlePickerComponent(
         selectedOption = options[0],
         options = options,
@@ -296,11 +308,7 @@ private fun FeedScrollTitlePicker_Preview() {
 @DevicePreviews
 @Composable
 private fun ScrollPicker_Preview() {
-    val options = listOf(
-        TitleOption(round = 1, subject = "주제"),
-        TitleOption(round = 2, subject = "주제"),
-        TitleOption(round = 3, subject = "주제"),
-    )
+    val options = List(15) { TitleOption(round = 1, subject = "주제") }
     ScrollPicker(
         selectedOption = options[0],
         options = options,
