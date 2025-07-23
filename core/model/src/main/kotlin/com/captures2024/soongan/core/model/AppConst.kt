@@ -31,6 +31,7 @@ object AppConst {
 
         object Gallery {
             const val PAGE_SIZE = 50
+            const val SCROLL_PICKER_VISIBLE_OPTION_COUNT = 9
         }
     }
 
@@ -46,9 +47,5 @@ object AppConst {
 
         const val ACCESS_TOKEN_ALLOW = "$AUTH_HEADER: true"
         const val REFRESH_TOKEN_ALLOW = "$AUTH_HEADER: false"
-    }
-
-    object SavedStateHandle {
-        const val UGC_HIDE_KEY = "ugc-hide-key"
     }
 }

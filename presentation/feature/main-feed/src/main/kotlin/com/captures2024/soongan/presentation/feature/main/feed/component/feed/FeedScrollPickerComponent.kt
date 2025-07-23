@@ -7,12 +7,12 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -119,11 +119,10 @@ private fun ScrollPicker(
     selectedOption: TitleOption,
     options: List<TitleOption>,
     modifier: Modifier = Modifier,
-    visibleOptionCount: Int = 5,
     onChangedOption: (Int) -> Unit,
     onItemClick: ((Int) -> Unit)? = null,
 ) {
-    val median = visibleOptionCount / 2
+    val median = AppConst.Main.Gallery.SCROLL_PICKER_VISIBLE_OPTION_COUNT / 2
     val spaceOptions = List(median) { null }
     val adjustedOptions = spaceOptions + options + spaceOptions
     val listCount = adjustedOptions.size
@@ -151,7 +150,7 @@ private fun ScrollPicker(
         1f to Color.Transparent,
     )
 
-    val boxHeight = 264.dp
+    val boxHeight = 252.dp
     val itemSize = 28.dp
 
     val upperDividerYOffset = boxHeight / 2 - itemSize / 2
@@ -200,10 +199,8 @@ private fun ScrollPicker(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .align(Alignment.Center)
-                .wrapContentSize()
-                .height(itemSize * visibleOptionCount)
+                .fillMaxSize()
                 .fadingEdge(fadingEdgeGradient),
-            userScrollEnabled = false,
         ) {
             items(
                 count = listCount,
@@ -312,7 +309,6 @@ private fun ScrollPicker_Preview() {
     ScrollPicker(
         selectedOption = options[0],
         options = options,
-        visibleOptionCount = 5,
         onChangedOption = {},
     )
 }

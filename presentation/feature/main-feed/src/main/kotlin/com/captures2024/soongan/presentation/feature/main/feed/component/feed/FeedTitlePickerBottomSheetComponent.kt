@@ -22,10 +22,7 @@ internal fun FeedTitlePickerBottomSheetComponent(
     selectedOption: TitleOption,
     options: List<TitleOption>,
     modifier: Modifier = Modifier,
-    sheetState: SheetState = rememberModalBottomSheetState(
-        skipPartiallyExpanded = true,
-        confirmValueChange = { false },
-    ),
+    sheetState: SheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
     onSelectOption: (round: Int) -> Unit,
     onDismissRequest: () -> Unit,
 ) {
@@ -35,6 +32,7 @@ internal fun FeedTitlePickerBottomSheetComponent(
         onDismissRequest = onDismissRequest,
         modifier = modifier,
         sheetState = sheetState,
+        sheetGesturesEnabled = false,
         containerColor = Color.White,
         dragHandle = { null },
     ) {

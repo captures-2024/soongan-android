@@ -8,4 +8,6 @@ android {
 
 dependencies {
     implementation(projects.presentation.viewmodel)
+    implementation("androidx.compose.material3:material3:1.4.0-alpha02")
+    implementation("androidx.compose.material:material-icons-core:1.7.8")
 }
