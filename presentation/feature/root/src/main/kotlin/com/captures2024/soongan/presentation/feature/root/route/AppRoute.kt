@@ -1,15 +1,12 @@
-package com.captures2024.soongan.route
+package com.captures2024.soongan.presentation.feature.root.route
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.captures2024.soongan.presentation.designsystem.ui.component.background.SGBackground
-import com.captures2024.soongan.presentation.feature.main.route.MainRoute
-import com.captures2024.soongan.presentation.feature.sign.route.SignRoute
+import com.captures2024.soongan.presentation.feature.root.component.screen.AppRootScreen
 import com.captures2024.soongan.presentation.viewmodel.AppViewModel
-import com.captures2024.soongan.ui.AppRootScreen
 
 @Composable
 internal fun AppRoute(viewModel: AppViewModel) {
@@ -36,30 +33,7 @@ internal fun AppRoute(viewModel: AppViewModel) {
             },
         )
 
-        DialogHost(viewModel = viewModel)
+        DialogHost(appViewModel = viewModel)
         LoadingHost(visible = state.isLoading)
     }
-}
-
-@Composable
-private fun AppLandingRoute() {
-    // TODO()
-}
-
-@Composable
-private fun AppSignRoute(navController: NavHostController) {
-    SignRoute(
-        navController = navController,
-    )
-}
-
-@Composable
-private fun AppMainRoute(
-    isGuestMode: Boolean,
-    navController: NavHostController,
-) {
-    MainRoute(
-        isGuestMode = isGuestMode,
-        navController = navController,
-    )
 }

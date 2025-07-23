@@ -78,11 +78,7 @@ dependencies {
 
     implementation(projects.domain.usecase.module)
 
-    implementation(projects.presentation.designSystem.icon)
-    implementation(projects.presentation.designSystem.ui)
-
-    implementation(projects.presentation.feature.main)
-    implementation(projects.presentation.feature.sign)
+    implementation(projects.presentation.feature.root)
 
     implementation(projects.presentation.viewmodel)
 

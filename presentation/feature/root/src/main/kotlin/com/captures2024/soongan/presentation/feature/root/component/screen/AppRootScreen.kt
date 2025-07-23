@@ -1,13 +1,15 @@
-package com.captures2024.soongan.ui
+package com.captures2024.soongan.presentation.feature.root.component.screen
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import com.captures2024.soongan.presentation.designsystem.ui.component.dialog.SGSingleButtonDialog
 import com.captures2024.soongan.presentation.designsystem.ui.theme.SGTheme
 import com.captures2024.soongan.presentation.designsystem.ui.util.DevicePreviews
+import com.captures2024.soongan.presentation.feature.root.R
 import com.captures2024.soongan.presentation.viewmodel.AppViewModel
 import com.captures2024.soongan.presentation.viewmodel.model.AppRoute
 
@@ -33,8 +35,8 @@ internal fun AppRootScreen(
 
         if (state.isShowGuestModeDialog) {
             SGSingleButtonDialog(
-                content = "해당 기능은\n로그인 필요한 기능입니다.",
-                confirmContent = "확인",
+                content = stringResource(R.string.guest_mode_dialog_content),
+                confirmContent = stringResource(R.string.dialog_confirm),
                 onClickConfirm = { intent(AppViewModel.Intent.OnClickConfirmGuestModeDialog) },
                 onDismissRequest = { intent(AppViewModel.Intent.OnClickConfirmGuestModeDialog) },
             )

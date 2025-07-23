@@ -1,4 +1,4 @@
-package com.captures2024.soongan.route
+package com.captures2024.soongan.presentation.feature.root.component
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
@@ -11,35 +11,23 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.unit.dp
 import com.captures2024.soongan.presentation.designsystem.ui.theme.SGColor
-import kotlinx.coroutines.delay
 
 @Composable
-internal fun LoadingHost(visible: Pair<Boolean, Long>) {
-    val animationVisible = remember(visible) { mutableStateOf(visible.first) }
-
-    LaunchedEffect(visible) {
-        if (visible.first) {
-            delay(20000)
-            animationVisible.value = false
-        }
-    }
-
+internal fun LoadingHostComponent(visible: Boolean) {
     AnimatedVisibility(
-        visible = animationVisible.value,
+        visible = visible,
         modifier = Modifier.fillMaxSize(),
         enter = fadeIn(animationSpec = tween(delayMillis = 100)),
         exit = fadeOut(animationSpec = tween(delayMillis = 100)),
     ) {
         Box(
-            Modifier
+            modifier = Modifier
                 .fillMaxSize()
                 .background(SGColor.transparent)
                 .clickable(
@@ -51,7 +39,6 @@ internal fun LoadingHost(visible: Pair<Boolean, Long>) {
         ) {
             CircularProgressIndicator(
                 color = SGColor.primaryA,
-                modifier = Modifier,
                 strokeWidth = 4.dp,
                 trackColor = SGColor.transparent,
                 strokeCap = StrokeCap.Round,

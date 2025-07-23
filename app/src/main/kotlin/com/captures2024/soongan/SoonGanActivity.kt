@@ -14,17 +14,14 @@ import androidx.browser.customtabs.CustomTabsCallback
 import androidx.browser.customtabs.CustomTabsClient
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.browser.customtabs.CustomTabsServiceConnection
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.core.net.toUri
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
-import com.captures2024.soongan.core.android.utils.LocalAnalyticsHelper
 import com.captures2024.soongan.core.common.extension.toMap
 import com.captures2024.soongan.core.model.AppConst
-import com.captures2024.soongan.presentation.designsystem.ui.theme.SGTheme
+import com.captures2024.soongan.presentation.feature.root.navigation.AppNavigation
 import com.captures2024.soongan.presentation.viewmodel.AppViewModel
-import com.captures2024.soongan.route.AppRoute
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -96,24 +93,20 @@ class SoonGanActivity : ComponentActivity() {
                 onDispose {}
             }
 
-            CompositionLocalProvider(
-                LocalAnalyticsHelper provides analyticsHelper,
-            ) {
-                LaunchedEffect(appViewModel.sideEffect) {
-                    appViewModel.sideEffect.collect { effect ->
-                        when (effect) {
-                            is AppViewModel.Effect.OpenInAppBrowser -> launchInAppBrowser(effect.url)
-                            is AppViewModel.Effect.ShowSingleButtonDialog -> Unit
-                        }
+            LaunchedEffect(appViewModel.sideEffect) {
+                appViewModel.sideEffect.collect { effect ->
+                    when (effect) {
+                        is AppViewModel.Effect.OpenInAppBrowser -> launchInAppBrowser(effect.url)
+                        is AppViewModel.Effect.ShowSingleButtonDialog -> Unit
                     }
                 }
-
-                SGTheme(darkTheme = darkTheme) {
-                    AppRoute(
-                        viewModel = appViewModel,
-                    )
-                }
             }
+
+            AppNavigation(
+                analyticsHelper = analyticsHelper,
+                darkTheme = darkTheme,
+                appViewModel = appViewModel,
+            )
         }
     }
 
