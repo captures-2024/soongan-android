@@ -32,7 +32,9 @@ internal fun FeedTitlePickerBottomSheetComponent(
         onDismissRequest = onDismissRequest,
         modifier = modifier,
         sheetState = sheetState,
+        sheetGesturesEnabled = false,
         containerColor = Color.White,
+        dragHandle = { null },
     ) {
         FeedScrollTitlePickerComponent(
             selectedOption = currentSelectedOption,

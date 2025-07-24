@@ -8,4 +8,5 @@ android {
 
 dependencies {
     implementation(projects.presentation.viewmodel)
+    implementation(libs.bundles.compose.material3.alpha)
 }

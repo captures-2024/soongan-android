@@ -20,6 +20,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
@@ -48,6 +49,7 @@ internal fun PostInfoInputTitleComponent(
         lineHeight = 22.sp,
         fontFamily = SGTypography.pretendard,
         letterSpacing = (-5).em,
+        textAlign = TextAlign.Center,
     )
 
     Column(horizontalAlignment = Alignment.End) {
