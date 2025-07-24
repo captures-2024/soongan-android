@@ -41,6 +41,8 @@ android-credentials = "1.5.0"
 android-compose-bom = "2025.07.00"
 android-compose-activity = "1.10.1"
 android-compose-junit4-test = "1.8.3"
+android-compose-material3-alpha = "1.4.0-alpha02"
+android-compose-material-Icons-Core = "1.7.8"
 
 # test
 test-junit = "4.13.2"
@@ -124,6 +126,8 @@ android-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-tes
 android-compose-activity = { group = "androidx.activity", name = "activity-compose", version.ref = "android-compose-activity" }
 android-compose-lifecycle = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "android-lifecycle-runtime" }
 android-compose-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "android-navigation" }
+android-compose-material3-alpha = { module = "androidx.compose.material3:material3", version.ref = "android-compose-material3-alpha" }
+android-compose-material-icons-core = { module = "androidx.compose.material:material-icons-core", version.ref = "android-compose-material-Icons-Core" }
 
 # google
 google-ksp-gradle-plugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "google-ksp" }
@@ -273,4 +277,9 @@ junit5 = [
 androidx-android-test = [
     "test-androidx-junit",
     "test-androidx-espresso-core"
+]
+
+compose-material3-alpha = [
+    "android-compose-material3-alpha",
+    "android-compose-material-icons-core",
 ]
