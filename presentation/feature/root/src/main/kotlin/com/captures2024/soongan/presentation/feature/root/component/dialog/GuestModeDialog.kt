@@ -1,6 +1,5 @@
 package com.captures2024.soongan.presentation.feature.root.component.dialog
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
