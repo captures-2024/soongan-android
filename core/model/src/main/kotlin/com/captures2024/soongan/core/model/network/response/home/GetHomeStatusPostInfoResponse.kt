@@ -13,4 +13,6 @@ data class GetHomeStatusPostInfoResponse(
     val likeCount: Int,
     @SerialName("commentCount")
     val commentCount: Int,
+    @SerialName("isLiked")
+    val isLiked: Boolean,
 )

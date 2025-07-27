@@ -17,4 +17,5 @@ internal fun GetHomeStatusPostInfoResponse.toPostInfoDto(): PostInfoDto = PostIn
     imageUrl = imageUrl,
     likeCount = likeCount,
     commentCount = commentCount,
+    isLiked = isLiked,
 )
