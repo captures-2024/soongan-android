@@ -43,6 +43,7 @@ import com.captures2024.soongan.presentation.designsystem.ui.R as RDesign
 @Composable
 internal fun ProfileTopBarComponent(
     userProfile: UserProfile,
+    isShowBadge: Boolean,
     modifier: Modifier = Modifier,
     onClickNotification: () -> Unit,
     onClickMenu: () -> Unit,
@@ -59,6 +60,7 @@ internal fun ProfileTopBarComponent(
         WeightSpacer(1f)
 
         IconBox(
+            isShowBadge = isShowBadge,
             onClickNotification = onClickNotification,
             onClickMenu = onClickMenu,
         )
@@ -116,6 +118,7 @@ private fun ProfileCard(
 
 @Composable
 private fun IconBox(
+    isShowBadge: Boolean,
     modifier: Modifier = Modifier,
     onClickNotification: () -> Unit,
     onClickMenu: () -> Unit,
@@ -127,15 +130,18 @@ private fun IconBox(
                 .clickable(onClick = onClickNotification),
             contentAlignment = Alignment.Center,
         ) {
-            Badge(
-                modifier = Modifier
-                    .size(8.dp)
-                    .offset(
-                        x = (-6).dp,
-                        y = (-6).dp,
-                    ),
-                containerColor = Color(0xffFBC304),
-            )
+            if (isShowBadge) {
+                Badge(
+                    modifier = Modifier
+                        .size(8.dp)
+                        .offset(
+                            x = (-6).dp,
+                            y = (-6).dp,
+                        ),
+                    containerColor = Color(0xffFBC304),
+                )
+            }
+
             Icon(
                 imageVector = MyIconPack.IconNonFillBell,
                 contentDescription = stringResource(R.string.notification_description),
@@ -163,6 +169,7 @@ private fun PreviewProfileTopBarComponent() {
     SGTheme {
         ProfileTopBarComponent(
             userProfile = UserProfile(),
+            isShowBadge = true,
             onClickNotification = {},
             onClickMenu = {},
         )
