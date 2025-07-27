@@ -41,18 +41,18 @@ constructor(
         return responseBody?.responseData?.toNotificationsDto()
     }
 
-    override suspend fun getNotificationsCount(): NotificationsCountInfoDto? {
-        analyticsHelper.d { "getNotificationsCount - entry" }
+    override suspend fun getUnreadNotificationsCount(): NotificationsCountInfoDto? {
+        analyticsHelper.d { "getUnreadNotificationsCount - entry" }
 
-        val response = safeAPICall { notificationsAPI.getNotificationsCount() }
+        val response = safeAPICall { notificationsAPI.getUnreadNotificationsCount() }
 
         val responseHeader = response.headers
 
-        analyticsHelper.d { "getNotificationsCount - responseHeader: $responseHeader" }
+        analyticsHelper.d { "getUnreadNotificationsCount - responseHeader: $responseHeader" }
 
         val responseBody = response.body
 
-        analyticsHelper.d { "getNotificationsCount - responseBody: $responseBody" }
+        analyticsHelper.d { "getUnreadNotificationsCount - responseBody: $responseBody" }
 
         return responseBody?.responseData?.toNotificationsCountDto()
     }

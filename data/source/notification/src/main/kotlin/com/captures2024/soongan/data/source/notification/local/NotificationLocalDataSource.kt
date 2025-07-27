@@ -2,6 +2,7 @@ package com.captures2024.soongan.data.source.notification.local
 
 import com.captures2024.soongan.core.model.dto.NotificationDto
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 
 interface NotificationLocalDataSource {
 
@@ -9,7 +10,11 @@ interface NotificationLocalDataSource {
 
     val notificationEvent: Flow<NotificationDto?>
 
+    val isNotReadNotificationCache: StateFlow<Boolean>
+
     fun emitNotification(payload: Map<String, Any?>)
 
     suspend fun parseNotification(payload: Map<String, Any?>)
+
+    fun postIsNotReadNotificationCache(value: Boolean)
 }

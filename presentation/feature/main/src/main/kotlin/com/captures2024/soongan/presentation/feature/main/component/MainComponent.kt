@@ -18,6 +18,7 @@ import com.captures2024.soongan.presentation.feature.main.navigation.MainTopLeve
 @Composable
 internal fun MainComponent(
     navigationState: MainNavigationState,
+    isNotReadNotification: Boolean,
     content: @Composable (PaddingValues) -> Unit,
 ) {
     Scaffold(
@@ -44,6 +45,7 @@ internal fun MainComponent(
                     }
                     .animateContentSize()
                     .testTag("SoonGanBottomBar"),
+                isNotReadNotification = isNotReadNotification,
             )
         },
         content = content,

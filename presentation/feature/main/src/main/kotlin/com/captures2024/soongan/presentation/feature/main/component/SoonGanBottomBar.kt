@@ -1,8 +1,12 @@
 package com.captures2024.soongan.presentation.feature.main.component
 
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
@@ -20,6 +24,7 @@ internal fun SoonGanBottomBar(
     onNavigateToDestination: (MainTopLevelDestination) -> Unit,
     currentDestination: NavDestination?,
     modifier: Modifier = Modifier,
+    isNotReadNotification: Boolean = false,
 ) {
     SoonGanNavigationBar(
         modifier = modifier,
@@ -35,20 +40,89 @@ internal fun SoonGanBottomBar(
                     }
                 },
                 icon = {
-                    Icon(
-                        imageVector = destination.unselectedIcon,
-                        contentDescription = null,
-                        tint = SGColor.primaryA.copy(alpha = 0.3f),
-                        modifier = Modifier.size(24.dp, 24.dp),
-                    )
+                    when (destination) {
+                        MainTopLevelDestination.PROFILE -> {
+                            Box {
+                                if (isNotReadNotification) {
+                                    Box(
+                                        modifier = Modifier.wrapContentSize(),
+                                    ) {
+                                        Canvas(
+                                            modifier = Modifier
+                                                .size(8.dp)
+                                                .align(Alignment.Center),
+                                        ) {
+                                            drawCircle(
+                                                color = SGColor.Main.primary,
+                                                radius = size.width / 2,
+                                            )
+                                        }
+                                    }
+                                }
+
+                                Icon(
+                                    imageVector = destination.unselectedIcon,
+                                    contentDescription = null,
+                                    tint = SGColor.primaryA.copy(alpha = 0.3f),
+                                    modifier = Modifier.size(24.dp, 24.dp),
+                                )
+                            }
+                        }
+
+                        else -> Icon(
+                            imageVector = destination.unselectedIcon,
+                            contentDescription = null,
+                            tint = SGColor.primaryA.copy(alpha = 0.3f),
+                            modifier = Modifier.size(
+                                width = 24.dp,
+                                height = 24.dp,
+                            ),
+                        )
+                    }
                 },
                 selectedIcon = {
-                    Icon(
-                        imageVector = destination.selectedIcon,
-                        contentDescription = null,
-                        tint = SGColor.primaryA,
-                        modifier = Modifier.size(24.dp, 24.dp),
-                    )
+                    when (destination) {
+                        MainTopLevelDestination.PROFILE -> {
+                            Box {
+                                if (isNotReadNotification) {
+                                    Box(
+                                        modifier = Modifier.wrapContentSize(),
+                                    ) {
+                                        Canvas(
+                                            modifier = Modifier
+                                                .size(8.dp)
+                                                .align(Alignment.Center),
+                                        ) {
+                                            drawCircle(
+                                                color = SGColor.Main.primary,
+                                                radius = size.width / 2,
+                                            )
+                                        }
+                                    }
+                                }
+
+                                Icon(
+                                    imageVector = destination.selectedIcon,
+                                    contentDescription = null,
+                                    tint = SGColor.primaryA,
+                                    modifier = Modifier.size(
+                                        width = 24.dp,
+                                        height = 24.dp,
+                                    ),
+                                )
+                            }
+                        }
+
+                        else -> Icon(
+                            imageVector = destination.selectedIcon,
+                            contentDescription = null,
+                            tint = SGColor.primaryA,
+                            modifier = Modifier.size(
+                                width = 24.dp,
+                                height = 24.dp,
+                            ),
+                        )
+                    }
                 },
             )
         }
