@@ -20,8 +20,6 @@ import javax.inject.Inject
 class MainNotificationViewModel
 @Inject
 constructor(
-    private val isNotReadNotificationCacheFlowUseCase: GetIsNotReadNotificationCacheFlowUseCase,
-    private val getUnreadNotificationsCountUseCase: GetUnreadNotificationsCountUseCase,
     analyticsHelper: AnalyticsHelper,
     showLoadingUseCase: ShowLoadingUseCase,
     hideLoadingUseCase: HideLoadingUseCase,
@@ -29,6 +27,8 @@ constructor(
     getIsCurrentGuestModeUseCase: GetIsCurrentGuestModeUseCase,
     setIsShowGuestModeDialogFlowUseCase: SetIsShowGuestModeDialogFlowUseCase,
     savedStateHandle: SavedStateHandle,
+    private val isNotReadNotificationCacheFlowUseCase: GetIsNotReadNotificationCacheFlowUseCase,
+    private val getUnreadNotificationsCountUseCase: GetUnreadNotificationsCountUseCase,
 ) : BaseViewModel<MainNotificationViewModel.State, MainNotificationViewModel.Effect, MainNotificationViewModel.Intent>(
     analyticsHelper = analyticsHelper,
     showLoadingUseCase = showLoadingUseCase,
