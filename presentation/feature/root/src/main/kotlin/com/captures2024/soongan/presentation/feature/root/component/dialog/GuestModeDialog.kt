@@ -78,7 +78,7 @@ internal fun GuestModeDialog(
                 ) {
                     Image(
                         imageVector = MyIconPack.IconClose,
-                        contentDescription = "logo",
+                        contentDescription = "close",
                     )
                 }
             }
