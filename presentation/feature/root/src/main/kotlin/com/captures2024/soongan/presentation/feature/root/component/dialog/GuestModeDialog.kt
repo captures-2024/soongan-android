@@ -2,7 +2,6 @@ package com.captures2024.soongan.presentation.feature.root.component.dialog
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,6 +26,7 @@ import androidx.compose.ui.window.DialogProperties
 import com.captures2024.soongan.presentation.designsystem.icon.MyIconPack
 import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconClose
 import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.Logo
+import com.captures2024.soongan.presentation.designsystem.ui.component.button.SGIconButton
 import com.captures2024.soongan.presentation.designsystem.ui.component.button.SGTextButtonType2
 import com.captures2024.soongan.presentation.designsystem.ui.component.text.SGText
 import com.captures2024.soongan.presentation.designsystem.ui.component.text.getSGNonScaleTextStyle
@@ -71,13 +71,10 @@ internal fun GuestModeDialog(
                         .align(Alignment.Center),
                 )
 
-                Box(
-                    modifier = Modifier
-                        .width(24.dp)
-                        .height(24.dp)
-                        .align(Alignment.CenterEnd)
-                        .clickable(onClick = onDismissRequest),
-                    contentAlignment = Alignment.Center,
+                SGIconButton(
+                    onClick = onDismissRequest,
+                    modifier = Modifier.align(Alignment.CenterEnd),
+                    defaultSize = 24.dp,
                 ) {
                     Image(
                         imageVector = MyIconPack.IconClose,
