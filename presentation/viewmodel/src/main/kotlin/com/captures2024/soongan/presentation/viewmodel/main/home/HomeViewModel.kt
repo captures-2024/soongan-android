@@ -76,6 +76,8 @@ constructor(
     sealed interface Intent : UIIntent {
         data object Init : Intent
 
+        data object OnResumeView : Intent
+
         data object OnClickContestInfo : Intent
 
         data object OnClickPostList : Intent
@@ -111,6 +113,7 @@ constructor(
     override fun handleIntent(intent: Intent) {
         when (intent) {
             is Intent.Init -> loadingLaunch { handleInit() }
+            is Intent.OnResumeView -> launch { handleOnResumeView() }
             is Intent.OnClickContestInfo -> handleOnClickContestInfo()
             is Intent.OnClickPostList -> handleOnClickPostList()
             is Intent.OnClickRegister -> blockGuestModeLogic { handleOnClickRegister() }
@@ -127,6 +130,18 @@ constructor(
     private suspend fun handleInit() {
         launch { collectRegisterPostEvent() }
         launch { collectHidePostEvent() }
+
+        fetchInitData()
+    }
+
+    private suspend fun handleOnResumeView() {
+        when (currentState.initState) {
+            State.InitState.INIT,
+            State.InitState.LOADING,
+            -> return
+
+            else -> Unit
+        }
 
         fetchInitData()
     }

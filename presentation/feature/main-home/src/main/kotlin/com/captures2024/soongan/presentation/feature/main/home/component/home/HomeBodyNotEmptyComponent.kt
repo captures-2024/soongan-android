@@ -32,6 +32,7 @@ import com.captures2024.soongan.core.model.dto.PostInfoDto
 import com.captures2024.soongan.presentation.designsystem.icon.MyIconPack
 import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconFillHeart
 import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconNonFillComment
+import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconNonFillHeart
 import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconNonFillPlus
 import com.captures2024.soongan.presentation.designsystem.ui.component.HeightSpacer
 import com.captures2024.soongan.presentation.designsystem.ui.component.WidthSpacer
@@ -185,7 +186,10 @@ private fun PostComponent(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             InteractionIconBox(
-                imageVector = MyIconPack.IconFillHeart,
+                imageVector = when (postInfo.isLiked) {
+                    true -> MyIconPack.IconFillHeart
+                    false -> MyIconPack.IconNonFillHeart
+                },
                 contentDescription = stringResource(R.string.heart_button_description),
                 interactionCount = postInfo.likeCount,
             )
