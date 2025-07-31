@@ -9,6 +9,8 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -26,6 +28,10 @@ constructor(
     private val _notificationEvent = MutableStateFlow<NotificationDto?>(null)
     override val notificationEvent: Flow<NotificationDto?>
         get() = _notificationEvent
+
+    private val _isNotReadNotificationCache: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    override val isNotReadNotificationCache: StateFlow<Boolean>
+        get() = _isNotReadNotificationCache.asStateFlow()
 
     init {
         analyticsHelper.d { "NotificationLocalDataSource::init" }
@@ -47,5 +53,9 @@ constructor(
         analyticsHelper.d { "parseNotification - notification: $notification" }
 
         _notificationEvent.value = notification
+    }
+
+    override fun postIsNotReadNotificationCache(value: Boolean) {
+        _isNotReadNotificationCache.value = value
     }
 }

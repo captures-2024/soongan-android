@@ -6,9 +6,12 @@ import com.captures2024.soongan.core.model.dto.NotificationsCountInfoDto
 import com.captures2024.soongan.core.model.dto.NotificationsInfoDto
 import com.captures2024.soongan.core.model.utils.NotificationType
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 
 interface NotificationRepository {
     val notificationEvent: Flow<NotificationDto?>
+
+    val isNotReadNotificationCache: StateFlow<Boolean>
 
     fun emitNotification(payload: Map<String, Any?>)
 
@@ -16,7 +19,7 @@ interface NotificationRepository {
         type: NotificationType,
     ): NotificationsInfoDto
 
-    suspend fun getNotificationsCount(): NotificationsCountInfoDto
+    suspend fun getUnreadNotificationsCount(): NotificationsCountInfoDto
 
     suspend fun postNotificationRead(
         notificationId: Long,

@@ -11,6 +11,8 @@ import com.captures2024.soongan.domain.usecase.contest.GetMyGalleryUseCase
 import com.captures2024.soongan.domain.usecase.contest.GetRegisterPostEventUseCase
 import com.captures2024.soongan.domain.usecase.member.GetCurrentMemberFlowUseCase
 import com.captures2024.soongan.domain.usecase.member.GetIsCurrentGuestModeUseCase
+import com.captures2024.soongan.domain.usecase.notification.GetIsNotReadNotificationCacheFlowUseCase
+import com.captures2024.soongan.domain.usecase.notification.GetUnreadNotificationsCountUseCase
 import com.captures2024.soongan.domain.usecase.system.dialog.SetIsShowGuestModeDialogFlowUseCase
 import com.captures2024.soongan.domain.usecase.system.inapp.LaunchTermsUseCase
 import com.captures2024.soongan.domain.usecase.system.loading.ClearLoadingUseCase
@@ -38,6 +40,8 @@ constructor(
     private val getMyGalleryUseCase: GetMyGalleryUseCase,
     private val getRegisterPostEventUseCase: GetRegisterPostEventUseCase,
     private val getHidePostEventUseCase: GetHidePostEventUseCase,
+    private val isNotReadNotificationCacheFlowUseCase: GetIsNotReadNotificationCacheFlowUseCase,
+    private val getUnreadNotificationsCountUseCase: GetUnreadNotificationsCountUseCase,
 ) : BaseViewModel<ProfileViewModel.State, ProfileViewModel.Effect, ProfileViewModel.Intent>(
     analyticsHelper = analyticsHelper,
     showLoadingUseCase = showLoadingUseCase,
@@ -52,6 +56,7 @@ constructor(
         val userProfile: UserProfile,
         val myGalleryState: MyGalleryState,
         val isShowMenuBottomSheet: Boolean,
+        val isNotReadNotification: Boolean = false,
     ) : UIState {
 
         data class MyGalleryState(
@@ -151,8 +156,10 @@ constructor(
         launch { collectUserProfile() }
         launch { collectRegisterPostEvent() }
         launch { collectHidePostEvent() }
+        launch { collectIsNotReadNotificationFlow() }
 
         fetchInitData()
+        getUnreadNotificationsCountUseCase()
     }
 
     private fun handleOnClickMenu() {
@@ -256,6 +263,16 @@ constructor(
                     myGalleryState = myGalleryState.copy(
                         posts = myGalleryState.posts.filter { it.postId != postId },
                     ),
+                )
+            }
+        }
+    }
+
+    private suspend fun collectIsNotReadNotificationFlow() {
+        isNotReadNotificationCacheFlowUseCase().collect {
+            reduce {
+                copy(
+                    isNotReadNotification = it,
                 )
             }
         }

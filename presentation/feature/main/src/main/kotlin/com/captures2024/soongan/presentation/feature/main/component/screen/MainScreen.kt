@@ -31,11 +31,15 @@ import com.captures2024.soongan.presentation.feature.main.navigation.MainNavigat
 import com.captures2024.soongan.presentation.feature.main.navigation.welcome
 import com.captures2024.soongan.presentation.feature.main.post.navigation.mainPost
 import com.captures2024.soongan.presentation.feature.main.profile.navigation.mainProfile
+import com.captures2024.soongan.presentation.viewmodel.main.MainNotificationViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
-internal fun MainScreen(navigationState: MainNavigationState) {
+internal fun MainScreen(
+    navigationState: MainNavigationState,
+    state: MainNotificationViewModel.State,
+) {
     val scope = rememberCoroutineScope()
     val navController = navigationState.navController
 
@@ -53,7 +57,10 @@ internal fun MainScreen(navigationState: MainNavigationState) {
         }
     }
 
-    MainComponent(navigationState = navigationState) { innerPadding ->
+    MainComponent(
+        navigationState = navigationState,
+        isNotReadNotification = state.isNotReadNotification,
+    ) { innerPadding ->
         NavHost(
             modifier = Modifier.padding(innerPadding),
             navController = navController,

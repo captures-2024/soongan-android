@@ -13,6 +13,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -27,6 +28,9 @@ constructor(
 
     override val notificationEvent: Flow<NotificationDto?>
         get() = notificationLocalDataSource.notificationEvent
+
+    override val isNotReadNotificationCache: StateFlow<Boolean>
+        get() = notificationLocalDataSource.isNotReadNotificationCache
 
     init {
         analyticsHelper.d { "NotificationsRepository:init" }
@@ -48,10 +52,18 @@ constructor(
         return notifications ?: throw NullPointerException("notificationsDto is null")
     }
 
-    override suspend fun getNotificationsCount(): NotificationsCountInfoDto {
-        val notificationsCount = notificationsRemoteDataSource.getNotificationsCount()
+    override suspend fun getUnreadNotificationsCount(): NotificationsCountInfoDto {
+        val notificationsCount = notificationsRemoteDataSource.getUnreadNotificationsCount()
 
-        return notificationsCount ?: throw NullPointerException("notificationsCountDto is null")
+        return notificationsCount
+            .also {
+                notificationLocalDataSource.postIsNotReadNotificationCache(
+                    value = it?.notificationCountItems?.isNotEmpty() ?: false,
+                )
+
+                it
+            }
+            ?: throw NullPointerException("notificationsCountDto is null")
     }
 
     override suspend fun postNotificationRead(notificationId: Long): Boolean {

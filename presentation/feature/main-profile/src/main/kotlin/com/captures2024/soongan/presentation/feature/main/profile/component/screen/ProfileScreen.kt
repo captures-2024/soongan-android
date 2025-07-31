@@ -41,6 +41,7 @@ internal fun ProfileScreen(
     ) {
         ProfileTopBarComponent(
             userProfile = state.userProfile,
+            isShowBadge = state.isNotReadNotification,
             modifier = Modifier.padding(
                 start = 20.dp,
                 end = 16.dp,

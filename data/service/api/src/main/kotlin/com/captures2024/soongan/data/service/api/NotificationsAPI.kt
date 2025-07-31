@@ -26,7 +26,7 @@ interface NotificationsAPI {
 
     @Headers(AppConst.Network.ACCESS_TOKEN_ALLOW)
     @GET("notifications/unread-count")
-    suspend fun getNotificationsCount(): Response<BaseResponse<GetNotificationsCountResponse>>
+    suspend fun getUnreadNotificationsCount(): Response<BaseResponse<GetNotificationsCountResponse>>
 
     @Headers(AppConst.Network.ACCESS_TOKEN_ALLOW)
     @POST("notifications/{notificationId}/read")

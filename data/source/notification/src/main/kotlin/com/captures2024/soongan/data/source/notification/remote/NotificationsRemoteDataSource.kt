@@ -11,7 +11,7 @@ interface NotificationsRemoteDataSource {
         type: NotificationType,
     ): NotificationsInfoDto?
 
-    suspend fun getNotificationsCount(): NotificationsCountInfoDto?
+    suspend fun getUnreadNotificationsCount(): NotificationsCountInfoDto?
 
     suspend fun postNotificationRead(
         notificationId: Long,

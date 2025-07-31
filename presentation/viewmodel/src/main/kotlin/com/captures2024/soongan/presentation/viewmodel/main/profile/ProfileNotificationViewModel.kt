@@ -13,7 +13,7 @@ import com.captures2024.soongan.core.model.utils.NotificationsCountTable
 import com.captures2024.soongan.core.model.utils.NotificationsTable
 import com.captures2024.soongan.domain.usecase.member.GetIsCurrentGuestModeUseCase
 import com.captures2024.soongan.domain.usecase.notification.DeleteNotificationUseCase
-import com.captures2024.soongan.domain.usecase.notification.GetNotificationsCountUseCase
+import com.captures2024.soongan.domain.usecase.notification.GetUnreadNotificationsCountUseCase
 import com.captures2024.soongan.domain.usecase.notification.GetNotificationsUseCase
 import com.captures2024.soongan.domain.usecase.notification.PostNotificationReadUseCase
 import com.captures2024.soongan.domain.usecase.system.dialog.PostSingleButtonDialogUseCase
@@ -39,7 +39,7 @@ constructor(
     savedStateHandle: SavedStateHandle,
     private val postSingleButtonDialogUseCase: PostSingleButtonDialogUseCase,
     private val getNotificationsUseCase: GetNotificationsUseCase,
-    private val getNotificationsCountUseCase: GetNotificationsCountUseCase,
+    private val getUnreadNotificationsCountUseCase: GetUnreadNotificationsCountUseCase,
     private val postNotificationReadUseCase: PostNotificationReadUseCase,
     private val deleteNotificationUseCase: DeleteNotificationUseCase,
 ) : BaseViewModel<ProfileNotificationViewModel.State, ProfileNotificationViewModel.Effect, ProfileNotificationViewModel.Intent>(
@@ -203,7 +203,7 @@ constructor(
     }
 
     private suspend fun initSetNotificationsCount() {
-        val notificationsCountDto = getNotificationsCountUseCase().getOrNull()
+        val notificationsCountDto = getUnreadNotificationsCountUseCase().getOrNull()
 
         if (notificationsCountDto == null) {
             postSingleButtonDialogUseCase(CommonDialogType.NETWORK_ERROR)
