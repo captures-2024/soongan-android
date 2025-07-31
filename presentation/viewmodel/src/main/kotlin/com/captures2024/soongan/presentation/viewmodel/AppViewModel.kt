@@ -115,6 +115,8 @@ constructor(
 
         data object OnClickConfirmGuestModeDialog : Intent
 
+        data object OnClickDismissGuestModeDialog : Intent
+
         data class PostNotification(
             val payload: Map<String, Any?>,
         ) : Intent
@@ -140,6 +142,7 @@ constructor(
         when (intent) {
             is Intent.Init -> launch { handleInit() }
             is Intent.OnClickConfirmGuestModeDialog -> loadingLaunch { handleOnClickConfirmGuestModeDialog() }
+            is Intent.OnClickDismissGuestModeDialog -> handleOnClickDismissGuestModeDialog()
             is Intent.PostNotification -> handlePostNotification(intent)
         }
     }
@@ -165,6 +168,10 @@ constructor(
     private fun handleOnClickConfirmGuestModeDialog() {
         dismissGuestModeDialog()
         setGuestModeUseCase(false)
+    }
+
+    private fun handleOnClickDismissGuestModeDialog() {
+        dismissGuestModeDialog()
     }
 
     private fun handlePostNotification(intent: Intent.PostNotification) {

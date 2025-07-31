@@ -2,6 +2,7 @@ package com.captures2024.soongan.presentation.designsystem.icon
 
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconArrowRightFromBracket
+import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconClose
 import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconFillCheck
 import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconFillError
 import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconFillHeart
@@ -16,7 +17,6 @@ import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconNo
 import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconNonFillBell
 import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconNonFillCircleQuestion
 import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconNonFillComment
-import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconNonFillDelete
 import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconNonFillEdit
 import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconNonFillFile
 import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconNonFillFillter
@@ -50,16 +50,14 @@ public val MyIconPack.AllIcons: ____KtList<ImageVector>
     if (__AllIcons != null) {
       return __AllIcons!!
     }
-    __AllIcons= listOf(
-        IconNonFillCircleQuestion, IconNonFillFile, IconFillCheck, IconSelectedHome,
-        IconNonSelectedAwards, IconNonFillFillter, IconFillPersonRunning, IconNonFillTopArrow,
-        IconNonFillUser, IconNonFillBell, IconSelectedFeed, IconArrowRightFromBracket,
-        IconNonFillPlus, IconNonFillGear, IconFilterLike, IconNonFillInfo, IconFilterOld,
-        IconNonFillHeart, IconSelectedAwards, IconNonSelectedFeed, IconFillError,
-        IconNonFillComment, IconNonFillDelete, IconNonFillEdit, IconNonFillBackArrow, IconFillHeart,
-        IconSelectedProfile, IconLogoGoogle, IconLogoApple, IconFilterNew, IconNonFillPaperDelete,
-        IconNonSelectedProfile, IconNonFillMenu, IconLogoKakao, IconNonFillLeftArrow,
-        IconNonFillRightArrow, IconNonSelectedHome, IconNonFillReport
-    )
+    __AllIcons= listOf(IconArrowRightFromBracket, IconClose, IconFillCheck, IconFillError,
+        IconFillHeart, IconFillPersonRunning, IconFilterLike, IconFilterNew, IconFilterOld,
+        IconLogoApple, IconLogoGoogle, IconLogoKakao, IconNonFillBackArrow, IconNonFillBell,
+        IconNonFillCircleQuestion, IconNonFillComment, IconNonFillEdit, IconNonFillFile,
+        IconNonFillFillter, IconNonFillGear, IconNonFillHeart, IconNonFillInfo,
+        IconNonFillLeftArrow, IconNonFillMenu, IconNonFillPaperDelete, IconNonFillPlus,
+        IconNonFillReport, IconNonFillRightArrow, IconNonFillTopArrow, IconNonFillUser,
+        IconNonSelectedAwards, IconNonSelectedFeed, IconNonSelectedHome, IconNonSelectedProfile,
+        IconSelectedAwards, IconSelectedFeed, IconSelectedHome, IconSelectedProfile)
     return __AllIcons!!
   }
