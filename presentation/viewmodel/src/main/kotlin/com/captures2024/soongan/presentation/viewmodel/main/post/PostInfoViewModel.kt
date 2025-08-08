@@ -81,6 +81,8 @@ constructor(
     sealed interface Intent : UIIntent {
         data object Init : Intent
 
+        data object OnResumeView : Intent
+
         data object OnClickBack : Intent
 
         data object OnClickMenu : Intent
@@ -121,6 +123,7 @@ constructor(
     override fun handleIntent(intent: Intent) {
         when (intent) {
             is Intent.Init -> loadingLaunch { handleInit() }
+            is Intent.OnResumeView -> launch { handleOnResumeView() }
             is Intent.OnClickBack -> handleOnClickBack()
             is Intent.OnClickMenu -> blockGuestModeLogic { handleOnClickMenu() }
             is Intent.OnClickHeart -> blockGuestModeLogic {
@@ -143,6 +146,10 @@ constructor(
     private suspend fun handleInit() {
         launch { collectMemberInfo() }
 
+        fetchInitData()
+    }
+
+    private suspend fun handleOnResumeView() {
         fetchInitData()
     }
 
