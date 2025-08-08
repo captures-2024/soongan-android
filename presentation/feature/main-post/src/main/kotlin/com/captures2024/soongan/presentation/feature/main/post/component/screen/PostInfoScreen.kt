@@ -38,8 +38,6 @@ internal fun PostInfoScreen(
             .background(color = SGColor.BG.background),
         topBar = @Composable {
             PostInfoTopBarComponent(
-                round = state.round,
-                subject = state.subject,
                 onClickBack = onClickBack,
             )
         },
@@ -89,8 +87,6 @@ private fun PreviewPostInfoScreen_Default() {
     SGTheme {
         PostInfoScreen(
             state = PostInfoViewModel.State(
-                round = 0,
-                subject = "평화",
                 postId = -1L,
                 postInfo = null,
                 isShowMenuBottomSheet = false,
@@ -117,8 +113,6 @@ private fun PreviewPostInfoScreen_Info() {
     SGTheme {
         PostInfoScreen(
             state = PostInfoViewModel.State(
-                round = 0,
-                subject = "평화",
                 postId = -1L,
                 postInfo = PostInfoDto(),
                 isShowMenuBottomSheet = false,

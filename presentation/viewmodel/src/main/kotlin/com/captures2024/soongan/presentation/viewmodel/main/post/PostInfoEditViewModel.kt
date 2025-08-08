@@ -10,7 +10,6 @@ import com.captures2024.soongan.core.model.AppConst
 import com.captures2024.soongan.core.model.enums.CommonDialogType
 import com.captures2024.soongan.core.navigator.screen.main.post.EditPostNavigator
 import com.captures2024.soongan.domain.usecase.contest.EditPostTitleUseCase
-import com.captures2024.soongan.domain.usecase.contest.GetWeeklyContestInfoListUseCase
 import com.captures2024.soongan.domain.usecase.member.GetIsCurrentGuestModeUseCase
 import com.captures2024.soongan.domain.usecase.system.dialog.PostSingleButtonDialogUseCase
 import com.captures2024.soongan.domain.usecase.system.dialog.SetIsShowGuestModeDialogFlowUseCase
@@ -34,7 +33,6 @@ constructor(
     setIsShowGuestModeDialogFlowUseCase: SetIsShowGuestModeDialogFlowUseCase,
     savedStateHandle: SavedStateHandle,
     private val postSingleButtonDialogUseCase: PostSingleButtonDialogUseCase,
-    private val getWeeklyContestInfoListUseCase: GetWeeklyContestInfoListUseCase,
     private val editPostTitleUseCase: EditPostTitleUseCase,
     private val launchTermsUseCase: LaunchTermsUseCase,
 ) : BaseViewModel<PostInfoEditViewModel.State, PostInfoEditViewModel.Effect, PostInfoEditViewModel.Intent>(
@@ -48,14 +46,11 @@ constructor(
 ) {
 
     data class State(
-        val round: Int,
-        val subject: String,
         val postId: Long,
         val defaultUrl: String,
         val defaultTitle: String,
         val editTitle: String,
         val maxInputLength: Int,
-        val isShowInitErrorDialog: Boolean,
         val isShowBackDialog: Boolean,
         val isOpenSubmitBottomSheet: Boolean,
         val isCheckedSubmitBottomSheet: Boolean,
@@ -70,15 +65,11 @@ constructor(
 
     sealed interface Intent : UIIntent {
 
-        data object Init : Intent
-
         data object OnClickBack : Intent
 
         data class OnTitleValueChanged(
             val newValue: String,
         ) : Intent
-
-        data object OnClickConfirmInitErrorDialog : Intent
 
         data object OnClickEdit : Intent
 
@@ -95,22 +86,15 @@ constructor(
         data object OnClickCheckBoxSubmitBottomSheet : Intent
     }
 
-    init {
-        intent(Intent.Init)
-    }
-
     override fun createInitialState(savedStateHandle: SavedStateHandle): State {
         val route = savedStateHandle.toRoute<EditPostNavigator>()
 
         return State(
-            round = 0,
-            subject = AppConst.EMPTY_STRING,
             postId = route.postId,
             defaultUrl = route.imageUrl,
             defaultTitle = route.title,
             editTitle = route.title,
             maxInputLength = AppConst.Main.Home.MAX_INPUT_LENGTH,
-            isShowInitErrorDialog = false,
             isShowBackDialog = false,
             isOpenSubmitBottomSheet = false,
             isCheckedSubmitBottomSheet = false,
@@ -119,10 +103,8 @@ constructor(
 
     override fun handleIntent(intent: Intent) {
         when (intent) {
-            is Intent.Init -> loadingLaunch { handleInit() }
             is Intent.OnClickBack -> handleOnClickBack()
             is Intent.OnTitleValueChanged -> handleOnTitleValueChanged(intent)
-            is Intent.OnClickConfirmInitErrorDialog -> handleOnClickConfirmInitErrorDialog()
             is Intent.OnClickEdit -> handleOnClickEdit()
             is Intent.OnClickCancelBackDialog -> handleOnClickCancelBackDialog()
             is Intent.OnClickConfirmBackDialog -> handleOnClickConfirmBackDialog()
@@ -135,26 +117,6 @@ constructor(
 
     override fun handleClientException(throwable: Throwable) {
         analyticsHelper.e(throwable) { "state: $currentState" }
-    }
-
-    private suspend fun handleInit() {
-        val weeklyInfo = getWeeklyContestInfoListUseCase
-            .invoke()
-            .getOrNull()
-            ?.weeklyContestInfoList
-            ?.lastOrNull()
-
-        if (weeklyInfo == null) {
-            showInitErrorDialog()
-            return
-        }
-
-        reduce {
-            copy(
-                round = weeklyInfo.round,
-                subject = weeklyInfo.subject,
-            )
-        }
     }
 
     private fun handleOnClickBack() {
@@ -173,11 +135,6 @@ constructor(
                 editTitle = newValue,
             )
         }
-    }
-
-    private fun handleOnClickConfirmInitErrorDialog() {
-        dismissInitErrorDialog()
-        postSideEffect(Effect.NavigateToBack)
     }
 
     private fun handleOnClickEdit() {
@@ -232,22 +189,6 @@ constructor(
 
     private suspend fun handleOnClickTermsSubmitBottomSheet() {
         launchTermsUseCase()
-    }
-
-    private fun showInitErrorDialog() {
-        reduce {
-            copy(
-                isShowInitErrorDialog = true,
-            )
-        }
-    }
-
-    private fun dismissInitErrorDialog() {
-        reduce {
-            copy(
-                isShowInitErrorDialog = false,
-            )
-        }
     }
 
     private fun showBackDialog() {

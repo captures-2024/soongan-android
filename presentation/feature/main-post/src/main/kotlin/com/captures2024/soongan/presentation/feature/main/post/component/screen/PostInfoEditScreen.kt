@@ -10,7 +10,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import coil.request.ImageRequest
 import com.captures2024.soongan.presentation.designsystem.ui.component.dialog.SGDoubleButtonDialog
-import com.captures2024.soongan.presentation.designsystem.ui.component.dialog.SGSingleButtonDialog
 import com.captures2024.soongan.presentation.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.presentation.designsystem.ui.theme.SGTheme
 import com.captures2024.soongan.presentation.designsystem.ui.util.DevicePreviews
@@ -27,7 +26,6 @@ internal fun PostInfoEditScreen(
     onClickBack: () -> Unit,
     onTitleValueChanged: (String) -> Unit,
     onClickEdit: () -> Unit,
-    onClickConfirmInitErrorDialog: () -> Unit,
     onClickCancelBackDialog: () -> Unit,
     onClickConfirmBackDialog: () -> Unit,
     onClickTermsSubmitBottomSheet: () -> Unit,
@@ -43,8 +41,6 @@ internal fun PostInfoEditScreen(
             .background(color = SGColor.BG.background),
         topBar = @Composable {
             PostInfoTopBarComponent(
-                round = state.round,
-                subject = state.subject,
                 onClickBack = onClickBack,
             )
         },
@@ -61,15 +57,6 @@ internal fun PostInfoEditScreen(
             modifier = Modifier.padding(paddingValues),
             onValueChange = onTitleValueChanged,
             onClickButton = onClickEdit,
-        )
-    }
-
-    if (state.isShowInitErrorDialog) {
-        SGSingleButtonDialog(
-            content = stringResource(R.string.post_info_edit_init_error_content),
-            confirmContent = stringResource(R.string.button_confirm),
-            onClickConfirm = onClickConfirmInitErrorDialog,
-            onDismissRequest = onClickConfirmInitErrorDialog,
         )
     }
 
@@ -103,14 +90,11 @@ private fun PreviewPostInfoEditScreen() {
     SGTheme {
         PostInfoEditScreen(
             state = PostInfoEditViewModel.State(
-                round = 1,
-                subject = "평화",
                 postId = -1L,
                 defaultUrl = "test",
                 defaultTitle = "test",
                 editTitle = "test",
                 maxInputLength = 15,
-                isShowInitErrorDialog = false,
                 isShowBackDialog = false,
                 isOpenSubmitBottomSheet = false,
                 isCheckedSubmitBottomSheet = false,
@@ -118,7 +102,6 @@ private fun PreviewPostInfoEditScreen() {
             onClickBack = {},
             onTitleValueChanged = {},
             onClickEdit = {},
-            onClickConfirmInitErrorDialog = {},
             onClickCancelBackDialog = {},
             onClickConfirmBackDialog = {},
             onClickTermsSubmitBottomSheet = {},
