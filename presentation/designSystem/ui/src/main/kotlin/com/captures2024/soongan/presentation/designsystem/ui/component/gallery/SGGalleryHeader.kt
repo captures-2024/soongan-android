@@ -13,11 +13,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
+import com.captures2024.soongan.presentation.designsystem.icon.MyIconPack
+import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconNonFillFillter
+import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconNonFillLeftArrow
 import com.captures2024.soongan.presentation.designsystem.ui.component.WidthSpacer
+import com.captures2024.soongan.presentation.designsystem.ui.component.button.SGIconCircleButton
 import com.captures2024.soongan.presentation.designsystem.ui.component.text.SGText
 import com.captures2024.soongan.presentation.designsystem.ui.component.text.getSGNonScaleTextStyle
 import com.captures2024.soongan.presentation.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.presentation.designsystem.ui.theme.SGTypography
+import com.captures2024.soongan.presentation.designsystem.ui.util.DevicePreviews
 
 @Composable
 fun SGGalleryHeader(
@@ -29,8 +34,9 @@ fun SGGalleryHeader(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .height(100.dp)
-            .padding(20.dp),
+            .height(84.dp)
+            .padding(top = 20.dp, bottom = 24.dp)
+            .padding(horizontal = 20.dp),
         contentAlignment = Alignment.Center,
     ) {
         if (leadingIcon != null) {
@@ -104,6 +110,34 @@ fun SGGalleryHeaderTitle(
                 fontFamily = SGTypography.pretendard,
                 letterSpacing = (-5).em,
             ),
+        )
+    }
+}
+
+@DevicePreviews
+@Composable
+private fun SGGalleryHeader_Preview() {
+    SGGalleryHeader(
+        leadingIcon = {
+            SGIconCircleButton(
+                imageVector = MyIconPack.IconNonFillLeftArrow,
+                contentDescription = "back",
+                iconWidth = 20.dp,
+                iconHeight = 16.dp,
+                onClick = {},
+            )
+        },
+        trailingIcon = {
+            SGIconCircleButton(
+                imageVector = MyIconPack.IconNonFillFillter,
+                contentDescription = "filter",
+                onClick = {},
+            )
+        },
+    ) {
+        SGGalleryHeaderTitle(
+            prefix = "1회차",
+            suffix = "평화",
         )
     }
 }
