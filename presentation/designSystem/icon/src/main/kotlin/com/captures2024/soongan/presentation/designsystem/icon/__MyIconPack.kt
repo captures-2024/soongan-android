@@ -17,6 +17,7 @@ import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconNo
 import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconNonFillBell
 import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconNonFillCircleQuestion
 import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconNonFillComment
+import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconNonFillDownArrow
 import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconNonFillEdit
 import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconNonFillFile
 import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconNonFillFillter
@@ -53,8 +54,8 @@ public val MyIconPack.AllIcons: ____KtList<ImageVector>
     __AllIcons= listOf(IconArrowRightFromBracket, IconClose, IconFillCheck, IconFillError,
         IconFillHeart, IconFillPersonRunning, IconFilterLike, IconFilterNew, IconFilterOld,
         IconLogoApple, IconLogoGoogle, IconLogoKakao, IconNonFillBackArrow, IconNonFillBell,
-        IconNonFillCircleQuestion, IconNonFillComment, IconNonFillEdit, IconNonFillFile,
-        IconNonFillFillter, IconNonFillGear, IconNonFillHeart, IconNonFillInfo,
+        IconNonFillCircleQuestion, IconNonFillComment, IconNonFillDownArrow, IconNonFillEdit,
+        IconNonFillFile, IconNonFillFillter, IconNonFillGear, IconNonFillHeart, IconNonFillInfo,
         IconNonFillLeftArrow, IconNonFillMenu, IconNonFillPaperDelete, IconNonFillPlus,
         IconNonFillReport, IconNonFillRightArrow, IconNonFillTopArrow, IconNonFillUser,
         IconNonSelectedAwards, IconNonSelectedFeed, IconNonSelectedHome, IconNonSelectedProfile,
