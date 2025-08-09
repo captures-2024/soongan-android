@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -20,8 +19,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -66,7 +63,6 @@ internal fun ExplainScreen(
                 Box(
                     modifier = modifier
                         .fillMaxWidth()
-                        .background(color = SGColor.white)
                         .padding(horizontal = 20.dp, vertical = 16.dp),
                     contentAlignment = Alignment.CenterStart,
                 ) {
@@ -91,7 +87,7 @@ internal fun ExplainScreen(
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.Bold,
                                 lineHeight = 20.sp,
-                                fontFamily = SGTypography.nanumSquareNeo,
+                                fontFamily = SGTypography.pretendard,
                                 letterSpacing = 0.em,
                             ),
                         )
@@ -113,7 +109,7 @@ internal fun ExplainScreen(
                 )
             }
         },
-        containerColor = SGColor.white,
+        containerColor = SGColor.BG.background,
     ) { paddingValues: PaddingValues ->
         Column(
             modifier = Modifier

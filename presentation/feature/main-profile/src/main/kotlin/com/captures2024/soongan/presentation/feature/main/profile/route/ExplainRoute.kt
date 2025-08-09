@@ -11,6 +11,7 @@ import com.captures2024.soongan.presentation.viewmodel.main.profile.ExplainViewM
 @Composable
 internal fun ExplainRoute(
     navigateToBack: () -> Unit,
+    navigateToCompleteExplain: () -> Unit,
     explainViewModel: ExplainViewModel = hiltViewModel(),
 ) {
     val state by explainViewModel.state.collectAsState()
@@ -19,6 +20,7 @@ internal fun ExplainRoute(
         explainViewModel.sideEffect.collect { effect ->
             when (effect) {
                 is ExplainViewModel.Effect.NavigateToBack -> navigateToBack()
+                is ExplainViewModel.Effect.NavigateToCompleteExplain -> navigateToCompleteExplain()
             }
         }
     }

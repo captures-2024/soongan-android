@@ -51,4 +51,17 @@ constructor(
 
         return reportInfo
     }
+
+    override suspend fun postExplain(
+        targetId: Long,
+        explain: String,
+    ): Boolean {
+        val result = reportRemoteDataSource.postExplain(
+            targetId = targetId,
+            targetType = ReportTargetType.WEEKLY_POST,
+            explain = explain,
+        )
+
+        return result
+    }
 }

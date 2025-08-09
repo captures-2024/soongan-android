@@ -8,6 +8,7 @@ import com.captures2024.soongan.core.common.base.UISideEffect
 import com.captures2024.soongan.core.common.base.UIState
 import com.captures2024.soongan.core.navigator.screen.main.profile.ExplainNavigator
 import com.captures2024.soongan.domain.usecase.member.GetIsCurrentGuestModeUseCase
+import com.captures2024.soongan.domain.usecase.report.PostExplainUseCase
 import com.captures2024.soongan.domain.usecase.system.dialog.SetIsShowGuestModeDialogFlowUseCase
 import com.captures2024.soongan.domain.usecase.system.loading.ClearLoadingUseCase
 import com.captures2024.soongan.domain.usecase.system.loading.HideLoadingUseCase
@@ -25,6 +26,7 @@ constructor(
     getIsCurrentGuestModeUseCase: GetIsCurrentGuestModeUseCase,
     setIsShowGuestModeDialogFlowUseCase: SetIsShowGuestModeDialogFlowUseCase,
     savedStateHandle: SavedStateHandle,
+    private val postExplainUseCase: PostExplainUseCase,
 ) : BaseViewModel<ExplainViewModel.State, ExplainViewModel.Effect, ExplainViewModel.Intent>(
     analyticsHelper = analyticsHelper,
     showLoadingUseCase = showLoadingUseCase,
@@ -52,6 +54,8 @@ constructor(
 
     sealed interface Effect : UISideEffect {
         data object NavigateToBack : Effect
+
+        data object NavigateToCompleteExplain : Effect
     }
 
     sealed interface Intent : UIIntent {
@@ -104,7 +108,16 @@ constructor(
     }
 
     private suspend fun handleOnClickReport() {
+        val state = currentState
 
+        val result = postExplainUseCase(
+            targetId = state.postId,
+            explain = state.explainContent,
+        ).getOrNull()
+
+        if (result == true) {
+            postSideEffect(Effect.NavigateToCompleteExplain)
+        }
     }
 
     private fun handleOnExplainValueChange(intent: Intent.OnExplainValueChange) {

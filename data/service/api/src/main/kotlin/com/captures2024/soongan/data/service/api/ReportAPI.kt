@@ -1,6 +1,7 @@
 package com.captures2024.soongan.data.service.api
 
 import com.captures2024.soongan.core.model.AppConst
+import com.captures2024.soongan.core.model.network.request.report.PostExplainRequest
 import com.captures2024.soongan.core.model.network.request.report.PostReportRequest
 import com.captures2024.soongan.core.model.network.response.BaseResponse
 import com.captures2024.soongan.core.model.network.response.report.PostReportResponse
@@ -16,4 +17,10 @@ interface ReportAPI {
     suspend fun postReport(
         @Body request: PostReportRequest,
     ): Response<BaseResponse<PostReportResponse>>
+
+    @Headers(AppConst.Network.ACCESS_TOKEN_ALLOW)
+    @POST("report/explain")
+    suspend fun postExplain(
+        @Body request: PostExplainRequest,
+    ): Response<BaseResponse<Unit>>
 }

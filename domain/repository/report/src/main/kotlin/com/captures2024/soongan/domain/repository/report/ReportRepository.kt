@@ -12,4 +12,9 @@ interface ReportRepository {
         reportType: ReportType,
         reason: String?,
     ): ReportInfoDto
+
+    suspend fun postExplain(
+        targetId: Long,
+        explain: String,
+    ): Boolean
 }
