@@ -26,9 +26,9 @@ import com.captures2024.soongan.presentation.feature.main.post.R
 
 @Composable
 internal fun PostInfoTopBarComponent(
-    round: Int,
-    subject: String,
     modifier: Modifier = Modifier,
+    round: Int? = null,
+    subject: String? = null,
     onClickBack: () -> Unit,
 ) {
     Box(
@@ -53,45 +53,47 @@ internal fun PostInfoTopBarComponent(
             )
         }
 
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(4.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            SGText(
-                text = round.toString() + stringResource(R.string.round_unit),
-                style = getSGNonScaleTextStyle(
-                    color = SGColor.Grayscale.black100,
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold,
-                    lineHeight = 20.sp,
-                    fontFamily = SGTypography.pretendard,
-                    letterSpacing = 0.em,
-                ),
-            )
+        if (round != null && subject != null) {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(4.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                SGText(
+                    text = round.toString() + stringResource(R.string.round_unit),
+                    style = getSGNonScaleTextStyle(
+                        color = SGColor.Grayscale.black100,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold,
+                        lineHeight = 20.sp,
+                        fontFamily = SGTypography.pretendard,
+                        letterSpacing = 0.em,
+                    ),
+                )
 
-            SGText(
-                text = "|",
-                style = getSGNonScaleTextStyle(
-                    color = SGColor.Grayscale.black100,
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Medium,
-                    lineHeight = 20.sp,
-                    fontFamily = SGTypography.pretendard,
-                    letterSpacing = 0.em,
-                ),
-            )
+                SGText(
+                    text = "|",
+                    style = getSGNonScaleTextStyle(
+                        color = SGColor.Grayscale.black100,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Medium,
+                        lineHeight = 20.sp,
+                        fontFamily = SGTypography.pretendard,
+                        letterSpacing = 0.em,
+                    ),
+                )
 
-            SGText(
-                text = subject,
-                style = getSGNonScaleTextStyle(
-                    color = SGColor.primaryA,
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold,
-                    lineHeight = 20.sp,
-                    fontFamily = SGTypography.pretendard,
-                    letterSpacing = 0.em,
-                ),
-            )
+                SGText(
+                    text = subject,
+                    style = getSGNonScaleTextStyle(
+                        color = SGColor.primaryA,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold,
+                        lineHeight = 20.sp,
+                        fontFamily = SGTypography.pretendard,
+                        letterSpacing = 0.em,
+                    ),
+                )
+            }
         }
     }
 }

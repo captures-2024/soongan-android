@@ -12,7 +12,6 @@ import androidx.compose.foundation.lazy.staggeredgrid.LazyStaggeredGridScope
 import androidx.compose.foundation.lazy.staggeredgrid.LazyStaggeredGridState
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
-import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
 import androidx.compose.foundation.lazy.staggeredgrid.rememberLazyStaggeredGridState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -64,23 +63,21 @@ fun SGGallery(
         }
     }
 
-    LazyVerticalStaggeredGrid(
-        modifier = modifier
-            .fillMaxSize()
-            .background(color = SGColor.BG.background),
-        state = lazyStaggeredGridState,
-        columns = StaggeredGridCells.Fixed(2),
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
-        verticalItemSpacing = 12.dp,
-        contentPadding = PaddingValues(8.dp),
-    ) {
-        header?.let {
-            item(span = StaggeredGridItemSpan.FullLine) {
-                header()
-            }
-        }
+    Column(modifier = modifier) {
+        header?.invoke()
 
-        content()
+        LazyVerticalStaggeredGrid(
+            modifier = Modifier
+                .weight(1f)
+                .background(color = SGColor.BG.background),
+            state = lazyStaggeredGridState,
+            columns = StaggeredGridCells.Fixed(2),
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            verticalItemSpacing = 12.dp,
+            contentPadding = PaddingValues(8.dp),
+        ) {
+            content()
+        }
     }
 
     ScrollToTopIcon(lazyStaggeredGridState = lazyStaggeredGridState)

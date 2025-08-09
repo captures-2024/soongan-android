@@ -33,7 +33,6 @@ internal fun PostInfoEditRoute(
         onClickBack = { viewModel.intent(PostInfoEditViewModel.Intent.OnClickBack) },
         onTitleValueChanged = { viewModel.intent(PostInfoEditViewModel.Intent.OnTitleValueChanged(it)) },
         onClickEdit = { viewModel.intent(PostInfoEditViewModel.Intent.OnClickEdit) },
-        onClickConfirmInitErrorDialog = { viewModel.intent(PostInfoEditViewModel.Intent.OnClickConfirmInitErrorDialog) },
         onClickCancelBackDialog = { viewModel.intent(PostInfoEditViewModel.Intent.OnClickCancelBackDialog) },
         onClickConfirmBackDialog = { viewModel.intent(PostInfoEditViewModel.Intent.OnClickConfirmBackDialog) },
         onClickTermsSubmitBottomSheet = { viewModel.intent(PostInfoEditViewModel.Intent.OnClickTermsSubmitBottomSheet) },

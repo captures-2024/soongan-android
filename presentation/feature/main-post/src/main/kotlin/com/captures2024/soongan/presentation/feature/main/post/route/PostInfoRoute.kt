@@ -5,6 +5,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.LifecycleResumeEffect
 import com.captures2024.soongan.presentation.feature.main.post.component.screen.PostInfoScreen
 import com.captures2024.soongan.presentation.viewmodel.main.post.PostInfoViewModel
 
@@ -25,6 +26,12 @@ internal fun PostInfoRoute(
                 is PostInfoViewModel.Effect.NavigateToImageViewer -> navigateToImageViewer(effect.url)
             }
         }
+    }
+
+    LifecycleResumeEffect(Unit) {
+        viewModel.intent(PostInfoViewModel.Intent.OnResumeView)
+
+        onPauseOrDispose {}
     }
 
     PostInfoScreen(

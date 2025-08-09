@@ -13,7 +13,6 @@ import com.captures2024.soongan.core.navigator.screen.main.post.PostInfoNavigato
 import com.captures2024.soongan.domain.usecase.contest.DeletePostLikeUseCase
 import com.captures2024.soongan.domain.usecase.contest.DeletePostUseCase
 import com.captures2024.soongan.domain.usecase.contest.GetPostInfoUseCase
-import com.captures2024.soongan.domain.usecase.contest.GetWeeklyContestInfoListUseCase
 import com.captures2024.soongan.domain.usecase.contest.PutPostLikeUseCase
 import com.captures2024.soongan.domain.usecase.member.GetCurrentMemberFlowUseCase
 import com.captures2024.soongan.domain.usecase.member.GetIsCurrentGuestModeUseCase
@@ -40,7 +39,6 @@ constructor(
     savedStateHandle: SavedStateHandle,
     private val postSingleButtonDialogUseCase: PostSingleButtonDialogUseCase,
     private val currentMemberFlowUseCase: GetCurrentMemberFlowUseCase,
-    private val getWeeklyContestInfoListUseCase: GetWeeklyContestInfoListUseCase,
     private val getPostInfoUseCase: GetPostInfoUseCase,
     private val deletePostUseCase: DeletePostUseCase,
     private val putPostLikeUseCase: PutPostLikeUseCase,
@@ -55,8 +53,6 @@ constructor(
     savedStateHandle = savedStateHandle,
 ) {
     data class State(
-        val round: Int,
-        val subject: String,
         val postId: Long,
         val postInfo: PostInfoDto?,
         val isShowMenuBottomSheet: Boolean,
@@ -84,6 +80,8 @@ constructor(
 
     sealed interface Intent : UIIntent {
         data object Init : Intent
+
+        data object OnResumeView : Intent
 
         data object OnClickBack : Intent
 
@@ -114,8 +112,6 @@ constructor(
         val route = savedStateHandle.toRoute<PostInfoNavigator>()
 
         return State(
-            round = 0,
-            subject = AppConst.EMPTY_STRING,
             postId = route.id,
             postInfo = null,
             currentMemberNickname = null,
@@ -127,6 +123,7 @@ constructor(
     override fun handleIntent(intent: Intent) {
         when (intent) {
             is Intent.Init -> loadingLaunch { handleInit() }
+            is Intent.OnResumeView -> launch { handleOnResumeView() }
             is Intent.OnClickBack -> handleOnClickBack()
             is Intent.OnClickMenu -> blockGuestModeLogic { handleOnClickMenu() }
             is Intent.OnClickHeart -> blockGuestModeLogic {
@@ -149,6 +146,10 @@ constructor(
     private suspend fun handleInit() {
         launch { collectMemberInfo() }
 
+        fetchInitData()
+    }
+
+    private suspend fun handleOnResumeView() {
         fetchInitData()
     }
 
@@ -252,25 +253,7 @@ constructor(
     }
 
     private suspend fun fetchInitData() {
-        val weeklyInfo = getWeeklyContestInfoListUseCase
-            .invoke()
-            .getOrNull()
-            ?.weeklyContestInfoList
-            ?.lastOrNull()
-
-        if (weeklyInfo == null) {
-            postSingleButtonDialogUseCase(CommonDialogType.NETWORK_ERROR)
-            return
-        }
-
-        reduce {
-            copy(
-                round = weeklyInfo.round,
-                subject = weeklyInfo.subject,
-            )
-        }
-
-        loadingLaunch { getRemotePostInfo() }
+        getRemotePostInfo()
     }
 
     private suspend fun getRemotePostInfo() {

@@ -119,7 +119,7 @@ constructor(
         return State(
             feedState = State.FeedState(
                 isRefreshing = false,
-                postOrderType = PostOrderType.MOST_LIKED,
+                postOrderType = PostOrderType.LATEST,
                 paginationStatus = PaginationStatus.DEFAULT,
                 titleOptions = emptyList(),
                 hasNextPage = false,

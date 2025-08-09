@@ -1,13 +1,9 @@
 package com.captures2024.soongan.presentation.feature.main.feed.component.feed
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -15,12 +11,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.captures2024.soongan.presentation.designsystem.icon.MyIconPack
+import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconNonFillDownArrow
 import com.captures2024.soongan.presentation.designsystem.icon.myiconpack.IconNonFillFillter
 import com.captures2024.soongan.presentation.designsystem.ui.component.WidthSpacer
 import com.captures2024.soongan.presentation.designsystem.ui.component.button.SGIconCircleButton
 import com.captures2024.soongan.presentation.designsystem.ui.component.gallery.SGGalleryHeader
 import com.captures2024.soongan.presentation.designsystem.ui.component.gallery.SGGalleryHeaderTitle
-import com.captures2024.soongan.presentation.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.presentation.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.presentation.feature.main.feed.R
 import com.captures2024.soongan.presentation.viewmodel.model.TitleOption
@@ -43,34 +39,25 @@ internal fun FeedGalleryHeaderComponent(
         },
     ) {
         Row(
-            modifier = Modifier.clickable(
-                onClick = onClickTitle,
-                enabled = selectedOption.hasValidSubject,
-            ),
+            modifier = Modifier
+                .height(44.dp)
+                .clickable(
+                    onClick = onClickTitle,
+                    enabled = selectedOption.hasValidSubject,
+                ),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center,
         ) {
+            Icon(imageVector = MyIconPack.IconNonFillDownArrow, contentDescription = "")
+            WidthSpacer(10.dp)
             SGGalleryHeaderTitle(
-                prefix = stringResource(R.string.feed_gallery_header_title_round_unit, selectedOption.round),
+                prefix = stringResource(
+                    R.string.feed_gallery_header_title_round_unit,
+                    selectedOption.round,
+                ),
                 suffix = selectedOption.subject,
             )
-            WidthSpacer(26.dp)
-            TempArrowDownIcon()
         }
-    }
-}
-
-@Composable
-private fun TempArrowDownIcon(modifier: Modifier = Modifier) {
-    Box(
-        modifier = modifier
-            .background(color = SGColor.black40, shape = CircleShape)
-            .size(20.dp),
-        contentAlignment = Alignment.Center,
-    ) {
-        Icon(
-            imageVector = Icons.Default.KeyboardArrowDown,
-            contentDescription = null,
-            tint = SGColor.black100,
-        )
     }
 }
 
