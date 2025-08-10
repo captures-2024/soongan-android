@@ -18,6 +18,7 @@ import com.captures2024.soongan.core.navigator.screen.main.home.navigateToPostIn
 import com.captures2024.soongan.core.navigator.screen.main.post.navigateToEditPost
 import com.captures2024.soongan.core.navigator.screen.main.post.navigateToImageViewer
 import com.captures2024.soongan.core.navigator.screen.main.post.navigateToPostInfo
+import com.captures2024.soongan.core.navigator.screen.main.profile.navigateToCompleteExplain
 import com.captures2024.soongan.core.navigator.screen.main.profile.navigateToEditProfile
 import com.captures2024.soongan.core.navigator.screen.main.profile.navigateToFAQ
 import com.captures2024.soongan.core.navigator.screen.main.profile.navigateToNotification
@@ -101,6 +102,7 @@ internal fun MainScreen(
                 navigateToEditProfile = navController::navigateToEditProfile,
                 navigateToFAQ = navController::navigateToFAQ,
                 navigateFromNotification = navController::navigateFromNotification,
+                navigateToCompleteExplain = navController::navigateToCompleteExplain,
             )
         }
     }

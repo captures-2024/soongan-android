@@ -1,12 +1,18 @@
 package com.captures2024.soongan.presentation.feature.main.profile.navigation
 
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
+import androidx.navigation.navOptions
 import com.captures2024.soongan.core.model.utils.NotificationSubType
+import com.captures2024.soongan.core.navigator.screen.main.profile.CompleteExplainNavigator
+import com.captures2024.soongan.core.navigator.screen.main.profile.ExplainNavigator
 import com.captures2024.soongan.core.navigator.screen.main.profile.FAQNavigator
 import com.captures2024.soongan.core.navigator.screen.main.profile.NotificationNavigator
 import com.captures2024.soongan.core.navigator.screen.main.profile.ProfileEditNavigator
 import com.captures2024.soongan.core.navigator.screen.main.profile.ProfileNavigator
+import com.captures2024.soongan.presentation.feature.main.profile.route.CompleteExplainRoute
+import com.captures2024.soongan.presentation.feature.main.profile.route.ExplainRoute
 import com.captures2024.soongan.presentation.feature.main.profile.route.FaqRoute
 import com.captures2024.soongan.presentation.feature.main.profile.route.NotificationRoute
 import com.captures2024.soongan.presentation.feature.main.profile.route.ProfileEditRoute
@@ -20,6 +26,7 @@ fun NavGraphBuilder.mainProfile(
     navigateToEditProfile: () -> Unit,
     navigateToFAQ: () -> Unit,
     navigateFromNotification: (NotificationSubType, String?) -> Unit,
+    navigateToCompleteExplain: (NavOptions?) -> Unit,
 ) {
     composable<ProfileNavigator> {
         ProfileRoute(
@@ -46,6 +53,27 @@ fun NavGraphBuilder.mainProfile(
 
     composable<FAQNavigator> {
         FaqRoute(
+            navigateToBack = navigateToBack,
+        )
+    }
+
+    composable<ExplainNavigator> {
+        ExplainRoute(
+            navigateToBack = navigateToBack,
+            navigateToCompleteExplain = {
+                val navOptions = navOptions {
+                    popUpTo(ExplainNavigator) {
+                        inclusive = true
+                    }
+                }
+
+                navigateToCompleteExplain(navOptions)
+            },
+        )
+    }
+
+    composable<CompleteExplainNavigator> {
+        CompleteExplainRoute(
             navigateToBack = navigateToBack,
         )
     }

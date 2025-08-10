@@ -12,4 +12,10 @@ interface ReportRemoteDataSource {
         reportType: ReportType,
         reason: String?,
     ): ReportInfoDto?
+
+    suspend fun postExplain(
+        targetId: Long,
+        targetType: ReportTargetType,
+        explain: String,
+    ): Boolean
 }
