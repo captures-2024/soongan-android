@@ -1,7 +1,7 @@
 package com.captures2024.soongan.presentation.feature.main.post.component.info
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -42,14 +42,18 @@ internal fun PostInfoBodyComponent(
             .padding(horizontal = 16.dp)
             .verticalScroll(scrollState),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.SpaceBetween,
     ) {
-        PostInfoImageComponent(
-            model = ImageRequest.Builder(LocalContext.current)
-                .data(postInfo.imageUrl)
-                .build(),
-            modifier = Modifier.clickable(onClick = onClickPhoto),
-        )
+        Box(
+            modifier = Modifier.weight(1f),
+            contentAlignment = Alignment.Center,
+        ) {
+            PostInfoImageComponent(
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(postInfo.imageUrl)
+                    .build(),
+                modifier = Modifier.clickable(onClick = onClickPhoto),
+            )
+        }
 
         Column(
             modifier = Modifier
