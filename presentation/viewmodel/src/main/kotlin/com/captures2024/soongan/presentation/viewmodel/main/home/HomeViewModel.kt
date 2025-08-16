@@ -48,11 +48,12 @@ constructor(
 ) {
 
     data class State(
-        val initState: InitState,
-        val contestInfo: HomeContestInfoDto,
-        val postInfoList: List<PostInfoDto>,
+        val isLoading: Boolean = false,
+        val initState: InitState = InitState.INIT,
+        val contestInfo: HomeContestInfoDto = HomeContestInfoDto.emptyData,
+        val postInfoList: List<PostInfoDto> = emptyList(),
+        val isShowContestInfoBottomSheet: Boolean = false,
         val maxRegisterPostCount: Int,
-        val isShowContestInfoBottomSheet: Boolean,
     ) : UIState {
 
         enum class InitState {
@@ -98,16 +99,7 @@ constructor(
     }
 
     override fun createInitialState(savedStateHandle: SavedStateHandle): State = State(
-        initState = State.InitState.INIT,
-        contestInfo = HomeContestInfoDto(
-            contestType = AppConst.EMPTY_STRING,
-            subject = AppConst.EMPTY_STRING,
-            startAt = AppConst.EMPTY_STRING,
-            endAt = AppConst.EMPTY_STRING,
-        ),
-        postInfoList = emptyList(),
         maxRegisterPostCount = AppConst.Main.Home.MAX_REGISTER_POST_COUNT,
-        isShowContestInfoBottomSheet = false,
     )
 
     override fun handleIntent(intent: Intent) {

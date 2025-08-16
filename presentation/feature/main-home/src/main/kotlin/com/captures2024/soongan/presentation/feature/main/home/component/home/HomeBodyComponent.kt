@@ -13,7 +13,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import com.captures2024.soongan.core.model.dto.HomeContestInfoDto
 import com.captures2024.soongan.core.model.dto.PostInfoDto
 import com.captures2024.soongan.presentation.designsystem.ui.component.WeightSpacer
 import com.captures2024.soongan.presentation.designsystem.ui.component.text.SGText
@@ -140,15 +139,7 @@ private fun PreviewHomeBodyComponent() {
             HomeBodyComponent(
                 state = HomeViewModel.State(
                     initState = HomeViewModel.State.InitState.SUCCESS,
-                    contestInfo = HomeContestInfoDto(
-                        contestType = "",
-                        subject = "",
-                        startAt = "",
-                        endAt = "",
-                    ),
-                    postInfoList = emptyList(),
                     maxRegisterPostCount = 3,
-                    isShowContestInfoBottomSheet = false,
                 ),
                 onClickRegister = {},
                 onClickPost = {},

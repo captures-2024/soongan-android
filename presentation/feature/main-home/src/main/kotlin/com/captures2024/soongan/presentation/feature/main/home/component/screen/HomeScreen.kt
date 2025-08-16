@@ -63,15 +63,7 @@ private fun PreviewHomeScreen_Init() {
         HomeScreen(
             state = HomeViewModel.State(
                 initState = HomeViewModel.State.InitState.INIT,
-                contestInfo = HomeContestInfoDto(
-                    contestType = "",
-                    subject = "",
-                    startAt = "",
-                    endAt = "",
-                ),
-                postInfoList = emptyList(),
                 maxRegisterPostCount = 3,
-                isShowContestInfoBottomSheet = false,
             ),
             onClickContestInfo = {},
             onClickPostList = {},
@@ -96,9 +88,7 @@ private fun PreviewHomeScreen_Success() {
                     startAt = "2025.05.16",
                     endAt = "2025.05.31",
                 ),
-                postInfoList = emptyList(),
                 maxRegisterPostCount = 3,
-                isShowContestInfoBottomSheet = false,
             ),
             onClickContestInfo = {},
             onClickPostList = {},
