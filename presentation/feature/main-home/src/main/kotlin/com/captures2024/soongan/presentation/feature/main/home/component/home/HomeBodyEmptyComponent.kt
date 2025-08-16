@@ -34,6 +34,7 @@ import com.captures2024.soongan.presentation.feature.main.home.R
 
 @Composable
 internal fun HomeBodyEmptyComponent(
+    isLoading: Boolean,
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
 ) {
@@ -48,7 +49,10 @@ internal fun HomeBodyEmptyComponent(
                 shape = RectangleShape,
                 blur = blur,
             )
-            .clickable(onClick = onClick),
+            .clickable(
+                enabled = isLoading.not(),
+                onClick = onClick,
+            ),
     ) {
         Column(
             modifier = Modifier
@@ -88,6 +92,7 @@ internal fun HomeBodyEmptyComponent(
 private fun PreviewHomeBodyEmptyComponent() {
     SGTheme {
         HomeBodyEmptyComponent(
+            isLoading = false,
             onClick = {},
         )
     }

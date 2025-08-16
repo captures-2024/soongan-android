@@ -8,17 +8,16 @@ import com.captures2024.soongan.core.common.base.UIState
 import com.captures2024.soongan.core.model.AppConst
 import com.captures2024.soongan.core.model.dto.HomeContestInfoDto
 import com.captures2024.soongan.core.model.dto.PostInfoDto
-import com.captures2024.soongan.core.model.enums.CommonDialogType
 import com.captures2024.soongan.domain.usecase.contest.GetHidePostEventUseCase
 import com.captures2024.soongan.domain.usecase.contest.GetRegisterPostEventUseCase
 import com.captures2024.soongan.domain.usecase.home.GetHomeUseCase
 import com.captures2024.soongan.domain.usecase.member.GetIsCurrentGuestModeUseCase
-import com.captures2024.soongan.domain.usecase.system.dialog.PostSingleButtonDialogUseCase
 import com.captures2024.soongan.domain.usecase.system.dialog.SetIsShowGuestModeDialogFlowUseCase
 import com.captures2024.soongan.domain.usecase.system.loading.ClearLoadingUseCase
 import com.captures2024.soongan.domain.usecase.system.loading.HideLoadingUseCase
 import com.captures2024.soongan.domain.usecase.system.loading.ShowLoadingUseCase
 import com.captures2024.soongan.presentation.viewmodel.BaseViewModel
+import com.captures2024.soongan.presentation.viewmodel.model.enums.HomeInfoState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -33,10 +32,9 @@ constructor(
     getIsCurrentGuestModeUseCase: GetIsCurrentGuestModeUseCase,
     setIsShowGuestModeDialogFlowUseCase: SetIsShowGuestModeDialogFlowUseCase,
     savedStateHandle: SavedStateHandle,
-    private val getHomeUseCase: GetHomeUseCase,
-    private val postSingleButtonDialogUseCase: PostSingleButtonDialogUseCase,
     private val getRegisterPostEventUseCase: GetRegisterPostEventUseCase,
     private val getHidePostEventUseCase: GetHidePostEventUseCase,
+    private val getHomeUseCase: GetHomeUseCase,
 ) : BaseViewModel<HomeViewModel.State, HomeViewModel.Effect, HomeViewModel.Intent>(
     analyticsHelper = analyticsHelper,
     showLoadingUseCase = showLoadingUseCase,
@@ -46,28 +44,25 @@ constructor(
     setIsShowGuestModeDialogFlowUseCase = setIsShowGuestModeDialogFlowUseCase,
     savedStateHandle = savedStateHandle,
 ) {
-
     data class State(
         val isLoading: Boolean = false,
-        val initState: InitState = InitState.INIT,
-        val contestInfo: HomeContestInfoDto = HomeContestInfoDto.emptyData,
-        val postInfoList: List<PostInfoDto> = emptyList(),
+        val homeInfo: HomeInfo = HomeInfo(),
         val isShowContestInfoBottomSheet: Boolean = false,
-        val maxRegisterPostCount: Int,
     ) : UIState {
 
-        enum class InitState {
-            INIT,
-            LOADING,
-            SUCCESS,
-            FAIL,
-        }
+        data class HomeInfo(
+            val homeInfoState: HomeInfoState = HomeInfoState.INIT,
+            val homeContestInfo: HomeContestInfoDto? = null,
+            val postInfos: List<PostInfoDto>? = null,
+            val maxRegisterPostCount: Int = AppConst.Main.Home.MAX_REGISTER_POST_COUNT,
+        )
     }
 
     sealed interface Effect : UISideEffect {
         data object NavigateToRegister : Effect
 
-        data object NavigateToPostList : Effect
+        data object NavigateToPostList :
+            Effect
 
         data class NavigateToPost(
             val postInfoDto: PostInfoDto,
@@ -75,43 +70,50 @@ constructor(
     }
 
     sealed interface Intent : UIIntent {
-        data object Init : Intent
+        data object Init :
+            Intent
 
-        data object OnResumeView : Intent
+        data object OnResumeView :
+            Intent
 
-        data object OnClickContestInfo : Intent
+        data object OnClickContestInfo :
+            Intent
 
-        data object OnClickPostList : Intent
+        data object OnClickPostList :
+            Intent
 
-        data object OnClickRegister : Intent
+        data object OnClickRegister :
+            Intent
 
         data class OnClickPost(
             val postInfoDto: PostInfoDto,
         ) : Intent
 
-        data object OnClickRetry : Intent
+        data object OnClickRetry :
+            Intent
 
-        data object DismissContestInfoBottomSheet : Intent
+        data object DismissContestInfoBottomSheet :
+            Intent
     }
 
     init {
         intent(Intent.Init)
     }
 
-    override fun createInitialState(savedStateHandle: SavedStateHandle): State = State(
-        maxRegisterPostCount = AppConst.Main.Home.MAX_REGISTER_POST_COUNT,
-    )
+    override fun createInitialState(savedStateHandle: SavedStateHandle): State {
+        return State()
+    }
 
     override fun handleIntent(intent: Intent) {
         when (intent) {
             is Intent.Init -> loadingLaunch { handleInit() }
-            is Intent.OnResumeView -> launch { handleOnResumeView() }
-            is Intent.OnClickContestInfo -> handleOnClickContestInfo()
-            is Intent.OnClickPostList -> handleOnClickPostList()
-            is Intent.OnClickRegister -> blockGuestModeLogic { handleOnClickRegister() }
-            is Intent.OnClickPost -> handleOnClickPost(intent)
-            is Intent.OnClickRetry -> loadingLaunch { handleOnClickRetry() }
-            is Intent.DismissContestInfoBottomSheet -> handleDismissContestInfoBottomSheet()
+            is Intent.OnResumeView -> isRunBlock { loadingLaunch { handleOnResumeView() } }
+            is Intent.OnClickContestInfo -> isRunBlock { handleOnClickContestInfo() }
+            is Intent.OnClickPost -> isRunBlock { handleOnClickPost(intent) }
+            is Intent.OnClickPostList -> isRunBlock { handleOnClickPostList() }
+            is Intent.OnClickRegister -> isRunBlock { handleOnClickRegister() }
+            is Intent.OnClickRetry -> isRunBlock { loadingLaunch { handleOnClickRetry() } }
+            is Intent.DismissContestInfoBottomSheet -> isRunBlock { handleDismissContestInfoBottomSheet() }
         }
     }
 
@@ -120,51 +122,165 @@ constructor(
     }
 
     private suspend fun handleInit() {
+        reduce {
+            copy(
+                isLoading = true,
+            )
+        }
+
         launch { collectRegisterPostEvent() }
         launch { collectHidePostEvent() }
 
-        fetchInitData()
+        val homeInfo = fetchHomeData()
+
+        reduce {
+            copy(
+                isLoading = false,
+                homeInfo = homeInfo,
+            )
+        }
     }
 
     private suspend fun handleOnResumeView() {
-        when (currentState.initState) {
-            State.InitState.INIT,
-            State.InitState.LOADING,
-            -> return
-
-            else -> Unit
+        reduce {
+            copy(
+                isLoading = true,
+            )
         }
 
-        fetchInitData()
+        val homeInfo = fetchHomeData()
+
+        reduce {
+            copy(
+                isLoading = false,
+                homeInfo = homeInfo,
+            )
+        }
     }
 
     private fun handleOnClickContestInfo() {
+        reduce {
+            copy(
+                isLoading = true,
+            )
+        }
+
         showContestInfoBottomSheet()
-    }
 
-    private fun handleOnClickPostList() {
-        postSideEffect(Effect.NavigateToPostList)
-    }
-
-    private fun handleOnClickRegister() {
-        postSideEffect(Effect.NavigateToRegister)
+        reduce {
+            copy(
+                isLoading = false,
+            )
+        }
     }
 
     private fun handleOnClickPost(intent: Intent.OnClickPost) {
+        reduce {
+            copy(
+                isLoading = true,
+            )
+        }
+
         postSideEffect(Effect.NavigateToPost(intent.postInfoDto))
+
+        reduce {
+            copy(
+                isLoading = false,
+            )
+        }
+    }
+
+    private fun handleOnClickPostList() {
+        reduce {
+            copy(
+                isLoading = true,
+            )
+        }
+
+        postSideEffect(Effect.NavigateToPostList)
+
+        reduce {
+            copy(
+                isLoading = false,
+            )
+        }
+    }
+
+    private fun handleOnClickRegister() {
+        reduce {
+            copy(
+                isLoading = true,
+            )
+        }
+
+        blockGuestModeLogic {
+            postSideEffect(Effect.NavigateToRegister)
+        }
+
+        reduce {
+            copy(
+                isLoading = false,
+            )
+        }
     }
 
     private suspend fun handleOnClickRetry() {
-        fetchInitData()
+        reduce {
+            copy(
+                isLoading = true,
+            )
+        }
+
+        val homeInfo = fetchHomeData()
+
+        reduce {
+            copy(
+                isLoading = false,
+                homeInfo = homeInfo,
+            )
+        }
     }
 
     private fun handleDismissContestInfoBottomSheet() {
+        reduce {
+            copy(
+                isLoading = true,
+            )
+        }
+
         dismissContestInfoBottomSheet()
+
+        reduce {
+            copy(
+                isLoading = false,
+            )
+        }
+    }
+
+    private inline fun isRunBlock(block: () -> Unit) {
+        if (currentState.isLoading) {
+            return
+        }
+
+        block()
     }
 
     private suspend fun collectRegisterPostEvent() {
         getRegisterPostEventUseCase().collect {
-            fetchInitData()
+            reduce {
+                copy(
+                    isLoading = true,
+                )
+            }
+
+            val homeInfo = fetchHomeData()
+
+            reduce {
+                copy(
+                    isLoading = false,
+                    homeInfo = homeInfo,
+                )
+            }
         }
     }
 
@@ -172,44 +288,34 @@ constructor(
         getHidePostEventUseCase().collect { postId ->
             reduce {
                 copy(
-                    postInfoList = postInfoList.filter { it.postId != postId },
+                    homeInfo = homeInfo.copy(
+                        postInfos = homeInfo.postInfos?.filter { it.postId != postId },
+                    ),
                 )
             }
         }
     }
 
-    private suspend fun fetchInitData() {
-        reduce {
-            copy(
-                initState = State.InitState.LOADING,
-            )
-        }
+    private suspend fun fetchHomeData(): State.HomeInfo {
+        val (homeContestInfo: HomeContestInfoDto, postInfos: List<PostInfoDto>) = getHomeUseCase()
+            .getOrElse { throwable ->
+                analyticsHelper.d { "failFetchHomeData - throwable: $throwable" }
 
-        val result = getHomeUseCase().getOrNull()
+                // TODO empty state
+                val state = HomeInfoState.ERROR
 
-        if (result == null) {
-            analyticsHelper.d { "handleInit - result is null" }
-
-            reduce {
-                copy(
-                    initState = State.InitState.FAIL,
+                return State.HomeInfo(
+                    homeInfoState = state,
+                    homeContestInfo = null,
+                    postInfos = null,
                 )
             }
 
-            postSingleButtonDialogUseCase(CommonDialogType.NETWORK_ERROR)
-            return
-        }
-
-        val contestInfoDto = result.first
-        val postInfoList = result.second
-
-        reduce {
-            copy(
-                initState = State.InitState.SUCCESS,
-                contestInfo = contestInfoDto,
-                postInfoList = postInfoList,
-            )
-        }
+        return State.HomeInfo(
+            homeInfoState = HomeInfoState.SUCCESS,
+            homeContestInfo = homeContestInfo,
+            postInfos = postInfos,
+        )
     }
 
     private fun showContestInfoBottomSheet() {

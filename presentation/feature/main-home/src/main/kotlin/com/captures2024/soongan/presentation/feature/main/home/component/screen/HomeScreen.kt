@@ -4,49 +4,57 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.captures2024.soongan.core.model.dto.HomeContestInfoDto
 import com.captures2024.soongan.core.model.dto.PostInfoDto
 import com.captures2024.soongan.presentation.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.presentation.designsystem.ui.theme.SGTheme
 import com.captures2024.soongan.presentation.designsystem.ui.util.DevicePreviews
-import com.captures2024.soongan.presentation.feature.main.home.component.home.HomeComponent
 import com.captures2024.soongan.presentation.feature.main.home.component.home.HomeContestInfoBottomSheet
+import com.captures2024.soongan.presentation.feature.main.home.component.home.HomeEmptyComponent
 import com.captures2024.soongan.presentation.feature.main.home.component.home.HomeFailedComponent
 import com.captures2024.soongan.presentation.feature.main.home.component.home.HomeInitComponent
+import com.captures2024.soongan.presentation.feature.main.home.component.home.HomeSuccessComponent
 import com.captures2024.soongan.presentation.viewmodel.main.home.HomeViewModel
+import com.captures2024.soongan.presentation.viewmodel.model.enums.HomeInfoState
 
 @Composable
 internal fun HomeScreen(
     state: HomeViewModel.State,
-    onClickContestInfo: () -> Unit,
+    onClickRetry: () -> Unit,
     onClickPostList: () -> Unit,
     onClickRegister: () -> Unit,
     onClickPost: (PostInfoDto) -> Unit,
-    onClickRetry: () -> Unit,
+    onClickContestInfo: () -> Unit,
     onDismissRequest: () -> Unit,
 ) {
     val commonModifier = Modifier
         .fillMaxSize()
         .background(color = SGColor.BG.background)
 
-    when (state.initState) {
-        HomeViewModel.State.InitState.INIT -> HomeInitComponent(
+    when (state.homeInfo.homeInfoState) {
+        HomeInfoState.INIT -> HomeInitComponent(
             modifier = commonModifier,
         )
 
-        HomeViewModel.State.InitState.FAIL -> HomeFailedComponent(
-            isLoading = false,
+        HomeInfoState.ERROR -> HomeFailedComponent(
+            isLoading = state.isLoading,
             modifier = commonModifier,
             onClickRetry = onClickRetry,
         )
 
-        else -> HomeComponent(
-            state = state,
+        HomeInfoState.EMPTY -> HomeEmptyComponent(
+            isLoading = state.isLoading,
             modifier = commonModifier,
-            onClickContestInfo = onClickContestInfo,
             onClickPostList = onClickPostList,
+        )
+
+        HomeInfoState.SUCCESS -> HomeSuccessComponent(
+            isLoading = state.isLoading,
+            homeInfo = state.homeInfo,
+            modifier = commonModifier,
             onClickRegister = onClickRegister,
             onClickPost = onClickPost,
+            onClickPostList = onClickPostList,
+            onClickContestInfo = onClickContestInfo,
         )
     }
 
@@ -63,14 +71,15 @@ private fun PreviewHomeScreen_Init() {
     SGTheme {
         HomeScreen(
             state = HomeViewModel.State(
-                initState = HomeViewModel.State.InitState.INIT,
-                maxRegisterPostCount = 3,
+                homeInfo = HomeViewModel.State.HomeInfo(
+                    homeInfoState = HomeInfoState.INIT,
+                )
             ),
-            onClickContestInfo = {},
+            onClickRetry = {},
             onClickPostList = {},
             onClickRegister = {},
             onClickPost = {},
-            onClickRetry = {},
+            onClickContestInfo = {},
             onDismissRequest = {},
         )
     }
@@ -78,24 +87,59 @@ private fun PreviewHomeScreen_Init() {
 
 @DevicePreviews
 @Composable
-private fun PreviewHomeScreen_Success() {
+private fun PreviewHomeScreen_ERROR() {
     SGTheme {
         HomeScreen(
             state = HomeViewModel.State(
-                initState = HomeViewModel.State.InitState.SUCCESS,
-                contestInfo = HomeContestInfoDto(
-                    contestType = "weekly",
-                    subject = "평화",
-                    startAt = "2025.05.16",
-                    endAt = "2025.05.31",
-                ),
-                maxRegisterPostCount = 3,
+                homeInfo = HomeViewModel.State.HomeInfo(
+                    homeInfoState = HomeInfoState.ERROR,
+                )
             ),
-            onClickContestInfo = {},
+            onClickRetry = {},
             onClickPostList = {},
             onClickRegister = {},
             onClickPost = {},
+            onClickContestInfo = {},
+            onDismissRequest = {},
+        )
+    }
+}
+
+@DevicePreviews
+@Composable
+private fun PreviewHomeScreen_EMPTY() {
+    SGTheme {
+        HomeScreen(
+            state = HomeViewModel.State(
+                homeInfo = HomeViewModel.State.HomeInfo(
+                    homeInfoState = HomeInfoState.EMPTY,
+                )
+            ),
             onClickRetry = {},
+            onClickPostList = {},
+            onClickRegister = {},
+            onClickPost = {},
+            onClickContestInfo = {},
+            onDismissRequest = {},
+        )
+    }
+}
+
+@DevicePreviews
+@Composable
+private fun PreviewHomeScreen_SUCCESS() {
+    SGTheme {
+        HomeScreen(
+            state = HomeViewModel.State(
+                homeInfo = HomeViewModel.State.HomeInfo(
+                    homeInfoState = HomeInfoState.SUCCESS,
+                )
+            ),
+            onClickRetry = {},
+            onClickPostList = {},
+            onClickRegister = {},
+            onClickPost = {},
+            onClickContestInfo = {},
             onDismissRequest = {},
         )
     }

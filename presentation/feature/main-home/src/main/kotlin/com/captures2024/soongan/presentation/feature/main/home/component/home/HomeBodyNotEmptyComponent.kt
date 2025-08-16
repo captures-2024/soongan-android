@@ -47,6 +47,7 @@ import com.captures2024.soongan.presentation.feature.main.home.R
 
 @Composable
 internal fun HomeBodyNotEmptyComponent(
+    isLoading: Boolean,
     maxCount: Int,
     postInfoList: List<PostInfoDto>,
     modifier: Modifier = Modifier,
@@ -64,12 +65,14 @@ internal fun HomeBodyNotEmptyComponent(
         RegisterButtonComponent(
             maxCount = maxCount,
             postCount = postInfoList.size,
+            enabled = isLoading.not(),
             onClick = onClickRegister,
         )
 
         postInfoList.forEach { postInfo ->
             PostComponent(
                 postInfo = postInfo,
+                enabled = isLoading.not(),
                 onClick = onClickPost,
             )
         }
@@ -80,6 +83,7 @@ internal fun HomeBodyNotEmptyComponent(
 private fun RegisterButtonComponent(
     maxCount: Int,
     postCount: Int,
+    enabled: Boolean = true,
     onClick: () -> Unit,
 ) {
     val isValidPost = postCount < maxCount
@@ -94,12 +98,10 @@ private fun RegisterButtonComponent(
                 shape = RectangleShape,
                 blur = blur,
             )
-            .let {
-                when (isValidPost) {
-                    true -> it.clickable(onClick = onClick)
-                    false -> it
-                }
-            },
+            .clickable(
+                enabled = isValidPost && enabled,
+                onClick = onClick,
+            ),
     ) {
         Box(
             modifier = Modifier
@@ -148,6 +150,7 @@ private fun RegisterButtonComponent(
 private fun PostComponent(
     postInfo: PostInfoDto,
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
     onClick: (PostInfoDto) -> Unit,
 ) {
     val commonShape = RectangleShape
@@ -176,7 +179,10 @@ private fun PostComponent(
                     color = SGColor.Grayscale.white,
                     shape = commonShape,
                 )
-                .clickable { onClick(postInfo) },
+                .clickable(
+                    enabled = enabled,
+                    onClick = { onClick(postInfo) },
+                ),
         )
 
         HeightSpacer(8.dp)
@@ -243,6 +249,7 @@ private fun InteractionIconBox(
 private fun PreviewHomeBodyNotEmptyComponent_Default() {
     SGTheme {
         HomeBodyNotEmptyComponent(
+            isLoading = false,
             maxCount = 3,
             postInfoList = listOf(
                 PostInfoDto(),
@@ -258,6 +265,7 @@ private fun PreviewHomeBodyNotEmptyComponent_Default() {
 private fun PreviewHomeBodyNotEmptyComponent_Max() {
     SGTheme {
         HomeBodyNotEmptyComponent(
+            isLoading = false,
             maxCount = 3,
             postInfoList = listOf(
                 PostInfoDto(),

@@ -9,6 +9,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.TextUnit
+import com.captures2024.soongan.presentation.designsystem.ui.theme.SGTypography
 import com.captures2024.soongan.presentation.designsystem.ui.util.extension.nonScaleSp
 import com.captures2024.soongan.presentation.designsystem.ui.util.extension.normalizeLetterSpacing
 
@@ -52,4 +53,18 @@ fun getSGNonScaleTextStyle(
     letterSpacing = normalizeLetterSpacing(fontSize, letterSpacing).nonScaleSp,
     textDecoration = textDecoration,
     textAlign = textAlign,
+)
+
+@Composable
+fun getSGNonScaleTextStyle(
+    style: TextStyle,
+) = getSGTextStyle(
+    color = style.color,
+    fontFamily = style.fontFamily ?: SGTypography.pretendard,
+    fontSize = style.fontSize.nonScaleSp,
+    fontWeight = style.fontWeight ?: FontWeight.Normal,
+    lineHeight = style.lineHeight,
+    letterSpacing = normalizeLetterSpacing(style.fontSize, style.letterSpacing).nonScaleSp,
+    textDecoration = style.textDecoration,
+    textAlign = style.textAlign,
 )
