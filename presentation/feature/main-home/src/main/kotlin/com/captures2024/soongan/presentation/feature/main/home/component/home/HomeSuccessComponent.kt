@@ -74,7 +74,7 @@ internal fun HomeSuccessComponent(
 
             ContentDeadlineComponent(
                 startAt = homeInfo.homeContestInfo?.startAt ?: "",
-                endAt = homeInfo.homeContestInfo?.endAt ?: ""
+                endAt = homeInfo.homeContestInfo?.endAt ?: "",
             )
         }
 

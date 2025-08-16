@@ -42,6 +42,6 @@ internal fun HomeRoute(
         onClickRegister = { viewModel.intent(HomeViewModel.Intent.OnClickRegister) },
         onClickPost = { viewModel.intent(HomeViewModel.Intent.OnClickPost(it)) },
         onClickContestInfo = { viewModel.intent(HomeViewModel.Intent.OnClickContestInfo) },
-        onDismissRequest = { viewModel.intent(HomeViewModel.Intent.DismissContestInfoBottomSheet) }
+        onDismissRequest = { viewModel.intent(HomeViewModel.Intent.DismissContestInfoBottomSheet) },
     )
 }

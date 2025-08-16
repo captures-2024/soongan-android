@@ -73,7 +73,7 @@ private fun PreviewHomeScreen_Init() {
             state = HomeViewModel.State(
                 homeInfo = HomeViewModel.State.HomeInfo(
                     homeInfoState = HomeInfoState.INIT,
-                )
+                ),
             ),
             onClickRetry = {},
             onClickPostList = {},
@@ -93,7 +93,7 @@ private fun PreviewHomeScreen_ERROR() {
             state = HomeViewModel.State(
                 homeInfo = HomeViewModel.State.HomeInfo(
                     homeInfoState = HomeInfoState.ERROR,
-                )
+                ),
             ),
             onClickRetry = {},
             onClickPostList = {},
@@ -113,7 +113,7 @@ private fun PreviewHomeScreen_EMPTY() {
             state = HomeViewModel.State(
                 homeInfo = HomeViewModel.State.HomeInfo(
                     homeInfoState = HomeInfoState.EMPTY,
-                )
+                ),
             ),
             onClickRetry = {},
             onClickPostList = {},
@@ -133,7 +133,7 @@ private fun PreviewHomeScreen_SUCCESS() {
             state = HomeViewModel.State(
                 homeInfo = HomeViewModel.State.HomeInfo(
                     homeInfoState = HomeInfoState.SUCCESS,
-                )
+                ),
             ),
             onClickRetry = {},
             onClickPostList = {},
