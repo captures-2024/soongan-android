@@ -35,6 +35,7 @@ internal fun HomeScreen(
         )
 
         HomeViewModel.State.InitState.FAIL -> HomeFailedComponent(
+            isLoading = false,
             modifier = commonModifier,
             onClickRetry = onClickRetry,
         )

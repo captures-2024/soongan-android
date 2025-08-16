@@ -38,7 +38,7 @@ fun SGTextButtonType1(
                 fontWeight = FontWeight.Normal,
                 lineHeight = 20.sp,
                 letterSpacing = (-5).em,
-                fontFamily = SGTypography.nanumSquareNeo,
+                fontFamily = SGTypography.pretendard,
             ),
         )
     }
@@ -68,7 +68,7 @@ fun SGTextButtonType2(
                 fontWeight = FontWeight.Bold,
                 lineHeight = 20.sp,
                 letterSpacing = (-5).em,
-                fontFamily = SGTypography.nanumSquareNeo,
+                fontFamily = SGTypography.pretendard,
             ),
         )
     }

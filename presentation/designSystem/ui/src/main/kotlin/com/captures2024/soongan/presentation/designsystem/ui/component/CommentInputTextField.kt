@@ -98,7 +98,7 @@ private fun CommentInputBasicTextField(
         fontSize = 14.sp,
         fontWeight = FontWeight.Normal,
         lineHeight = 14.sp,
-        fontFamily = SGTypography.nanumSquareNeo,
+        fontFamily = SGTypography.pretendard,
         letterSpacing = 0.em,
     )
 

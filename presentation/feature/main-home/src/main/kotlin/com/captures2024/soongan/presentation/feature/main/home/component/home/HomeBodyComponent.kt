@@ -124,7 +124,7 @@ private fun ContestDateComponent(
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Medium,
                 lineHeight = 14.sp,
-                fontFamily = SGTypography.poppins,
+                fontFamily = SGTypography.pretendard,
                 letterSpacing = 0.em,
             ),
         )
