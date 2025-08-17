@@ -106,7 +106,7 @@ internal fun PostInfoInputTitleComponent(
                     fontSize = 8.sp,
                     fontWeight = FontWeight.Normal,
                     lineHeight = 8.sp,
-                    fontFamily = SGTypography.nanumSquareNeo,
+                    fontFamily = SGTypography.pretendard,
                     letterSpacing = 0.em,
                 ),
             )

@@ -33,6 +33,7 @@ import com.captures2024.soongan.presentation.designsystem.ui.theme.innerShadow
 fun SGIconCircleButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
     content: @Composable BoxScope.() -> Unit,
 ) {
     val backgroundShape = CircleShape
@@ -75,6 +76,7 @@ fun SGIconCircleButton(
             .clickable(
                 indication = null,
                 interactionSource = interactionSource,
+                enabled = enabled,
                 onClick = onClick,
             ),
         contentAlignment = Alignment.Center,
@@ -90,10 +92,12 @@ fun SGIconCircleButton(
     color: Color = SGColor.primaryA,
     iconWidth: Dp = 20.dp,
     iconHeight: Dp = 20.dp,
+    enabled: Boolean = true,
     onClick: () -> Unit,
 ) {
     SGIconCircleButton(
         modifier = modifier,
+        enabled = enabled,
         onClick = onClick,
     ) {
         Icon(

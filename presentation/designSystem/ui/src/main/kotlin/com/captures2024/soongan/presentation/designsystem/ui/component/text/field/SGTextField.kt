@@ -65,7 +65,7 @@ private fun PreviewSGTextField() {
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Normal,
                     lineHeight = 24.sp,
-                    fontFamily = SGTypography.nanumSquareNeo,
+                    fontFamily = SGTypography.pretendard,
                     letterSpacing = (-5).em,
                 ),
                 onValueChange = {},

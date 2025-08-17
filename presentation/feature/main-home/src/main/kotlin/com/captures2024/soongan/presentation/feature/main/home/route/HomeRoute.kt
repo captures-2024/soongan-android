@@ -37,11 +37,11 @@ internal fun HomeRoute(
 
     HomeScreen(
         state = state,
-        onClickContestInfo = { viewModel.intent(HomeViewModel.Intent.OnClickContestInfo) },
+        onClickRetry = { viewModel.intent(HomeViewModel.Intent.OnClickRetry) },
         onClickPostList = { viewModel.intent(HomeViewModel.Intent.OnClickPostList) },
         onClickRegister = { viewModel.intent(HomeViewModel.Intent.OnClickRegister) },
         onClickPost = { viewModel.intent(HomeViewModel.Intent.OnClickPost(it)) },
-        onClickRetry = { viewModel.intent(HomeViewModel.Intent.OnClickRetry) },
+        onClickContestInfo = { viewModel.intent(HomeViewModel.Intent.OnClickContestInfo) },
         onDismissRequest = { viewModel.intent(HomeViewModel.Intent.DismissContestInfoBottomSheet) },
     )
 }

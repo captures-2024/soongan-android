@@ -29,6 +29,7 @@ import com.captures2024.soongan.presentation.feature.main.home.R
 
 @Composable
 internal fun HomeBottomBarComponent(
+    isLoading: Boolean,
     modifier: Modifier = Modifier,
     onClickContestInfo: () -> Unit,
     onClickPostList: () -> Unit,
@@ -44,6 +45,7 @@ internal fun HomeBottomBarComponent(
             description = stringResource(R.string.contest_info_description),
             iconWidth = 24.dp,
             iconHeight = 24.dp,
+            enabled = isLoading.not(),
             onClick = onClickContestInfo,
         )
 
@@ -53,6 +55,7 @@ internal fun HomeBottomBarComponent(
             description = stringResource(R.string.post_list_description),
             iconWidth = 20.dp,
             iconHeight = 16.dp,
+            enabled = isLoading.not(),
             onClick = onClickPostList,
         )
     }
@@ -66,6 +69,7 @@ private fun IconComponent(
     iconWidth: Dp,
     iconHeight: Dp,
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
     onClick: () -> Unit,
 ) {
     Column(
@@ -79,6 +83,7 @@ private fun IconComponent(
             color = SGColor.Grayscale.black100,
             iconWidth = iconWidth,
             iconHeight = iconHeight,
+            enabled = enabled,
             onClick = onClick,
         )
 
@@ -101,6 +106,7 @@ private fun IconComponent(
 private fun PreviewHomeBottomBarComponent() {
     SGTheme {
         HomeBottomBarComponent(
+            isLoading = false,
             onClickContestInfo = {},
             onClickPostList = {},
         )

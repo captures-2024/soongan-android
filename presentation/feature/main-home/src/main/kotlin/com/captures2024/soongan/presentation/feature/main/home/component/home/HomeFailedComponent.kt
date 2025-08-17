@@ -25,6 +25,7 @@ import com.captures2024.soongan.presentation.feature.main.home.R
 
 @Composable
 internal fun HomeFailedComponent(
+    isLoading: Boolean,
     modifier: Modifier = Modifier,
     onClickRetry: () -> Unit,
 ) {
@@ -51,6 +52,7 @@ internal fun HomeFailedComponent(
         SGTextButtonType2(
             text = stringResource(R.string.fail_retry_content),
             modifier = Modifier.padding(16.dp),
+            enabled = isLoading.not(),
             onClick = onClickRetry,
         )
     }
@@ -61,6 +63,7 @@ internal fun HomeFailedComponent(
 private fun PreviewHomeFailedComponent() {
     SGTheme {
         HomeFailedComponent(
+            isLoading = false,
             onClickRetry = {},
         )
     }

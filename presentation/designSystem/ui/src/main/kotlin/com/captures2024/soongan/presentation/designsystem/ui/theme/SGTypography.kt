@@ -15,7 +15,9 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.presentation.designsystem.ui.R
 
@@ -44,191 +46,114 @@ data object SGTypography {
     )
 
     @Stable
-    val nanumSquareNeo: FontFamily = FontFamily(
-        Font(R.font.nanum_square_neo_bold, FontWeight.Bold),
-        Font(R.font.nanum_square_neo_extrabold, FontWeight.ExtraBold),
-        Font(R.font.nanum_square_neo_heavy, FontWeight.W900),
-        Font(R.font.nanum_square_neo_light, FontWeight.Light),
-        Font(R.font.nanum_square_neo_regular, FontWeight.Normal),
+    fun h1(): TextStyle = TextStyle(
+        fontFamily = pretendard,
+        fontWeight = FontWeight.Medium,
+        fontSize = 24.sp,
+        lineHeight = TextUnit.Unspecified,
+        letterSpacing = (-0.1).em,
     )
 
     @Stable
-    val poppins: FontFamily = FontFamily(
-        Font(R.font.poppins_black, FontWeight.Black),
-        Font(R.font.poppins_black_italic, FontWeight.Black, style = FontStyle.Italic),
-        Font(R.font.poppins_bold, FontWeight.Bold),
-        Font(R.font.poppins_bold_italic, FontWeight.Bold, style = FontStyle.Italic),
-        Font(R.font.poppins_extra_bold, FontWeight.ExtraBold),
-        Font(R.font.poppins_extra_bold_italic, FontWeight.ExtraBold, style = FontStyle.Italic),
-        Font(R.font.poppins_extra_light, FontWeight.ExtraLight),
-        Font(R.font.poppins_extra_light_italic, FontWeight.ExtraLight, style = FontStyle.Italic),
-        Font(R.font.poppins_regular, FontWeight.Normal),
-        Font(R.font.poppins_italic, FontWeight.Normal, style = FontStyle.Italic),
-        Font(R.font.poppins_light, FontWeight.Light),
-        Font(R.font.poppins_light_italic, FontWeight.Light, style = FontStyle.Italic),
-        Font(R.font.poppins_medium, FontWeight.Medium),
-        Font(R.font.poppins_medium_italic, FontWeight.Medium, style = FontStyle.Italic),
-        Font(R.font.poppins_semi_bold, FontWeight.SemiBold),
-        Font(R.font.poppins_extra_bold_italic, FontWeight.SemiBold, style = FontStyle.Italic),
-        Font(R.font.poppins_thin, FontWeight.Thin),
-        Font(R.font.poppins_thin_italic, FontWeight.Thin, style = FontStyle.Italic),
+    fun h2(): TextStyle = TextStyle(
+        fontFamily = pretendard,
+        fontWeight = FontWeight.Bold,
+        fontSize = 18.sp,
+        lineHeight = TextUnit.Unspecified,
+        letterSpacing = (-0.08).em,
     )
 
-    @Deprecated("피그마에 타이포 제대로 적용된거 없어서 쓰지마세요")
     @Stable
-    fun h1(
-        fontFamily: FontFamily,
-        fontWeight: FontWeight,
-    ): TextStyle {
-        val fontSize = 50
+    fun h3(): TextStyle = TextStyle(
+        fontFamily = pretendard,
+        fontWeight = FontWeight.Bold,
+        fontSize = 16.sp,
+        lineHeight = TextUnit.Unspecified,
+        letterSpacing = (-0.08).em,
+    )
 
-        return TextStyle(
-            fontFamily = fontFamily,
-            fontWeight = fontWeight,
-            fontSize = fontSize.sp,
-            lineHeight = 54.sp,
-            letterSpacing = (fontSize * -0.05).sp,
-        )
-    }
-
-    @Deprecated("피그마에 타이포 제대로 적용된거 없어서 쓰지마세요")
     @Stable
-    fun h2(
-        fontFamily: FontFamily,
-        fontWeight: FontWeight,
-    ): TextStyle {
-        val fontSize = 40
+    fun subtitle1(): TextStyle = TextStyle(
+        fontFamily = pretendard,
+        fontWeight = FontWeight.Bold,
+        fontSize = 15.sp,
+        lineHeight = TextUnit.Unspecified,
+        letterSpacing = (-0.08).em,
+    )
 
-        return TextStyle(
-            fontFamily = fontFamily,
-            fontWeight = fontWeight,
-            fontSize = fontSize.sp,
-            lineHeight = 44.sp,
-            letterSpacing = (fontSize * -0.05).sp,
-        )
-    }
-
-    @Deprecated("피그마에 타이포 제대로 적용된거 없어서 쓰지마세요")
     @Stable
-    fun h3(
-        fontFamily: FontFamily,
-        fontWeight: FontWeight,
-    ): TextStyle {
-        val fontSize = 28
+    fun subtitle2(): TextStyle = TextStyle(
+        fontFamily = pretendard,
+        fontWeight = FontWeight.Bold,
+        fontSize = 14.sp,
+        lineHeight = TextUnit.Unspecified,
+        letterSpacing = (-0.08).em,
+    )
 
-        return TextStyle(
-            fontFamily = fontFamily,
-            fontWeight = fontWeight,
-            fontSize = fontSize.sp,
-            lineHeight = 32.sp,
-            letterSpacing = (fontSize * -0.05).sp,
-        )
-    }
-
-    @Deprecated("피그마에 타이포 제대로 적용된거 없어서 쓰지마세요")
     @Stable
-    fun h4(
-        fontFamily: FontFamily,
-        fontWeight: FontWeight,
-    ): TextStyle {
-        val fontSize = 20
+    fun subtitle3(): TextStyle = TextStyle(
+        fontFamily = pretendard,
+        fontWeight = FontWeight.Bold,
+        fontSize = 13.sp,
+        lineHeight = TextUnit.Unspecified,
+        letterSpacing = (-0.08).em,
+    )
 
-        return TextStyle(
-            fontFamily = fontFamily,
-            fontWeight = fontWeight,
-            fontSize = fontSize.sp,
-            lineHeight = 20.sp,
-            letterSpacing = (fontSize * -0.05).sp,
-        )
-    }
-
-    @Deprecated("피그마에 타이포 제대로 적용된거 없어서 쓰지마세요")
     @Stable
-    fun h5(
-        fontFamily: FontFamily,
-        fontWeight: FontWeight,
-    ): TextStyle {
-        val fontSize = 18
+    fun body1(): TextStyle = TextStyle(
+        fontFamily = pretendard,
+        fontWeight = FontWeight.Normal,
+        fontSize = 15.sp,
+        lineHeight = 28.sp,
+        letterSpacing = (-0.08).em,
+    )
 
-        return TextStyle(
-            fontFamily = fontFamily,
-            fontWeight = fontWeight,
-            fontSize = fontSize.sp,
-            lineHeight = 22.sp,
-            letterSpacing = (fontSize * -0.05).sp,
-        )
-    }
-
-    @Deprecated("피그마에 타이포 제대로 적용된거 없어서 쓰지마세요")
     @Stable
-    fun h6(
-        fontFamily: FontFamily,
-        fontWeight: FontWeight,
-    ): TextStyle {
-        val fontSize = 16
+    fun body2(): TextStyle = TextStyle(
+        fontFamily = pretendard,
+        fontWeight = FontWeight.Normal,
+        fontSize = 14.sp,
+        lineHeight = 28.sp,
+        letterSpacing = (-0.08).em,
+    )
 
-        return TextStyle(
-            fontFamily = fontFamily,
-            fontWeight = fontWeight,
-            fontSize = fontSize.sp,
-            lineHeight = 20.sp,
-            letterSpacing = (fontSize * -0.05).sp,
-        )
-    }
-
-    @Deprecated("피그마에 타이포 제대로 적용된거 없어서 쓰지마세요")
     @Stable
-    fun p2(
-        fontFamily: FontFamily,
-        fontWeight: FontWeight,
-    ): TextStyle {
-        val fontSize = 16
+    fun p1(): TextStyle = TextStyle(
+        fontFamily = pretendard,
+        fontWeight = FontWeight.Normal,
+        fontSize = 15.sp,
+        lineHeight = TextUnit.Unspecified,
+        letterSpacing = (-0.08).em,
+    )
 
-        return TextStyle(
-            fontFamily = fontFamily,
-            fontWeight = fontWeight,
-            fontSize = fontSize.sp,
-            lineHeight = 24.sp,
-            letterSpacing = (fontSize * -0.05).sp,
-        )
-    }
-
-    @Deprecated("피그마에 타이포 제대로 적용된거 없어서 쓰지마세요")
     @Stable
-    fun p3(
-        fontFamily: FontFamily,
-        fontWeight: FontWeight,
-    ): TextStyle {
-        val fontSize = 12
+    fun p2(): TextStyle = TextStyle(
+        fontFamily = pretendard,
+        fontWeight = FontWeight.Normal,
+        fontSize = 14.sp,
+        lineHeight = TextUnit.Unspecified,
+        letterSpacing = (-0.08).em,
+    )
 
-        return TextStyle(
-            fontFamily = fontFamily,
-            fontWeight = fontWeight,
-            fontSize = fontSize.sp,
-            lineHeight = 20.sp,
-            letterSpacing = (fontSize * -0.05).sp,
-        )
-    }
-
-    @Deprecated("피그마에 타이포 제대로 적용된거 없어서 쓰지마세요")
     @Stable
-    fun small(
-        fontFamily: FontFamily,
-        fontWeight: FontWeight,
-    ): TextStyle {
-        val fontSize = 12
+    fun p3(): TextStyle = TextStyle(
+        fontFamily = pretendard,
+        fontWeight = FontWeight.Normal,
+        fontSize = 13.sp,
+        lineHeight = TextUnit.Unspecified,
+        letterSpacing = (-0.08).em,
+    )
 
-        return TextStyle(
-            fontFamily = fontFamily,
-            fontWeight = fontWeight,
-            fontSize = fontSize.sp,
-            lineHeight = 12.sp,
-            letterSpacing = (fontSize * -0.05).sp,
-        )
-    }
+    @Stable
+    fun p4(): TextStyle = TextStyle(
+        fontFamily = pretendard,
+        fontWeight = FontWeight.Normal,
+        fontSize = 12.sp,
+        lineHeight = TextUnit.Unspecified,
+        letterSpacing = (-0.08).em,
+    )
 }
 
-@Suppress("DEPRECATION")
 @Preview
 @Composable
 private fun PreviewTypoPretendard() {
@@ -237,250 +162,66 @@ private fun PreviewTypoPretendard() {
             modifier = Modifier.fillMaxSize()
                 .background(SGColor.white)
                 .padding(horizontal = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(4.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             Text(
-                text = "맥도날드 감자튀김",
-                style = SGTypography.h1(
-                    fontFamily = SGTypography.pretendard,
-                    fontWeight = FontWeight.Normal,
-                ),
+                text = "맥도날드 감자튀김\n맥도날드 감자튀김",
+                style = SGTypography.h1(),
             )
 
             Text(
-                text = "맥도날드 감자튀김",
-                style = SGTypography.h2(
-                    fontFamily = SGTypography.pretendard,
-                    fontWeight = FontWeight.Normal,
-                ),
+                text = "맥도날드 감자튀김\n맥도날드 감자튀김",
+                style = SGTypography.h2(),
             )
 
             Text(
-                text = "맥도날드 감자튀김",
-                style = SGTypography.h3(
-                    fontFamily = SGTypography.pretendard,
-                    fontWeight = FontWeight.Normal,
-                ),
+                text = "맥도날드 감자튀김\n맥도날드 감자튀김",
+                style = SGTypography.h3(),
             )
 
             Text(
-                text = "맥도날드 감자튀김",
-                style = SGTypography.h4(
-                    fontFamily = SGTypography.pretendard,
-                    fontWeight = FontWeight.Normal,
-                ),
+                text = "맥도날드 감자튀김\n맥도날드 감자튀김",
+                style = SGTypography.subtitle1(),
             )
 
             Text(
-                text = "맥도날드 감자튀김",
-                style = SGTypography.h5(
-                    fontFamily = SGTypography.pretendard,
-                    fontWeight = FontWeight.Normal,
-                ),
+                text = "맥도날드 감자튀김\n맥도날드 감자튀김",
+                style = SGTypography.subtitle2(),
             )
 
             Text(
-                text = "맥도날드 감자튀김",
-                style = SGTypography.h6(
-                    fontFamily = SGTypography.pretendard,
-                    fontWeight = FontWeight.Normal,
-                ),
+                text = "맥도날드 감자튀김\n맥도날드 감자튀김",
+                style = SGTypography.subtitle3(),
             )
 
             Text(
-                text = "맥도날드 감자튀김",
-                style = SGTypography.p2(
-                    fontFamily = SGTypography.pretendard,
-                    fontWeight = FontWeight.Normal,
-                ),
+                text = "맥도날드 감자튀김\n맥도날드 감자튀김",
+                style = SGTypography.body1(),
             )
 
             Text(
-                text = "맥도날드 감자튀김",
-                style = SGTypography.p3(
-                    fontFamily = SGTypography.pretendard,
-                    fontWeight = FontWeight.Normal,
-                ),
+                text = "맥도날드 감자튀김\n맥도날드 감자튀김",
+                style = SGTypography.body2(),
             )
 
             Text(
-                text = "맥도날드 감자튀김",
-                style = SGTypography.small(
-                    fontFamily = SGTypography.pretendard,
-                    fontWeight = FontWeight.Normal,
-                ),
-            )
-        }
-    }
-}
-
-@Suppress("DEPRECATION")
-@Preview
-@Composable
-private fun PreviewTypoNanumSquareNeo() {
-    SGTheme {
-        Column(
-            modifier = Modifier.fillMaxSize()
-                .background(SGColor.white)
-                .padding(horizontal = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(4.dp),
-        ) {
-            Text(
-                text = "맥도날드 감자튀김",
-                style = SGTypography.h1(
-                    fontFamily = SGTypography.nanumSquareNeo,
-                    fontWeight = FontWeight.Normal,
-                ),
+                text = "맥도날드 감자튀김\n맥도날드 감자튀김",
+                style = SGTypography.p1(),
             )
 
             Text(
-                text = "맥도날드 감자튀김",
-                style = SGTypography.h2(
-                    fontFamily = SGTypography.nanumSquareNeo,
-                    fontWeight = FontWeight.Normal,
-                ),
+                text = "맥도날드 감자튀김\n맥도날드 감자튀김",
+                style = SGTypography.p2(),
             )
 
             Text(
-                text = "맥도날드 감자튀김",
-                style = SGTypography.h3(
-                    fontFamily = SGTypography.nanumSquareNeo,
-                    fontWeight = FontWeight.Normal,
-                ),
+                text = "맥도날드 감자튀김\n맥도날드 감자튀김",
+                style = SGTypography.p3(),
             )
 
             Text(
-                text = "맥도날드 감자튀김",
-                style = SGTypography.h4(
-                    fontFamily = SGTypography.nanumSquareNeo,
-                    fontWeight = FontWeight.Normal,
-                ),
-            )
-
-            Text(
-                text = "맥도날드 감자튀김",
-                style = SGTypography.h5(
-                    fontFamily = SGTypography.pretendard,
-                    fontWeight = FontWeight.Normal,
-                ),
-            )
-
-            Text(
-                text = "맥도날드 감자튀김",
-                style = SGTypography.h6(
-                    fontFamily = SGTypography.nanumSquareNeo,
-                    fontWeight = FontWeight.Normal,
-                ),
-            )
-
-            Text(
-                text = "맥도날드 감자튀김",
-                style = SGTypography.p2(
-                    fontFamily = SGTypography.nanumSquareNeo,
-                    fontWeight = FontWeight.Normal,
-                ),
-            )
-
-            Text(
-                text = "맥도날드 감자튀김",
-                style = SGTypography.p3(
-                    fontFamily = SGTypography.nanumSquareNeo,
-                    fontWeight = FontWeight.Normal,
-                ),
-            )
-
-            Text(
-                text = "맥도날드 감자튀김",
-                style = SGTypography.small(
-                    fontFamily = SGTypography.nanumSquareNeo,
-                    fontWeight = FontWeight.Normal,
-                ),
-            )
-        }
-    }
-}
-
-@Suppress("DEPRECATION")
-@Preview
-@Composable
-private fun PreviewTypoPoppins() {
-    SGTheme {
-        Column(
-            modifier = Modifier.fillMaxSize()
-                .background(SGColor.white)
-                .padding(horizontal = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(4.dp),
-        ) {
-            Text(
-                text = "맥도날드 감자튀김",
-                style = SGTypography.h1(
-                    fontFamily = SGTypography.poppins,
-                    fontWeight = FontWeight.Normal,
-                ),
-            )
-
-            Text(
-                text = "맥도날드 감자튀김",
-                style = SGTypography.h2(
-                    fontFamily = SGTypography.poppins,
-                    fontWeight = FontWeight.Normal,
-                ),
-            )
-
-            Text(
-                text = "맥도날드 감자튀김",
-                style = SGTypography.h3(
-                    fontFamily = SGTypography.poppins,
-                    fontWeight = FontWeight.Normal,
-                ),
-            )
-
-            Text(
-                text = "맥도날드 감자튀김",
-                style = SGTypography.h4(
-                    fontFamily = SGTypography.poppins,
-                    fontWeight = FontWeight.Normal,
-                ),
-            )
-
-            Text(
-                text = "맥도날드 감자튀김",
-                style = SGTypography.h5(
-                    fontFamily = SGTypography.poppins,
-                    fontWeight = FontWeight.Normal,
-                ),
-            )
-
-            Text(
-                text = "맥도날드 감자튀김",
-                style = SGTypography.h6(
-                    fontFamily = SGTypography.poppins,
-                    fontWeight = FontWeight.Normal,
-                ),
-            )
-
-            Text(
-                text = "맥도날드 감자튀김",
-                style = SGTypography.p2(
-                    fontFamily = SGTypography.poppins,
-                    fontWeight = FontWeight.Normal,
-                ),
-            )
-
-            Text(
-                text = "맥도날드 감자튀김",
-                style = SGTypography.p3(
-                    fontFamily = SGTypography.poppins,
-                    fontWeight = FontWeight.Normal,
-                ),
-            )
-
-            Text(
-                text = "맥도날드 감자튀김",
-                style = SGTypography.small(
-                    fontFamily = SGTypography.poppins,
-                    fontWeight = FontWeight.Normal,
-                ),
+                text = "맥도날드 감자튀김\n맥도날드 감자튀김",
+                style = SGTypography.p4(),
             )
         }
     }
