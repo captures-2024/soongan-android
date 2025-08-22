@@ -4,7 +4,7 @@ compileSdk = "35"
 minSdk = "24"
 targetSdk = "35"
 appVersion = "0.0.1"
-versionCode = "21"
+versionCode = "22"
 
 gradle-dependency-handler-extensions = "1.1.0"
 
