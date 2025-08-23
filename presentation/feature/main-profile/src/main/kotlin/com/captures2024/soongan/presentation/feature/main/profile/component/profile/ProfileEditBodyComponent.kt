@@ -138,7 +138,7 @@ private fun PreviewProfileEditBodyComponent() {
     SGTheme {
         ProfileEditBodyComponent(
             state = ProfileEditViewModel.State(
-                userProfile = UserProfile(),
+                userProfile = UserProfile.guestUserProfile,
                 editingState = ProfileEditViewModel.State.EditingProfileState(),
                 isShowEditBottomSheet = false,
             ),

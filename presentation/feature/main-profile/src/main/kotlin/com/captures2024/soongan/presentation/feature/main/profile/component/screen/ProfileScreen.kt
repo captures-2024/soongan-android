@@ -77,7 +77,7 @@ private fun PreviewProfileScreen() {
     SGTheme {
         ProfileScreen(
             state = ProfileViewModel.State(
-                userProfile = UserProfile(),
+                userProfile = UserProfile.guestUserProfile,
                 myGalleryState = ProfileViewModel.State.MyGalleryState(
                     isRefreshing = false,
                     posts = emptyList(),

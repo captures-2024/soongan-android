@@ -6,4 +6,5 @@ enum class PaginationStatus {
     PAGING_LOAD,
     SUCCESS,
     FAILED,
+    GUEST,
 }

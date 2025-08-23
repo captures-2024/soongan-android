@@ -88,6 +88,10 @@ internal fun FeedScreen(
             ) {
                 when {
                     feedState.posts.isEmpty() -> when (feedState.paginationStatus) {
+                        PaginationStatus.GUEST -> {
+                            // guest 모드여도 결과 차이 X
+                        }
+
                         PaginationStatus.DEFAULT,
                         PaginationStatus.REFRESH_LOAD,
                         PaginationStatus.PAGING_LOAD,

@@ -74,7 +74,9 @@ internal fun ProfileBodyComponent(
                         SGGallerySkeletonItem(height = height)
                     }
 
-                    PaginationStatus.SUCCESS -> {
+                    PaginationStatus.GUEST,
+                    PaginationStatus.SUCCESS,
+                    -> {
                         item(span = StaggeredGridItemSpan.FullLine) {
                             SGGalleryEmptyItem(
                                 emptyText = stringResource(R.string.profile_gallery_post_empty_content),

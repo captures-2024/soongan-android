@@ -53,19 +53,19 @@ constructor(
 ) {
 
     data class State(
-        val userProfile: UserProfile,
-        val myGalleryState: MyGalleryState,
-        val isShowMenuBottomSheet: Boolean,
+        val userProfile: UserProfile = UserProfile.guestUserProfile,
+        val myGalleryState: MyGalleryState = MyGalleryState(),
+        val isShowMenuBottomSheet: Boolean = false,
         val isNotReadNotification: Boolean = false,
     ) : UIState {
 
         data class MyGalleryState(
-            val isRefreshing: Boolean,
-            val posts: List<GalleryPostDto>,
-            val paginationStatus: PaginationStatus,
-            val loadPage: Int,
-            val loadPageSize: Int,
-            val hasNextPage: Boolean,
+            val isRefreshing: Boolean = false,
+            val posts: List<GalleryPostDto> = emptyList(),
+            val paginationStatus: PaginationStatus = PaginationStatus.DEFAULT,
+            val loadPage: Int = 0,
+            val loadPageSize: Int = 50,
+            val hasNextPage: Boolean = false,
         ) {
             val isInitPage: Boolean
                 get() = loadPage == 0
@@ -117,20 +117,7 @@ constructor(
         intent(Intent.Init)
     }
 
-    override fun createInitialState(savedStateHandle: SavedStateHandle): State {
-        return State(
-            userProfile = UserProfile(),
-            myGalleryState = State.MyGalleryState(
-                isRefreshing = false,
-                posts = emptyList(),
-                paginationStatus = PaginationStatus.DEFAULT,
-                loadPage = 0,
-                loadPageSize = 50,
-                hasNextPage = false,
-            ),
-            isShowMenuBottomSheet = false,
-        )
-    }
+    override fun createInitialState(savedStateHandle: SavedStateHandle): State = State()
 
     override fun handleIntent(intent: Intent) {
         when (intent) {
@@ -143,7 +130,7 @@ constructor(
             is Intent.OnClickTerms -> loadingLaunch { handleOnClickTerms() }
             is Intent.OnRefresh -> launch { handleOnRefresh() }
             is Intent.OnLoadNextPage -> launch { handleOnLoadNextPage() }
-            is Intent.OnClickRegisterPost -> handleOnClickRegisterPost()
+            is Intent.OnClickRegisterPost -> blockGuestModeLogic { handleOnClickRegisterPost() }
             is Intent.OnClickPost -> handleOnClickPost(intent)
         }
     }
@@ -157,6 +144,18 @@ constructor(
         launch { collectRegisterPostEvent() }
         launch { collectHidePostEvent() }
         launch { collectIsNotReadNotificationFlow() }
+
+        getCurrentMemberFlowUseCase().value?.let { currentMember ->
+            reduce {
+                copy(
+                    userProfile = UserProfile(
+                        nickname = currentMember.nickname ?: "user",
+                        selfIntroduction = currentMember.selfIntroduction ?: UserProfile.DEFAULT_SELF_INTRODUCTION,
+                        profileImageUrl = currentMember.profileImageUrl,
+                    ),
+                )
+            }
+        }
 
         fetchInitData()
         getUnreadNotificationsCountUseCase()
@@ -240,8 +239,8 @@ constructor(
                 reduce {
                     copy(
                         userProfile = UserProfile(
-                            nickname = currentMember.nickname ?: "user1",
-                            selfIntroduction = currentMember.selfIntroduction ?: "본인을 소개해주세요",
+                            nickname = currentMember.nickname ?: "user",
+                            selfIntroduction = currentMember.selfIntroduction ?: UserProfile.DEFAULT_SELF_INTRODUCTION,
                             profileImageUrl = currentMember.profileImageUrl,
                         ),
                     )
@@ -314,6 +313,10 @@ constructor(
         isRefreshing: Boolean = false,
     ): PaginationStatus {
         val state = currentState
+
+        if (state.userProfile == UserProfile.guestUserProfile) {
+            return PaginationStatus.GUEST
+        }
 
         when (state.myGalleryState.paginationStatus) {
             PaginationStatus.REFRESH_LOAD,

@@ -71,9 +71,9 @@ private fun PreviewProfileEditScreen() {
     SGTheme {
         ProfileEditScreen(
             state = ProfileEditViewModel.State(
-                userProfile = UserProfile(),
+                userProfile = UserProfile.guestUserProfile,
                 editingState = ProfileEditViewModel.State.EditingProfileState(
-                    editingProfile = UserProfile(),
+                    editingProfile = UserProfile.guestUserProfile,
                     isDuplicatedNickname = false,
                 ),
                 isShowEditBottomSheet = false,
