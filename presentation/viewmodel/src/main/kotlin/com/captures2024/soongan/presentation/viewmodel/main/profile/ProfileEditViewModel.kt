@@ -57,7 +57,7 @@ constructor(
             get() = userProfile != editingState.editingProfile
 
         data class EditingProfileState(
-            val editingProfile: UserProfile = UserProfile(),
+            val editingProfile: UserProfile = UserProfile.guestUserProfile,
             val isDuplicatedNickname: Boolean = false,
         ) {
             val isValidNickname: Validation.NicknameValidState
@@ -109,7 +109,7 @@ constructor(
 
     override fun createInitialState(savedStateHandle: SavedStateHandle): State {
         return State(
-            userProfile = UserProfile(),
+            userProfile = UserProfile.guestUserProfile,
             editingState = State.EditingProfileState(),
             isShowEditBottomSheet = false,
         )
@@ -242,7 +242,7 @@ constructor(
             currentMember?.let {
                 val userProfile = UserProfile(
                     nickname = currentMember.nickname ?: "user1",
-                    selfIntroduction = currentMember.selfIntroduction ?: "본인을 소개해주세요",
+                    selfIntroduction = currentMember.selfIntroduction ?: UserProfile.DEFAULT_SELF_INTRODUCTION,
                     profileImageUrl = currentMember.profileImageUrl,
                 )
 

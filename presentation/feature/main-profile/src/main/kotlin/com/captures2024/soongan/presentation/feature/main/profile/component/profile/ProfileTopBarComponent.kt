@@ -168,7 +168,7 @@ private fun IconBox(
 private fun PreviewProfileTopBarComponent() {
     SGTheme {
         ProfileTopBarComponent(
-            userProfile = UserProfile(),
+            userProfile = UserProfile.guestUserProfile,
             isShowBadge = true,
             onClickNotification = {},
             onClickMenu = {},

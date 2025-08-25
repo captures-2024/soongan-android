@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -36,7 +37,7 @@ internal fun ProfileScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(color = SGColor.Grayscale.white)
+            .background(color = SGColor.BG.background)
             .padding(top = 26.dp),
     ) {
         ProfileTopBarComponent(
@@ -51,6 +52,11 @@ internal fun ProfileScreen(
         )
 
         HeightSpacer(28.dp)
+
+        HorizontalDivider(
+            thickness = 1.dp,
+            color = SGColor.buttonDisableGray,
+        )
 
         ProfileBodyComponent(
             state = state.myGalleryState,
@@ -77,7 +83,7 @@ private fun PreviewProfileScreen() {
     SGTheme {
         ProfileScreen(
             state = ProfileViewModel.State(
-                userProfile = UserProfile(),
+                userProfile = UserProfile.guestUserProfile,
                 myGalleryState = ProfileViewModel.State.MyGalleryState(
                     isRefreshing = false,
                     posts = emptyList(),
