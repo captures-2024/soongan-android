@@ -1,5 +1,6 @@
 package com.captures2024.soongan.presentation.feature.main.feed.component.feed
 
+import android.util.Log
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
@@ -157,13 +158,20 @@ private fun ScrollPicker(
     val underDividerYOffset = boxHeight / 2 + itemSize / 2
 
     LaunchedEffect(listState) {
-        snapshotFlow { listState.firstVisibleItemIndex }
-            .filter { it in options.indices }
+        snapshotFlow { listState.isScrollInProgress }
             .distinctUntilChanged()
-            .collect { round -> onChangedOption(round) }
+            .filter { scrolling -> !scrolling }
+            .collect { round ->
+                val index = listState.firstVisibleItemIndex
+                if (index in options.indices) {
+                    Log.d("scroll finished", "$index")
+                    onChangedOption(index)
+                }
+            }
     }
 
     LaunchedEffect(selectedOption) {
+        Log.d("option selected", "${selectedOption.round}")
         val targetIndex = selectedOption.round - 1
         if (targetIndex != listState.firstVisibleItemIndex) {
             listState.animateScrollToItem(targetIndex)
