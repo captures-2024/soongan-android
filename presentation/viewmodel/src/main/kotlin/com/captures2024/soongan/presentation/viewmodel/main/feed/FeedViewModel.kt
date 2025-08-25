@@ -344,6 +344,7 @@ constructor(
             copy(
                 feedState = feedState.copy(
                     titleOptions = titleOptions,
+                    currentRound = titleOptions.last().round,
                 ),
             )
         }
