@@ -37,6 +37,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.captures2024.soongan.core.android.utils.LocalAnalyticsHelper
 import com.captures2024.soongan.core.model.AppConst
 import com.captures2024.soongan.presentation.designsystem.ui.component.HeightSpacer
 import com.captures2024.soongan.presentation.designsystem.ui.component.WeightSpacer
@@ -122,6 +123,8 @@ private fun ScrollPicker(
     onChangedOption: (Int) -> Unit,
     onItemClick: ((Int) -> Unit)? = null,
 ) {
+    val analyticsHelper = LocalAnalyticsHelper.current
+
     val median = AppConst.Main.Gallery.SCROLL_PICKER_VISIBLE_OPTION_COUNT / 2
     val spaceOptions = List(median) { null }
     val adjustedOptions = spaceOptions + options + spaceOptions
@@ -157,15 +160,22 @@ private fun ScrollPicker(
     val underDividerYOffset = boxHeight / 2 + itemSize / 2
 
     LaunchedEffect(listState) {
-        snapshotFlow { listState.firstVisibleItemIndex }
-            .filter { it in options.indices }
+        snapshotFlow { listState.isScrollInProgress }
             .distinctUntilChanged()
-            .collect { round -> onChangedOption(round) }
+            .filter { scrolling -> !scrolling }
+            .collect { round ->
+                val index = listState.firstVisibleItemIndex
+                if (index in options.indices) {
+                    analyticsHelper.d { "scroll finished - targetIndex: $index" }
+                    onChangedOption(index)
+                }
+            }
     }
 
     LaunchedEffect(selectedOption) {
         val targetIndex = selectedOption.round - 1
         if (targetIndex != listState.firstVisibleItemIndex) {
+            analyticsHelper.d { "option selected - targetIndex : $targetIndex" }
             listState.animateScrollToItem(targetIndex)
         }
     }

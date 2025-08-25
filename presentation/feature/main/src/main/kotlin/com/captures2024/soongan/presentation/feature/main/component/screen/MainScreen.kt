@@ -13,7 +13,6 @@ import com.captures2024.soongan.core.navigator.screen.main.awards.navigateToAwar
 import com.captures2024.soongan.core.navigator.screen.main.feed.navigateToFeed
 import com.captures2024.soongan.core.navigator.screen.main.home.HomeNavigator
 import com.captures2024.soongan.core.navigator.screen.main.home.navigateToHome
-import com.captures2024.soongan.core.navigator.screen.main.home.navigateToHomeGallery
 import com.captures2024.soongan.core.navigator.screen.main.home.navigateToPostInfoRegistration
 import com.captures2024.soongan.core.navigator.screen.main.post.navigateToEditPost
 import com.captures2024.soongan.core.navigator.screen.main.post.navigateToImageViewer
@@ -83,9 +82,8 @@ internal fun MainScreen(
                 navigateToPost = navController::navigateToPostInfo,
             )
             mainHome(
-                navigateToBack = navigateToBack,
                 navigateToRegistrationPost = navController::navigateToPostInfoRegistration,
-                navigateToGallery = navController::navigateToHomeGallery,
+                navigateToFeed = navController::navigateToFeed,
                 navigateToPost = navController::navigateToPostInfo,
             )
             mainPost(
