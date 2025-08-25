@@ -13,7 +13,7 @@ import com.captures2024.soongan.presentation.viewmodel.main.home.HomeViewModel
 @Composable
 internal fun HomeRoute(
     navigateToPost: (PostInfoDto) -> Unit,
-    navigateToPostList: () -> Unit,
+    navigateToFeed: () -> Unit,
     navigateToRegister: () -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
@@ -23,7 +23,7 @@ internal fun HomeRoute(
         viewModel.sideEffect.collect { effect ->
             when (effect) {
                 is HomeViewModel.Effect.NavigateToPost -> navigateToPost(effect.postInfoDto)
-                is HomeViewModel.Effect.NavigateToPostList -> navigateToPostList()
+                is HomeViewModel.Effect.NavigateToFeed -> navigateToFeed()
                 is HomeViewModel.Effect.NavigateToRegister -> navigateToRegister()
             }
         }

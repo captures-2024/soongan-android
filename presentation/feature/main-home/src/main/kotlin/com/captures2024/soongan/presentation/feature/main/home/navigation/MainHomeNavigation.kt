@@ -3,30 +3,28 @@ package com.captures2024.soongan.presentation.feature.main.home.navigation
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-import com.captures2024.soongan.core.navigator.screen.main.home.HomeGalleryNavigator
+import androidx.navigation.navOptions
 import com.captures2024.soongan.core.navigator.screen.main.home.HomeNavigator
-import com.captures2024.soongan.presentation.feature.main.home.route.HomeGalleryRoute
 import com.captures2024.soongan.presentation.feature.main.home.route.HomeRoute
 
 fun NavGraphBuilder.mainHome(
-    navigateToBack: () -> Unit,
     navigateToRegistrationPost: () -> Unit,
-    navigateToGallery: () -> Unit,
+    navigateToFeed: (NavOptions) -> Unit,
     navigateToPost: (Long, NavOptions?) -> Unit,
 ) {
     composable<HomeNavigator> {
+        val feedNavOption = navOptions {
+            popUpTo(HomeNavigator) {
+                saveState = true
+            }
+            launchSingleTop = true
+            restoreState = true
+        }
+
         HomeRoute(
             navigateToPost = { navigateToPost(it.postId, null) },
-            navigateToPostList = navigateToGallery,
+            navigateToFeed = { navigateToFeed(feedNavOption) },
             navigateToRegister = navigateToRegistrationPost,
-        )
-    }
-
-    composable<HomeGalleryNavigator> {
-        HomeGalleryRoute(
-            navigateToBack = navigateToBack,
-            navigateToPost = { navigateToPost(it, null) },
-            navigateToRegistrationPost = navigateToRegistrationPost,
         )
     }
 }

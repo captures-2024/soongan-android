@@ -61,7 +61,7 @@ constructor(
     sealed interface Effect : UISideEffect {
         data object NavigateToRegister : Effect
 
-        data object NavigateToPostList :
+        data object NavigateToFeed :
             Effect
 
         data class NavigateToPost(
@@ -197,7 +197,7 @@ constructor(
             )
         }
 
-        postSideEffect(Effect.NavigateToPostList)
+        postSideEffect(Effect.NavigateToFeed)
 
         reduce {
             copy(
