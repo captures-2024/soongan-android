@@ -63,7 +63,9 @@ constructor(
             val postId: Long,
         ) : Effect
 
-        data object NavigateToFeed : Effect
+        data class NavigateToFeed(
+            val round: Long,
+        ) : Effect
     }
 
     sealed interface Intent : UIIntent {
@@ -76,7 +78,9 @@ constructor(
             val postId: Long,
         ) : Intent
 
-        data object OnClickAllPosts : Intent
+        data class OnClickAllPosts(
+            val round: Long,
+        ) : Intent
 
         data object OnClickRetry : Intent
     }
@@ -107,7 +111,7 @@ constructor(
 
             is Intent.OnClickPost -> handleOnClickPost(intent)
 
-            is Intent.OnClickAllPosts -> handleOnClickAllPosts()
+            is Intent.OnClickAllPosts -> handleOnClickAllPosts(intent)
 
             is Intent.OnClickRetry -> loadingLaunch { handleOnClickRetry() }
         }
@@ -139,8 +143,8 @@ constructor(
         postSideEffect(Effect.NavigateToPost(intent.postId))
     }
 
-    private fun handleOnClickAllPosts() {
-        postSideEffect(Effect.NavigateToFeed)
+    private fun handleOnClickAllPosts(intent: Intent.OnClickAllPosts) {
+        postSideEffect(Effect.NavigateToFeed(intent.round))
     }
 
     private suspend fun handleOnClickRetry() {

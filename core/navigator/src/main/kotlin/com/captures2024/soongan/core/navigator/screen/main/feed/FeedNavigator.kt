@@ -5,11 +5,21 @@ import androidx.navigation.NavOptions
 import kotlinx.serialization.Serializable
 
 @Serializable
-data object FeedNavigator
+data class FeedNavigator(
+    val round: Long? = null,
+)
 
-fun NavController.navigateToFeed() = navigateToFeed(null)
+fun NavController.navigateToFeed(round: Long? = null) = navigateToFeed(
+    round = round,
+    navOptions = null,
+)
 
-fun NavController.navigateToFeed(navOptions: NavOptions?) = navigate(
-    route = FeedNavigator,
+fun NavController.navigateToFeed(
+    navOptions: NavOptions?,
+    round: Long? = null,
+) = navigate(
+    route = FeedNavigator(
+        round = round,
+    ),
     navOptions = navOptions,
 )

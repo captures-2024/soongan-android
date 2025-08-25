@@ -22,7 +22,7 @@ internal fun AwardsInfoScreen(
     modifier: Modifier = Modifier,
     onClickBack: () -> Unit,
     onClickPost: (postId: Long) -> Unit,
-    onClickAllPosts: () -> Unit,
+    onClickAllPosts: (round: Long) -> Unit,
     onClickRetry: () -> Unit,
 ) {
     Box(

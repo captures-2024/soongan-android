@@ -35,7 +35,7 @@ internal fun AwardsInfoComponent(
     modifier: Modifier = Modifier,
     onClickBack: () -> Unit,
     onClickPost: (postId: Long) -> Unit,
-    onClickAllPosts: () -> Unit,
+    onClickAllPosts: (round: Long) -> Unit,
 ) {
     val gridPadding = 8.dp
 
@@ -90,7 +90,7 @@ internal fun AwardsInfoComponent(
 
         item(span = StaggeredGridItemSpan.FullLine) {
             TempButton(
-                onClick = onClickAllPosts,
+                onClick = { onClickAllPosts(awardsInfo.round) },
             )
         }
     }

@@ -12,7 +12,7 @@ import com.captures2024.soongan.presentation.viewmodel.main.award.AwardsInfoView
 internal fun AwardsInfoRoute(
     navigateToBack: () -> Unit,
     navigateToPost: (postId: Long) -> Unit,
-    navigateToFeed: () -> Unit,
+    navigateToFeed: (round: Long) -> Unit,
     viewModel: AwardsInfoViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsState()
@@ -24,7 +24,7 @@ internal fun AwardsInfoRoute(
 
                 is AwardsInfoViewModel.Effect.NavigateToPost -> navigateToPost(effect.postId)
 
-                is AwardsInfoViewModel.Effect.NavigateToFeed -> navigateToFeed()
+                is AwardsInfoViewModel.Effect.NavigateToFeed -> navigateToFeed(effect.round)
             }
         }
     }
@@ -33,7 +33,7 @@ internal fun AwardsInfoRoute(
         state = state,
         onClickBack = { viewModel.intent(AwardsInfoViewModel.Intent.OnClickBack) },
         onClickPost = { viewModel.intent(AwardsInfoViewModel.Intent.OnClickPost(it)) },
-        onClickAllPosts = { viewModel.intent(AwardsInfoViewModel.Intent.OnClickAllPosts) },
+        onClickAllPosts = { viewModel.intent(AwardsInfoViewModel.Intent.OnClickAllPosts(it)) },
         onClickRetry = { viewModel.intent(AwardsInfoViewModel.Intent.OnClickRetry) },
     )
 }
