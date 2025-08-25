@@ -14,7 +14,7 @@ fun NavGraphBuilder.mainAwards(
     navigateToAwardsInfo: (id: Long) -> Unit,
     navigateToBack: () -> Unit,
     navigateToPost: (postId: Long) -> Unit,
-    navigateToFeed: (NavOptions) -> Unit,
+    navigateToFeed: (NavOptions, round: Long) -> Unit,
 ) {
     composable<AwardsNavigator> {
         AwardsRoute(
@@ -34,7 +34,7 @@ fun NavGraphBuilder.mainAwards(
         AwardsInfoRoute(
             navigateToBack = navigateToBack,
             navigateToPost = navigateToPost,
-            navigateToFeed = { navigateToFeed(feedNavOption) },
+            navigateToFeed = { round -> navigateToFeed(feedNavOption, round) },
         )
     }
 }

@@ -1,6 +1,7 @@
 package com.captures2024.soongan.presentation.viewmodel.main.feed
 
 import androidx.lifecycle.SavedStateHandle
+import androidx.navigation.toRoute
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.common.base.UIIntent
 import com.captures2024.soongan.core.common.base.UISideEffect
@@ -8,6 +9,7 @@ import com.captures2024.soongan.core.common.base.UIState
 import com.captures2024.soongan.core.model.AppConst
 import com.captures2024.soongan.core.model.dto.GalleryPostDto
 import com.captures2024.soongan.core.model.enums.CommonDialogType
+import com.captures2024.soongan.core.navigator.screen.main.feed.FeedNavigator
 import com.captures2024.soongan.domain.usecase.contest.GetFilteredGalleryByReportTargetIdsUseCase
 import com.captures2024.soongan.domain.usecase.contest.GetHidePostEventUseCase
 import com.captures2024.soongan.domain.usecase.contest.GetRegisterPostEventUseCase
@@ -116,6 +118,8 @@ constructor(
     }
 
     override fun createInitialState(savedStateHandle: SavedStateHandle): State {
+        val route = savedStateHandle.toRoute<FeedNavigator>()
+
         return State(
             feedState = State.FeedState(
                 isRefreshing = false,
@@ -124,7 +128,7 @@ constructor(
                 titleOptions = emptyList(),
                 hasNextPage = false,
                 posts = emptyList(),
-                currentRound = 1,
+                currentRound = route.round?.toInt() ?: 0,
                 loadPage = 0,
             ),
             isOpenTitlePickerBottomSheet = false,
@@ -340,10 +344,18 @@ constructor(
                 )
             }
 
+        val currentRound =
+            if (currentState.feedState.currentRound == 0) {
+                titleOptions.last().round
+            } else {
+                currentState.feedState.currentRound
+            }
+
         reduce {
             copy(
                 feedState = feedState.copy(
                     titleOptions = titleOptions,
+                    currentRound = currentRound,
                 ),
             )
         }

@@ -135,7 +135,8 @@ internal fun NavDestination?.isTopLevelDestinationInHierarchy(destination: MainT
             it.route
                 ?.split(".")
                 ?.lastOrNull()
-                ?.removeSuffix("Navigator")
+                ?.split("Navigator")
+                ?.firstOrNull()
                 ?.equals(destination.name, true) == true
         } == true
 }
