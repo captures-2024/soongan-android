@@ -44,7 +44,11 @@ internal fun AwardsInfoComponent(
     }
 
     val otherTop7Posts = remember(awardsInfo.prizePosts) {
-        awardsInfo.prizePosts.subList(1, awardsInfo.prizePosts.lastIndex)
+        if (awardsInfo.prizePosts.size > 1) {
+            awardsInfo.prizePosts.subList(1, awardsInfo.prizePosts.lastIndex)
+        } else {
+            emptyList()
+        }
     }
 
     LazyVerticalStaggeredGrid(
