@@ -1,6 +1,5 @@
 package com.captures2024.soongan.presentation.feature.main.feed.component.feed
 
-import android.util.Log
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
@@ -38,6 +37,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.captures2024.soongan.core.android.utils.LocalAnalyticsHelper
 import com.captures2024.soongan.core.model.AppConst
 import com.captures2024.soongan.presentation.designsystem.ui.component.HeightSpacer
 import com.captures2024.soongan.presentation.designsystem.ui.component.WeightSpacer
@@ -123,6 +123,8 @@ private fun ScrollPicker(
     onChangedOption: (Int) -> Unit,
     onItemClick: ((Int) -> Unit)? = null,
 ) {
+    val analyticsHelper = LocalAnalyticsHelper.current
+
     val median = AppConst.Main.Gallery.SCROLL_PICKER_VISIBLE_OPTION_COUNT / 2
     val spaceOptions = List(median) { null }
     val adjustedOptions = spaceOptions + options + spaceOptions
@@ -164,16 +166,16 @@ private fun ScrollPicker(
             .collect { round ->
                 val index = listState.firstVisibleItemIndex
                 if (index in options.indices) {
-                    Log.d("scroll finished", "$index")
+                    analyticsHelper.d { "scroll finished - targetIndex: $index" }
                     onChangedOption(index)
                 }
             }
     }
 
     LaunchedEffect(selectedOption) {
-        Log.d("option selected", "${selectedOption.round}")
         val targetIndex = selectedOption.round - 1
         if (targetIndex != listState.firstVisibleItemIndex) {
+            analyticsHelper.d { "option selected - targetIndex : $targetIndex" }
             listState.animateScrollToItem(targetIndex)
         }
     }
