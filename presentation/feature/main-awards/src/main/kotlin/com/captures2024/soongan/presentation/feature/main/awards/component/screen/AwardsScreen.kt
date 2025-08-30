@@ -1,13 +1,11 @@
 package com.captures2024.soongan.presentation.feature.main.awards.component.screen
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.captures2024.soongan.core.model.dto.awards.AwardsDefaultDto
-import com.captures2024.soongan.presentation.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.presentation.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.presentation.designsystem.ui.util.extension.sgBottomBarPadding
 import com.captures2024.soongan.presentation.feature.main.awards.component.awards.AwardsComponent

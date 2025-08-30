@@ -1,6 +1,5 @@
 package com.captures2024.soongan.presentation.feature.main.profile.component.screen
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding

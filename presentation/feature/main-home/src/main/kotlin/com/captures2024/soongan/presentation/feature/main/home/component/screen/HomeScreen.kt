@@ -1,12 +1,9 @@
 package com.captures2024.soongan.presentation.feature.main.home.component.screen
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.captures2024.soongan.core.model.dto.PostInfoDto
-import com.captures2024.soongan.presentation.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.presentation.designsystem.ui.theme.SGTheme
 import com.captures2024.soongan.presentation.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.presentation.designsystem.ui.util.extension.sgBottomBarPadding
