@@ -1,13 +1,11 @@
 package com.captures2024.soongan.presentation.feature.main.component.screen
 
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import com.captures2024.soongan.core.navigator.screen.main.awards.navigateToAwardsInfo
 import com.captures2024.soongan.core.navigator.screen.main.feed.navigateToFeed
@@ -60,9 +58,8 @@ internal fun MainScreen(
     MainComponent(
         navigationState = navigationState,
         isNotReadNotification = state.isNotReadNotification,
-    ) { innerPadding ->
+    ) {
         NavHost(
-            modifier = Modifier.padding(innerPadding),
             navController = navController,
             startDestination = when (navigationState.isGuestMode) {
                 true -> HomeNavigator

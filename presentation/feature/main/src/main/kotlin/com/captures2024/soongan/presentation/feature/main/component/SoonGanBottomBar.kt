@@ -27,6 +27,7 @@ internal fun SoonGanBottomBar(
     isNotReadNotification: Boolean = false,
 ) {
     SoonGanNavigationBar(
+        isNotViewBottomBar = isNotViewBottomBar,
         modifier = modifier,
     ) {
         destinations.forEach { destination ->
@@ -63,7 +64,7 @@ internal fun SoonGanBottomBar(
                                 Icon(
                                     imageVector = destination.unselectedIcon,
                                     contentDescription = null,
-                                    tint = SGColor.primaryA.copy(alpha = 0.3f),
+                                    tint = SGColor.Grayscale.black60,
                                     modifier = Modifier.size(24.dp, 24.dp),
                                 )
                             }
@@ -72,7 +73,7 @@ internal fun SoonGanBottomBar(
                         else -> Icon(
                             imageVector = destination.unselectedIcon,
                             contentDescription = null,
-                            tint = SGColor.primaryA.copy(alpha = 0.3f),
+                            tint = SGColor.Grayscale.black60,
                             modifier = Modifier.size(
                                 width = 24.dp,
                                 height = 24.dp,
@@ -104,7 +105,7 @@ internal fun SoonGanBottomBar(
                                 Icon(
                                     imageVector = destination.selectedIcon,
                                     contentDescription = null,
-                                    tint = SGColor.primaryA,
+                                    tint = SGColor.Grayscale.black100,
                                     modifier = Modifier.size(
                                         width = 24.dp,
                                         height = 24.dp,
@@ -116,7 +117,7 @@ internal fun SoonGanBottomBar(
                         else -> Icon(
                             imageVector = destination.selectedIcon,
                             contentDescription = null,
-                            tint = SGColor.primaryA,
+                            tint = SGColor.Grayscale.black100,
                             modifier = Modifier.size(
                                 width = 24.dp,
                                 height = 24.dp,
