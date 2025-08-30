@@ -34,9 +34,7 @@ internal fun FaqTopBarComponent(
     onClickBack: () -> Unit,
 ) {
     Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .background(color = SGColor.Grayscale.white)
+        modifier = modifier.fillMaxWidth()
             .padding(
                 horizontal = 20.dp,
                 vertical = 16.dp,

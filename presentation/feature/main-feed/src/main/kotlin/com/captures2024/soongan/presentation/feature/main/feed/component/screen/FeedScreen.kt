@@ -24,6 +24,7 @@ import com.captures2024.soongan.presentation.designsystem.ui.component.gallery.S
 import com.captures2024.soongan.presentation.designsystem.ui.component.gallery.SGGallerySkeletonItem
 import com.captures2024.soongan.presentation.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.presentation.designsystem.ui.util.DevicePreviews
+import com.captures2024.soongan.presentation.designsystem.ui.util.extension.sgBottomBarPadding
 import com.captures2024.soongan.presentation.feature.main.feed.R
 import com.captures2024.soongan.presentation.feature.main.feed.component.feed.FeedFilterBottomSheetComponent
 import com.captures2024.soongan.presentation.feature.main.feed.component.feed.FeedGalleryHeaderComponent
@@ -57,7 +58,7 @@ internal fun FeedScreen(
     PullToRefreshBox(
         isRefreshing = feedState.isRefreshing,
         onRefresh = onRefresh,
-        modifier = modifier,
+        modifier = modifier.sgBottomBarPadding(),
         state = pullToRefreshState,
         indicator = {
             Indicator(

@@ -41,7 +41,7 @@ internal fun FaqTapRowComponent(
     SecondaryTabRow(
         selectedTabIndex = tabIndex,
         modifier = modifier,
-        containerColor = SGColor.Grayscale.white,
+        containerColor = SGColor.BG.background,
         indicator = @Composable {
             TabRowDefaults.SecondaryIndicator(
                 Modifier

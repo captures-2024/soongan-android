@@ -68,9 +68,7 @@ internal fun FaqScreen(
             userScrollEnabled = false,
         ) { page ->
             Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(color = SGColor.Grayscale.white)
+                modifier = Modifier.fillMaxSize()
                     .verticalScroll(state = scrollState),
             ) {
                 categoryItems.forEach { categoryItem ->
