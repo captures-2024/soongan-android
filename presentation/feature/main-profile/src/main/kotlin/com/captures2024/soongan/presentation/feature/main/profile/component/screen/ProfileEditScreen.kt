@@ -1,6 +1,5 @@
 package com.captures2024.soongan.presentation.feature.main.profile.component.screen
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -10,7 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.captures2024.soongan.presentation.designsystem.ui.component.HeightSpacer
-import com.captures2024.soongan.presentation.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.presentation.designsystem.ui.theme.SGTheme
 import com.captures2024.soongan.presentation.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.presentation.feature.main.profile.component.profile.ProfileEditBodyComponent
@@ -35,9 +33,7 @@ internal fun ProfileEditScreen(
     val scrollState = rememberScrollState()
 
     Column(
-        modifier = modifier
-            .fillMaxSize()
-            .background(color = SGColor.Grayscale.white)
+        modifier = modifier.fillMaxSize()
             .padding(horizontal = 20.dp),
     ) {
         ProfileEditTopBarComponent(

@@ -1,6 +1,5 @@
 package com.captures2024.soongan.presentation.feature.main.profile.component.screen
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -68,9 +67,7 @@ internal fun FaqScreen(
             userScrollEnabled = false,
         ) { page ->
             Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(color = SGColor.Grayscale.white)
+                modifier = Modifier.fillMaxSize()
                     .verticalScroll(state = scrollState),
             ) {
                 categoryItems.forEach { categoryItem ->

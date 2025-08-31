@@ -1,15 +1,27 @@
 package com.captures2024.soongan.presentation.feature.main.component.screen
 
-import androidx.compose.foundation.layout.padding
+import android.annotation.SuppressLint
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.compose.NavHost
+import androidx.navigation.serialization.generateHashCode
+import com.captures2024.soongan.core.navigator.screen.main.awards.AwardsNavigator
 import com.captures2024.soongan.core.navigator.screen.main.awards.navigateToAwardsInfo
+import com.captures2024.soongan.core.navigator.screen.main.feed.FeedNavigator
 import com.captures2024.soongan.core.navigator.screen.main.feed.navigateToFeed
 import com.captures2024.soongan.core.navigator.screen.main.home.HomeNavigator
 import com.captures2024.soongan.core.navigator.screen.main.home.navigateToHome
@@ -17,6 +29,7 @@ import com.captures2024.soongan.core.navigator.screen.main.home.navigateToPostIn
 import com.captures2024.soongan.core.navigator.screen.main.post.navigateToEditPost
 import com.captures2024.soongan.core.navigator.screen.main.post.navigateToImageViewer
 import com.captures2024.soongan.core.navigator.screen.main.post.navigateToPostInfo
+import com.captures2024.soongan.core.navigator.screen.main.profile.ProfileNavigator
 import com.captures2024.soongan.core.navigator.screen.main.profile.navigateToCompleteExplain
 import com.captures2024.soongan.core.navigator.screen.main.profile.navigateToEditProfile
 import com.captures2024.soongan.core.navigator.screen.main.profile.navigateToFAQ
@@ -60,14 +73,15 @@ internal fun MainScreen(
     MainComponent(
         navigationState = navigationState,
         isNotReadNotification = state.isNotReadNotification,
-    ) { innerPadding ->
+    ) {
         NavHost(
-            modifier = Modifier.padding(innerPadding),
             navController = navController,
             startDestination = when (navigationState.isGuestMode) {
                 true -> HomeNavigator
                 false -> WelcomeNavigator
             },
+            enterTransition = { getEnterTransition() },
+            exitTransition = { getExitTransition() },
         ) {
             welcome(
                 navigateToHome = navController::navigateToHome,
@@ -103,5 +117,45 @@ internal fun MainScreen(
                 navigateToCompleteExplain = navController::navigateToCompleteExplain,
             )
         }
+    }
+}
+
+@SuppressLint("RestrictedApi")
+private fun AnimatedContentTransitionScope<NavBackStackEntry>.getEnterTransition(): EnterTransition {
+    return when (targetState.destination.id) {
+        WelcomeNavigator.serializer().generateHashCode(),
+        HomeNavigator.serializer().generateHashCode(),
+        AwardsNavigator.serializer().generateHashCode(),
+        FeedNavigator.serializer().generateHashCode(),
+        ProfileNavigator.serializer().generateHashCode(),
+        -> fadeIn()
+
+        else -> fadeIn() + slideInHorizontally(
+            initialOffsetX = { it },
+            animationSpec = tween(
+                durationMillis = 300,
+                easing = LinearEasing,
+            ),
+        )
+    }
+}
+
+@SuppressLint("RestrictedApi")
+private fun AnimatedContentTransitionScope<NavBackStackEntry>.getExitTransition(): ExitTransition {
+    return when (initialState.destination.id) {
+        WelcomeNavigator.serializer().generateHashCode(),
+        HomeNavigator.serializer().generateHashCode(),
+        AwardsNavigator.serializer().generateHashCode(),
+        FeedNavigator.serializer().generateHashCode(),
+        ProfileNavigator.serializer().generateHashCode(),
+        -> fadeOut()
+
+        else -> fadeOut() + slideOutHorizontally(
+            targetOffsetX = { it },
+            animationSpec = tween(
+                durationMillis = 300,
+                easing = LinearEasing,
+            ),
+        )
     }
 }

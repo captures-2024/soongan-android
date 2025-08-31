@@ -1,6 +1,5 @@
 package com.captures2024.soongan.presentation.feature.main.profile.component.faq
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -34,9 +33,7 @@ internal fun FaqTopBarComponent(
     onClickBack: () -> Unit,
 ) {
     Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .background(color = SGColor.Grayscale.white)
+        modifier = modifier.fillMaxWidth()
             .padding(
                 horizontal = 20.dp,
                 vertical = 16.dp,

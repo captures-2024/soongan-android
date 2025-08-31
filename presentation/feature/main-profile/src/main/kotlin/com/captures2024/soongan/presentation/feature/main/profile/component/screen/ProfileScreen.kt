@@ -1,6 +1,5 @@
 package com.captures2024.soongan.presentation.feature.main.profile.component.screen
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -12,6 +11,7 @@ import com.captures2024.soongan.presentation.designsystem.ui.component.HeightSpa
 import com.captures2024.soongan.presentation.designsystem.ui.theme.SGColor
 import com.captures2024.soongan.presentation.designsystem.ui.theme.SGTheme
 import com.captures2024.soongan.presentation.designsystem.ui.util.DevicePreviews
+import com.captures2024.soongan.presentation.designsystem.ui.util.extension.sgBottomBarPadding
 import com.captures2024.soongan.presentation.feature.main.profile.component.menu.ProfileMenuBottomSheet
 import com.captures2024.soongan.presentation.feature.main.profile.component.profile.ProfileBodyComponent
 import com.captures2024.soongan.presentation.feature.main.profile.component.profile.ProfileTopBarComponent
@@ -35,9 +35,8 @@ internal fun ProfileScreen(
     onClickRegisterPost: () -> Unit,
 ) {
     Column(
-        modifier = modifier
-            .fillMaxSize()
-            .background(color = SGColor.BG.background)
+        modifier = modifier.fillMaxSize()
+            .sgBottomBarPadding()
             .padding(top = 26.dp),
     ) {
         ProfileTopBarComponent(
