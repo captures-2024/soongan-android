@@ -34,10 +34,13 @@ internal fun PostInfoMenuScreen(
     ) {
         PostInfoMenuItemComponent(
             text = stringResource(R.string.post_info_menu_edit_title),
-            color = when (isMyPost) {
+            color = when (isTop7) {
+                true -> SGColor.Grayscale.black100.copy(alpha = 0.3f)
+                false ->when (isMyPost) {
                 true -> SGColor.Grayscale.black100
                 false -> SGColor.Grayscale.black100.copy(alpha = 0.3f)
-            },
+            }
+                    },
             icon = MyIconPack.IconNonFillEdit,
             isVisibleDivider = true,
             isEnabled = isTop7.not() && isMyPost,
@@ -45,9 +48,12 @@ internal fun PostInfoMenuScreen(
         )
         PostInfoMenuItemComponent(
             text = stringResource(R.string.post_info_menu_delete_title),
-            color = when (isMyPost) {
-                true -> SGColor.Grayscale.black100
-                false -> SGColor.Grayscale.black100.copy(alpha = 0.3f)
+            color = when (isTop7) {
+                true -> SGColor.Grayscale.black100.copy(alpha = 0.3f)
+                false -> when (isMyPost) {
+                    true -> SGColor.Grayscale.black100
+                    false -> SGColor.Grayscale.black100.copy(alpha = 0.3f)
+                }
             },
             icon = MyIconPack.IconNonFillPaperDelete,
             isVisibleDivider = true,
