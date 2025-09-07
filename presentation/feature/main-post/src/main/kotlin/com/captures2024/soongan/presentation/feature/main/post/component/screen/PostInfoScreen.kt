@@ -65,6 +65,7 @@ internal fun PostInfoScreen(
     if (state.isShowMenuBottomSheet) {
         PostInfoMenuBottomSheet(
             isMyPost = state.isMyPost,
+            isTop7 = state.postInfo?.isTop7 == true,
             onDismissRequest = onDismissRequestMenuBottomSheet,
             onClickDelete = onClickDelete,
             onClickEditPost = onClickEditPost,

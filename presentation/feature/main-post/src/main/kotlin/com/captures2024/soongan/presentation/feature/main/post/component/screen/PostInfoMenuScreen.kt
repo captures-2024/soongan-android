@@ -20,6 +20,7 @@ import com.captures2024.soongan.presentation.feature.main.post.component.menu.Po
 @Composable
 internal fun PostInfoMenuScreen(
     isMyPost: Boolean,
+    isTop7: Boolean,
     onClickEdit: () -> Unit,
     onClickDelete: () -> Unit,
     onClickReport: () -> Unit,
@@ -39,7 +40,7 @@ internal fun PostInfoMenuScreen(
             },
             icon = MyIconPack.IconNonFillEdit,
             isVisibleDivider = true,
-            isEnabled = isMyPost,
+            isEnabled = isTop7.not() && isMyPost,
             onClick = onClickEdit,
         )
         PostInfoMenuItemComponent(
@@ -50,7 +51,7 @@ internal fun PostInfoMenuScreen(
             },
             icon = MyIconPack.IconNonFillPaperDelete,
             isVisibleDivider = true,
-            isEnabled = isMyPost,
+            isEnabled = isTop7.not() && isMyPost,
             onClick = onClickDelete,
         )
         PostInfoMenuItemComponent(
@@ -73,6 +74,7 @@ private fun PreviewPostInfoMenuScreen_Default() {
     SGTheme {
         PostInfoMenuScreen(
             isMyPost = false,
+            isTop7 = false,
             onClickEdit = {},
             onClickDelete = {},
             onClickReport = {},
@@ -86,6 +88,7 @@ private fun PreviewPostInfoMenuScreen_My() {
     SGTheme {
         PostInfoMenuScreen(
             isMyPost = true,
+            isTop7 = false,
             onClickEdit = {},
             onClickDelete = {},
             onClickReport = {},
