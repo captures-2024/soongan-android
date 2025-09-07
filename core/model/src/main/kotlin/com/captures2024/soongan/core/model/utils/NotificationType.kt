@@ -4,6 +4,16 @@ enum class NotificationType {
     CONTEST,
     ACTIVITY,
     NOTICE,
+    ;
+
+    companion object {
+        fun fromString(value: String): NotificationType? = when (value) {
+            CONTEST.toString() -> CONTEST
+            ACTIVITY.toString() -> ACTIVITY
+            NOTICE.toString() -> NOTICE
+            else -> null
+        }
+    }
 }
 
 enum class NotificationSubType(

@@ -2,6 +2,7 @@ package com.captures2024.soongan.data.source.notification.impl.local
 
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
 import com.captures2024.soongan.core.model.dto.NotificationDto
+import com.captures2024.soongan.core.model.dto.fcm.CloudMessage
 import com.captures2024.soongan.data.source.notification.local.NotificationLocalDataSource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -29,6 +30,10 @@ constructor(
     override val notificationEvent: Flow<NotificationDto?>
         get() = _notificationEvent
 
+    private val _cloudMessageEvent = MutableStateFlow<CloudMessage?>(null)
+    override val cloudMessageEvent: Flow<CloudMessage?>
+        get() = _cloudMessageEvent
+
     private val _isNotReadNotificationCache: MutableStateFlow<Boolean> = MutableStateFlow(false)
     override val isNotReadNotificationCache: StateFlow<Boolean>
         get() = _isNotReadNotificationCache.asStateFlow()
@@ -47,6 +52,12 @@ constructor(
 
     override suspend fun parseNotification(payload: Map<String, Any?>) {
         analyticsHelper.d { "parseNotification - payload: $payload" }
+
+        val cloudMessage = CloudMessage.fromPayload(payload)
+
+        analyticsHelper.d { "parseNotification - cloudMessage: $cloudMessage" }
+
+        _cloudMessageEvent.value = cloudMessage
 
         val notification = NotificationDto.Companion.fromPayload(payload)
 

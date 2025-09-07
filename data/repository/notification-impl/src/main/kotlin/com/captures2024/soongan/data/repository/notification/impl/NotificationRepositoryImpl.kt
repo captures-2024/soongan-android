@@ -5,6 +5,7 @@ import com.captures2024.soongan.core.model.dto.NotificationDto
 import com.captures2024.soongan.core.model.dto.NotificationSettingDto
 import com.captures2024.soongan.core.model.dto.NotificationsCountInfoDto
 import com.captures2024.soongan.core.model.dto.NotificationsInfoDto
+import com.captures2024.soongan.core.model.dto.fcm.CloudMessage
 import com.captures2024.soongan.core.model.utils.NotificationType
 import com.captures2024.soongan.data.source.notification.local.NotificationLocalDataSource
 import com.captures2024.soongan.data.source.notification.remote.NotificationsRemoteDataSource
@@ -28,6 +29,9 @@ constructor(
 
     override val notificationEvent: Flow<NotificationDto?>
         get() = notificationLocalDataSource.notificationEvent
+
+    override val cloudMessageEvent: Flow<CloudMessage?>
+        get() = notificationLocalDataSource.cloudMessageEvent
 
     override val isNotReadNotificationCache: StateFlow<Boolean>
         get() = notificationLocalDataSource.isNotReadNotificationCache
