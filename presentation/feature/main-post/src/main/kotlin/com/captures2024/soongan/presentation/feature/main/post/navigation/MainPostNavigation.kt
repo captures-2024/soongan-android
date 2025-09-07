@@ -16,7 +16,7 @@ import com.captures2024.soongan.presentation.feature.main.post.route.PostInfoRou
 fun NavGraphBuilder.mainPost(
     navigateToBack: () -> Unit,
     navigateToImageViewer: (String) -> Unit,
-    navigateToEditPost: (Long, String, String) -> Unit,
+    navigateToEditPost: (Long, String, String, Int, String) -> Unit,
     navigateToPost: (Long, NavOptions?) -> Unit,
 ) {
     composable<PostInfoNavigator> {

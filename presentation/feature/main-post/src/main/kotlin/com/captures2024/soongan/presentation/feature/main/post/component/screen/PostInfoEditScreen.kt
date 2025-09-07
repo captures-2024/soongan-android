@@ -41,6 +41,8 @@ internal fun PostInfoEditScreen(
             .background(color = SGColor.BG.background),
         topBar = @Composable {
             PostInfoTopBarComponent(
+                round = state.roundId,
+                subject = state.subject,
                 onClickBack = onClickBack,
             )
         },
@@ -95,6 +97,8 @@ private fun PreviewPostInfoEditScreen() {
                 defaultTitle = "test",
                 editTitle = "test",
                 maxInputLength = 15,
+                roundId = 0,
+                subject = "test",
                 isShowBackDialog = false,
                 isOpenSubmitBottomSheet = false,
                 isCheckedSubmitBottomSheet = false,
