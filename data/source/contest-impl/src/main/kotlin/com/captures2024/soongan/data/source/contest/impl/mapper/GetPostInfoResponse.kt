@@ -12,4 +12,7 @@ internal fun GetPostInfoResponse.toPostInfoDto(): PostInfoDto = PostInfoDto(
     likeCount = this.likeCount,
     isLiked = this.isLiked,
     commentCount = this.commentCount,
+    isTop7 = this.isTop7,
+    weeklyContestRound = this.weeklyContestRound,
+    weeklyContestSubject = this.weeklyContestSubject,
 )

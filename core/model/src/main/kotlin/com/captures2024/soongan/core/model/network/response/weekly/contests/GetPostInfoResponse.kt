@@ -21,4 +21,10 @@ data class GetPostInfoResponse(
     val isLiked: Boolean,
     @SerialName("commentCount")
     val commentCount: Int,
+    @SerialName("isTop7")
+    val isTop7: Boolean,
+    @SerialName("weeklyContestRound")
+    val weeklyContestRound: Int,
+    @SerialName("weeklyContestSubject")
+    val weeklyContestSubject: String,
 )

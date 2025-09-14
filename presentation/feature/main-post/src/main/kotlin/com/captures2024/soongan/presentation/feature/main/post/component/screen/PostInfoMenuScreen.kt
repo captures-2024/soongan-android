@@ -20,6 +20,7 @@ import com.captures2024.soongan.presentation.feature.main.post.component.menu.Po
 @Composable
 internal fun PostInfoMenuScreen(
     isMyPost: Boolean,
+    isTop7: Boolean,
     onClickEdit: () -> Unit,
     onClickDelete: () -> Unit,
     onClickReport: () -> Unit,
@@ -33,24 +34,30 @@ internal fun PostInfoMenuScreen(
     ) {
         PostInfoMenuItemComponent(
             text = stringResource(R.string.post_info_menu_edit_title),
-            color = when (isMyPost) {
-                true -> SGColor.Grayscale.black100
-                false -> SGColor.Grayscale.black100.copy(alpha = 0.3f)
+            color = when (isTop7) {
+                true -> SGColor.Grayscale.black100.copy(alpha = 0.3f)
+                false -> when (isMyPost) {
+                    true -> SGColor.Grayscale.black100
+                    false -> SGColor.Grayscale.black100.copy(alpha = 0.3f)
+                }
             },
             icon = MyIconPack.IconNonFillEdit,
             isVisibleDivider = true,
-            isEnabled = isMyPost,
+            isEnabled = isTop7.not() && isMyPost,
             onClick = onClickEdit,
         )
         PostInfoMenuItemComponent(
             text = stringResource(R.string.post_info_menu_delete_title),
-            color = when (isMyPost) {
-                true -> SGColor.Grayscale.black100
-                false -> SGColor.Grayscale.black100.copy(alpha = 0.3f)
+            color = when (isTop7) {
+                true -> SGColor.Grayscale.black100.copy(alpha = 0.3f)
+                false -> when (isMyPost) {
+                    true -> SGColor.Grayscale.black100
+                    false -> SGColor.Grayscale.black100.copy(alpha = 0.3f)
+                }
             },
             icon = MyIconPack.IconNonFillPaperDelete,
             isVisibleDivider = true,
-            isEnabled = isMyPost,
+            isEnabled = isTop7.not() && isMyPost,
             onClick = onClickDelete,
         )
         PostInfoMenuItemComponent(
@@ -73,6 +80,7 @@ private fun PreviewPostInfoMenuScreen_Default() {
     SGTheme {
         PostInfoMenuScreen(
             isMyPost = false,
+            isTop7 = false,
             onClickEdit = {},
             onClickDelete = {},
             onClickReport = {},
@@ -86,6 +94,7 @@ private fun PreviewPostInfoMenuScreen_My() {
     SGTheme {
         PostInfoMenuScreen(
             isMyPost = true,
+            isTop7 = false,
             onClickEdit = {},
             onClickDelete = {},
             onClickReport = {},

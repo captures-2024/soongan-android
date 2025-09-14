@@ -12,7 +12,7 @@ import com.captures2024.soongan.presentation.viewmodel.main.post.PostInfoViewMod
 @Composable
 internal fun PostInfoRoute(
     navigateToBack: () -> Unit,
-    navigateToEditPost: (Long, String, String) -> Unit,
+    navigateToEditPost: (Long, String, String, Int, String) -> Unit,
     navigateToImageViewer: (String) -> Unit,
     viewModel: PostInfoViewModel = hiltViewModel(),
 ) {
@@ -22,7 +22,15 @@ internal fun PostInfoRoute(
         viewModel.sideEffect.collect { effect ->
             when (effect) {
                 is PostInfoViewModel.Effect.NavigateToBack -> navigateToBack()
-                is PostInfoViewModel.Effect.NavigateToEditPost -> navigateToEditPost(effect.postId, effect.url, effect.title)
+
+                is PostInfoViewModel.Effect.NavigateToEditPost -> navigateToEditPost(
+                    effect.postId,
+                    effect.url,
+                    effect.title,
+                    effect.roundId,
+                    effect.subject,
+                )
+
                 is PostInfoViewModel.Effect.NavigateToImageViewer -> navigateToImageViewer(effect.url)
             }
         }

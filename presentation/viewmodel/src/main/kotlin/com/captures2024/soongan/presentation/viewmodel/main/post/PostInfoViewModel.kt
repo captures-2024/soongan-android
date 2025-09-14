@@ -71,6 +71,8 @@ constructor(
             val postId: Long,
             val url: String,
             val title: String,
+            val roundId: Int,
+            val subject: String,
         ) : Effect
 
         data class NavigateToImageViewer(
@@ -226,6 +228,8 @@ constructor(
                 postId = postInfo.postId,
                 url = postInfo.imageUrl,
                 title = postInfo.title,
+                roundId = postInfo.weeklyContestRound,
+                subject = postInfo.weeklyContestSubject,
             ),
         )
     }

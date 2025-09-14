@@ -14,6 +14,7 @@ import com.captures2024.soongan.presentation.feature.main.post.component.screen.
 @Composable
 internal fun PostInfoMenuBottomSheet(
     isMyPost: Boolean,
+    isTop7: Boolean,
     modifier: Modifier = Modifier,
     onDismissRequest: () -> Unit,
     onClickDelete: () -> Unit,
@@ -31,6 +32,7 @@ internal fun PostInfoMenuBottomSheet(
     ) {
         PostInfoMenuScreen(
             isMyPost = isMyPost,
+            isTop7 = isTop7,
             onClickEdit = {
                 onDismissRequest()
                 onClickEditPost()

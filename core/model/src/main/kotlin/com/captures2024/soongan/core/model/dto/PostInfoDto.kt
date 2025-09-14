@@ -9,4 +9,7 @@ data class PostInfoDto(
     val likeCount: Int = 0,
     val isLiked: Boolean = false,
     val commentCount: Int = 0,
+    val isTop7: Boolean = false,
+    val weeklyContestRound: Int = 0,
+    val weeklyContestSubject: String = "",
 )
