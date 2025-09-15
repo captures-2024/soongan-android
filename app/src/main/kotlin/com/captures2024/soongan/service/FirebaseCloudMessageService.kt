@@ -50,14 +50,26 @@ class FirebaseCloudMessageService : FirebaseMessagingService() {
             analyticsHelper.i { "[$simpleName] onMessageReceived - title: ${sgNotification.title}" }
             analyticsHelper.i { "[$simpleName] onMessageReceived - body: ${sgNotification.body}" }
 
-            val pendingIntent = createPendingIntent(message.data)
+            val pendingIntent = createPendingIntent(
+                title = sgNotification.title.orEmpty(),
+                body = sgNotification.body.orEmpty(),
+                messageData = message.data,
+            )
+
             sendNotification(sgNotification, pendingIntent)
         }
     }
 
-    private fun createPendingIntent(messageData: Map<String, String>): PendingIntent {
+    private fun createPendingIntent(
+        title: String,
+        body: String,
+        messageData: Map<String, String>,
+    ): PendingIntent {
         val intent = Intent(this, SoonGanActivity::class.java).apply {
             this.action = AppConst.Notification.PUSH_ACTION_NAME
+
+            putExtra("title", title)
+            putExtra("body", body)
             messageData.forEach { putExtra(it.key, it.value) }
         }
         val intentFlags = PendingIntent.FLAG_MUTABLE or PendingIntent.FLAG_UPDATE_CURRENT

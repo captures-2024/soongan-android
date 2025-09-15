@@ -6,9 +6,15 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
+import androidx.navigation.navOptions
 import com.captures2024.soongan.core.android.utils.LocalAnalyticsHelper
 import com.captures2024.soongan.core.model.dto.fcm.CloudMessage
 import com.captures2024.soongan.core.model.utils.NotificationSubType
+import com.captures2024.soongan.core.navigator.screen.main.home.HomeNavigator
+import com.captures2024.soongan.core.navigator.screen.main.post.navigateToPostInfo
+import com.captures2024.soongan.core.navigator.screen.main.profile.navigateToExplain
+import com.captures2024.soongan.core.navigator.screen.main.profile.navigateToProfile
 import com.captures2024.soongan.presentation.viewmodel.root.NotificationViewModel
 
 @Composable
@@ -79,7 +85,12 @@ internal fun NotificationHost(
 
             when (event) {
                 is CloudMessage.BlockMessageDto -> {
-                    // TODO navigate to post
+                    navController.navigateToProfile(
+                        navOptions = buildTopLevelNavOptions(),
+                    )
+                    navController.navigateToPostInfo(
+                        id = event.targetId,
+                    )
                 }
 
                 is CloudMessage.CommentMessageDto -> {
@@ -87,7 +98,12 @@ internal fun NotificationHost(
                 }
 
                 is CloudMessage.NeedExplainMessageDto -> {
-                    // TODO navigate to appeal
+                    navController.navigateToProfile(
+                        navOptions = buildTopLevelNavOptions(),
+                    )
+                    navController.navigateToExplain(
+                        postId = event.targetId,
+                    )
                 }
 
                 is CloudMessage.ReportResultMessageDto -> {
@@ -96,4 +112,12 @@ internal fun NotificationHost(
             }
         }
     }
+}
+
+private fun buildTopLevelNavOptions(): NavOptions = navOptions {
+    popUpTo(HomeNavigator) {
+        saveState = true
+    }
+    launchSingleTop = true
+    restoreState = true
 }
