@@ -20,7 +20,7 @@ import com.captures2024.soongan.presentation.viewmodel.root.NotificationViewMode
 @Composable
 internal fun NotificationHost(
     navController: NavController,
-    viewModel: NotificationViewModel = hiltViewModel()
+    viewModel: NotificationViewModel = hiltViewModel(),
 ) {
     val analyticsHelper = LocalAnalyticsHelper.current
     val state by viewModel.state.collectAsState()
@@ -31,7 +31,7 @@ internal fun NotificationHost(
 
     LaunchedEffect(
         notification,
-        isLoggedIn
+        isLoggedIn,
     ) {
         analyticsHelper.d { "NotificationHost - notification: $notification, isLoggedIn: $isLoggedIn" }
 
