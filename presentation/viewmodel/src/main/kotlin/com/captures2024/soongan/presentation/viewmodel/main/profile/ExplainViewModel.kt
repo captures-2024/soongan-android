@@ -14,8 +14,10 @@ import com.captures2024.soongan.domain.usecase.system.loading.ClearLoadingUseCas
 import com.captures2024.soongan.domain.usecase.system.loading.HideLoadingUseCase
 import com.captures2024.soongan.domain.usecase.system.loading.ShowLoadingUseCase
 import com.captures2024.soongan.presentation.viewmodel.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class ExplainViewModel
 @Inject
 constructor(
