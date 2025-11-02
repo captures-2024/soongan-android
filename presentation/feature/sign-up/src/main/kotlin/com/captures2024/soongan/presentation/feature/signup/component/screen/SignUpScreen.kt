@@ -3,6 +3,7 @@ package com.captures2024.soongan.presentation.feature.signup.component.screen
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
@@ -37,7 +38,7 @@ internal fun SignUpScreen(
 ) {
     val focusManager = LocalFocusManager.current
 
-    Scaffold(
+    Column(
         modifier = modifier
             .statusBarsPadding()
             .navigationBarsPadding()
@@ -48,47 +49,46 @@ internal fun SignUpScreen(
                 interactionSource = remember { MutableInteractionSource() },
                 onClick = { focusManager.clearFocus() },
             ),
-        topBar = @Composable {
-            SignUpTopComponent(
-                content = stringResource(R.string.sign_up_title),
-                onClick = onClickBack,
-            )
-        },
-        bottomBar = @Composable {
-            SignUpBottomComponent(
-                description = stringResource(R.string.sign_up_description),
-                content = stringResource(R.string.sign_up_content),
-                enabled = when {
-                    state.nicknameState.isRemoteSuccess -> state.birthState.isValid == Validation.BirthYearValidState.Success
+    ) {
+        SignUpTopComponent(
+            content = stringResource(R.string.sign_up_title),
+            onClick = onClickBack,
+        )
 
-                    else -> state.nicknameState.isValid == Validation.NicknameValidState.Success
-                },
-                modifier = Modifier.imePadding()
-                    .fillMaxWidth(),
-                onClick = {
-                    when (state.nicknameState.isRemoteSuccess) {
-                        true -> onConfirmBirth()
-                        false -> onConfirmNickname()
-                    }
-                },
-            )
-        },
-        containerColor = Color(0xFFFAFAF8),
-    ) { innerPadding ->
         when (state.nicknameState.isRemoteSuccess) {
             false -> InputNicknameScreen(
                 state = state.nicknameState,
-                modifier = Modifier.padding(innerPadding),
+                modifier = Modifier.fillMaxWidth()
+                    .weight(1f),
                 onNicknameValueChanged = onNicknameValueChanged,
             )
 
             true -> InputBirthScreen(
                 nickname = state.nicknameState.nickname,
                 state = state.birthState,
-                modifier = Modifier.padding(innerPadding),
+                modifier = Modifier.fillMaxWidth()
+                    .weight(1f),
                 onBrithValueChanged = onBirthValueChanged,
             )
         }
+
+        SignUpBottomComponent(
+            description = stringResource(R.string.sign_up_description),
+            content = stringResource(R.string.sign_up_content),
+            enabled = when {
+                state.nicknameState.isRemoteSuccess -> state.birthState.isValid == Validation.BirthYearValidState.Success
+
+                else -> state.nicknameState.isValid == Validation.NicknameValidState.Success
+            },
+            modifier = Modifier.fillMaxWidth()
+                .imePadding(),
+            onClick = {
+                when (state.nicknameState.isRemoteSuccess) {
+                    true -> onConfirmBirth()
+                    false -> onConfirmNickname()
+                }
+            },
+        )
     }
 }
 

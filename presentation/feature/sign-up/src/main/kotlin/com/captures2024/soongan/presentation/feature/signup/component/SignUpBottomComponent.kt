@@ -32,11 +32,11 @@ internal fun SignUpBottomComponent(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .heightIn(min = 115.dp)
             .background(color = Color(0xFFFAFAF8))
+            .padding(horizontal = 40.dp)
             .padding(
-                horizontal = 40.dp,
-                vertical = 20.dp,
+                top = 8.dp,
+                bottom = 20.dp,
             ),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
