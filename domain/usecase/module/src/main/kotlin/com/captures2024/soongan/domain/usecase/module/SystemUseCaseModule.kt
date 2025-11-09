@@ -1,9 +1,13 @@
 package com.captures2024.soongan.domain.usecase.module
 
+import com.captures2024.soongan.domain.usecase.system.appversion.CheckAppUpdateAvailableUseCase
+import com.captures2024.soongan.domain.usecase.system.appversion.GetIsUpdateAvailableFlowUseCase
 import com.captures2024.soongan.domain.usecase.system.dialog.GetIsShowGuestModeDialogFlowUseCase
 import com.captures2024.soongan.domain.usecase.system.dialog.GetSingleButtonDialogEventUseCase
 import com.captures2024.soongan.domain.usecase.system.dialog.PostSingleButtonDialogUseCase
 import com.captures2024.soongan.domain.usecase.system.dialog.SetIsShowGuestModeDialogFlowUseCase
+import com.captures2024.soongan.domain.usecase.system.impl.appversion.CheckAppUpdateAvailableUseCaseImpl
+import com.captures2024.soongan.domain.usecase.system.impl.appversion.GetIsUpdateAvailableFlowUseCaseImpl
 import com.captures2024.soongan.domain.usecase.system.impl.dialog.GetIsShowGuestModeDialogFlowUseCaseImpl
 import com.captures2024.soongan.domain.usecase.system.impl.dialog.GetSingleButtonDialogEventUseCaseImpl
 import com.captures2024.soongan.domain.usecase.system.impl.dialog.PostSingleButtonDialogUseCaseImpl
@@ -73,4 +77,10 @@ internal abstract class SystemUseCaseModule {
 
     @Binds
     abstract fun bindShowLoadingUseCase(showLoadingUseCaseImpl: ShowLoadingUseCaseImpl): ShowLoadingUseCase
+
+    @Binds
+    abstract fun bindGetIsUpdateAvailableUseCase(getIsUpdateAvailableFlowUseCaseImpl: GetIsUpdateAvailableFlowUseCaseImpl): GetIsUpdateAvailableFlowUseCase
+
+    @Binds
+    abstract fun bindCheckUpdateAvailableUseCase(checkUpdateAvailableFlowUseCaseImpl: CheckAppUpdateAvailableUseCaseImpl): CheckAppUpdateAvailableUseCase
 }
