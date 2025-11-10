@@ -14,6 +14,8 @@ import com.captures2024.soongan.domain.usecase.member.GetIsCurrentGuestModeUseCa
 import com.captures2024.soongan.domain.usecase.member.GetMemberInfoUseCase
 import com.captures2024.soongan.domain.usecase.member.SetGuestModeUseCase
 import com.captures2024.soongan.domain.usecase.notification.EmitNotificationUseCase
+import com.captures2024.soongan.domain.usecase.system.appversion.CheckAppUpdateAvailableUseCase
+import com.captures2024.soongan.domain.usecase.system.appversion.GetIsUpdateAvailableFlowUseCase
 import com.captures2024.soongan.domain.usecase.system.dialog.GetIsShowGuestModeDialogFlowUseCase
 import com.captures2024.soongan.domain.usecase.system.dialog.GetSingleButtonDialogEventUseCase
 import com.captures2024.soongan.domain.usecase.system.dialog.SetIsShowGuestModeDialogFlowUseCase
@@ -24,6 +26,7 @@ import com.captures2024.soongan.domain.usecase.system.loading.HideLoadingUseCase
 import com.captures2024.soongan.domain.usecase.system.loading.ShowLoadingUseCase
 import com.captures2024.soongan.domain.usecase.token.ClearAllTokenUseCase
 import com.captures2024.soongan.presentation.viewmodel.model.AppRoute
+import com.captures2024.soongan.presentation.viewmodel.model.VersionStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -49,6 +52,8 @@ constructor(
     private val getIsShowGuestModeDialogFlowUseCase: GetIsShowGuestModeDialogFlowUseCase,
     private val emitNotificationUseCase: EmitNotificationUseCase,
     private val getInAppBrowserUrlFlowUseCase: GetInAppBrowserUrlFlowUseCase,
+    private val getIsUpdateAvailableFlowUseCase: GetIsUpdateAvailableFlowUseCase,
+    private val checkAppUpdateAvailableUseCase: CheckAppUpdateAvailableUseCase,
 ) : BaseViewModel<AppViewModel.State, AppViewModel.Effect, AppViewModel.Intent>(
     analyticsHelper = analyticsHelper,
     showLoadingUseCase = showLoadingUseCase,
@@ -61,6 +66,7 @@ constructor(
 
     data class State(
         val isInitialized: Boolean,
+        val appVersionStatus: VersionStatus,
         val isGuestMode: Boolean,
         val isLoading: Pair<Boolean, Long>,
         val isShowGuestModeDialog: Boolean,
@@ -94,7 +100,7 @@ constructor(
             }
 
         override fun toString(): String {
-            return "State(isInitialized=$isInitialized, isGuestMode=$isGuestMode, isLoading=$isLoading, isShowGuestModeDialog=$isShowGuestModeDialog, rootRouteState=$rootRouteState)"
+            return "State(isInitialized=$isInitialized, appVersionStatus=${appVersionStatus.name} isGuestMode=$isGuestMode, isLoading=$isLoading, isShowGuestModeDialog=$isShowGuestModeDialog, rootRouteState=$rootRouteState)"
         }
     }
 
@@ -113,6 +119,10 @@ constructor(
 
         data object Init : Intent
 
+        data class CheckInAppUpdateAvailable(
+            val condition: Boolean,
+        ) : Intent
+
         data object OnClickConfirmGuestModeDialog : Intent
 
         data object OnClickDismissGuestModeDialog : Intent
@@ -128,6 +138,7 @@ constructor(
 
     override fun createInitialState(savedStateHandle: SavedStateHandle): State = State(
         isInitialized = false,
+        appVersionStatus = VersionStatus.IDLE,
         isGuestMode = false,
         isLoading = false to System.currentTimeMillis(),
         isShowGuestModeDialog = false,
@@ -141,6 +152,7 @@ constructor(
     override fun handleIntent(intent: Intent) {
         when (intent) {
             is Intent.Init -> launch { handleInit() }
+            is Intent.CheckInAppUpdateAvailable -> handleOnCheckInAppUpdateAvailable(intent)
             is Intent.OnClickConfirmGuestModeDialog -> loadingLaunch { handleOnClickConfirmGuestModeDialog() }
             is Intent.OnClickDismissGuestModeDialog -> handleOnClickDismissGuestModeDialog()
             is Intent.PostNotification -> handlePostNotification(intent)
@@ -148,6 +160,7 @@ constructor(
     }
 
     private suspend fun handleInit() {
+//        launch { collectIsUpdateAvailable() }
         launch { collectCurrentMember() }
         launch { collectGuestMode() }
         launch { collectLoading() }
@@ -155,12 +168,24 @@ constructor(
         launch { collectInAppBrowserUrl() }
         launch { collectSingleButtonDialogEvent() }
 
+//        fetchRemoteUpdateAvailable()
         fetchRemoteFCMToken()
         fetchRemoteMemberInfo()
 
+//        reduce {
+//            copy(
+//                isInitialized = (appVersionStatus == VersionStatus.ALREADY_UPDATED),
+//            )
+//        }
+    }
+
+    private fun handleOnCheckInAppUpdateAvailable(intent: Intent.CheckInAppUpdateAvailable) {
+        analyticsHelper.d { "handleOnCheckInAppUpdateAvailable - condition : ${intent.condition}" }
+
         reduce {
             copy(
-                isInitialized = true,
+                appVersionStatus = if (intent.condition) VersionStatus.NEED_UPDATE else VersionStatus.ALREADY_UPDATED,
+                isInitialized = !intent.condition,
             )
         }
     }
@@ -176,6 +201,17 @@ constructor(
 
     private fun handlePostNotification(intent: Intent.PostNotification) {
         emitNotificationUseCase(intent.payload)
+    }
+
+    @Suppress("UnusedPrivateMember")
+    private suspend fun collectIsUpdateAvailable() {
+        getIsUpdateAvailableFlowUseCase().collect { condition ->
+            reduce {
+                copy(
+                    appVersionStatus = if (condition) VersionStatus.NEED_UPDATE else VersionStatus.ALREADY_UPDATED,
+                )
+            }
+        }
     }
 
     private suspend fun collectCurrentMember() {
@@ -229,6 +265,9 @@ constructor(
             postSideEffect(Effect.ShowSingleButtonDialog(it))
         }
     }
+
+    @Suppress("UnusedPrivateMember")
+    private suspend fun fetchRemoteUpdateAvailable() = checkAppUpdateAvailableUseCase()
 
     private suspend fun fetchRemoteFCMToken() {
         val result = initFcmUseCase().getOrNull()
