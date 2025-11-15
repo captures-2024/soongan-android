@@ -40,10 +40,6 @@ class FirebaseCloudMessageService : FirebaseMessagingService() {
             return
         }
 
-        if (message.data.isEmpty()) {
-            return
-        }
-
         analyticsHelper.i { "[$simpleName] onMessageReceived - data: ${message.data}" }
 
         message.notification?.let { sgNotification ->
