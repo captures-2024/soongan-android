@@ -35,4 +35,8 @@ interface NotificationRepository {
     suspend fun getNotificationSettings(): NotificationSettingDto
 
     suspend fun patchNotificationSettings(settings: NotificationSettingDto): NotificationSettingDto
+
+    fun clearNotificationEvent()
+
+    fun clearCloudMessageEvent()
 }

@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -68,5 +69,13 @@ constructor(
 
     override fun postIsNotReadNotificationCache(value: Boolean) {
         _isNotReadNotificationCache.value = value
+    }
+
+    override fun clearNotificationEvent() {
+        _notificationEvent.update { null }
+    }
+
+    override fun clearCloudMessageEvent() {
+        _cloudMessageEvent.update { null }
     }
 }

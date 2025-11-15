@@ -1,5 +1,7 @@
 package com.captures2024.soongan.domain.usecase.module
 
+import com.captures2024.soongan.domain.usecase.notification.ClearCloudMessageEventUseCase
+import com.captures2024.soongan.domain.usecase.notification.ClearNotificationEventUseCase
 import com.captures2024.soongan.domain.usecase.notification.DeleteNotificationUseCase
 import com.captures2024.soongan.domain.usecase.notification.EmitNotificationUseCase
 import com.captures2024.soongan.domain.usecase.notification.GetCloudMessageEventFlowUseCase
@@ -10,6 +12,8 @@ import com.captures2024.soongan.domain.usecase.notification.GetUnreadNotificatio
 import com.captures2024.soongan.domain.usecase.notification.GetNotificationsUseCase
 import com.captures2024.soongan.domain.usecase.notification.PatchNotificationSettingsUseCase
 import com.captures2024.soongan.domain.usecase.notification.PostNotificationReadUseCase
+import com.captures2024.soongan.domain.usecase.notification.impl.ClearCloudMessageEventUseCaseImpl
+import com.captures2024.soongan.domain.usecase.notification.impl.ClearNotificationEventUseCaseImpl
 import com.captures2024.soongan.domain.usecase.notification.impl.DeleteNotificationUseCaseImpl
 import com.captures2024.soongan.domain.usecase.notification.impl.EmitNotificationUseCaseImpl
 import com.captures2024.soongan.domain.usecase.notification.impl.GetCloudMessageEventFlowUseCaseImpl
@@ -58,4 +62,10 @@ internal abstract class NotificationUseCaseModule {
 
     @Binds
     abstract fun bindGetNotificationEventFlowUseCase(getNotificationEventFlowUseCaseImpl: GetNotificationEventFlowUseCaseImpl): GetNotificationEventFlowUseCase
+
+    @Binds
+    abstract fun bindClearNotificationEventUseCase(clearNotificationEventUseCaseImpl: ClearNotificationEventUseCaseImpl): ClearNotificationEventUseCase
+
+    @Binds
+    abstract fun bindClearCloudMessageEventUseCase(clearCloudMessageEventUseCaseImpl: ClearCloudMessageEventUseCaseImpl): ClearCloudMessageEventUseCase
 }

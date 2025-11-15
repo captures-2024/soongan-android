@@ -9,6 +9,8 @@ import com.captures2024.soongan.core.model.dto.NotificationDto
 import com.captures2024.soongan.core.model.dto.fcm.CloudMessage
 import com.captures2024.soongan.domain.usecase.member.GetCurrentMemberFlowUseCase
 import com.captures2024.soongan.domain.usecase.member.GetIsCurrentGuestModeUseCase
+import com.captures2024.soongan.domain.usecase.notification.ClearCloudMessageEventUseCase
+import com.captures2024.soongan.domain.usecase.notification.ClearNotificationEventUseCase
 import com.captures2024.soongan.domain.usecase.notification.GetCloudMessageEventFlowUseCase
 import com.captures2024.soongan.domain.usecase.notification.GetNotificationEventFlowUseCase
 import com.captures2024.soongan.domain.usecase.system.dialog.SetIsShowGuestModeDialogFlowUseCase
@@ -26,6 +28,8 @@ constructor(
     private val getNotificationEventFlowUseCase: GetNotificationEventFlowUseCase,
     private val getCloudMessageEventFlowUseCase: GetCloudMessageEventFlowUseCase,
     private val getCurrentMemberFlowUseCase: GetCurrentMemberFlowUseCase,
+    private val clearNotificationEventUseCase: ClearNotificationEventUseCase,
+    private val clearCloudMessageEventUseCase: ClearCloudMessageEventUseCase,
 
     analyticsHelper: AnalyticsHelper,
     showLoadingUseCase: ShowLoadingUseCase,
@@ -87,19 +91,11 @@ constructor(
     }
 
     private fun handleClearNotification() {
-        reduce {
-            copy(
-                notification = null,
-            )
-        }
+        clearNotificationEventUseCase()
     }
 
     private fun handleClearCloudMessage() {
-        reduce {
-            copy(
-                cloudMessage = null,
-            )
-        }
+        clearCloudMessageEventUseCase()
     }
 
     private suspend fun collectCurrentMember() {

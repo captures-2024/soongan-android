@@ -101,4 +101,12 @@ constructor(
 
         return notificationSetting
     }
+
+    override fun clearNotificationEvent() {
+        notificationLocalDataSource.clearNotificationEvent()
+    }
+
+    override fun clearCloudMessageEvent() {
+        notificationLocalDataSource.clearCloudMessageEvent()
+    }
 }
