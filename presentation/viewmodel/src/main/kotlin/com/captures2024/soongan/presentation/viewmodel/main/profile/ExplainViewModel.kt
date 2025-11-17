@@ -7,6 +7,7 @@ import com.captures2024.soongan.core.common.base.UIIntent
 import com.captures2024.soongan.core.common.base.UISideEffect
 import com.captures2024.soongan.core.common.base.UIState
 import com.captures2024.soongan.core.navigator.screen.main.profile.ExplainNavigator
+import com.captures2024.soongan.domain.usecase.contest.GetPostInfoUseCase
 import com.captures2024.soongan.domain.usecase.member.GetIsCurrentGuestModeUseCase
 import com.captures2024.soongan.domain.usecase.report.PostExplainUseCase
 import com.captures2024.soongan.domain.usecase.system.dialog.SetIsShowGuestModeDialogFlowUseCase
@@ -14,8 +15,10 @@ import com.captures2024.soongan.domain.usecase.system.loading.ClearLoadingUseCas
 import com.captures2024.soongan.domain.usecase.system.loading.HideLoadingUseCase
 import com.captures2024.soongan.domain.usecase.system.loading.ShowLoadingUseCase
 import com.captures2024.soongan.presentation.viewmodel.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class ExplainViewModel
 @Inject
 constructor(
@@ -27,6 +30,7 @@ constructor(
     setIsShowGuestModeDialogFlowUseCase: SetIsShowGuestModeDialogFlowUseCase,
     savedStateHandle: SavedStateHandle,
     private val postExplainUseCase: PostExplainUseCase,
+    private val getPostInfoUseCase: GetPostInfoUseCase,
 ) : BaseViewModel<ExplainViewModel.State, ExplainViewModel.Effect, ExplainViewModel.Intent>(
     analyticsHelper = analyticsHelper,
     showLoadingUseCase = showLoadingUseCase,
@@ -84,7 +88,7 @@ constructor(
 
     override fun handleIntent(intent: Intent) {
         when (intent) {
-            is Intent.Init -> handleInit()
+            is Intent.Init -> loadingLaunch { handleInit() }
             is Intent.OnClickBack -> handleOnClickBack()
             is Intent.OnClickReport -> loadingLaunch { handleOnClickReport() }
             is Intent.OnExplainValueChange -> handleOnExplainValueChange(intent)
@@ -95,11 +99,26 @@ constructor(
         analyticsHelper.e(throwable = throwable) { "state: $currentState" }
     }
 
-    private fun handleInit() {
+    private suspend fun handleInit() {
         val currentPostId = currentState.postId
 
         if (currentPostId == -1L) {
             postSideEffect(Effect.NavigateToBack)
+            return
+        }
+
+        val postInfo = getPostInfoUseCase(currentPostId).getOrNull()
+
+        if (postInfo == null) {
+            postSideEffect(Effect.NavigateToBack)
+            return
+        }
+
+        reduce {
+            copy(
+                postTitle = postInfo.title,
+                postImageUrl = postInfo.imageUrl,
+            )
         }
     }
 

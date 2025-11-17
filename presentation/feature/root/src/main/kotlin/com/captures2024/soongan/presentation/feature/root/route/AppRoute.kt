@@ -33,6 +33,10 @@ internal fun AppRoute(viewModel: AppViewModel) {
             },
         )
 
+        if (state.isInitialized) {
+            NotificationHost(navController)
+        }
+
         DialogHost(appViewModel = viewModel)
         LoadingHost(visible = state.isLoading)
     }
