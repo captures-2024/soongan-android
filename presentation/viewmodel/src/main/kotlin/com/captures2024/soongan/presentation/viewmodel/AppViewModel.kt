@@ -15,7 +15,6 @@ import com.captures2024.soongan.domain.usecase.member.GetMemberInfoUseCase
 import com.captures2024.soongan.domain.usecase.member.SetGuestModeUseCase
 import com.captures2024.soongan.domain.usecase.notification.EmitNotificationUseCase
 import com.captures2024.soongan.domain.usecase.system.appversion.CheckAppUpdateAvailableUseCase
-import com.captures2024.soongan.domain.usecase.system.appversion.GetIsUpdateAvailableFlowUseCase
 import com.captures2024.soongan.domain.usecase.system.dialog.GetIsShowGuestModeDialogFlowUseCase
 import com.captures2024.soongan.domain.usecase.system.dialog.GetSingleButtonDialogEventUseCase
 import com.captures2024.soongan.domain.usecase.system.dialog.SetIsShowGuestModeDialogFlowUseCase
@@ -26,7 +25,6 @@ import com.captures2024.soongan.domain.usecase.system.loading.HideLoadingUseCase
 import com.captures2024.soongan.domain.usecase.system.loading.ShowLoadingUseCase
 import com.captures2024.soongan.domain.usecase.token.ClearAllTokenUseCase
 import com.captures2024.soongan.presentation.viewmodel.model.AppRoute
-import com.captures2024.soongan.presentation.viewmodel.model.VersionStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -52,7 +50,6 @@ constructor(
     private val getIsShowGuestModeDialogFlowUseCase: GetIsShowGuestModeDialogFlowUseCase,
     private val emitNotificationUseCase: EmitNotificationUseCase,
     private val getInAppBrowserUrlFlowUseCase: GetInAppBrowserUrlFlowUseCase,
-    private val getIsUpdateAvailableFlowUseCase: GetIsUpdateAvailableFlowUseCase,
     private val checkAppUpdateAvailableUseCase: CheckAppUpdateAvailableUseCase,
 ) : BaseViewModel<AppViewModel.State, AppViewModel.Effect, AppViewModel.Intent>(
     analyticsHelper = analyticsHelper,
@@ -66,7 +63,6 @@ constructor(
 
     data class State(
         val isInitialized: Boolean,
-        val appVersionStatus: VersionStatus,
         val isGuestMode: Boolean,
         val isLoading: Pair<Boolean, Long>,
         val isShowGuestModeDialog: Boolean,
@@ -100,11 +96,13 @@ constructor(
             }
 
         override fun toString(): String {
-            return "State(isInitialized=$isInitialized, appVersionStatus=${appVersionStatus.name} isGuestMode=$isGuestMode, isLoading=$isLoading, isShowGuestModeDialog=$isShowGuestModeDialog, rootRouteState=$rootRouteState)"
+            return "State(isInitialized=$isInitialized, isGuestMode=$isGuestMode, isLoading=$isLoading, isShowGuestModeDialog=$isShowGuestModeDialog, rootRouteState=$rootRouteState)"
         }
     }
 
     sealed interface Effect : UISideEffect {
+
+        data object ShowVersionUpdateDialog : Effect
 
         data class ShowSingleButtonDialog(
             val type: CommonDialogType,
@@ -119,8 +117,9 @@ constructor(
 
         data object Init : Intent
 
+        //        TODO(InAppVersion 필요 시)
         data class CheckInAppUpdateAvailable(
-            val condition: Boolean,
+            val isUpdateAvailable: Boolean,
         ) : Intent
 
         data object OnClickConfirmGuestModeDialog : Intent
@@ -138,7 +137,6 @@ constructor(
 
     override fun createInitialState(savedStateHandle: SavedStateHandle): State = State(
         isInitialized = false,
-        appVersionStatus = VersionStatus.IDLE,
         isGuestMode = false,
         isLoading = false to System.currentTimeMillis(),
         isShowGuestModeDialog = false,
@@ -160,7 +158,6 @@ constructor(
     }
 
     private suspend fun handleInit() {
-//        launch { collectIsUpdateAvailable() }
         launch { collectCurrentMember() }
         launch { collectGuestMode() }
         launch { collectLoading() }
@@ -168,25 +165,24 @@ constructor(
         launch { collectInAppBrowserUrl() }
         launch { collectSingleButtonDialogEvent() }
 
-//        fetchRemoteUpdateAvailable()
         fetchRemoteFCMToken()
         fetchRemoteMemberInfo()
 
-//        reduce {
-//            copy(
-//                isInitialized = (appVersionStatus == VersionStatus.ALREADY_UPDATED),
-//            )
-//        }
+//        TODO(RemoteVersion 필요 시)
+//        fetchRemoteUpdateAvailable()
     }
 
     private fun handleOnCheckInAppUpdateAvailable(intent: Intent.CheckInAppUpdateAvailable) {
-        analyticsHelper.d { "handleOnCheckInAppUpdateAvailable - condition : ${intent.condition}" }
+        analyticsHelper.d { "handleOnCheckInAppUpdateAvailable - isUpdateAvailable : ${intent.isUpdateAvailable}" }
 
         reduce {
             copy(
-                appVersionStatus = if (intent.condition) VersionStatus.NEED_UPDATE else VersionStatus.ALREADY_UPDATED,
-                isInitialized = !intent.condition,
+                isInitialized = !intent.isUpdateAvailable,
             )
+        }
+
+        if (intent.isUpdateAvailable) {
+            postSideEffect(Effect.ShowVersionUpdateDialog)
         }
     }
 
@@ -201,17 +197,6 @@ constructor(
 
     private fun handlePostNotification(intent: Intent.PostNotification) {
         emitNotificationUseCase(intent.payload)
-    }
-
-    @Suppress("UnusedPrivateMember")
-    private suspend fun collectIsUpdateAvailable() {
-        getIsUpdateAvailableFlowUseCase().collect { condition ->
-            reduce {
-                copy(
-                    appVersionStatus = if (condition) VersionStatus.NEED_UPDATE else VersionStatus.ALREADY_UPDATED,
-                )
-            }
-        }
     }
 
     private suspend fun collectCurrentMember() {
@@ -267,7 +252,21 @@ constructor(
     }
 
     @Suppress("UnusedPrivateMember")
-    private suspend fun fetchRemoteUpdateAvailable() = checkAppUpdateAvailableUseCase()
+    private suspend fun fetchRemoteUpdateAvailable() {
+        val isUpdateAvailable = checkAppUpdateAvailableUseCase().getOrNull()
+
+        analyticsHelper.d { "fetchRemoteUpdateAvailable - isUpdateAvailable : $isUpdateAvailable" }
+
+        reduce {
+            copy(
+                isInitialized = (isUpdateAvailable != true),
+            )
+        }
+
+        if (isUpdateAvailable == true) {
+            postSideEffect(Effect.ShowVersionUpdateDialog)
+        }
+    }
 
     private suspend fun fetchRemoteFCMToken() {
         val result = initFcmUseCase().getOrNull()
