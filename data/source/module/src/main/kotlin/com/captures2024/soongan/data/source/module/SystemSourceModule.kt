@@ -1,11 +1,9 @@
 package com.captures2024.soongan.data.source.module
 
-import com.captures2024.soongan.data.source.system.impl.local.AppUpdateLocalDataSourceImpl
 import com.captures2024.soongan.data.source.system.impl.local.DialogLocalDataSourceImpl
 import com.captures2024.soongan.data.source.system.impl.local.InAppBrowserLocalDataSourceImpl
 import com.captures2024.soongan.data.source.system.impl.local.LoadingLocalDataSourceImpl
 import com.captures2024.soongan.data.source.system.impl.remote.AppVersionRemoteDataSourceImpl
-import com.captures2024.soongan.data.source.system.local.AppUpdateLocalDataSource
 import com.captures2024.soongan.data.source.system.local.DialogLocalDataSource
 import com.captures2024.soongan.data.source.system.local.InAppBrowserLocalDataSource
 import com.captures2024.soongan.data.source.system.local.LoadingLocalDataSource
@@ -31,10 +29,6 @@ internal abstract class SystemSourceModule {
     @Binds
     @Singleton
     abstract fun bindLoadingLocalDataSource(loadingLocalDataSourceImpl: LoadingLocalDataSourceImpl): LoadingLocalDataSource
-
-    @Binds
-    @Singleton
-    abstract fun bindAppUpdateLocalDataSource(appUpdateLocalDataSourceImpl: AppUpdateLocalDataSourceImpl): AppUpdateLocalDataSource
 
     @Binds
     @Singleton

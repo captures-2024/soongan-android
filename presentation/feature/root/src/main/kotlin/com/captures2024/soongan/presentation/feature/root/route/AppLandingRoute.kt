@@ -24,11 +24,11 @@ internal fun AppLandingRoute(onCheckVersion: (Boolean) -> Unit) {
             val appUpdateManager = AppUpdateManagerFactory.create(context)
             val appUpdateInfo = appUpdateManager.appUpdateInfo.await()
 
-            val condition =
-                appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE &&
-                        appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
+            val isUpdateAvailable = (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE)
+            val isImmediateUpdateAllowed = appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
+            val condition = isUpdateAvailable && isImmediateUpdateAllowed
 
-            analyticsHelper.d { "onCheckVersion: condition=$condition" }
+            analyticsHelper.d { "onCheckVersion: isUpdateAvailable=$condition" }
 
             onCheckVersion(condition)
         }.onFailure { exception ->

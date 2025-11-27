@@ -4,8 +4,7 @@ import kotlinx.coroutines.flow.SharedFlow
 
 interface SystemRepository {
     val inAppBrowserUrl: SharedFlow<String>
-    val isAppUpdateAvailable: SharedFlow<Boolean>
 
     suspend fun launchInAppBrowser(url: String)
-    suspend fun checkAppUpdateAvailable()
+    suspend fun checkAppUpdateAvailable(): Boolean
 }

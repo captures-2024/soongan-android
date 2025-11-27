@@ -1,7 +1,6 @@
 package com.captures2024.soongan.data.repository.system.impl
 
 import com.captures2024.soongan.core.analytics.helper.AnalyticsHelper
-import com.captures2024.soongan.data.source.system.local.AppUpdateLocalDataSource
 import com.captures2024.soongan.data.source.system.local.InAppBrowserLocalDataSource
 import com.captures2024.soongan.data.source.system.remote.AppVersionRemoteDataSource
 import com.captures2024.soongan.domain.repository.system.SystemRepository
@@ -13,14 +12,11 @@ class SystemRepositoryImpl
 constructor(
     private val analyticsHelper: AnalyticsHelper,
     private val inAppBrowserLocalDataSource: InAppBrowserLocalDataSource,
-    private val appUpdateLocalDataSource: AppUpdateLocalDataSource,
     private val appVersionRemoteDataSource: AppVersionRemoteDataSource,
 ) : SystemRepository {
 
     override val inAppBrowserUrl: SharedFlow<String>
         get() = inAppBrowserLocalDataSource.inAppBrowserUrl
-    override val isAppUpdateAvailable: SharedFlow<Boolean>
-        get() = appUpdateLocalDataSource.isAppUpdateAvailable
 
     init {
         analyticsHelper.d { "SystemRepository::init" }
@@ -30,11 +26,11 @@ constructor(
         inAppBrowserLocalDataSource.postInAppBrowserUrl(url)
     }
 
-    override suspend fun checkAppUpdateAvailable() {
+    override suspend fun checkAppUpdateAvailable(): Boolean {
         val serverVersion = appVersionRemoteDataSource.getAppVersion()
         val result = compareSemVer(serverVersion)
 
-        appUpdateLocalDataSource.setIsAppUpdateAvailable(result > 0)
+        return result > 0
     }
 
     private fun compareSemVer(serverVersion: String?): Int {
