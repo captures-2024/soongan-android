@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.captures2024.soongan.core.model.dto.PostInfoDto
+import com.captures2024.soongan.core.model.enums.ContestStatus
 import com.captures2024.soongan.presentation.designsystem.ui.theme.SGTheme
 import com.captures2024.soongan.presentation.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.presentation.designsystem.ui.util.extension.sgBottomBarPadding
@@ -40,21 +41,23 @@ internal fun HomeScreen(
             onClickRetry = onClickRetry,
         )
 
-        HomeInfoState.EMPTY -> HomeEmptyComponent(
-            isLoading = state.isLoading,
-            modifier = commonModifier,
-            onClickPostList = onClickPostList,
-        )
+        HomeInfoState.SUCCESS -> when (state.homeInfo.homeContestInfo?.status) {
+            ContestStatus.IN_PROGRESS -> HomeSuccessComponent(
+                isLoading = state.isLoading,
+                homeInfo = state.homeInfo,
+                modifier = commonModifier,
+                onClickRegister = onClickRegister,
+                onClickPost = onClickPost,
+                onClickPostList = onClickPostList,
+                onClickContestInfo = onClickContestInfo,
+            )
 
-        HomeInfoState.SUCCESS -> HomeSuccessComponent(
-            isLoading = state.isLoading,
-            homeInfo = state.homeInfo,
-            modifier = commonModifier,
-            onClickRegister = onClickRegister,
-            onClickPost = onClickPost,
-            onClickPostList = onClickPostList,
-            onClickContestInfo = onClickContestInfo,
-        )
+            else -> HomeEmptyComponent(
+                isLoading = state.isLoading,
+                modifier = commonModifier,
+                onClickPostList = onClickPostList,
+            )
+        }
     }
 
     if (state.isShowContestInfoBottomSheet) {
@@ -92,26 +95,6 @@ private fun PreviewHomeScreen_ERROR() {
             state = HomeViewModel.State(
                 homeInfo = HomeViewModel.State.HomeInfo(
                     homeInfoState = HomeInfoState.ERROR,
-                ),
-            ),
-            onClickRetry = {},
-            onClickPostList = {},
-            onClickRegister = {},
-            onClickPost = {},
-            onClickContestInfo = {},
-            onDismissRequest = {},
-        )
-    }
-}
-
-@DevicePreviews
-@Composable
-private fun PreviewHomeScreen_EMPTY() {
-    SGTheme {
-        HomeScreen(
-            state = HomeViewModel.State(
-                homeInfo = HomeViewModel.State.HomeInfo(
-                    homeInfoState = HomeInfoState.EMPTY,
                 ),
             ),
             onClickRetry = {},

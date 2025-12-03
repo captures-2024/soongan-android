@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.captures2024.soongan.core.model.dto.HomeContestInfoDto
 import com.captures2024.soongan.core.model.dto.PostInfoDto
+import com.captures2024.soongan.core.model.enums.ContestStatus
 import com.captures2024.soongan.presentation.designsystem.ui.component.WeightSpacer
 import com.captures2024.soongan.presentation.designsystem.ui.component.text.SGText
 import com.captures2024.soongan.presentation.designsystem.ui.component.text.getSGNonScaleTextStyle
@@ -167,6 +168,7 @@ private fun PreviewHomeSuccessComponent_Empty() {
                     subject = "평화",
                     startAt = "2025.05.16",
                     endAt = "2025.05.31",
+                    status = ContestStatus.IN_PROGRESS,
                 ),
                 postInfos = emptyList(),
             ),
@@ -190,6 +192,7 @@ private fun PreviewHomeSuccessComponent_NotEmpty() {
                     subject = "평화",
                     startAt = "2025.05.16",
                     endAt = "2025.05.31",
+                    status = ContestStatus.IN_PROGRESS,
                 ),
                 postInfos = listOf(
                     PostInfoDto(),
@@ -215,6 +218,7 @@ private fun PreviewHomeSuccessComponent_Loading() {
                     subject = "평화",
                     startAt = "2025.05.16",
                     endAt = "2025.05.31",
+                    status = ContestStatus.IN_PROGRESS,
                 ),
                 postInfos = listOf(
                     PostInfoDto(),
