@@ -5,6 +5,8 @@ import com.captures2024.soongan.core.model.utils.NotificationType
 sealed interface CloudMessage {
 
     data class CommentMessageDto(
+        val title: String,
+        val body: String,
         val notificationType: NotificationType,
         val postId: Long,
         val timestamp: String,
@@ -13,6 +15,8 @@ sealed interface CloudMessage {
         companion object {
             fun fromPayload(payload: Map<String, Any?>): CommentMessageDto? = runCatching {
                 CommentMessageDto(
+                    title = payload["title"]!!.toString(),
+                    body = payload["body"]!!.toString(),
                     notificationType = NotificationType.fromString(payload[CommentMessageDto::notificationType.name]!!.toString())!!,
                     postId = payload[CommentMessageDto::postId.name]!!.toString().toLong(),
                     timestamp = payload[CommentMessageDto::timestamp.name]!!.toString(),
@@ -22,6 +26,8 @@ sealed interface CloudMessage {
     }
 
     data class NeedExplainMessageDto(
+        val title: String,
+        val body: String,
         val notificationType: NotificationType,
         val targetId: Long,
         val targetType: String,
@@ -31,6 +37,8 @@ sealed interface CloudMessage {
         companion object {
             fun fromPayload(payload: Map<String, Any?>): NeedExplainMessageDto? = runCatching {
                 NeedExplainMessageDto(
+                    title = payload["title"]!!.toString().takeIf { it.contains("소명") }!!,
+                    body = payload["body"]!!.toString(),
                     notificationType = NotificationType.fromString(payload[NeedExplainMessageDto::notificationType.name]!!.toString())!!,
                     targetId = payload[NeedExplainMessageDto::targetId.name]!!.toString().toLong(),
                     targetType = payload[NeedExplainMessageDto::targetType.name]!!.toString(),
@@ -41,6 +49,8 @@ sealed interface CloudMessage {
     }
 
     data class BlockMessageDto(
+        val title: String,
+        val body: String,
         val notificationType: NotificationType,
         val targetId: Long,
         val targetType: String,
@@ -50,6 +60,8 @@ sealed interface CloudMessage {
         companion object {
             fun fromPayload(payload: Map<String, Any?>): BlockMessageDto? = runCatching {
                 BlockMessageDto(
+                    title = payload["title"]!!.toString(),
+                    body = payload["body"]!!.toString(),
                     notificationType = NotificationType.fromString(payload[BlockMessageDto::notificationType.name]!!.toString())!!,
                     targetId = payload[BlockMessageDto::targetId.name]!!.toString().toLong(),
                     targetType = payload[BlockMessageDto::targetType.name]!!.toString(),
@@ -60,6 +72,8 @@ sealed interface CloudMessage {
     }
 
     data class ReportResultMessageDto(
+        val title: String,
+        val body: String,
         val link: String,
         val notificationType: NotificationType,
         val postId: Long,
@@ -69,6 +83,8 @@ sealed interface CloudMessage {
         companion object {
             fun fromPayload(payload: Map<String, Any?>): ReportResultMessageDto? = runCatching {
                 ReportResultMessageDto(
+                    title = payload["title"]!!.toString(),
+                    body = payload["body"]!!.toString(),
                     link = payload[ReportResultMessageDto::link.name]!!.toString(),
                     notificationType = NotificationType.fromString(payload[ReportResultMessageDto::notificationType.name]!!.toString())!!,
                     postId = payload[ReportResultMessageDto::postId.name]!!.toString().toLong(),

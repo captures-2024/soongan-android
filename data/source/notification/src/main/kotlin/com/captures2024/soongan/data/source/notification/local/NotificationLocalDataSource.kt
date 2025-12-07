@@ -20,4 +20,8 @@ interface NotificationLocalDataSource {
     suspend fun parseNotification(payload: Map<String, Any?>)
 
     fun postIsNotReadNotificationCache(value: Boolean)
+
+    fun clearNotificationEvent()
+
+    fun clearCloudMessageEvent()
 }

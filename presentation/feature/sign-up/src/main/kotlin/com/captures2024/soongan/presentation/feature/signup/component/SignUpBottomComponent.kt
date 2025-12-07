@@ -3,7 +3,6 @@ package com.captures2024.soongan.presentation.feature.signup.component
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -32,11 +31,11 @@ internal fun SignUpBottomComponent(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .heightIn(min = 115.dp)
             .background(color = Color(0xFFFAFAF8))
+            .padding(horizontal = 40.dp)
             .padding(
-                horizontal = 40.dp,
-                vertical = 20.dp,
+                top = 8.dp,
+                bottom = 20.dp,
             ),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
