@@ -11,6 +11,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.core.net.toUri
 import com.captures2024.soongan.core.android.utils.LocalAnalyticsHelper
+import com.captures2024.soongan.core.model.AppConst.External.PLAY_STORE_PREFIX
 import com.captures2024.soongan.core.model.enums.CommonDialogType
 import com.captures2024.soongan.presentation.feature.root.R
 import com.captures2024.soongan.presentation.feature.root.component.DialogHostComponent
@@ -60,8 +61,9 @@ internal fun DialogHost(appViewModel: AppViewModel) {
             content = stringResource(R.string.version_update_dialog_content),
             confirmContent = stringResource(R.string.version_update_dialog_confirm),
             onClickConfirm = {
-                val intent = Intent(Intent.ACTION_VIEW)
-                intent.setData(("market://details?id=" + context.packageName).toUri())
+                val intent = Intent(Intent.ACTION_VIEW).apply {
+                    data = "$PLAY_STORE_PREFIX${context.packageName}".toUri()
+                }
                 context.startActivity(intent)
             },
         )
