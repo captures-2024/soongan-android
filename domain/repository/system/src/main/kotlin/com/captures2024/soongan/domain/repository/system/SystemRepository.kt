@@ -6,4 +6,5 @@ interface SystemRepository {
     val inAppBrowserUrl: SharedFlow<String>
 
     suspend fun launchInAppBrowser(url: String)
+    suspend fun checkAppUpdateAvailable(): Boolean
 }

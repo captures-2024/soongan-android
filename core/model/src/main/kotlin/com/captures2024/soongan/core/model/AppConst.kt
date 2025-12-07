@@ -48,4 +48,14 @@ object AppConst {
         const val ACCESS_TOKEN_ALLOW = "$AUTH_HEADER: true"
         const val REFRESH_TOKEN_ALLOW = "$AUTH_HEADER: false"
     }
+
+    object InAppBrowser {
+        const val PRIVACY_POLICY = "https://abyssinian-cherry-9fc.notion.site/71392fc225bf47b69e353739a74829db?pvs=4"
+        const val TERMS = "https://abyssinian-cherry-9fc.notion.site/5724dc92a43c4e7e94fd5ccf8ab0608b"
+        const val INQUIRY_FORM = "https://forms.gle/sPEVxtXh9Kt4mVm36"
+    }
+
+    object External {
+        const val PLAY_STORE_PREFIX = "market://details?id="
+    }
 }

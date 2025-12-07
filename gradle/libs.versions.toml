@@ -112,6 +112,7 @@ android-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "
 android-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "android-room" }
 android-credentials = { group = "androidx.credentials", name = "credentials", version.ref = "android-credentials" }
 android-credentials-play-services-auth = { group = "androidx.credentials", name = "credentials-play-services-auth", version.ref = "android-credentials" }
+android-app-update-ktx = { group = "com.google.android.play", name = "app-update-ktx", version.ref = "android-in-app-update" }
 
 # android-compose
 android-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "android-compose-bom" }

@@ -6,6 +6,10 @@ plugins {
 
 android {
     namespace = "com.captures2024.soongan.data.repository.system.impl"
+
+    defaultConfig {
+        buildConfigField("String", "APP_VERSION", "\"${libs.versions.appVersion.get()}\"")
+    }
 }
 
 dependencies {

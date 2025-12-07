@@ -14,6 +14,7 @@ import com.captures2024.soongan.domain.usecase.member.GetIsCurrentGuestModeUseCa
 import com.captures2024.soongan.domain.usecase.member.GetMemberInfoUseCase
 import com.captures2024.soongan.domain.usecase.member.SetGuestModeUseCase
 import com.captures2024.soongan.domain.usecase.notification.EmitNotificationUseCase
+import com.captures2024.soongan.domain.usecase.system.appversion.CheckAppUpdateAvailableUseCase
 import com.captures2024.soongan.domain.usecase.system.dialog.GetIsShowGuestModeDialogFlowUseCase
 import com.captures2024.soongan.domain.usecase.system.dialog.GetSingleButtonDialogEventUseCase
 import com.captures2024.soongan.domain.usecase.system.dialog.SetIsShowGuestModeDialogFlowUseCase
@@ -49,6 +50,7 @@ constructor(
     private val getIsShowGuestModeDialogFlowUseCase: GetIsShowGuestModeDialogFlowUseCase,
     private val emitNotificationUseCase: EmitNotificationUseCase,
     private val getInAppBrowserUrlFlowUseCase: GetInAppBrowserUrlFlowUseCase,
+    private val checkAppUpdateAvailableUseCase: CheckAppUpdateAvailableUseCase,
 ) : BaseViewModel<AppViewModel.State, AppViewModel.Effect, AppViewModel.Intent>(
     analyticsHelper = analyticsHelper,
     showLoadingUseCase = showLoadingUseCase,
@@ -100,6 +102,8 @@ constructor(
 
     sealed interface Effect : UISideEffect {
 
+        data object ShowVersionUpdateDialog : Effect
+
         data class ShowSingleButtonDialog(
             val type: CommonDialogType,
         ) : Effect
@@ -112,6 +116,11 @@ constructor(
     sealed interface Intent : UIIntent {
 
         data object Init : Intent
+
+        //        TODO(InAppVersion 필요 시)
+        data class CheckInAppUpdateAvailable(
+            val isUpdateAvailable: Boolean,
+        ) : Intent
 
         data object OnClickConfirmGuestModeDialog : Intent
 
@@ -141,6 +150,7 @@ constructor(
     override fun handleIntent(intent: Intent) {
         when (intent) {
             is Intent.Init -> launch { handleInit() }
+            is Intent.CheckInAppUpdateAvailable -> handleOnCheckInAppUpdateAvailable(intent)
             is Intent.OnClickConfirmGuestModeDialog -> loadingLaunch { handleOnClickConfirmGuestModeDialog() }
             is Intent.OnClickDismissGuestModeDialog -> handleOnClickDismissGuestModeDialog()
             is Intent.PostNotification -> handlePostNotification(intent)
@@ -158,10 +168,21 @@ constructor(
         fetchRemoteFCMToken()
         fetchRemoteMemberInfo()
 
+//        TODO(RemoteVersion 필요 시)
+//        fetchRemoteUpdateAvailable()
+    }
+
+    private fun handleOnCheckInAppUpdateAvailable(intent: Intent.CheckInAppUpdateAvailable) {
+        analyticsHelper.d { "handleOnCheckInAppUpdateAvailable - isUpdateAvailable : ${intent.isUpdateAvailable}" }
+
         reduce {
             copy(
-                isInitialized = true,
+                isInitialized = !intent.isUpdateAvailable,
             )
+        }
+
+        if (intent.isUpdateAvailable) {
+            postSideEffect(Effect.ShowVersionUpdateDialog)
         }
     }
 
@@ -227,6 +248,23 @@ constructor(
     private suspend fun collectSingleButtonDialogEvent() {
         getSingleButtonDialogEventUseCase().collect {
             postSideEffect(Effect.ShowSingleButtonDialog(it))
+        }
+    }
+
+    @Suppress("UnusedPrivateMember")
+    private suspend fun fetchRemoteUpdateAvailable() {
+        val isUpdateAvailable = checkAppUpdateAvailableUseCase().getOrNull()
+
+        analyticsHelper.d { "fetchRemoteUpdateAvailable - isUpdateAvailable : $isUpdateAvailable" }
+
+        reduce {
+            copy(
+                isInitialized = (isUpdateAvailable != true),
+            )
+        }
+
+        if (isUpdateAvailable == true) {
+            postSideEffect(Effect.ShowVersionUpdateDialog)
         }
     }
 

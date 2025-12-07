@@ -18,7 +18,11 @@ internal fun AppRoute(viewModel: AppViewModel) {
             intent = viewModel::intent,
             state = state,
             appLandingRoute = @Composable {
-                AppLandingRoute()
+                AppLandingRoute(
+                    onCheckVersion = {
+                        viewModel.intent(AppViewModel.Intent.CheckInAppUpdateAvailable(it))
+                    },
+                )
             },
             appSignRoute = @Composable {
                 AppSignRoute(

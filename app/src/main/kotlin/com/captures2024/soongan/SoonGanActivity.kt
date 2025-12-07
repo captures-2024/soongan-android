@@ -97,7 +97,7 @@ class SoonGanActivity : ComponentActivity() {
                 appViewModel.sideEffect.collect { effect ->
                     when (effect) {
                         is AppViewModel.Effect.OpenInAppBrowser -> launchInAppBrowser(effect.url)
-                        is AppViewModel.Effect.ShowSingleButtonDialog -> Unit
+                        is AppViewModel.Effect.ShowSingleButtonDialog, AppViewModel.Effect.ShowVersionUpdateDialog -> Unit
                     }
                 }
             }

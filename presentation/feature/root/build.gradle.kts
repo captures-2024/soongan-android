@@ -13,4 +13,5 @@ dependencies {
 
     implementation(projects.presentation.feature.main)
     implementation(projects.presentation.feature.sign)
+    implementation(libs.android.app.update.ktx)
 }
