@@ -13,4 +13,6 @@ data class GetHomeStatusContestInfoResponse(
     val startAt: String,
     @SerialName("endAt")
     val endAt: String,
+    @SerialName("status")
+    val status: String,
 )
