@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--  SocialSignButton  -->
+    <string name="google_sign_content">Google로 로그인</string>
+    <string name="kakao_sign_content">Kakao로 로그인</string>
+    <string name="sign_leading_icon_description">social_sign_icon</string>
+
+    <!--  TermsComponent  -->
+    <string name="terms_first_content">계속하시면\u0020</string>
+    <string name="terms_second_content">\u0020및\u0020</string>
+    <string name="terms_third_content">에 동의하시게 됩니다.</string>
+    <string name="terms_first_clickable_content">이용약관</string>
+    <string name="terms_second_clickable_content">개인보호 정책</string>
+    <string name="terms_first_clickable_tag">terms</string>
+    <string name="terms_second_clickable_tag">privacy</string>
+
+    <!--  SignInScreen  -->
+    <string name="guest_mode_content">둘러보기</string>
+
+</resources>

@@ -1,0 +1,47 @@
+package com.captures2024.soongan.presentation.feature.main.home.route
+
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.LifecycleResumeEffect
+import com.captures2024.soongan.core.model.dto.PostInfoDto
+import com.captures2024.soongan.presentation.feature.main.home.component.screen.HomeScreen
+import com.captures2024.soongan.presentation.viewmodel.main.home.HomeViewModel
+
+@Composable
+internal fun HomeRoute(
+    navigateToPost: (PostInfoDto) -> Unit,
+    navigateToFeed: () -> Unit,
+    navigateToRegister: () -> Unit,
+    viewModel: HomeViewModel = hiltViewModel(),
+) {
+    val state by viewModel.state.collectAsState()
+
+    LaunchedEffect(viewModel.sideEffect) {
+        viewModel.sideEffect.collect { effect ->
+            when (effect) {
+                is HomeViewModel.Effect.NavigateToPost -> navigateToPost(effect.postInfoDto)
+                is HomeViewModel.Effect.NavigateToFeed -> navigateToFeed()
+                is HomeViewModel.Effect.NavigateToRegister -> navigateToRegister()
+            }
+        }
+    }
+
+    LifecycleResumeEffect(Unit) {
+        viewModel.intent(HomeViewModel.Intent.OnResumeView)
+
+        onPauseOrDispose {}
+    }
+
+    HomeScreen(
+        state = state,
+        onClickRetry = { viewModel.intent(HomeViewModel.Intent.OnClickRetry) },
+        onClickPostList = { viewModel.intent(HomeViewModel.Intent.OnClickPostList) },
+        onClickRegister = { viewModel.intent(HomeViewModel.Intent.OnClickRegister) },
+        onClickPost = { viewModel.intent(HomeViewModel.Intent.OnClickPost(it)) },
+        onClickContestInfo = { viewModel.intent(HomeViewModel.Intent.OnClickContestInfo) },
+        onDismissRequest = { viewModel.intent(HomeViewModel.Intent.DismissContestInfoBottomSheet) },
+    )
+}

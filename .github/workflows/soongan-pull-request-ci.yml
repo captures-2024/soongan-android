@@ -1,0 +1,94 @@
+name: Soongan Pull Request CI
+
+on:
+  pull_request:
+    branches: [ "develop" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: gradle
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Gradle Caching
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Decode Keystore Base64
+        run: |
+          mkdir -p keystore
+          echo "${{ secrets.DEBUG_KEYSTORE }}" | base64 --decode > keystore/debug.keystore
+          echo "${{ secrets.RELEASE_KEYSTORE_JKS }}" | base64 --decode > keystore/release.keystore.jks
+
+      - name: Create Properties & Google Services JSON
+        env:
+          LOCAL_PROPERTIES: ${{secrets.LOCAL_PROPERTIES}}
+          KEYSTORE_PROPERTIES: ${{ secrets.KEYSTORE_PROPERTIES }}
+          SECRETS_PROPERTIES: ${{ secrets.SECRETS_PROPERTIES }}
+          GOOGLE_SERVICES_JSON: ${{secrets.GOOGLE_SERVICES_JSON}}
+        run: |
+          echo "$LOCAL_PROPERTIES" > local.properties
+          echo "$KEYSTORE_PROPERTIES" > keystore.properties
+          echo "$SECRETS_PROPERTIES" > secrets.properties
+          echo "$GOOGLE_SERVICES_JSON" > app/google-services.json
+
+      # detekt 실행
+      - name: Run detekt
+        id: detekt
+        run: ./gradlew detekt
+
+      - name: Upload Detekt SARIF file
+        uses: github/codeql-action/upload-sarif@v3
+        if: success() || failure()
+        with:
+          sarif_file: build/reports/detekt/merge.sarif
+
+      # detekt 결과 discord 알림 콘텐츠 설정
+      - name: Set Discord Notification Content
+        id: set_discord_content
+        run: |
+          if [ "${{ steps.detekt.outcome }}" == "success" ]; then
+            echo "DISCORD_COLOR=65280" >> $GITHUB_ENV
+            echo "DISCORD_STATUS=✅ Success" >> $GITHUB_ENV
+          else
+            echo "DISCORD_COLOR=16711680" >> $GITHUB_ENV
+            echo "DISCORD_STATUS=❌ Failure" >> $GITHUB_ENV
+          fi
+
+      # discord 알림
+      - name: Send Detekt Result to Discord
+        uses: tsickert/discord-webhook@v7.0.0
+        if: always()
+        with:
+          webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
+          username: 'Android CI Bot'
+          avatar-url: 'https://github.com/pknu-wap/WAPP/blob/main/image/icon.png?raw=true'
+          embed-title: "Detekt Code Analysis Report"
+          embed-description: |
+            **Pull Request:** `${{ github.event.pull_request.title }}`
+            **Branch:** `${{ github.head_ref }}`
+            **Status:** `${{ env.DISCORD_STATUS }}`
+            **Triggered by:** `${{ github.actor }}`
+          embed-url: "${{ github.event.pull_request.html_url }}/files"
+          embed-color: "${{ env.DISCORD_COLOR }}"
+          embed-footer-text: "자세한 분석 결과는 Pull Request의 'Checks' 탭을 확인하세요."

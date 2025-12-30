@@ -1,0 +1,161 @@
+package com.captures2024.soongan.presentation.feature.main.component.screen
+
+import android.annotation.SuppressLint
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
+import androidx.navigation.NavBackStackEntry
+import androidx.navigation.compose.NavHost
+import androidx.navigation.serialization.generateHashCode
+import com.captures2024.soongan.core.navigator.screen.main.awards.AwardsNavigator
+import com.captures2024.soongan.core.navigator.screen.main.awards.navigateToAwardsInfo
+import com.captures2024.soongan.core.navigator.screen.main.feed.FeedNavigator
+import com.captures2024.soongan.core.navigator.screen.main.feed.navigateToFeed
+import com.captures2024.soongan.core.navigator.screen.main.home.HomeNavigator
+import com.captures2024.soongan.core.navigator.screen.main.home.navigateToHome
+import com.captures2024.soongan.core.navigator.screen.main.home.navigateToPostInfoRegistration
+import com.captures2024.soongan.core.navigator.screen.main.post.navigateToEditPost
+import com.captures2024.soongan.core.navigator.screen.main.post.navigateToImageViewer
+import com.captures2024.soongan.core.navigator.screen.main.post.navigateToPostInfo
+import com.captures2024.soongan.core.navigator.screen.main.profile.ProfileNavigator
+import com.captures2024.soongan.core.navigator.screen.main.profile.navigateToCompleteExplain
+import com.captures2024.soongan.core.navigator.screen.main.profile.navigateToEditProfile
+import com.captures2024.soongan.core.navigator.screen.main.profile.navigateToFAQ
+import com.captures2024.soongan.core.navigator.screen.main.profile.navigateToNotification
+import com.captures2024.soongan.core.navigator.screen.main.util.navigateFromNotification
+import com.captures2024.soongan.core.navigator.screen.main.welcome.WelcomeNavigator
+import com.captures2024.soongan.presentation.feature.main.awards.navigation.mainAwards
+import com.captures2024.soongan.presentation.feature.main.component.MainComponent
+import com.captures2024.soongan.presentation.feature.main.feed.navigation.mainFeed
+import com.captures2024.soongan.presentation.feature.main.home.navigation.mainHome
+import com.captures2024.soongan.presentation.feature.main.navigation.MainNavigationState
+import com.captures2024.soongan.presentation.feature.main.navigation.welcome
+import com.captures2024.soongan.presentation.feature.main.post.navigation.mainPost
+import com.captures2024.soongan.presentation.feature.main.profile.navigation.mainProfile
+import com.captures2024.soongan.presentation.viewmodel.main.MainNotificationViewModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+
+@Composable
+internal fun MainScreen(
+    navigationState: MainNavigationState,
+    state: MainNotificationViewModel.State,
+) {
+    val scope = rememberCoroutineScope()
+    val navController = navigationState.navController
+
+    var isAvailableBack by remember { mutableStateOf(true) }
+
+    val navigateToBack: () -> Unit = {
+        if (isAvailableBack) {
+            isAvailableBack = false
+            navController.navigateUp()
+
+            scope.launch {
+                delay(500L)
+                isAvailableBack = true
+            }
+        }
+    }
+
+    MainComponent(
+        navigationState = navigationState,
+        isNotReadNotification = state.isNotReadNotification,
+    ) {
+        NavHost(
+            navController = navController,
+            startDestination = when (navigationState.isGuestMode) {
+                true -> HomeNavigator
+                false -> WelcomeNavigator
+            },
+            enterTransition = { getEnterTransition() },
+            exitTransition = { getExitTransition() },
+        ) {
+            welcome(
+                navigateToHome = navController::navigateToHome,
+            )
+            mainAwards(
+                navigateToAwardsInfo = navController::navigateToAwardsInfo,
+                navigateToBack = navigateToBack,
+                navigateToFeed = navController::navigateToFeed,
+                navigateToPost = navController::navigateToPostInfo,
+            )
+            mainFeed(
+                navigateToPost = navController::navigateToPostInfo,
+            )
+            mainHome(
+                navigateToRegistrationPost = navController::navigateToPostInfoRegistration,
+                navigateToFeed = navController::navigateToFeed,
+                navigateToPost = navController::navigateToPostInfo,
+            )
+            mainPost(
+                navigateToBack = navigateToBack,
+                navigateToImageViewer = navController::navigateToImageViewer,
+                navigateToEditPost = navController::navigateToEditPost,
+                navigateToPost = navController::navigateToPostInfo,
+            )
+            mainProfile(
+                navigateToBack = navigateToBack,
+                navigateToNotification = navController::navigateToNotification,
+                navigateToPostInfo = navController::navigateToPostInfo,
+                navigateToRegistrationPost = navController::navigateToPostInfoRegistration,
+                navigateToEditProfile = navController::navigateToEditProfile,
+                navigateToFAQ = navController::navigateToFAQ,
+                navigateFromNotification = navController::navigateFromNotification,
+                navigateToCompleteExplain = navController::navigateToCompleteExplain,
+            )
+        }
+    }
+}
+
+@SuppressLint("RestrictedApi")
+private fun AnimatedContentTransitionScope<NavBackStackEntry>.getEnterTransition(): EnterTransition {
+    return when (targetState.destination.id) {
+        WelcomeNavigator.serializer().generateHashCode(),
+        HomeNavigator.serializer().generateHashCode(),
+        AwardsNavigator.serializer().generateHashCode(),
+        FeedNavigator.serializer().generateHashCode(),
+        ProfileNavigator.serializer().generateHashCode(),
+        -> fadeIn()
+
+        else -> fadeIn() + slideInHorizontally(
+            initialOffsetX = { it },
+            animationSpec = tween(
+                durationMillis = 300,
+                easing = LinearEasing,
+            ),
+        )
+    }
+}
+
+@SuppressLint("RestrictedApi")
+private fun AnimatedContentTransitionScope<NavBackStackEntry>.getExitTransition(): ExitTransition {
+    return when (initialState.destination.id) {
+        WelcomeNavigator.serializer().generateHashCode(),
+        HomeNavigator.serializer().generateHashCode(),
+        AwardsNavigator.serializer().generateHashCode(),
+        FeedNavigator.serializer().generateHashCode(),
+        ProfileNavigator.serializer().generateHashCode(),
+        -> fadeOut()
+
+        else -> fadeOut() + slideOutHorizontally(
+            targetOffsetX = { it },
+            animationSpec = tween(
+                durationMillis = 300,
+                easing = LinearEasing,
+            ),
+        )
+    }
+}

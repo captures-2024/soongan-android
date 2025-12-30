@@ -1,69 +1,89 @@
+import com.captures2024.soongan.plugin.implementation
+
 plugins {
-    alias(libs.plugins.androidApplication)
-    alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.captures2024.soongan.android.application)
+    alias(libs.plugins.captures2024.soongan.android.hilt)
+    alias(libs.plugins.captures2024.soongan.google.auth)
+    alias(libs.plugins.captures2024.soongan.google.firebase)
+    alias(libs.plugins.captures2024.soongan.okhttp)
+    alias(libs.plugins.captures2024.soongan.retrofit)
+    alias(libs.plugins.captures2024.soongan.test.junit5)
+    alias(libs.plugins.captures2024.soongan.test.kotest)
+    alias(libs.plugins.google.crashlytics)
 }
 
 android {
-    namespace = "com.example.soongan"
-    compileSdk = 34
+    namespace = "com.captures2024.soongan"
 
     defaultConfig {
-        applicationId = "com.example.soongan"
-        minSdk = 26
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        val properties = loadProperties()
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
+        val kakaoApiKey = DefaultKeyValue.isAllowedBaseUrl(properties["kakaoApiKey"] as? String)
+
+        manifestPlaceholders["KAKAO_API_KEY"] = kakaoApiKey
+
+        buildConfigField("String", "KAKAO_API_KEY", "\"${kakaoApiKey}\"")
+    }
+
+    signingConfigs {
+        getByName("debug") {
+            storeFile = File("${project.rootDir.absolutePath}/keystore/debug.keystore")
+            storePassword = "android"
+            keyAlias = "androiddebugkey"
+            keyPassword = "android"
+        }
+
+        create("release") {
+            val properties = loadKeyProperties()
+
+            storeFile = File("${project.rootDir.absolutePath}/keystore/release.keystore.jks")
+            storePassword = properties.getProperty("storePassword")
+            keyAlias = properties.getProperty("keyAlias")
+            keyPassword = properties.getProperty("keyPassword")
         }
     }
 
     buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+        getByName("debug") {
+            isDebuggable = true
+            manifestPlaceholders += mapOf(
+                "appName" to "@string/app_name_dev",
             )
         }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
-    }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+
+        getByName("release") {
+            isDebuggable = false
+            signingConfig = signingConfigs.getByName("release")
+            manifestPlaceholders += mapOf(
+                "appName" to "@string/app_name",
+            )
         }
     }
 }
 
 dependencies {
+    implementation(projects.core.analytics)
+    implementation(projects.core.analyticsAndroid)
+    implementation(projects.core.auth)
+    implementation(projects.core.common)
+    implementation(projects.core.model)
+    implementation(projects.core.navigator)
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.ui)
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
+    implementation(projects.data.datastore)
+    implementation(projects.data.network)
+
+    implementation(projects.data.service.module)
+    implementation(projects.data.source.module)
+    implementation(projects.data.repository.module)
+
+    implementation(projects.domain.usecase.module)
+
+    implementation(projects.presentation.feature.root)
+
+    implementation(projects.presentation.viewmodel)
+
+    implementation(libs.google.firebase.crashlytics)
+
+    implementation(libs.android.startup)
+    implementation(libs.kakao.login)
 }

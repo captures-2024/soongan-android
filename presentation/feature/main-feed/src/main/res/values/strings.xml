@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="filter_likes">좋아요 순</string>
+    <string name="filter_oldest">오래된 순</string>
+    <string name="filter_newest">최신 등록 순</string>
+
+<!--  FeedScreen  -->
+    <string name="feed_gallery_post_empty_content">해당 회차에 참가한 작품이 없어요.</string>
+    <string name="feed_gallery_post_error_content">해당 회차 참가 작품을 불러올 수 없어요.</string>
+
+<!--  FeedGalleryHeaderComponent  -->
+    <string name="feed_gallery_header_title_round_unit">%1$s회차</string>
+
+    <!--  FeedScrollPickerComponent  -->
+    <string name="feed_scroll_title_picker_header_text">회차 선택</string>
+    <string name="feed_scroll_title_picker_dismiss_text">취소</string>
+    <string name="feed_scroll_title_picker_confirm_text">확인</string>
+    <string name="scroll_picker_title_infix_text">"회차  "</string>
+</resources>

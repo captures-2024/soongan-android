@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dialog_confirm">확인</string>
+
+    <string name="guest_mode_dialog_content">해당 기능은\n로그인 필요한 기능입니다.</string>
+    <string name="token_expired_dialog_content">토큰이 만료되었습니다. 다시 로그인해주세요.</string>
+    <string name="success_sign_dialog_content">로그인이 완료되었습니다.</string>
+    <string name="network_error_dialog_content">네트워크 오류가 발생하였습니다.</string>
+    <string name="other_social_dialog_content">다른 소셜로 가입된 계정입니다.</string>
+    <string name="version_update_dialog_content">원활한 앱 활동을 위해\n버전 업데이트가 필요합니다.</string>
+    <string name="version_update_dialog_confirm">업데이트 하러가기</string>
+</resources>
