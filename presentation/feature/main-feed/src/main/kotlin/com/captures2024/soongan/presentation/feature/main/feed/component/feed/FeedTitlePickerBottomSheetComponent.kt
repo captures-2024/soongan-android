@@ -55,7 +55,6 @@ private fun FeedScrollTitlePickerBottomSheet_Preview() {
 
     val positionalThresholdToPx = { with(density) { 56.dp.toPx() } }
     val velocityThresholdToPx = { with(density) { 56.dp.toPx() } }
-    
     val options = listOf(
         TitleOption(round = 1, subject = "주제"),
         TitleOption(round = 2, subject = "주제"),
