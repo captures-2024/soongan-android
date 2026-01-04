@@ -61,10 +61,10 @@ test-kotest = "6.0.7"
 
 # google
 google-ksp = "2.3.4"
-google-services = "4.4.3"
-google-firebase = "33.16.0"
+google-services = "4.4.4"
+google-firebase = "34.7.0"
 google-id = "1.1.1"
-google-crashlytics = "3.0.4"
+google-crashlytics = "3.0.6"
 
 # dagger hilt
 dagger-hilt = "2.57.2"
@@ -136,10 +136,10 @@ google-id = { group = "com.google.android.libraries.identity.googleid", name = "
 
 # firebase
 google-firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "google-firebase" }
-google-firebase-auth = { group = "com.google.firebase", name = "firebase-auth-ktx"}
-google-firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics-ktx"}
-google-firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics-ktx"}
-google-firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging-ktx"}
+google-firebase-auth = { group = "com.google.firebase", name = "firebase-auth"}
+google-firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics"}
+google-firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics"}
+google-firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging"}
 
 # dagger hilt
 google-dagger-hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "dagger-hilt" }
