@@ -3,7 +3,7 @@ package com.captures2024.soongan.presentation.feature.main.feed.route
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavOptions
 import com.captures2024.soongan.presentation.feature.main.feed.component.screen.FeedScreen

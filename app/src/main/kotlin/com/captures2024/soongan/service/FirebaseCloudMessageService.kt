@@ -117,10 +117,15 @@ class FirebaseCloudMessageService : FirebaseMessagingService() {
     }
 
     private fun uriToBitmap(imageUri: Uri): Bitmap? = runCatching {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            ImageDecoder.decodeBitmap(ImageDecoder.createSource(contentResolver, imageUri))
-        } else {
-            MediaStore.Images.Media.getBitmap(contentResolver, imageUri)
+        when {
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.P -> {
+                ImageDecoder.decodeBitmap(ImageDecoder.createSource(contentResolver, imageUri))
+            }
+
+            else -> {
+                @Suppress("Deprecation")
+                MediaStore.Images.Media.getBitmap(contentResolver, imageUri)
+            }
         }
     }.getOrNull()
 

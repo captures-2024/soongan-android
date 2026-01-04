@@ -127,10 +127,10 @@ class SoonGanActivity : ComponentActivity() {
         }
     }
 
-    override fun onNewIntent(newIntent: Intent) {
-        super.onNewIntent(newIntent)
-        analyticsHelper.v { "[PUSH] onNewIntent - intent: ${intent?.extras} newIntent: ${newIntent?.extras}" }
-        intent = newIntent
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        analyticsHelper.v { "[PUSH] onNewIntent - intent: ${this.intent?.extras} newIntent: ${intent.extras}" }
+        this.intent = intent
     }
 
     override fun onDestroy() {

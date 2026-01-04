@@ -2,7 +2,7 @@ package com.captures2024.soongan.presentation.feature.main.profile.route
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.captures2024.soongan.presentation.feature.main.profile.component.screen.ProfileMenuDefaultScreen
 import com.captures2024.soongan.presentation.viewmodel.main.profile.ProfileBottomSheetViewModel
 

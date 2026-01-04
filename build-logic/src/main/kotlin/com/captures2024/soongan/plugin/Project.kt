@@ -33,7 +33,7 @@ internal val Project.androidExtensions: CommonExtension<*, *, *, *, *, *>
         else -> throw GradleException("The provided project does not have the Android plugin applied. ($name)")
     }
 
-internal inline operator fun <T : Any, C : NamedDomainObjectContainer<T>> C.invoke(
+internal operator fun <T : Any, C : NamedDomainObjectContainer<T>> C.invoke(
     configuration: Action<NamedDomainObjectContainerScope<T>>,
 ): C = apply {
     configuration.execute(NamedDomainObjectContainerScope.of(this))
