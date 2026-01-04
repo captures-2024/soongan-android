@@ -75,8 +75,8 @@ coil = "2.7.0"
 javax-inject = "1"
 okhttp = "5.1.0"
 retrofit = "3.0.0"
-kakao = "2.21.4"
-ktlint = "12.3.0"
+kakao = "2.23.0"
+ktlint = "14.0.1"
 napier = "2.7.1"
 
 
