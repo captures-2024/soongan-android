@@ -73,7 +73,8 @@ constructor(
                 get() = (loadPage == 0)
 
             val currentTitleOption: TitleOption
-                get() = titleOptions.getOrNull(currentRound - 1) ?: TitleOption()
+                get() = titleOptions.firstOrNull { it.round == currentRound }
+                    ?: TitleOption()
         }
     }
 
@@ -346,7 +347,7 @@ constructor(
 
         val currentRound =
             if (currentState.feedState.currentRound == 0) {
-                titleOptions.last().round
+                titleOptions.maxOfOrNull { it.round } ?: 0
             } else {
                 currentState.feedState.currentRound
             }
