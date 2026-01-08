@@ -1,10 +1,10 @@
 [versions]
 applicationId = "com.captures2024.soongan"
-compileSdk = "35"
+compileSdk = "36"
 minSdk = "24"
-targetSdk = "35"
-appVersion = "0.0.2"
-versionCode = "30"
+targetSdk = "36"
+appVersion = "1.0.0"
+versionCode = "40"
 
 gradle-dependency-handler-extensions = "1.1.0"
 
@@ -16,67 +16,67 @@ kotlin-serialization-converter = "1.0.0"
 kotlin-datetime = "0.7.1"
 
 kotlin-detekt = "1.23.8"
-kotlin-ktlint-gradle = "13.0.0"
+kotlin-ktlint-gradle = "14.0.1"
 kotlin-ktlint-source = "0.50.0"
 
 # android
-android-gradle-plugin = "8.11.1"
-android-core = "1.16.0"
-android-lifecycle = "2.9.2"
-android-lifecycle-runtime = "2.9.2"
-android-navigation = "2.9.2"
+android-gradle-plugin = "8.11.2"
+android-core = "1.17.0"
+android-lifecycle = "2.10.0"
+android-lifecycle-runtime = "2.10.0"
+android-navigation = "2.9.6"
 android-startup = "1.2.0"
 android-security = "1.1.1"
 android-desugar-jdk = "2.1.5"
 android-in-app-update = "2.1.0"
-android-datastore = "1.1.7"
-android-room = "2.7.2"
-android-splash-screen = "1.0.1"
+android-datastore = "1.2.0"
+android-room = "2.8.4"
+android-splash-screen = "1.2.0"
 android-secret-gradle-plugin = "2.0.1"
-android-oss-plugin = "0.10.6"
-android-oss = "17.2.1"
+android-oss-plugin = "0.10.10"
+android-oss = "17.3.0"
 android-credentials = "1.5.0"
 
 # android-compose
-android-compose-bom = "2025.07.00"
-android-compose-activity = "1.10.1"
-android-compose-junit4-test = "1.8.3"
-android-compose-material3-alpha = "1.4.0-alpha02"
+android-compose-bom = "2025.12.01"
+android-compose-activity = "1.12.2"
+android-compose-junit4-test = "1.10.0"
+android-compose-material3-alpha = "1.4.0"
 android-compose-material-Icons-Core = "1.7.8"
 
 # test
 test-junit = "4.13.2"
-test-junit-version = "1.2.1"
-test-espresso-core = "3.6.1"
+test-junit-version = "1.3.0"
+test-espresso-core = "3.7.0"
 test-runner = "1.6.2"
 
-test-junit5 = "5.13.3"
-test-junit5-plugin = "1.13.1.0"
+test-junit5 = "6.0.1"
+test-junit5-plugin = "2.0.0"
 test-junit5-android = "1.4.0"
 
-test-robolectric = "4.15.1"
-test-truth = "1.4.4"
+test-robolectric = "4.16"
+test-truth = "1.4.5"
 
-test-kotest = "5.9.1"
+test-kotest = "6.0.7"
 
 # google
-google-ksp = "2.2.0-2.0.2"
-google-services = "4.4.3"
-google-firebase = "33.16.0"
+google-ksp = "2.3.4"
+google-services = "4.4.4"
+google-firebase = "34.7.0"
 google-id = "1.1.1"
-google-crashlytics = "3.0.4"
+google-crashlytics = "3.0.6"
 
 # dagger hilt
-dagger-hilt = "2.57"
-dagger-hilt-navigation-compose = "1.2.0"
+dagger-hilt = "2.57.2"
+dagger-hilt-navigation-compose = "1.3.0"
 
 # thrid part
 coil = "2.7.0"
 javax-inject = "1"
 okhttp = "5.1.0"
 retrofit = "3.0.0"
-kakao = "2.21.4"
-ktlint = "12.3.0"
+kakao = "2.23.0"
+ktlint = "14.0.1"
 napier = "2.7.1"
 
 
@@ -136,10 +136,10 @@ google-id = { group = "com.google.android.libraries.identity.googleid", name = "
 
 # firebase
 google-firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "google-firebase" }
-google-firebase-auth = { group = "com.google.firebase", name = "firebase-auth-ktx"}
-google-firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics-ktx"}
-google-firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics-ktx"}
-google-firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging-ktx"}
+google-firebase-auth = { group = "com.google.firebase", name = "firebase-auth"}
+google-firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics"}
+google-firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics"}
+google-firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging"}
 
 # dagger hilt
 google-dagger-hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "dagger-hilt" }

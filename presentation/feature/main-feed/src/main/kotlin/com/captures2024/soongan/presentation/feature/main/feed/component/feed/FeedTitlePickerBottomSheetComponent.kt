@@ -13,6 +13,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.dp
 import com.captures2024.soongan.presentation.designsystem.ui.util.DevicePreviews
 import com.captures2024.soongan.presentation.viewmodel.model.TitleOption
 
@@ -50,15 +51,21 @@ internal fun FeedTitlePickerBottomSheetComponent(
 @DevicePreviews
 @Composable
 private fun FeedScrollTitlePickerBottomSheet_Preview() {
+    val density = LocalDensity.current
+
+    val positionalThresholdToPx = { with(density) { 56.dp.toPx() } }
+    val velocityThresholdToPx = { with(density) { 56.dp.toPx() } }
     val options = listOf(
         TitleOption(round = 1, subject = "주제"),
         TitleOption(round = 2, subject = "주제"),
         TitleOption(round = 3, subject = "주제"),
     )
+
     val sheetState = SheetState(
         skipPartiallyExpanded = true,
         initialValue = SheetValue.Expanded,
-        density = LocalDensity.current,
+        positionalThreshold = positionalThresholdToPx,
+        velocityThreshold = velocityThresholdToPx,
         skipHiddenState = false,
     )
 

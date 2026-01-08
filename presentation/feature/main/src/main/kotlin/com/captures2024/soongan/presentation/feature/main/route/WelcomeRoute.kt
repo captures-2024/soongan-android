@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.captures2024.soongan.presentation.feature.main.component.screen.WelcomeScreen
 import com.captures2024.soongan.presentation.viewmodel.main.WelcomeViewModel
 

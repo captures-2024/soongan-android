@@ -126,10 +126,16 @@ private fun FeedGalleryFilterItem(
 @DevicePreviews
 @Composable
 private fun FeedFilterBottomSheet_Preview() {
+    val density = LocalDensity.current
+
+    val positionalThresholdToPx = { with(density) { 56.dp.toPx() } }
+    val velocityThresholdToPx = { with(density) { 56.dp.toPx() } }
+
     val sheetState = SheetState(
         skipPartiallyExpanded = true,
         initialValue = SheetValue.Expanded,
-        density = LocalDensity.current,
+        positionalThreshold = positionalThresholdToPx,
+        velocityThreshold = velocityThresholdToPx,
         skipHiddenState = false,
     )
 
