@@ -136,8 +136,14 @@ private fun ScrollPicker(
             "$round" + stringResource(R.string.scroll_picker_title_infix_text) + subject
         } ?: AppConst.EMPTY_STRING
 
+    val selectedIndex = remember(selectedOption, options) {
+        options.indexOfFirst {
+            (it.round == selectedOption.round) && (it.subject == selectedOption.subject)
+        }.coerceAtLeast(0)
+    }
+
     val listState = rememberLazyListState(
-        initialFirstVisibleItemIndex = selectedOption.round - 1,
+        initialFirstVisibleItemIndex = selectedIndex,
     )
     val flingBehavior = rememberSnapFlingBehavior(lazyListState = listState)
 
@@ -172,11 +178,10 @@ private fun ScrollPicker(
             }
     }
 
-    LaunchedEffect(selectedOption) {
-        val targetIndex = selectedOption.round - 1
-        if (targetIndex != listState.firstVisibleItemIndex) {
-            analyticsHelper.d { "option selected - targetIndex : $targetIndex" }
-            listState.animateScrollToItem(targetIndex)
+    LaunchedEffect(selectedIndex) {
+        if (selectedIndex != listState.firstVisibleItemIndex) {
+            analyticsHelper.d { "option selected - targetIndex : $selectedIndex" }
+            listState.animateScrollToItem(selectedIndex)
         }
     }
 
