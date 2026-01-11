@@ -52,6 +52,7 @@ private fun PreviewAppRootScreen() {
             intent = {},
             state = AppViewModel.State(
                 isInitialized = false,
+                isUpdateRequired = false,
                 isGuestMode = false,
                 isLoading = false to System.currentTimeMillis(),
                 isShowGuestModeDialog = false,
