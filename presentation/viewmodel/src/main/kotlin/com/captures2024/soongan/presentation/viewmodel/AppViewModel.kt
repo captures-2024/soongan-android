@@ -63,6 +63,7 @@ constructor(
 
     data class State(
         val isInitialized: Boolean,
+        val isUpdateRequired: Boolean,
         val isGuestMode: Boolean,
         val isLoading: Pair<Boolean, Long>,
         val isShowGuestModeDialog: Boolean,
@@ -71,22 +72,27 @@ constructor(
         val rootRouteState: AppRoute
             get() = when (isInitialized) {
                 // 앱 진입 성공
-                true -> when (isGuestMode) {
-                    // 게스트 모드 진입
-                    true -> AppRoute.MAIN
+                true -> when (isUpdateRequired) {
+                    true -> AppRoute.LANDING
 
-                    // 게스트 모드 미진입
-                    false -> when (currentMember) {
-                        // 유저 데이터 미존재
-                        null -> AppRoute.SIGN
+                    // 업데이트 불필요
+                    false -> when (isGuestMode) {
+                        // 게스트 모드 진입
+                        true -> AppRoute.MAIN
 
-                        // 유저 데이터 존재
-                        else -> when {
-                            // 유저 데이터 닉네임 && 생년 존재
-                            currentMember.nickname != null && currentMember.birthYear != null -> AppRoute.MAIN
+                        // 게스트 모드 미진입
+                        false -> when (currentMember) {
+                            // 유저 데이터 미존재
+                            null -> AppRoute.SIGN
 
-                            // 유저 데이터 닉네임 && 생년 미존재
-                            else -> AppRoute.SIGN
+                            // 유저 데이터 존재
+                            else -> when {
+                                // 유저 데이터 닉네임 && 생년 존재
+                                currentMember.nickname != null && currentMember.birthYear != null -> AppRoute.MAIN
+
+                                // 유저 데이터 닉네임 && 생년 미존재
+                                else -> AppRoute.SIGN
+                            }
                         }
                     }
                 }
@@ -96,7 +102,7 @@ constructor(
             }
 
         override fun toString(): String {
-            return "State(isInitialized=$isInitialized, isGuestMode=$isGuestMode, isLoading=$isLoading, isShowGuestModeDialog=$isShowGuestModeDialog, rootRouteState=$rootRouteState)"
+            return "State(isInitialized=$isInitialized, isUpdateRequired=$isUpdateRequired, isGuestMode=$isGuestMode, isLoading=$isLoading, isShowGuestModeDialog=$isShowGuestModeDialog, rootRouteState=$rootRouteState)"
         }
     }
 
@@ -137,6 +143,7 @@ constructor(
 
     override fun createInitialState(savedStateHandle: SavedStateHandle): State = State(
         isInitialized = false,
+        isUpdateRequired = false,
         isGuestMode = false,
         isLoading = false to System.currentTimeMillis(),
         isShowGuestModeDialog = false,
@@ -170,6 +177,12 @@ constructor(
 
 //        TODO(RemoteVersion 필요 시)
 //        fetchRemoteUpdateAvailable()
+
+        reduce {
+            copy(
+                isInitialized = true,
+            )
+        }
     }
 
     private fun handleOnCheckInAppUpdateAvailable(intent: Intent.CheckInAppUpdateAvailable) {
@@ -177,7 +190,7 @@ constructor(
 
         reduce {
             copy(
-                isInitialized = !intent.isUpdateAvailable,
+                isUpdateRequired = intent.isUpdateAvailable,
             )
         }
 
@@ -259,7 +272,7 @@ constructor(
 
         reduce {
             copy(
-                isInitialized = (isUpdateAvailable != true),
+                isUpdateRequired = (isUpdateAvailable == true),
             )
         }
 
