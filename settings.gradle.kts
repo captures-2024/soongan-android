@@ -53,6 +53,8 @@ include(
     ":data:source:auth-impl",
     ":data:source:awards",
     ":data:source:awards-impl",
+    ":data:source:comments",
+    ":data:source:comments-impl",
     ":data:source:contest",
     ":data:source:contest-impl",
     ":data:source:fcm",
